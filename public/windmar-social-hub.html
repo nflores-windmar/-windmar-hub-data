@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Windmar Social Hub",
+  "schemaVersion": 1,
+  "description": "Hub de redes sociales de Windmar Home: snapshot de métricas de Facebook e Instagram (8 may – 4 jun 2026), diagnóstico de engagement, inteligencia de contenido (Top/Bottom 3 real de posts y pilares) y plan de mejoramiento por fases con seguimiento de progreso. Datos cargados manualmente desde Meta Business Suite."
+}
+</script>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windmar Home — Hub de Redes Sociales</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<style>
+:root{color-scheme:light;
+  --bg:#f5f7fa; --card:#ffffff; --ink:#0f2740; --muted:#5b6b7c; --line:#e3e9f0;
+  --brand:#0a6ebd; --brand2:#1aa896; --up:#1a8f4c; --down:#c0392b; --warn:#b9770a;
+  --fb:#1877f2; --ig:#d6249f;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:22px}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px solid var(--brand);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;margin:0;letter-spacing:-.3px}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{display:inline-block;background:#eaf3fb;color:var(--brand);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600}
+h2{font-size:16px;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+h2 .bar{width:4px;height:18px;background:var(--brand2);border-radius:2px}
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:repeat(2,1fr)}
+.cols3{grid-template-columns:repeat(3,1fr)}
+.cols4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.cols2,.cols3,.cols4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(15,39,64,.04)}
+.plat{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.dot{width:10px;height:10px;border-radius:50%}
+.kpi{display:flex;flex-direction:column;gap:2px}
+.kpi .lab{font-size:11.5px;color:var(--muted)}
+.kpi .val{font-size:21px;font-weight:700;letter-spacing:-.4px}
+.chg{font-size:11.5px;font-weight:600}
+.up{color:var(--up)} .down{color:var(--down)} .warn{color:var(--warn)}
+.metricrow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.metricrow:last-child{border-bottom:0}
+.metricrow .m{color:var(--muted)}
+.metricrow .v{font-weight:600}
+.note{background:#fff8ec;border:1px solid #f1dcae;border-radius:10px;padding:12px 14px;font-size:13px;color:#6b5418}
+.finding{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:8px;padding:12px 14px;font-size:13.5px;margin-bottom:10px}
+.finding b{color:var(--ink)}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.chartbox h3{margin:0 0 4px;font-size:13px}
+.chartbox p{margin:0 0 10px;font-size:12px;color:var(--muted)}
+canvas{max-height:230px}
+.postcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.postcard.top{border-top:3px solid var(--brand2)}
+.postcard.bot{border-top:3px solid #c9d2db}
+.postcard .rank{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.postcard .ttl{font-weight:600;font-size:13.5px;margin:5px 0 9px;min-height:38px}
+.postcard .stats{display:flex;gap:12px;font-size:12px;color:var(--muted);flex-wrap:wrap}
+.postcard .stats b{color:var(--ink);font-size:14px;display:block}
+.postcard .meta{font-size:11px;color:var(--muted);margin-top:9px;border-top:1px dashed var(--line);padding-top:7px}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:#eaf3fb;color:var(--brand);margin-right:5px}
+.tagr{background:#e7f7f3;color:#0c8f7d}.tagf{background:#fdeaf4;color:#c0287e}
+.pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.pillar .ic{font-size:20px}
+.pillar h4{margin:6px 0 4px;font-size:14px}
+.pillar p{margin:0;font-size:12.5px;color:var(--muted)}
+.ptable{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.ptable .ph{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.prow{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.prow:last-child{border-bottom:0}
+.prow .nm{flex:1}
+.prow .nm .fmt{font-size:10px;font-weight:700;color:var(--muted)}
+.prow .nb{font-weight:700;white-space:nowrap}
+.seclbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--brand2);margin:10px 0 2px}
+.seclbl.bad{color:var(--muted)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px 14px;margin-bottom:14px}
+.phase h3{font-size:14.5px;margin:14px 0 2px}
+.phase .when{font-size:11.5px;color:var(--brand);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.task{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px}
+.task:first-of-type{border-top:0}
+.task input{margin-top:3px;width:16px;height:16px;accent-color:var(--brand2);cursor:pointer;flex:none}
+.task .t .h{font-weight:600}
+.task .t .d{color:var(--muted);font-size:12.5px}
+.task.done .t .h{text-decoration:line-through;color:var(--muted)}
+.prio{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:auto;flex:none;text-transform:uppercase;letter-spacing:.4px}
+.p1{background:#fdeaea;color:#c0392b}.p2{background:#fff3e0;color:#b9770a}.p3{background:#eaf3fb;color:#0a6ebd}
+.progwrap{display:flex;align-items:center;gap:12px;margin:4px 0 18px}
+.progbar{flex:1;height:9px;background:#e3e9f0;border-radius:999px;overflow:hidden}
+.progfill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width .35s}
+.progtxt{font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap}
+.kpitrack{display:flex;justify-content:space-between;font-size:13px;padding:9px 0;border-bottom:1px solid var(--line)}
+.kpitrack:last-child{border-bottom:0}
+.kpitrack .goal{color:var(--brand2);font-weight:700}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>Windmar Home — Hub de Redes Sociales</h1>
+    <div class="sub">Diagnóstico de engagement · inteligencia de contenido · plan de mejoramiento</div>
+  </div>
+  <div style="text-align:right">
+    <span class="pill">Rendimiento: 8 may – 4 jun 2026 (28 días)</span>
+    <div class="sub">Datos: Meta Business Suite</div>
+  </div>
+</header>
+
+<div class="note" style="margin-top:14px">
+  <b>Lectura rápida:</b> las dos redes crecen — todas las métricas suben. El reto: llega muchísima audiencia nueva (no-seguidores), pero hoy no se convierte en interacción profunda ni en seguidores. El plan ataca eso, apalancando el contenido y el formato que ya están ganando.
+</div>
+
+<h2><span class="bar"></span>Snapshot del periodo</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+    <div class="grid cols2" style="gap:12px">
+      <div class="kpi"><span class="lab">Visualizaciones</span><span class="val">3,4 M</span><span class="chg up">▲ 47,3%</span></div>
+      <div class="kpi"><span class="lab">Interacciones</span><span class="val">5.900</span><span class="chg up">▲ 48,2%</span></div>
+      <div class="kpi"><span class="lab">Seguidores netos</span><span class="val">+90</span><span class="chg up">▲ 26,8%</span></div>
+      <div class="kpi"><span class="lab">Seguidores totales</span><span class="val">70.940</span><span class="chg">&nbsp;</span></div>
+    </div>
+    <div style="margin-top:8px">
+      <div class="metricrow"><span class="m">Espectadores</span><span class="v">507.347 <span class="up">▲14,2%</span></span></div>
+      <div class="metricrow"><span class="m">Clics en el enlace</span><span class="v">46.400 <span class="up">▲39%</span></span></div>
+      <div class="metricrow"><span class="m">Conversaciones iniciadas</span><span class="v">211 <span class="up">▲12,2%</span></span></div>
+      <div class="metricrow"><span class="m">% vistas de no-seguidores</span><span class="v">95,7%</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+    <div class="grid cols2" style="gap:12px">
+      <div class="kpi"><span class="lab">Visualizaciones</span><span class="val">207,7 K</span><span class="chg up">▲ 9,6%</span></div>
+      <div class="kpi"><span class="lab">Interacciones</span><span class="val">1.600</span><span class="chg up">▲ 15,2%</span></div>
+      <div class="kpi"><span class="lab">Seguidores netos</span><span class="val">+52</span><span class="chg warn">churn alto</span></div>
+      <div class="kpi"><span class="lab">Seguidores totales</span><span class="val">16.497</span><span class="chg">&nbsp;</span></div>
+    </div>
+    <div style="margin-top:8px">
+      <div class="metricrow"><span class="m">Alcance</span><span class="v">80.400 <span class="up">▲51,3%</span></span></div>
+      <div class="metricrow"><span class="m">Nuevos / dejaron de seguir</span><span class="v">167 / 115</span></div>
+      <div class="metricrow"><span class="m">Conversaciones iniciadas</span><span class="v">76 <span class="up">▲32,7%</span></span></div>
+      <div class="metricrow"><span class="m">% vistas de no-seguidores</span><span class="v">82,2%</span></div>
+    </div>
+  </div>
+</div>
+
+<h2><span class="bar"></span>Calidad del engagement</h2>
+<div class="grid cols2">
+  <div class="chartbox">
+    <h3>Interacciones por cada 1.000 visualizaciones</h3>
+    <p>Instagram engancha ~4,5× más por vista que Facebook.</p>
+    <canvas id="engChart"></canvas>
+  </div>
+  <div class="chartbox">
+    <h3>Conversión: audiencia nueva → seguidor</h3>
+    <p>Alcance enorme, conversión a seguidor mínima. Aquí está la oportunidad.</p>
+    <canvas id="convChart"></canvas>
+  </div>
+</div>
+
+<h2><span class="bar"></span>Inteligencia de contenido <span style="font-size:11px;font-weight:400;color:var(--muted)">· ranking real del periodo</span></h2>
+
+<h3 style="font-size:13.5px;margin:4px 0 10px;color:var(--brand2)">★ Top 3 por visualizaciones (FB + IG combinado)</h3>
+<div class="grid cols3">
+  <div class="postcard top">
+    <div class="rank">#1 · 7.894 vistas</div>
+    <div class="ttl">¿Cómo sé si debo realizar un sellado de techo…?</div>
+    <div class="stats"><span><b>6.342</b>alcance</span><span><b>116</b>interacc.</span></div>
+    <div class="meta"><span class="tag tagr">Reel</span><span class="tag">Educativo</span><span class="tag">Colab. El Nuevo Día</span></div>
+  </div>
+  <div class="postcard top">
+    <div class="rank">#2 · 6.178 vistas</div>
+    <div class="ttl">En Puerto Rico, una girl boss…</div>
+    <div class="stats"><span><b>199</b>interacc.</span></div>
+    <div class="meta"><span class="tag tagr">Reel</span><span class="tag">Marca/valores</span>Más interacciones del periodo</div>
+  </div>
+  <div class="postcard top">
+    <div class="rank">#3 · 4.760 vistas</div>
+    <div class="ttl">La temporada de huracanes no se improvisa…</div>
+    <div class="stats"><span><b>112</b>interacc.</span></div>
+    <div class="meta"><span class="tag tagr">Reel</span><span class="tag">Estacional</span></div>
+  </div>
+</div>
+
+<div class="note" style="margin-top:14px;background:#e7f7f3;border-color:#bfe6dd;color:#0c6b5d">
+  <b>💡 El hallazgo de formato más importante:</b> los 3 mejores posts en ambas redes son <b>Reels</b>. En cambio, el fondo del ranking está copado por <b>fotos y secuencias estáticas</b> (la foto "No esperes la emergencia…" tuvo solo 8 interacciones en FB). Traducción: el video es lo que mueve alcance e interacción; las fotos sueltas rinden poco.
+</div>
+
+<h3 style="font-size:13.5px;margin:20px 0 10px">Desglose por plataforma</h3>
+<div class="grid cols2">
+  <div class="ptable">
+    <div class="ph" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook · por visualizaciones</div>
+    <div class="seclbl">Top 3</div>
+    <div class="prow"><span class="nm">En Puerto Rico, una girl boss… <span class="fmt">REEL · 199 interacc.</span></span><span class="nb">6.178</span></div>
+    <div class="prow"><span class="nm">La temporada de huracanes no se improvisa… <span class="fmt">REEL · 112 interacc.</span></span><span class="nb">4.760</span></div>
+    <div class="prow"><span class="nm">Espérate, espérate, espérate… <span class="fmt">REEL · 179 interacc.</span></span><span class="nb">3.706</span></div>
+    <div class="seclbl bad">Bottom 3 (publicaciones reales)</div>
+    <div class="prow"><span class="nm">No esperes la emergencia para prepararte… <span class="fmt">FOTO · 8 interacc.</span></span><span class="nb">1.258</span></div>
+    <div class="prow"><span class="nm">3 consejos de parte de Nino Correa… <span class="fmt">REEL · 42 interacc.</span></span><span class="nb">1.077</span></div>
+    <div class="prow"><span class="nm">Lo que te prometen vs. lo que recibes… <span class="fmt">REEL · 42 interacc.</span></span><span class="nb">1.029</span></div>
+  </div>
+
+  <div class="ptable">
+    <div class="ph" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram · por visualizaciones</div>
+    <div class="seclbl">Top 3</div>
+    <div class="prow"><span class="nm">¿Cómo sé si debo sellar mi techo…? <span class="fmt">REEL · exclusivo IG · 116 interacc.</span></span><span class="nb">7.894</span></div>
+    <div class="prow"><span class="nm">En Puerto Rico, una girl boss… <span class="fmt">REEL · 199 interacc.</span></span><span class="nb">6.178</span></div>
+    <div class="prow"><span class="nm">La temporada de huracanes no se improvisa… <span class="fmt">REEL · 112 interacc.</span></span><span class="nb">4.760</span></div>
+    <div class="seclbl bad">Bottom 3 (publicaciones reales)</div>
+    <div class="prow"><span class="nm">No esperes la emergencia para prepararte… <span class="fmt">FOTO · 14 interacc.</span></span><span class="nb">585</span></div>
+    <div class="prow"><span class="nm">SIN CUENTOS: el countdown de tu techo… <span class="fmt">SECUENCIA · 25 interacc.</span></span><span class="nb">776</span></div>
+    <div class="prow"><span class="nm">Hoy arranca la temporada de huracanes… <span class="fmt">FOTO · 35 interacc.</span></span><span class="nb">784</span></div>
+  </div>
+</div>
+
+<h3 style="font-size:13.5px;margin:20px 0 10px;color:var(--brand)">♥ Mejores por interacción (otra lente)</h3>
+<div class="grid cols3">
+  <div class="postcard">
+    <div class="rank">199 interacciones</div>
+    <div class="ttl">En Puerto Rico, una girl boss…</div>
+    <div class="stats"><span><b>6.178</b>vistas</span></div>
+    <div class="meta">Engancha muchísimo: #1 en interacción en ambas redes.</div>
+  </div>
+  <div class="postcard">
+    <div class="rank">179 interacciones</div>
+    <div class="ttl">Espérate, espérate, espérate…</div>
+    <div class="stats"><span><b>46</b>compartidos</span></div>
+    <div class="meta">Gancho relatable + muchos compartidos.</div>
+  </div>
+  <div class="postcard">
+    <div class="rank">126 interacciones</div>
+    <div class="ttl">Día Internacional de la Diversidad Biológica</div>
+    <div class="stats"><span><b>72</b>compartidos</span></div>
+    <div class="meta">Récord de compartidos del periodo — alcance orgánico gratis.</div>
+  </div>
+</div>
+
+<div class="note" style="margin-top:14px;background:#fdeaea;border-color:#f1c0c0;color:#7a2620">
+  <b>⚠ Hallazgo accionable:</b> hay <b>~20 historias "Tu historia" con 0 visualizaciones y 0 alcance</b> en Facebook (8, 15, 19, 22, 25, 28 may, 1 jun y más). Se están publicando vacías o rotas — no llegan a nadie. Es la fuga de rendimiento más fácil de arreglar.
+</div>
+
+<h3 style="font-size:13.5px;margin:20px 0 10px">Pilares de contenido que funcionan</h3>
+<div class="grid cols4">
+  <div class="pillar"><div class="ic">🎬</div><h4>Formato Reel</h4><p>Los top son Reels; las fotos copan el fondo. El video manda.</p></div>
+  <div class="pillar"><div class="ic">🏠</div><h4>Educativo / "¿Cómo sé si…?"</h4><p>Útil para el dueño de casa. Tu #1 absoluto en vistas.</p></div>
+  <div class="pillar"><div class="ic">💬</div><h4>Marca + valores humanos</h4><p>"Girl boss", diversidad. Disparan interacción y compartidos.</p></div>
+  <div class="pillar"><div class="ic">🤝</div><h4>Colaboración con medios</h4><p>El Reel con El Nuevo Día fue tu post #1 (7.894 vistas).</p></div>
+</div>
+
+<h2><span class="bar"></span>Diagnóstico</h2>
+<div class="finding"><b>El alcance no se convierte en comunidad.</b> 3,4 M de vistas en Facebook → solo +90 seguidores netos. Estás "alquilando" audiencia del algoritmo en vez de construir base propia.</div>
+<div class="finding"><b>Instagram engancha mejor, pero pierde gente.</b> ~2% de interacción sobre alcance (sano), pero por cada 167 que entran, 115 se van (≈69% de fuga relativa). Hay que retener.</div>
+<div class="finding" style="border-left-color:var(--brand2)"><b>El video gana; las fotos pierden.</b> Los 3 top de cada red son Reels. El fondo del ranking son fotos y secuencias estáticas. Hay que inclinar el mix hacia video.</div>
+<div class="finding"><b>La colaboración con medios funciona.</b> El Reel con El Nuevo Día fue el #1 del periodo (7.894 vistas, 6.342 de alcance). Vale replicar alianzas.</div>
+<div class="finding" style="border-left-color:var(--warn)"><b>Estás desperdiciando el formato Historias.</b> ~20 historias en Facebook con 0 vistas. O salen vacías o hay un problema de publicación — arreglo inmediato y gratis.</div>
+<div class="finding"><b>La audiencia correcta ya está ahí.</b> 35–54 años, 85–92% en Puerto Rico, área metro de San Juan. Es exactamente el dueño de casa que decide mejoras del hogar.</div>
+<div class="finding" style="border-left-color:var(--warn)"><b>Los leads no se están midiendo (no que no existan).</b> "Pedidos/citas: 0" mientras hay 287 conversaciones iniciadas. Es un hueco de configuración de tracking, no un resultado real.</div>
+
+<h2><span class="bar"></span>Plan de mejoramiento</h2>
+<div class="progwrap">
+  <div class="progbar"><div class="progfill" id="progfill"></div></div>
+  <div class="progtxt" id="progtxt">0 / 12 completadas</div>
+</div>
+
+<div class="phase">
+  <span class="when">Fase 1 · Semanas 1–2</span>
+  <h3>Capturar la audiencia que ya llega</h3>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Arreglar las ~20 historias vacías "Tu historia"</span><span class="d">Win inmediato y gratis: revisar por qué salen con 0 vistas y publicar historias con contenido real (detrás de cámara, encuestas, recordatorios).</span></span><span class="prio p1">Alta</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">CTA de "síguenos" en los primeros 3 segundos</span><span class="d">En cada Reel, dejar claro quién es Windmar y por qué seguir. Con millones de vistas, esto es la palanca #1.</span></span><span class="prio p1">Alta</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Lanzar serie educativa recurrente "¿Cómo sé si…?"</span><span class="d">1 Reel por semana. Tu formato #1 en vistas (sellado de techo = 7.894).</span></span><span class="prio p1">Alta</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Tanda de contenido de temporada de huracanes</span><span class="d">2 de tus top 3 son estacionales. Sellado, prevención, checklist — ventana de urgencia para PR, aprovecharla ya.</span></span><span class="prio p1">Alta</span></label>
+</div>
+
+<div class="phase">
+  <span class="when">Fase 2 · Semanas 3–4</span>
+  <h3>Profundizar engagement y retención</h3>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Inclinar el mix de contenido hacia Reels</span><span class="d">El video domina el ranking; las fotos sueltas rinden poco. Convertir fotos planeadas en Reels o carruseles dinámicos.</span></span><span class="prio p1">Alta</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Buscar más colaboraciones con medios/figuras</span><span class="d">El Reel con El Nuevo Día fue el #1 del periodo. Replicar alianzas con medios locales o figuras tipo Nino Correa.</span></span><span class="prio p2">Media</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Más contenido de marca + valores humanos</span><span class="d">"Girl boss" y "Diversidad Biológica" lideran en interacción y compartidos. Historias de equipo, clientes y comunidad.</span></span><span class="prio p2">Media</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Replicar el formato compartible tipo "Espérate, espérate…"</span><span class="d">Ganchos relatable que la gente reenvía. Los compartidos dan alcance orgánico sin pagar.</span></span><span class="prio p2">Media</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Atacar la fuga de seguidores en Instagram</span><span class="d">Revisar consistencia y calendario; verificar que el contenido cumpla lo que promete el gancho.</span></span><span class="prio p2">Media</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Activar las 287 conversaciones iniciadas</span><span class="d">Plantillas de respuesta rápida en Messenger/IG para convertir interés en cita o cotización.</span></span><span class="prio p2">Media</span></label>
+</div>
+
+<div class="phase">
+  <span class="when">Fase 3 · Continuo</span>
+  <h3>Medir bien para decidir bien</h3>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Configurar el tracking de leads/citas en Meta</span><span class="d">Para atribuir ventas reales a las redes y dejar de ver "0" donde sí hay actividad.</span></span><span class="prio p1">Alta</span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">Revisión de KPIs cada 28 días</span><span class="d">Comparar contra la línea base de abajo y ajustar el plan.</span></span><span class="prio p3">Base</span></label>
+</div>
+
+<h2><span class="bar"></span>KPIs a seguir (línea base de este periodo)</h2>
+<div class="card">
+  <div class="kpitrack"><span>Seguidores netos / mes (FB + IG)</span><span>Base: +142 &nbsp;→&nbsp; <span class="goal">Meta: +300</span></span></div>
+  <div class="kpitrack"><span>Interacción sobre vistas — Facebook</span><span>Base: 1,7 / 1.000 &nbsp;→&nbsp; <span class="goal">Meta: 3,0</span></span></div>
+  <div class="kpitrack"><span>% de publicaciones en formato Reel</span><span>Base: a medir &nbsp;→&nbsp; <span class="goal">Meta: 70%+</span></span></div>
+  <div class="kpitrack"><span>Compartidos por post (contenido fuerte)</span><span>Base: 46–72 (mejores) &nbsp;→&nbsp; <span class="goal">Meta: 30+ promedio</span></span></div>
+  <div class="kpitrack"><span>Churn de seguidores Instagram</span><span>Base: 115/mes &nbsp;→&nbsp; <span class="goal">Meta: &lt;80</span></span></div>
+  <div class="kpitrack"><span>Historias con 0 vistas</span><span>Base: ~20 &nbsp;→&nbsp; <span class="goal">Meta: 0</span></span></div>
+  <div class="kpitrack"><span>Leads/citas atribuidas (tras configurar tracking)</span><span>Base: sin medir &nbsp;→&nbsp; <span class="goal">Meta: medir</span></span></div>
+</div>
+
+<footer>
+  Hub de planificación de Windmar Home. Las métricas y el ranking de posts son un snapshot manual de Meta Business Suite (8 may – 4 jun 2026) y no se actualizan solas. El progreso del plan marcado aquí es para revisión en sesión; para guardar avances o cargar las cifras del próximo periodo, pídemelo en el chat y actualizo el hub.
+</footer>
+
+</div>
+
+<script>
+const boxes=[...document.querySelectorAll('.task input')];
+const fill=document.getElementById('progfill'),txt=document.getElementById('progtxt');
+function upd(){const d=boxes.filter(b=>b.checked).length;
+  fill.style.width=(d/boxes.length*100)+'%';
+  txt.textContent=d+' / '+boxes.length+' completadas';}
+boxes.forEach(b=>b.addEventListener('change',()=>{b.closest('.task').classList.toggle('done',b.checked);upd();}));
+upd();
+
+const green='#1aa896';
+new Chart(document.getElementById('engChart'),{type:'bar',
+  data:{labels:['Facebook','Instagram'],datasets:[{data:[1.7,7.7],backgroundColor:['#1877f2','#d6249f'],borderRadius:6,barThickness:64}]},
+  options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' interacciones / 1.000 vistas'}}},
+    scales:{y:{beginAtZero:true,grid:{color:'#eef2f6'},ticks:{font:{size:11}}},x:{grid:{display:false},ticks:{font:{size:12,weight:'600'}}}}}});
+new Chart(document.getElementById('convChart'),{type:'bar',
+  data:{labels:['Facebook','Instagram'],datasets:[
+    {label:'Audiencia nueva alcanzada',data:[507347,80400],backgroundColor:'#c9d8e6',borderRadius:5},
+    {label:'Seguidores netos ganados',data:[90,52],backgroundColor:green,borderRadius:5}]},
+  options:{plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},
+    scales:{y:{type:'logarithmic',grid:{color:'#eef2f6'},ticks:{font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:12,weight:'600'}}}}}});
+</script>
+</body>
+</html>

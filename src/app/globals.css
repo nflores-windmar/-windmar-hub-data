@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0e1420;
+  --foreground: #ededed;
+  --font-bebas: var(--font-bebas);
+  --font-barlow: var(--font-barlow);
+  --font-barlow-condensed: var(--font-barlow-condensed);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-barlow);
+  --font-display: var(--font-bebas);
+  --font-condensed: var(--font-barlow-condensed);
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1100px 700px at 18% -10%, rgba(26, 82, 199, 0.22), transparent 60%),
+    radial-gradient(900px 600px at 100% 110%, rgba(126, 184, 247, 0.12), transparent 55%),
+    var(--background);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-barlow), Arial, Helvetica, sans-serif;
+}
+
+.glass {
+  background: rgba(18, 23, 42, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.stage-bg {
+  background:
+    radial-gradient(600px 600px at 50% 30%, rgba(126, 184, 247, 0.1), transparent 70%);
+}
+
+.font-display {
+  font-family: var(--font-heading, var(--font-bebas)), sans-serif;
+}
+.font-condensed {
+  font-family: var(--font-barlow-condensed), sans-serif;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1a52c7;
+  border: 2px solid #7eb8f7;
+  cursor: pointer;
+}
+input[type="color"] {
+  width: 38px;
+  height: 30px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  background: none;
+  padding: 0;
 }

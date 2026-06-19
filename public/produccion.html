@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producción · WindMar Home</title>
+<style>
+  :root {
+    --orange: #FF6B00;
+    --navy: #0d2240;
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: rgba(255,255,255,.08);
+    --text: #f0f2f8;
+    --text2: #8b90a7;
+    --radius: 12px;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; padding: 32px 24px; }
+  .topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .topbar-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); text-decoration: none; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); transition: all .2s; cursor: pointer; }
+  .topbar-back:hover { background: var(--surface2); color: var(--text); }
+  .topbar-logo { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .topbar-title { font-size: 18px; font-weight: 800; color: var(--text); }
+  .topbar-sub { font-size: 12px; color: var(--text2); }
+  h1 { font-size: 24px; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+  .sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+  .tabs { display: flex; gap: 10px; margin-bottom: 28px; flex-wrap: wrap; }
+  .tab { padding: 9px 20px; border-radius: 20px; border: 1px solid var(--border); cursor: pointer; font-weight: 600; font-size: 13px; background: var(--surface); color: var(--text2); transition: all .2s; }
+  .tab.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+  .tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .card-head { padding: 13px 16px; font-weight: 700; font-size: 13px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .card-body { padding: 8px 6px; }
+  .row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; cursor: pointer; border-radius: 8px; transition: background .15s; user-select: none; }
+  .row:hover { background: var(--surface2); }
+  .box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border); flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+  .row.done .box { background: var(--orange); border-color: var(--orange); }
+  .row.done .box::after { content: '✓'; font-size: 11px; color: #fff; font-weight: 700; }
+  .row.done .lbl { text-decoration: line-through; opacity: .45; }
+  .lbl { font-size: 13px; color: var(--text); line-height: 1.45; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 12px; color: var(--text2); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+  td { padding: 10px 12px; color: var(--text); border-bottom: 1px solid var(--border); }
+  td:first-child { font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .slot { border-radius: 10px; padding: 11px 14px; margin-bottom: 10px; border-left: 4px solid; }
+  .slot-label { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+  .slot-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .slot-desc { font-size: 12px; color: var(--text2); }
+  .badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .lt-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--surface2); border-radius: 10px; margin-bottom: 8px; }
+  .lt-name { font-size: 13px; font-weight: 600; }
+  .brief-row { padding: 9px 12px; background: var(--surface2); border-radius: 8px; font-size: 13px; margin-bottom: 6px; line-height: 1.4; }
+  .brief-row:last-child { margin-bottom: 0; }
+  .brief-row b { color: var(--orange); }
+  .reset-btn { margin-top: 12px; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text2); font-size: 12px; cursor: pointer; transition: all .2s; }
+  .reset-btn:hover { background: var(--surface2); color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">🏠</div>
+  <div>
+    <div class="topbar-title">WindMar Home</div>
+    <div class="topbar-sub">Content Hub · Producción</div>
+  </div>
+  <div style="margin-left:auto">
+    <a class="topbar-back" href="windmar_content_hub.html">← Volver al Hub</a>
+  </div>
+</div>
+
+<h1>🎬 Producción</h1>
+<div class="sub">Frameworks para grabación, edición y planificación de contenido</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('grabacion', this)">📹 Grabación</button>
+  <button class="tab" onclick="switchTab('edicion', this)">✂️ Edición</button>
+  <button class="tab" onclick="switchTab('planificacion', this)">📅 Planificación</button>
+</div>
+
+<!-- GRABACIÓN -->
+<div class="panel active" id="tab-grabacion">
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">📋 Pre-Producción</div>
+      <div class="card-body">
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Concepto aprobado por brand manager</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Guión / libreto listo (hook + body + CTA)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Locación confirmada y limpia</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Equipo técnico listo (cámara, micrófono, luces)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Baterías y tarjetas de memoria cargadas</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Talent briefeado (qué decir, qué vestir)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Branded elements en set (logo, colores WindMar)</span></div>
+      </div>
+      <div style="padding:8px 16px 14px"><button class="reset-btn" onclick="resetCard(this)">↺ Resetear</button></div>
+    </div>
+    <div class="card">
+      <div class="card-head">🎥 Durante la Grabación</div>
+      <div class="card-body">
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Grabar en vertical 9:16 (Reels / Stories)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Múltiples ángulos del mismo momento</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">B-roll del producto / instalación / equipo</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Audio limpio (evitar viento, ruido de fondo)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Hook grabado en los primeros 3 segundos</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Grabar versión con y sin texto en pantalla</span></div>
+      </div>
+      <div style="padding:8px 16px 14px"><button class="reset-btn" onclick="resetCard(this)">↺ Resetear</button></div>
+    </div>
+    <div class="card">
+      <div class="card-head">📦 Post-Grabación</div>
+      <div class="card-body">
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Clips descargados y organizados por carpeta</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Backup en drive del equipo</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Brief de edición completado y enviado</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Fecha de entrega acordada con editor</span></div>
+      </div>
+      <div style="padding:8px 16px 14px"><button class="reset-btn" onclick="resetCard(this)">↺ Resetear</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- EDICIÓN -->
+<div class="panel" id="tab-edicion">
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">📐 Specs por Formato</div>
+      <div style="padding:4px 0">
+        <table>
+          <thead><tr><th>Formato</th><th>Ratio</th><th>Duración</th></tr></thead>
+          <tbody>
+            <tr><td>Reel</td><td>9:16</td><td>30–60 seg</td></tr>
+            <tr><td>Carrusel</td><td>1:1 / 4:5</td><td>5–10 slides</td></tr>
+            <tr><td>Story</td><td>9:16</td><td>≤ 15 seg</td></tr>
+            <tr><td>Vlog</td><td>9:16</td><td>60–90 seg</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">🎨 Branding WindMar</div>
+      <div class="card-body">
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Colores corporativos aplicados (naranja #FF6B00)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Fuente y tipografía consistente</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Watermark / logo WindMar visible</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Subtítulos / captions añadidos</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Música sin derechos de autor</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">CTA visual en los últimos 5 segundos</span></div>
+      </div>
+      <div style="padding:8px 16px 14px"><button class="reset-btn" onclick="resetCard(this)">↺ Resetear</button></div>
+    </div>
+    <div class="card">
+      <div class="card-head">✅ Proceso de Aprobación</div>
+      <div class="card-body">
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Revisión interna (editor → brand manager)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Ajustes aplicados (máx. 1 ronda de cambios)</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Aprobación final confirmada</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Archivo exportado en resolución correcta</span></div>
+        <div class="row" onclick="toggle(this)"><div class="box"></div><span class="lbl">Agendado en el Content Hub</span></div>
+      </div>
+      <div style="padding:8px 16px 14px"><button class="reset-btn" onclick="resetCard(this)">↺ Resetear</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANIFICACIÓN -->
+<div class="panel" id="tab-planificacion">
+  <div class="grid">
+    <div class="card">
+      <div class="card-head">🗓️ Plantilla Semanal</div>
+      <div style="padding:14px 16px">
+        <div class="slot" style="border-color:#FF6B00;background:rgba(255,107,0,.1)">
+          <div class="slot-label" style="color:#FF6B00">LUNES · 7 PM</div>
+          <div class="slot-title">📚 EDUCATE</div>
+          <div class="slot-desc">Video educativo del producto de la semana</div>
+        </div>
+        <div class="slot" style="border-color:#22c55e;background:rgba(34,197,94,.08)">
+          <div class="slot-label" style="color:#22c55e">MIÉRCOLES · 12 PM</div>
+          <div class="slot-title">🏗️ PROVE</div>
+          <div class="slot-desc">Foto / video de instalación o testimonio real</div>
+        </div>
+        <div class="slot" style="border-color:#3b82f6;background:rgba(59,130,246,.08)">
+          <div class="slot-label" style="color:#3b82f6">VIERNES · 12 PM</div>
+          <div class="slot-title">🖼️ PUBLISH</div>
+          <div class="slot-desc">Carrusel educativo o comparativo del producto</div>
+        </div>
+        <div class="slot" style="border-color:#a855f7;background:rgba(168,85,247,.08);margin-bottom:0">
+          <div class="slot-label" style="color:#a855f7">DOMINGO · 5 PM</div>
+          <div class="slot-title">🎬 CONNECT</div>
+          <div class="slot-desc">Vlog / BTS del equipo WindMar en acción</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">⏱️ Timeline de Producción por Formato</div>
+      <div style="padding:14px 16px;font-size:12px;color:var(--text2);margin-bottom:10px">Días antes de la fecha de publicación</div>
+      <div style="overflow-x:auto">
+        <table style="min-width:520px">
+          <thead>
+            <tr>
+              <th>Formato</th>
+              <th>📹 Grabación</th>
+              <th>✂️ Edición</th>
+              <th>✅ Aprobación</th>
+              <th>📤 Publicación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>📱 Story</td>
+              <td><span class="badge" style="background:#dcfce7;color:#15803d">Día -2</span></td>
+              <td><span class="badge" style="background:#fef9c3;color:#a16207">Día -1</span></td>
+              <td><span class="badge" style="background:#e0f2fe;color:#0369a1">Día -1</span></td>
+              <td><span class="badge" style="background:rgba(255,107,0,.15);color:var(--orange)">Día 0</span></td>
+            </tr>
+            <tr>
+              <td>🖼️ Carrusel</td>
+              <td><span class="badge" style="background:#dcfce7;color:#15803d">Día -5</span></td>
+              <td><span class="badge" style="background:#fef9c3;color:#a16207">Día -4 a -2</span></td>
+              <td><span class="badge" style="background:#e0f2fe;color:#0369a1">Día -1</span></td>
+              <td><span class="badge" style="background:rgba(255,107,0,.15);color:var(--orange)">Día 0</span></td>
+            </tr>
+            <tr>
+              <td>🎬 Reel</td>
+              <td><span class="badge" style="background:#dcfce7;color:#15803d">Día -7</span></td>
+              <td><span class="badge" style="background:#fef9c3;color:#a16207">Día -6 a -4</span></td>
+              <td><span class="badge" style="background:#e0f2fe;color:#0369a1">Día -3 a -1</span></td>
+              <td><span class="badge" style="background:rgba(255,107,0,.15);color:var(--orange)">Día 0</span></td>
+            </tr>
+            <tr>
+              <td>📹 Vlog</td>
+              <td><span class="badge" style="background:#dcfce7;color:#15803d">Día -10</span></td>
+              <td><span class="badge" style="background:#fef9c3;color:#a16207">Día -9 a -4</span></td>
+              <td><span class="badge" style="background:#e0f2fe;color:#0369a1">Día -3 a -1</span></td>
+              <td><span class="badge" style="background:rgba(255,107,0,.15);color:var(--orange)">Día 0</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="padding:10px 16px 14px;font-size:11px;color:var(--text2);border-top:1px solid var(--border);margin-top:4px">✂️ Edición = <strong style="color:var(--text)">1–3 días</strong> en todos los formatos</div>
+    </div>
+    <div class="card">
+      <div class="card-head">📝 Brief de Contenido</div>
+      <div style="padding:14px 16px">
+        <div class="brief-row"><b>Producto:</b> Solar / Roofing / Water / ANKER / Comercial</div>
+        <div class="brief-row"><b>Formato:</b> Reel / Carrusel / Story / Vlog / Foto</div>
+        <div class="brief-row"><b>Rol:</b> Educate / Prove / Publish / Connect</div>
+        <div class="brief-row"><b>Hook:</b> Primera oración / pregunta de apertura</div>
+        <div class="brief-row"><b>Mensaje clave:</b> Una sola idea principal</div>
+        <div class="brief-row"><b>CTA:</b> Qué debe hacer el usuario al final</div>
+        <div class="brief-row"><b>Fecha:</b> DD/MM · HH:MM AM/PM</div>
+        <div class="brief-row"><b>Responsable:</b> Grabación / Edición / Aprobación</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggle(row) {
+  row.classList.toggle('done');
+}
+function resetCard(btn) {
+  var card = btn.closest('.card');
+  card.querySelectorAll('.row').forEach(function(r){ r.classList.remove('done'); });
+}
+</script>
+</body>
+</html>

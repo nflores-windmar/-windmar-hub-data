@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windmar Water — Carousel Cisternas</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0e1420;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.carousel-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 460px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.nav-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none; color: white;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.2); }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+.nav-counter { color: rgba(255,255,255,0.55); font-size: 14px; }
+
+/* ── SLIDE BASE ── */
+.slide {
+  width: 100%;
+  aspect-ratio: 4/5;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  display: none;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  background: #fff;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+.dot-row { display: flex; gap: 6px; justify-content: center; }
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  transition: all 0.3s;
+}
+.dot.active { background: #1a52c7; width: 22px; border-radius: 3px; }
+
+/* ── BLUE HEADER ── */
+.hdr {
+  background: #1a52c7;
+  padding: 18px 28px 16px;
+  flex-shrink: 0;
+}
+.hdr-eyebrow {
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 3px;
+}
+.hdr-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px,5vw,28px);
+  font-weight: 900; color: #fff;
+  text-transform: uppercase; line-height: 1.0;
+}
+.hdr-title em { color: #7eb8f7; font-style: normal; }
+.hdr-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(15px,3.8vw,20px);
+  font-weight: 700; color: rgba(255,255,255,0.85);
+  margin-top: 2px;
+}
+.hdr-sub em { color: #7eb8f7; font-style: normal; }
+
+/* ── IMAGE ZONE (fills remaining height) ── */
+.img-zone {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.img-zone img {
+  position: absolute;
+  inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.img-zone .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.9) 0%,
+    rgba(255,255,255,0) 55%);
+  z-index: 1;
+}
+.img-zone .overlay-dark {
+  position: absolute; inset: 0;
+  background: rgba(10,22,40,0.52);
+  z-index: 1;
+}
+
+/* ── TEXT ZONE ── */
+.txt-zone {
+  padding: 16px 28px 18px;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+/* ── UTILITY ── */
+.tag {
+  display: inline-block;
+  background: rgba(26,82,199,0.08);
+  border: 1.5px solid rgba(26,82,199,0.2);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(10px,2.4vw,13px);
+  font-weight: 800; color: #1a52c7;
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-top: 8px;
+}
+.body-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(13px,3.2vw,16px);
+  font-weight: 500; color: #1a2e5a;
+  line-height: 1.5;
+}
+.body-text + .body-text { margin-top: 7px; }
+.body-text em { color: #1a52c7; font-style: normal; font-weight: 700; }
+
+.bullet-list {
+  display: flex; flex-direction: column; gap: 7px;
+  margin-top: 10px;
+}
+.bullet-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(15px,3.8vw,19px);
+  font-weight: 600; color: #1a2e5a; line-height: 1.4;
+}
+.bullet-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #1a52c7; flex-shrink: 0; margin-top: 5px;
+}
+.bullet-item strong { font-weight: 700; }
+
+.check-list {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: 6px;
+}
+.check-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(12px,3vw,15px);
+  font-weight: 500; color: #1a2e5a;
+}
+.check-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #1a52c7; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; flex-shrink: 0;
+}
+.check-dot.orange { background: #f57c0a; }
+.check-item strong { font-weight: 700; }
+
+.step-list {
+  display: flex; flex-direction: column; gap: 9px;
+  margin-top: 6px;
+}
+.step-item {
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #1a52c7; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px; font-weight: 900; flex-shrink: 0;
+}
+.step-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(12px,3vw,15px);
+  font-weight: 500; color: #1a2e5a;
+  line-height: 1.4; padding-top: 3px;
+}
+
+.highlight-box {
+  background: rgba(26,82,199,0.07);
+  border: 1.5px solid rgba(26,82,199,0.18);
+  border-radius: 8px;
+  padding: 9px 14px;
+  margin-top: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(12px,3vw,15px);
+  font-weight: 800; color: #1a52c7;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Brand badge — all slides */
+.brand-badge {
+  position: absolute;
+  bottom: 14px; right: 14px;
+  z-index: 10;
+  display: flex; align-items: center; gap: 3px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+  border-radius: 20px;
+  padding: 4px 8px 4px 5px;
+}
+.brand-badge img.logo {
+  height: 18px !important; width: auto !important;
+  object-fit: contain; display: block;
+}
+.drop-circle { display: none; }
+.brand-badge img.drop { display: none; }
+.drop-svg {
+  width: 20px; height: 20px; flex-shrink: 0;
+}
+.brand-badge img.logo {
+  height: 28px; width: auto;
+  object-fit: contain;
+}
+
+/* S2 full-bleed */
+#s2 { background: #0a1628; }
+.s2-bg {
+  position: absolute; inset: 0;
+}
+.s2-bg img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+  transform: scale(1.6);
+  transform-origin: center 60%;
+}
+.s2-bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,22,40,0.85) 0%,
+    rgba(10,22,40,0.65) 50%,
+    rgba(10,22,40,0.45) 100%
+  );
+}
+.s2-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px 28px;
+}
+.s2-eyebrow {
+  font-family: 'Barlow', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: 6px;
+}
+.s2-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px,6vw,34px);
+  font-weight: 900; color: #fff;
+  text-transform: uppercase; line-height: 1.0;
+  margin-bottom: 28px;
+}
+.s2-title em { color: #7eb8f7; font-style: normal; }
+.s2-bullets {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-top: 20px;
+}
+.s2-bullet {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(14px,3.5vw,17px);
+  font-weight: 600; color: rgba(255,255,255,0.92);
+  line-height: 1.3;
+}
+.s2-bullet-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #7eb8f7; flex-shrink: 0; margin-top: 5px;
+}
+
+/* S3 full-bleed */
+#s3 { background: #0a1628; }
+.s3-bg {
+  position: absolute; inset: 0;
+}
+.s3-bg img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.s3-bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,22,40,0.88) 0%,
+    rgba(10,22,40,0.55) 60%,
+    rgba(10,22,40,0.35) 100%
+  );
+}
+.s3-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px 28px;
+}
+.s3-bullets {
+  display: flex; flex-direction: column; gap: 14px;
+  margin-top: 20px;
+}
+.s3-bullet {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(14px,3.5vw,17px);
+  font-weight: 600; color: rgba(255,255,255,0.92);
+  line-height: 1.3;
+}
+.s3-bullet strong { color: #fff; font-weight: 800; }
+.s3-bullet-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #7eb8f7; flex-shrink: 0; margin-top: 5px;
+}
+
+/* S4 full-bleed */
+#s4 { background: #0a1628; }
+.s4-bg { position: absolute; inset: 0; }
+.s4-bg img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center bottom;
+}
+.s4-bg-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,22,40,0.92) 0%,
+    rgba(10,22,40,0.75) 45%,
+    rgba(10,22,40,0.25) 100%
+  );
+}
+.s4-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  padding: 32px 28px;
+}
+.s4-checks {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-top: 20px;
+}
+.s4-check {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(13px,3.3vw,16px);
+  font-weight: 600; color: rgba(255,255,255,0.92);
+}
+.s4-check strong { color: #fff; font-weight: 800; }
+.s4-check-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #1a52c7; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0;
+}
+.s4-check-dot.orange { background: #f57c0a; }
+
+/* S6 special */
+#s6 { background: #0a1628; }
+.s6-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 36px 32px; text-align: center; gap: 0;
+}
+.s6-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); margin-bottom: 20px;
+}
+.s6-logo em { color: #7eb8f7; font-style: normal; }
+.s6-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(38px,9vw,52px);
+  font-weight: 900; color: white;
+  text-transform: uppercase; line-height: 0.95;
+  margin-bottom: 8px;
+}
+.s6-sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(13px,3.2vw,16px);
+  font-weight: 400; color: rgba(255,255,255,0.55);
+  line-height: 1.5; margin-bottom: 22px;
+}
+.s6-cta {
+  background: #1a52c7;
+  padding: 13px 28px; border-radius: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(17px,4.2vw,22px);
+  font-weight: 900; color: white;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+.s6-checks {
+  display: flex; flex-direction: column; gap: 6px;
+  width: 100%; text-align: left;
+  margin-bottom: 14px;
+}
+.s6-check {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(12px,3vw,14px);
+  font-weight: 500; color: rgba(255,255,255,0.7);
+}
+.s6-check-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: white; flex-shrink: 0;
+}
+.s6-url {
+  font-family: 'Barlow', sans-serif;
+  font-size: 11px; color: rgba(255,255,255,0.28);
+  letter-spacing: 1px;
+}
+
+/* S1 special layout — text top, doodle bottom-left */
+#s1 { background: #fff; }
+.s1-left {
+  padding: 28px 28px 12px;
+  flex-shrink: 0;
+}
+.s1-right {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.s1-right img {
+  position: absolute;
+  bottom: -5%; left: -5%;
+  width: 110%;
+  height: auto;
+}
+.s1-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; color: #1a52c7;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.s1-logo em { color: #7eb8f7; font-style: normal; }
+.s1-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px,8vw,44px);
+  font-weight: 900; color: #1a52c7;
+  text-transform: uppercase; line-height: 0.95;
+  margin-bottom: 8px;
+}
+.s1-sub {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(12px,3vw,15px);
+  font-weight: 500; color: #475569;
+  line-height: 1.4; margin-bottom: 14px;
+}
+.s1-sub strong { color: #1a52c7; font-weight: 700; }
+.s1-body {
+  font-family: 'Barlow', sans-serif;
+  font-size: clamp(10px,2.5vw,13px);
+  font-weight: 400; color: #64748b;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<div class="carousel-wrapper">
+
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>&#8592;</button>
+    <span class="nav-counter" id="counter">1 / 6</span>
+    <button class="nav-btn" id="nextBtn" onclick="go(1)">&#8594;</button>
+  </div>
+
+  <!-- ═══ SLIDE 1 ═══ -->
+  <div class="slide active" id="s1">
+    <div class="s1-left">
+      <div class="s1-logo">WindMar <em>Water</em></div>
+      <div class="s1-title">¿Qué es<br>una cisterna?</div>
+      <div class="s1-sub">y por qué es <strong>necesidad, no un lujo</strong></div>
+      <div class="s1-body">Un tanque que almacena agua en tu hogar. Sin interrupciones, sin incertidumbre.</div>
+      <div class="tag" style="margin-top:14px;">tu agua, tu control</div>
+    </div>
+    <div class="s1-right">
+      <img src="img/s1_tanque.png" alt="Cisterna Windmar Water">
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2 ═══ -->
+  <div class="slide" id="s2">
+    <div class="hdr">
+      <div class="hdr-eyebrow">Lo que está sucediendo</div>
+      <div class="hdr-title">En Puerto Rico surgen <em>18 interrupciones</em> de agua al mes.</div>
+    </div>
+    <div class="txt-zone">
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Agua turbia después de las lluvias</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Duchas cortadas sin aviso previo</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>La incertidumbre de no saber si habrá agua mañana</span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.8; background:#fff; overflow:hidden;">
+      <img src="img/3.png" alt="Mapa Puerto Rico" style="object-fit:cover; object-position:center center; object-position:center 55%;">
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3 ═══ -->
+  <div class="slide" id="s3">
+    <div class="hdr">
+      <div class="hdr-eyebrow">El impacto real</div>
+      <div class="hdr-title">No es solo inconveniencia.</div>
+      <div class="hdr-sub">Es tu rutina <em>completa.</em></div>
+    </div>
+    <div class="txt-zone">
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><span><strong>No puedes cocinar</strong> con agua sucia o sin agua.</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span><strong>No puedes bañar a tus hijos</strong> ni atender lo básico.</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span><strong>No puedes confiar</strong> en que habrá agua cuando la necesitas.</span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.8; background:#fff;">
+      <img src="img/2.png" alt="Cocina" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center;">
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4 ═══ -->
+  <div class="slide" id="s4">
+    <div class="hdr">
+      <div class="hdr-eyebrow">La solución</div>
+      <div class="hdr-title">La solución existe.</div>
+      <div class="hdr-sub">Con WindMar <em>Water.</em></div>
+    </div>
+    <div class="txt-zone">
+      <div class="check-list">
+        <div class="check-item"><div class="check-dot">✓</div><span>Cisterna <strong>Ecotake 500 gal</strong></span></div>
+        <div class="check-item"><div class="check-dot">✓</div><span>Filtro UV <strong>Viqua</strong> — 99.9% bacterias eliminadas</span></div>
+        <div class="check-item"><div class="check-dot">✓</div><span><strong>Instalación profesional</strong> incluida</span></div>
+        <div class="check-item"><div class="check-dot orange">✓</div><span><strong>Garantía</strong> y financiamiento disponible</span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.8;">
+      <img src="img/s1_recalentador.png" alt="Sistema Filtración" style="object-fit:cover; object-position:left center; transform:scale(1.2); transform-origin:left center;">
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5 ═══ -->
+  <div class="slide" id="s5">
+    <div class="hdr">
+      <div class="hdr-eyebrow">Tu plan</div>
+      <div class="hdr-title">Así te independizamos<br>del sistema.</div>
+    </div>
+    <div class="txt-zone">
+      <div class="body-text" style="margin-bottom:8px;">Tu plan con WindMar <span style="color:#1a52c7;font-weight:700;">Water</span></div>
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">Visitamos tu hogar y evaluamos tu necesidad</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">Diseñamos tu sistema personalizado</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">Instalamos todo de principio a fin</div></div>
+      </div>
+      <div class="highlight-box">Tu tienes control total de tu agua 24/7</div>
+    </div>
+    <div class="img-zone" style="flex:1.8;">
+      <img src="img/s5_products.png" alt="Productos Windmar Water" style="object-position:center center;">
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6 ═══ -->
+  <div class="slide" id="s6">
+    <div class="img-zone" style="position:absolute;inset:0;flex:unset;">
+      <img src="img/s6_landscape.png" alt="Windmar Water" style="object-fit:cover;object-position:center center;">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,40,0.75) 0%,rgba(10,22,40,0.55) 50%,rgba(10,22,40,0.80) 100%);"></div>
+    </div>
+    <div class="s6-content">
+      <div class="s6-logo">WindMar <em>Water</em></div>
+      <div class="s6-title">¿Quieres<br>independencia<br>hídrica?</div>
+      <div class="s6-sub">Te contactamos gratis, sin compromiso.</div>
+      <div class="s6-cta">Comenta WATER</div>
+      <div class="s6-checks">
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Consulta 100% gratis</div>
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Instalación profesional en Puerto Rico</div>
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Financiamiento disponible</div>
+      </div>
+      <div class="s6-url">windmarhome.com</div>
+    </div>
+    <div class="brand-badge">
+      <svg class="drop-svg" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5 C50 5 10 55 10 80 C10 103 28 120 50 120 C72 120 90 103 90 80 C90 55 50 5 50 5Z" stroke="#2035a0" stroke-width="5" fill="white"/>
+        <path d="M30 95 Q40 75 55 88 Q65 98 75 85" stroke="#7b8fd4" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M38 102 Q48 88 58 96" stroke="#a0aee0" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="50" cy="92" r="4" fill="#2035a0" opacity="0.5"/>
+      </svg>
+      <img class="logo" src="img/logo_windmar_water.svg" alt="Windmar Water">
+    </div>
+  </div>
+
+  <div class="dot-row" id="dotRow"></div>
+</div>
+
+<script>
+  let cur = 1;
+  const total = 6;
+  function buildDots() {
+    const row = document.getElementById('dotRow');
+    row.innerHTML = '';
+    for (let i = 1; i <= total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === cur ? ' active' : '');
+      row.appendChild(d);
+    }
+  }
+  function go(dir) {
+    document.getElementById('s' + cur).classList.remove('active');
+    cur = Math.max(1, Math.min(total, cur + dir));
+    document.getElementById('s' + cur).classList.add('active');
+    document.getElementById('counter').textContent = cur + ' / ' + total;
+    document.getElementById('prevBtn').disabled = cur === 1;
+    document.getElementById('nextBtn').disabled = cur === total;
+    buildDots();
+  }
+  buildDots();
+
+  // ── EDITOR STATE ──
+  const imgFiles = ['—','s1_cisterna.png','3.png','2.png','s1_recalentador.png','s5_products.png','s6_landscape.png'];
+  const state = {
+    1:{scale:1,posX:50,posY:50,opacity:1},
+    2:{scale:1.2,posX:50,posY:55,opacity:1},
+    3:{scale:1,posX:50,posY:50,opacity:1},
+    4:{scale:1.2,posX:0,posY:50,opacity:1},
+    5:{scale:1,posX:50,posY:50,opacity:1},
+    6:{scale:1,posX:50,posY:50,opacity:1},
+  };
+  const colors = { headerBg:'#1a52c7', headerAccent:'#7eb8f7', orange:'#f57c0a', bodyText:'#1a2e5a', bullet:'#1a52c7' };
+
+  function applyImage(slide) {
+    const img = document.querySelector('#s'+slide+' .img-zone img');
+    if (!img) return;
+    const s = state[slide];
+    img.style.transform = 'scale('+s.scale+')';
+    img.style.transformOrigin = 'center center';
+    img.style.objectPosition = s.posX+'% '+s.posY+'%';
+    img.style.opacity = s.opacity;
+  }
+  function applyColors() {
+    document.querySelectorAll('.hdr').forEach(el=>el.style.background=colors.headerBg);
+    document.querySelectorAll('.hdr-title em,.hdr-sub em').forEach(el=>el.style.color=colors.headerAccent);
+    document.querySelectorAll('.check-dot.orange').forEach(el=>el.style.background=colors.orange);
+    document.querySelectorAll('.body-text,.bullet-item,.check-item,.step-text').forEach(el=>el.style.color=colors.bodyText);
+    document.querySelectorAll('.bullet-dot').forEach(el=>el.style.background=colors.bullet);
+    document.querySelectorAll('.tag').forEach(el=>{el.style.color=colors.bullet;el.style.borderColor=colors.bullet+'55';});
+    document.querySelectorAll('.step-num,.check-dot:not(.orange)').forEach(el=>el.style.background=colors.bullet);
+    document.querySelectorAll('.highlight-box').forEach(el=>{el.style.color=colors.headerBg;el.style.borderColor=colors.headerBg+'44';});
+  }
+  function refreshPanel() {
+    const s = state[cur];
+    document.getElementById('ep-scale').value = s.scale;
+    document.getElementById('ep-scale-val').textContent = s.scale.toFixed(1)+'x';
+    document.getElementById('ep-posX').value = s.posX;
+    document.getElementById('ep-posX-val').textContent = s.posX+'%';
+    document.getElementById('ep-posY').value = s.posY;
+    document.getElementById('ep-posY-val').textContent = s.posY+'%';
+    document.getElementById('ep-opacity').value = s.opacity;
+    document.getElementById('ep-opacity-val').textContent = Math.round(s.opacity*100)+'%';
+    document.getElementById('ep-slide-label').textContent = 'Slide '+cur+' / 6';
+    const hasImg = !!document.querySelector('#s'+cur+' .img-zone img');
+    document.getElementById('ep-img-controls').style.opacity = hasImg ? '1' : '0.35';
+    document.getElementById('ep-img-controls').style.pointerEvents = hasImg ? 'all' : 'none';
+  }
+  function setTextEdit(on) {
+    document.querySelectorAll('.hdr-eyebrow,.hdr-title,.hdr-sub,.body-text,.bullet-item span,.check-item span,.step-text,.highlight-box,.tag').forEach(el=>{
+      el.contentEditable = on ? 'true' : 'false';
+      el.style.outline = on ? '1.5px dashed rgba(126,184,247,0.5)' : 'none';
+      el.style.borderRadius = on ? '3px' : '0';
+    });
+  }
+  let textEditOn = false;
+  function toggleTextEdit() {
+    textEditOn = !textEditOn;
+    setTextEdit(textEditOn);
+    const btn = document.getElementById('ep-textedit-btn');
+    btn.textContent = textEditOn ? '✓ Editando — click para salir' : 'Activar edición de texto';
+    btn.style.background = textEditOn ? 'rgba(26,199,100,0.25)' : 'rgba(26,82,199,0.2)';
+    btn.style.borderColor = textEditOn ? 'rgba(26,199,100,0.5)' : 'rgba(26,82,199,0.4)';
+    btn.style.color = textEditOn ? '#7ef7b8' : '#7eb8f7';
+  }
+  function getFullState() {
+    let txt = '=== ESTADO CAROUSEL WINDMAR WATER ===\n';
+    txt += 'Slide activo: '+cur+'/6\n\n';
+    txt += 'IMÁGENES:\n';
+    const imgNames = ['—','s1_cisterna.png','3.png (mapa PR)','2.png (cocina)','s1_recalentador.png','s5_products.png','s6_landscape.png'];
+    for (let i=1;i<=6;i++) {
+      const s=state[i];
+      txt += 'Slide '+i+': '+imgNames[i]+' — zoom:'+s.scale.toFixed(2)+'x posX:'+s.posX+'% posY:'+s.posY+'% opacity:'+Math.round(s.opacity*100)+'%\n';
+    }
+    txt += '\nCOLORES:\n';
+    txt += 'Header bg: '+colors.headerBg+'\n';
+    txt += 'Accent: '+colors.headerAccent+'\n';
+    txt += 'Naranja: '+colors.orange+'\n';
+    txt += 'Texto body: '+colors.bodyText+'\n';
+    txt += 'Bullets: '+colors.bullet+'\n';
+    txt += '\nCONTENIDO SLIDE '+cur+':\n';
+    const eyebrow = document.querySelector('#s'+cur+' .hdr-eyebrow');
+    const title = document.querySelector('#s'+cur+' .hdr-title');
+    if (eyebrow) txt += 'Eyebrow: '+eyebrow.textContent.trim()+'\n';
+    if (title) txt += 'Título: '+title.textContent.trim()+'\n';
+    txt += '\n=================================\n';
+    txt += 'CAMBIO SOLICITADO:\n';
+    const req = document.getElementById('ep-claude-req').value.trim();
+    txt += req || '(describe tu cambio aquí antes de copiar)';
+    txt += '\n=================================';
+    return txt;
+  }
+  function copyForClaude() {
+    const txt = getFullState();
+    navigator.clipboard.writeText(txt).then(()=>{
+      const btn = document.getElementById('ep-copy-btn');
+      btn.textContent = '✓ Copiado — pégalo en el chat';
+      btn.style.background = 'rgba(26,199,100,0.25)';
+      setTimeout(()=>{ btn.textContent = '📋 Copiar estado para Claude'; btn.style.background='rgba(26,82,199,0.2)';},3000);
+    });
+  }
+  function applyCSSFromClaude() {
+    const css = document.getElementById('ep-css-apply').value.trim();
+    if (!css) return;
+    let styleTag = document.getElementById('claude-overrides');
+    if (!styleTag) { styleTag=document.createElement('style'); styleTag.id='claude-overrides'; document.head.appendChild(styleTag); }
+    styleTag.textContent = css;
+    const btn = document.getElementById('ep-apply-btn');
+    btn.textContent = '✓ Aplicado!';
+    btn.style.background = 'rgba(26,199,100,0.25)';
+    setTimeout(()=>{ btn.textContent='✓ Aplicar CSS de Claude'; btn.style.background='rgba(245,124,10,0.2)';},2500);
+  }
+
+  for (let i=1;i<=6;i++) applyImage(i);
+  applyColors();
+  const _go=go;
+  window.go=function(dir){_go(dir);refreshPanel();};
+</script>
+
+<!-- ── EDITOR PANEL ── -->
+<style>
+#editor-toggle {
+  position:fixed; bottom:24px; right:24px; z-index:9999;
+  width:50px; height:50px; border-radius:50%;
+  background:#1a52c7; color:white; border:none; cursor:pointer;
+  font-size:20px; box-shadow:0 4px 24px rgba(0,0,0,0.5);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform 0.2s, background 0.2s;
+}
+#editor-toggle:hover { transform:scale(1.08); background:#2563d4; }
+#editor-panel {
+  position:fixed; right:24px; bottom:86px; z-index:9998;
+  width:280px; background:#12172a;
+  border-radius:16px; padding:0;
+  box-shadow:0 12px 48px rgba(0,0,0,0.7);
+  font-family:'Barlow',sans-serif;
+  display:none; overflow:hidden;
+  border:1px solid rgba(255,255,255,0.07);
+  max-height:calc(100vh - 120px); overflow-y:auto;
+}
+#editor-panel.open { display:block; }
+.ep-head {
+  background:#1a52c7; padding:13px 16px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:2;
+}
+.ep-head-title { color:white; font-weight:700; font-size:13px; letter-spacing:0.5px; }
+#ep-slide-label { color:rgba(255,255,255,0.6); font-size:11px; font-weight:600; }
+.ep-tabs {
+  display:flex; background:#0e1220;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  position:sticky; top:42px; z-index:2;
+}
+.ep-tab {
+  flex:1; padding:10px 0; text-align:center;
+  color:rgba(255,255,255,0.38); font-size:10px; font-weight:700;
+  cursor:pointer; border:none; background:none;
+  text-transform:uppercase; letter-spacing:0.8px;
+  transition:color 0.15s; border-bottom:2px solid transparent;
+}
+.ep-tab.act { color:#7eb8f7; border-bottom:2px solid #7eb8f7; }
+.ep-body { padding:16px; }
+.ep-sec { display:none; }
+.ep-sec.act { display:block; }
+.ep-row { margin-bottom:16px; }
+.ep-lbl {
+  display:flex; justify-content:space-between; align-items:center;
+  color:rgba(255,255,255,0.45); font-size:10px; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px;
+}
+.ep-val { color:#7eb8f7; font-size:12px; font-weight:700; text-transform:none; letter-spacing:0; }
+input[type=range] {
+  width:100%; height:4px; -webkit-appearance:none;
+  background:rgba(255,255,255,0.12); border-radius:2px; cursor:pointer; outline:none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none; width:16px; height:16px;
+  border-radius:50%; background:#1a52c7; border:2px solid #7eb8f7; cursor:pointer;
+}
+.ep-divider { height:1px; background:rgba(255,255,255,0.07); margin:14px 0; }
+.ep-color-row {
+  display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;
+}
+.ep-color-lbl { color:rgba(255,255,255,0.5); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; }
+input[type=color] { width:38px; height:30px; border:none; border-radius:7px; cursor:pointer; background:none; padding:0; }
+.ep-btn {
+  width:100%; padding:10px 12px; border-radius:9px;
+  font-size:11px; font-weight:700; cursor:pointer;
+  text-transform:uppercase; letter-spacing:0.6px;
+  transition:background 0.2s; margin-bottom:8px; text-align:center;
+}
+.ep-btn-blue { background:rgba(26,82,199,0.2); border:1px solid rgba(26,82,199,0.4); color:#7eb8f7; }
+.ep-btn-blue:hover { background:rgba(26,82,199,0.38); }
+.ep-btn-orange { background:rgba(245,124,10,0.2); border:1px solid rgba(245,124,10,0.4); color:#f5a04a; }
+.ep-btn-orange:hover { background:rgba(245,124,10,0.35); }
+.ep-note { color:rgba(255,255,255,0.32); font-size:10px; line-height:1.5; margin-bottom:10px; }
+.ep-textarea {
+  width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12);
+  border-radius:8px; color:rgba(255,255,255,0.8); font-family:'Barlow',sans-serif;
+  font-size:11px; padding:10px; resize:vertical; outline:none; line-height:1.5;
+  min-height:70px;
+}
+.ep-textarea:focus { border-color:rgba(126,184,247,0.5); }
+.ep-section-title {
+  color:rgba(255,255,255,0.25); font-size:9px; font-weight:700;
+  text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;
+}
+</style>
+
+<button id="editor-toggle" onclick="(function(){var p=document.getElementById('editor-panel');p.classList.toggle('open');document.getElementById('editor-toggle').textContent=p.classList.contains('open')?'✕':'✏️';})()">✏️</button>
+
+<div id="editor-panel">
+  <div class="ep-head">
+    <span class="ep-head-title">✏️ Windmar Editor</span>
+    <span id="ep-slide-label">Slide 1 / 6</span>
+  </div>
+  <div class="ep-tabs">
+    <button class="ep-tab act" onclick="epTab('img',this)">Imagen</button>
+    <button class="ep-tab" onclick="epTab('text',this)">Texto</button>
+    <button class="ep-tab" onclick="epTab('color',this)">Color</button>
+    <button class="ep-tab" onclick="epTab('claude',this)">Claude</button>
+  </div>
+
+  <div class="ep-body">
+
+    <!-- TAB: IMAGEN -->
+    <div class="ep-sec act" id="ep-img">
+      <div id="ep-img-controls">
+        <div class="ep-row">
+          <div class="ep-lbl"><span>Zoom</span><span class="ep-val" id="ep-scale-val">1.0x</span></div>
+          <input type="range" id="ep-scale" min="0.5" max="3" step="0.05" value="1" oninput="state[cur].scale=parseFloat(this.value);document.getElementById('ep-scale-val').textContent=parseFloat(this.value).toFixed(1)+'x';applyImage(cur);">
+        </div>
+        <div class="ep-row">
+          <div class="ep-lbl"><span>Posición X</span><span class="ep-val" id="ep-posX-val">50%</span></div>
+          <input type="range" id="ep-posX" min="0" max="100" step="1" value="50" oninput="state[cur].posX=parseInt(this.value);document.getElementById('ep-posX-val').textContent=this.value+'%';applyImage(cur);">
+        </div>
+        <div class="ep-row">
+          <div class="ep-lbl"><span>Posición Y</span><span class="ep-val" id="ep-posY-val">50%</span></div>
+          <input type="range" id="ep-posY" min="0" max="100" step="1" value="50" oninput="state[cur].posY=parseInt(this.value);document.getElementById('ep-posY-val').textContent=this.value+'%';applyImage(cur);">
+        </div>
+        <div class="ep-row">
+          <div class="ep-lbl"><span>Opacidad</span><span class="ep-val" id="ep-opacity-val">100%</span></div>
+          <input type="range" id="ep-opacity" min="0.05" max="1" step="0.05" value="1" oninput="state[cur].opacity=parseFloat(this.value);document.getElementById('ep-opacity-val').textContent=Math.round(this.value*100)+'%';applyImage(cur);">
+        </div>
+      </div>
+      <div class="ep-divider"></div>
+      <p class="ep-note">Ajusta la imagen del slide activo. Navega entre slides con las flechas del carousel para ajustar cada uno.</p>
+    </div>
+
+    <!-- TAB: TEXTO -->
+    <div class="ep-sec" id="ep-text">
+      <p class="ep-note">Activa el modo edición para hacer click directamente sobre cualquier texto del slide y modificarlo.</p>
+      <button class="ep-btn ep-btn-blue" id="ep-textedit-btn" onclick="toggleTextEdit()">Activar edición de texto</button>
+      <div class="ep-divider"></div>
+      <p class="ep-note">Para cambios estructurales (añadir slides, cambiar bullets, reescribir secciones completas) usa el tab Claude.</p>
+    </div>
+
+    <!-- TAB: COLOR -->
+    <div class="ep-sec" id="ep-color">
+      <div class="ep-section-title">Colores de marca</div>
+      <div class="ep-color-row">
+        <span class="ep-color-lbl">Header</span>
+        <input type="color" value="#1a52c7" oninput="colors.headerBg=this.value;applyColors();">
+      </div>
+      <div class="ep-color-row">
+        <span class="ep-color-lbl">Accent azul</span>
+        <input type="color" value="#7eb8f7" oninput="colors.headerAccent=this.value;applyColors();">
+      </div>
+      <div class="ep-color-row">
+        <span class="ep-color-lbl">Naranja</span>
+        <input type="color" value="#f57c0a" oninput="colors.orange=this.value;applyColors();">
+      </div>
+      <div class="ep-color-row">
+        <span class="ep-color-lbl">Texto</span>
+        <input type="color" value="#1a2e5a" oninput="colors.bodyText=this.value;applyColors();">
+      </div>
+      <div class="ep-color-row">
+        <span class="ep-color-lbl">Bullets / íconos</span>
+        <input type="color" value="#1a52c7" oninput="colors.bullet=this.value;applyColors();">
+      </div>
+    </div>
+
+    <!-- TAB: CLAUDE -->
+    <div class="ep-sec" id="ep-claude">
+      <div class="ep-section-title">Enviar a Claude</div>
+      <p class="ep-note">Describe el cambio que quieres. Claude recibirá el estado completo del carousel + tu solicitud.</p>
+      <textarea class="ep-textarea" id="ep-claude-req" placeholder="Ej: Quiero que el header del slide 3 sea más pequeño y que el doodle ocupe más espacio..." style="margin-bottom:8px;"></textarea>
+      <button class="ep-btn ep-btn-blue" id="ep-copy-btn" onclick="copyForClaude()">📋 Copiar estado para Claude</button>
+      <div class="ep-divider"></div>
+      <div class="ep-section-title">Aplicar cambio de Claude</div>
+      <p class="ep-note">Pega aquí el CSS que Claude te envíe y aplícalo al instante.</p>
+      <textarea class="ep-textarea" id="ep-css-apply" placeholder="/* Pega el CSS de Claude aquí */&#10;.hdr { background: #0a3d8f; }"></textarea>
+      <button class="ep-btn ep-btn-orange" id="ep-apply-btn" onclick="applyCSSFromClaude()" style="margin-top:8px;">✓ Aplicar CSS de Claude</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function epTab(name, btn) {
+  document.querySelectorAll('.ep-tab').forEach(t=>t.classList.remove('act'));
+  btn.classList.add('act');
+  document.querySelectorAll('.ep-sec').forEach(s=>s.classList.remove('act'));
+  document.getElementById('ep-'+name).classList.add('act');
+}
+refreshPanel();
+</script>
+</body>
+</html>

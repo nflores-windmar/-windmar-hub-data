@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>Windmar Home — Hogar Inteligente v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #020509;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 30px 20px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .hint {
+    color: rgba(255,255,255,0.25);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .card {
+    width: 1200px;
+    height: 630px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow:
+      0 0 0 1px rgba(26,82,199,0.3),
+      0 50px 100px rgba(0,0,0,0.8),
+      0 0 80px rgba(245,124,10,0.06);
+  }
+</style>
+</head>
+<body>
+<span class="hint">Windmar Home — Branded Graphic v2 · 1200 × 630 px</span>
+
+<div class="card">
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <!-- Backgrounds -->
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#04091a"/>
+    <stop offset="55%"  stop-color="#081428"/>
+    <stop offset="100%" stop-color="#0c1c3a"/>
+  </linearGradient>
+  <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%"   stop-color="#f57c0a" stop-opacity="0.45"/>
+    <stop offset="60%"  stop-color="#f57c0a" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#f57c0a" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%"   stop-color="#1a52c7" stop-opacity="0.22"/>
+    <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="groundGlow" cx="50%" cy="0%" r="100%">
+    <stop offset="0%"   stop-color="#0e2a60" stop-opacity="0.5"/>
+    <stop offset="100%" stop-color="#0a1628" stop-opacity="0"/>
+  </radialGradient>
+  <!-- Solar panel gradient -->
+  <linearGradient id="panelFace" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#1a3a80"/>
+    <stop offset="50%"  stop-color="#0e2258"/>
+    <stop offset="100%" stop-color="#091840"/>
+  </linearGradient>
+  <!-- House wall -->
+  <linearGradient id="hWall" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#182e60"/>
+    <stop offset="100%" stop-color="#0c1a3a"/>
+  </linearGradient>
+  <linearGradient id="hSide" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#0e2045"/>
+    <stop offset="100%" stop-color="#07101e"/>
+  </linearGradient>
+  <linearGradient id="hRoof" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#1e3d80"/>
+    <stop offset="100%" stop-color="#0c2050"/>
+  </linearGradient>
+  <!-- Cistern -->
+  <linearGradient id="cisternTop" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#cce0f5"/>
+    <stop offset="100%" stop-color="#8ab5d8"/>
+  </linearGradient>
+  <!-- Ground -->
+  <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="#0c2240"/>
+    <stop offset="100%" stop-color="#050d1a"/>
+  </linearGradient>
+
+  <!-- Filters -->
+  <filter id="fBlue" x="-40%" y="-40%" width="180%" height="180%">
+    <feGaussianBlur stdDeviation="4" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="fOrange" x="-60%" y="-60%" width="220%" height="220%">
+    <feGaussianBlur stdDeviation="6" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="fSoft" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="2" result="b"/>
+    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="drop">
+    <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.5"/>
+  </filter>
+
+  <!-- Marker for dotted callout lines -->
+  <marker id="dot-orange" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5">
+    <circle cx="2.5" cy="2.5" r="2" fill="#f57c0a"/>
+  </marker>
+  <marker id="dot-blue" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5">
+    <circle cx="2.5" cy="2.5" r="2" fill="#4a9eff"/>
+  </marker>
+  <marker id="dot-green" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5">
+    <circle cx="2.5" cy="2.5" r="2" fill="#00843D"/>
+  </marker>
+  <marker id="dot-purple" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5">
+    <circle cx="2.5" cy="2.5" r="2" fill="#a78bfa"/>
+  </marker>
+</defs>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 1: BACKGROUND
+═══════════════════════════════════════════ -->
+<rect width="1200" height="630" fill="url(#sky)"/>
+
+<!-- Subtle grid -->
+<g opacity="0.045" stroke="#4a80ff" stroke-width="1" fill="none">
+  <g id="vLines">
+    <line x1="60"   y1="0" x2="60"   y2="630"/>
+    <line x1="120"  y1="0" x2="120"  y2="630"/>
+    <line x1="180"  y1="0" x2="180"  y2="630"/>
+    <line x1="240"  y1="0" x2="240"  y2="630"/>
+    <line x1="300"  y1="0" x2="300"  y2="630"/>
+    <line x1="360"  y1="0" x2="360"  y2="630"/>
+    <line x1="420"  y1="0" x2="420"  y2="630"/>
+    <line x1="480"  y1="0" x2="480"  y2="630"/>
+    <line x1="540"  y1="0" x2="540"  y2="630"/>
+    <line x1="600"  y1="0" x2="600"  y2="630"/>
+    <line x1="660"  y1="0" x2="660"  y2="630"/>
+    <line x1="720"  y1="0" x2="720"  y2="630"/>
+    <line x1="780"  y1="0" x2="780"  y2="630"/>
+    <line x1="840"  y1="0" x2="840"  y2="630"/>
+    <line x1="900"  y1="0" x2="900"  y2="630"/>
+    <line x1="960"  y1="0" x2="960"  y2="630"/>
+    <line x1="1020" y1="0" x2="1020" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/>
+    <line x1="1140" y1="0" x2="1140" y2="630"/>
+  </g>
+  <g id="hLines">
+    <line x1="0" y1="63"  x2="1200" y2="63"/>
+    <line x1="0" y1="126" x2="1200" y2="126"/>
+    <line x1="0" y1="189" x2="1200" y2="189"/>
+    <line x1="0" y1="252" x2="1200" y2="252"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="378" x2="1200" y2="378"/>
+    <line x1="0" y1="441" x2="1200" y2="441"/>
+    <line x1="0" y1="504" x2="1200" y2="504"/>
+    <line x1="0" y1="567" x2="1200" y2="567"/>
+  </g>
+</g>
+
+<!-- Atmosphere glows -->
+<ellipse cx="870" cy="170" rx="300" ry="200" fill="url(#sunGlow)" opacity="0.7"/>
+<ellipse cx="500" cy="380" rx="420" ry="260" fill="url(#centerGlow)"/>
+<ellipse cx="600" cy="570" rx="500" ry="120" fill="url(#groundGlow)"/>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 2: SKY ELEMENTS (Sun, Birds, Clouds)
+═══════════════════════════════════════════ -->
+
+<!-- Sun core -->
+<circle cx="920" cy="110" r="46" fill="#f57c0a" opacity="0.9" filter="url(#fOrange)"/>
+<circle cx="920" cy="110" r="38" fill="#ff9a2e"/>
+<circle cx="920" cy="110" r="28" fill="#ffb84a"/>
+<circle cx="918" cy="107" r="16" fill="#ffd080" opacity="0.8"/>
+
+<!-- Sun rays (sketch-style) -->
+<g stroke="#f57c0a" stroke-linecap="round" fill="none" opacity="0.6">
+  <line x1="920" y1="52"  x2="920" y2="36"/>
+  <line x1="920" y1="168" x2="920" y2="184"/>
+  <line x1="862" y1="110" x2="846" y2="110"/>
+  <line x1="978" y1="110" x2="994" y2="110"/>
+  <line x1="879" y1="69"  x2="868" y2="58"/>
+  <line x1="961" y1="151" x2="972" y2="162"/>
+  <line x1="961" y1="69"  x2="972" y2="58"/>
+  <line x1="879" y1="151" x2="868" y2="162"/>
+  <line x1="895" y1="58"  x2="890" y2="44"  stroke-width="1.5"/>
+  <line x1="945" y1="58"  x2="950" y2="44"  stroke-width="1.5"/>
+  <line x1="862" y1="85"  x2="848" y2="78"  stroke-width="1.5"/>
+  <line x1="862" y1="135" x2="848" y2="142" stroke-width="1.5"/>
+  <line x1="978" y1="85"  x2="992" y2="78"  stroke-width="1.5"/>
+  <line x1="978" y1="135" x2="992" y2="142" stroke-width="1.5"/>
+</g>
+
+<!-- Birds (sketch V shapes) -->
+<g stroke="rgba(255,255,255,0.55)" stroke-width="1.8" fill="none" stroke-linecap="round">
+  <path d="M780,75  Q785,70 790,75"/>
+  <path d="M798,68  Q804,62 810,68"/>
+  <path d="M750,90  Q756,84 762,90"/>
+  <path d="M830,55  Q836,49 842,55"/>
+  <path d="M855,72  Q860,66 866,72"/>
+  <path d="M1040,90 Q1046,84 1052,90"/>
+  <path d="M1060,75 Q1067,68 1074,75"/>
+  <path d="M1080,95 Q1086,89 1092,95"/>
+  <path d="M700,110 Q705,104 710,110"/>
+  <path d="M718,100 Q724,93 730,100"/>
+</g>
+
+<!-- Sketch clouds (faint) -->
+<g fill="none" stroke="rgba(180,210,255,0.15)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+  <path d="M100,85 Q110,70 128,72 Q130,58 148,60 Q158,50 170,58 Q182,52 190,62 Q205,60 208,74 Q218,76 216,88 Z"/>
+  <path d="M1050,140 Q1062,128 1078,130 Q1082,118 1096,120 Q1106,112 1116,120 Q1126,122 1124,134 Q1132,136 1130,146 Z" opacity="0.6"/>
+  <path d="M280,55 Q290,44 304,46 Q308,36 318,38 Q326,32 334,38 Q340,40 338,50 Q346,52 344,60 Z" opacity="0.5"/>
+</g>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 3: BACKGROUND CITY SKYLINE (sketch)
+═══════════════════════════════════════════ -->
+<g fill="none" stroke="rgba(100,160,255,0.18)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2">
+  <!-- City buildings: varying heights, sketch feel -->
+  <!-- Far left cluster -->
+  <rect x="50"  y="270" width="28" height="80"  rx="1"/>
+  <rect x="55"  y="262" width="18" height="8"   rx="1"/><!-- rooftop -->
+  <rect x="85"  y="255" width="22" height="95"  rx="1"/>
+  <rect x="112" y="280" width="18" height="70"  rx="1"/>
+  <rect x="134" y="260" width="32" height="90"  rx="1"/>
+  <rect x="136" y="252" width="28" height="8"   rx="1"/>
+  <!-- Windows in city buildings -->
+  <rect x="58"  y="280" width="6" height="8" rx="1" opacity="0.6"/>
+  <rect x="68"  y="280" width="6" height="8" rx="1" opacity="0.4"/>
+  <rect x="58"  y="298" width="6" height="8" rx="1" opacity="0.5"/>
+  <rect x="90"  y="265" width="6" height="8" rx="1" opacity="0.6"/>
+  <rect x="100" y="265" width="6" height="8" rx="1" opacity="0.4"/>
+  <rect x="90"  y="282" width="6" height="8" rx="1" opacity="0.5"/>
+
+  <!-- Center-left cluster -->
+  <rect x="170" y="240" width="26" height="110" rx="1"/>
+  <rect x="200" y="250" width="20" height="100" rx="1"/>
+  <rect x="224" y="235" width="34" height="115" rx="1"/>
+  <rect x="226" y="227" width="30" height="8"   rx="1"/>
+  <rect x="260" y="268" width="22" height="82"  rx="1"/>
+  <rect x="286" y="248" width="28" height="102" rx="1"/>
+
+  <!-- Right cluster (behind solar/house) -->
+  <rect x="1020" y="255" width="26" height="92"  rx="1"/>
+  <rect x="1050" y="240" width="22" height="107" rx="1"/>
+  <rect x="1076" y="260" width="30" height="87"  rx="1"/>
+  <rect x="1110" y="248" width="24" height="99"  rx="1"/>
+  <rect x="1138" y="265" width="28" height="82"  rx="1"/>
+
+  <!-- Antennas / spires -->
+  <line x1="230" y1="227" x2="230" y2="208"/>
+  <line x1="140" y1="252" x2="140" y2="232"/>
+  <line x1="1052" y1="240" x2="1052" y2="220"/>
+  <line x1="1113" y1="248" x2="1113" y2="228"/>
+</g>
+
+<!-- Horizon / ground line -->
+<line x1="0" y1="480" x2="1200" y2="480" stroke="rgba(74,128,255,0.18)" stroke-width="1.5"/>
+
+<!-- Road / path (inspired by sketch 2) -->
+<path d="M280,630 Q420,560 560,510 Q650,480 720,480 Q820,480 960,520 Q1060,545 1200,590"
+  stroke="rgba(74,128,255,0.2)" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M280,630 Q420,565 560,518 Q650,488 720,490 Q820,490 960,530 Q1060,555 1200,600"
+  stroke="rgba(74,128,255,0.1)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+<!-- Ground plane -->
+<rect x="0" y="480" width="1200" height="150" fill="url(#ground)" opacity="0.7"/>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 4: BACKGROUND PALMS (far)
+═══════════════════════════════════════════ -->
+<g opacity="0.5" stroke="none">
+  <!-- Far left tree -->
+  <path d="M148,330 Q152,380 158,480" stroke="#0a2010" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <ellipse cx="148" cy="325" rx="38" ry="25" fill="#0c2812" transform="rotate(-8 148 325)"/>
+  <ellipse cx="120" cy="334" rx="26" ry="14" fill="#0a2010" transform="rotate(-30 120 334)"/>
+  <ellipse cx="175" cy="328" rx="28" ry="14" fill="#0a2010" transform="rotate(25 175 328)"/>
+  <!-- Far right tree -->
+  <path d="M1068,300 Q1064,350 1058,450" stroke="#0a2010" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <ellipse cx="1068" cy="295" rx="36" ry="24" fill="#0c2812" transform="rotate(6 1068 295)"/>
+  <ellipse cx="1042" cy="303" rx="24" ry="13" fill="#0a2010" transform="rotate(-26 1042 303)"/>
+  <ellipse cx="1092" cy="298" rx="27" ry="13" fill="#0a2010" transform="rotate(22 1092 298)"/>
+</g>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 5: HOUSE (isometric sketch, center-left)
+     Origin: (430, 370)
+     sx = 430 + X*33 - Y*33
+     sy = 370 + X*19 + Y*19 - Z*48
+     House: 9W × 7D × 3.8H
+
+     Roof corners (Z=3.8):
+       (0,0) → 430, 370+0+0-182 = 430, 188
+       (9,0) → 430+297=727, 370+171-182 = 727, 359
+       (9,7) → 727-231=496, 359+133 = 496, 492
+       (0,7) → 430-231=199, 370+133-182 = 199, 321
+
+     Floor corners:
+       (0,0) → 430, 370
+       (9,0) → 727, 541
+       (9,7) → 496, 674 [below canvas, ok]
+       (0,7) → 199, 503
+═══════════════════════════════════════════ -->
+
+<!-- House shadow/base -->
+<polygon points="430,370 727,541 496,520 199,350" fill="#030810" opacity="0.5"/>
+
+<!-- ── SIDE WALL (x=9 face) ── -->
+<polygon points="727,359 727,541 496,674 496,492"
+  fill="url(#hSide)" stroke="rgba(100,150,255,0.45)" stroke-width="1.4"
+  filter="url(#drop)"/>
+<!-- Side windows -->
+<g fill="#08152e" stroke="rgba(100,160,255,0.5)" stroke-width="1">
+  <polygon points="594,425 626,443 626,485 594,467"/>
+  <line x1="610" y1="425" x2="610" y2="485" stroke-width="0.8" stroke="rgba(100,160,255,0.35)"/>
+  <line x1="594" y1="455" x2="626" y2="473" stroke-width="0.8" stroke="rgba(100,160,255,0.35)"/>
+  <polygon points="648,452 676,468 676,506 648,490"/>
+  <line x1="662" y1="452" x2="662" y2="506" stroke-width="0.8" stroke="rgba(100,160,255,0.35)"/>
+</g>
+<!-- Side: garage shutters -->
+<g fill="#07101e" stroke="rgba(80,120,200,0.3)" stroke-width="1">
+  <polygon points="660,500 712,529 712,590 660,561"/>
+  <line x1="660" y1="518" x2="712" y2="547" stroke-width="0.7"/>
+  <line x1="660" y1="536" x2="712" y2="565" stroke-width="0.7"/>
+  <line x1="660" y1="554" x2="712" y2="583" stroke-width="0.7"/>
+</g>
+
+<!-- ── FRONT WALL (y=0 face) ── -->
+<polygon points="430,188 727,359 727,541 430,370"
+  fill="url(#hWall)" stroke="rgba(100,150,255,0.5)" stroke-width="1.4"
+  filter="url(#drop)"/>
+
+<!-- Front windows: pair -->
+<g fill="#08152e" stroke="rgba(100,170,255,0.55)" stroke-width="1.2">
+  <rect x="462" y="240" width="68" height="54" rx="2"/>
+  <line x1="496" y1="240" x2="496" y2="294" stroke-width="0.8" stroke="rgba(100,160,255,0.4)"/>
+  <line x1="462" y1="267" x2="530" y2="267" stroke-width="0.8" stroke="rgba(100,160,255,0.4)"/>
+  <!-- light glow in windows -->
+  <rect x="464" y="242" width="31" height="24" rx="1" fill="rgba(120,180,255,0.09)"/>
+  <rect x="498" y="242" width="31" height="24" rx="1" fill="rgba(120,180,255,0.06)"/>
+</g>
+<g fill="#08152e" stroke="rgba(100,170,255,0.55)" stroke-width="1.2">
+  <rect x="558" y="272" width="68" height="54" rx="2"/>
+  <line x1="592" y1="272" x2="592" y2="326" stroke-width="0.8" stroke="rgba(100,160,255,0.4)"/>
+  <line x1="558" y1="299" x2="626" y2="299" stroke-width="0.8" stroke="rgba(100,160,255,0.4)"/>
+  <rect x="560" y="274" width="31" height="24" rx="1" fill="rgba(120,180,255,0.09)"/>
+</g>
+<g fill="#08152e" stroke="rgba(100,170,255,0.55)" stroke-width="1.2">
+  <rect x="644" y="300" width="58" height="46" rx="2"/>
+  <line x1="673" y1="300" x2="673" y2="346" stroke-width="0.8" stroke="rgba(100,160,255,0.4)"/>
+  <rect x="646" y="302" width="26" height="20" rx="1" fill="rgba(120,180,255,0.09)"/>
+</g>
+
+<!-- Front door -->
+<rect x="700" y="408" width="36" height="60" rx="2" fill="#060f22" stroke="rgba(100,160,255,0.45)" stroke-width="1.2"/>
+<circle cx="709" cy="438" r="3.5" fill="#f57c0a" opacity="0.95" filter="url(#fOrange)"/>
+<rect x="703" y="412" width="28" height="18" rx="1" fill="rgba(100,160,255,0.05)"/>
+
+<!-- AC unit front wall -->
+<rect x="460" y="352" width="54" height="35" rx="4" fill="#0b1a36" stroke="rgba(80,120,200,0.4)" stroke-width="1"/>
+<line x1="470" y1="360" x2="504" y2="360" stroke="rgba(100,160,255,0.35)" stroke-width="0.8"/>
+<line x1="470" y1="367" x2="504" y2="367" stroke="rgba(100,160,255,0.35)" stroke-width="0.8"/>
+<line x1="470" y1="374" x2="504" y2="374" stroke="rgba(100,160,255,0.35)" stroke-width="0.8"/>
+<line x1="470" y1="381" x2="504" y2="381" stroke="rgba(100,160,255,0.35)" stroke-width="0.8"/>
+
+<!-- Water filter trio on front wall -->
+<g stroke="#4a9eff" stroke-width="1.5" fill="#0a1830">
+  <rect x="540" y="372" width="20" height="46" rx="10"/>
+  <rect x="565" y="376" width="20" height="46" rx="10"/>
+  <rect x="590" y="380" width="20" height="46" rx="10"/>
+</g>
+<!-- Header pipe -->
+<path d="M550,382 Q558,388 565,386 Q573,392 580,390 Q588,396 595,394"
+  stroke="#4a9eff" stroke-width="2" fill="none" stroke-linecap="round"/>
+<line x1="550" y1="376" x2="616" y2="396" stroke="#4a9eff" stroke-width="2.5" stroke-linecap="round"/>
+
+<!-- ANKER battery -->
+<rect x="665" y="370" width="46" height="70" rx="4" fill="#091830" stroke="#00843D" stroke-width="1.8"/>
+<rect x="670" y="376" width="36" height="12" rx="2" fill="rgba(0,132,61,0.18)" stroke="#00843D" stroke-width="0.8"/>
+<text x="688" y="385" font-family="'DM Sans', sans-serif" font-size="7.5" fill="#00843D" text-anchor="middle" font-weight="700" letter-spacing="0.06em">ANKER</text>
+<rect x="671" y="393" width="8"  height="35" rx="2" fill="rgba(0,200,80,0.75)"/>
+<rect x="682" y="396" width="8"  height="32" rx="2" fill="rgba(0,200,80,0.6)"/>
+<rect x="693" y="399" width="8"  height="29" rx="2" fill="rgba(0,200,80,0.4)"/>
+<text x="688" y="437" font-family="'DM Sans', sans-serif" font-size="7" fill="rgba(0,220,90,0.8)" text-anchor="middle" font-weight="600">98%</text>
+
+<!-- ── ROOF ── -->
+<polygon points="430,188 727,359 496,492 199,321"
+  fill="url(#hRoof)" stroke="rgba(120,170,255,0.55)" stroke-width="1.5"
+  filter="url(#drop)"/>
+
+<!-- SOLAR PANEL GRID on house roof -->
+<g fill="none" stroke="#1a52c7" stroke-width="0.9" opacity="0.5">
+  <!-- X divisions (step: +33,+19) -->
+  <line x1="430" y1="188" x2="199" y2="321"/>
+  <line x1="463" y1="207" x2="232" y2="340"/>
+  <line x1="496" y1="226" x2="265" y2="359"/>
+  <line x1="529" y1="245" x2="298" y2="378"/>
+  <line x1="562" y1="264" x2="331" y2="397"/>
+  <line x1="595" y1="283" x2="364" y2="416"/>
+  <line x1="628" y1="302" x2="397" y2="435"/>
+  <line x1="661" y1="321" x2="430" y2="454"/>
+  <line x1="694" y1="340" x2="463" y2="473"/>
+  <line x1="727" y1="359" x2="496" y2="492"/>
+  <!-- Y divisions (step: -33,+19) -->
+  <line x1="430" y1="188" x2="727" y2="359"/>
+  <line x1="397" y1="207" x2="694" y2="378"/>
+  <line x1="364" y1="226" x2="661" y2="397"/>
+  <line x1="331" y1="245" x2="628" y2="416"/>
+  <line x1="298" y1="264" x2="595" y2="435"/>
+  <line x1="265" y1="283" x2="562" y2="454"/>
+  <line x1="232" y1="302" x2="529" y2="473"/>
+  <line x1="199" y1="321" x2="496" y2="492"/>
+</g>
+<!-- Solar wash -->
+<polygon points="430,188 727,359 496,492 199,321" fill="rgba(26,82,199,0.06)"/>
+<!-- Cell highlights -->
+<polygon points="430,188 463,207 430,226 397,207" fill="rgba(120,170,255,0.12)"/>
+<polygon points="529,245 562,264 529,283 496,264" fill="rgba(120,170,255,0.1)"/>
+<polygon points="298,264 331,283 298,302 265,283" fill="rgba(120,170,255,0.1)"/>
+<polygon points="463,302 496,321 463,340 430,321" fill="rgba(120,170,255,0.09)"/>
+
+<!-- Roof edge glow lines -->
+<line x1="430" y1="188" x2="199" y2="321" stroke="#5a90ff" stroke-width="2.5" opacity="0.65" filter="url(#fBlue)"/>
+<line x1="430" y1="188" x2="727" y2="359" stroke="#5a90ff" stroke-width="2.5" opacity="0.65" filter="url(#fBlue)"/>
+
+<!-- ── CISTERN ON HOUSE ROOF ── -->
+<!-- at (4,4,3.8): base x=430+4*33-4*33=430, y=370+4*19+4*19-3.8*48=370+76+76-182=340
+     top at z=6.0: y=340-2.2*48=340-106=234
+     rx=46, ry=26 -->
+<rect x="384" y="234" width="92" height="106" fill="#132040" stroke="rgba(80,130,200,0.35)" stroke-width="1.2"/>
+<ellipse cx="430" cy="234" rx="46" ry="26" fill="url(#cisternTop)" stroke="rgba(100,170,220,0.8)" stroke-width="1.8"/>
+<ellipse cx="426" cy="231" rx="35" ry="18" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+<ellipse cx="423" cy="229" rx="22" ry="11" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+<ellipse cx="430" cy="340" rx="46" ry="26" fill="#0c1a38" stroke="rgba(80,130,200,0.25)" stroke-width="1"/>
+<!-- Cistern stripes -->
+<line x1="396" y1="234" x2="396" y2="340" stroke="rgba(50,90,170,0.4)" stroke-width="1"/>
+<line x1="416" y1="237" x2="416" y2="340" stroke="rgba(50,90,170,0.4)" stroke-width="1"/>
+<line x1="444" y1="237" x2="444" y2="340" stroke="rgba(50,90,170,0.4)" stroke-width="1"/>
+<line x1="464" y1="234" x2="464" y2="340" stroke="rgba(50,90,170,0.4)" stroke-width="1"/>
+<!-- Pipe down to filters -->
+<path d="M436,340 L444,388 L540,388" stroke="#4a9eff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="542" cy="388" r="4.5" fill="#4a9eff" opacity="0.85"/>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 6: STANDALONE SOLAR PANEL ARRAY
+     (inspired by sketch image 2, right side)
+═══════════════════════════════════════════ -->
+
+<!-- Support posts -->
+<g stroke="rgba(150,200,255,0.7)" stroke-width="3" stroke-linecap="round" fill="none">
+  <line x1="790" y1="465" x2="800" y2="540"/>
+  <line x1="850" y1="445" x2="858" y2="518"/>
+  <line x1="910" y1="435" x2="916" y2="508"/>
+  <line x1="970" y1="425" x2="974" y2="496"/>
+</g>
+<!-- Cross bracing -->
+<g stroke="rgba(100,160,255,0.4)" stroke-width="1.5" fill="none" stroke-dasharray="4,3">
+  <line x1="795" y1="470" x2="858" y2="450"/>
+  <line x1="795" y1="490" x2="858" y2="465"/>
+  <line x1="855" y1="450" x2="916" y2="440"/>
+  <line x1="855" y1="468" x2="916" y2="455"/>
+  <line x1="912" y1="440" x2="974" y2="430"/>
+  <line x1="912" y1="458" x2="974" y2="446"/>
+</g>
+<!-- Horizontal support beam -->
+<line x1="795" y1="460" x2="978" y2="420" stroke="rgba(150,200,255,0.8)" stroke-width="3" stroke-linecap="round"/>
+
+<!-- Solar panel face (tilted parallelogram) -->
+<polygon points="772,390 990,330 1002,408 784,468" fill="url(#panelFace)" stroke="rgba(100,170,255,0.7)" stroke-width="1.8"/>
+
+<!-- Panel grid lines (horizontal) -->
+<g stroke="rgba(80,140,220,0.6)" stroke-width="0.9" fill="none">
+  <line x1="774" y1="401" x2="992" y2="341"/>
+  <line x1="776" y1="412" x2="994" y2="352"/>
+  <line x1="778" y1="423" x2="996" y2="363"/>
+  <line x1="780" y1="434" x2="998" y2="374"/>
+  <line x1="782" y1="445" x2="1000" y2="385"/>
+  <line x1="784" y1="456" x2="1002" y2="396"/>
+</g>
+<!-- Panel grid lines (vertical) -->
+<g stroke="rgba(80,140,220,0.6)" stroke-width="0.9" fill="none">
+  <line x1="808" y1="390" x2="796" y2="468"/>
+  <line x1="844" y1="380" x2="832" y2="458"/>
+  <line x1="880" y1="370" x2="868" y2="448"/>
+  <line x1="916" y1="360" x2="904" y2="438"/>
+  <line x1="952" y1="350" x2="940" y2="428"/>
+  <line x1="988" y1="340" x2="976" y2="418"/>
+</g>
+<!-- Panel surface sheen -->
+<polygon points="772,390 990,330 1002,408 784,468" fill="rgba(100,160,255,0.06)"/>
+<polygon points="808,390 880,370 872,408 800,428" fill="rgba(180,220,255,0.08)"/>
+<!-- Panel glow on edge -->
+<line x1="772" y1="390" x2="990" y2="330" stroke="#5a90ff" stroke-width="2.5" opacity="0.6" filter="url(#fBlue)"/>
+
+<!-- Sun reflection dot on panel -->
+<ellipse cx="900" cy="370" rx="18" ry="8" fill="rgba(245,124,10,0.12)" transform="rotate(-18 900 370)"/>
+<ellipse cx="900" cy="370" rx="8"  ry="3" fill="rgba(255,200,100,0.25)" transform="rotate(-18 900 370)"/>
+
+<!-- Panel shadow on ground -->
+<polygon points="784,468 1002,408 1010,470 792,530" fill="rgba(0,0,0,0.35)"/>
+
+<!-- ── PEOPLE FIGURES (sketch style, near solar array) ── -->
+<g stroke="rgba(200,230,255,0.65)" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="1.8">
+  <!-- Person 1 -->
+  <circle cx="826" cy="488" r="6" fill="rgba(200,220,255,0.15)"/>
+  <line x1="826" y1="494" x2="826" y2="520"/>
+  <line x1="814" y1="504" x2="838" y2="508"/>
+  <line x1="826" y1="520" x2="818" y2="538"/>
+  <line x1="826" y1="520" x2="834" y2="538"/>
+  <!-- Person 2 -->
+  <circle cx="862" cy="484" r="6" fill="rgba(200,220,255,0.15)"/>
+  <line x1="862" y1="490" x2="862" y2="516"/>
+  <line x1="850" y1="500" x2="874" y2="504"/>
+  <line x1="862" y1="516" x2="854" y2="534"/>
+  <line x1="862" y1="516" x2="870" y2="534"/>
+  <!-- Person 3 (pointing up) -->
+  <circle cx="896" cy="480" r="6" fill="rgba(200,220,255,0.15)"/>
+  <line x1="896" y1="486" x2="896" y2="512"/>
+  <line x1="884" y1="494" x2="896" y2="498"/>
+  <line x1="896" y1="498" x2="912" y2="478"/><!-- arm pointing to panel -->
+  <line x1="896" y1="512" x2="888" y2="530"/>
+  <line x1="896" y1="512" x2="904" y2="530"/>
+</g>
+
+<!-- ── ENERGY FLOW LINES (sun → panel → house) ── -->
+<path d="M920,156 Q880,220 880,310 Q880,360 880,410"
+  stroke="#f57c0a" stroke-width="1.5" fill="none" stroke-dasharray="6,5" opacity="0.35"/>
+<circle cx="880" cy="375" r="3" fill="#f57c0a" opacity="0.6"/>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 7: FOREGROUND PALMS
+═══════════════════════════════════════════ -->
+<!-- Left front palm -->
+<g opacity="0.95">
+  <path d="M210,452 Q216,520 224,630" stroke="#0c2410" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <ellipse cx="208" cy="445" rx="48" ry="32" fill="#112e14"/>
+  <ellipse cx="174" cy="456" rx="34" ry="18" fill="#0d2810" transform="rotate(-26 174 456)"/>
+  <ellipse cx="242" cy="449" rx="38" ry="18" fill="#0d2810" transform="rotate(22 242 449)"/>
+  <ellipse cx="206" cy="420" rx="26" ry="40" fill="#0a2010" transform="rotate(7 206 420)" opacity="0.7"/>
+</g>
+
+<!-- Right front palm -->
+<g opacity="0.9">
+  <path d="M1020,458 Q1014,525 1008,630" stroke="#0c2410" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <ellipse cx="1020" cy="451" rx="46" ry="30" fill="#112e14"/>
+  <ellipse cx="988"  cy="461" rx="32" ry="17" fill="#0d2810" transform="rotate(-24 988 461)"/>
+  <ellipse cx="1050" cy="454" rx="36" ry="17" fill="#0d2810" transform="rotate(26 1050 454)"/>
+  <ellipse cx="1018" cy="426" rx="24" ry="38" fill="#0a2010" transform="rotate(-6 1018 426)" opacity="0.7"/>
+</g>
+
+<!-- Ground foliage -->
+<g opacity="0.8">
+  <ellipse cx="300"  cy="568" rx="110" ry="40" fill="#06140a"/>
+  <ellipse cx="170"  cy="548" rx="82"  ry="32" fill="#06140a"/>
+  <ellipse cx="450"  cy="575" rx="90"  ry="35" fill="#07160a"/>
+  <ellipse cx="750"  cy="562" rx="95"  ry="38" fill="#07160a"/>
+  <ellipse cx="980"  cy="555" rx="88"  ry="34" fill="#06140a"/>
+  <ellipse cx="1120" cy="545" rx="75"  ry="30" fill="#06140a"/>
+</g>
+
+<!-- Small shrubs / low plants -->
+<g stroke="rgba(20,80,30,0.7)" stroke-width="1.5" fill="rgba(8,30,12,0.8)">
+  <ellipse cx="370" cy="495" rx="22" ry="14"/>
+  <ellipse cx="350" cy="490" rx="16" ry="10" transform="rotate(-15 350 490)"/>
+  <ellipse cx="388" cy="492" rx="18" ry="11" transform="rotate(12 388 492)"/>
+  <ellipse cx="680" cy="490" rx="22" ry="14"/>
+  <ellipse cx="662" cy="486" rx="16" ry="10" transform="rotate(-14 662 486)"/>
+  <ellipse cx="698" cy="488" rx="18" ry="11" transform="rotate(14 698 488)"/>
+</g>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 8: CALLOUT LABELS
+═══════════════════════════════════════════ -->
+
+<!-- SOLAR array callout (top right) -->
+<line x1="895" y1="358" x2="1050" y2="248" stroke="#f57c0a" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.9" filter="url(#fOrange)"/>
+<circle cx="895" cy="358" r="5" fill="#f57c0a" filter="url(#fOrange)"/>
+<circle cx="1050" cy="248" r="3" fill="#f57c0a" opacity="0.7"/>
+<rect x="1054" y="222" width="130" height="54" rx="8" fill="rgba(245,124,10,0.14)" stroke="#f57c0a" stroke-width="1.3"/>
+<rect x="1054" y="222" width="4"   height="54" rx="2" fill="#f57c0a"/>
+<text x="1068" y="245" font-family="'Anek Latin', sans-serif" font-size="13" fill="#f57c0a" font-weight="800">☀ SOLAR</text>
+<text x="1068" y="262" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.55)">Paneles Fotovoltaicos</text>
+
+<!-- AGUA callout (upper left cistern) -->
+<line x1="384" y1="270" x2="238" y2="188" stroke="#4a9eff" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.9"/>
+<circle cx="384" cy="270" r="5" fill="#4a9eff"/>
+<circle cx="238" cy="188" r="3" fill="#4a9eff" opacity="0.7"/>
+<rect x="76" y="162" width="160" height="54" rx="8" fill="rgba(74,158,255,0.14)" stroke="#4a9eff" stroke-width="1.3"/>
+<rect x="76" y="162" width="4"   height="54" rx="2" fill="#4a9eff"/>
+<text x="90" y="185" font-family="'Anek Latin', sans-serif" font-size="13" fill="#4a9eff" font-weight="800">💧 AGUA</text>
+<text x="90" y="202" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.55)">Cisterna + Filtros</text>
+
+<!-- ANKER callout (right mid) -->
+<line x1="711" y1="408" x2="840" y2="372" stroke="#00843D" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.9"/>
+<circle cx="711" cy="408" r="5" fill="#00843D"/>
+<circle cx="840" cy="372" r="3" fill="#00843D" opacity="0.7"/>
+<rect x="844" y="347" width="148" height="54" rx="8" fill="rgba(0,132,61,0.14)" stroke="#00843D" stroke-width="1.3"/>
+<rect x="844" y="347" width="4"   height="54" rx="2" fill="#00843D"/>
+<text x="858" y="370" font-family="'Anek Latin', sans-serif" font-size="13" fill="#00843D" font-weight="800">⚡ ANKER</text>
+<text x="858" y="387" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.55)">Batería de Respaldo</text>
+
+<!-- ROOFING callout (lower left) -->
+<line x1="440" y1="420" x2="280" y2="395" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.85"/>
+<circle cx="440" cy="420" r="5" fill="#a78bfa"/>
+<circle cx="280" cy="395" r="3" fill="#a78bfa" opacity="0.7"/>
+<rect x="76" y="368" width="200" height="54" rx="8" fill="rgba(167,139,250,0.14)" stroke="#a78bfa" stroke-width="1.3"/>
+<rect x="76" y="368" width="4"   height="54" rx="2" fill="#a78bfa"/>
+<text x="90" y="391" font-family="'Anek Latin', sans-serif" font-size="13" fill="#a78bfa" font-weight="800">🏠 ROOFING</text>
+<text x="90" y="408" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.55)">Techos Certificados</text>
+
+<!-- ═══════════════════════════════════════════
+     LAYER 9: BRAND OVERLAY
+═══════════════════════════════════════════ -->
+
+<!-- Top accent bar -->
+<rect x="0" y="0" width="1200" height="4"
+  fill="url(#topBar)"/>
+<defs>
+  <linearGradient id="topBar" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+    <stop offset="0%"   stop-color="transparent"/>
+    <stop offset="15%"  stop-color="#f57c0a"/>
+    <stop offset="50%"  stop-color="#ff9a2e"/>
+    <stop offset="85%"  stop-color="#f57c0a"/>
+    <stop offset="100%" stop-color="transparent"/>
+  </linearGradient>
+</defs>
+
+<!-- Logo background panel -->
+<rect x="0" y="0" width="320" height="80"
+  fill="rgba(4,9,24,0.7)"/>
+<!-- Logo border bottom + right -->
+<line x1="320" y1="80"  x2="0"   y2="80"  stroke="rgba(26,82,199,0.3)" stroke-width="1"/>
+<line x1="320" y1="0"   x2="320" y2="80"  stroke="rgba(26,82,199,0.3)" stroke-width="1"/>
+<!-- Orange corner accent -->
+<polygon points="0,0 60,0 0,4" fill="#f57c0a" opacity="0.6"/>
+
+<!-- Logo icon -->
+<rect x="28" y="20" width="42" height="42" rx="10"
+  fill="linear-gradient(135deg,#f57c0a,#e06900)"/>
+<rect x="28" y="20" width="42" height="42" rx="10"
+  fill="#f57c0a"/>
+<path d="M49 27L35 37v20h8v-11h12v11h8V37L49 27Z"
+  fill="white" opacity="0.95"/>
+
+<!-- Logo text -->
+<text x="80" y="40" font-family="'Anek Latin', sans-serif" font-size="18" fill="white" font-weight="800" letter-spacing="0.04em">WINDMAR HOME</text>
+<text x="81" y="56" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.42)" letter-spacing="0.16em">PUERTO RICO</text>
+<!-- Tagline line -->
+<line x1="80" y1="62" x2="200" y2="62" stroke="rgba(245,124,10,0.35)" stroke-width="1"/>
+
+<!-- Bottom footer bar -->
+<rect x="0" y="586" width="1200" height="44" fill="rgba(4,9,20,0.92)"/>
+<line x1="0" y1="586" x2="1200" y2="586" stroke="rgba(26,82,199,0.28)" stroke-width="1"/>
+
+<!-- Footer left: tagline -->
+<text x="40" y="612" font-family="'Anek Latin', sans-serif" font-size="13" fill="rgba(255,255,255,0.85)" font-weight="700" letter-spacing="0.02em">Tu Hogar, Independiente y Sostenible.</text>
+
+<!-- Footer product icons row -->
+<g font-family="'DM Sans', sans-serif" font-size="11" font-weight="600" letter-spacing="0.04em">
+  <circle cx="520" cy="608" r="3" fill="#f57c0a"/>
+  <text x="530" y="612" fill="rgba(255,255,255,0.5)">SOLAR</text>
+  <circle cx="600" cy="608" r="3" fill="#4a9eff"/>
+  <text x="610" y="612" fill="rgba(255,255,255,0.5)">AGUA</text>
+  <circle cx="672" cy="608" r="3" fill="#00843D"/>
+  <text x="682" y="612" fill="rgba(255,255,255,0.5)">ANKER</text>
+  <circle cx="754" cy="608" r="3" fill="#a78bfa"/>
+  <text x="764" y="612" fill="rgba(255,255,255,0.5)">ROOFING</text>
+</g>
+
+<!-- Footer right: website -->
+<text x="1160" y="612" font-family="'DM Sans', sans-serif" font-size="12" fill="#f57c0a" font-weight="700" letter-spacing="0.06em" text-anchor="end">windmarhome.com</text>
+
+<!-- Decorative corner element top right -->
+<line x1="1200" y1="0"   x2="1140" y2="0"   stroke="rgba(245,124,10,0.4)" stroke-width="2"/>
+<line x1="1200" y1="0"   x2="1200" y2="60"  stroke="rgba(245,124,10,0.4)" stroke-width="2"/>
+<line x1="1200" y1="0"   x2="1160" y2="40"  stroke="rgba(245,124,10,0.2)" stroke-width="1"/>
+
+<!-- Particles / stars -->
+<g fill="white" opacity="0.3">
+  <circle cx="354" cy="88" r="1.2"/>
+  <circle cx="480" cy="65" r="1.5"/>
+  <circle cx="555" cy="48" r="1"/>
+  <circle cx="620" cy="72" r="1.3"/>
+  <circle cx="658" cy="42" r="1"/>
+  <circle cx="1100" cy="188" r="1.2"/>
+  <circle cx="1155" cy="165" r="1"/>
+</g>
+
+</svg>
+</div>
+
+<span class="hint">Abre en Chrome → Cmd+Shift+P → "Capture full size screenshot" para exportar</span>
+</body>
+</html>
