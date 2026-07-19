@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WindMar Home — Carrusel Sellado de Techo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0e1420;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 100vh; padding: 32px 20px;
+  font-family: 'Barlow', sans-serif;
+}
+
+.carousel-wrapper {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 18px;
+  width: 100%; max-width: 460px;
+}
+
+.nav { display: flex; align-items: center; gap: 16px; }
+.nav-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,0.1); border: none; color: white;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.2); }
+.nav-btn:disabled { opacity: 0.25; cursor: default; }
+.nav-counter { color: rgba(255,255,255,0.55); font-size: 14px; }
+
+/* ── SLIDE BASE ── */
+.slide {
+  width: 100%; aspect-ratio: 4/5;
+  position: relative; overflow: hidden;
+  border-radius: 16px; display: none;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  background: #fff;
+}
+.slide.active { display: flex; flex-direction: column; }
+
+.dot-row { display: flex; gap: 6px; justify-content: center; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.22); transition: all 0.3s; }
+.dot.active { background: #1a52c7; width: 22px; border-radius: 3px; }
+
+/* ── BLUE HEADER ── */
+.hdr { background: #1a52c7; padding: 18px 28px 16px; flex-shrink: 0; }
+.hdr-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 3px;
+}
+.hdr-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px,5vw,28px); font-weight: 900; color: #fff;
+  text-transform: uppercase; line-height: 1.0;
+}
+.hdr-title em { color: #ffb066; font-style: normal; }
+.hdr-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(15px,3.8vw,20px); font-weight: 700;
+  color: rgba(255,255,255,0.85); margin-top: 2px;
+}
+.hdr-sub em { color: #ffb066; font-style: normal; }
+
+/* ── IMAGE ZONE ── */
+.img-zone { flex: 1; position: relative; overflow: hidden; background:#fff; }
+.img-zone img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; object-position: center center;
+}
+
+/* ── TEXT ZONE ── */
+.txt-zone { padding: 16px 28px 18px; flex-shrink: 0; background: #fff; }
+
+/* ── UTILITY ── */
+.tag {
+  display: inline-block; background: rgba(26,82,199,0.08);
+  border: 1.5px solid rgba(26,82,199,0.2); border-radius: 100px;
+  padding: 4px 14px; font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(10px,2.4vw,13px); font-weight: 800; color: #1a52c7;
+  text-transform: uppercase; letter-spacing: 1px; margin-top: 8px;
+}
+.bullet-list { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+.bullet-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-family: 'Barlow', sans-serif; font-size: clamp(14px,3.5vw,17px);
+  font-weight: 600; color: #1a2e5a; line-height: 1.4;
+}
+.bullet-dot { width: 7px; height: 7px; border-radius: 50%; background: #1a52c7; flex-shrink: 0; margin-top: 6px; }
+.bullet-item strong { font-weight: 800; color:#1a52c7; }
+
+.check-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.check-item {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Barlow', sans-serif; font-size: clamp(13px,3.2vw,16px);
+  font-weight: 500; color: #1a2e5a;
+}
+.check-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #1a52c7; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0;
+}
+.check-dot.orange { background: #f57c0a; }
+.check-item strong { font-weight: 700; }
+
+.step-list { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.step-item { display: flex; align-items: flex-start; gap: 10px; }
+.step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #1a52c7; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 13px; font-weight: 900; flex-shrink: 0;
+}
+.step-text {
+  font-family: 'Barlow', sans-serif; font-size: clamp(13px,3.2vw,16px);
+  font-weight: 500; color: #1a2e5a; line-height: 1.4; padding-top: 3px;
+}
+.step-text strong { font-weight: 800; color:#1a52c7; }
+
+.highlight-box {
+  background: rgba(26,82,199,0.07); border: 1.5px solid rgba(26,82,199,0.18);
+  border-radius: 8px; padding: 9px 14px; margin-top: 12px;
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(12px,3vw,15px);
+  font-weight: 800; color: #1a52c7; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Brand badge */
+.brand-badge {
+  position: absolute; bottom: 14px; right: 14px; z-index: 10;
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+  border-radius: 20px; padding: 5px 12px 5px 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+.brand-badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+.brand-badge span {
+  font-family: 'Bebas Neue', sans-serif; font-size: 14px; font-weight: 700;
+  letter-spacing: 0.5px; color: #1a52c7; text-transform: uppercase;
+}
+.brand-badge.light { background: rgba(255,255,255,0.14); }
+.brand-badge.light span { color: #fff; }
+
+/* S1 cover */
+#s1 { background: #fff; }
+.s1-left { padding: 30px 28px 12px; flex-shrink: 0; }
+.s1-right { flex: 1; position: relative; overflow: hidden; }
+.s1-right img { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; height: auto; }
+.s1-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 1.5px; color: #1a52c7; margin-bottom: 12px; text-transform: uppercase;
+}
+.s1-logo em { color: #f57c0a; font-style: normal; }
+.s1-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px,8vw,44px);
+  font-weight: 900; color: #1a52c7; text-transform: uppercase; line-height: 0.95; margin-bottom: 8px;
+}
+.s1-title em { color: #f57c0a; font-style: normal; }
+.s1-sub {
+  font-family: 'Barlow', sans-serif; font-size: clamp(13px,3.2vw,16px);
+  font-weight: 600; color: #475569; line-height: 1.4; margin-bottom: 12px;
+}
+.s1-sub strong { color: #1a52c7; font-weight: 700; }
+.s1-body {
+  font-family: 'Barlow', sans-serif; font-size: clamp(11px,2.7vw,13px);
+  font-weight: 400; color: #64748b; line-height: 1.5;
+}
+
+/* S6 dark CTA */
+#s6 { background: #0a1628; }
+.s6-bg {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(10,22,40,0.92), rgba(12,32,64,0.96)),
+    repeating-linear-gradient(0deg, rgba(126,184,247,0.10) 0 1px, transparent 1px 42px),
+    repeating-linear-gradient(90deg, rgba(126,184,247,0.10) 0 1px, transparent 1px 42px);
+}
+.s6-roof {
+  position:absolute; top:34px; left:50%; transform:translateX(-50%);
+  width:150px; opacity:0.9;
+}
+.s6-content {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 36px 32px; text-align: center;
+}
+.s6-logo {
+  font-family: 'Bebas Neue', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 16px;
+}
+.s6-logo em { color: #ffb066; font-style: normal; }
+.s6-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px,7.2vw,42px);
+  font-weight: 900; color: white; text-transform: uppercase; line-height: 0.98; margin-bottom: 10px;
+}
+.s6-title em { color: #ffb066; font-style: normal; }
+.s6-sub {
+  font-family: 'Barlow', sans-serif; font-size: clamp(13px,3.2vw,16px);
+  font-weight: 400; color: rgba(255,255,255,0.6); line-height: 1.5; margin-bottom: 20px;
+}
+.s6-cta {
+  background: #f57c0a; padding: 13px 30px; border-radius: 8px;
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(18px,4.4vw,24px);
+  font-weight: 900; color: white; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px;
+}
+.s6-checks { display: flex; flex-direction: column; gap: 8px; width: 100%; text-align: left; margin-bottom: 16px; }
+.s6-check {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Barlow', sans-serif; font-size: clamp(12px,3vw,14px);
+  font-weight: 500; color: rgba(255,255,255,0.75);
+}
+.s6-check-dot {
+  width: 16px; height: 16px; border-radius: 50%; background: rgba(245,124,10,0.9);
+  display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; flex-shrink: 0;
+}
+.s6-url { font-family: 'Barlow', sans-serif; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="carousel-wrapper">
+
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>&#8592;</button>
+    <span class="nav-counter" id="counter">1 / 6</span>
+    <button class="nav-btn" id="nextBtn" onclick="go(1)">&#8594;</button>
+  </div>
+
+  <!-- ═══ SLIDE 1 · PORTADA ═══ -->
+  <div class="slide active" id="s1">
+    <div class="s1-left">
+      <div class="s1-logo">WindMar <em>Home</em></div>
+      <div class="s1-title">Un sellado<br>que <em>sí dura</em></div>
+      <div class="s1-sub">empieza por hacerlo bien <strong>desde la base</strong></div>
+      <div class="s1-body">El secreto no es lo que se aplica encima, sino cómo se prepara el techo antes de sellarlo.</div>
+      <div class="tag" style="margin-top:14px;">Sellado de techo</div>
+    </div>
+    <div class="s1-right">
+      <img src="img/blueprint_roof_house.svg" alt="Techo WindMar Home">
+    </div>
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2 · DIFERENCIADOR ═══ -->
+  <div class="slide" id="s2">
+    <div class="hdr">
+      <div class="hdr-eyebrow">Lo que nos hace diferentes</div>
+      <div class="hdr-title">Somos la única compañía que <em>remueve</em> el sellado viejo.</div>
+    </div>
+    <div class="txt-zone">
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><span>La mayoría sella <strong>por encima</strong> de lo que ya está gastado</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Nosotros lo <strong>retiramos primero</strong>, hasta la base</span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Un servicio que <strong>solo encuentras en WindMar Home</strong></span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.6;">
+      <img src="img/blueprint_roof_layers.svg" alt="Remoción de sellado">
+    </div>
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3 · QUÉ ES LA REMOCIÓN ═══ -->
+  <div class="slide" id="s3">
+    <div class="hdr">
+      <div class="hdr-eyebrow">El servicio</div>
+      <div class="hdr-title">¿Qué es una <em>remoción?</em></div>
+    </div>
+    <div class="txt-zone">
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Retiramos el <strong>sellado viejo y desgastado</strong></span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Dejamos una <strong>superficie limpia y firme</strong></span></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><span>Lista para recibir un <strong>sellado nuevo de verdad</strong></span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.6;">
+      <img src="img/blueprint_roof_layers.svg" alt="Superficie limpia">
+    </div>
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4 · POR QUÉ IMPORTA ═══ -->
+  <div class="slide" id="s4">
+    <div class="hdr">
+      <div class="hdr-eyebrow">Por qué importa</div>
+      <div class="hdr-title">La base lo <em>cambia todo.</em></div>
+    </div>
+    <div class="txt-zone">
+      <div class="check-list">
+        <div class="check-item"><div class="check-dot">✓</div><span>El sellado nuevo <strong>se adhiere mejor</strong></span></div>
+        <div class="check-item"><div class="check-dot">✓</div><span>Protege <strong>de verdad</strong>, no solo por encima</span></div>
+        <div class="check-item"><div class="check-dot">✓</div><span>Un trabajo que dura <strong>años, no meses</strong></span></div>
+        <div class="check-item"><div class="check-dot orange">✓</div><span>Tu techo queda <strong>como nuevo</strong></span></div>
+      </div>
+    </div>
+    <div class="img-zone" style="flex:1.4;">
+      <img src="img/blueprint_roof_house.svg" alt="Techo protegido">
+    </div>
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5 · PROCESO ═══ -->
+  <div class="slide" id="s5">
+    <div class="hdr">
+      <div class="hdr-eyebrow">Nuestro proceso</div>
+      <div class="hdr-title">Así lo hacemos <em>bien.</em></div>
+    </div>
+    <div class="txt-zone">
+      <div class="step-list">
+        <div class="step-item"><div class="step-num">1</div><div class="step-text">Evaluamos tu techo <strong>sin costo</strong></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-text">Removemos el <strong>sellado anterior</strong></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-text">Preparamos la <strong>superficie</strong></div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-text">Aplicamos el <strong>sistema nuevo</strong></div></div>
+      </div>
+      <div class="highlight-box">Un solo equipo, de principio a fin</div>
+    </div>
+    <div class="img-zone" style="flex:1.2;">
+      <img src="img/blueprint_roof_house.svg" alt="Proceso WindMar Home">
+    </div>
+    <div class="brand-badge">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#1a52c7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6 · CTA ═══ -->
+  <div class="slide" id="s6">
+    <div class="s6-bg"></div>
+    <svg class="s6-roof" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#ffb066" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#7eb8f7" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="s6-content">
+      <div class="s6-title">¿Tu techo necesita más que una <em>mano encima?</em></div>
+      <div class="s6-sub">Te visitamos gratis, sin compromiso.</div>
+      <div class="s6-cta">Comenta TECHO</div>
+      <div class="s6-checks">
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Evaluación 100% gratis</div>
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Remoción incluida — solo con nosotros</div>
+        <div class="s6-check"><div class="s6-check-dot">✓</div>Financiamiento disponible</div>
+      </div>
+      <div class="s6-url">windmarhome.com</div>
+    </div>
+    <div class="brand-badge light">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 L50 20 L90 55" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 52 L22 82 L78 82 L78 52" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>WindMar Home</span>
+    </div>
+  </div>
+
+  <div class="dot-row" id="dotRow"></div>
+</div>
+
+<script>
+  let cur = 1;
+  const total = 6;
+  function buildDots() {
+    const row = document.getElementById('dotRow');
+    row.innerHTML = '';
+    for (let i = 1; i <= total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === cur ? ' active' : '');
+      row.appendChild(d);
+    }
+  }
+  function go(dir) {
+    document.getElementById('s' + cur).classList.remove('active');
+    cur = Math.max(1, Math.min(total, cur + dir));
+    document.getElementById('s' + cur).classList.add('active');
+    document.getElementById('counter').textContent = cur + ' / ' + total;
+    document.getElementById('prevBtn').disabled = cur === 1;
+    document.getElementById('nextBtn').disabled = cur === total;
+    buildDots();
+  }
+  buildDots();
+  (function(){ var h=parseInt(location.hash.replace('#','')); if(h>=1&&h<=total){ document.getElementById('s1').classList.remove('active'); cur=h; document.getElementById('s'+cur).classList.add('active'); document.getElementById('counter').textContent=cur+' / '+total; document.getElementById('prevBtn').disabled=cur===1; document.getElementById('nextBtn').disabled=cur===total; buildDots(); } })();
+</script>
+</body>
+</html>

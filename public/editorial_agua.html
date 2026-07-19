@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Editorial — Agua en el hogar · WindMar Home</title>
+<!-- Adobe Fonts (Typekit) -->
+<link rel="stylesheet" href="https://use.typekit.net/wha3std.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #e9e7e1; padding: 88px 28px 60px; font-family: "source-sans-3", sans-serif; }
+
+  /* ── Editor toolbar (pantalla, se oculta al imprimir) ── */
+  .toolbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; gap: 10px;
+    background: #0b2d48; color: #fff; padding: 12px 22px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  }
+  .toolbar .tb-title { font-weight: 700; letter-spacing: 0.5px; font-size: 14px; margin-right: auto; }
+  .toolbar .tb-title small { display: block; font-weight: 400; font-size: 11px; color: #9fc0dd; letter-spacing: 0.3px; }
+  .tb-btn {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.4px;
+    padding: 9px 16px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08); color: #fff; transition: all .15s;
+  }
+  .tb-btn:hover { background: rgba(255,255,255,0.18); }
+  .tb-btn.primary { background: #f5821f; border-color: #f5821f; color: #0b2d48; }
+  .tb-btn.primary:hover { background: #ff922f; }
+  .tb-btn.active { background: #3f7fc4; border-color: #3f7fc4; color: #fff; }
+  .tb-hint { font-size: 11px; color: #9fc0dd; }
+
+  .stage { display: flex; justify-content: center; align-items: flex-start; }
+
+  .page {
+    position: relative;
+    width: 1240px;
+    min-height: 1748px;
+    background: #fbfaf6;
+    overflow: visible;
+    padding: 46px 56px 54px;
+    color: #14202b;
+    box-shadow: 0 18px 60px rgba(11,45,72,0.18);
+  }
+
+  /* highlight editable zones only in edit mode */
+  .page.editing [contenteditable="true"] { outline: 1px dashed rgba(63,127,196,0.55); outline-offset: 3px; border-radius: 2px; }
+  .page.editing [contenteditable="true"]:focus { outline: 2px solid #3f7fc4; background: rgba(63,127,196,0.06); }
+  .page.editing .mid-art img { cursor: pointer; outline: 1px dashed rgba(245,130,31,0.6); outline-offset: 4px; }
+
+  /* organize (reorder) mode */
+  .page.organizing .body-wrap > * { cursor: grab; outline: 1px dashed rgba(11,45,72,0.4); outline-offset: 4px; border-radius: 3px; position: relative; }
+  .page.organizing .body-wrap > *:hover { background: rgba(63,127,196,0.07); }
+  .page.organizing .body-wrap > *.dragging { opacity: 0.4; }
+  .page.organizing .body-wrap > *.drop-target { box-shadow: 0 -3px 0 #f5821f; }
+  .org-ctrl { position: absolute; top: -10px; right: -6px; display: flex; gap: 3px; z-index: 30; }
+  .org-ctrl button { width: 26px; height: 26px; border: 1px solid #1D429B; background: #fff; color: #1D429B; border-radius: 6px; font-size: 13px; line-height: 1; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.18); padding: 0; }
+  .org-ctrl button:hover { background: #1D429B; color: #fff; }
+  .org-ctrl button:disabled { opacity: 0.3; cursor: default; }
+  @media print { .org-ctrl { display: none !important; } }
+
+  /* move (arrastrar imagen libremente) mode */
+  .page.moving .mid-art { cursor: grab; outline: 1px dashed rgba(245,130,31,0.75); outline-offset: 4px; }
+  .page.moving .mid-art.grabbing { cursor: grabbing; }
+  .mv-handle { position: absolute; right: -8px; bottom: 18px; width: 18px; height: 18px; background: #f5821f; border: 2px solid #fff; border-radius: 50%; cursor: nwse-resize; z-index: 41; box-shadow: 0 1px 5px rgba(0,0,0,0.35); }
+
+  /* ── Masthead ── */
+  .masthead { border-top: 3px solid #0b2d48; border-bottom: 1px solid #0b2d48; padding: 9px 0 8px; display: flex; align-items: center; justify-content: space-between; }
+  .mast-left { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #0b2d48; }
+  .mast-center { font-family: "playfair-display", serif; font-weight: 900; font-size: 26px; letter-spacing: 1px; color: #0b2d48; }
+  .mast-right { font-family: "source-sans-3", sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 1px; color: #5a6b78; text-align: right; }
+
+  .kicker-row { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .kicker { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #f5821f; }
+  .kicker-line { flex: 1; height: 1px; background: #d7d2c6; }
+  .kicker-tag { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #5a6b78; }
+
+  /* ── Headline ── */
+  .headline { font-family: "playfair-display", serif; font-weight: 900; font-size: 64px; line-height: 1.0; letter-spacing: -0.5px; color: #14202b; margin-top: 14px; }
+  .headline .hl-blue { color: #3f7fc4; }
+  .deck { font-family: "source-serif-4", serif; font-weight: 400; font-style: italic; font-size: 23px; line-height: 1.4; color: #3a4b58; margin-top: 18px; max-width: 1000px; }
+
+  .byline { font-family: "source-sans-3", sans-serif; font-size: 13px; letter-spacing: 0.5px; color: #5a6b78; margin-top: 16px; border-bottom: 2px solid #0b2d48; padding-bottom: 14px; }
+  .byline b { color: #0b2d48; font-weight: 600; }
+
+  /* ── Ilustración vertical EN MEDIO del texto (cruza las columnas, sin fondo, centrada) ── */
+  .mid-art { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 6px 0 16px; text-align: center; }
+  .mid-art img { display: block; width: 100%; height: auto; max-width: 100%; margin: 0 auto; border-radius: 3px; }
+  .mid-art figcaption { font-family: "source-sans-3", sans-serif; font-size: 11.5px; color: #5a6b78; margin-top: 8px; letter-spacing: 0.3px; text-align: center; line-height: 1.45; }
+  .mid-art figcaption b { color: #0b2d48; font-weight: 600; }
+
+  /* ── Retrato David Fonseca (dentro de columna) ── */
+  .fonseca-art { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 6px 0 16px; text-align: center; }
+  .fonseca-art img { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .fonseca-art figcaption { font-family: "source-sans-3", sans-serif; font-size: 12px; color: #5a6b78; margin-top: 7px; text-align: center; line-height: 1.35; }
+  .fonseca-art figcaption b { color: #0b2d48; font-weight: 600; }
+  .page.editing .fonseca-art img { cursor: pointer; outline: 1px dashed rgba(245,130,31,0.6); outline-offset: 4px; }
+
+  /* ── Línea de productos ── */
+  .products-art { -webkit-column-span: all; column-span: all; margin: 14px 0 18px; padding: 10px 0 4px; text-align: center; border-top: 1px solid #ddd8cc; border-bottom: 1px solid #ddd8cc; }
+  .products-art .products-title { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #0b2d48; margin-bottom: 8px; }
+  .products-art img { display: inline-block; width: 100%; height: auto; max-width: 100%; }
+  .products-art figcaption { font-family: "source-sans-3", sans-serif; font-size: 12px; color: #5a6b78; margin-top: 8px; letter-spacing: 0.3px; text-align: center; max-width: 720px; margin-left: auto; margin-right: auto; }
+  .products-art figcaption b { color: #0b2d48; font-weight: 600; }
+  .page.editing .products-art img { cursor: pointer; outline: 1px dashed rgba(245,130,31,0.6); outline-offset: 4px; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 6px auto 4px; max-width: 760px; }
+  .prod-card { border: 1px solid #e3ddd0; border-radius: 4px; background: #fff; padding: 10px 8px 9px; display: flex; flex-direction: column; align-items: center; break-inside: avoid; }
+  .prod-card img { width: 100%; height: 132px; object-fit: contain; display: block; }
+  .prod-card .pname { font-family: "source-sans-3", sans-serif; font-size: 10.5px; color: #0b2d48; font-weight: 600; margin-top: 8px; text-align: center; line-height: 1.3; letter-spacing: 0.2px; }
+
+  /* ── Productos flotantes alrededor del texto ── */
+  .prod-float { width: 120px; border: 1px solid #e3ddd0; border-radius: 4px; background: #fff; padding: 8px 6px 7px; text-align: center; break-inside: avoid; -webkit-column-break-inside: avoid; }
+  .prod-float.right { float: right; margin: 3px 0 10px 15px; }
+  .prod-float.left { float: left; margin: 3px 15px 10px 0; }
+  .prod-float img { width: 100%; height: 90px; object-fit: contain; display: block; }
+  .prod-float .pname { font-family: "source-sans-3", sans-serif; font-size: 9.5px; color: #0b2d48; font-weight: 600; margin-top: 6px; text-align: center; line-height: 1.28; letter-spacing: 0.2px; }
+
+  /* ── Body columns ── */
+  .body-wrap { margin-top: 26px; column-count: 3; column-gap: 34px; column-rule: 1px solid #ddd8cc; }
+  /* Al editar: una sola columna para que el cursor entre en todo el texto (contenteditable + columnas CSS falla en Safari). Vuelve a 3 columnas al salir. */
+  .page.editing .body-wrap { -webkit-column-count: 1; -moz-column-count: 1; column-count: 1; column-rule: none; max-width: 720px; }
+  .body-wrap p { font-family: "source-serif-4", serif; font-weight: 400; font-size: 16px; line-height: 1.62; color: #24313c; text-align: justify; margin-bottom: 13px; -webkit-column-break-inside: avoid; }
+  .body-wrap p.lead::first-letter { font-family: "playfair-display", serif; font-weight: 900; font-size: 78px; line-height: 0.72; float: left; padding: 8px 10px 0 0; color: #f5821f; }
+  .subhead { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #0b2d48; margin: 6px 0 9px; -webkit-column-break-after: avoid; }
+
+  .pullquote { break-inside: avoid; -webkit-column-break-inside: avoid; margin: 8px 0 16px; padding: 16px 0 14px; border-top: 2px solid #f5821f; border-bottom: 1px solid #d7d2c6; }
+  .pullquote p { font-family: "playfair-display", serif; font-style: italic; font-weight: 700; font-size: 22px; line-height: 1.28; color: #0b2d48; text-align: left; }
+  .pullquote cite { display: block; font-family: "source-sans-3", sans-serif; font-style: normal; font-weight: 600; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: #5a6b78; margin-top: 10px; }
+
+  /* ── Footer CTA ── */
+  .cta { position: relative; margin: 30px 0 6px; height: 96px; background: #0b2d48; border-radius: 6px; display: flex; align-items: center; justify-content: space-between; padding: 0 34px; }
+  .cta-txt { color: #fff; }
+  .cta-txt .t1 { font-family: "playfair-display", serif; font-weight: 700; font-size: 24px; }
+  .cta-txt .t2 { font-family: "source-sans-3", sans-serif; font-weight: 400; font-size: 14px; color: #bcd2e6; margin-top: 3px; letter-spacing: 0.3px; }
+  .cta-btn { font-family: "source-sans-3", sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; color: #0b2d48; background: #f5821f; padding: 14px 26px; border-radius: 4px; }
+
+  /* ── Print / PDF ── */
+  @media print {
+    html, body { background: #fff; padding: 0; margin: 0; }
+    .toolbar { display: none !important; }
+    .stage { display: block; margin: 0; }
+    /* Fuerza exactamente UNA página del tamaño del lienzo (ratio A4) */
+    .page { box-shadow: none; margin: 0; width: 1240px; height: 1748px; min-height: 1748px; overflow: hidden; page-break-after: avoid; page-break-inside: avoid; }
+    @page { size: 1240px 1748px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- EDITOR TOOLBAR -->
+  <div class="toolbar">
+    <div class="tb-title">Editorial · Agua en el hogar
+      <small>WindMar Studio — edítalo aquí mismo</small>
+    </div>
+    <span class="tb-hint" id="hint">Activa “Editar” y haz clic en cualquier texto o imagen</span>
+    <button class="tb-btn" id="btnEdit" onclick="toggleEdit()">✎ Editar</button>
+    <button class="tb-btn" id="btnOrganize" onclick="toggleOrganize()">↕ Organizar</button>
+    <button class="tb-btn" id="btnMove" onclick="toggleMove()">✥ Mover</button>
+    <button class="tb-btn" onclick="removeBgHero()">🪄 Quitar fondo</button>
+    <button class="tb-btn" onclick="window.print()">⤓ Descargar PDF</button>
+    <button class="tb-btn primary" onclick="saveHtml()">💾 Guardar HTML</button>
+  </div>
+
+  <div class="stage">
+  <div class="page" id="page">
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="mast-left" data-edit>Bienestar&nbsp;·&nbsp;El&nbsp;Hogar</div>
+      <div class="mast-center" data-edit>EL HOGAR AL DÍA</div>
+      <div class="mast-right" data-edit>Reportaje especial · WindMar Home</div>
+    </div>
+
+    <div class="kicker-row">
+      <div class="kicker" data-edit>Agua &amp; Tranquilidad</div>
+      <div class="kicker-line"></div>
+      <div class="kicker-tag" data-edit>Soluciones para el hogar</div>
+    </div>
+
+    <!-- HEADLINE -->
+    <h1 class="headline" data-edit><span class="hl-blue">Quedarse sin agua:</span> una preocupación que afecta la tranquilidad del hogar</h1>
+    <p class="deck" data-edit>WindMar Home ofrece soluciones para enfrentar interrupciones del servicio, mejorar la calidad del agua y garantizar el abastecimiento diario mediante sistemas adaptados a las necesidades de cada familia.</p>
+
+    <div class="byline" data-edit>Por <b>Redacción WindMar Home</b> &nbsp;·&nbsp; Con <b>David Fonseca</b>, gerente de ventas &nbsp;·&nbsp; Bienestar en el hogar</div>
+
+    <!-- BODY -->
+    <div class="body-wrap">
+      <p class="lead" data-edit>Pocas cosas alteran la calma de un hogar como abrir la llave y que no salga agua. Sucede sin avisar: una avería, un mantenimiento, un evento atmosférico. Y de repente, cocinar, bañarse o simplemente lavarse las manos se vuelve un problema para toda la familia.</p>
+
+      <p data-edit>La buena noticia es que hoy no hay que vivir pendiente del servicio. Existen sistemas pensados para que tu casa guarde su propia reserva y siga funcionando con normalidad, aunque afuera el suministro se detenga por horas o por días.</p>
+
+      <div class="subhead" data-edit>Una reserva que te respalda</div>
+      <div class="prod-float right"><img src="img/w_hercules_600.png" alt="Cisterna Hercules 600 galones" /><div class="pname" data-edit>Cisterna Hercules · 600 gal</div></div>
+      <p data-edit>El corazón de la solución es la cisterna: un depósito que almacena agua limpia y la mantiene lista para cuando la necesites. Combinada con una bomba de presión, devuelve a cada llave el mismo flujo constante de siempre, sin bajones ni sorpresas.</p>
+
+      <div class="prod-float left"><img src="img/w_ecotake_500.png" alt="Cisterna EcoTake 500 compacta" /><div class="pname" data-edit>Cisterna EcoTake · 500 gal</div></div>
+      <div class="prod-float right"><img src="img/w_tank_150.png" alt="Tanque de reserva 150 galones" /><div class="pname" data-edit>Tanque de reserva · 150 gal</div></div>
+
+      <p data-edit>“La idea es sencilla: que la familia no tenga que cambiar su rutina cuando falta el servicio”, explica David Fonseca, gerente de ventas de WindMar Home. “Nosotros tenemos el agua lista para darle a tu sistema; tú solo abres la llave.”</p>
+
+      <figure class="mid-art">
+        <img id="heroImg" src="img/agua_sistema_editorial.png" width="512" height="821" alt="Sistema de agua WindMar: la cisterna guarda una reserva, la bomba y el sistema de purificación la envían —limpia y con presión— a cada llave del hogar" />
+        <figcaption data-edit><b>Cómo funciona.</b> La cisterna guarda una reserva; la bomba y el sistema de purificación mantienen el agua llegando —limpia y con presión— a cada llave del hogar, aunque el servicio se interrumpa.</figcaption>
+      </figure>
+
+      <div class="pullquote">
+        <p data-edit>“Que la familia no tenga que cambiar su rutina cuando falta el servicio.”</p>
+        <cite data-edit>David Fonseca · WindMar Home</cite>
+      </div>
+
+      <div class="subhead" data-edit>Agua que también cuida</div>
+      <div class="prod-float right"><img src="img/w_osmosis.png" alt="Sistema de ósmosis inversa" /><div class="pname" data-edit>Ósmosis inversa · agua para beber</div></div>
+      <div class="prod-float left"><img src="img/w_ablandador.png" alt="Ablandador y filtro de agua" /><div class="pname" data-edit>Ablandador / filtro de agua</div></div>
+      <p data-edit>No se trata solo de tener agua, sino de que sea agua de calidad. Los sistemas de purificación reducen sedimentos, sabores y olores, y protegen tus electrodomésticos y tuberías. Es agua más confiable para beber, cocinar y para la piel de toda la familia.</p>
+
+      <div class="prod-float right"><img src="img/w_uv_viqua.png" alt="Esterilizador UV Viqua Sterilight" /><div class="pname" data-edit>Esterilizador UV · Viqua</div></div>
+      <div class="prod-float left"><img src="img/w_calentador_solar.png" alt="Calentador solar de agua" /><div class="pname" data-edit>Calentador solar de agua</div></div>
+      <p data-edit>Cada hogar es distinto, así que la instalación se adapta a cuántos viven en casa, al espacio disponible y al consumo diario. No es un paquete genérico: es una solución hecha a la medida de tu familia.</p>
+
+      <div class="subhead" data-edit>Un paso fácil de dar</div>
+      <p data-edit>Todo empieza con una evaluación gratuita en la que un especialista revisa tu hogar y te recomienda la mejor opción, sin compromiso. Y con opciones de financiamiento accesibles, cuidar el agua de tu casa deja de ser un gasto inalcanzable para convertirse en una inversión en tranquilidad.</p>
+
+      <p data-edit>Porque al final, tener agua no es un lujo: es la base de la vida diaria. Y con el sistema correcto, esa base nunca te va a faltar.</p>
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="cta">
+      <div class="cta-txt">
+        <div class="t1" data-edit>Evaluación gratis para tu hogar</div>
+        <div class="t2" data-edit>Un especialista te visita, mide tu consumo y te recomienda la solución ideal — sin compromiso.</div>
+      </div>
+      <div class="cta-btn" data-edit>Agenda hoy · windmarhome.com</div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- hidden file input for swapping the illustration -->
+  <input type="file" id="imgPicker" accept="image/*" style="display:none" />
+  <!-- hidden file input for swapping David Fonseca's photo -->
+  <input type="file" id="imgPickerDavid" accept="image/*" style="display:none" />
+  <!-- hidden file input for swapping the products illustration -->
+  <input type="file" id="imgPickerProducts" accept="image/*" style="display:none" />
+
+  <script>
+    var editing = false;
+    var page = document.getElementById('page');
+    var editables = page.querySelectorAll('[data-edit]');
+
+    function toggleEdit() {
+      if (!editing) { if (organizing) toggleOrganize(); if (moving) toggleMove(); } // un solo modo a la vez
+      editing = !editing;
+      var btn = document.getElementById('btnEdit');
+      page.classList.toggle('editing', editing);
+      editables.forEach(function (el) {
+        if (editing) el.setAttribute('contenteditable', 'true');
+        else el.removeAttribute('contenteditable');
+      });
+      btn.classList.toggle('active', editing);
+      btn.textContent = editing ? '✓ Editando' : '✎ Editar';
+      document.getElementById('hint').textContent = editing
+        ? 'Haz clic en cualquier texto para editarlo · clic en la imagen para reemplazarla'
+        : 'Activa “Editar” y haz clic en cualquier texto o imagen';
+    }
+
+    // Swap the illustration by clicking it while editing.
+    var heroImg = document.getElementById('heroImg');
+    var picker = document.getElementById('imgPicker');
+    heroImg.addEventListener('click', function () {
+      if (editing) picker.click();
+    });
+    picker.addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) { heroImg.src = ev.target.result; };
+      reader.readAsDataURL(file);
+    });
+
+    // Swap David Fonseca's photo by clicking it while editing.
+    var davidImg = document.getElementById('davidImg');
+    var pickerDavid = document.getElementById('imgPickerDavid');
+    if (davidImg && pickerDavid) {
+      davidImg.addEventListener('click', function () {
+        if (editing) pickerDavid.click();
+      });
+      pickerDavid.addEventListener('change', function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (ev) { davidImg.src = ev.target.result; davidImg.removeAttribute('width'); davidImg.removeAttribute('height'); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Swap the products illustration by clicking it while editing.
+    var productsImg = document.getElementById('productsImg');
+    var pickerProducts = document.getElementById('imgPickerProducts');
+    if (productsImg && pickerProducts) {
+      productsImg.addEventListener('click', function () {
+        if (editing) pickerProducts.click();
+      });
+      pickerProducts.addEventListener('change', function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (ev) { productsImg.src = ev.target.result; productsImg.removeAttribute('width'); productsImg.removeAttribute('height'); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── Hint helper (mensaje temporal en la barra) ──
+    var hintEl = document.getElementById('hint');
+    var hintTimer;
+    function baseHint() {
+      return organizing ? 'Usa ▲ ▼ para subir o bajar cada bloque de texto'
+        : editing ? 'Haz clic en cualquier texto para editarlo · clic en la imagen para reemplazarla'
+        : 'Activa “Editar” y haz clic en cualquier texto o imagen';
+    }
+    function flashHint(msg) {
+      hintEl.textContent = msg;
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () { hintEl.textContent = baseHint(); }, 2600);
+    }
+
+    // ── OPCIÓN 1: Quitar fondo (muestrea el color de las esquinas) ──
+    // Detecta el color de fondo en las 4 esquinas y lo vuelve transparente,
+    // sea blanco, hueso, gris o un color sólido. Con borde suavizado (feather).
+    function removeBgHero(tol) {
+      tol = (tol == null) ? 46 : tol;      // tolerancia de color (sube si queda fondo)
+      var soft = tol * 1.5;                 // suavizado del borde
+      var img = heroImg;
+      function process() {
+        try {
+          var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+          if (!w || !h) { flashHint('La imagen aún no cargó, intenta de nuevo.'); return; }
+          var c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          var ctx = c.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var d, p;
+          try { d = ctx.getImageData(0, 0, w, h); p = d.data; }
+          catch (secErr) { flashHint('No puedo leer esta imagen (origen externo). Súbela desde tu equipo.'); return; }
+
+          // color de fondo = promedio de las 4 esquinas
+          function corner(x, y) { var i = (y * w + x) * 4; return [p[i], p[i + 1], p[i + 2]]; }
+          var cs = [corner(0, 0), corner(w - 1, 0), corner(0, h - 1), corner(w - 1, h - 1)];
+          var br = 0, bgc = 0, bb = 0;
+          cs.forEach(function (q) { br += q[0]; bgc += q[1]; bb += q[2]; });
+          br /= 4; bgc /= 4; bb /= 4;
+
+          var changed = 0, opaque = 0;
+          for (var i = 0; i < p.length; i += 4) {
+            if (p[i + 3] === 0) continue;
+            opaque++;
+            var dr = p[i] - br, dg = p[i + 1] - bgc, db = p[i + 2] - bb;
+            var dist = Math.sqrt(dr * dr + dg * dg + db * db);
+            if (dist <= tol) { p[i + 3] = 0; changed++; }
+            else if (dist < tol + soft) {
+              var a = Math.round(255 * (dist - tol) / soft);
+              if (a < p[i + 3]) { p[i + 3] = a; changed++; }
+            }
+          }
+          if (opaque > 0 && changed / opaque < 0.002) {
+            flashHint('Esta imagen ya no tiene fondo sólido que quitar.');
+            return;
+          }
+          ctx.putImageData(d, 0, 0);
+          img.src = c.toDataURL('image/png');
+          flashHint('Fondo eliminado ✓');
+        } catch (err) {
+          flashHint('No pude procesar la imagen.');
+        }
+      }
+      if (img.complete && (img.naturalWidth || img.width)) process();
+      else img.addEventListener('load', process, { once: true });
+    }
+
+    // ── OPCIÓN 3: Mover (arrastrar la imagen libremente por la página) ──
+    var moving = false;
+    var fig = heroImg.closest('.mid-art');
+    var mvHandle = null;
+
+    function startDrag(e) {
+      if (!moving || e.target === mvHandle) return;
+      e.preventDefault();
+      var sx = e.clientX, sy = e.clientY;
+      var sl = parseFloat(fig.style.left) || 0, st = parseFloat(fig.style.top) || 0;
+      fig.classList.add('grabbing');
+      function mv(ev) { fig.style.left = (sl + ev.clientX - sx) + 'px'; fig.style.top = (st + ev.clientY - sy) + 'px'; }
+      function up() { document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); fig.classList.remove('grabbing'); }
+      document.addEventListener('pointermove', mv);
+      document.addEventListener('pointerup', up);
+    }
+    function startResize(e) {
+      if (!moving) return;
+      e.preventDefault(); e.stopPropagation();
+      var sx = e.clientX;
+      var sw = parseFloat(fig.style.width) || fig.getBoundingClientRect().width;
+      function mv(ev) { fig.style.width = Math.max(120, sw + (ev.clientX - sx)) + 'px'; }
+      function up() { document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); }
+      document.addEventListener('pointermove', mv);
+      document.addEventListener('pointerup', up);
+    }
+    function toggleMove() {
+      if (!moving) { if (editing) toggleEdit(); if (organizing) toggleOrganize(); }
+      moving = !moving;
+      var btn = document.getElementById('btnMove');
+      page.classList.toggle('moving', moving);
+      if (moving) {
+        // La primera vez, saca la figura del flujo y colócala sobre la página en su lugar actual.
+        if (fig.style.position !== 'absolute') {
+          var pr = page.getBoundingClientRect();
+          var ir = heroImg.getBoundingClientRect(); // tamaño real de la imagen, no de la figura ancha
+          fig.style.width = ir.width + 'px';
+          fig.style.left = (ir.left - pr.left) + 'px';
+          fig.style.top = (ir.top - pr.top) + 'px';
+          fig.style.margin = '0';
+          fig.style.position = 'absolute';
+          fig.style.zIndex = '40';
+          heroImg.style.height = 'auto';
+          heroImg.style.width = '100%';
+          page.appendChild(fig); // contenedor posicionado = .page
+        }
+        if (!mvHandle) { mvHandle = document.createElement('div'); mvHandle.className = 'mv-handle'; mvHandle.addEventListener('pointerdown', startResize); }
+        fig.appendChild(mvHandle);
+        fig.addEventListener('pointerdown', startDrag);
+        hintEl.textContent = 'Arrastra la imagen para moverla · punto naranja para cambiar el tamaño';
+      } else {
+        fig.removeEventListener('pointerdown', startDrag);
+        if (mvHandle && mvHandle.parentNode) mvHandle.parentNode.removeChild(mvHandle);
+        hintEl.textContent = baseHint();
+      }
+      btn.classList.toggle('active', moving);
+      btn.textContent = moving ? '✓ Moviendo' : '✥ Mover';
+    }
+
+    // ── OPCIÓN 2: Organizar (subir/bajar bloques con botones ▲▼) ──
+    // El cuerpo está en columnas (layout de periódico), donde el arrastre nativo
+    // es poco fiable. En su lugar, cada bloque muestra ▲▼ para reordenarlo.
+    var organizing = false;
+    function bodyBlocks() { return Array.prototype.slice.call(page.querySelectorAll('.body-wrap > *')); }
+    function moveBlock(el, dir) {
+      if (dir < 0 && el.previousElementSibling) {
+        el.parentNode.insertBefore(el, el.previousElementSibling);
+      } else if (dir > 0 && el.nextElementSibling) {
+        el.parentNode.insertBefore(el.nextElementSibling, el);
+      }
+      refreshOrgControls();
+    }
+    function clearOrgControls() {
+      Array.prototype.slice.call(page.querySelectorAll('.org-ctrl')).forEach(function (c) { c.remove(); });
+    }
+    function refreshOrgControls() {
+      clearOrgControls();
+      if (!organizing) return;
+      var blocks = bodyBlocks();
+      blocks.forEach(function (el, i) {
+        var ctrl = document.createElement('div');
+        ctrl.className = 'org-ctrl';
+        ctrl.setAttribute('contenteditable', 'false');
+        var up = document.createElement('button'); up.type = 'button'; up.textContent = '▲'; up.title = 'Subir';
+        var down = document.createElement('button'); down.type = 'button'; down.textContent = '▼'; down.title = 'Bajar';
+        if (i === 0) up.disabled = true;
+        if (i === blocks.length - 1) down.disabled = true;
+        up.addEventListener('click', function (e) { e.stopPropagation(); moveBlock(el, -1); });
+        down.addEventListener('click', function (e) { e.stopPropagation(); moveBlock(el, 1); });
+        ctrl.appendChild(up); ctrl.appendChild(down);
+        if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+        el.appendChild(ctrl);
+      });
+    }
+    function toggleOrganize() {
+      if (!organizing) { if (editing) toggleEdit(); if (moving) toggleMove(); } // un solo modo a la vez
+      organizing = !organizing;
+      var btn = document.getElementById('btnOrganize');
+      page.classList.toggle('organizing', organizing);
+      refreshOrgControls();
+      btn.classList.toggle('active', organizing);
+      btn.textContent = organizing ? '✓ Organizando' : '↕ Organizar';
+      hintEl.textContent = baseHint();
+    }
+
+    // Save the current document as a clean, self-contained HTML file.
+    function saveHtml() {
+      var wasEditing = editing, wasOrganizing = organizing, wasMoving = moving;
+      if (editing) toggleEdit();       // quita contenteditable
+      if (organizing) toggleOrganize(); // quita draggable/estados
+      if (moving) toggleMove();         // quita el handle (conserva la posición)
+      var clone = document.documentElement.cloneNode(true);
+      // remove toolbar + hidden input from the saved copy
+      var tb = clone.querySelector('.toolbar'); if (tb) tb.remove();
+      var pk = clone.querySelector('#imgPicker'); if (pk) pk.remove();
+      var pkd = clone.querySelector('#imgPickerDavid'); if (pkd) pkd.remove();
+      var pkp = clone.querySelector('#imgPickerProducts'); if (pkp) pkp.remove();
+      // limpia atributos/clases de edición que hayan quedado
+      clone.querySelectorAll('[contenteditable]').forEach(function (el) { el.removeAttribute('contenteditable'); });
+      clone.querySelectorAll('[draggable]').forEach(function (el) { el.removeAttribute('draggable'); });
+      clone.querySelectorAll('.org-ctrl').forEach(function (el) { el.remove(); });
+      clone.querySelectorAll('.dragging,.drop-target,.mv-handle').forEach(function (el) {
+        if (el.classList.contains('mv-handle')) el.remove(); else el.classList.remove('dragging', 'drop-target');
+      });
+      var pg = clone.querySelector('.page'); if (pg) pg.classList.remove('editing', 'organizing', 'moving');
+      var html = '<!DOCTYPE html>\n' + clone.outerHTML;
+      var blob = new Blob([html], { type: 'text/html' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'editorial_agua_windmar.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      if (wasEditing) toggleEdit();
+      if (wasOrganizing) toggleOrganize();
+      if (wasMoving) toggleMove();
+    }
+  </script>
+</body>
+</html>

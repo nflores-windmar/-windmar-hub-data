@@ -1,5 +1,5 @@
-import DesignerHub from "@/components/DesignerHub";
+import { redirect } from "next/navigation";
 
 export default function HubPage() {
-  return <DesignerHub />;
+  redirect("/");
 }

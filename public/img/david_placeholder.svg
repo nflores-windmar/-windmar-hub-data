@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="800" viewBox="0 0 640 800">
+  <rect width="640" height="800" fill="#eef2f5"/>
+  <rect x="10" y="10" width="620" height="780" fill="none" stroke="#0b2d48" stroke-width="3" stroke-dasharray="12 10" opacity="0.55"/>
+  <g fill="#0b2d48" opacity="0.35">
+    <circle cx="320" cy="300" r="110"/>
+    <path d="M150 640c0-104 76-176 170-176s170 72 170 176v40H150z"/>
+  </g>
+  <text x="320" y="720" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="700" fill="#0b2d48">Foto: David Fonseca</text>
+  <text x="320" y="756" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#5a6b78">Gerente de ventas · WindMar Home</text>
+</svg>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cronograma de Grabación · WindMar Home FL</title>
+<style>
+  :root {
+    --orange: #FF6B00;
+    --navy: #0d2240;
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: rgba(255,255,255,.08);
+    --text: #f0f2f8;
+    --text2: #8b90a7;
+    --am: #f5a623;      /* morning */
+    --pm: #3b82f6;      /* afternoon */
+    --both: #a855f7;    /* both */
+    --edu: #34d399;     /* educativo */
+    --intv: #f472b6;    /* entrevista */
+    --radius: 12px;
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; padding: 32px 24px; }
+  .topbar { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .topbar-back { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text2); text-decoration: none; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); transition: all .2s; cursor: pointer; }
+  .topbar-back:hover { background: var(--surface2); color: var(--text); }
+  .topbar-logo { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .topbar-title { font-size: 18px; font-weight: 800; color: var(--text); }
+  .topbar-sub { font-size: 12px; color: var(--text2); }
+  h1 { font-size: 24px; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+  .sub { font-size: 13px; color: var(--text2); margin-bottom: 22px; max-width: 740px; line-height: 1.5; }
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); font-size: 12px; font-weight: 600; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .callout { background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.55; }
+  .callout b { color: var(--am); }
+  .section-h { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--text2); font-weight: 700; margin: 26px 0 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 18px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 820px; }
+  th { text-align: left; padding: 11px 13px; color: var(--text2); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; background: var(--surface2); }
+  td { padding: 12px 13px; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
+  tr:last-child td { border-bottom: none; }
+  td.idx { font-weight: 800; color: var(--orange); white-space: nowrap; }
+  .typebadge { display:inline-block; padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+  .t-edu { background: rgba(52,211,153,.16); color: var(--edu); }
+  .t-intv { background: rgba(244,114,182,.16); color: var(--intv); }
+  .hook { color: var(--text); font-style: italic; }
+  .hook small { display:block; font-style: normal; color: var(--text2); font-size: 11px; margin-top: 3px; }
+  .status { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; white-space: nowrap; }
+  .st-todo { background: var(--surface2); color: var(--text2); }
+  .st-conf { background: rgba(34,197,94,.15); color: #4ade80; }
+  ul.spec { list-style: none; padding: 14px 18px; }
+  ul.spec li { padding: 5px 0 5px 22px; position: relative; font-size: 13px; color: var(--text); line-height: 1.5; }
+  ul.spec li::before { content: '▸'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+  ul.spec li b { color: var(--text); }
+  ol.q { padding: 14px 18px 14px 34px; }
+  ol.q li { padding: 5px 0; font-size: 13px; color: var(--text); line-height: 1.5; }
+  ol.q li small { display:block; color: var(--text2); font-size: 11.5px; }
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card-head { padding: 13px 16px; font-weight: 700; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .foot { font-size: 11px; color: var(--text2); margin-top: 26px; line-height: 1.5; }
+  @media print {
+    body { background: #fff; color: #000; padding: 0; }
+    .topbar-back, .legend .chip { border-color: #ccc; }
+    .card { border-color: #ccc; }
+    th { background: #f3f3f3; color: #333; }
+    h1 { color: #d35400; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">🎬</div>
+  <div>
+    <div class="topbar-title">WindMar Home FL</div>
+    <div class="topbar-sub">Content Hub · Cronograma de Grabación</div>
+  </div>
+  <div style="margin-left:auto; display:flex; gap:8px;">
+    <a class="topbar-back" href="cronograma_pr.html">🇵🇷 Cronograma PR</a>
+    <a class="topbar-back" href="produccion.html">← Producción</a>
+    <a class="topbar-back" href="windmar_content_hub.html">Hub</a>
+    <a class="topbar-back" onclick="window.print()">🖨️ Imprimir / PDF</a>
+  </div>
+</div>
+
+<h1>🎬 Production Schedule — WindMar Home FL</h1>
+<div class="sub">
+  Plan de video de Florida: <b>6 piezas</b> — <b>3 reels educativos</b> (baterías, solar, roofing con
+  instalación) y <b>3 entrevistas</b> de clientes contando cómo WindMar Florida les impactó.
+  Todo bilingüe (ES/EN), vertical 9:16. Cada reel educativo se apoya en el carrusel FL que ya está listo en el Studio.
+</div>
+
+<div class="legend">
+  <span class="chip"><span class="dot" style="background:var(--edu)"></span>📚 Reel educativo · explica un producto</span>
+  <span class="chip"><span class="dot" style="background:var(--intv)"></span>🎤 Entrevista · testimonio de cliente</span>
+</div>
+
+<div class="callout">
+  📍 <b>Florida</b> — Orlando, Tampa y Sur de Florida. El <b>reel 3 (Roofing)</b> se graba durante una
+  <b>instalación real</b> para captar el antes/durante/después. Las entrevistas son con <b>clientes reales</b>
+  de WindMar FL — no actores. Talent y fechas <b>por agendar</b>.
+</div>
+
+<div class="section-h">📚 Bloque 1 — Reels educativos (3)</div>
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tipo</th>
+          <th>Tema</th>
+          <th>Hook (primeros 3s)</th>
+          <th>Qué grabar</th>
+          <th>Alimenta</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="idx">1</td>
+          <td><span class="typebadge t-edu">📚 Educativo</span></td>
+          <td><b>La necesidad de baterías</b><br><small style="color:var(--text2)">Tesla Powerwall</small></td>
+          <td class="hook">"Tus paneles necesitan almacenamiento."<small>Apertura alterna: "Tus paneles generan energía todo el día… ¿pero dónde se guarda?" Mensaje: los paneles generan, la batería guarda. Sin batería, tu solar tiene un límite.</small></td>
+          <td>Casa con paneles · Powerwall en pared · momento de apagón (luces de la calle vs. casa encendida) · demo de la app Tesla.</td>
+          <td>Carrusel Tesla Powerwall FL (ES/EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+        <tr>
+          <td class="idx">2</td>
+          <td><span class="typebadge t-edu">📚 Educativo</span></td>
+          <td><b>Solar</b><br><small style="color:var(--text2)">Q CELLS</small></td>
+          <td class="hook">"¿Tu factura de luz sube cada verano en Florida?"<small>Mensaje: cómo el sol de Florida se convierte en ahorro real, explicado simple y honesto.</small></td>
+          <td>Paneles Q CELLS en techo · sol/exterior de la casa · medidor / factura · familia en casa cómoda con A/C.</td>
+          <td>Carrusel Solar FL (ES/EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+        <tr>
+          <td class="idx">3</td>
+          <td><span class="typebadge t-edu">📚 Educativo</span></td>
+          <td><b>Roofing — una instalación</b><br><small style="color:var(--text2)">Owens Corning · sellado</small></td>
+          <td class="hook">"Así sellamos un techo en Florida, paso a paso."<small>Mensaje: techo fuerte, sellado y asegurable. Grabar una instalación real de principio a fin.</small></td>
+          <td><b>Instalación real:</b> techo antes · equipo trabajando · detalle de la membrana sellada · resultado final (antes/durante/después).</td>
+          <td>Carrusel Sellado FL (ES/EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-h">🎤 Bloque 2 — Entrevistas de clientes (3)</div>
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tipo</th>
+          <th>Cliente</th>
+          <th>Ángulo</th>
+          <th>Qué grabar</th>
+          <th>Formato</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="idx">4</td>
+          <td><span class="typebadge t-intv">🎤 Entrevista</span></td>
+          <td><b>Cliente FL #1</b><br><small style="color:var(--text2)">por confirmar</small></td>
+          <td>Cómo WindMar FL le impactó — enfoque <b>baterías / energía</b>.</td>
+          <td>Testimonio a cámara en su casa + B-roll de su sistema (paneles / Powerwall) y de su día a día.</td>
+          <td>Reel + testimonial (ES & EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+        <tr>
+          <td class="idx">5</td>
+          <td><span class="typebadge t-intv">🎤 Entrevista</span></td>
+          <td><b>Cliente FL #2</b><br><small style="color:var(--text2)">por confirmar</small></td>
+          <td>Cómo WindMar FL le impactó — enfoque <b>solar / ahorro</b>.</td>
+          <td>Testimonio a cámara + B-roll de su techo con paneles y de la factura/ahorro.</td>
+          <td>Reel + testimonial (ES & EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+        <tr>
+          <td class="idx">6</td>
+          <td><span class="typebadge t-intv">🎤 Entrevista</span></td>
+          <td><b>Cliente FL #3</b><br><small style="color:var(--text2)">por confirmar</small></td>
+          <td>Cómo WindMar FL le impactó — enfoque <b>roofing / tranquilidad</b>.</td>
+          <td>Testimonio a cámara + B-roll del techo sellado y de la casa protegida.</td>
+          <td>Reel + testimonial (ES & EN)</td>
+          <td><span class="status st-todo">Por agendar</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-h">🗒️ Guía de preguntas para las entrevistas (ES / EN)</div>
+<div class="card">
+  <ol class="q">
+    <li>¿Cómo era tu situación antes de WindMar? (factura alta, apagones, techo viejo…)<small>What was your situation before WindMar?</small></li>
+    <li>¿Por qué elegiste WindMar Florida y no otra empresa?<small>Why did you choose WindMar Florida over others?</small></li>
+    <li>¿Cómo fue el proceso de instalación con el equipo?<small>How was the installation process with the team?</small></li>
+    <li>¿Qué cambió en tu día a día después? (ahorro, tranquilidad en apagones, casa más fresca…)<small>What changed in your day-to-day afterwards?</small></li>
+    <li>¿Qué le dirías a alguien en Florida que lo está pensando?<small>What would you tell someone in Florida who's considering it?</small></li>
+  </ol>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <div class="card-head">🎥 Specs de grabación</div>
+    <ul class="spec">
+      <li>Grabar en <b>vertical 9:16</b> (Reels / Stories)</li>
+      <li><b>Hook en los primeros 3 segundos</b></li>
+      <li>Versión <b>con y sin texto</b> en pantalla</li>
+      <li><b>Audio limpio</b> — micrófono de solapa en entrevistas, evitar viento</li>
+      <li>Múltiples ángulos + B-roll de apoyo de cada momento</li>
+      <li>Contenido <b>bilingüe</b>: capturar respuestas en ES y EN cuando se pueda</li>
+      <li>Elementos de marca en set (logo, colores WindMar FL)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-head">📦 Entrega</div>
+    <ul class="spec">
+      <li>Clips crudos al <b>drive del equipo</b> el mismo día</li>
+      <li><b>Edición: 1–3 días</b> por pieza</li>
+      <li>Reel 3 (Roofing): coordinar con una <b>instalación agendada</b> real</li>
+      <li>Entrevistas: <b>release firmado</b> del cliente para usar su imagen</li>
+      <li>Nombrar archivos: <b>FL_tipo_tema_fecha_idioma</b></li>
+      <li>Entregar <b>master + versión con subtítulos</b> (ES y EN)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="foot">
+  Production schedule generado para WindMar Home FL · marca bilingüe (ES/EN) · @windmarhomefl<br>
+  6 videos de Florida: 3 reels educativos (baterías · solar · roofing con instalación) + 3 entrevistas de clientes.
+  Los carruseles FL (Home · Solar · Sellado · Tesla Powerwall) ya están listos en el Studio y acompañan estos reels.
+  El cronograma de talent de Puerto Rico vive en el <b>Cronograma PR</b>.
+</div>
+
+</body>
+</html>

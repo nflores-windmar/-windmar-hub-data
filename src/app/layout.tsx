@@ -1,6 +1,35 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Barlow, Barlow_Condensed } from "next/font/google";
+import { Bebas_Neue, Barlow, Barlow_Condensed, Unbounded, Inter, Space_Mono, Syne } from "next/font/google";
 import "./globals.css";
+
+// Syne — neo-brutalist display family (OFL, free for commercial use).
+const syne = Syne({
+  weight: ["600", "700", "800"],
+  variable: "--font-syne",
+  subsets: ["latin"],
+});
+import TopNav from "@/components/TopNav";
+import AssistantWidget from "@/components/AssistantWidget";
+
+// UI chrome (Hub / Studio / Lienzo) design system — Unbounded display + Inter body.
+const unbounded = Unbounded({
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+// Brutalist UI chrome — monospaced display + body.
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
 
 const bebas = Bebas_Neue({
   weight: "400",
@@ -33,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${bebas.variable} ${barlow.variable} ${barlowCondensed.variable} h-full antialiased`}
+      className={`${bebas.variable} ${barlow.variable} ${barlowCondensed.variable} ${unbounded.variable} ${inter.variable} ${spaceMono.variable} ${syne.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +72,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-[var(--wm-bg)]">
+        <TopNav />
+        {children}
+        <AssistantWidget />
+      </body>
     </html>
   );
 }

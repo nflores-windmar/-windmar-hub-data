@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Windmar — Calendario Agosto 2026",
+  "schemaVersion": 1,
+  "description": "Calendario de contenido de agosto 2026 para Windmar Home con planes individuales para Instagram y Facebook. Basado en el análisis de redes (17 jun – 14 jul 2026): Reels para alcance, conversión a seguidor en IG, mix mejorado y activación de conversaciones en FB, anclado en temporada de huracanes y el recorrido WindMar."
+}
+</script>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Windmar Home — Calendario de Contenido · Agosto 2026</title>
+<style>
+:root{color-scheme:light;
+  --bg:#f5f7fa; --card:#ffffff; --ink:#0f2740; --muted:#5b6b7c; --line:#e3e9f0;
+  --brand:#0a6ebd; --brand2:#1aa896; --up:#1a8f4c; --down:#c0392b; --warn:#b9770a;
+  --fb:#1877f2; --ig:#d6249f; --wm:#e8791a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:22px}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px solid var(--brand);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;margin:0;letter-spacing:-.3px}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{display:inline-block;background:#eaf3fb;color:var(--brand);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600}
+h2{font-size:16px;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+h2 .bar{width:4px;height:18px;background:var(--brand2);border-radius:2px}
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:repeat(2,1fr)}
+.cols3{grid-template-columns:repeat(3,1fr)}
+.cols4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:820px){.cols2,.cols3,.cols4{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(15,39,64,.04)}
+.note{background:#fff8ec;border:1px solid #f1dcae;border-radius:10px;padding:12px 14px;font-size:13px;color:#6b5418}
+.plat{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.dot{width:10px;height:10px;border-radius:50%}
+.pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.pillar .ic{font-size:20px}
+.pillar h4{margin:6px 0 4px;font-size:13.5px}
+.pillar p{margin:0;font-size:12px;color:var(--muted)}
+.cadence{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.cadence .metricrow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.cadence .metricrow:last-child{border-bottom:0}
+.cadence .m{color:var(--muted)}.cadence .v{font-weight:700}
+.week{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px 16px;margin-bottom:14px}
+.week h3{font-size:15px;margin:14px 0 2px}
+.week .when{font-size:11.5px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.week .theme{font-size:12.5px;color:var(--muted);margin:2px 0 12px}
+.track{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.track.ig{border-top:3px solid var(--ig)}
+.track.fb{border-top:3px solid var(--fb)}
+.task{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line);font-size:12.8px}
+.task:first-of-type{border-top:0}
+.task input{margin-top:3px;width:15px;height:15px;accent-color:var(--brand2);cursor:pointer;flex:none}
+.task .t .h{font-weight:600}
+.task .t .h .day{color:var(--muted);font-weight:700}
+.task .t .d{color:var(--muted);font-size:12px;margin-top:1px}
+.task.done .t .h{text-decoration:line-through;color:var(--muted)}
+.fmt{display:inline-block;font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;text-transform:uppercase;letter-spacing:.4px;vertical-align:middle}
+.f-reel{background:#e7f7f3;color:#0c8f7d}
+.f-car{background:#eaf3fb;color:var(--brand)}
+.f-foto{background:#fdeaf4;color:#c0287e}
+.f-hist{background:#eef1f5;color:#5b6b7c}
+.cta{font-size:11px;color:var(--brand2);font-weight:700;margin-top:3px}
+.progwrap{display:flex;align-items:center;gap:12px;margin:4px 0 18px}
+.progbar{flex:1;height:9px;background:#e3e9f0;border-radius:999px;overflow:hidden}
+.progfill{height:100%;width:0;background:linear-gradient(90deg,var(--ig),var(--fb));transition:width .35s}
+.progtxt{font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap}
+.kpitrack{display:flex;justify-content:space-between;font-size:13px;padding:9px 0;border-bottom:1px solid var(--line)}
+.kpitrack:last-child{border-bottom:0}
+.kpitrack .goal{color:var(--brand2);font-weight:700}
+.datechip{display:inline-flex;align-items:center;gap:6px;background:#fff3e0;color:#8a5a12;border:1px solid #f1dcae;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;margin:0 6px 6px 0}
+.pl{font-size:12.4px;padding:7px 0;border-top:1px dashed var(--line)}
+.pl b{color:var(--ink)}
+.hr{display:inline-block;background:#eaf3fb;color:var(--brand);font-weight:700;font-size:11px;border-radius:5px;padding:0 6px;margin:0 2px}
+.track.fb .hr{background:#eaf1fe;color:var(--fb)}
+.cap{font-size:12px;color:var(--muted);margin:4px 0;line-height:1.55}
+.cap b{color:var(--ink)}
+.copy .ct{font-weight:800;font-size:13px;margin-bottom:6px;color:var(--brand)}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>Windmar Home — Calendario de Contenido</h1>
+    <div class="sub">Agosto 2026 · planes individuales para Instagram y Facebook</div>
+  </div>
+  <div style="text-align:right">
+    <span class="pill">Base: análisis 17 jun – 14 jul 2026</span>
+    <div class="sub">Reels + conversión + temporada</div>
+  </div>
+</header>
+
+<div class="note" style="margin-top:14px">
+  <b>Cómo leer este plan:</b> Instagram y Facebook llevan planes <b>separados</b> a propósito. En IG el reto es <b>convertir el alcance en seguidores</b> (88,5% de vistas son de no-seguidores) y aprovechar que engancha ~6× más por vista. En Facebook llegamos a millones pero <b>bajó la interacción</b>; el mes ataca eso con mejor mix (Reels nativos + fotos de oferta que ya empezaron a rendir), activando las conversaciones (+116,9% el periodo pasado) y arreglando las historias vacías. Todo agosto se ancla en dos cosas reales: <b>el pico de temporada</b> y <b>el recorrido WindMar</b> (de solar a casa completa).
+</div>
+
+<h2><span class="bar"></span>Estrategia del mes · 5 pilares</h2>
+<div class="grid cols3">
+  <div class="pillar"><div class="ic">🌀</div><h4>Temporada con calma</h4><p>Agosto es pico. Contenido de preparación con tranquilidad —batería, cisterna, sellado— sin miedo, con soluciones.</p></div>
+  <div class="pillar"><div class="ic">🎬</div><h4>Reels "WindMar Responde"</h4><p>El formato #1 en alcance e interacción. Mínimo 1 episodio por semana.</p></div>
+  <div class="pillar"><div class="ic">🏠</div><h4>El recorrido: casa completa</h4><p>De solar a sellado, batería y agua. Una sola empresa lo tiene todo — el mismo hilo de los guiones.</p></div>
+  <div class="pillar"><div class="ic">👨‍👩‍👧</div><h4>Comunidad + valores</h4><p>Equipo, clientes reales y fechas. Es lo que dispara compartidos y alcance orgánico.</p></div>
+  <div class="pillar"><div class="ic">💬</div><h4>Conversión</h4><p>IG: "Sigue a @windmarhome" en los primeros 3 s. FB: CTA de conversación por Messenger.</p></div>
+  <div class="pillar" style="border-left:4px solid var(--wm)"><div class="ic">🛠️</div><h4>Higiene de historias</h4><p>Publicar historias reales todos los días y verificar que no salgan con 0 alcance (fuga fácil de cerrar).</p></div>
+</div>
+
+<h2><span class="bar"></span>Cadencia mensual (individual)</h2>
+<div class="grid cols2">
+  <div class="cadence">
+    <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram · convertir alcance en comunidad</div>
+    <div class="metricrow"><span class="m">Reels</span><span class="v">8–10 al mes</span></div>
+    <div class="metricrow"><span class="m">Carruseles educativos</span><span class="v">4–5</span></div>
+    <div class="metricrow"><span class="m">Fotos / gráficos</span><span class="v">3–4</span></div>
+    <div class="metricrow"><span class="m">Historias</span><span class="v">diarias</span></div>
+    <div class="metricrow"><span class="m">CTA fija</span><span class="v">"Sigue a @windmarhome" (0–3 s)</span></div>
+  </div>
+  <div class="cadence">
+    <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook · mejorar el mix y activar conversación</div>
+    <div class="metricrow"><span class="m">Reels nativos</span><span class="v">6–8 al mes</span></div>
+    <div class="metricrow"><span class="m">Fotos de oferta clara</span><span class="v">4</span></div>
+    <div class="metricrow"><span class="m">Comunidad / testimonios</span><span class="v">4</span></div>
+    <div class="metricrow"><span class="m">Historias reales (no vacías)</span><span class="v">3–4 / semana</span></div>
+    <div class="metricrow"><span class="m">CTA fija</span><span class="v">"Escríbenos por Messenger"</span></div>
+  </div>
+</div>
+
+<h2><span class="bar"></span>Qué postear en cada red · resumen del mes</h2>
+<div class="note" style="margin-top:0">
+  <b>La diferencia en una línea:</b> en <b>Instagram</b> van los Reels y carruseles con CTA <b>"Sigue a @windmarhome"</b> (convertir alcance en seguidores) + historias diarias. En <b>Facebook</b> van los mismos videos pero <b>subidos nativos</b> (no como enlace) + fotos/estáticos de oferta comercial, siempre con CTA a <b>Messenger</b>.
+  <div style="margin-top:8px"><b>Horario recomendado (hora de PR):</b> Reels IG <b>6:30 PM</b> · Carruseles IG <b>12:30 PM</b> · Historias IG <b>8:00 AM</b> (y a lo largo del día) · Reels nativos FB <b>7:30 PM</b> · Fotos/estáticos FB <b>1:00 PM</b> · Comunidad/testimonio FB <b>11:00 AM</b>. Se escalona IG y FB el mismo día para no competir. Son puntos de partida — ajusta según tus estadísticas.</div>
+</div>
+<div class="grid cols2" style="margin-top:14px">
+  <div class="track ig">
+    <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram · 16 posts + historias diarias</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Sáb 1</b> · <span class="hr">6:30 PM</span> · Emmanuel Ortiz — Todas las soluciones en el mismo techo</div>
+    <div class="pl"><span class="fmt f-hist">Historia</span><b>Sáb 1</b> · <span class="hr">8:00 AM</span> · Encuesta de tranquilidad</div>
+    <div class="pl"><span class="fmt f-car">Carrusel</span><b>Dom 2</b> · <span class="hr">12:30 PM</span> · El recorrido WindMar: de solar a casa completa</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Lun 4</b> · <span class="hr">6:30 PM</span> · Zoribeth — 2 soluciones para invertir en solar</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Mié 6</b> · <span class="hr">6:30 PM</span> · Carlos Alejandro — Anker: con qué conectar tus productos</div>
+    <div class="pl"><span class="fmt f-car">Carrusel</span><b>Vie 8</b> · <span class="hr">12:30 PM</span> · Anker (producto): qué puedes conectar</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Lun 11</b> · <span class="hr">6:30 PM</span> · Elliot — Roofing / remoción</div>
+    <div class="pl"><span class="fmt f-car">Carrusel</span><b>Mié 13</b> · <span class="hr">12:30 PM</span> · Roofing: ¿tu techo necesita atención?</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Vie 15</b> · <span class="hr">6:30 PM</span> · BTS — Cinthia con Platea</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Lun 18</b> · <span class="hr">6:30 PM</span> · David y Cinthia — calidad del agua</div>
+    <div class="pl"><span class="fmt f-car">Carrusel</span><b>Mié 20</b> · <span class="hr">12:30 PM</span> · Water (comercial): agua limpia</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Vie 22</b> · <span class="hr">6:30 PM</span> · BTS — instalación de cisterna</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Lun 25</b> · <span class="hr">6:30 PM</span> · WindMar Champions — WindMar en acción</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Mié 27</b> · <span class="hr">6:30 PM</span> · Génesis Rivera — historias de éxito</div>
+    <div class="pl"><span class="fmt f-reel">Reel</span><b>Vie 29</b> · <span class="hr">6:30 PM</span> · Christian Samir — solar comercial</div>
+    <div class="pl"><span class="fmt f-hist">Historia</span><b>Dom 31</b> · <span class="hr">8:00 AM</span> · Adelanto de septiembre + Sigue-CTA</div>
+  </div>
+  <div class="track fb">
+    <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook · 14 posts</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Sáb 1</b> · <span class="hr">7:30 PM</span> · Emmanuel Ortiz — Todas las soluciones en el mismo techo</div>
+    <div class="pl"><span class="fmt f-foto">Foto</span><b>Dom 2</b> · <span class="hr">1:00 PM</span> · Lo que ofrecemos: Solar · Batería · Water · Roofing</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Lun 4</b> · <span class="hr">7:30 PM</span> · Zoribeth — invertir en solar</div>
+    <div class="pl"><span class="fmt f-foto">Estático</span><b>Mié 6</b> · <span class="hr">1:00 PM</span> · Solar comercial: energía para tu negocio</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Vie 8</b> · <span class="hr">7:30 PM</span> · Carlos Alejandro — Anker</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Lun 11</b> · <span class="hr">7:30 PM</span> · Elliot — Roofing / remoción</div>
+    <div class="pl"><span class="fmt f-foto">Estático</span><b>Jue 14</b> · <span class="hr">1:00 PM</span> · Roofing: 3 señales de que tu techo pide atención</div>
+    <div class="pl"><span class="fmt f-foto">Comunidad</span><b>Sáb 16</b> · <span class="hr">11:00 AM</span> · BTS — Cinthia con Platea</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Lun 18</b> · <span class="hr">7:30 PM</span> · David y Cinthia — calidad del agua</div>
+    <div class="pl"><span class="fmt f-foto">Estático</span><b>Jue 21</b> · <span class="hr">1:00 PM</span> · Water comercial: sistemas de agua</div>
+    <div class="pl"><span class="fmt f-foto">Comunidad</span><b>Sáb 23</b> · <span class="hr">11:00 AM</span> · Testimonio de agua o roofing</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Lun 25</b> · <span class="hr">7:30 PM</span> · WindMar Champions — WindMar en acción</div>
+    <div class="pl"><span class="fmt f-reel">Reel nativo</span><b>Jue 28</b> · <span class="hr">7:30 PM</span> · Génesis Rivera — historias de éxito</div>
+    <div class="pl"><span class="fmt f-foto">Estático</span><b>Sáb 30</b> · <span class="hr">1:00 PM</span> · Christian Samir — oferta solar comercial</div>
+  </div>
+</div>
+
+<h2><span class="bar"></span>Plan semana por semana</h2>
+<div class="progwrap">
+  <div class="progbar"><div class="progfill" id="progfill"></div></div>
+  <div class="progtxt" id="progtxt">0 / 0 publicadas</div>
+</div>
+
+<!-- SEMANA 1 -->
+<div class="week">
+  <span class="when">Semana 1 · 1–2 ago (sáb–dom)</span>
+  <h3>Arranca agosto: todo en un solo techo</h3>
+  <div class="theme">Abrimos el mes con el mensaje madre — WindMar tiene todas las soluciones para tu casa. Tono de calma al entrar al pico de temporada.</div>
+  <div class="grid cols2">
+    <div class="track ig">
+      <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Sáb 1 ·</span> <span class="hr">6:30 PM</span> Emmanuel Ortiz — "Todas las soluciones en el mismo techo"</span><span class="d">El recorrido WindMar como apertura del mes. Gancho + "Sigue a @windmarhome" en 3 s.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-hist">Historia</span><span class="day">Sáb 1 ·</span> <span class="hr">8:00 AM</span> Encuesta "¿Qué te da más tranquilidad tener listo en casa?"</span><span class="d">Interacción rápida + recoge temas para el mes.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-car">Carrusel</span><span class="day">Dom 2 ·</span> <span class="hr">12:30 PM</span> "El recorrido WindMar: de solar a casa completa"</span><span class="d">5 slides: solar → sellado → batería → agua → "una sola empresa".</span></span></label>
+    </div>
+    <div class="track fb">
+      <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Sáb 1 ·</span> <span class="hr">7:30 PM</span> Emmanuel Ortiz — "Todas las soluciones en el mismo techo"</span><span class="d">Subido nativo (no link). CTA: "Escríbenos por Messenger".</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Foto</span><span class="day">Dom 2 ·</span> <span class="hr">1:00 PM</span> "Lo que ofrecemos: Solar · Batería · Water · Roofing"</span><span class="d">Repetir el ganador del periodo (2.344 alcance). Oferta clara + CTA conversación.</span></span></label>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 2 -->
+<div class="week">
+  <span class="when">Semana 2 · 3–9 ago (lun–dom)</span>
+  <h3>Energía que no se apaga</h3>
+  <div class="theme">Zoribeth explica cómo invertir en solar y Carlos Alejandro muestra el respaldo Anker.</div>
+  <div class="grid cols2">
+    <div class="track ig">
+      <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Lun 4 ·</span> <span class="hr">6:30 PM</span> Zoribeth — "2 soluciones para invertir en solar"</span><span class="d">WindMar Responde. Explicación simple, tono cercano. Sigue-CTA en 3 s.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Mié 6 ·</span> <span class="hr">6:30 PM</span> Carlos Alejandro — Anker: "con qué puedes conectar tus productos"</span><span class="d">Respaldo = tranquilidad. Qué mantiene encendido en casa.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-car">Carrusel</span><span class="day">Vie 8 ·</span> <span class="hr">12:30 PM</span> Anker (producto): "qué puedes conectar y por cuánto tiempo"</span><span class="d">Nevera, luces, internet, equipos. Educativo del producto.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-hist">Historia</span><span class="day">Toda la semana ·</span> <span class="hr">a lo largo del día</span> Detrás de cámara de una instalación solar</span><span class="d">Serie de historias reales — cero historias vacías.</span></span></label>
+    </div>
+    <div class="track fb">
+      <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Lun 4 ·</span> <span class="hr">7:30 PM</span> Zoribeth — "2 soluciones para invertir en solar" (nativo)</span><span class="d">Repurpose del Reel de IG. CTA Messenger.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Estático</span><span class="day">Mié 6 ·</span> <span class="hr">1:00 PM</span> Solar (comercial): "energía solar para tu negocio"</span><span class="d">Post de oferta comercial — formato que empezó a rendir en FB.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Vie 8 ·</span> <span class="hr">7:30 PM</span> Carlos Alejandro — Anker (nativo)</span><span class="d">Pregunta abierta al final para activar comentarios y Messenger.</span></span></label>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 3 -->
+<div class="week">
+  <span class="when">Semana 3 · 10–16 ago (lun–dom)</span>
+  <h3>Techos que protegen + detrás de cámara</h3>
+  <div class="theme">Elliot explica la remoción y el roofing; sumamos el lado humano con el BTS de Cinthia en Platea.</div>
+  <div class="grid cols2">
+    <div class="track ig">
+      <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Lun 11 ·</span> <span class="hr">6:30 PM</span> Elliot — Roofing: remoción de paneles, por qué y cómo se hace bien</span><span class="d">Educativo estacional. Gancho + Sigue-CTA.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-car">Carrusel</span><span class="day">Mié 13 ·</span> <span class="hr">12:30 PM</span> Roofing (remoción): "cómo saber si tu techo lo necesita"</span><span class="d">Señales claras + qué hacemos.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Vie 15 ·</span> <span class="hr">6:30 PM</span> BTS — Cinthia con Platea</span><span class="d">Detrás de cámara: marca + valores humanos. Conecta y se comparte.</span></span></label>
+    </div>
+    <div class="track fb">
+      <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Lun 11 ·</span> <span class="hr">7:30 PM</span> Elliot — Roofing / remoción (nativo)</span><span class="d">CTA: "Escríbenos por Messenger".</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Estático</span><span class="day">Jue 14 ·</span> <span class="hr">1:00 PM</span> Roofing (remoción): "3 señales de que tu techo pide atención"</span><span class="d">Educativo/oferta — formato que rinde en FB.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Comunidad</span><span class="day">Sáb 16 ·</span> <span class="hr">11:00 AM</span> BTS — Cinthia con Platea</span><span class="d">Detrás de cámara para conectar con la comunidad + comentarios.</span></span></label>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 4 -->
+<div class="week">
+  <span class="when">Semana 4 · 17–23 ago (lun–dom)</span>
+  <h3>Agua de calidad</h3>
+  <div class="theme">David y Cinthia sobre la calidad del agua (Oasis fue tu post #1) + la línea Water comercial.</div>
+  <div class="grid cols2">
+    <div class="track ig">
+      <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Lun 18 ·</span> <span class="hr">6:30 PM</span> David y Cinthia — "La importancia de la calidad del agua"</span><span class="d">WindMar Responde — Oasis. Escala tu #1 del periodo (5.822 alcance) como serie.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-car">Carrusel</span><span class="day">Mié 20 ·</span> <span class="hr">12:30 PM</span> Water (comercial): "agua limpia para tu casa o negocio"</span><span class="d">Educativo de la línea Water.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Vie 22 ·</span> <span class="hr">6:30 PM</span> Detrás de cámara: instalación de cisterna / sistema de agua</span><span class="d">Proceso real, tono tranquilo. Sigue-CTA.</span></span></label>
+    </div>
+    <div class="track fb">
+      <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Lun 18 ·</span> <span class="hr">7:30 PM</span> David y Cinthia — calidad del agua (nativo)</span><span class="d">CTA Messenger.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Estático</span><span class="day">Jue 21 ·</span> <span class="hr">1:00 PM</span> Water (comercial): oferta de sistemas de agua</span><span class="d">Post de oferta — formato que empezó a rendir en FB.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Comunidad</span><span class="day">Sáb 23 ·</span> <span class="hr">11:00 AM</span> Testimonio de agua o roofing</span><span class="d">Prueba social + CTA conversación.</span></span></label>
+    </div>
+  </div>
+</div>
+
+<!-- SEMANA 5 -->
+<div class="week">
+  <span class="when">Semana 5 · 24–31 ago (lun–dom)</span>
+  <h3>Comunidad, éxito y comercial</h3>
+  <div class="theme">Cerramos con WindMar en acción, historias de éxito reales y la oferta comercial.</div>
+  <div class="grid cols2">
+    <div class="track ig">
+      <div class="plat" style="color:var(--ig)"><span class="dot" style="background:var(--ig)"></span>Instagram</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Lun 25 ·</span> <span class="hr">6:30 PM</span> WindMar Champions — "WindMar en acción"</span><span class="d">Equipo y comunidad en el campo. Sigue-CTA.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Mié 27 ·</span> <span class="hr">6:30 PM</span> Génesis Rivera — "Historias de éxito"</span><span class="d">Prueba social real — conecta y da confianza.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel</span><span class="day">Vie 29 ·</span> <span class="hr">6:30 PM</span> Christian Samir — Solar comercial</span><span class="d">Dirigido a negocios: "tu negocio también puede ser WindMar".</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-hist">Historia</span><span class="day">Dom 31 ·</span> <span class="hr">8:00 AM</span> Adelanto de septiembre + "Sigue a @windmarhome"</span><span class="d">Da razón para quedarse — retención.</span></span></label>
+    </div>
+    <div class="track fb">
+      <div class="plat" style="color:var(--fb)"><span class="dot" style="background:var(--fb)"></span>Facebook</div>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Lun 25 ·</span> <span class="hr">7:30 PM</span> WindMar Champions — "WindMar en acción" (nativo)</span><span class="d">CTA Messenger.</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-reel">Reel nativo</span><span class="day">Jue 28 ·</span> <span class="hr">7:30 PM</span> Génesis Rivera — historias de éxito (nativo)</span><span class="d">Testimonio + oferta "evaluación gratis y sin compromiso" (sin prometer "gratis total").</span></span></label>
+      <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="fmt f-foto">Estático</span><span class="day">Sáb 30 ·</span> <span class="hr">1:00 PM</span> Christian Samir / oferta solar comercial para negocios</span><span class="d">Dirigido a PYMES. CTA conversación.</span></span></label>
+    </div>
+  </div>
+</div>
+
+<h2><span class="bar"></span>Copies listos para publicar <span style="font-size:11px;font-weight:400;color:var(--muted)">· gancho + caption + hashtags</span></h2>
+<div class="note" style="margin-top:0">Cada pieza trae su <b>gancho en pantalla (0–3 s)</b>, <b>caption</b> y <b>hashtags</b> listos para copiar. En IG cierra con "Sigue a @windmarhome"; en FB con "Escríbenos por Messenger". Ajusta libremente al grabar.</div>
+<div class="grid cols2" style="margin-top:14px">
+
+  <div class="card copy">
+    <div class="ct">1 · Emmanuel Ortiz — Todas las soluciones en el mismo techo</div>
+    <div class="cap"><b>Gancho:</b> «Hemos llegado lejos.»</div>
+    <div class="cap"><b>Caption:</b> Empezamos con energía solar… y no nos quedamos ahí. Hoy tu techo puede tener solar, sellado, batería y agua — todo con una sola empresa. Queremos que tu techo sea WindMar. ¿Empezamos por donde tú quieras?</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #PuertoRico #EnergíaSolar #TuTechoEsWindMar #HogarPR</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">2 · Zoribeth — 2 soluciones para invertir en solar</div>
+    <div class="cap"><b>Gancho:</b> «¿Invertir en solar? Tienes 2 caminos.»</div>
+    <div class="cap"><b>Caption:</b> Zoribeth te explica 2 formas de dar el paso hacia la energía solar, para que escojas la que mejor le queda a tu casa y tu bolsillo. El ahorro depende de tu consumo — te lo evaluamos sin compromiso.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #EnergíaSolar #PuertoRico #AhorroDeLuz #SolarPR</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">3 · Carlos Alejandro — Anker: con qué conectar tus productos</div>
+    <div class="cap"><b>Gancho:</b> «Se fue la luz… ¿qué se queda encendido?»</div>
+    <div class="cap"><b>Caption:</b> Carlos Alejandro te muestra con qué puedes conectar tu batería Anker: nevera, luces, internet, tus equipos. Respaldo para que tu casa siga funcionando con tranquilidad.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #Anker #BateríaDeRespaldo #PuertoRico #EnergíaEnCasa</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">4 · Elliot — Roofing / remoción</div>
+    <div class="cap"><b>Gancho:</b> «¿Y si tu techo necesita atención antes de instalar?»</div>
+    <div class="cap"><b>Caption:</b> Elliot explica la remoción de paneles y el roofing: por qué a veces hay que hacerlo y cómo lo hacemos bien, para que tu techo quede protegido de verdad.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #Roofing #TechosPR #PuertoRico #Sellado</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">5 · BTS — Cinthia con Platea</div>
+    <div class="cap"><b>Gancho:</b> «Detrás de cámara con WindMar.»</div>
+    <div class="cap"><b>Caption:</b> Un vistazo al día a día del equipo — Cinthia en Platea. Las personas reales detrás de cada instalación.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #DetrásDeCámara #EquipoWindMar #PuertoRico</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">6 · David y Cinthia — calidad del agua</div>
+    <div class="cap"><b>Gancho:</b> «El agua de tu casa, ¿qué tan limpia está?»</div>
+    <div class="cap"><b>Caption:</b> David y Cinthia te hablan de la importancia de la calidad del agua en tu hogar y de cómo nuestras soluciones te dan agua más limpia, todos los días.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #CalidadDelAgua #Water #PuertoRico #AguaLimpia</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">7 · WindMar Champions — WindMar en acción</div>
+    <div class="cap"><b>Gancho:</b> «Así se ve WindMar en acción.»</div>
+    <div class="cap"><b>Caption:</b> Nuestro equipo en el campo, casa por casa, municipio por municipio. WindMar Champions: la gente que hace posible tu proyecto.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #WindMarChampions #PuertoRico #EquipoWindMar</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">8 · Génesis Rivera — historias de éxito</div>
+    <div class="cap"><b>Gancho:</b> «Una historia real de WindMar.»</div>
+    <div class="cap"><b>Caption:</b> Génesis Rivera comparte su historia de éxito: cómo cambió su experiencia con WindMar. Tu casa puede ser la próxima.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #HistoriasDeÉxito #Testimonio #PuertoRico</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">9 · Christian Samir — solar comercial</div>
+    <div class="cap"><b>Gancho:</b> «Para tu negocio, la luz es operación.»</div>
+    <div class="cap"><b>Caption:</b> Christian Samir te muestra cómo el solar comercial ayuda a tu negocio a bajar costos y seguir operando. Empezamos con solar y hoy tenemos todo para tu negocio.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #SolarComercial #Negocios #PuertoRico #PYMES</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">10 · Carrusel — El recorrido WindMar</div>
+    <div class="cap"><b>Slide 1:</b> «De solar a casa completa.»</div>
+    <div class="cap"><b>Caption:</b> Desliza 👉 así ha crecido WindMar para ti: Solar → Sellado → Batería → Agua. Una sola empresa, todas las soluciones para tu techo.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #PuertoRico #TuTechoEsWindMar #EnergíaSolar</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">11 · Carrusel — Anker (producto)</div>
+    <div class="cap"><b>Slide 1:</b> «¿Qué mantiene encendido tu Anker?»</div>
+    <div class="cap"><b>Caption:</b> Desliza 👉 nevera, luces, internet, equipos… lo esencial cuando se va la luz. Tranquilidad para tu casa.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #Anker #BateríaDeRespaldo #PuertoRico</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">12 · Roofing (remoción) — carrusel / estático</div>
+    <div class="cap"><b>En pantalla:</b> «3 señales de que tu techo pide atención»</div>
+    <div class="cap"><b>Caption:</b> Manchas, humedad, paneles que hay que remover… tu techo te avisa. Te ayudamos a revisarlo y protegerlo. Evaluación sin compromiso.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #Roofing #TechosPR #PuertoRico</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">13 · Water (comercial) — carrusel / estático</div>
+    <div class="cap"><b>En pantalla:</b> «Agua limpia para tu casa o negocio»</div>
+    <div class="cap"><b>Caption:</b> Sistemas de agua WindMar: agua más limpia y confiable, en el hogar y en el comercio. Pregúntanos qué opción te conviene.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #Water #CalidadDelAgua #PuertoRico</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">14 · Foto — "Lo que ofrecemos" (FB)</div>
+    <div class="cap"><b>En pantalla:</b> «Solar · Batería · Water · Roofing»</div>
+    <div class="cap"><b>Caption:</b> Todo para tu casa en un solo lugar. Solar, batería, sistemas de agua y roofing — con un solo equipo que te acompaña. Escríbenos y empezamos por donde tú quieras.</div>
+    <div class="cap"><b>Hashtags:</b> #WindMarHome #PuertoRico #Solar #Roofing #Water #Anker</div>
+  </div>
+
+</div>
+
+<h2><span class="bar"></span>Fechas y anclas del mes</h2>
+<div class="card">
+  <span class="datechip">🌀 Todo agosto · pico de temporada de huracanes (jun–nov)</span>
+  <span class="datechip">🎒 Principios–mediados de agosto · regreso a clases</span>
+  <span class="datechip">💧 Serie fija · "WindMar Responde" (1 episodio/semana)</span>
+  <span class="datechip">🏠 Hilo del mes · el recorrido: casa completa</span>
+</div>
+
+<h2><span class="bar"></span>Metas del mes (contra la línea base del hub)</h2>
+<div class="card">
+  <div class="kpitrack"><span>Seguidores netos IG</span><span>Base: +196 &nbsp;→&nbsp; <span class="goal">Meta: +250</span></span></div>
+  <div class="kpitrack"><span>Interacción / 1.000 vistas — Facebook</span><span>Base: 0,8 &nbsp;→&nbsp; <span class="goal">Meta: 1,5</span></span></div>
+  <div class="kpitrack"><span>% de publicaciones en formato Reel</span><span>Base: Reels dominan &nbsp;→&nbsp; <span class="goal">Meta: 60–70%</span></span></div>
+  <div class="kpitrack"><span>Historias con 0 alcance</span><span>Base: 2 &nbsp;→&nbsp; <span class="goal">Meta: 0</span></span></div>
+  <div class="kpitrack"><span>Conversaciones iniciadas activadas (respuesta rápida)</span><span>Base: 450+ sin flujo &nbsp;→&nbsp; <span class="goal">Meta: plantillas + respuesta &lt;1 h</span></span></div>
+</div>
+
+<footer>
+  Calendario de planificación de Windmar Home · Agosto 2026. Los planes de Instagram y Facebook son individuales a propósito y están basados en el análisis de Meta Business Suite (17 jun – 14 jul 2026). El progreso marcado aquí es para trabajo en sesión; para ajustar posts, fechas o cargar el plan de septiembre, pídemelo en el chat.
+</footer>
+
+</div>
+
+<script>
+const boxes=[...document.querySelectorAll('.task input')];
+const fill=document.getElementById('progfill'),txt=document.getElementById('progtxt');
+function upd(){const d=boxes.filter(b=>b.checked).length;
+  fill.style.width=(boxes.length?d/boxes.length*100:0)+'%';
+  txt.textContent=d+' / '+boxes.length+' publicadas';}
+boxes.forEach(b=>b.addEventListener('change',()=>{b.closest('.task').classList.toggle('done',b.checked);upd();}));
+upd();
+</script>
+</body>
+</html>

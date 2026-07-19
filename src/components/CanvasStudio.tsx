@@ -12,7 +12,6 @@ import {
   Sparkles,
   LayoutGrid,
   Send,
-  MousePointer2,
   Share2,
 } from "lucide-react";
 
@@ -433,27 +432,24 @@ export default function CanvasStudio() {
   };
 
   return (
-    <div className="flex h-screen flex-col text-[#ededed]">
+    <div className="flex min-h-0 flex-1 flex-col text-[#ededed]">
       {/* Header */}
       <header className="glass flex items-center justify-between border-b border-white/10 px-6 py-3">
         <div className="flex items-center gap-3">
-          <span className="font-display text-xl tracking-wider">
-            WindMar <span className="text-[#7eb8f7]">Lienzo</span>
+          <span className="font-unbounded text-lg font-extrabold uppercase tracking-tight">
+            WindMar <span className="text-[#ffc145] underline decoration-2 underline-offset-4">Lienzo</span>
           </span>
           <span className="rounded-full bg-white/10 px-3 py-1 text-xs uppercase tracking-wide text-white/60">
             Espacio de diseño
           </span>
         </div>
-        <nav className="flex items-center gap-2">
+        <nav className="flex items-center gap-1">
           <Link
-            href="/"
+            href="/carruseles?c=water"
             className="flex items-center gap-2 rounded-lg bg-white/5 px-4 py-2 text-sm hover:bg-white/10"
           >
             <LayoutGrid size={16} /> Carrusel
           </Link>
-          <span className="flex items-center gap-2 rounded-lg bg-[#1a52c7] px-4 py-2 text-sm">
-            <MousePointer2 size={16} /> Lienzo
-          </span>
         </nav>
       </header>
 
@@ -602,10 +598,10 @@ export default function CanvasStudio() {
             {chat.map((m, i) => (
               <div
                 key={i}
-                className={`max-w-[90%] whitespace-pre-line rounded-2xl px-3 py-2 text-sm ${
+                className={`max-w-[90%] whitespace-pre-line border-2 px-3 py-2 text-sm ${
                   m.role === "user"
-                    ? "ml-auto bg-[#1a52c7] text-white"
-                    : "bg-white/5 text-white/80"
+                    ? "ml-auto border-black bg-[#1098f7] text-white"
+                    : "border-white/20 bg-white/5 text-white/80"
                 }`}
               >
                 {m.text}
@@ -617,18 +613,19 @@ export default function CanvasStudio() {
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2 border-t border-white/10 p-3">
+          <div className="flex items-center gap-2 border-t-2 border-white/20 p-3">
             <input
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendChat()}
               placeholder="Pide una revisión o un cambio…"
-              className="min-w-0 flex-1 rounded-lg border border-white/10 bg-[#121a2e] px-3 py-2 text-sm outline-none focus:border-[#7eb8f7]"
+              className="min-w-0 flex-1 border-2 border-white/20 bg-[#121212] px-3 py-2 text-sm outline-none focus:border-white"
             />
             <button
               onClick={sendChat}
               disabled={busy}
-              className="rounded-lg bg-[#1a52c7] p-2 hover:bg-[#1a52c7]/80 disabled:opacity-40"
+              className="border-2 border-black p-2 text-black transition hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-40"
+              style={{ background: "#ffc145" }}
             >
               <Send size={18} />
             </button>

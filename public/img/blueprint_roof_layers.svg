@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#ffffff"/>
+  <!-- blueprint guide lines -->
+  <g stroke="#c9dcf5" stroke-width="1" opacity="0.6">
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="450" x2="800" y2="450"/>
+  </g>
+  <!-- concrete slab (base) -->
+  <rect x="140" y="380" width="520" height="90" fill="#ffffff" stroke="#1a52c7" stroke-width="4"/>
+  <g stroke="#7eb8f7" stroke-width="1.5" opacity="0.5">
+    <line x1="180" y1="400" x2="180" y2="450"/>
+    <line x1="260" y1="400" x2="260" y2="450"/>
+    <line x1="340" y1="400" x2="340" y2="450"/>
+    <line x1="420" y1="400" x2="420" y2="450"/>
+    <line x1="500" y1="400" x2="500" y2="450"/>
+    <line x1="580" y1="400" x2="580" y2="450"/>
+  </g>
+  <text x="400" y="500" text-anchor="middle" font-family="'Barlow', sans-serif" font-size="22" font-weight="700" fill="#1a52c7">Superficie firme y limpia</text>
+  <!-- old sealing layer being peeled off (orange, worn) -->
+  <path d="M140 380 L420 380 Q470 380 470 340 L470 300 Q560 260 640 300 L660 250 Q500 200 470 260 Q460 300 420 320 L140 320 Z"
+        fill="#fdead6" stroke="#f57c0a" stroke-width="4" stroke-linejoin="round"/>
+  <!-- cracks on old layer -->
+  <g stroke="#f57c0a" stroke-width="2" opacity="0.7">
+    <path d="M220 320 l-8 20 l10 15" fill="none"/>
+    <path d="M320 320 l6 22 l-8 12" fill="none"/>
+  </g>
+  <text x="270" y="360" text-anchor="middle" font-family="'Barlow', sans-serif" font-size="18" font-weight="700" fill="#c85a00">Sellado viejo</text>
+  <!-- peel arrow -->
+  <g stroke="#1a52c7" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M560 220 q60 -30 110 10"/>
+    <path d="M670 230 l0 -18 M670 230 l16 -6" stroke-width="3"/>
+  </g>
+  <text x="640" y="180" text-anchor="middle" font-family="'Barlow', sans-serif" font-size="20" font-weight="800" fill="#1a52c7">Remoción</text>
+</svg>

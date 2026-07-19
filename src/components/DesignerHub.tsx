@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { CAROUSEL_PRODUCTS } from "@/data/carousel";
 import {
-  User,
-  Briefcase,
   Circle,
   Palette,
   Type,
@@ -16,9 +16,7 @@ import {
   X,
   LayoutGrid,
   Box,
-  Sparkles,
   Check,
-  ChevronDown,
   Copy,
   Eye,
   GripVertical,
@@ -28,8 +26,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-const ACCENT = "#00FF66";
-const ACCENT2 = "#7000FF";
+const ACCENT = "#ffc145"; // Sunflower Gold
+const ACCENT2 = "#1098f7"; // Dodger Blue
 
 type Category = "Brand Identity" | "UI/UX Motion" | "3D Art";
 
@@ -43,8 +41,6 @@ interface Project {
   fonts: string[];
   figma: string;
 }
-
-const PORTFOLIOS = ["Nova Studio", "Pixel Forge", "Aether Labs"];
 
 const PROJECTS: Project[] = [
   {
@@ -193,10 +189,6 @@ const TOOLS: Tool[] = [
 ];
 
 export default function DesignerHub() {
-  const [portfolio, setPortfolio] = useState(PORTFOLIOS[0]);
-  const [portfolioOpen, setPortfolioOpen] = useState(false);
-  const [available, setAvailable] = useState(true);
-
   const [filter, setFilter] = useState<"All" | Category>("All");
   const [openProject, setOpenProject] = useState<Project | null>(null);
 
@@ -237,78 +229,146 @@ export default function DesignerHub() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080c] text-white antialiased [font-family:Inter,system-ui,sans-serif]">
-      {/* ── HERO DOCK & BRANDING ── */}
-      <header className="sticky top-0 z-40 border-b border-white/5 bg-[#08080c]/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-10 w-10 items-center justify-center rounded-xl"
-              style={{ background: `linear-gradient(135deg,${ACCENT2},${ACCENT})` }}
-            >
-              <Sparkles size={20} className="text-black" />
-            </div>
-            <div>
-              <div className="text-sm font-bold tracking-tight">Ultimate Designer Hub</div>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-white/40">
-                Graphic × UI/UX
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Portfolio selector */}
-            <div className="relative">
-              <button
-                onClick={() => setPortfolioOpen((o) => !o)}
-                className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm transition hover:border-white/20 hover:bg-white/10"
-              >
-                <Briefcase size={15} style={{ color: ACCENT }} />
-                {portfolio}
-                <ChevronDown size={14} className={`transition ${portfolioOpen ? "rotate-180" : ""}`} />
-              </button>
-              {portfolioOpen && (
-                <div className="absolute right-0 mt-2 w-44 overflow-hidden rounded-xl border border-white/10 bg-[#12121a] shadow-2xl">
-                  {PORTFOLIOS.map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => {
-                        setPortfolio(p);
-                        setPortfolioOpen(false);
-                      }}
-                      className={`flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm transition hover:bg-white/5 ${
-                        p === portfolio ? "text-[#00FF66]" : "text-white/70"
-                      }`}
-                    >
-                      <User size={14} /> {p}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Availability status */}
-            <button
-              onClick={() => setAvailable((a) => !a)}
-              className="flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition"
-              style={{
-                borderColor: available ? `${ACCENT}55` : "#ffffff22",
-                background: available ? `${ACCENT}1a` : "#ffffff0a",
-                color: available ? ACCENT : "#ffffffaa",
-              }}
-            >
-              <Circle size={9} fill="currentColor" className={available ? "animate-pulse" : ""} />
-              {available ? "Open to Work" : "In a Meeting"}
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <div className="font-ui min-h-screen bg-[var(--wm-bg)] text-white antialiased">
       <main className="mx-auto max-w-7xl space-y-16 px-6 py-12">
+        {/* ── HERO ── */}
+        <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--wm-surface)] px-6 py-12 sm:px-10 sm:py-16">
+          {/* solar background image */}
+          <div
+            className="pointer-events-none absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/img/studio-hero.webp')" }}
+          />
+          {/* readability overlay */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--wm-bg)] via-[var(--wm-bg)]/85 to-[var(--wm-bg)]/40" />
+          <div
+            className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full opacity-30 blur-3xl"
+            style={{ background: `radial-gradient(circle,${ACCENT},transparent 70%)` }}
+          />
+          <div className="relative max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70 backdrop-blur">
+              <Circle size={8} fill={ACCENT} stroke="none" /> Creamos contenido que convierte
+            </span>
+            <h1 className="wm-headline mt-6 text-5xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] sm:text-7xl">
+              Creative
+              <br />
+              <span style={{ color: ACCENT }}>Studio</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-base text-white/55 sm:text-lg">
+              Diseña, edita y publica los carruseles de cada producto WindMar — Home, Water,
+              Solar, Batería y Roofing — desde un solo lugar.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/carruseles?c=water" className="wm-pill">
+                <PenTool size={16} /> Editar carruseles
+              </Link>
+              <Link href="/lienzo" className="wm-pill wm-pill-ghost">
+                <Layers size={16} /> Abrir Lienzo
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
+            {[
+              { n: "4", l: "Productos" },
+              { n: "6", l: "Slides / carrusel" },
+              { n: "100%", l: "Editable" },
+              { n: "1080²", l: "Export Instagram" },
+            ].map((s) => (
+              <div key={s.l}>
+                <div className="font-unbounded text-3xl font-extrabold sm:text-4xl" style={{ color: ACCENT }}>
+                  {s.n}
+                </div>
+                <div className="mt-1 text-xs uppercase tracking-wider text-white/45">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── PLATAFORMA (lanzador: todo en un solo lugar) ── */}
+        <section>
+          <div className="mb-6">
+            <h2 className="wm-headline flex items-center gap-2 text-2xl">
+              <LayoutGrid size={22} style={{ color: ACCENT }} /> Plataforma
+            </h2>
+            <p className="mt-1 text-sm text-white/40">
+              Todas tus herramientas WindMar en un solo lugar · clic para abrir.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { href: "/windmar_content_hub.html", name: "Content Hub", desc: "Dashboard, calendarios y planning", grad: "linear-gradient(135deg,#18314f,#1098f7)", ext: true },
+              { href: "/carruseles?c=home", name: "Editor de Carruseles", desc: "Home · Water · Solar · Batería · Roofing", grad: "linear-gradient(135deg,#1a52c7,#7eb8f7)", ext: false },
+              { href: "/lienzo", name: "Lienzo", desc: "Espacio de diseño libre + IA", grad: "linear-gradient(135deg,#7000FF,#b388ff)", ext: false },
+              { href: "/produccion.html", name: "Producción", desc: "Plan de contenido semanal", grad: "linear-gradient(135deg,#f57c0a,#ffc14d)", ext: true },
+              { href: "/Windmar_Guiones_Portal.html", name: "Guiones Portal", desc: "Guiones y scripts de video", grad: "linear-gradient(135deg,#0a7d4d,#4ade80)", ext: true },
+              { href: "/windmar-social-hub.html", name: "Social Hub", desc: "Enlaces y recursos sociales", grad: "linear-gradient(135deg,#334155,#94a3b8)", ext: true },
+            ].map((t) => {
+              const inner = (
+                <>
+                  <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-25 blur-2xl transition group-hover:opacity-45" style={{ background: t.grad }} />
+                  <div className="flex items-start justify-between">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl text-white" style={{ background: t.grad }}>
+                      <LayoutGrid size={20} />
+                    </div>
+                    <ExternalLink size={16} className="text-white/30 transition group-hover:text-white" />
+                  </div>
+                  <div className="mt-4">
+                    <div className="font-unbounded font-bold uppercase tracking-tight">{t.name}</div>
+                    <div className="mt-1 text-[12px] text-white/45">{t.desc}</div>
+                  </div>
+                </>
+              );
+              const cls = "group relative overflow-hidden rounded-3xl border border-white/10 bg-[var(--wm-surface)] p-5 transition hover:scale-[1.01] hover:border-white/30";
+              return t.ext ? (
+                <a key={t.name} href={t.href} className={cls}>{inner}</a>
+              ) : (
+                <Link key={t.name} href={t.href} className={cls}>{inner}</Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── WINDMAR CAROUSELS (edita cada producto en el studio) ── */}
+        <section>
+          <div className="mb-6">
+            <h2 className="wm-headline flex items-center gap-2 text-2xl">
+              <LayoutGrid size={22} style={{ color: ACCENT }} /> Carruseles WindMar
+            </h2>
+            <p className="mt-1 text-sm text-white/40">
+              Cada producto tiene su propia área editable · clic para abrirlo en el studio.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {CAROUSEL_PRODUCTS.map((c) => (
+              <Link
+                key={c.id}
+                href={`/carruseles?c=${c.id}`}
+                className="group relative h-40 overflow-hidden rounded-3xl border border-white/10 transition hover:scale-[1.02] hover:border-white/30"
+                style={{ background: c.grad }}
+              >
+                <div className="absolute inset-0 bg-black/30 transition group-hover:bg-black/10" />
+                <div className="absolute inset-0 flex flex-col justify-between p-5">
+                  <span className="w-fit rounded-full bg-black/40 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider backdrop-blur">
+                    {c.brand}
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold drop-shadow">{c.label}</h3>
+                    <span className="flex items-center gap-1 text-xs text-white/80 opacity-0 transition group-hover:opacity-100">
+                      <PenTool size={12} /> Editar carrusel
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* ── UNIFIED TOOLBOX (Figma · Adobe · Affinity · Canva) ── */}
         <section>
           <div className="mb-6">
-            <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+            <h2 className="wm-headline flex items-center gap-2 text-2xl">
               <ExternalLink size={22} style={{ color: ACCENT }} /> Toolbox
             </h2>
             <p className="mt-1 text-sm text-white/40">
@@ -320,7 +380,7 @@ export default function DesignerHub() {
             {TOOLS.map((t) => (
               <div
                 key={t.id}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0e0e16] p-5 transition hover:border-white/30"
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[var(--wm-surface)] p-5 transition hover:border-white/30"
               >
                 <div
                   className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full opacity-20 blur-2xl transition group-hover:opacity-40"
@@ -371,7 +431,7 @@ export default function DesignerHub() {
         <section>
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 className="flex items-center gap-2 text-2xl font-bold tracking-tight">
+              <h2 className="wm-headline flex items-center gap-2 text-2xl">
                 <LayoutGrid size={22} style={{ color: ACCENT }} /> Bento Portfolio
               </h2>
               <p className="mt-1 text-sm text-white/40">
@@ -423,8 +483,8 @@ export default function DesignerHub() {
 
         {/* ── UI/UX COLLABORATION ZONE (HANDOFF) ── */}
         <section className="grid gap-4 lg:grid-cols-2">
-          <div className="rounded-3xl border border-white/10 bg-[#0e0e16] p-6">
-            <h2 className="flex items-center gap-2 text-xl font-bold">
+          <div className="rounded-3xl border border-white/10 bg-[var(--wm-surface)] p-6">
+            <h2 className="wm-headline flex items-center gap-2 text-xl">
               <Layers size={20} style={{ color: ACCENT2 }} /> Handoff Inspector
             </h2>
             <p className="mt-1 text-sm text-white/40">
@@ -497,8 +557,8 @@ export default function DesignerHub() {
           </div>
 
           {/* ── LIVE ASSET MANAGER ── */}
-          <div className="rounded-3xl border border-white/10 bg-[#0e0e16] p-6">
-            <h2 className="flex items-center gap-2 text-xl font-bold">
+          <div className="rounded-3xl border border-white/10 bg-[var(--wm-surface)] p-6">
+            <h2 className="wm-headline flex items-center gap-2 text-xl">
               <Box size={20} style={{ color: ACCENT }} /> Live Asset Manager
             </h2>
             <p className="mt-1 text-sm text-white/40">
@@ -555,7 +615,7 @@ export default function DesignerHub() {
 
         {/* ── DESIGN FEEDBACK TERMINAL ── */}
         <section>
-          <h2 className="mb-1 flex items-center gap-2 text-2xl font-bold tracking-tight">
+          <h2 className="wm-headline mb-1 flex items-center gap-2 text-2xl">
             <MessageSquareText size={22} style={{ color: ACCENT2 }} /> Feedback Terminal
           </h2>
           <p className="mb-5 text-sm text-white/40">
@@ -602,7 +662,7 @@ export default function DesignerHub() {
                   >
                     <Plus size={14} />
                   </div>
-                  <div className="w-52 rounded-xl border border-white/10 bg-[#12121a] p-2 shadow-2xl">
+                  <div className="w-52 rounded-xl border border-white/10 bg-[var(--wm-surface-2)] p-2 shadow-2xl">
                     <input
                       autoFocus
                       value={pinText}
@@ -631,7 +691,7 @@ export default function DesignerHub() {
               )}
             </div>
 
-            <div className="rounded-3xl border border-white/10 bg-[#0e0e16] p-5">
+            <div className="rounded-3xl border border-white/10 bg-[var(--wm-surface)] p-5">
               <div className="mb-3 flex items-center justify-between">
                 <span className="text-sm font-semibold">Comentarios ({pins.length})</span>
                 {pins.length > 0 && (
@@ -671,7 +731,7 @@ export default function DesignerHub() {
           onClick={() => setOpenProject(null)}
         >
           <div
-            className="w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#0e0e16]"
+            className="w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[var(--wm-surface)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-44" style={{ background: openProject.cover }}>
@@ -738,7 +798,7 @@ export default function DesignerHub() {
 
       {/* ── TOAST ── */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-full border border-white/10 bg-[#12121a] px-5 py-2.5 text-sm shadow-2xl">
+        <div className="fixed bottom-6 left-1/2 z-[60] -translate-x-1/2 rounded-full border border-white/10 bg-[var(--wm-surface-2)] px-5 py-2.5 text-sm shadow-2xl">
           <span className="flex items-center gap-2">
             <Check size={15} style={{ color: ACCENT }} /> {toast}
           </span>

@@ -1,11 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e1420;
+  --background: #0b0b0b;
   --foreground: #ededed;
   --font-bebas: var(--font-bebas);
   --font-barlow: var(--font-barlow);
   --font-barlow-condensed: var(--font-barlow-condensed);
+
+  /* ── Neo-brutalist design system (Hub / Studio / Lienzo chrome) ──
+     Monospaced body + Syne display, harsh edges, solid blocks,
+     hard offset shadows, bold palette accents on stark surfaces.
+     NOTE: the carousel slides keep their own brand design systems and
+     do NOT use these tokens — this only restyles the studio UI. */
+  --wm-bg: #0b0b0b;
+  --wm-surface: #161616;
+  --wm-surface-2: #1f1f1f;
+  --wm-line: rgba(255, 255, 255, 0.18);
+
+  /* Coolors palette */
+  --wm-gold: #ffc145; /* Sunflower Gold — primary accent / actions */
+  --wm-blue: #1098f7; /* Dodger Blue — links / user bubbles */
+  --wm-orange: #d84727; /* Burnt Tangerine — alerts / secondary pop */
+  --wm-navy: #18314f; /* Deep Space Blue — dark blocks */
+  --wm-mist: #edf7f6; /* Azure Mist — light text / surfaces */
+
+  --wm-green: var(--wm-gold); /* "accent" alias — now Sunflower Gold */
+  --wm-green-deep: #2b2b2b;
+  --wm-ink: #050505;
+  --wm-mono: var(--font-mono), "Space Mono", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  --wm-display: var(--font-syne), "Syne", var(--font-mono), sans-serif;
 }
 
 @theme inline {
@@ -14,27 +38,31 @@
   --font-sans: var(--font-barlow);
   --font-display: var(--font-bebas);
   --font-condensed: var(--font-barlow-condensed);
+  --font-unbounded: var(--font-unbounded);
+  --font-inter: var(--font-inter);
+  --font-mono: var(--font-mono);
+  --font-syne: var(--font-syne);
 }
 
 body {
-  background:
-    radial-gradient(1100px 700px at 18% -10%, rgba(26, 82, 199, 0.22), transparent 60%),
-    radial-gradient(900px 600px at 100% 110%, rgba(126, 184, 247, 0.12), transparent 55%),
-    var(--background);
-  background-attachment: fixed;
+  background-color: var(--wm-bg);
+  /* faint dot grid — brutalist, flat, no soft glows */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
   color: var(--foreground);
-  font-family: var(--font-barlow), Arial, Helvetica, sans-serif;
+  font-family: var(--wm-mono);
 }
 
+/* Glass headers become flat solid blocks with a hard bottom rule */
 .glass {
-  background: rgba(18, 23, 42, 0.72);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--wm-surface);
+  border-bottom: 2px solid #fff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .stage-bg {
-  background:
-    radial-gradient(600px 600px at 50% 30%, rgba(126, 184, 247, 0.1), transparent 70%);
+  background: var(--wm-surface);
 }
 
 .font-display {
@@ -44,13 +72,75 @@ body {
   font-family: var(--font-barlow-condensed), sans-serif;
 }
 
+/* ── Neo-brutalist helpers ──
+   Display = Syne; UI/body = Space Mono. */
+.font-unbounded {
+  font-family: var(--wm-display);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.font-ui {
+  font-family: var(--wm-mono);
+}
+.wm-headline {
+  font-family: var(--wm-display);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+/* Square, bordered, hard-shadow block button — the "default" brutalist button */
+.wm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0;
+  background: var(--wm-green);
+  color: #000;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 0 #000;
+  font-family: var(--wm-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 1.2rem;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.wm-pill:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 #000;
+}
+.wm-pill:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 #000;
+}
+.wm-pill-ghost {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  box-shadow: 4px 4px 0 0 rgba(255, 255, 255, 0.5);
+}
+.wm-pill-ghost:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Harsh edges: square every corner inside brutalist chrome regions.
+   Applied via .brutal-scope on the studio UI roots — NOT on carousel slides. */
+.brutal-scope *,
+.brutal-scope {
+  border-radius: 0 !important;
+}
+
 input[type="range"] {
   width: 100%;
-  height: 4px;
+  height: 6px;
   -webkit-appearance: none;
   appearance: none;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 2px;
+  background: #333;
+  border: 1px solid #fff;
+  border-radius: 0;
   cursor: pointer;
   outline: none;
 }
@@ -59,16 +149,16 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  background: #1a52c7;
-  border: 2px solid #7eb8f7;
+  border-radius: 0;
+  background: #fff;
+  border: 2px solid #000;
   cursor: pointer;
 }
 input[type="color"] {
   width: 38px;
   height: 30px;
-  border: none;
-  border-radius: 7px;
+  border: 2px solid #fff;
+  border-radius: 0;
   cursor: pointer;
   background: none;
   padding: 0;
