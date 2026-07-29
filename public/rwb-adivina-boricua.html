@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Red, White &amp; Boricua — ¡Adivina! Diseños</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="description" content="Diseños del juego ¡Adivina! — Stories, Carousels y Reel Captions para Red, White & Boricua." />
+<link rel="icon" href="rwb/logos/rwb-hibiscus-badge.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --black:#030306; --night:#080A11; --night-800:#0D1019; --night-700:#131725;
+  --cream:#FFF8EB; --paper:#EADAC3;
+  --red:#D51D36; --red-bright:#E8465C; --red-deep:#7F0D1E;
+  --blue:#082A6F; --blue-bright:#1162C9;
+  --sky:#6FD7E6; --sun:#E2B44E; --green:#2F8F64;
+  --muted:rgba(255,248,235,.74); --faint:rgba(255,248,235,.55);
+  --line:rgba(255,248,235,.16); --line-strong:rgba(255,248,235,.30);
+  --font-sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-title:"Playfair Display",Georgia,"Times New Roman",serif;
+  --shadow-md:0 10px 24px -8px rgba(0,0,0,.55);
+  --shadow-lg:0 20px 48px -14px rgba(0,0,0,.65);
+  --gutter:clamp(18px,5vw,72px); --maxw:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--cream);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(120% 90% at 82% -8%, rgba(17,98,201,.24), transparent 58%),
+                   radial-gradient(90% 80% at -5% 0%, rgba(213,29,54,.18), transparent 55%);
+  background-attachment:fixed}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+
+/* topbar (solo marca, sin navegación al hub) */
+.top{position:sticky;top:0;z-index:20;background:rgba(8,10,17,.72);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:62px}
+.top img{height:26px}
+.top .ro{margin-left:auto;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sky)}
+
+/* hero */
+.hero{padding:66px 0 30px}
+.kick{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--sun);margin-bottom:18px}
+.kick::before{content:"";width:34px;height:2px;background:var(--red);border-radius:2px}
+.hero h1{font-family:var(--font-title);font-weight:800;font-size:clamp(44px,8vw,92px);line-height:.94;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--red-bright)}
+.hero p{max-width:640px;margin-top:20px;font-size:18px;color:var(--muted)}
+
+/* grid de diseños */
+.designs{padding:26px 0 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.d{position:relative;display:flex;flex-direction:column;background:var(--night-800);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  transition:transform .2s cubic-bezier(.2,.7,.3,1),border-color .2s,box-shadow .2s}
+.d:hover{transform:translateY(-4px);border-color:var(--line-strong);box-shadow:var(--shadow-lg)}
+.d .frame{position:relative;aspect-ratio:9/16;background:#0A0C12;overflow:hidden;border-bottom:1px solid var(--line)}
+.d .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;transform:scale(1.002)}
+.d .frame .veil{position:absolute;inset:0;z-index:2}
+.d .body{padding:18px 18px 20px}
+.d .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sun);
+  background:rgba(226,180,78,.13);padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.d h3{font-family:var(--font-title);font-weight:800;font-size:23px;line-height:1.05}
+.d p{margin-top:8px;font-size:14px;color:var(--muted)}
+.d .go{margin-top:14px;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:800;letter-spacing:.02em;color:var(--sky)}
+.d .go span{transition:transform .18s}
+.d:hover .go span{transform:translateX(4px)}
+.d .full{position:absolute;inset:0;z-index:3}
+
+/* carousels ratio 4:5 */
+.d.ratio45 .frame{aspect-ratio:4/5}
+
+footer{padding:30px 0 60px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+footer b{color:var(--muted)}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <img src="rwb/logos/rwb-logo-white-red.png" alt="Red, White &amp; Boricua" onerror="this.style.display='none'" />
+      <span class="ro">¡Adivina! · Diseños</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="kick">Red, White &amp; Boricua · Instagram</span>
+        <h1><em>¡Adivina!</em><br/>Boricua</h1>
+        <p>El sistema completo del juego para redes — historias verticales, carrusel de perfil y reel con subtítulos en vivo. Toca cualquiera para verlo a pantalla completa.</p>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="designs">
+
+        <article class="d">
+          <div class="frame"><iframe src="rwb/adivina-stories.html" loading="lazy" title="Stories preview" scrolling="no"></iframe><div class="veil"></div></div>
+          <div class="body">
+            <span class="tag">Stories · 1080 × 1920</span>
+            <h3>Stories</h3>
+            <p>Secuencia de historias 9:16 con portada, pistas y tarjeta de respuesta.</p>
+            <span class="go">Ver a pantalla completa <span>→</span></span>
+          </div>
+          <a class="full" href="rwb/adivina-stories.html" aria-label="Abrir Stories"></a>
+        </article>
+
+        <article class="d ratio45">
+          <div class="frame"><iframe src="rwb/adivina-carousels.html" loading="lazy" title="Carousels preview" scrolling="no"></iframe><div class="veil"></div></div>
+          <div class="body">
+            <span class="tag">Carousel · 1080 × 1350</span>
+            <h3>Carousels</h3>
+            <p>Post estático + carrusel de cuatro tarjetas: portada, quién es, el número y su impacto.</p>
+            <span class="go">Ver a pantalla completa <span>→</span></span>
+          </div>
+          <a class="full" href="rwb/adivina-carousels.html" aria-label="Abrir Carousels"></a>
+        </article>
+
+        <article class="d">
+          <div class="frame"><iframe src="rwb/adivina-reel-captions.html" loading="lazy" title="Reel preview" scrolling="no"></iframe><div class="veil"></div></div>
+          <div class="body">
+            <span class="tag">Reel · 1080 × 1920</span>
+            <h3>Reel Captions</h3>
+            <p>Reel con subtítulos en vivo y video embebido — statement en serif sobre la toma.</p>
+            <span class="go">Ver a pantalla completa <span>→</span></span>
+          </div>
+          <a class="full" href="rwb/adivina-reel-captions.html" aria-label="Abrir Reel Captions"></a>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><b>Red, White &amp; Boricua</b> — A Peanut Gallery Group production. Vista de diseños del juego «¡Adivina!».</p>
+    </div>
+  </footer>
+</body>
+</html>
