@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Tesla VPP — Video animado explicativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#082A6F; --navy2:#061c50; --blue:#1c7bff; --ink:#0a1220;
+  --orange:#f7911e; --red:#E82127; --white:#ffffff; --mut:#9fb4dd;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#05070d;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--body);padding:16px;gap:18px;flex-wrap:wrap}
+
+/* ===== Escenario 9:16 (1080×1920) ===== */
+.stage{position:relative;width:min(430px,92vw);aspect-ratio:9/16;border-radius:26px;overflow:hidden;
+  background:
+    radial-gradient(120% 62% at 50% 4%, rgba(120,165,255,.30) 0%, rgba(120,165,255,0) 46%),
+    linear-gradient(160deg, #17408f 0%, #0e2f74 34%, #0a2258 60%, #061634 82%, #030d22 100%);
+  color:#fff;box-shadow:0 30px 90px rgba(4,16,46,.6);container-type:inline-size}
+/* viñeta metálica estática: esquinas oscuras + foco suave, look semi-realista */
+.stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 92% at 50% 32%, rgba(255,255,255,0) 44%, rgba(3,10,26,.55) 100%)}
+/* rejilla blueprint sutil animada */
+.stage::before{content:"";position:absolute;inset:0;z-index:0;opacity:.5;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0,rgba(255,255,255,.05) 1px,transparent 1px,transparent 40px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0,rgba(255,255,255,.05) 1px,transparent 1px,transparent 40px);
+  animation:drift 18s linear infinite}
+@keyframes drift{to{background-position:0 -40px,40px 0}}
+/* pausa: congela todas las animaciones del escenario */
+.stage.paused *, .stage.paused::before, .stage.paused::after{animation-play-state:paused!important}
+/* video de fondo (propiedad) — opcional, si no existe se ve el blueprint */
+.bgvideo{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:1;
+  transform:translateZ(0);backface-visibility:hidden;will-change:transform;contain:paint}
+.bgtint{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(4,16,46,.70) 0%, rgba(6,26,72,.40) 34%, rgba(6,26,72,.42) 60%, rgba(4,16,46,.78) 100%)}
+/* orbe de energía */
+.orb{display:none}
+@keyframes pulse{0%,100%{opacity:.55;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.12)}}
+
+/* ===== Escenas ===== */
+.scene{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:12cqw 9cqw;opacity:0;pointer-events:none;
+  transition:opacity .5s ease;transform:translateZ(0);will-change:opacity}
+.scene.active{opacity:1}
+/* escena héroe con Powerwall semi-realista */
+.scene.s-hero{justify-content:flex-end;padding-bottom:15cqw}
+.pwbg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 33%;z-index:0;opacity:0;transform:scale(1.07)}
+.scene.active .pwbg{animation:pwin 1.6s .05s cubic-bezier(.16,.84,.24,1) forwards}
+@keyframes pwin{to{opacity:1;transform:scale(1)}}
+.pwscrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg, rgba(4,16,46,.20) 0%, rgba(4,16,46,0) 30%, rgba(4,16,46,.55) 66%, rgba(3,10,26,.92) 100%)}
+.s-hero .head,.s-hero .sub{position:relative;z-index:2}
+/* fondo por escena (video Tesla-style) reusable */
+.scenebg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:1;
+  transform:translateZ(0);backface-visibility:hidden}
+.scenebg-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg, rgba(4,16,46,.72) 0%, rgba(6,26,72,.40) 34%, rgba(6,26,72,.42) 60%, rgba(4,16,46,.82) 100%)}
+.scene:has(.scenebg) .kicker,.scene:has(.scenebg) .stepnum,
+.scene:has(.scenebg) .head,.scene:has(.scenebg) .sub,
+.scene:has(.scenebg) .big,.scene:has(.scenebg) .brand{position:relative;z-index:2}
+.scene .ic{font-size:20cqw;line-height:1;margin-bottom:5cqw;filter:drop-shadow(0 6px 18px rgba(0,0,0,.4));
+  transform:translateY(14px) scale(.8);opacity:0}
+.scene.active .ic{animation:popIc .6s .1s cubic-bezier(.2,.8,.2,1.2) forwards}
+@keyframes popIc{to{transform:none;opacity:1}}
+.kicker{font-family:var(--mono);font-weight:500;font-size:3.4cqw;letter-spacing:.34em;text-transform:uppercase;color:var(--orange);
+  margin-bottom:4cqw;opacity:0}
+.scene.active .kicker{animation:rise .55s .15s ease forwards}
+.head{font-family:var(--disp);font-weight:400;font-size:12.5cqw;line-height:.98;letter-spacing:.5px;word-spacing:-.05em;text-transform:uppercase}
+.head .l{display:block;opacity:0;transform:translateY(26px)}
+.scene.active .head .l{animation:rise .6s cubic-bezier(.2,.85,.25,1.08) forwards}
+.scene.active .head .l:nth-child(1){animation-delay:.20s}
+.scene.active .head .l:nth-child(2){animation-delay:.34s}
+.scene.active .head .l:nth-child(3){animation-delay:.48s}
+.scene.active .head .l:nth-child(4){animation-delay:.62s}
+.hl{color:var(--orange)}
+.hl-b{color:#63b4ff;text-shadow:0 2px 10px rgba(0,0,0,.6),0 0 20px rgba(99,180,255,.45)}
+.sub{font-family:var(--body);font-weight:600;font-size:4.3cqw;line-height:1.4;color:var(--mut);margin-top:5cqw;max-width:90%;opacity:0}
+.scene.active .sub{animation:rise .6s .7s ease forwards}
+.big{font-family:var(--disp);font-weight:400;font-size:26cqw;line-height:.9;color:#fff;opacity:0;transform:translateY(22px)}
+.scene.active .big{animation:rise .6s .3s cubic-bezier(.2,.8,.2,1.2) forwards}
+.big .u{font-size:8cqw;color:var(--orange);display:block;letter-spacing:.1em}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* pasos numerados — etiqueta pill para jerarquía clara */
+.stepnum{display:inline-block;font-family:var(--mono);font-weight:500;font-size:3.2cqw;letter-spacing:.3em;text-transform:uppercase;
+  color:#fff;border:1.5px solid rgba(255,255,255,.32);border-radius:99px;padding:1.8cqw 4.5cqw;margin-bottom:5.5cqw;opacity:0}
+.scene.active .stepnum{animation:rise .5s .1s ease forwards}
+
+/* logo Tesla oficial (vector) */
+.tesla{width:26cqw;margin-bottom:5cqw;opacity:0;transform:translateY(14px) scale(.85)}
+.tesla svg{width:100%;height:auto;fill:#fff;filter:drop-shadow(0 6px 20px rgba(0,0,0,.45))}
+.scene.active .tesla{animation:popIc .6s .1s cubic-bezier(.2,.8,.2,1.2) forwards}
+.brand .tesla{width:15cqw;margin:0 0 3cqw}
+
+/* ===== Cierre marca ===== */
+.brand{position:relative;display:flex;flex-direction:column;align-items:center;gap:3cqw}
+/* foco metálico detrás del logo (efecto spotlight semi-realista) */
+.brand::before{content:"";position:absolute;z-index:-1;width:90cqw;height:90cqw;left:50%;top:36%;transform:translate(-50%,-50%);
+  border-radius:50%;background:radial-gradient(circle, rgba(120,165,255,.30) 0%, rgba(90,130,220,.12) 38%, rgba(90,130,220,0) 66%);
+  filter:blur(4px)}
+.brand .wmlogo{width:56cqw;height:auto;
+  filter:drop-shadow(0 3cqw 4.5cqw rgba(0,0,0,.55)) drop-shadow(0 .5cqw 1cqw rgba(0,0,0,.4)) drop-shadow(0 -1px 0 rgba(255,255,255,.22));
+  opacity:0;transform:translateY(16px) scale(.9)}
+.scene.active .brand .wmlogo{animation:rise .7s .25s cubic-bezier(.2,.8,.2,1.2) forwards}
+.brand .site{font-family:var(--mono);font-size:4cqw;letter-spacing:.2em;color:var(--mut)}
+.badge{margin-top:4cqw;font-family:var(--body);font-weight:800;font-size:3.2cqw;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:2.4cqw 5cqw;opacity:0}
+.scene.active .badge{animation:rise .6s .5s ease forwards}
+.tcert{display:block;width:60cqw;height:auto;margin-top:2cqw;opacity:0;transform:translateY(16px)}
+.scene.active .tcert{animation:rise .6s .5s ease forwards}
+
+/* watermark + barra progreso */
+.wmark{position:absolute;z-index:4;bottom:5cqw;left:0;right:0;text-align:center;font-family:'Bebas Neue',Impact,sans-serif;
+  font-size:4cqw;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.prog{position:absolute;z-index:4;top:0;left:0;height:5px;background:linear-gradient(90deg,var(--orange),var(--blue));width:0}
+.prog.run{transition:width linear}
+
+/* controles fuera del escenario */
+.panel{display:flex;flex-direction:column;gap:10px;color:#cdd6ea;font-family:var(--body);max-width:260px}
+.panel h1{font-family:var(--disp);font-weight:400;font-size:22px;color:#fff;letter-spacing:.5px}
+.panel p{font-size:12.5px;line-height:1.5;color:#93a2c4}
+.panel button{font-family:var(--body);font-weight:800;font-size:13px;padding:11px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.panel button.sec{background:transparent;border:1.5px solid #2c3a5c;color:#cdd6ea}
+.panel .tip{font-size:11px;color:#6f7fa3;line-height:1.5;border-top:1px solid #1c2740;padding-top:10px}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <audio id="bgm" src="wme/powerwall-theme.mp3" loop preload="auto"></audio>
+    <video class="bgvideo" muted loop playsinline preload="auto">
+      <source src="wme/bg-master.mp4?v=2" type="video/mp4">
+    </video>
+    <div class="bgtint"></div>
+    <div class="prog" id="prog"></div>
+    <div class="orb"></div>
+
+    <!-- 1 · Gancho -->
+    <div class="scene s-hero">
+      <div class="head"><span class="l">¿TIENES UNA</span><span class="l"><span class="hl">POWERWALL?</span></span></div>
+      <div class="sub">Tu batería puede generarte dinero mientras ayuda a Puerto Rico.</div>
+    </div>
+
+    <!-- 2 · Qué es -->
+    <div class="scene">
+      <div class="kicker">Virtual Power Plant</div>
+      <div class="head"><span class="l">MILES DE</span><span class="l">BATERÍAS,</span><span class="l"><span class="hl-b">UNA RED</span></span><span class="l"><span class="hl">MÁS FUERTE.</span></span></div>
+      <div class="sub">El VPP de Tesla + LUMA conecta tu Powerwall con muchas más para apoyar la red.</div>
+    </div>
+
+    <!-- 3 · Paso 1 -->
+    <div class="scene">
+      <div class="stepnum">PASO 1</div>
+      <div class="head"><span class="l">LUMA ACTIVA</span><span class="l">UN <span class="hl">EVENTO</span></span></div>
+      <div class="sub">Cuando la red necesita apoyo en horas de alta demanda.</div>
+    </div>
+
+    <!-- 4 · Paso 2 -->
+    <div class="scene">
+      <div class="stepnum">PASO 2</div>
+      <div class="head"><span class="l">TU POWERWALL</span><span class="l">APORTA <span class="hl">ENERGÍA</span></span></div>
+      <div class="sub">Automáticamente.<br>Tú decides cuánta compartir.</div>
+    </div>
+
+    <!-- 5 · Paso 3 / ganancia -->
+    <div class="scene">
+      <div class="stepnum">PASO 3 · GANAS</div>
+      <div class="big" style="font-size:24cqw"><span class="u" style="display:block;margin-bottom:-1cqw">hasta</span>$1,000<span class="u">al año por batería</span></div>
+      <div class="sub">Clientes ya generan alrededor de <b style="color:#fff">$1,000 al año</b> por Powerwall. Mientras más aportas a la red, más generas.</div>
+    </div>
+
+    <!-- 6 · Tranquilidad -->
+    <div class="scene">
+      <div class="head"><span class="l">TU RESPALDO</span><span class="l">SIEMPRE <span class="hl-b">PROTEGIDO</span></span></div>
+      <div class="sub">Tú tienes el control.<br>Tesla lo gestiona solo.</div>
+    </div>
+
+    <!-- 7 · Cierre -->
+    <div class="scene">
+      <div class="head" style="font-size:11cqw;margin-bottom:6cqw"><span class="l">CON WINDMAR,</span><span class="l"><span class="hl">SIEMPRE GANAS</span></span></div>
+      <div class="brand">
+        <img class="wmlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+        <img class="tcert" src="wme/logos/tesla-powerwall-premier-w.png" alt="Tesla Powerwall Premier Certified Installer">
+      </div>
+    </div>
+
+    <div class="wmark">Solar · Batería · Tu energía, tu control</div>
+  </div>
+
+  <div class="panel">
+    <h1>VPP · Video animado</h1>
+    <p>Explicador 9:16 con texto, sin narrador. Se reproduce solo en loop. Para tu video: <b>grábalo en pantalla</b> (o pídeme exportarlo).</p>
+    <button onclick="play()">▶︎ Reproducir de nuevo</button>
+    <button class="sec" onclick="togglePause()" id="pausebtn">❚❚ Pausar</button>
+    <button class="sec" onclick="toggleLoop()" id="loopbtn">Loop: ON</button>
+    <div class="tip">Duración ~30s · 7 escenas. Ajusta tiempos o textos cuando quieras. Cifras reales de Puerto Rico ($1/kWh · ~$1,000/año).</div>
+  </div>
+
+<script>
+const scenes = [...document.querySelectorAll('.scene')];
+const prog = document.getElementById('prog');
+const stage = document.getElementById('stage');
+const bg = document.querySelector('.bgvideo');
+// duración por escena (ms)
+// duraciones alineadas a los beats del video de fondo (suman 27500ms = largo exacto del video)
+const DUR = [3500, 4000, 3500, 4000, 4000, 4000, 4500];
+let i = 0, timer = null, looping = true, paused = false, sceneStart = 0, remaining = 0;
+
+function setPauseLabel(t){ const b=document.getElementById('pausebtn'); if(b) b.textContent=t; }
+
+function startProg(ms){
+  prog.classList.remove('run'); prog.style.transition='none'; prog.style.width='0';
+  requestAnimationFrame(()=>{ prog.style.transition='width '+ms+'ms linear'; prog.style.width='100%'; });
+}
+function show(n){
+  scenes.forEach((s,k)=>s.classList.toggle('active', k===n));
+  // el video de fondo hace loop nativo (sin seek) para que NO se tranque en las transiciones
+  startProg(DUR[n]);
+}
+// reanuda el fondo (sin seek)
+function primeVideos(){ if(bg){ try{ bg.play().catch(()=>{}); }catch(e){} } }
+function schedule(ms){
+  sceneStart = Date.now(); remaining = ms;
+  timer = setTimeout(()=>{
+    i++;
+    if(i>=scenes.length){ if(looping){ i=0; } else { return; } }
+    show(i); schedule(DUR[i]);
+  }, ms);
+}
+function next(){ show(i); schedule(DUR[i]); }
+function play(){
+  clearTimeout(timer); paused=false; stage.classList.remove('paused');
+  if(bg){ try{ bg.currentTime=0; bg.play(); }catch(e){} }
+  const pw=document.getElementById('pwvid'); if(pw){ try{ pw.currentTime=0; pw.play(); }catch(e){} }
+  const bgm=document.getElementById('bgm'); if(bgm){ try{ bgm.currentTime=0; bgm.volume=0.6; bgm.play().catch(()=>{}); }catch(e){} }
+  primeVideos();
+  setPauseLabel('❚❚ Pausar'); i=0; next();
+}
+function togglePause(){
+  if(!paused){
+    paused=true; clearTimeout(timer);
+    remaining = Math.max(0, remaining - (Date.now()-sceneStart));
+    const w = getComputedStyle(prog).width; prog.style.transition='none'; prog.style.width=w;
+    stage.classList.add('paused'); if(bg){ try{ bg.pause(); }catch(e){} }
+    document.querySelectorAll('video.scenebg, video.pwbg').forEach(v=>{ try{ v.pause(); }catch(e){} });
+    { const bgm=document.getElementById('bgm'); if(bgm){ try{ bgm.pause(); }catch(e){} } }
+    setPauseLabel('▶︎ Continuar');
+  } else {
+    paused=false; stage.classList.remove('paused'); if(bg){ try{ bg.play(); }catch(e){} }
+    primeVideos();
+    { const bgm=document.getElementById('bgm'); if(bgm){ try{ bgm.play().catch(()=>{}); }catch(e){} } }
+    requestAnimationFrame(()=>{ prog.style.transition='width '+remaining+'ms linear'; prog.style.width='100%'; });
+    schedule(remaining);
+    setPauseLabel('❚❚ Pausar');
+  }
+}
+function toggleLoop(){ looping=!looping; const b=document.getElementById('loopbtn'); if(b) b.textContent='Loop: '+(looping?'ON':'OFF'); }
+play();
+</script>
+</body>
+</html>

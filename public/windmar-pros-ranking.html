@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home — PROS Ranking · Top 4 Installed Deals (Florida)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#050f2c; --navy2:#0a2882; --navy3:#071e55; --ink:#1a52c7;
+  --orange:#f57c0a; --gold:#ffb04d;
+  --grid:rgba(120,160,255,.10); --line-soft:rgba(120,160,255,.18);
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7;
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#0a2882;font-family:var(--body);padding:22px}
+.wrap{max-width:1240px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:#0a2882;color:#0a2882}
+header.top{border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:6px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid var(--line-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5}
+.note b{color:#0a2882}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 20px}
+.btn{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:#0a2882;cursor:pointer;transition:.15s}
+.btn:hover{border-color:#0a2882}
+.btn.on{background:#0a2882;color:#fff;border-color:#0a2882}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{font-family:var(--body);font-weight:800;font-size:12px;padding:8px 16px;border:none;background:#fff;color:#0a2882;cursor:pointer;border-left:1px solid var(--line)}
+.seg button:first-child{border-left:none}
+.seg button.on{background:#0a2882;color:#fff}
+.flabel{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-right:2px}
+
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:6px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:#0a2882;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:#0a2882;background:#0a2882;color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== PROS RANKING PIECE (dark blueprint) ===== */
+.piece{--w:320px;position:relative;overflow:hidden;container-type:inline-size;
+  width:var(--w);background:var(--navy);color:#fff;
+  border-radius:16px;box-shadow:0 18px 50px rgba(6,15,44,.34);border:1px solid #0a2050}
+body.fmt-post .piece{aspect-ratio:4/5}
+body.fmt-story .piece{aspect-ratio:9/16}
+body.real .piece{--w:1080px;border-radius:0}
+
+/* blueprint grid + glow */
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:5cqw 5cqw}
+.piece::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120cqw 70cqw at 82cqw -6cqw,rgba(245,124,10,.20),transparent 55%),
+             radial-gradient(120cqw 80cqw at 10cqw 108cqw,rgba(26,82,199,.34),transparent 60%)}
+.tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid rgba(120,160,255,.5);z-index:6}
+.tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+
+/* ghost wordmark */
+.ghost{position:absolute;z-index:1;font-family:var(--disp);color:rgba(120,160,255,.055);
+  letter-spacing:-.02em;line-height:.8;pointer-events:none;text-transform:uppercase;white-space:nowrap}
+.ghost.g1{top:2cqw;left:-3cqw;font-size:40cqw}
+.ghost.g2{bottom:1cqw;right:-4cqw;font-size:26cqw;color:rgba(245,124,10,.06)}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:9cqw 7.5cqw;pointer-events:none}
+
+/* header */
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:3cqw}
+.brand{display:flex;flex-direction:column;gap:1.4cqw}
+.wlogo{height:6.4cqw;width:auto;object-fit:contain}
+.eyebrow{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.period{text-align:right;font-family:var(--mono);font-size:2.5cqw;letter-spacing:.14em;text-transform:uppercase;color:rgba(200,215,255,.72);line-height:1.5}
+.period b{display:block;color:#fff;font-family:var(--disp);font-size:5.2cqw;letter-spacing:.02em}
+
+/* title */
+.title{margin-top:5cqw}
+.title .k{font-family:var(--mono);font-size:2.8cqw;letter-spacing:.28em;text-transform:uppercase;color:var(--orange)}
+.title h2{font-family:var(--disp);text-transform:uppercase;line-height:.86;font-size:12.5cqw;letter-spacing:-.01em;margin-top:1.4cqw}
+.title h2 .o{color:var(--orange)}
+.metricline{margin-top:2.2cqw;display:inline-flex;align-items:center;gap:2cqw;
+  font-family:var(--mono);font-size:2.7cqw;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,215,255,.85)}
+.metricline .dot{width:1.6cqw;height:1.6cqw;border-radius:50%;background:var(--orange)}
+
+/* ranking list */
+.list{margin-top:auto;display:flex;flex-direction:column;gap:2.6cqw}
+.row{position:relative;display:grid;grid-template-columns:15cqw 1fr auto;align-items:center;gap:3cqw;
+  padding:3.4cqw 4cqw;border-radius:3cqw;background:rgba(15,40,110,.42);border:1px solid rgba(120,160,255,.16)}
+.row .rank{font-family:var(--disp);font-size:12cqw;line-height:.8;color:rgba(150,185,255,.5);text-align:center}
+.row .who{display:flex;flex-direction:column;gap:.6cqw;min-width:0}
+.row .name{font-family:var(--disp);text-transform:uppercase;font-size:5.4cqw;line-height:.92;letter-spacing:.01em;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .tag{font-family:var(--mono);font-size:2.3cqw;letter-spacing:.16em;text-transform:uppercase;color:rgba(190,205,240,.7)}
+.row .num{font-family:var(--disp);font-size:9.5cqw;line-height:.8;color:#fff;text-align:right}
+.row .num small{display:block;font-family:var(--mono);font-size:2.1cqw;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(190,205,240,.72);margin-top:.4cqw}
+
+/* #1 highlight */
+.row.top{background:linear-gradient(100deg,rgba(245,124,10,.22),rgba(245,124,10,.06) 60%,rgba(15,40,110,.42));
+  border-color:rgba(245,124,10,.6);box-shadow:0 6cqw 14cqw rgba(245,124,10,.14)}
+.row.top .rank{color:var(--orange)}
+.row.top .name{color:var(--gold)}
+.row.top .num{color:var(--orange)}
+.row.top .crown{position:absolute;top:-2.4cqw;left:2cqw;font-family:var(--mono);font-size:2.2cqw;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:#050f2c;background:var(--orange);padding:.9cqw 2.4cqw;border-radius:2cqw}
+
+/* footer strip */
+.foot{margin-top:4cqw;display:flex;align-items:center;justify-content:space-between;gap:2cqw;
+  border-top:1px solid rgba(120,160,255,.2);padding-top:3cqw}
+.foot .fl{font-family:var(--mono);font-size:2.4cqw;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,215,255,.7)}
+.foot .hash{font-family:var(--disp);font-size:3.4cqw;letter-spacing:.04em;text-transform:uppercase;color:var(--orange)}
+</style>
+</head>
+<body data-lang="es" class="fmt-post">
+<div class="wrap">
+  <div class="topnav">
+    <a href="/windmar_content_hub.html">← Content Hub</a>
+    <a href="/windmar-fl-stories.html">Fun Facts FL</a>
+    <a href="/windmar-pr-stories.html">Fun Facts PR</a>
+  </div>
+  <header class="top">
+    <h1>WindMar Home — <span class="o">PROS Ranking</span></h1>
+    <div class="sub">Top 4 · Installed Deals · Florida — estilo reconocimiento "PROS Champion"</div>
+  </header>
+
+  <div class="note">
+    Edita el ranking en el arreglo <b>RANKING</b> dentro del archivo (nombre, equipo y # de installed deals). El <b>#1</b> se resalta en naranja automáticamente. Cambia el <b>mes/año</b> en <b>PERIOD</b>.
+    Elige <b>Post 4:5</b> (1080×1350) o <b>Story 9:16</b> (1080×1920) y descarga el PNG.
+  </div>
+
+  <div class="controls">
+    <span class="flabel">Idioma</span>
+    <div class="seg" id="langtog">
+      <button data-lang="es" class="on">ES</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <span class="flabel" style="margin-left:8px">Formato</span>
+    <div class="seg" id="fmttog">
+      <button data-fmt="post" class="on">Post 4:5</button>
+      <button data-fmt="story">Story 9:16</button>
+    </div>
+    <button class="btn" id="sizeBtn">🔍 Tamaño real 1080 · screenshot</button>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script>
+/* ====== EDIT HERE ====== */
+const PERIOD = { es:{label:'Ranking del mes', month:'JULIO 2026'}, en:{label:'Ranking of the month', month:'JULY 2026'} };
+const TITLE  = { es:{k:'Reconocimiento PROS', l1:'TOP', l2:'INSTALADORES'}, en:{k:'PROS Recognition', l1:'TOP', l2:'INSTALLERS'} };
+const METRIC = { es:'Installed Deals · Florida', en:'Installed Deals · Florida' };
+const HASH   = '#WindMarPROS';
+// Ranking ordered #1 → #4 (ranked by installed deals)
+const RANKING = [
+  { name:'Juan S. Muñoz', team:{es:'Equipo Florida', en:'Florida Team'}, deals:36 },
+  { name:'Nombre Apellido', team:{es:'Equipo Florida', en:'Florida Team'}, deals:29 },
+  { name:'Nombre Apellido', team:{es:'Equipo Florida', en:'Florida Team'}, deals:24 },
+  { name:'Nombre Apellido', team:{es:'Equipo Florida', en:'Florida Team'}, deals:21 },
+];
+const LOGO = 'wme/logos/wmh-home-white-orange.png';
+/* ====== /EDIT ====== */
+
+function pieceHTML(){
+  const rows = RANKING.slice(0,4).map((p,i)=>{
+    const n=i+1; const top=n===1?' top':'';
+    const crown=n===1?'<div class="crown"><span class="es">Nº 1</span><span class="en">Nº 1</span></div>':'';
+    return `<div class="row${top}">
+      ${crown}
+      <div class="rank">${n}</div>
+      <div class="who">
+        <div class="name">${p.name}</div>
+        <div class="tag"><span class="es">${p.team.es}</span><span class="en">${p.team.en}</span></div>
+      </div>
+      <div class="num">${p.deals}<small><span class="es">Installed</span><span class="en">Installed</span></small></div>
+    </div>`;
+  }).join('');
+  return `
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="ghost g1">PROS</div>
+  <div class="ghost g2">WINDMAR</div>
+  <div class="content">
+    <div class="head">
+      <div class="brand">
+        <img class="wlogo" src="${LOGO}" alt="WindMar Home">
+        <div class="eyebrow"><span class="es">${PERIOD.es.label}</span><span class="en">${PERIOD.en.label}</span></div>
+      </div>
+      <div class="period">
+        <span class="es">Florida</span><span class="en">Florida</span>
+        <b><span class="es">${PERIOD.es.month}</span><span class="en">${PERIOD.en.month}</span></b>
+      </div>
+    </div>
+    <div class="title">
+      <div class="k"><span class="es">${TITLE.es.k}</span><span class="en">${TITLE.en.k}</span></div>
+      <h2>
+        <span class="es">${TITLE.es.l1} <span class="o">${TITLE.es.l2}</span></span>
+        <span class="en">${TITLE.en.l1} <span class="o">${TITLE.en.l2}</span></span>
+      </h2>
+      <div class="metricline"><span class="dot"></span><span class="es">${METRIC.es}</span><span class="en">${METRIC.en}</span></div>
+    </div>
+    <div class="list">${rows}</div>
+    <div class="foot">
+      <div class="fl"><span class="es">WindMar Home · Florida</span><span class="en">WindMar Home · Florida</span></div>
+      <div class="hash">${HASH}</div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  const g=document.getElementById('gallery');
+  g.innerHTML='';
+  const slot=document.createElement('div');
+  slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <div class="cap" id="capfmt"></div>
+      <button class="dl" id="dl">⬇︎ PNG</button>
+    </div>
+    <div class="piece" id="piece"></div>`;
+  g.appendChild(slot);
+  document.getElementById('piece').innerHTML=pieceHTML();
+  updateCap();
+}
+function updateCap(){
+  const story=document.body.classList.contains('fmt-story');
+  document.getElementById('capfmt').textContent = story?'STORY · 1080 × 1920':'POST · 1080 × 1350';
+}
+render();
+
+/* lang toggle */
+document.querySelectorAll('#langtog button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#langtog button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); document.body.setAttribute('data-lang',b.dataset.lang);
+}));
+/* format toggle */
+document.querySelectorAll('#fmttog button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#fmttog button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.body.classList.remove('fmt-post','fmt-story');
+  document.body.classList.add('fmt-'+b.dataset.fmt);
+  updateCap();
+}));
+/* real size */
+const sb=document.getElementById('sizeBtn');
+sb.addEventListener('click',()=>{document.body.classList.toggle('real');
+  const on=document.body.classList.contains('real');
+  sb.classList.toggle('on',on);
+  sb.textContent=on?'↩︎ Volver a vista previa':'🔍 Tamaño real 1080 · screenshot';
+  if(on)window.scrollTo({top:0,behavior:'smooth'});});
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const slug=s=>(s||'windmar').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50);
+async function toPng(){
+  const story=document.body.classList.contains('fmt-story');
+  const W=1080, H=story?1920:1350;
+  const src=document.getElementById('piece');
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:'+W+'px;height:'+H+'px;z-index:-1;background:#050f2c';
+  const clone=src.cloneNode(true);
+  clone.style.width=W+'px';clone.style.height=H+'px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';clone.style.aspectRatio='auto';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    await nextFrame();
+    return await toBlob(clone,{width:W,height:H,pixelRatio:1,cacheBust:false,backgroundColor:'#050f2c'});
+  } finally { holder.remove(); }
+}
+document.getElementById('dl').addEventListener('click',async(e)=>{
+  const btn=e.currentTarget;const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+  try{
+    const story=document.body.classList.contains('fmt-story');
+    const lang=document.body.getAttribute('data-lang');
+    const blob=await toPng(); if(!blob) throw new Error('render vacío');
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    a.href=url;a.download='windmar-pros-ranking-'+(story?'story':'post')+'-'+lang+'.png';
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+  }catch(err){ alert('No se pudo generar el PNG: '+err.message); }
+  finally{ btn.textContent=t;btn.disabled=false; }
+});
+</script>
+</body>
+</html>

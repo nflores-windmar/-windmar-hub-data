@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<!--
+  PLANTILLA — Guión de Medios · Versión Entrevistador
+  WindMar Home · Marketing
+
+  CÓMO SE USA:
+  1. Sustituye SOLO el texto dentro de las llaves dobles: {{FECHA}} → 26 de agosto de 2026
+  2. No cambies etiquetas, estructura, clases, colores ni orden de secciones.
+  3. No agregues secciones nuevas. No agregues datos que no te dieron.
+  4. Hay 5 bloques de pregunta porque los guiones traen entre 2 y 5. Si sobran,
+     BORRA el bloque <div class="q"> completo — nunca escribas uno nuevo ni renumeres.
+  5. Los tokens sin llenar se pintan en rojo automáticamente al abrir el archivo.
+     Si ves rojo, falta información: pídela, no la inventes.
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guión de Medios · {{PROGRAMA}} · {{FECHA}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a2882;
+    --ink-blue:#1a52c7;
+    --orange:#f57c0a;
+    --ink:#0f172a;
+    --sec:#475569;
+    --ter:#8595ad;
+    --line:#dbe3f2;
+    --cell:#eef3fc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Montserrat',Arial,sans-serif;background:#eef1f6;color:var(--ink);padding:24px 20px;line-height:1.6;}
+  .sheet{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--line);box-shadow:0 6px 30px rgba(10,40,130,.08);}
+
+  /* ---------- Encabezado ---------- */
+  .head{background:var(--navy);color:#fff;padding:20px 42px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;}
+  .head .brand{font-size:12px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:#fff;opacity:.9;margin-bottom:10px;}
+  .head h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:36px;font-weight:400;line-height:1.02;letter-spacing:.015em;}
+  .head .sub{font-size:11px;font-weight:500;color:#c7d4f2;margin-top:8px;letter-spacing:.035em;}
+  .head img{height:38px;width:auto;flex:0 0 auto;}
+  .rule{height:4px;background:var(--orange);}
+
+  /* ---------- Cuerpo ---------- */
+  .body{padding:22px 42px 18px;}
+  .label{font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:9px;}
+
+  table.info{width:100%;border-collapse:collapse;margin-bottom:24px;}
+  table.info td{border:1px solid var(--line);padding:7px 12px;font-size:12.5px;vertical-align:top;}
+  table.info td.k{background:var(--navy);color:#fff;font-size:9.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;width:19%;white-space:nowrap;}
+  table.info td.v{background:var(--cell);color:var(--ink);width:31%;font-weight:500;}
+
+  h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;font-weight:400;color:var(--navy);margin-bottom:6px;letter-spacing:.02em;line-height:1.1;}
+  .hair{height:2px;background:var(--orange);width:52px;margin-bottom:10px;}
+  section{margin-bottom:15px;}
+  p{font-size:13.5px;color:var(--sec);}
+
+  .q{margin-bottom:10px;}
+  .q .n{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:5px;}
+  .q .t{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.45;}
+
+  /* ---------- Pie ---------- */
+  .foot{border-top:1px solid var(--line);padding:13px 42px 15px;font-size:8.8px;font-weight:500;letter-spacing:.045em;color:var(--ter);}
+  .foot .legal{margin-bottom:7px;line-height:1.5;}
+  .foot .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-weight:500;color:var(--navy);}
+
+  /* ---------- Tokens sin llenar ---------- */
+  .missing{background:#ffe8e4;color:#b3261e;font-weight:700;padding:0 3px;border-bottom:2px solid #b3261e;}
+
+  /* ---------- Avisos (desborde y teléfono pegado) ---------- */
+  .overflow{display:none;max-width:760px;margin:0 auto 14px;background:#ffe8e4;border:2px solid #b3261e;color:#b3261e;padding:12px 16px;font-size:13px;font-weight:700;line-height:1.45;}
+  .overflow b{display:block;font-size:14px;margin-bottom:4px;}
+  .pegado{background:#ffe8e4;color:#b3261e;box-shadow:0 0 0 2px #b3261e;border-radius:2px;}
+
+  /* ---------- Botón imprimir ---------- */
+  .print{position:fixed;right:22px;bottom:22px;background:var(--orange);color:#fff;border:0;border-radius:999px;padding:12px 20px;font-size:13px;font-weight:800;cursor:pointer;box-shadow:0 6px 18px rgba(245,124,10,.35);}
+
+  @media print{
+    body{background:#fff;padding:0;}
+    .sheet{max-width:none;border:0;box-shadow:none;}
+    .print{display:none;}
+    .head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    table.info td.k,table.info td.v,.rule,.hair{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .overflow{display:none !important;}
+    .pegado{background:transparent !important;box-shadow:none !important;color:inherit !important;}
+    @page{margin:12mm;}
+  }
+</style>
+</head>
+<body>
+
+<div class="overflow" id="ov"></div>
+
+<div class="sheet">
+
+  <div class="head">
+    <div>
+      <div class="brand">WindMar Home</div>
+      <h1>Guión de Medios</h1>
+      <div class="sub">{{MEDIO}} · {{ESTACION_CANAL}} · «{{PROGRAMA}}» · {{FECHA}}</div>
+    </div>
+    <img src="https://studio-windmar-home.vercel.app/wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+  </div>
+  <div class="rule"></div>
+
+  <div class="body">
+
+    <div class="label">Información del segmento</div>
+    <table class="info">
+      <tr>
+        <td class="k">Fecha</td><td class="v">{{FECHA}}</td>
+        <td class="k">Hora</td><td class="v">{{HORA}}</td>
+      </tr>
+      <tr>
+        <td class="k">Medio</td><td class="v">{{MEDIO}}</td>
+        <td class="k">Estación / Canal</td><td class="v">{{ESTACION_CANAL}}</td>
+      </tr>
+      <tr>
+        <td class="k">Programa</td><td class="v">{{PROGRAMA}}</td>
+        <td class="k">Producto</td><td class="v">{{PRODUCTO}}</td>
+      </tr>
+      <tr>
+        <td class="k">Consultor</td><td class="v">{{CONSULTOR}}</td>
+        <td class="k">Teléfono</td><td class="v">{{TELEFONO}}</td>
+      </tr>
+    </table>
+
+    <section>
+      <h2>Intro</h2>
+      <div class="hair"></div>
+      <p>{{INTRO}}</p>
+    </section>
+
+    <section>
+      <!-- Hay 5 bloques porque los guiones traen entre 2 y 5 preguntas.
+           NUNCA escribas un bloque nuevo: si sobran, BORRA el bloque .q completo
+           (las 4 líneas, del <div class="q"> a su </div>). Nunca dejes un token
+           de pregunta sin llenar: saldría en rojo. -->
+      <div class="q">
+        <div class="n">Pregunta 1</div>
+        <div class="t">{{PREGUNTA_1}}</div>
+      </div>
+      <div class="q">
+        <div class="n">Pregunta 2</div>
+        <div class="t">{{PREGUNTA_2}}</div>
+      </div>
+      <!-- BORRA este bloque si el guión tiene menos de 3 preguntas -->
+      <div class="q">
+        <div class="n">Pregunta 3</div>
+        <div class="t">{{PREGUNTA_3}}</div>
+      </div>
+      <!-- BORRA este bloque si el guión tiene menos de 4 preguntas -->
+      <div class="q">
+        <div class="n">Pregunta 4</div>
+        <div class="t">{{PREGUNTA_4}}</div>
+      </div>
+      <!-- BORRA este bloque si el guión tiene menos de 5 preguntas -->
+      <div class="q">
+        <div class="n">Pregunta 5</div>
+        <div class="t">{{PREGUNTA_5}}</div>
+      </div>
+    </section>
+
+    <section style="margin-bottom:0">
+      <h2>Cierre</h2>
+      <div class="hair"></div>
+      <p>{{CIERRE}}</p>
+    </section>
+
+  </div>
+
+  <div class="foot">
+    <div class="legal">Confidencial · Uso interno de WindMar Home. No distribuir sin autorización del equipo de Marketing.</div>
+    <div class="row">
+      <div>WindMar Home · Marketing · Versión Entrevistador</div>
+      <div>Página 1 de 1</div>
+    </div>
+  </div>
+
+</div>
+
+<button class="print" onclick="window.print()">Imprimir / PDF</button>
+
+<script>
+/* Marca en rojo cualquier token sin llenar. No toca el contenido ya sustituido.
+   Ojo: aquí no se escribe un token de ejemplo a propósito, para que nadie lo confunda con un campo. */
+(function(){
+  var re=/\{\{[A-Z0-9_]+\}\}/g, w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT), nodes=[], n;
+  while(n=w.nextNode()){ if(re.test(n.nodeValue)){ nodes.push(n); } re.lastIndex=0; }
+  nodes.forEach(function(node){
+    var frag=document.createDocumentFragment(), last=0, m;
+    re.lastIndex=0;
+    while(m=re.exec(node.nodeValue)){
+      if(m.index>last) frag.appendChild(document.createTextNode(node.nodeValue.slice(last,m.index)));
+      var s=document.createElement('span'); s.className='missing'; s.textContent=m[0];
+      frag.appendChild(s); last=m.index+m[0].length;
+    }
+    if(last<node.nodeValue.length) frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  });
+})();
+
+/* Dos revisiones automáticas antes de que el documento llegue a un humano.
+   Las dos se ven SOLO en pantalla; ninguna se imprime. */
+(function(){
+
+  /* ---- 1. Teléfono pegado a la palabra siguiente ----
+     Defecto real y en producción: tres moldes de /api/plantillas guardan
+     `{telefono}procura por` sin espacio, y el guión sale con
+     `787-489-1154procura por`. La app no lo detecta al guardar.
+     Se busca sobre el texto RENDERIZADO del párrafo, no nodo por nodo:
+     en el molde de Water el número y la palabra están separados por
+     `</b></b>`, así que mirar nodos sueltos no lo vería. */
+  function zonas(){ return document.querySelectorAll('.body p, .body .q .t'); }
+
+  function telefonoPegado(){
+    /* El `[*_]*` no es adorno: si alguien convirtió el marcado a markdown, el número
+       queda como `787-489-1154**procura` y un lookahead de solo-letra no lo vería.
+       Ese fallo ya ocurrió una vez en este detector. */
+    var re=/\d{3}[-\s]\d{3}[-\s]\d{4}[*_]*(?=[A-Za-zÁÉÍÓÚÜÑáéíóúüñ])/;
+    var malos=[], z=zonas();
+    for(var i=0;i<z.length;i++){
+      var t=z[i].textContent, m=re.exec(t);
+      if(!m) continue;
+      malos.push(t.slice(m.index, m.index+28).trim());
+      z[i].classList.add('pegado');
+    }
+    if(!malos.length) return null;
+    return '<b>El teléfono sale pegado a la palabra siguiente.</b>'+
+      'Aparece así: «'+malos.join('», «')+'». Falta un espacio en el texto de origen. '+
+      'No lo arregles quitando etiquetas — las etiquetas no son el problema. '+
+      'Se corrige en el molde del calendario (panel «Plantillas de guión»), '+
+      'y este guión hay que regenerarlo o corregirlo a mano antes de enviarlo.';
+  }
+
+  /* ---- Marcado convertido a markdown ----
+     INTRO y CIERRE vienen con `<b>` desde el origen. Si alguien los "traduce" a
+     `**negrita**`, el documento imprime los asteriscos como caracteres visibles y
+     se pierde la negrita azul. Esto ya pasó en producción: la fuente decía
+     `<b>WindMar Home</b>` y el documento salió con `**WindMar Home**`.
+     Y es difícil de ver leyendo, porque la verificación también sale convertida:
+     comparar una fuente traducida con una salida traducida siempre cuadra. */
+  function markdownFiltrado(){
+    var malos=[], z=zonas();
+    for(var i=0;i<z.length;i++){
+      var t=z[i].textContent;
+      if(t.indexOf('**')<0 && !/__[^_]/.test(t)) continue;
+      var m=/(\S*\*\*\S*|\S*__\S*)/.exec(t);
+      malos.push(m?m[1]:'**');
+      z[i].classList.add('pegado');
+    }
+    if(!malos.length) return null;
+    return '<b>Hay marcado de markdown sin convertir.</b>'+
+      'Aparece así: «'+malos.join('», «')+'». Esos asteriscos se van a IMPRIMIR '+
+      'como caracteres, y la negrita azul se perdió. El origen trae etiquetas '+
+      '<code>&lt;b&gt;</code>, y se insertan tal cual — no se traducen a markdown. '+
+      'Hay que regenerar el guión sin convertir el marcado.';
+  }
+
+  /* ---- 2. El teléfono no es un campo libre ----
+     WindMar solo tiene dos números para salir al aire, y los decide el MEDIO:
+     TV 787-489-1154, radio 787-489-1155. Cualquier otro número es un número
+     ajeno, y si sale al aire la gente llama a un desconocido.
+
+     Esto existe por un caso real: el 27 de agosto un guión salió con
+     787-333-3000 — un número de relleno puesto "para probar" — con el récord
+     del calendario diciendo 787-489-1154. El documento se veía impecable,
+     porque un número inventado se imprime igual de bonito que uno bueno.
+     Leyendo no se detecta: hay que compararlo, y comparar es justo lo que
+     nadie hace cuando el documento se ve terminado.
+
+     Se mira la tabla Y el cierre, porque el número va en los dos sitios. */
+  var TEL_TV='787-489-1154', TEL_RADIO='787-489-1155';
+
+  function valorDe(etiqueta){
+    var ks=document.querySelectorAll('table.info td.k');
+    for(var i=0;i<ks.length;i++){
+      if(ks[i].textContent.trim().toLowerCase()===etiqueta){
+        var v=ks[i].nextElementSibling;
+        return v?v.textContent.trim():'';
+      }
+    }
+    return '';
+  }
+
+  function telefonoAjeno(){
+    var medio=valorDe('medio'), esperado=null;
+    if(/tele|(^|\W)tv(\W|$)/i.test(medio)) esperado=TEL_TV;
+    else if(/radio/i.test(medio)) esperado=TEL_RADIO;
+
+    var buenos=[TEL_TV,TEL_RADIO];
+    var re=/\d{3}[-\s.]?\d{3}[-\s.]?\d{4}/g;
+    var ajenos=[], cruzados=[];
+    var z=document.querySelectorAll('table.info td.v, .body p, .body .q .t');
+
+    for(var i=0;i<z.length;i++){
+      var t=z[i].textContent, m; re.lastIndex=0;
+      while(m=re.exec(t)){
+        var num=m[0].replace(/[\s.]/g,'-');
+        if(buenos.indexOf(num)<0){
+          if(ajenos.indexOf(m[0])<0) ajenos.push(m[0]);
+          z[i].classList.add('pegado');
+        } else if(esperado && num!==esperado){
+          if(cruzados.indexOf(m[0])<0) cruzados.push(m[0]);
+          z[i].classList.add('pegado');
+        }
+      }
+    }
+
+    var avisos=[];
+    if(ajenos.length){
+      avisos.push('<b>Ese teléfono no es de WindMar.</b>'+
+        'Aparece «'+ajenos.join('», «')+'», y WindMar solo usa dos números al aire: '+
+        TEL_TV+' para televisión y '+TEL_RADIO+' para radio. Un número que no es '+
+        'ninguno de los dos manda a la audiencia a llamar a un desconocido. '+
+        'Vuelve al récord del calendario y copia el que dice ahí. Si el récord también '+
+        'trae ese número, no lo cambies por tu cuenta: repórtalo.');
+    }
+    if(cruzados.length){
+      avisos.push('<b>El teléfono no corresponde al medio.</b>'+
+        'El medio dice «'+medio+'», que lleva '+esperado+', pero el documento dice «'+
+        cruzados.join('», «')+'». Uno de los dos campos está mal. '+
+        'No adivines cuál — cotéjalo contra el original y reporta la discrepancia.');
+    }
+    return avisos.length?avisos.join('<div style="height:10px"></div>'):null;
+  }
+
+  /* ---- 3. ¿Cabe en una página? ----
+     El pie dice "Página 1 de 1" literal: si desborda, el documento sale mintiendo.
+     Mide con el ancho de IMPRESIÓN (Letter 216mm − 24mm de margen = 192mm), no con
+     el de pantalla (760px): al imprimir es más angosto, el texto envuelve más y la
+     hoja crece. Medir en pantalla subestimaría la altura real. */
+  function noCabe(){
+    var sheet=document.querySelector('.sheet');
+    if(!sheet) return null;
+
+    var regla=document.createElement('div');
+    regla.style.cssText='position:absolute;visibility:hidden;width:100mm;height:0';
+    document.body.appendChild(regla);
+    var pxPorMm=regla.getBoundingClientRect().width/100;
+    document.body.removeChild(regla);
+    if(!pxPorMm) return null;
+
+    var maxAnterior=sheet.style.maxWidth, anchoAnterior=sheet.style.width;
+    sheet.style.maxWidth='none'; sheet.style.width='192mm';
+    var alto=sheet.getBoundingClientRect().height;
+    sheet.style.maxWidth=maxAnterior; sheet.style.width=anchoAnterior;
+
+    var util=(279.4-24)*pxPorMm;              // Letter menos @page margin 12mm arriba y abajo
+    if(alto<=util) return null;
+
+    return '<b>Este guión NO cabe en una página.</b>Se pasa por unos '+
+      Math.ceil((alto-util)/pxPorMm)+' mm, así que al imprimir sale en 2 páginas y el '+
+      'pie seguirá diciendo «Página 1 de 1». Acorta el cierre o la pregunta más larga.';
+  }
+
+  function revisar(){
+    var av=document.getElementById('ov');
+    if(!av) return;
+    var avisos=[telefonoAjeno(), telefonoPegado(), markdownFiltrado(), noCabe()].filter(function(a){ return a; });
+    if(!avisos.length) return;
+    av.innerHTML=avisos.join('<div style="height:10px"></div>')+
+      '<div style="margin-top:10px;font-weight:400;font-size:12px">Este recuadro solo se ve en pantalla; no se imprime. No envíes el guión así.</div>';
+    av.style.display='block';
+  }
+
+  if(document.fonts&&document.fonts.ready){ document.fonts.ready.then(revisar); }
+  else { window.addEventListener('load',revisar); }
+})();
+</script>
+
+</body>
+</html>

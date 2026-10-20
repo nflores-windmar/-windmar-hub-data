@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Guía de Producción — Artes y Videos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1D429B; --blue-dark:#21366B; --blue-light:#A6C3E6;
+  --orange:#F89B24; --grey:#666666;
+  /* El naranja de marca no pasa contraste AA como TEXTO pequeño.
+     Como relleno/forma se usa --orange; como texto, estas dos variantes. */
+  --orange-on-light:#9A5A00;   /* texto naranja sobre fondo claro */
+  --orange-on-dark:#FFBE6B;    /* texto naranja sobre azul/oscuro  */
+  --paper:#fff;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --sans:'Montserrat',system-ui,-apple-system,sans-serif;
+  --line:#dfe5f2; --bg:#f4f6fb; --card:#fff; --muted:#4d5a77;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{font-family:var(--sans);background:var(--bg);color:#16203c;
+  -webkit-font-smoothing:antialiased;line-height:1.6;font-size:15px}
+
+/* ---------- barra superior ---------- */
+.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1120px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:16px}
+.top .mark{font-family:var(--disp);font-size:22px;letter-spacing:.02em;color:var(--blue);line-height:1}
+.top .mark span{color:var(--orange-on-light)}
+.top nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;padding:7px 11px;border-radius:99px}
+.top nav a:hover{background:var(--blue);color:#fff}
+@media(max-width:860px){.top nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(160deg,var(--blue) 0%,var(--blue-dark) 100%);color:#fff;
+  padding:62px 22px 56px}
+.hero .in{max-width:1120px;margin:0 auto}
+.kick{font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--orange-on-dark)}
+.hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(44px,8vw,78px);line-height:.92;
+  margin-top:12px;text-transform:uppercase}
+.hero p{max-width:620px;margin-top:16px;font-size:16px;color:#cfdcf7;line-height:1.7}
+.hero .who{margin-top:26px;display:flex;gap:9px;flex-wrap:wrap}
+.hero .who b{font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);
+  padding:8px 14px;border-radius:99px}
+
+/* ---------- layout ---------- */
+main{max-width:1120px;margin:0 auto;padding:0 22px 90px}
+section{padding-top:58px}
+h2{font-family:var(--disp);font-weight:400;font-size:38px;line-height:1;text-transform:uppercase;
+  color:var(--blue);display:flex;align-items:baseline;gap:13px}
+h2 i{font-family:var(--sans);font-style:normal;font-size:12px;font-weight:800;
+  color:var(--orange-on-light);letter-spacing:.2em}
+h3{font-size:16px;font-weight:800;margin-top:30px;color:var(--blue-dark);letter-spacing:-.01em}
+h4{font-size:13px;font-weight:800;margin-top:18px;letter-spacing:.09em;text-transform:uppercase;color:var(--grey)}
+/* Encabezado de tarjeta: mantiene la jerarquía real (h3) con cara de etiqueta.
+   Sin mayúsculas, porque aquí son frases, no etiquetas de una palabra. */
+h3.lbl{font-size:14.5px;font-weight:800;margin-top:0;letter-spacing:-.01em;
+  text-transform:none;color:var(--blue-dark)}
+p{margin-top:11px;max-width:74ch}
+ul,ol{margin-top:11px;padding-left:20px;max-width:74ch}
+li{margin-top:6px}
+a{color:var(--blue)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;
+  background:#e9eef9;color:var(--blue-dark);padding:2px 6px;border-radius:5px;
+  word-break:break-word}
+hr{border:0;border-top:1px solid var(--line);margin:0}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 24px;margin-top:18px;box-shadow:0 2px 14px rgba(20,40,90,.04)}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:18px}
+.cards .card{margin-top:0}
+
+table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px;
+  background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th{background:#eef2fa;text-align:left;font-size:12.5px;font-weight:800;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--blue-dark);padding:11px 13px;white-space:nowrap}
+td{padding:11px 13px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:hover{background:#f8faff}
+.wrap{overflow-x:auto;border-radius:12px}
+
+pre{background:#16203c;color:#dce6ff;border-radius:12px;padding:17px 19px;margin-top:14px;
+  overflow-x:auto;font-size:12.5px;line-height:1.65;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+pre code{background:none;color:inherit;padding:0}
+
+.note{border-left:4px solid var(--orange);background:#fff7ec;border-radius:0 12px 12px 0;
+  padding:15px 19px;margin-top:18px;font-size:14px}
+.note b{color:#8a4d00}
+.warn{border-left:4px solid #d93a3a;background:#fdf0f0;border-radius:0 12px 12px 0;
+  padding:15px 19px;margin-top:18px;font-size:14px}
+.warn b{color:#9c1f1f}
+.ok{border-left:4px solid #2a9d5c;background:#f0faf4;border-radius:0 12px 12px 0;
+  padding:15px 19px;margin-top:18px;font-size:14px}
+.ok b{color:#1d6b40}
+
+.sw{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));margin-top:18px}
+.sw div{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff}
+.sw .chip{height:76px}
+.sw .t{padding:11px 13px}
+.sw .t b{display:block;font-size:13px}
+.sw .t span{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--muted);margin-top:3px}
+
+.chk{list-style:none;padding:0;margin-top:14px}
+.chk li{position:relative;padding:9px 0 9px 32px;border-bottom:1px solid var(--line);max-width:74ch}
+.chk li:before{content:"";position:absolute;left:4px;top:13px;width:14px;height:14px;
+  border:2px solid var(--blue-light);border-radius:4px}
+
+.ff{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:16px}
+.ff div{border:1px solid var(--line);background:#fff;border-radius:13px;padding:17px 19px}
+.ff .s1{font-family:var(--disp);font-size:40px;line-height:.9;text-transform:uppercase;color:var(--blue)}
+.ff .s2{font-family:var(--sans);font-weight:800;font-size:21px;color:var(--blue-dark);letter-spacing:-.02em}
+.ff .s3{font-family:var(--sans);font-weight:500;font-size:14.5px;color:#2b3category}
+.ff small{display:block;margin-top:10px;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted)}
+
+footer{background:var(--blue-dark);color:#b9c9ea;padding:38px 22px;font-size:13px}
+footer .in{max-width:1120px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+footer b{color:#fff}
+footer .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);display:inline-block}
+@media print{.top{position:static}.hero{background:var(--blue)}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="in">
+  <div class="mark">WINDMAR<span>·</span>PRODUCCIÓN</div>
+  <nav>
+    <a href="#empezar">Antes de empezar</a>
+    <a href="#marca">Marca</a>
+    <a href="#artes">Artes</a>
+    <a href="#video">Video</a>
+    <a href="#copy">Copy</a>
+    <a href="#entrega">Entrega</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#pendiente">Por confirmar</a>
+  </nav>
+</div></div>
+
+<div class="hero"><div class="in">
+  <div class="kick">Content Hub · WindMar Home</div>
+  <h1>Guía de producción<br>Artes y videos</h1>
+  <p>Todo lo que hace falta para producir una pieza de WindMar sin preguntar: medidas,
+     colores, logos, tipografía, specs de video, cómo se nombra, cómo se entrega y qué se
+     revisa antes de publicar. Si algo no está aquí, no está decidido — y eso también está
+     escrito abajo.</p>
+  <div class="who">
+    <b>Artista gráfico</b><b>Editor de video</b><b>Community manager</b><b>Agencia externa</b>
+  </div>
+</div></div>
+
+<main>
+
+<!-- ============================================================ -->
+<section id="empezar">
+<h2><i>01</i> Antes de empezar</h2>
+<p>Tres preguntas. Si no las contestas primero, la pieza sale con el logo, el idioma o el
+   URL equivocado — y hay que rehacerla completa.</p>
+
+<div class="cards">
+  <div class="card">
+    <h3 class="lbl">1 · ¿Qué mercado?</h3>
+    <p style="margin-top:7px">Puerto Rico y Florida <b>no</b> comparten URL ni idioma.
+       Decidir esto primero cambia el pie de la pieza.</p>
+  </div>
+  <div class="card">
+    <h3 class="lbl">2 · ¿Qué cuenta?</h3>
+    <p style="margin-top:7px">Home, Pros (reclutamiento), Roofing, Water o Anker.
+       Cada una tiene su logo y su tono.</p>
+  </div>
+  <div class="card">
+    <h3 class="lbl">3 · ¿Qué línea de producto?</h3>
+    <p style="margin-top:7px">Solar, Roofing/Sellado, Water, Anker, Powerwall.
+       Define qué logo secundario entra y qué se puede prometer.</p>
+  </div>
+</div>
+
+<h3>Mercado → idioma y URL</h3>
+<div class="wrap"><table>
+<thead><tr><th>Mercado</th><th>URL de marca</th><th>Idioma del feed</th><th>Cuenta IG</th></tr></thead>
+<tbody>
+<tr><td><b>Puerto Rico</b></td><td><code>windmar.com</code></td><td>Español</td><td>@windmarhome</td></tr>
+<tr><td><b>Florida</b></td><td><code>windmarcommand.com</code></td><td><b>Inglés</b></td><td>@windmarhomefl</td></tr>
+<tr><td><b>Anker SOLIX PR</b></td><td colspan="2">Marca Anker, <b>no</b> WindMar — no lleva logo ni URL de WindMar</td><td>@anker.solixpr</td></tr>
+</tbody>
+</table></div>
+
+<div class="warn"><b>El error más común:</b> poner <code>windmar.com</code> en una pieza de
+Florida, o escribir en español para <code>@windmarhomefl</code>. El feed de Florida va en
+inglés. Confirma el mercado antes de escribir la primera palabra.</div>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="marca">
+<h2><i>02</i> Marca</h2>
+
+<h3>Color</h3>
+<p>Estos son los colores del manual oficial (<code>WMH_Brand_Guidelines.pdf</code>).
+   El azul es la marca; el naranja es el acento y el llamado a la acción. Nunca al revés.</p>
+
+<div class="sw">
+  <div><div class="chip" style="background:#1D429B"></div><div class="t"><b>WH Blue</b><span>#1D429B · Pantone 286</span></div></div>
+  <div><div class="chip" style="background:#F89B24"></div><div class="t"><b>WH Orange</b><span>#F89B24 · Pantone 1375</span></div></div>
+  <div><div class="chip" style="background:#21366B"></div><div class="t"><b>WH Dark Blue</b><span>#21366B · Pantone 534</span></div></div>
+  <div><div class="chip" style="background:#A6C3E6"></div><div class="t"><b>WH Light Blue</b><span>#A6C3E6 · Pantone 2717</span></div></div>
+  <div><div class="chip" style="background:#666666"></div><div class="t"><b>WH Grey</b><span>#666666 · Cool Gray 9</span></div></div>
+</div>
+
+<pre><code>:root{
+  --wh-blue:       #1D429B;   /* marca */
+  --wh-blue-dark:  #21366B;   /* fondos, subtítulos */
+  --wh-blue-light: #A6C3E6;   /* texto sobre azul oscuro */
+  --wh-orange:     #F89B24;   /* acento y CTA — uno por pieza */
+  --wh-grey:       #666666;   /* texto secundario */
+}</code></pre>
+
+<h4>Reglas de color</h4>
+<ul>
+  <li><b>Un solo acento por pieza.</b> El naranja no compite con nada.</li>
+  <li>Sobre fondo oscuro: texto blanco o <code>#A6C3E6</code>, acento naranja.</li>
+  <li>El naranja es para CTA, cierre, promo y destaque — <b>no</b> para bloques grandes de texto.</li>
+  <li>Marca socia Anker: azul <code>#00A7E1</code>. Solo en piezas de Anker.</li>
+</ul>
+
+<div class="note"><b>Ojo con la guía vieja.</b> <code>guia-estilo.html</code> (el sistema
+"Blueprint Oscuro") usa otra paleta — navy <code>#0A2882</code>, naranja <code>#F57C0A</code>,
+y neones por producto. Ese es un <b>sistema de campaña</b>, no el manual de marca. Para
+cualquier pieza corporativa, cliente final o co-branding, manda la paleta de arriba. Si vas
+a trabajar dentro del look Blueprint, usa su paleta pero <b>no la mezcles</b> con esta en la
+misma pieza. (Ver §08 — está pendiente de unificar.)</div>
+
+<h3>Tipografía</h3>
+<p><b>Dos familias. Nunca una tercera.</b></p>
+<div class="ff">
+  <div>
+    <div class="s1">Energía que no para</div>
+    <small>Bebas Neue · display</small>
+    <p style="font-size:13px;margin-top:8px">Solo mayúsculas. Line-height apretado (.90–.95).
+       Una o dos palabras por línea. Titulares grandes nada más.</p>
+  </div>
+  <div>
+    <div class="s2">Tu techo puede trabajar para ti.</div>
+    <small>Montserrat 700/800 · subtítulos</small>
+    <p style="font-size:13px;margin-top:8px">Frases cortas, humanas. El gancho de la pieza.</p>
+  </div>
+  <div>
+    <div class="s3">Instalamos sistemas solares certificados con garantía y financiamiento.</div>
+    <small>Montserrat 400/500 · cuerpo</small>
+    <p style="font-size:13px;margin-top:8px">Máximo ~2 líneas en redes. Si no cabe, sobra texto.</p>
+  </div>
+</div>
+
+<h4>Reglas de tipografía</h4>
+<ul>
+  <li>Lo que pida cara de "mono" o de dato técnico se hace con <b>Montserrat 600 + tracking abierto</b>, no con una fuente mono nueva.</li>
+  <li>Al migrar de Helvetica a Montserrat, <b>baja ~0.5 pt</b>: Montserrat es más ancha.</li>
+  <li>Nada de pictogramas sustituyendo palabras en los titulares. Se escribe la palabra.</li>
+  <li>Las dos son gratis en Google Fonts. Instálalas antes de abrir Illustrator o Premiere.</li>
+</ul>
+
+<pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"&gt;</code></pre>
+
+<h3>Logos</h3>
+<p>Viven en <code>studio/public/wme/logos/</code>. Usa el archivo exacto — no recortes uno
+   de un PDF ni lo bajes de Google.</p>
+
+<div class="wrap"><table>
+<thead><tr><th>Marca</th><th>Fondo claro</th><th>Fondo oscuro</th></tr></thead>
+<tbody>
+<tr><td><b>WindMar Home</b></td><td><code>wmh-home-fc.png</code></td><td><code>wmh-home-white-orange.png</code></td></tr>
+<tr><td><b>WindMar Energy (corp.)</b></td><td><code>wme-fc-horizontal.png</code><br><code>wme-fc-stacked.png</code></td><td><code>wme-white-orange-horizontal.png</code><br><code>wme-white-orange-stacked.png</code></td></tr>
+<tr><td><b>WindMar Roofing</b></td><td><code>windmar-roofing-fc.png</code></td><td><code>windmar-roofing-white-orange.png</code></td></tr>
+<tr><td><b>WindMar Water</b></td><td><code>windmar-water-fc.png</code></td><td><code>windmar-water-white-orange.png</code></td></tr>
+<tr><td><b>WindMar Pros</b></td><td colspan="2"><code>windmar-pros.png</code></td></tr>
+<tr><td><b>WH Financial</b></td><td><code>wh-financial.svg</code></td><td><code>wh-financial-white-orange.svg</code></td></tr>
+<tr><td><b>Anker</b> (socio)</td><td><code>anker-fc.png</code></td><td><code>anker-white-orange.png</code></td></tr>
+<tr><td><b>Tesla Powerwall</b></td><td colspan="2"><code>tesla-powerwall-premier-w.png</code> (versión blanca)</td></tr>
+<tr><td><b>Socios</b></td><td colspan="2"><code>partner-home-depot.png</code> · <code>partner-owens-corning.png</code> · <code>partner-bravo.png</code></td></tr>
+</tbody>
+</table></div>
+
+<div class="warn"><b>No uses <code>whome/logos/windmar-home-color.png</code>.</b> Ese trae caja
+blanca opaca y se ve como un parche sobre fondos de color. El correcto es
+<code>wme/logos/wmh-home-fc.png</code>, que tiene fondo transparente.</div>
+
+<h4>Qué sí y qué no con el logo</h4>
+<div class="cards">
+  <div class="card">
+    <h4 style="margin-top:0;color:#1d6b40">Sí</h4>
+    <ul style="margin-top:8px">
+      <li>Full color sobre fondo claro</li>
+      <li>Versión reverse sobre fondo oscuro</li>
+      <li>Proporción original, siempre</li>
+      <li>Área de respiro alrededor</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4 style="margin-top:0;color:#9c1f1f">No</h4>
+    <ul style="margin-top:8px">
+      <li>Cambiarle el color</li>
+      <li>Estirarlo, rotarlo o alterarlo</li>
+      <li>Ponerlo sobre una foto cargada</li>
+      <li>Enmascararlo con una imagen</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="artes">
+<h2><i>03</i> Artes</h2>
+
+<h3>Medidas</h3>
+<p>Estas son las que de verdad se usan en el Content Hub — no hay más.</p>
+<div class="wrap"><table>
+<thead><tr><th>Pieza</th><th>Medida</th><th>Proporción</th><th>Nota</th></tr></thead>
+<tbody>
+<tr><td><b>Carrusel de feed</b></td><td>1080 × 1350</td><td>4:5</td><td>El formato por defecto. Ocupa más pantalla que el cuadrado.</td></tr>
+<tr><td><b>Story / Reel cover</b></td><td>1080 × 1920</td><td>9:16</td><td>Deja 250 px libres arriba y 320 px abajo — ahí van los controles de IG.</td></tr>
+<tr><td><b>Post cuadrado</b></td><td>1080 × 1080</td><td>1:1</td><td>Solo si el cliente lo pide.</td></tr>
+<tr><td><b>Cortinilla TV / Radio</b></td><td colspan="3">Ver <code>cortinillas/cortinillas.json</code> — el medio decide el archivo, no el tema.</td></tr>
+</tbody>
+</table></div>
+
+<h3>Grilla y márgenes</h3>
+<ul>
+  <li><b>Margen de seguridad:</b> nada importante a menos de <b>74 px</b> del borde en 1080 de ancho.</li>
+  <li><b>Un mensaje por pieza.</b> Si hacen falta dos ideas, son dos slides.</li>
+  <li>Espacio para respirar. Si la pieza se siente apretada, quita texto — no bajes el tamaño.</li>
+  <li>La información importante tiene que leerse de un vistazo, en el teléfono, sin zoom.</li>
+</ul>
+
+<h3>Barra inferior — Florida</h3>
+<p>Convención ya establecida en <code>@windmarhomefl</code>. Respétala en toda pieza nueva de FL:</p>
+<div class="card" style="display:flex;align-items:center;gap:14px;background:var(--blue);color:#fff;flex-wrap:wrap">
+  <span style="font-family:var(--disp);font-size:24px;letter-spacing:.02em">WINDMAR HOME</span>
+  <span style="margin-left:auto;display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:800;letter-spacing:.14em">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block"></span>
+    WINDMARCOMMAND.COM
+  </span>
+</div>
+<p style="font-size:13.5px;color:var(--muted)">Logo a la izquierda · punto naranja + URL en mayúsculas a la derecha.</p>
+
+<h3>Fotos</h3>
+<ul>
+  <li><b>La casa tiene que cuadrar con el precio.</b> Urbanización buena, casa moderna. Nada de cemento sin repello ni cocina vieja.</li>
+  <li>Antes de generar o escoger una foto, pregúntate: <i>¿esta persona tiene $10,000 para esto?</i></li>
+  <li>Prefiere JPG ~80 % sobre PNG de varios MB. Las piezas pesadas tumban el deploy.</li>
+  <li>Si la foto lleva una persona identificable, hace falta permiso de grabación firmado (hay formulario en el portal → <i>Permisos de Grabación</i>).</li>
+</ul>
+
+<h3>Export a PNG</h3>
+<p>Las piezas del Content Hub son HTML y se exportan con la librería
+   <code>html-to-image</code> desde el botón <b>⬇︎ PNG</b> de cada página.</p>
+<pre><code>// el botón ya está en cada pieza; esto es lo que hace por dentro
+htmlToImage.toPng(nodo, { pixelRatio: 2, cacheBust: true })
+  .then(url =&gt; { /* descarga */ });</code></pre>
+<ul>
+  <li><code>pixelRatio: 2</code> para piezas de redes (sale a 2160 px de ancho).</li>
+  <li>Necesita internet la primera vez (la librería viene de CDN).</li>
+  <li>Si el texto sale corrido en el PNG, la fuente no terminó de cargar — recarga y espera 2 s antes de exportar.</li>
+</ul>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="video">
+<h2><i>04</i> Video</h2>
+
+<h3>Specs</h3>
+<div class="wrap"><table>
+<thead><tr><th>Parámetro</th><th>Valor</th><th>Por qué</th></tr></thead>
+<tbody>
+<tr><td><b>Resolución</b></td><td>1080 × 1920</td><td>Vertical, pantalla completa. Es lo único que se produce.</td></tr>
+<tr><td><b>Frame rate</b></td><td>30 fps</td><td>Consistente en todo el inventario entregado.</td></tr>
+<tr><td><b>Códec</b></td><td>H.264 · MP4 · AAC</td><td>Reproduce en todo: IG, Facebook, WhatsApp, navegador.</td></tr>
+<tr><td><b>Duración</b></td><td>15–20 s (reel blueprint)<br>Hasta ~50 s (testimonial)</td><td>Una frase aguanta <b>2.4 s</b> en pantalla. De ahí sale la duración.</td></tr>
+<tr><td><b>Texto en pantalla</b></td><td>Tiene que entenderse <b>en mute</b></td><td>La mayoría lo ve sin sonido.</td></tr>
+</tbody>
+</table></div>
+
+<h3>Dos versiones de audio — siempre</h3>
+<p>Todo video se entrega <b>dos veces</b>. No es opcional.</p>
+<div class="cards">
+  <div class="card">
+    <h4 style="margin-top:0">· con-musica</h4>
+    <p style="margin-top:8px">Lleva la cama musical montada. Es la que se publica tal cual.</p>
+  </div>
+  <div class="card">
+    <h4 style="margin-top:0">· sin-musica</h4>
+    <p style="margin-top:8px"><b>Sin pista de audio ninguna.</b> Lista para montarle audio de
+       tendencia dentro de Instagram, que es lo que empuja el alcance.</p>
+  </div>
+</div>
+
+<h4>Niveles</h4>
+<ul>
+  <li><b>Voz:</b> −15 LUFS.</li>
+  <li><b>Música de fondo bajo voz:</b> −26 a −29 dB, con <i>ducking</i> (que baje sola cuando alguien habla).</li>
+  <li>Si el video no tiene voz, la música puede subir — pero que no sature.</li>
+</ul>
+
+<div class="note"><b>Dónde están las camas musicales.</b> El repo casi no tiene música. Las
+pistas compradas viven en <code>~/Downloads/*_source_*/</code>. Busca ahí antes de decir que
+no hay. La cama vigente de los reels de Florida es <i>Stomp And Clap</i> — piano, palmas y
+pisadas, 1:33, cubre el reel completo sin cortarse.</div>
+
+<h3>Cómo se nombra el archivo</h3>
+<pre><code>fl-bp-roofing-v6-con-musica.mp4
+│  │  │       │  └── versión de audio: con-musica | sin-musica
+│  │  │       └───── versión de la pieza: v1, v2, v3…
+│  │  └───────────── tema: roofing | solar | battery | …
+│  └──────────────── sistema: bp = blueprint
+└─────────────────── mercado: fl | pr</code></pre>
+
+<div class="warn"><b>La versión en el nombre no es opcional.</b> El CDN cachea el MP4 por
+ruta. Si subes un archivo corregido con el mismo nombre, el sitio sigue sirviendo el viejo —
+y vas a jurar que no se subió. <b>Cada corrección sube el número de versión.</b></div>
+
+<h3>El player de entrega</h3>
+<p>Ningún video se entrega como archivo suelto. Se entrega con su player, que trae los tres
+   botones: <b>▶︎ Play</b>, <b>♪ Con música</b>, <b>✕ Sin música</b>. Así el cliente compara
+   las dos versiones sin bajar nada.</p>
+<pre><code>reel-player.html?v=/fl-bp-roofing-v6&amp;t=A%20roof%20ready%20for%20Florida&amp;k=Roofing%20·%20Florida</code></pre>
+<div class="wrap"><table>
+<thead><tr><th>Parámetro</th><th>Qué es</th></tr></thead>
+<tbody>
+<tr><td><code>v</code></td><td>Ruta base del video, <b>sin</b> el sufijo de audio ni <code>.mp4</code>. El player le pega <code>-con-musica.mp4</code> y <code>-sin-musica.mp4</code>.</td></tr>
+<tr><td><code>t</code></td><td>Título de la pieza (URL-encoded).</td></tr>
+<tr><td><code>k</code></td><td>Kicker / categoría, ej. <code>Roofing · Florida</code>.</td></tr>
+</tbody>
+</table></div>
+<p>El índice de reels de Florida vive en
+   <a href="/fl-reels-index.html">fl-reels-index.html</a> y enlaza a cada player.</p>
+
+<h3>Bajar los videos</h3>
+<p>Desde el player, clic derecho sobre el video → <i>Guardar video como…</i>. O directo por URL:</p>
+<pre><code>https://studio-windmar-home.vercel.app/fl-bp-roofing-v6-con-musica.mp4
+https://studio-windmar-home.vercel.app/fl-bp-roofing-v6-sin-musica.mp4</code></pre>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="copy">
+<h2><i>05</i> Copy</h2>
+
+<h3>Tono</h3>
+<ul>
+  <li><b>Simple, directo, tranquilizador.</b> Una idea por pieza.</li>
+  <li><b>Nada de miedo ni de pérdida.</b> No se vende asustando al cliente con lo que va a perder. Se vende con lo que gana.</li>
+  <li>Frases cortas. Si una oración necesita coma y "sin embargo", córtala en dos.</li>
+  <li>Se escribe como se habla, no como se redacta un contrato.</li>
+</ul>
+
+<h3>Lo que no se puede decir</h3>
+<div class="warn"><b>Nunca "gratis total".</b> No se promete que algo sale gratis por completo.
+Se dice <b>"evaluación gratis, sin compromiso"</b> o se habla de <b>ahorro</b>. Esa diferencia
+es legal, no de estilo.</div>
+<ul>
+  <li>Ningún número técnico va al aire sin que el equipo técnico lo coteje. Spec sin confirmar = spec que no se publica.</li>
+  <li>Promociones: siempre con fechas y <i>"ciertas restricciones aplican"</i>.</li>
+  <li>Sorteos: reglas oficiales aprobadas por Marketing/Compliance antes de publicar.</li>
+</ul>
+
+<h3>Cierre de marca</h3>
+<div class="wrap"><table>
+<thead><tr><th>Mercado</th><th>Cierre</th></tr></thead>
+<tbody>
+<tr><td>Puerto Rico</td><td>Logo + <code>windmar.com</code></td></tr>
+<tr><td>Florida</td><td>Logo + punto naranja + <code>WINDMARCOMMAND.COM</code></td></tr>
+</tbody>
+</table></div>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="entrega">
+<h2><i>06</i> Dónde vive y cómo se entrega</h2>
+
+<h3>Estructura</h3>
+<pre><code>Content Hub/studio/
+├── public/                    ← TODO lo que se publica vive aquí
+│   ├── *.html                 ← cada pieza, autocontenida
+│   ├── *.mp4                  ← videos entregables
+│   ├── wme/logos/             ← logos oficiales
+│   ├── img/                   ← imágenes de las piezas
+│   ├── video/                 ← video de fondo del portal
+│   ├── cortinillas/           ← cortinillas TV / Radio
+│   └── windmar_content_hub.html   ← el portal principal
+└── _para-borrar/              ← duplicados retirados (fuera de public)</code></pre>
+
+<ul>
+  <li>Cada pieza es un HTML <b>autocontenido</b>: se abre con doble clic, sin servidor.</li>
+  <li>Las rutas son relativas (<code>img/…</code>, <code>wme/…</code>). Si mueves una carpeta, se rompe todo.</li>
+  <li><b>Duplicados no se borran</b> — se mueven a <code>studio/_para-borrar/</code> y se avisa. Borrar lo decide Nicolle.</li>
+</ul>
+
+<h3>Publicar</h3>
+<p>No hay preview local; se revisa en vivo. Después de <b>cada</b> cambio:</p>
+<pre><code>cd "…/Content Hub/studio"
+npx vercel deploy --prod --yes
+npx vercel alias set &lt;url-del-deploy&gt; studio-windmar-home.vercel.app</code></pre>
+<div class="note"><b>El alias es lo que se comparte.</b> El URL largo del deploy pide login
+(protección del equipo). Solo <code>studio-windmar-home.vercel.app</code> abre para todo el
+mundo. Si el build falla, suele ser Google Fonts — reintenta, no es tu código.</div>
+
+<h3>Links útiles</h3>
+<ul>
+  <li><a href="/windmar_content_hub.html">Portal — Content Hub</a> (calendario, ideas, aprobaciones)</li>
+  <li><a href="/fl-reels-index.html">Reels Florida</a></li>
+  <li><a href="/guia-estilo.html">Guía de estilo visual — Blueprint</a> (sistema de campaña)</li>
+  <li><a href="/windmar-home-brandguide.html">Brand guide — WindMar Home</a></li>
+  <li><a href="/windmar-florida-pros-brandguide.html">Brand guide — Florida Pros</a></li>
+  <li><a href="/guia-del-agente.html">Guía del agente de IA</a> (cómo está armado el portal)</li>
+</ul>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="checklist">
+<h2><i>07</i> Checklist antes de entregar</h2>
+
+<h3>Toda pieza</h3>
+<ul class="chk">
+  <li>El mercado está claro y el URL del pie corresponde (PR = windmar.com / FL = windmarcommand.com).</li>
+  <li>El idioma corresponde a la cuenta (FL va en inglés).</li>
+  <li>El logo es el archivo oficial, con fondo transparente, sin estirar.</li>
+  <li>Un solo acento naranja. Nada compitiendo.</li>
+  <li>Montserrat y Bebas Neue. Ninguna tercera familia.</li>
+  <li>Nada importante a menos de 74 px del borde.</li>
+  <li>Se entiende de un vistazo en el teléfono, sin zoom.</li>
+  <li>Ningún dato técnico sin confirmar por el equipo técnico.</li>
+  <li>No dice "gratis total" en ninguna forma.</li>
+  <li>Si sale una persona identificable: permiso de grabación firmado.</li>
+</ul>
+
+<h3>Además, si es video</h3>
+<ul class="chk">
+  <li>1080 × 1920, 30 fps, H.264/MP4.</li>
+  <li>Existen las dos versiones: <code>-con-musica</code> y <code>-sin-musica</code>.</li>
+  <li>La versión <code>sin-musica</code> de verdad no trae pista de audio.</li>
+  <li>El nombre lleva número de versión y subió respecto a la entrega anterior.</li>
+  <li>Se lee completo en mute.</li>
+  <li>Cada frase aguanta al menos 2.4 s en pantalla.</li>
+  <li>Se entrega con el player, no como archivo suelto.</li>
+  <li>Se desplegó y se verificó en vivo en el alias público.</li>
+</ul>
+</section>
+
+<hr>
+<!-- ============================================================ -->
+<section id="pendiente">
+<h2><i>08</i> Lo que todavía no está decidido</h2>
+<p>Esto no es relleno: son contradicciones reales entre documentos que hoy conviven en el
+   repo. Mientras no se resuelvan, cada quien escoge distinto y el feed sale inconsistente.</p>
+
+<div class="card">
+  <h3 class="lbl">A · Dos paletas en circulación</h3>
+  <p style="margin-top:8px">El manual de marca dice azul <code>#1D429B</code> / naranja
+     <code>#F89B24</code>. <code>guia-estilo.html</code> dice navy <code>#0A2882</code> /
+     naranja <code>#F57C0A</code> más neones por producto. Hay que decidir si el Blueprint es
+     un sistema paralelo permitido o si se alinea al manual.</p>
+</div>
+
+<div class="card">
+  <h3 class="lbl">B · Dos sistemas tipográficos</h3>
+  <p style="margin-top:8px">El manual dice Montserrat. La regla de la casa dice Montserrat +
+     Bebas Neue, nunca una tercera. <code>guia-estilo.html</code> pide además Anek Latin y
+     Martian Mono. <b>Esta guía se queda con Montserrat + Bebas Neue</b> hasta que se decida
+     lo contrario, porque es la regla más reciente — pero hay piezas vivas con las otras.</p>
+</div>
+
+<div class="card">
+  <h3 class="lbl">C · El feed de Florida arrastra 3+ sistemas visuales</h3>
+  <p style="margin-top:8px">En ~34 posts conviven tres o más looks distintos. El problema no
+     es el estilo, es la inconsistencia. Falta escoger uno y sostenerlo.</p>
+</div>
+
+<div class="card">
+  <h3 class="lbl">D · Handle de Florida</h3>
+  <p style="margin-top:8px">El material interno usa <code>@windmarhomefl</code> y
+     <code>@windmarhomeflorida</code> indistintamente. El que existe en vivo es
+     <b><code>@windmarhomefl</code></b>. Hay que corregir el resto.</p>
+</div>
+</section>
+
+</main>
+
+<footer><div class="in">
+  <b>WindMar Home · Content Hub</b>
+  <span class="dot"></span>
+  <span>Guía de producción — artes y videos</span>
+  <span style="margin-left:auto">studio-windmar-home.vercel.app/guia-produccion.html</span>
+</div></footer>
+
+</body>
+</html>

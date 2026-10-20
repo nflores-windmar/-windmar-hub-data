@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WindMar Energy — Sistema de Diseño / Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* Core */
+  --wm-blue:#0838A8; --wm-blue-700:#0A2E86; --wm-blue-bright:#0079C0; --wm-blue-mid:#24378C; --wm-blue-deep:#192059;
+  --wm-orange:#F89818; --wm-orange-600:#E07F05; --wm-amber:#FFB629; --wm-orange-glow:#FF9E1A;
+  --wm-navy:#0D142A; --wm-ink:#0B1220; --wm-white:#FFFFFF; --wm-paper:#F5F6F8;
+  --wm-gray-900:#1A2233; --wm-gray-700:#3A4658; --wm-gray-500:#6B7688; --wm-gray-300:#B8C2D0; --wm-gray-100:#E7EDF4;
+  --wm-safety:#F2C500;
+  /* Gradients */
+  --grad-brand:linear-gradient(90deg,var(--wm-blue-bright) 0%,var(--wm-blue-mid) 50%,var(--wm-blue-deep) 100%);
+  --grad-headline:linear-gradient(180deg,var(--wm-blue-bright) 0%,var(--wm-blue-mid) 55%,var(--wm-blue-deep) 100%);
+  --grad-energy:linear-gradient(180deg,var(--wm-amber) 0%,var(--wm-orange) 58%,var(--wm-orange-600) 100%);
+  --glow-energy:radial-gradient(58% 64% at 50% 48%,rgba(255,182,41,.42) 0%,rgba(248,152,24,.22) 42%,rgba(248,152,24,0) 75%);
+  /* Type */
+  --font-display:'Bebas Neue','Oswald','Anton',sans-serif;
+  --font-sans:'Montserrat','Helvetica Neue',Arial,sans-serif;
+  /* Radii + shadow */
+  --radius-pill:999px; --radius-glass:28px; --radius-card:18px; --radius-chip:12px;
+  --shadow-cta:0 10px 28px rgba(248,152,24,.42),0 2px 6px rgba(13,20,42,.20);
+  --shadow-glass:0 24px 60px rgba(13,20,42,.28);
+  --shadow-card:0 10px 30px rgba(13,20,42,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--wm-paper);color:var(--wm-ink);font-family:var(--font-sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* bilingual toggle */
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+/* nav */
+nav{position:sticky;top:0;z-index:40;background:rgba(245,246,248,.86);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--wm-gray-100);display:flex;align-items:center;gap:18px;padding:12px 22px;flex-wrap:wrap}
+nav .brand{font-family:var(--font-display);font-size:24px;letter-spacing:.02em;color:var(--wm-blue);line-height:1}
+nav .brand b{color:var(--wm-orange)}
+nav .links{display:flex;gap:14px;flex-wrap:wrap;flex:1;min-width:200px}
+nav .links a{font-size:12px;font-weight:600;color:var(--wm-gray-700);text-decoration:none;letter-spacing:.02em;transition:.15s}
+nav .links a:hover{color:var(--wm-blue)}
+.langtog{display:flex;border:1.5px solid var(--wm-gray-300);border-radius:999px;overflow:hidden;font-family:var(--font-sans)}
+.langtog button{border:none;background:transparent;font-weight:800;font-size:11px;letter-spacing:.08em;padding:6px 14px;cursor:pointer;color:var(--wm-gray-500)}
+body[data-lang="es"] .langtog .es-b,body[data-lang="en"] .langtog .en-b{background:var(--wm-blue);color:#fff}
+
+/* layout */
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+section{padding:64px 0}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-num{font-family:var(--font-sans);font-weight:800;font-size:12px;letter-spacing:.16em;color:var(--wm-orange);text-transform:uppercase}
+h2{font-family:var(--font-display);font-size:clamp(34px,5vw,58px);line-height:.92;letter-spacing:.01em;color:var(--wm-blue-deep);text-transform:uppercase}
+.lead{max-width:720px;color:var(--wm-gray-700);font-size:16px;margin-top:14px}
+.card{background:#fff;border:1px solid var(--wm-gray-100);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:26px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.label{font-family:var(--font-sans);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--wm-gray-500)}
+.mut{color:var(--wm-gray-500);font-size:13.5px}
+.hr{height:1px;background:var(--wm-gray-100);border:0;margin:26px 0}
+
+/* HERO */
+.hero{background:var(--grad-brand);color:#fff;padding:56px 0 60px;position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:1}
+.hero img.logo{height:78px;width:auto;display:block;margin-bottom:26px;filter:drop-shadow(0 6px 22px rgba(13,20,42,.35))}
+.hero h1{font-family:var(--font-display);font-size:clamp(46px,9vw,120px);line-height:.86;letter-spacing:.01em;text-transform:uppercase}
+.hero .tagsys{font-family:var(--font-display);font-size:clamp(20px,3vw,34px);letter-spacing:.06em;color:var(--wm-amber);margin-top:8px}
+.hero p{max-width:660px;margin-top:18px;font-size:15.5px;color:rgba(255,255,255,.9)}
+
+/* logos section */
+.logo-row{display:flex;gap:18px;flex-wrap:wrap}
+.logo-box{flex:1;min-width:240px;border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;padding:34px;min-height:190px}
+.logo-box img{max-height:120px;max-width:100%;width:auto;display:block}
+.lb-white{background:#fff;border:1px solid var(--wm-gray-100)}
+.lb-blue{background:var(--wm-blue)}
+.lb-grad{background:var(--grad-brand)}
+.lb-navy{background:var(--wm-navy)}
+
+/* colors */
+.sw{border-radius:14px;overflow:hidden;border:1px solid var(--wm-gray-100);background:#fff}
+.sw .chip{height:96px}
+.sw .meta{padding:10px 12px}
+.sw .nm{font-weight:700;font-size:13px;color:var(--wm-ink)}
+.sw .hex{font-family:var(--font-sans);font-weight:600;font-size:12px;color:var(--wm-gray-500);letter-spacing:.04em}
+.gradbar{height:70px;border-radius:14px;border:1px solid var(--wm-gray-100)}
+
+/* type specimens */
+.spec-display{font-family:var(--font-display);font-size:88px;line-height:.9;color:var(--wm-blue-deep);letter-spacing:.02em}
+.spec-sans{font-family:var(--font-sans);font-size:40px;color:var(--wm-ink)}
+.weights{display:flex;flex-direction:column;gap:6px}
+.weights span{font-family:var(--font-sans);font-size:18px}
+.glyphset{font-family:var(--font-display);font-size:30px;letter-spacing:.06em;color:var(--wm-gray-700);margin-top:8px}
+
+/* headline hierarchy demo */
+.hl-demo{background:var(--wm-paper);border-radius:var(--radius-card);padding:34px;text-align:left}
+.hl-kicker{font-family:var(--font-sans);font-weight:500;font-size:22px;color:var(--wm-blue);line-height:1.1}
+.hl-tension{font-family:var(--font-display);font-size:64px;line-height:.9;letter-spacing:.01em;margin-top:4px;
+  background-image:var(--grad-headline);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hl-shout-wrap{position:relative;display:inline-block;margin-top:2px}
+.hl-shout-glow{position:absolute;inset:-16% -12%;background:var(--glow-energy);filter:blur(10px);z-index:0}
+.hl-shout{position:relative;z-index:1;font-family:var(--font-display);font-size:118px;line-height:.9;letter-spacing:.01em;
+  background-image:var(--grad-energy);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.tierlist{margin-top:22px;display:grid;gap:8px}
+.tierlist li{list-style:none;display:flex;gap:10px;font-size:14px;color:var(--wm-gray-700)}
+.tierlist b{color:var(--wm-blue-deep)}
+.tiernum{font-family:var(--font-display);font-size:22px;color:var(--wm-orange);line-height:1;min-width:22px}
+
+/* glass */
+.glass-stage{border-radius:var(--radius-card);padding:26px;min-height:260px;display:flex;align-items:flex-end;position:relative;overflow:hidden}
+.stage-grad{background:var(--grad-brand)}
+.stage-navy{background:var(--wm-navy)}
+.glass{border-radius:var(--radius-glass);padding:26px;width:100%;color:#fff;box-shadow:var(--shadow-glass)}
+.glass.dark{background:rgba(13,20,42,.42);backdrop-filter:blur(28px);border:1px solid rgba(255,255,255,.16)}
+.glass.light{background:rgba(255,255,255,.12);backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.28)}
+.glass .gl-lead{font-weight:800;font-size:26px;line-height:1.1}
+.glass .gl-lead .hook{color:var(--wm-amber);font-weight:900}
+.glass .gl-sub{font-size:15px;opacity:.95;margin-top:4px}
+
+/* components */
+.cta{display:inline-flex;align-items:center;gap:.5em;font-family:var(--font-sans);font-weight:800;font-size:20px;
+  letter-spacing:.06em;text-transform:uppercase;color:#fff;background:var(--wm-orange);border:none;border-radius:var(--radius-pill);
+  padding:16px 32px;box-shadow:var(--shadow-cta);cursor:pointer;line-height:1}
+.cta .arw{font-weight:700;font-size:1.05em;transform:translateY(-.02em)}
+.pill{display:inline-block;font-weight:700;font-size:15px;line-height:1.1;letter-spacing:.005em;padding:.5em 1.1em;border-radius:var(--radius-pill);white-space:nowrap}
+.pill.light{background:rgba(255,255,255,.92);color:var(--wm-blue);border:1px solid var(--wm-gray-100)}
+.pill.glass{background:var(--wm-navy);color:#fff;border:1px solid rgba(255,255,255,.28)}
+.pill.blue{background:var(--wm-blue);color:#fff}
+.comp{display:flex;flex-direction:column;gap:12px}
+.comp .cn{font-family:var(--font-display);font-size:26px;letter-spacing:.03em;color:var(--wm-blue-deep)}
+.comp .cd{font-size:13px;color:var(--wm-gray-500)}
+.compstage{background:var(--wm-paper);border-radius:12px;padding:22px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;min-height:96px}
+.compstage.dark{background:var(--wm-navy)}
+.reporticon{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;background:#fff;box-shadow:0 8px 20px rgba(13,20,42,.30)}
+.urg{font-family:var(--font-sans);font-weight:600;font-size:16px;letter-spacing:.01em;color:#fff}
+
+/* spacing + radii */
+.sp-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.sp-bar{height:16px;background:var(--wm-blue);border-radius:4px}
+.sp-nm{font-family:var(--font-sans);font-weight:700;font-size:12px;color:var(--wm-gray-700);min-width:120px}
+.radii{display:flex;gap:16px;flex-wrap:wrap}
+.radii .rr{width:96px;height:96px;background:var(--wm-blue);display:flex;align-items:flex-end;justify-content:center;color:#fff;font-size:11px;font-weight:700;padding:6px}
+.shadowset{display:flex;gap:20px;flex-wrap:wrap}
+.shadowset .sh{width:120px;height:80px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--wm-gray-500)}
+
+/* formats */
+.fmt-card{display:flex;flex-direction:column;gap:14px;align-items:center}
+.fmt-frame{position:relative;background:var(--wm-gray-100);border:1px solid var(--wm-gray-300);border-radius:8px;overflow:hidden}
+.fmt-frame .safe{position:absolute;border:1.5px dashed var(--wm-blue);opacity:.55;inset:8%}
+.fmt-frame .zone{position:absolute;left:0;right:0;background:repeating-linear-gradient(45deg,rgba(248,152,24,.18) 0 6px,transparent 6px 12px);font-size:9px;color:var(--wm-orange-600);font-weight:700;display:flex;align-items:center;justify-content:center}
+.fmt-name{font-family:var(--font-display);font-size:24px;color:var(--wm-blue-deep);letter-spacing:.03em}
+.fmt-dim{font-family:var(--font-sans);font-weight:600;font-size:12px;color:var(--wm-orange-600)}
+
+/* photo direction */
+.ph-frame{aspect-ratio:4/5;border:2px dashed var(--wm-gray-300);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:var(--wm-gray-100);text-align:center;padding:16px}
+.ph-frame .l1{font-family:var(--font-display);font-size:22px;color:var(--wm-gray-500);letter-spacing:.03em}
+.ph-frame .l2{font-size:11px;color:var(--wm-gray-500);max-width:200px}
+.dodont{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:20px}
+.dd{border-radius:14px;padding:20px}
+.dd.do{background:#eaf6ee;border:1px solid #b7e0c5}
+.dd.dont{background:#fdecec;border:1px solid #f3c2c2}
+.dd h4{font-family:var(--font-sans);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.dd.do h4{color:#1e8f53}.dd.dont h4{color:#c9384a}
+.dd ul{margin:0;padding-left:18px}.dd li{font-size:13.5px;color:var(--wm-gray-700);margin-bottom:7px}
+
+/* rules */
+.rules{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.rule{background:#fff;border:1px solid var(--wm-gray-100);border-left:4px solid var(--wm-orange);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--wm-gray-700)}
+.rule b{color:var(--wm-blue-deep)}
+
+footer{background:var(--wm-navy);color:#fff;text-align:center;padding:48px 22px 60px}
+footer .fb{font-family:var(--font-display);font-size:30px;letter-spacing:.04em}
+footer .fb b{color:var(--wm-orange)}
+footer p{font-size:12px;color:rgba(255,255,255,.6);margin-top:8px;letter-spacing:.02em}
+</style>
+</head>
+<body data-lang="es">
+
+<nav>
+  <span class="brand">WindMar <b>Energy</b></span>
+  <span class="links">
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#type"><span class="es">Tipografía</span><span class="en">Type</span></a>
+    <a href="#headline"><span class="es">Titular</span><span class="en">Headline</span></a>
+    <a href="#glass">Glass</a>
+    <a href="#comp"><span class="es">Componentes</span><span class="en">Components</span></a>
+    <a href="#format"><span class="es">Formatos</span><span class="en">Formats</span></a>
+    <a href="#photo"><span class="es">Fotografía</span><span class="en">Photography</span></a>
+    <a href="#rules"><span class="es">Reglas</span><span class="en">Rules</span></a>
+  </span>
+  <span class="langtog">
+    <button class="es-b" onclick="setLang('es')">ES</button>
+    <button class="en-b" onclick="setLang('en')">EN</button>
+  </span>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <img class="logo" src="wme/logos/wme-white-orange-horizontal.png" alt="WindMar Energy" />
+    <h1>WindMar Energy</h1>
+    <div class="tagsys"><span class="es">Sistema de Diseño</span><span class="en">Design System</span></div>
+    <p>
+      <span class="es">La base visual reutilizable de la marca: logo, color, tipografía, la jerarquía de titular de tres niveles, el glass, los componentes y las reglas de formato. Bilingüe ESP / ENG — mismo layout, texto intercambiable.</span>
+      <span class="en">The brand's reusable visual foundation: logo, color, typography, the three-tier headline hierarchy, glass, components and format rules. Bilingual ESP / ENG — identical layout, swapped text.</span>
+    </p>
+  </div>
+</header>
+
+<!-- 01 LOGO -->
+<section id="logo"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">01</span><h2>Logo</h2></div>
+  <p class="lead">
+    <span class="es">El logo es una unidad indivisible: el sol con rayos + el wordmark "windmar ENERGY". Nunca se descompone, nunca se usa el sol suelto ni como forma decorativa. Dos lockups (apilado y horizontal) y tres variantes según el fondo.</span>
+    <span class="en">The logo is an indivisible unit: the rayed sun + the "windmar ENERGY" wordmark. Never decompose it, never use the sun loose or as a decorative shape. Two lockups (stacked and horizontal) and three variants by background.</span>
+  </p>
+  <div class="logo-row" style="margin-top:22px">
+    <div class="logo-box lb-white"><img src="wme/logos/wme-fc-stacked.png" alt="Full color" /></div>
+    <div class="logo-box lb-grad"><img src="wme/logos/wme-white-stacked.png" alt="White" /></div>
+    <div class="logo-box lb-navy"><img src="wme/logos/wme-white-orange-stacked.png" alt="White + orange" /></div>
+  </div>
+  <div class="logo-row" style="margin-top:16px">
+    <div class="logo-box lb-white"><img src="wme/logos/wme-fc-horizontal.png" alt="Full color horizontal" /></div>
+    <div class="logo-box lb-grad"><img src="wme/logos/wme-white-horizontal.png" alt="White horizontal" /></div>
+    <div class="logo-box lb-navy"><img src="wme/logos/wme-white-orange-horizontal.png" alt="White + orange horizontal" /></div>
+  </div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><div class="label"><span class="es">Full-color</span><span class="en">Full-color</span></div><p class="mut" style="margin-top:8px"><span class="es">Sobre fondos claros. En superficies blancas no lleva caja ni sombra — colocación libre.</span><span class="en">On light backgrounds. On white surfaces: no box, no shadow — free placement.</span></p></div>
+    <div class="card"><div class="label">White</div><p class="mut" style="margin-top:8px"><span class="es">Sobre azul de marca sólido o fondos muy oscuros.</span><span class="en">On solid brand blue or very dark backgrounds.</span></p></div>
+    <div class="card"><div class="label">White + orange</div><p class="mut" style="margin-top:8px"><span class="es">Sobre fotos oscuras; conserva el sol naranja. Sombra solo si el contraste lo exige.</span><span class="en">On dark photos; keeps the orange sun. Shadow only if contrast demands it.</span></p></div>
+  </div>
+  <div class="rules" style="margin-top:18px">
+    <div class="rule"><span class="es"><b>Integridad.</b> El sol y los rayos existen solo dentro del logo completo — nunca ampliados, recortados, sangrados ni como forma de esquina.</span><span class="en"><b>Integrity.</b> The sun and rays exist only inside the complete lockup — never enlarged, cropped, bled off, or as a corner shape.</span></div>
+    <div class="rule"><span class="es"><b>En piezas fotográficas</b> (KV/Feed/Stories) el logo va dentro del arte, en el cuadrante opuesto a la figura, a 100–180px, alineado a los márgenes seguros.</span><span class="en"><b>On photographic pieces</b> (KV/Feed/Stories) the logo sits inside the art, in the quadrant opposite the figure, at 100–180px, aligned to the safe margins.</span></div>
+  </div>
+</div></section>
+
+<!-- 02 COLOR -->
+<section id="color" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">02</span><h2>Color</h2></div>
+  <p class="lead">
+    <span class="es">Naranja y azul muestreados del logo. El azul de marca vive como gradiente de 3 paradas (uno por pieza). El naranja aparece en exactamente dos lugares: el botón CTA y el glow del titular — en ningún otro sitio.</span>
+    <span class="en">Orange and blue sampled from the logo. Brand blue lives as a 3-stop gradient (one per piece). Orange appears in exactly two places: the CTA button and the headline glow — nowhere else.</span>
+  </p>
+  <div class="label" style="margin:24px 0 10px"><span class="es">Núcleo</span><span class="en">Core</span></div>
+  <div class="grid g4">
+    <div class="sw"><div class="chip" style="background:#F89818"></div><div class="meta"><div class="nm">Orange</div><div class="hex">#F89818</div></div></div>
+    <div class="sw"><div class="chip" style="background:#0838A8"></div><div class="meta"><div class="nm">Blue</div><div class="hex">#0838A8</div></div></div>
+    <div class="sw"><div class="chip" style="background:#FFB629"></div><div class="meta"><div class="nm">Amber (glow)</div><div class="hex">#FFB629</div></div></div>
+    <div class="sw"><div class="chip" style="background:#0D142A"></div><div class="meta"><div class="nm">Navy (glass)</div><div class="hex">#0D142A</div></div></div>
+  </div>
+  <div class="label" style="margin:26px 0 10px"><span class="es">Gradiente de marca</span><span class="en">Brand gradient</span> · #0079C0 → #24378C → #192059</div>
+  <div class="gradbar" style="background:var(--grad-brand)"></div>
+  <div class="label" style="margin:26px 0 10px"><span class="es">Neutros & grises</span><span class="en">Neutrals & grays</span></div>
+  <div class="grid g4">
+    <div class="sw"><div class="chip" style="background:#F5F6F8;border-bottom:1px solid #E7EDF4"></div><div class="meta"><div class="nm">Paper</div><div class="hex">#F5F6F8</div></div></div>
+    <div class="sw"><div class="chip" style="background:#E7EDF4"></div><div class="meta"><div class="nm">Gray 100</div><div class="hex">#E7EDF4</div></div></div>
+    <div class="sw"><div class="chip" style="background:#B8C2D0"></div><div class="meta"><div class="nm">Gray 300</div><div class="hex">#B8C2D0</div></div></div>
+    <div class="sw"><div class="chip" style="background:#6B7688"></div><div class="meta"><div class="nm">Gray 500</div><div class="hex">#6B7688</div></div></div>
+    <div class="sw"><div class="chip" style="background:#3A4658"></div><div class="meta"><div class="nm">Gray 700</div><div class="hex">#3A4658</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1A2233"></div><div class="meta"><div class="nm">Gray 900</div><div class="hex">#1A2233</div></div></div>
+    <div class="sw"><div class="chip" style="background:#0B1220"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#0B1220</div></div></div>
+    <div class="sw"><div class="chip" style="background:#F2C500"></div><div class="meta"><div class="nm">Safety</div><div class="hex">#F2C500</div></div></div>
+  </div>
+  <div class="rule" style="margin-top:20px;border-left-color:var(--wm-blue)"><span class="es"><b>Azul cielo no es color de sistema.</b> Solo aparece dentro del cielo de las fotos — nunca en tipografía, contenedores, fondos ni elementos de diseño.</span><span class="en"><b>Sky blue is not a system color.</b> It appears only inside the sky of photographs — never in type, containers, backgrounds or design elements.</span></div>
+</div></section>
+
+<!-- 03 TYPE -->
+<section id="type"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">03</span><h2><span class="es">Tipografía</span><span class="en">Typography</span></h2></div>
+  <p class="lead">
+    <span class="es">Dos familias. Bebas Neue para el display (los niveles de tensión y grito, todo en mayúsculas, line-height 0.90). Montserrat para todo lo demás: kicker, oferta, pills, UI y cuerpo (pesos 400–900).</span>
+    <span class="en">Two families. Bebas Neue for display (the tension and shout tiers, all-caps, line-height 0.90). Montserrat for everything else: kicker, offer, pills, UI and body (weights 400–900).</span>
+  </p>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card">
+      <div class="label">Bebas Neue · <span class="es">Display</span><span class="en">Display</span></div>
+      <div class="spec-display">Aa Bb Cc</div>
+      <div class="glyphset">A B C D E F G · 0 1 2 3 4 5 · Á É Í Ó Ú Ñ</div>
+      <p class="mut" style="margin-top:12px"><span class="es">Solo mayúsculas. Los niveles del titular escalan con fuerza entre sí.</span><span class="en">All-caps only. Headline tiers step up hard between one another.</span></p>
+    </div>
+    <div class="card">
+      <div class="label">Montserrat · <span class="es">Pesos</span><span class="en">Weights</span></div>
+      <div class="weights" style="margin-top:10px">
+        <span style="font-weight:400">400 · Regular</span>
+        <span style="font-weight:500">500 · Medium</span>
+        <span style="font-weight:600">600 · SemiBold</span>
+        <span style="font-weight:700">700 · Bold</span>
+        <span style="font-weight:800">800 · ExtraBold</span>
+        <span style="font-weight:900">900 · Black</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 HEADLINE -->
+<section id="headline" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">04</span><h2><span class="es">Jerarquía de titular</span><span class="en">Headline hierarchy</span></h2></div>
+  <p class="lead">
+    <span class="es">La firma del sistema: tres niveles que escalan — kicker (Montserrat 500) → tensión (Bebas) → grito (Bebas, el mayor) con el <b>glow naranja obligatorio</b> detrás y punto final. Abajo, un ejemplo neutral de la mecánica.</span>
+    <span class="en">The system's signature: three tiers that step up — kicker (Montserrat 500) → tension (Bebas) → shout (Bebas, largest) with the <b>mandatory orange glow</b> behind it and a full stop. Below, a neutral demo of the mechanic.</span>
+  </p>
+  <div class="hl-demo" style="margin-top:22px">
+    <div class="hl-kicker"><span class="es">Tu línea de entrada,</span><span class="en">Your opening line,</span></div>
+    <div class="hl-tension"><span class="es">SEGUNDA LÍNEA</span><span class="en">SECOND LINE</span></div>
+    <div class="hl-shout-wrap"><span class="hl-shout-glow"></span><span class="hl-shout"><span class="es">TITULAR.</span><span class="en">HEADLINE.</span></span></div>
+    <ul class="tierlist">
+      <li><span class="tiernum">1</span><span><b>Kicker</b> — <span class="es">la condición, en Montserrat 500, sentence case, azul.</span><span class="en">the condition, Montserrat 500, sentence case, blue.</span></span></li>
+      <li><span class="tiernum">2</span><span><b><span class="es">Tensión</span><span class="en">Tension</span></b> — <span class="es">Bebas, mayor, con gradiente azul. Casi siempre necesita lift sobre cielo claro.</span><span class="en">Bebas, larger, blue gradient. Almost always needs lift over light sky.</span></span></li>
+      <li><span class="tiernum">3</span><span><b><span class="es">Grito</span><span class="en">Shout</span></b> — <span class="es">Bebas, el mayor, relleno ámbar→naranja + glow radial, termina en punto.</span><span class="en">Bebas, largest, amber→orange fill + radial glow, ends in a period.</span></span></li>
+    </ul>
+  </div>
+  <div class="rule" style="margin-top:18px"><span class="es"><b>Acentos altos.</b> A tamaños de display los acentos (Á É Í Ó Ú Ñ Ü) suben sobre la altura de mayúscula; abre el interlineado sobre ese nivel para que el acento nunca toque la línea de arriba.</span><span class="en"><b>High marks.</b> At display sizes accents (Á É Í Ó Ú Ñ Ü) rise above cap height; open the leading above that tier so the accent never touches the line above.</span></div>
+</div></section>
+
+<!-- 05 GLASS -->
+<section id="glass"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">05</span><h2>Glassmorphism</h2></div>
+  <p class="lead">
+    <span class="es">El bloque de oferta vive en un panel de vidrio anclado a un borde o esquina — nunca flotando. Dos variantes según el fondo. La palabra gancho siempre va en ámbar.</span>
+    <span class="en">The offer block lives in a glass panel anchored to an edge or corner — never floating. Two variants by background. The hook word always sits in amber.</span>
+  </p>
+  <div class="grid g2" style="margin-top:22px">
+    <div>
+      <div class="label" style="margin-bottom:10px"><span class="es">Dark — tinte navy sobre cielo / foto clara</span><span class="en">Dark — navy tint over sky / light photo</span></div>
+      <div class="glass-stage stage-grad">
+        <div class="glass dark">
+          <div class="gl-lead"><span class="es">Texto de oferta</span><span class="en">Offer text</span> <span class="hook">GRATIS</span></div>
+          <div class="gl-sub"><span class="es">línea de apoyo de la oferta.</span><span class="en">supporting offer line.</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="label" style="margin-bottom:10px"><span class="es">Light — tinte blanco sobre foto oscura</span><span class="en">Light — white tint over dark photo</span></div>
+      <div class="glass-stage stage-navy">
+        <div class="glass light">
+          <div class="gl-lead"><span class="es">Texto de oferta</span><span class="en">Offer text</span> <span class="hook">FREE</span></div>
+          <div class="gl-sub"><span class="es">línea de apoyo de la oferta.</span><span class="en">supporting offer line.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:18px;border-left-color:var(--wm-blue)"><span class="es"><b>Debe leerse como contenedor real</b> — borde/tono visible, blur 24–28px, esquinas 28px. Nunca una mancha tenue ni un panel flotando en el centro.</span><span class="en"><b>Must read as a real container</b> — visible border/tone, 24–28px blur, 28px corners. Never a faint smudge or a panel floating in the center.</span></div>
+</div></section>
+
+<!-- 06 COMPONENTS -->
+<section id="comp" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">06</span><h2><span class="es">Componentes</span><span class="en">Components</span></h2></div>
+  <p class="lead">
+    <span class="es">Sistema icon-light: la imagen y la tipografía cargan el peso. Estos son los primitivos reutilizables.</span>
+    <span class="en">Icon-light system: imagery and type carry the weight. These are the reusable primitives.</span>
+  </p>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card comp"><div class="cn">CtaButton</div><div class="cd"><span class="es">Único botón naranja sólido por pieza. Mayúsculas, flecha ›. Tamaños sm / md / lg.</span><span class="en">The only solid-orange button per piece. Uppercase, › arrow. Sizes sm / md / lg.</span></div><div class="compstage"><button class="cta"><span class="es">AGENDA AHORA</span><span class="en">BOOK NOW</span> <span class="arw">›</span></button></div></div>
+    <div class="card comp"><div class="cn">Pill</div><div class="cd"><span class="es">Etiqueta de refuerzo. Tonos light / glass / blue.</span><span class="en">Reinforcement label. Tones light / glass / blue.</span></div><div class="compstage dark"><span class="pill light"><span class="es">Etiqueta</span><span class="en">Label</span></span><span class="pill glass">Glass</span><span class="pill blue">Blue</span></div></div>
+    <div class="card comp"><div class="cn">OfferBlock</div><div class="cd"><span class="es">Bloque de oferta. La palabra gancho siempre en ámbar.</span><span class="en">Offer block. The hook word always in amber.</span></div><div class="compstage dark"><div style="color:#fff;font-weight:800;font-size:24px;line-height:1.1"><span class="es">Beneficio</span><span class="en">Benefit</span> <span style="color:var(--wm-amber);font-weight:900">GRATIS</span></div></div></div>
+    <div class="card comp"><div class="cn">ReportIcon</div><div class="cd"><span class="es">Único ícono del sistema. Solo junto al mensaje de reporte escrito.</span><span class="en">The system's only icon. Only alongside the written-report message.</span></div><div class="compstage"><span class="reporticon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0838A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg></span></div></div>
+    <div class="card comp"><div class="cn">UrgencyLine</div><div class="cd"><span class="es">Línea fija al pie. Tonos onDark / onLight. Glifos: · (middot).</span><span class="en">Fixed footer line. Tones onDark / onLight. Glyphs: · (middot).</span></div><div class="compstage dark"><span class="urg"><span class="es">Canal de contacto · disponibilidad limitada</span><span class="en">Contact channel · limited availability</span></span></div></div>
+    <div class="card comp"><div class="cn">BrandLogo</div><div class="cd"><span class="es">Lockup del logo. Variantes fullcolor / white / white-orange · apilado & horizontal.</span><span class="en">Logo lockup. Variants fullcolor / white / white-orange · stacked & horizontal.</span></div><div class="compstage"><img src="wme/logos/wme-fc-horizontal.png" alt="logo" style="height:52px" /></div></div>
+  </div>
+</div></section>
+
+<!-- 07 SPACING -->
+<section id="spacing"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">07</span><h2><span class="es">Espaciado, radios y sombras</span><span class="en">Spacing, radii & shadows</span></h2></div>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card">
+      <div class="label"><span class="es">Escala · base 4px</span><span class="en">Scale · 4px base</span></div>
+      <div style="margin-top:16px">
+        <div class="sp-row"><span class="sp-nm">sp-1 · 4</span><div class="sp-bar" style="width:4px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-2 · 8</span><div class="sp-bar" style="width:8px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-3 · 12</span><div class="sp-bar" style="width:12px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-4 · 16</span><div class="sp-bar" style="width:16px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-5 · 24</span><div class="sp-bar" style="width:24px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-6 · 32</span><div class="sp-bar" style="width:32px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-7 · 48</span><div class="sp-bar" style="width:48px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-8 · 64</span><div class="sp-bar" style="width:64px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-9 · 80</span><div class="sp-bar" style="width:80px"></div></div>
+        <div class="sp-row"><span class="sp-nm">sp-10 · 120</span><div class="sp-bar" style="width:120px"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="label"><span class="es">Radios</span><span class="en">Radii</span></div>
+      <div class="radii" style="margin-top:16px">
+        <div class="rr" style="border-radius:999px">pill 999</div>
+        <div class="rr" style="border-radius:28px">glass 28</div>
+        <div class="rr" style="border-radius:18px">card 18</div>
+        <div class="rr" style="border-radius:12px">chip 12</div>
+      </div>
+      <div class="label" style="margin-top:24px"><span class="es">Sombras</span><span class="en">Shadows</span></div>
+      <div class="shadowset" style="margin-top:16px">
+        <div class="sh" style="box-shadow:var(--shadow-cta)">CTA</div>
+        <div class="sh" style="box-shadow:var(--shadow-glass)">Glass</div>
+        <div class="sh" style="box-shadow:0 8px 20px rgba(13,20,42,.30)">Icon</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 08 FORMATS -->
+<section id="format" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">08</span><h2><span class="es">Formatos</span><span class="en">Formats</span></h2></div>
+  <p class="lead">
+    <span class="es">Tres formatos de salida. La línea punteada marca el área segura; la franja rayada, las zonas reservadas de la UI de Instagram en Stories.</span>
+    <span class="en">Three output formats. The dashed line marks the safe area; the striped band marks Instagram's reserved UI zones on Stories.</span>
+  </p>
+  <div class="grid g3" style="margin-top:24px">
+    <div class="fmt-card">
+      <div class="fmt-frame" style="width:200px;height:250px"><div class="safe"></div></div>
+      <div class="fmt-name"><span class="es">Feed 4:5</span><span class="en">Feed 4:5</span></div>
+      <div class="fmt-dim">1080 × 1350 · <span class="es">márgenes 80×65</span><span class="en">margins 80×65</span></div>
+    </div>
+    <div class="fmt-card">
+      <div class="fmt-frame" style="width:160px;height:284px">
+        <div class="zone" style="top:0;height:13%">UI</div>
+        <div class="safe" style="inset:14% 8%"></div>
+        <div class="zone" style="bottom:0;height:13%">UI</div>
+      </div>
+      <div class="fmt-name"><span class="es">Stories 9:16</span><span class="en">Stories 9:16</span></div>
+      <div class="fmt-dim">1080 × 1920 · <span class="es">reservas 250px arriba/abajo</span><span class="en">250px top/bottom reserves</span></div>
+    </div>
+    <div class="fmt-card">
+      <div class="fmt-frame" style="width:200px;height:250px"><div class="safe"></div></div>
+      <div class="fmt-name">KV / Flyer</div>
+      <div class="fmt-dim">1080 × 1350 · <span class="es">márgenes 80</span><span class="en">80 margins</span></div>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:22px;border-left-color:var(--wm-blue)"><span class="es"><b>Stories no es el KV estirado.</b> Aprovecha el alto extra: titular grande y dominante, logo bajo la reserva superior, oferta+CTA sobre glass, y la línea de urgencia por encima de la reserva inferior.</span><span class="en"><b>Stories is not the KV stretched.</b> Use the extra height: large dominant headline, logo below the top reserve, offer+CTA on glass, and the urgency line above the bottom reserve.</span></div>
+</div></section>
+
+<!-- 09 PHOTOGRAPHY -->
+<section id="photo"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">09</span><h2><span class="es">Fotografía</span><span class="en">Photography</span></h2></div>
+  <p class="lead">
+    <span class="es">La imagen es ~80% de cada pieza. Aquí describimos la dirección — las fotos aprobadas se toman del banco de la marca, no se muestran en esta guía.</span>
+    <span class="en">Imagery is ~80% of every piece. Here we describe the direction — approved photos come from the brand bank and are not shown in this guide.</span>
+  </p>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="ph-frame"><span class="l1">4:5</span><span class="l2"><span class="es">Foto aprobada del banco</span><span class="en">Approved photo from the bank</span></span></div>
+    <div class="ph-frame"><span class="l1">9:16</span><span class="l2"><span class="es">Foto aprobada del banco</span><span class="en">Approved photo from the bank</span></span></div>
+    <div class="ph-frame"><span class="l1">KV</span><span class="l2"><span class="es">Foto aprobada del banco</span><span class="en">Approved photo from the bank</span></span></div>
+  </div>
+  <div class="dodont">
+    <div class="dd do">
+      <h4><span class="es">Sí</span><span class="en">Do</span></h4>
+      <ul>
+        <li><span class="es">Escenas reales y fotorrealistas, luz cálida de sol directo, color alto (high-key).</span><span class="en">Real, photorealistic scenes, warm direct sunlight, high-key color.</span></li>
+        <li><span class="es">Equipo de seguridad completo siempre visible — es parte del mensaje.</span><span class="en">Full safety gear always visible — it's part of the message.</span></li>
+        <li><span class="es">Foto o gradiente de marca son lo único que llega al borde: full-bleed, esquinas limpias.</span><span class="en">Only the photo or brand gradient reaches the edge: full-bleed, clean corners.</span></li>
+        <li><span class="es">Un solo gradiente de protección oscuro por pieza para asegurar legibilidad.</span><span class="en">One dark protection gradient per piece to secure legibility.</span></li>
+      </ul>
+    </div>
+    <div class="dd dont">
+      <h4><span class="es">No</span><span class="en">Don't</span></h4>
+      <ul>
+        <li><span class="es">Nada de blanco y negro ni grano pesado; nada de cielos ni tonos apagados/oscuros.</span><span class="en">No black & white or heavy grain; no muted / moody skies.</span></li>
+        <li><span class="es">Ninguna figura sin equipo de seguridad visible.</span><span class="en">No figure without visible safety gear.</span></li>
+        <li><span class="es">Ninguna forma decorativa, cuña, triángulo o polígono en esquinas o bordes.</span><span class="en">No decorative shape, wedge, triangle or polygon in corners or edges.</span></li>
+        <li><span class="es">Ninguna imagen que implique exclusividad de una sola marca de panel.</span><span class="en">No imagery implying single panel-brand exclusivity.</span></li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- 10 RULES -->
+<section id="rules" style="background:#fff"><div class="wrap">
+  <div class="sec-h"><span class="sec-num">10</span><h2><span class="es">Reglas de oro</span><span class="en">Golden rules</span></h2></div>
+  <div class="rules" style="margin-top:22px">
+    <div class="rule"><span class="es"><b>Un solo naranja.</b> Solo en el CTA y en el glow del titular — en ningún otro sitio.</span><span class="en"><b>Orange in one place.</b> Only the CTA and the headline glow — nowhere else.</span></div>
+    <div class="rule"><span class="es"><b>Un gradiente por pieza.</b> Más los dos rellenos de texto (azul del titular, ámbar del grito).</span><span class="en"><b>One gradient per piece.</b> Plus the two text fills (blue headline, amber shout).</span></div>
+    <div class="rule"><span class="es"><b>Logo indivisible.</b> Nunca el sol suelto, recortado o como adorno de esquina.</span><span class="en"><b>Indivisible logo.</b> Never the sun loose, cropped, or as a corner ornament.</span></div>
+    <div class="rule"><span class="es"><b>Bilingüe y paralelo.</b> Cada pieza sale en ESP + ENG; mismo layout, solo cambia el texto.</span><span class="en"><b>Bilingual & parallel.</b> Every piece ships ESP + ENG; identical layout, only the text changes.</span></div>
+    <div class="rule"><span class="es"><b>Sin emoji.</b> Los únicos glifos recurrentes son la flecha › del CTA y el middot · de la línea de urgencia.</span><span class="en"><b>No emoji.</b> The only recurring glyphs are the CTA arrow › and the urgency line's middot ·.</span></div>
+    <div class="rule"><span class="es"><b>Sin datos sin validar.</b> Ninguna cifra de eficiencia inventada; toda estadística se valida con el equipo antes de publicar.</span><span class="en"><b>No unvalidated numbers.</b> No invented efficiency stats; any figure is validated with the team before publishing.</span></div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="fb">WindMar <b>Energy</b></div>
+  <p><span class="es">Sistema de Diseño · uso interno · bilingüe ESP / ENG</span><span class="en">Design System · internal use · bilingual ESP / ENG</span></p>
+</footer>
+
+<script>
+function setLang(l){document.body.setAttribute('data-lang',l);document.documentElement.lang=l;}
+</script>
+</body>
+</html>

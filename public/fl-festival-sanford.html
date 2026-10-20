@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>WindMar · Festival Sanford 2026 · Artes para impresión</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   ARTES DEL FESTIVAL — SANFORD, 7 DE NOVIEMBRE DE 2026
+
+   Esto reemplaza las láminas del deck de Karina. Lo que cambia y por qué:
+
+   · El dorado se va. No existe en la marca. Era lo que más hacía ver
+     las piezas como plantilla comprada en vez de como WindMar.
+   · Se van los fondos generados por IA (la casa, la escena del TV, el
+     confeti). Aquí todo es campo de color plano y vector dibujado.
+   · Se van los emojis de la escala. La escala comunica con color, con
+     la palabra y con FORMA de cómic: el contorno engorda, la trama de
+     puntos se cierra, el panel se inclina y la palabra pasa de bocadillo
+     redondo a estallido dentado. Un emoji a 10 pies es una mancha; un
+     contorno el doble de grueso se ve desde el otro lado del salón.
+   · Se va el bisel/sombra/contorno de la tipografía. Montserrat sólido.
+
+   CÓMO SE USA
+     ?board=factura             banner interactivo «¿cuánto te duele la luz?»
+     ?board=tv                   cartel del sorteo del Smart TV
+     ?board=reclutamiento        banner de los 5 súper poderes
+     ?board=props                hoja de producción de los props de foto
+     ?px=4800                    ancho del lienzo en píxeles
+
+   Las medidas físicas están en MEDIDAS, abajo. Están en PROVISIONAL
+   hasta que el impresor confirme: cambiar ahí y volver a rinder.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* paleta oficial — misma que la guía de marca y los reels */
+  --navy:#0a2882; --navy-d:#071e55; --blue:#1a52c7; --blue-l:#4a84ea;
+  --blue-d:#0f3a96; --orange:#f57c0a; --orange-l:#f9a84d; --orange-d:#c45c00;
+  --paper:#ffffff;
+  --disp:'Montserrat',Impact,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#55607a;display:flex;justify-content:center;padding:0}
+
+/* El lienzo. Todo adentro se mide en em y la raíz del em se ata al ancho
+   del lienzo, así que la misma hoja sirve para un banner de 8 pies y para
+   una prueba en pantalla sin tocar un solo número. */
+.stage{position:relative;overflow:hidden;background:var(--navy-d);
+  font-family:var(--disp);color:#fff;flex:0 0 auto}
+
+/* Trama de rayos muy tenue sobre el navy. Le quita el plano muerto al
+   fondo sin competir con el texto — a 3 pies no se lee como textura,
+   se lee como que el fondo "tiene algo". */
+.grid{position:absolute;inset:0;opacity:.07;
+  background-image:linear-gradient(0deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%),
+                   linear-gradient(90deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%);
+  background-size:4em 4em}
+/* Barra de acento superior: naranja de marca a todo lo ancho. Es la firma
+   que amarra las tres piezas entre sí cuando están montadas juntas. */
+.accent{position:absolute;top:0;left:0;right:0;height:.5em;background:var(--orange)}
+
+.inner{position:relative;height:100%;display:flex;flex-direction:column}
+
+/* ── encabezado ──────────────────────────────────────────────────── */
+.head{display:flex;align-items:center;justify-content:space-between;gap:2em}
+.logo{height:5.6em;width:auto;display:block}
+.evt{text-align:right;font-family:var(--mono);font-weight:500;font-size:.95em;
+  letter-spacing:.22em;text-transform:uppercase;color:#9db4e6;line-height:1.7}
+.evt b{color:#fff;font-weight:500}
+
+/* ── titular ─────────────────────────────────────────────────────── */
+h1{font-weight:900;line-height:.88;letter-spacing:-.025em;text-transform:uppercase}
+h1 .o{color:var(--orange)}
+.sub{font-weight:700;line-height:1.25;color:#cfdcf7}
+/* El instructivo va dentro de una pastilla naranja: es la única frase del
+   banner que pide una ACCIÓN, y tiene que separarse del resto a simple
+   vista. Si va suelta se lee como más titular y nadie la obedece. */
+.pill{display:inline-block;background:var(--orange);color:#1a1206;
+  font-weight:800;letter-spacing:-.005em;line-height:1.2;
+  padding:.5em .85em;border-radius:.35em}
+
+/* ── la escala de la factura ─────────────────────────────────────── */
+/* Seis columnas iguales. La rampa va de azul a naranja usando SOLO colores
+   de la marca: no hay verde ni rojo, que es lo que pedía el semáforo del
+   deck. Azul = tranquilo, naranja = caro. Se entiende sin leyenda. */
+/* min-height en porcentaje, no en auto: la zona de pegar los rayos es LO
+   funcional del banner, y si se deja que reparta sobras le toca una franja
+   de nada. Aquí se reserva el 42% del alto pase lo que pase con el titular. */
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:.7em;flex:1;min-height:32%}
+.col{display:flex;flex-direction:column;border-radius:.5em;overflow:hidden}
+.col .cap{padding:.75em .5em .85em;text-align:center}
+/* El monto CRECE con el nivel. Antes era 2.35em en las seis y por eso la
+   escala se leia plana: el color cambiaba pero el peso visual no. */
+/* nowrap obligatorio: al crecer el monto, "$250–$349" se partia en dos
+   lineas pero "$500+" no, y la fila de precios perdia el renglon comun. */
+.col .amt{font-weight:900;font-size:var(--amt,2.35em);line-height:.92;
+  letter-spacing:-.035em;display:block;white-space:nowrap}
+.col .amt small{display:block;font-size:.42em;font-weight:800;letter-spacing:.02em;
+  margin-bottom:.25em;opacity:.9}
+/* La palabra del rango ("YA DUELE") va en su propia cinta blanca translúcida.
+   Separarla del monto es lo que deja leer la escala de un vistazo: primero
+   la fila de precios, después la fila de reacciones. */
+.col .word{display:block;margin-top:.5em;font-weight:800;font-size:.82em;
+  line-height:1.1;letter-spacing:.01em;text-transform:uppercase;
+  background:rgba(255,255,255,.17);padding:.42em .3em;border-radius:.25em}
+/* Zona donde la gente pega su rayo. Blanca y vacía a propósito: tiene que
+   verse como un espacio para llenar, no como un bloque de diseño. */
+/* La zona de pegar NO puede ser el sobrante del reparto: con flex:1 la
+   columna de "ESTÁ FUERTE" se quedaba en 84px contra los 165px de la
+   segunda — la columna que mas gente usa era la mas chica. Altura fija:
+   las seis miden igual pase lo que pase con el rotulo de arriba. */
+.col .drop{flex:0 0 auto;height:6.6em;background:#fff;margin:auto .45em .5em;
+  border-radius:.4em;position:relative}
+.card .drop{flex:1;background:#fff;margin:0 .45em .5em;border-radius:.4em;
+  position:relative;min-height:0}
+.col .drop::after,.card .drop::after{content:'';position:absolute;inset:.5em;
+  border-radius:.3em;border:.12em dashed #c3d0e8}
+
+/* ── rampa de seis pasos, medida contra el color de letra de cada panel ──
+   Todo sale de los dos colores de marca: los tres primeros son el azul
+   #1a52c7 y dos aclarados suyos; los tres últimos son el naranja del sol
+   del logo #FE9400, un aclarado, y el naranja más rojo #f57c0a de cierre.
+   Se cambió el final: antes terminaba en #c45c00, que es más OSCURO y más
+   apagado que el paso anterior — la escala se iba apagando justo donde
+   tenía que gritar. Ahora sube en calor de principio a fin.
+   Letra: oscura sobre los cuatro claros, blanca sobre los dos azules
+   hondos. Lo más bajo de la tabla es 3.93:1 y es titular enorme. */
+.c1{background:#86B6F7} .c1 .cap{color:#071e55}   /* blanco daría 2.09:1 */
+.c2{background:#3F7AEC} .c2 .cap{color:#fff}      /* 4.03:1 */
+.c3{background:#1A52C7} .c3 .cap{color:#fff}      /* 6.83:1 */
+.c4{background:#FFB649} .c4 .cap{color:#071e55}   /* 9.08:1 */
+.c5{background:#FE9400} .c5 .cap{color:#071e55}   /* 7.13:1 */
+.c6{background:#F57C0A} .c6 .cap{color:#071e55}   /* 5.86:1 */
+
+/* ── el cómic ───────────────────────────────────────────────────────
+   El dolor escala en FORMA, no solo en color. Las tres variables suben
+   juntas de izquierda a derecha y cada una se controla con su variable:
+     --ink   grosor del contorno de tinta
+     --dot   paso de la trama de medios tonos (más chico = más cerrada)
+     --haze  cuánto se ve esa trama
+     --tilt  inclinación del panel
+   Puestas en el HTML por columna, no aquí, para que se vea la progresión
+   de un vistazo cuando alguien lea el arreglo. */
+.col{position:relative;
+  border:var(--ink,.14em) solid var(--navy-d);
+  box-shadow:.2em .24em 0 rgba(7,30,85,.5);
+  transform:rotate(var(--tilt,0deg))}
+/* La trama va en ::before y NO encima de la zona de pegar: .drop viene
+   después en el DOM y está posicionada, así que pinta por arriba sola. */
+.col::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(rgba(7,30,85,.75) 26%,transparent 27%);
+  background-size:var(--dot,.52em) var(--dot,.52em);
+  opacity:var(--haze,.08)}
+/* Rayos de impacto detras del rotulo, solo en los paneles calientes. Van
+   en ::after del .cap para que queden DEBAJO del envase blanco y encima
+   del color. Es el unico adorno que se anade: todo lo demas ya existia. */
+.col .cap::after{content:'';position:absolute;z-index:-1;
+  left:50%;top:var(--bt,56%);width:var(--bw,0);height:var(--bw,0);
+  transform:translate(-50%,-50%);
+  background:conic-gradient(from 0deg,rgba(7,30,85,.22) 0 6deg,transparent 6deg 24deg);
+  border-radius:50%}
+/* .cap no estaba posicionada y la trama se le montaba encima al texto. */
+.col .cap{position:relative;z-index:2}
+
+/* La palabra cambia de envase según el nivel: bocadillo redondo cuando
+   la cosa está tranquila, etiqueta dura en el medio, estallido dentado
+   cuando ya duele. Fondo blanco sólido en los tres — sobre los seis
+   colores da 11:1 o más, y es lo que se lee primero desde lejos. */
+.col .word{position:relative;z-index:2;display:block;margin-top:.5em;
+  font-weight:900;font-size:var(--wsz,.84em);line-height:1.06;letter-spacing:.004em;
+  text-transform:uppercase;background:#fff;color:#071e55;
+  padding:.5em .45em;border-radius:.2em}
+.w-soft{border-radius:1.1em}
+.w-bang{padding:.58em .45em;border-radius:0;
+  clip-path:polygon(0% 18%,7% 6%,18% 14%,28% 0%,39% 12%,50% 2%,61% 12%,
+    72% 0%,82% 14%,93% 6%,100% 18%,94% 32%,100% 48%,93% 62%,100% 78%,
+    93% 92%,82% 84%,72% 98%,61% 86%,50% 98%,39% 86%,28% 98%,18% 84%,
+    7% 92%,0% 78%,6% 62%,0% 48%,6% 32%)}
+
+/* ── pie ─────────────────────────────────────────────────────────── */
+.foot{display:flex;align-items:center;justify-content:space-between;gap:2em;
+  border-top:.14em solid rgba(255,255,255,.22)}
+.tag{font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
+.tag .o{color:var(--orange)}
+/* Los datos de contacto van en mono para que se lean como dato y no como
+   titular, y para que un URL largo no descuadre el renglón. */
+.contact{font-family:var(--mono);font-weight:500;font-size:.82em;text-align:right;
+  line-height:1.7;letter-spacing:.1em;color:#9db4e6;text-transform:uppercase}
+.contact b{display:block;color:#fff;font-weight:500;letter-spacing:.06em}
+
+/* Hueco por llenar. Rojo a propósito: es un recordatorio de que falta un
+   dato real, y tiene que doler verlo. NO sale a imprenta así. */
+.todo{display:inline-block;background:#ff2d55;color:#fff;font-family:var(--mono);
+  font-weight:500;padding:.15em .5em;border-radius:.2em;letter-spacing:.08em}
+
+/* ── tira de beneficios ──────────────────────────────────────────── */
+/* En el deck cada beneficio venía con su pictograma (casa, hoja, gente,
+   globo). Van fuera: son justo los dibujitos-en-vez-de-palabras que no
+   queremos, y a 4 pies de distancia ninguno se lee. Queda la palabra, que
+   es la que carga el mensaje, separada por filetes naranja. */
+.strip{display:grid;gap:0;text-align:center}
+.strip div{font-weight:800;line-height:1.25;text-transform:uppercase;
+  letter-spacing:.02em;color:#cfdcf7;padding:0 1em;
+  border-left:.1em solid rgba(245,124,10,.55)}
+.strip div:first-child{border-left:0}
+/* En un solo renglón, no en dos. Apilado se comía el alto que necesitan el
+   cierre y los datos de contacto, y el pie se salía del lienzo. */
+.strip div b{color:#fff;font-weight:900}
+
+/* ── tarjetas del panel de reclutamiento ─────────────────────────── */
+/* 32% dejaba el cuadro de pegar en 4.9 pulgadas de alto: con tres o cuatro
+   rayos ya no cabia nadie mas, y lo que anima a poner el tuyo es ver que
+   ya hay varios. La fila de tarjetas se lleva ahora casi la mitad. */
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:.7em;flex:1;min-height:42%}
+.card{display:flex;flex-direction:column;border-radius:.6em;overflow:hidden}
+/* Los min-height reservan dos renglones de título y tres de descripción en
+   TODAS las tarjetas, usen uno o tres. Sin esto "TRABAJAR EN EQUIPO" —que es
+   el único que parte en dos— empuja su cuadro blanco más abajo que los
+   otros cuatro, y la fila de cuadros queda en escalera. */
+.card .ctitle{font-weight:900;font-size:1.9em;line-height:.98;letter-spacing:-.02em;
+  text-transform:uppercase;padding:.55em .4em .3em;text-align:center;min-height:2.9em}
+.card .cdesc{font-weight:600;font-size:.88em;line-height:1.3;text-align:center;
+  padding:0 .9em .85em;opacity:.95;min-height:4.8em}
+.k-blue{background:var(--blue-d)}
+.k-orange{background:var(--orange);color:#2a1400}
+
+/* ── cartel del sorteo (vertical) ────────────────────────────────── */
+/* space-between, no center: centrado dejaba toda la composición apretada
+   arriba y un vacío muerto de un palmo antes del pie. Repartido ocupa el
+   cartel completo, que es lo que uno compra cuando imprime 3' x 4'. */
+.tvwrap{flex:1;display:flex;flex-direction:column;justify-content:space-between;
+  align-items:center;text-align:center;gap:1em;min-height:0}
+/* El "65 pulgadas" es el gancho del cartel: el número es la pieza más
+   grande de la composición, más que el titular. Quien pasa de lejos
+   tiene que leer 65" aunque no lea nada más. */
+.tvnum{font-weight:900;font-size:15em;line-height:.8;letter-spacing:-.045em;
+  color:var(--orange)}
+.tvnum sup{font-size:.34em;vertical-align:super;letter-spacing:0}
+.tvkind{font-weight:900;font-size:3.4em;letter-spacing:.06em;text-transform:uppercase}
+/* Marco del televisor dibujado, no foto. No hay foto real del premio y no
+   se genera una: una pantalla vacía dice "televisor" igual de bien. */
+.tvset{width:82%;aspect-ratio:16/9;border:.5em solid #fff;border-radius:.5em;
+  background:linear-gradient(145deg,#0f3a96,#071e55);display:flex;
+  align-items:center;justify-content:center;flex-direction:column;gap:.3em}
+.tvfoot{display:flex;gap:2.4em;justify-content:center;flex-wrap:wrap}
+.tvfoot div{font-weight:800;font-size:.95em;letter-spacing:.04em;text-transform:uppercase;
+  color:#cfdcf7;line-height:1.35}
+.tvfoot div b{display:block;color:#fff;font-size:1.25em;font-weight:900;letter-spacing:-.01em}
+/* El QR va en blanco porque todavía no existe: lo genera Marketing con el
+   formulario del CRM. Se deja el hueco medido para que no haya que
+   recomponer el cartel cuando llegue. */
+/* El QR tiene que poder escanearse desde un par de pies de distancia en un
+   festival con gente alrededor. Un cuadro pequeño obliga a acercarse y ahí
+   se pierde a la mitad de la fila. */
+.qr{width:14em;height:14em;background:#fff;border-radius:.4em;display:flex;
+  align-items:center;justify-content:center;text-align:center;
+  font-family:var(--mono);font-size:1em;color:#55607a;padding:.8em;line-height:1.5}
+.legal{font-family:var(--mono);font-weight:400;font-size:.72em;line-height:1.6;
+  color:#7f96c9;letter-spacing:.06em;max-width:76%;margin:0 auto}
+
+/* ── hoja de props ───────────────────────────────────────────────── */
+/* Esta lámina NO se exhibe: es la hoja que recibe el que troquela. Por eso
+   va sobre blanco y no sobre navy — se imprime en papel, se raya a mano y
+   tiene que poderse leer bajo la luz de un taller. */
+.stage.sheet{background:#fff;color:var(--navy)}
+.sheet .shead{background:var(--navy-d);color:#fff;display:flex;align-items:center;
+  justify-content:space-between;gap:1.5em;padding:1.5em 2em}
+.sheet .shead h2{font-weight:900;font-size:2.3em;letter-spacing:-.015em;text-transform:uppercase}
+.sheet .shead .sh-note{font-family:var(--mono);font-weight:400;font-size:.78em;
+  line-height:1.6;letter-spacing:.06em;text-align:right;color:#9db4e6;max-width:46%}
+.psheet{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4em;padding:1.8em 2em 1.4em}
+.prop{display:flex;flex-direction:column;align-items:center;gap:.55em}
+/* El marco gris es el área de troquel, no parte del diseño. Se imprime la
+   silueta con borde blanco alrededor, como pide la página 19. */
+.pbox{width:100%;aspect-ratio:1/.82;border:.1em dashed #c3d0e8;border-radius:.4em;
+  display:flex;align-items:center;justify-content:center;padding:.7em;background:#f7f9fd}
+.pbox svg{width:100%;height:100%;overflow:visible}
+/* El logo va ENCIMA de la silueta, no al lado: en el troquel es impresión
+   sobre la pieza ya cortada. Por eso se posiciona en absoluto sobre el SVG
+   y cada prop trae su propia posición. */
+.pwrap{position:relative;width:100%;height:100%;display:flex;
+  align-items:center;justify-content:center}
+.pwrap svg{position:absolute;inset:0}
+.povl{position:absolute;display:block}
+.pname{font-weight:900;font-size:.95em;letter-spacing:.02em;text-transform:uppercase;
+  text-align:center;line-height:1.15}
+.psize{font-family:var(--mono);font-weight:400;font-size:.75em;letter-spacing:.1em;
+  color:#5a6b8c;text-transform:uppercase}
+/* Bocadillo: el texto es el prop entero, así que se dibuja con HTML y no con
+   SVG — así el acento de "ENERGÍA" y los saltos se controlan como texto. */
+.bub{width:100%;height:100%;background:var(--navy-d);border:.22em solid #fff;
+  border-radius:1.1em;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.25em;padding:.7em .6em;position:relative;
+  box-shadow:0 0 0 .14em #c3d0e8}
+.bub.lite{background:#fff;border-color:var(--navy-d);color:var(--navy)}
+.bub .blogo{height:2.6em;width:auto}
+.bub .btxt{font-weight:900;font-size:1.5em;line-height:.98;letter-spacing:-.02em;
+  text-transform:uppercase;text-align:center;color:#fff}
+.bub.lite .btxt{color:var(--navy)}
+.bub .btxt .o{color:var(--orange)}
+</style>
+</head>
+<body>
+<script>
+const qs = new URLSearchParams(location.search);
+const BOARD = qs.get('board') || 'factura';
+
+/* ─────────────────────────────────────────────────────────────────
+   MEDIDAS — ⚠ PROVISIONALES
+
+   El deck no trae ni una sola medida de los carteles (la página 14 solo
+   los lista). Estas son proporciones estándar de gran formato puestas
+   para poder componer. Cuando el impresor confirme, se cambia aquí y se
+   vuelve a rinder: la hoja entera se reacomoda sola.
+   ───────────────────────────────────────────────────────────────── */
+const MEDIDAS = {
+  factura:      { w:96, h:48 },  // banner de vinil 8' x 4', horizontal, con ojales
+  tv:           { w:36, h:48 },  // cartel del frente 3' x 4', vertical
+  reclutamiento:{ w:96, h:48 },  // mismo formato que el de la factura: van en pared juntos
+  props:        { w:24, h:24.6 }, // HOJA DE PRODUCCIÓN, no es un arte de exhibir.
+                                  // El alto sale de la cuenta: 4 filas de piezas
+                                  // + encabezado. Si se añade o quita un prop
+                                  // hay que ajustarlo o la última fila se corta.
+};
+
+const M  = MEDIDAS[BOARD];
+const PX = +(qs.get('px') || 4800);
+const W  = PX, H = Math.round(PX * M.h / M.w);
+
+document.write(
+  '<style>.stage{width:'+W+'px;height:'+H+'px;font-size:'+(W/100)+'px}</style>'
+);
+</script>
+
+<div class="stage" id="stage"></div>
+
+<script>
+/* El logo. ⚠ El deck usa un lockup "windmar SOLAR+ROOFING" que NO está en
+   el repo. Aquí va "windmar HOME", que es el que sí tenemos y además es el
+   nombre de la activación ("WindMar Home Experience", página 1). Si la
+   activación va firmada como Solar & Roofing, hay que mandar ese archivo. */
+const LOGO = 'wme/logos/wmh-home-white-orange.png';
+/* Versión a todo color, para cuando el logo cae sobre blanco (hoja de props
+   y bocadillos claros). La blanca sobre blanco desaparece. */
+const LOGO_FC = 'wme/logos/wmh-home-fc.png';
+
+/* Rangos exactos de la página 8 del deck, copiados tal cual.
+   El orden es la rampa: azul (barato) → naranja (caro). */
+/* Las palabras son las de la pagina 8 del deck, literales. Lo que se
+   anade es el NIVEL: contorno, trama, inclinacion y envase de la palabra.
+   Puesto como tabla para que la progresion se lea de corrido y nadie
+   tenga que ir a buscarla al CSS. */
+const RANGOS = [
+  { amt:'$100',      pre:'MENOS DE', word:'GENIAL',                c:'c1',
+    ink:'.14em', dot:'.62em', haze:.07, tilt:'-0.6deg', env:'w-soft',
+    sz:'2.0em',  wsz:'.76em', burst:'0'    },
+  { amt:'$100–$149', pre:'',         word:'YA EMPIEZA A PREOCUPAR', c:'c2',
+    ink:'.18em', dot:'.55em', haze:.12, tilt:'0.8deg',  env:'w-soft',
+    sz:'2.10em',  wsz:'.80em', burst:'0'    },
+  { amt:'$150–$249', pre:'',         word:'YA DUELE',              c:'c3',
+    ink:'.23em', dot:'.48em', haze:.18, tilt:'-1.1deg', env:'',
+    sz:'2.20em', wsz:'.86em', burst:'0'    },
+  { amt:'$250–$349', pre:'',         word:'SE SIENTE',             c:'c4',
+    ink:'.29em', dot:'.41em', haze:.24, tilt:'1.4deg',  env:'',
+    sz:'2.30em',  wsz:'.88em', burst:'13em' },
+  { amt:'$350–$499', pre:'',         word:'ESTÁ FUERTE',           c:'c5',
+    ink:'.36em', dot:'.34em', haze:.31, tilt:'-1.9deg', env:'w-bang',
+    sz:'2.40em', wsz:'.93em', burst:'16em' },
+  { amt:'$500+',     pre:'',         word:'UNA LOCURA',            c:'c6',
+    ink:'.44em', dot:'.27em', haze:.38, tilt:'2.4deg',  env:'w-bang',
+    sz:'2.52em',  wsz:'.99em',burst:'19em' },
+];
+
+/* Los cinco súper poderes de la página 18, copiados literal del arte.
+   El orden y las palabras son los de Karina — no los reescribo. */
+const PODERES = [
+  { t:'CONECTAR',  d:'Se me hace fácil hablar con personas y crear confianza.', k:'k-blue' },
+  { t:'GENERAR LEADS', d:'Sé captar la atención y conseguir oportunidades.',    k:'k-orange' },
+  { t:'VENDER',    d:'Sé presentar, manejar objeciones y convertir oportunidades en ventas.', k:'k-blue' },
+  { t:'PERSUADIR', d:'Sé influenciar, comunicar y lograr que las personas tomen acción.',     k:'k-orange' },
+  { t:'TRABAJAR EN EQUIPO', d:'Me gusta colaborar, apoyar y lograr resultados juntos.',       k:'k-blue' },
+];
+
+/* Las tiras de abajo, también literales del deck. */
+const BENEF_FACTURA = [
+  ['AHORRA','EN TU HOGAR'], ['ENERGÍA','MÁS LIMPIA'],
+  ['UN FUTURO','MÁS BRILLANTE'], ['PARA TI,','TU FAMILIA Y EL PLANETA'],
+];
+const BENEF_RECLUTA = [
+  ['INGRESOS','COMPETITIVOS'], ['CAPACITACIÓN','CONTINUA'], ['CRECIMIENTO','REAL'],
+  ['FLEXIBILIDAD','DE HORARIOS'], ['UN EQUIPO','QUE TE IMPULSA'],
+];
+const tira = (items,fs) =>
+  '<div class="strip" style="grid-template-columns:repeat('+items.length+',1fr);font-size:'+fs+'em">'
+  + items.map(i => '<div><b>'+i[0]+'</b> '+i[1]+'</div>').join('') + '</div>';
+
+const EVENTO = '<div class="evt">20.º Festival Puertorriqueño y Multicultural<br>'
+             + '<b>7 de noviembre de 2026 · Sanford, Florida</b></div>';
+
+/* Contacto: va con hueco marcado. No se inventa un teléfono ni se asume el
+   URL — para Florida el sitio es windmarcommand.com, pero que lo confirme
+   quien firma el arte antes de mandarla a imprenta. */
+const CONTACTO = '<div class="contact">Hablemos de tu casa<br>'
+               + '<b>windmarcommand.com</b>'
+               + '<span class="todo">FALTA TELÉFONO</span></div>';
+
+const HEAD = '<div class="head"><img class="logo" src="'+LOGO+'" alt="WindMar Home">'
+           + EVENTO + '</div>';
+
+let html = '';
+
+if(BOARD === 'factura'){
+  html = '<div class="grid"></div><div class="accent"></div>'
+    + '<div class="inner" style="padding:2.4em 2.8em 2.2em;gap:1.2em">'
+    + HEAD
+    + '<div>'
+    /* El salto de línea va escrito, no se deja al navegador. Suelto parte
+       en "…LA / LUZ?" y deja "LUZ?" solo en el segundo renglón: el remate
+       del titular queda de huérfano y el bloque se ve descuadrado. */
+    +   '<h1 style="font-size:5.6em">¿CUÁNTO TE <span class="o">DUELE</span><br>LA LUZ?</h1>'
+    +   '<div class="pill" style="font-size:1.32em;margin-top:.6em">'
+    +     'MUÉSTRANOS TU FACTURA Y COLOCA TU RAYO EN EL RANGO QUE CORRESPONDA'
+    +   '</div>'
+    + '</div>'
+    + '<div class="scale">'
+    +   RANGOS.map(r =>
+    '<div class="col '+r.c+'" style="--ink:'+r.ink+';--dot:'+r.dot
+    + ';--haze:'+r.haze+';--tilt:'+r.tilt+';--amt:'+r.sz
+    + ';--wsz:'+r.wsz+';--bw:'+r.burst+'">'
+    + '<div class="cap"><span class="amt">'
+    +   (r.pre ? '<small>'+r.pre+'</small>' : '')
+    +   r.amt
+    + '</span><span class="word '+r.env+'">'+r.word+'</span></div>'
+    + '<div class="drop"></div></div>').join('')
+    + '</div>'
+    + tira(BENEF_FACTURA, 1.05)
+    + '<div class="foot" style="padding-top:1.1em">'
+    +   '<div class="tag" style="font-size:2.2em">BUENA ENERGÍA <span class="o">EMPIEZA EN CASA.</span></div>'
+    +   CONTACTO
+    + '</div>'
+    + '</div>';
+}
+
+if(BOARD === 'reclutamiento'){
+  /* Relleno y separaciones mas apretados que en los otros boards: el espacio
+     que gana el cuadro de pegar sale de aqui y del titular, no de recortar
+     las tarjetas. */
+  html = '<div class="grid"></div><div class="accent"></div>'
+    + '<div class="inner" style="padding:1.95em 2.8em 1.3em;gap:.85em">'
+    + HEAD
+    + '<div>'
+    +   '<h1 style="font-size:4.2em">¿CUÁL ES TU<br><span class="o">SÚPER PODER?</span></h1>'
+    +   '<div class="pill" style="font-size:1.2em;margin-top:.5em">'
+    +     'COLOCA TU RAYO EN EL SÚPER PODER QUE MÁS TE REPRESENTA'
+    +   '</div>'
+    + '</div>'
+    + '<div class="cards">'
+    +   PODERES.map(p =>
+    '<div class="card '+p.k+'">'
+    + '<div class="ctitle">'+p.t+'</div>'
+    + '<div class="cdesc">'+p.d+'</div>'
+    + '<div class="drop"></div></div>').join('')
+    + '</div>'
+    + tira(BENEF_RECLUTA, 1.05)
+    + '<div class="foot" style="padding-top:1.1em">'
+    +   '<div class="tag" style="font-size:2.2em">JUNTOS LLEVAMOS <span class="o">ENERGÍA A MÁS HOGARES.</span></div>'
+    +   CONTACTO
+    + '</div>'
+    + '</div>';
+}
+
+if(BOARD === 'tv'){
+  html = '<div class="grid"></div><div class="accent"></div>'
+    + '<div class="inner" style="padding:3.4em 3em 2.8em;gap:1.6em">'
+    + '<div class="head" style="justify-content:center">'
+    +   '<img class="logo" style="height:6em" src="'+LOGO+'" alt="WindMar Home"></div>'
+    + '<div class="tvwrap">'
+    +   '<h1 style="font-size:6.4em">¿ERES<br><span class="o">DUEÑO<br>DE CASA?</span></h1>'
+    +   '<div class="tvset"><div class="tvnum">65<sup>"</sup></div>'
+    +     '<div class="tvkind">Smart TV</div></div>'
+    +   '<div class="pill" style="font-size:1.6em">PARTICIPA GRATIS. REGÍSTRATE AQUÍ.</div>'
+    +   '<div class="qr">QR del formulario<br>(lo genera Marketing)</div>'
+    /* Literal del deck (página 6). No lo acorto aunque "Podrías ser el
+       ganador" sea largo: es el texto que ya aprobaron. */
+    +   '<div class="tvfoot">'
+    +     '<div><b>Participa</b>si eres<br>dueño de casa</div>'
+    +     '<div><b>Conoce</b>nuestras<br>soluciones solares</div>'
+    +     '<div><b>Podrías ser el ganador</b>de un Smart TV de 65"</div>'
+    +   '</div>'
+    +   '<div class="legal">No requiere compra, contrato ni cotización. '
+    +     'Reglas oficiales por confirmar con Marketing y Compliance.</div>'
+    + '</div>'
+    + '<div class="foot" style="padding-top:1.5em">'
+    +   '<div class="tag" style="font-size:1.75em">BUENA ENERGÍA <span class="o">EMPIEZA EN CASA.</span></div>'
+    +   CONTACTO
+    + '</div>'
+    + '</div>';
+}
+
+if(BOARD === 'props'){
+  /* Las siluetas van dibujadas a mano en SVG. Ninguna sale de un banco de
+     imágenes ni de un generador: son formas geométricas simples, que además
+     es lo que un troquel puede cortar sin perder detalle. */
+  const sv = (inner,vb) =>
+    '<svg viewBox="'+(vb||'0 0 100 100')+'" xmlns="http://www.w3.org/2000/svg">'+inner+'</svg>';
+
+  /* Pega uno o varios logos encima de la silueta. Cada entrada lleva su
+     posición en porcentajes para que todo escale con la hoja. */
+  const conLogo = (svg, logos) =>
+    '<div class="pwrap">' + svg
+    + logos.map(l => '<img class="povl" alt="" src="'+(l.fc?LOGO_FC:LOGO)+'" style="'+l.s+'">').join('')
+    + '</div>';
+
+  /* Sol: estrella de 14 puntas calculada, no una ruta escrita a mano — así
+     las puntas quedan exactamente iguales entre sí. */
+  const sol = (() => {
+    let p = [];
+    for(let i=0;i<28;i++){
+      const a = (i/28)*Math.PI*2 - Math.PI/2, r = (i%2 ? 33 : 48);
+      p.push((50+Math.cos(a)*r).toFixed(1)+','+(50+Math.sin(a)*r).toFixed(1));
+    }
+    /* El disco interior va blanco, no naranja: el logo lleva naranja adentro
+       y sobre naranja se le pierde medio dibujo. */
+    return sv('<polygon points="'+p.join(' ')+'" fill="#f9a84d" stroke="#fff" stroke-width="3"/>'
+            + '<circle cx="50" cy="50" r="31" fill="#fff" stroke="#f57c0a" stroke-width="2.5"/>');
+  })();
+
+  /* Rayo engordado a propósito. El rayo fino clásico no tiene dónde aguantar
+     el logo: la banda donde los dos triángulos se cruzan medía 13 unidades de
+     alto y la palabra «windmar» se salía por arriba o por abajo. Bajando el
+     brazo de la derecha y alargando el de la izquierda, esa banda pasa a 28 y
+     el logo cabe entero. También se lee mejor de lejos en una foto. */
+  const rayo = sv('<path d="M70 2 L12 66 H46 L32 98 L88 38 H54 Z" fill="#1a52c7" '
+    + 'stroke="#fff" stroke-width="4" stroke-linejoin="round"/>');
+
+  /* Casa con placas: cuerpo, techo y el rayado de los paneles. El rayado va
+     aparte para que el troquel no lo tenga que cortar — es impresión. */
+  const casa = sv('<path d="M8 46 L50 14 L92 46 V92 H8 Z" fill="#fff" stroke="#0a2882" stroke-width="4" stroke-linejoin="round"/>'
+    /* La placa va como cuadrícula, no como rayas sueltas: con rayas parecía
+       que el techo estaba arañado en vez de tener paneles. */
+    + '<path d="M50 14 L92 46 H54 Z" fill="#1a52c7" stroke="#0a2882" stroke-width="3" stroke-linejoin="round"/>'
+    + '<path d="M60 22 L68 44 M70 30 L75 44 M58 33 L87 33 M62 40 L90 40" '
+    +   'stroke="#7fa6f0" stroke-width="1.6" stroke-linecap="round"/>'
+    /* La ventana sube: abajo hace falta pared limpia para el logo impreso. */
+    + '<rect x="16" y="54" width="16" height="13" rx="1.5" fill="#1a52c7"/>'
+    + '<rect x="52" y="64" width="16" height="28" rx="1.5" fill="#f57c0a"/>');
+
+  /* Lentes gigantes: dos aros y el puente. Los cristales van navy para que
+     el logo impreso encima se lea en la foto. */
+  const lentes = sv('<g stroke="#f57c0a" stroke-width="7" fill="#0a2882">'
+    + '<rect x="4" y="28" width="40" height="34" rx="11"/>'
+    + '<rect x="56" y="28" width="40" height="34" rx="11"/></g>'
+    + '<path d="M44 42 H56" stroke="#f57c0a" stroke-width="7"/>', '0 0 100 90');
+
+  const corazon = sv('<path d="M50 92 C10 64 2 38 19 24 C33 12 47 19 50 33 '
+    + 'C53 19 67 12 81 24 C98 38 90 64 50 92 Z" fill="#0a2882" stroke="#fff" stroke-width="4"/>');
+
+  /* Banderas: franjas y triángulo, dibujadas. Las estrellas de la de EE.UU.
+     van como puntos — a 40 cm y en una foto de festival, 50 estrellas
+     cortadas a troquel no se distinguen y encarecen la pieza.
+
+     El logo NO va encima del paño. Lo probamos y las dos formas fallan: en el
+     centro tapa la estrella o el cantón —una bandera intervenida en el medio
+     se lee como falta de respeto— y en una esquina cae sobre franja blanca,
+     donde el logo blanco desaparece. Por eso el troquel lleva una base blanca
+     debajo del paño y el logo vive ahí, a todo color. Es parte de la pieza,
+     no una mancha sobre la bandera. */
+  const BASE_H = 16;          // alto de la base blanca, en unidades del viewBox
+  const baseLogo = '<rect x="0" y="60" width="100" height="'+BASE_H+'" fill="#fff"/>';
+  const marcoBand = '<rect x="0" y="0" width="100" height="'+(60+BASE_H)+'" fill="none" '
+    + 'stroke="#fff" stroke-width="4"/>';
+  const VB_BAND = '0 0 100 '+(60+BASE_H);
+
+  const banderaPR = (() => {
+    let s = '';
+    for(let i=0;i<5;i++) s += '<rect x="0" y="'+(i*12)+'" width="100" height="12" fill="'+(i%2?'#fff':'#ed0000')+'"/>';
+    return sv('<g>'+s+'</g><path d="M0 0 L52 30 L0 60 Z" fill="#0050f0"/>'
+      + '<polygon points="17,22 20.4,30.5 29.5,30.5 22.2,36 25,44.5 17,39.3 9,44.5 11.8,36 4.5,30.5 13.6,30.5" fill="#fff"/>'
+      + baseLogo + marcoBand, VB_BAND);
+  })();
+
+  const banderaUS = (() => {
+    let s = '';
+    for(let i=0;i<13;i++) s += '<rect x="0" y="'+(i*(60/13))+'" width="100" height="'+(60/13)+'" fill="'+(i%2?'#fff':'#b22234')+'"/>';
+    let st = '';
+    for(let r=0;r<5;r++) for(let c=0;c<6;c++)
+      st += '<circle cx="'+(5+c*7.2)+'" cy="'+(4.5+r*6.2)+'" r="1.9" fill="#fff"/>';
+    return sv('<g>'+s+'</g><rect x="0" y="0" width="42" height="32.3" fill="#3c3b6e"/>'+st
+      + baseLogo + marcoBand, VB_BAND);
+  })();
+
+  const logoProp = '<img src="'+LOGO_FC+'" alt="WindMar Home" '
+    + 'style="max-width:100%;max-height:100%;width:auto;height:auto">';
+
+  /* Bocadillos. El texto es literal de la página 19 — incluyendo que tres
+     están en inglés y tres en español, que es a propósito: el festival es
+     puertorriqueño en Florida y la gente posa en los dos idiomas. */
+  const bub = (txt, lite) =>
+    '<div class="bub'+(lite?' lite':'')+'">'
+    + '<img class="blogo" src="'+(lite?LOGO_FC:LOGO)+'" alt="">'
+    + '<div class="btxt">'+txt+'</div></div>';
+
+  const PROPS = [
+    { art:conLogo(sol,    [{fc:1, s:'width:40%;left:30%;top:42%'}]),      n:'Sol',   s:'40 cm aprox.' },
+    /* El rayo es la pieza más estrecha de la hoja. La banda ancha del medio
+       —donde los dos triángulos se cruzan— es el único sitio donde el logo cae
+       completo; más arriba o más abajo la palabra «windmar» se sale del azul y
+       el blanco se pierde contra el fondo. */
+    { art:conLogo(rayo,   [{      s:'width:19.7%;left:40%;top:45%'}]),    n:'Rayo',  s:'35 cm aprox.' },
+    { art:conLogo(casa,   [{fc:1, s:'width:26.2%;left:18.8%;top:69%'}]),  n:'Casa solar', s:'40 cm aprox.' },
+    /* Dos logos, uno por cristal: es como viene en la referencia y es lo que
+       hace que el prop funcione en la foto de frente. */
+    { art:conLogo(lentes, [{s:'width:26%;left:7%;top:42%'},
+                           {s:'width:26%;left:60%;top:42%'}]), n:'Lentes gigantes', s:'45 cm aprox.' },
+    { art:bub('Yo tengo<br>buena <span class="o">energía</span>'),        n:'Bocadillo 1', s:'35 cm aprox.' },
+    { art:bub('Team<br><span class="o">Solar</span>', true),              n:'Bocadillo 2', s:'35 cm aprox.' },
+    { art:bub('Mi energía<br>está <span class="o">on</span>'),            n:'Bocadillo 3', s:'35 cm aprox.' },
+    { art:bub('Buena <span class="o">energía</span><br>solamente'),       n:'Bocadillo 4', s:'35 cm aprox.' },
+    { art:bub('Mi casa,<br>mi <span class="o">energía</span>', true),     n:'Bocadillo 5', s:'35 cm aprox.' },
+    { art:bub('Powered<br>by the <span class="o">sun</span>'),            n:'Bocadillo 6', s:'35 cm aprox.' },
+    { art:conLogo(banderaPR,[{fc:1, s:'width:21%;left:39.5%;top:79%'}]), n:'Bandera de Puerto Rico', s:'40 cm aprox.' },
+    { art:conLogo(banderaUS,[{fc:1, s:'width:21%;left:39.5%;top:79%'}]), n:'Bandera de USA',         s:'40 cm aprox.' },
+    { art:logoProp,  n:'Logo WindMar',           s:'50 cm aprox.' },
+    { art:conLogo(corazon, [{      s:'width:46%;left:27%;top:38%'}]),  n:'Corazón',                s:'35 cm aprox.' },
+  ];
+
+  html = '<div class="shead">'
+    + '<h2>Props para fotos</h2>'
+    + '<div class="sh-note">Imprimir cada diseño individualmente en material rígido, '
+    + 'troquelado siguiendo la silueta, con borde blanco y mango posterior.<br>'
+    + 'Tamaños aproximados · el marco punteado no se imprime.</div></div>'
+    + '<div class="psheet">'
+    + PROPS.map(p =>
+      '<div class="prop"><div class="pbox">'+p.art+'</div>'
+      + '<div class="pname">'+p.n+'</div><div class="psize">'+p.s+'</div></div>').join('')
+    + '</div>';
+
+  document.getElementById('stage').classList.add('sheet');
+}
+
+document.getElementById('stage').innerHTML = html;
+</script>
+</body>
+</html>

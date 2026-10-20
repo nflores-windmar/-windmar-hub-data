@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Roofing — Carrusel Remoción (4 slides · Blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --ink:#33517f; --acc:#2b5fd6; --line:#7a97cc;
+  --orange:#f57c0a; --grid:rgba(26,82,199,.08);
+  --disp:'Montserrat',system-ui,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --mono:'Martian Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#dfe6f2;font-family:var(--body);display:flex;flex-wrap:wrap;gap:20px;padding:20px;justify-content:center}
+
+.slide{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1350px;background:#ffffff;color:var(--navy)}
+.slide::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:5cqw 5cqw}
+/* corner ticks */
+.tick{position:absolute;width:3.3cqw;height:3.3cqw;border:.45cqw solid var(--acc);z-index:6}
+.tick.tl{top:2.8cqw;left:2.8cqw;border-right:none;border-bottom:none}
+.tick.tr{top:2.8cqw;right:2.8cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:2.8cqw;left:2.8cqw;border-right:none;border-top:none}
+.tick.br{bottom:2.8cqw;right:2.8cqw;border-left:none;border-top:none}
+
+.bg{position:absolute;inset:0;z-index:0;object-fit:cover;width:100%;height:100%}
+.veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(255,255,255,.60),rgba(255,255,255,.84) 55%,rgba(255,255,255,.94))}
+/* portada/cierre oscuros — foto a fondo completo, velo navy, texto blanco */
+.slide.dark-cover{color:#fff}
+.slide.dark-cover .veil{background:linear-gradient(180deg,rgba(9,20,54,.74),rgba(9,20,54,.58) 45%,rgba(9,20,54,.86))}
+.slide.dark-cover::before{z-index:2;
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px)}
+.slide.dark-cover h1,.slide.dark-cover h2{color:#fff}
+.slide.dark-cover h1 .o{color:#a8c5f2}
+.slide.dark-cover .kick{color:#a8c5f2}
+.slide.dark-cover .sub{color:rgba(255,255,255,.92)}
+.slide.dark-cover .ctacks li{color:rgba(255,255,255,.92)}
+.slide.dark-cover .ctacks li::before{color:#a8c5f2}
+.slide.dark-cover .site{color:#a8c5f2}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:8.5cqw 7cqw}
+.kick{font-family:var(--mono);font-size:2.4cqw;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--acc)}
+h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.94;font-size:10.4cqw;letter-spacing:-.01em;margin-top:2.4cqw}
+h1 .o{color:var(--acc)}
+h2{font-family:var(--disp);font-weight:800;line-height:1.02;font-size:7.6cqw;letter-spacing:-.01em;margin-top:2.4cqw}
+.sub{font-size:3.6cqw;font-weight:500;color:var(--ink);margin-top:3cqw;max-width:76cqw}
+
+.bullets{margin-top:4.4cqw;display:flex;flex-direction:column;gap:2.6cqw}
+.bullets li{list-style:none;font-size:3.5cqw;font-weight:500;color:var(--ink);padding-left:5cqw;position:relative;line-height:1.28}
+.bullets li::before{content:"";position:absolute;left:0;top:1.3cqw;width:2cqw;height:2cqw;border-radius:50%;background:var(--acc)}
+.bullets li b{color:var(--navy);font-weight:800}
+
+.highlight{margin-top:auto;margin-bottom:2cqw;border:.28cqw solid var(--acc);border-radius:2.4cqw;
+  background:rgba(43,95,214,.06);padding:3.4cqw 4cqw;font-size:3.5cqw;font-weight:700;color:var(--acc)}
+
+/* cross-section layer diagram */
+.xsec{margin-top:4.4cqw}
+.xsec .xh{font-family:var(--mono);font-size:2.2cqw;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#8a99b8;margin-bottom:3cqw}
+.xrow{display:flex;align-items:center;gap:3cqw;margin-bottom:2.6cqw}
+.xbar{height:8.4cqw;border-radius:1.8cqw;flex:0 0 50cqw;display:flex;align-items:center;padding-left:3.2cqw;
+  font-family:var(--disp);font-weight:800;font-size:2.7cqw;letter-spacing:.02em}
+.xbar.finish{background:var(--acc);color:#fff}
+.xbar.primer{background:#a8c5f2;color:#173a7a}
+.xbar.base{background:repeating-linear-gradient(90deg,#eef3fb 0 2cqw,#dce7f8 2cqw 4cqw);border:.42cqw solid var(--navy);color:var(--navy)}
+.xlab b{display:block;font-size:3cqw;font-weight:800;color:var(--navy);line-height:1.12}
+.xlab span{font-size:2.4cqw;color:#8a99b8;font-weight:500}
+
+/* process rail */
+.rail{margin-top:4.4cqw;display:flex;align-items:flex-start;justify-content:space-between;position:relative;padding:0 1cqw}
+.rail::before{content:"";position:absolute;top:1.6cqw;left:3cqw;right:3cqw;height:.5cqw;background:#c9d6ee;border-radius:99px}
+.step{position:relative;display:flex;flex-direction:column;align-items:center;gap:1.4cqw;width:18%;z-index:1}
+.step .dot{width:3.4cqw;height:3.4cqw;border-radius:50%;background:#fff;border:.5cqw solid #c9d6ee}
+.step .lbl{font-family:var(--mono);font-size:1.9cqw;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8a99b8;text-align:center;line-height:1.3}
+.step.done .dot{background:var(--acc);border-color:var(--acc)}
+.step.on .dot{background:var(--acc);border-color:var(--acc);box-shadow:0 0 0 1.4cqw rgba(43,95,214,.18)}
+.step.on .lbl{color:var(--acc)}
+
+.foot{position:absolute;left:7cqw;right:7cqw;bottom:6cqw;z-index:3;display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-size:2.1cqw;letter-spacing:.16em;text-transform:uppercase;color:#8a99b8}
+.foot .b{color:var(--acc);font-weight:600}
+.wlogo{position:absolute;top:8.5cqw;left:7cqw;z-index:4;height:6cqw;width:auto;object-fit:contain}
+.stamp{position:absolute;top:8.9cqw;right:7cqw;z-index:5;font-family:var(--mono);font-size:2.2cqw;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:#fff;padding:1.4cqw 3cqw;border-radius:99px}
+.stamp-antes{background:var(--orange)}
+.stamp-despues{background:var(--acc)}
+
+/* CTA */
+.cta{margin-top:5cqw;align-self:flex-start;background:var(--orange);color:#fff;font-family:var(--disp);font-weight:800;
+  font-size:4cqw;text-transform:uppercase;letter-spacing:.02em;padding:3cqw 6cqw;border-radius:99px}
+.ctacks{margin-top:4cqw;display:flex;flex-direction:column;gap:2.2cqw}
+.ctacks li{list-style:none;font-size:3.2cqw;font-weight:600;color:var(--ink);padding-left:5cqw;position:relative}
+.ctacks li::before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:800}
+.site{margin-top:4cqw;font-family:var(--mono);font-size:2.6cqw;font-weight:600;letter-spacing:.1em;color:var(--acc)}
+</style>
+</head>
+<body>
+
+<!-- S1 · PORTADA -->
+<div class="slide dark-cover" data-document-role="page" data-label="S1 · Portada">
+  <img class="bg" src="img/pr-roofing-antes.jpg" alt="Techo boricua deteriorado, antes de la remoción — vista aérea real">
+  <div class="veil"></div>
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <img class="wlogo" src="wme/logos/windmar-roofing-fc.png" alt="WindMar Roofing">
+  <span class="stamp stamp-antes">Antes</span>
+  <div class="content" style="justify-content:center">
+    <div class="kick">Roofing · Proceso paso a paso</div>
+    <h1>La remoción<br>que <span class="o">otros saltan</span></h1>
+    <div class="sub">El secreto de un sellado que dura no es lo que va encima. Es cómo se prepara el techo antes de sellarlo.</div>
+  </div>
+  <div class="foot"><span>WindMar Roofing</span><span class="b">Remoción de techo</span></div>
+</div>
+
+<!-- S2 · EVALUAMOS + REMOVEMOS (01 · 02) -->
+<div class="slide" data-document-role="page" data-label="S2 · Evalúa y Remueve">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Paso 01 · 02 — Evaluamos y removemos</div>
+    <h2>Lo viejo sale.<br>No se tapa.</h2>
+    <ul class="bullets">
+      <li>Subimos y marcamos cada punto crítico — <b>antes de vender nada</b>.</li>
+      <li>La mayoría sella por encima de lo gastado. Nosotros <b>retiramos capa por capa</b> hasta la base.</li>
+      <li>Un techo sano empieza por <b>lo que se quita</b>, no por lo que se pone.</li>
+    </ul>
+    <div class="highlight">Remoción incluida — pocos la hacen</div>
+  </div>
+</div>
+
+<!-- S3 · PREPARAMOS + SELLAMOS (03 · 04) · sistema por capas -->
+<div class="slide" data-document-role="page" data-label="S3 · Prepara y Sella">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Paso 03 · 04 — Preparamos y sellamos</div>
+    <h2>La base lo cambia todo</h2>
+    <div class="sub">Superficie limpia, seca y firme. Luego aplicamos el sistema en el orden correcto, con el tiempo de secado de cada capa.</div>
+    <div class="xsec">
+      <div class="xh">Sistema nuevo · de la base hacia arriba</div>
+      <div class="xrow">
+        <div class="xbar finish">Acabado</div>
+        <div class="xlab"><b>Capa de acabado</b><span>refleja el sol y protege</span></div>
+      </div>
+      <div class="xrow">
+        <div class="xbar primer">Imprimante (primer)</div>
+        <div class="xlab"><b>Imprimante · primer</b><span>agarre a la base</span></div>
+      </div>
+      <div class="xrow">
+        <div class="xbar base">Losa preparada</div>
+        <div class="xlab"><b>Base limpia</b><span>del paso 03</span></div>
+      </div>
+    </div>
+    <div class="highlight">Acabado parejo, sin burbujas ni desprendimientos</div>
+  </div>
+</div>
+
+<!-- S4 · CTA -->
+<div class="slide dark-cover" data-document-role="page" data-label="S4 · CTA">
+  <img class="bg" src="img/pr-roofing-despues.jpg" alt="Techo boricua sellado y restaurado, después de la remoción — vista aérea real">
+  <div class="veil"></div>
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <img class="wlogo" src="wme/logos/windmar-roofing-fc.png" alt="WindMar Roofing">
+  <span class="stamp stamp-despues">Después</span>
+  <div class="content" style="justify-content:center">
+    <div class="kick">El proceso completo</div>
+    <h2>¿Listo para<br>restaurar tu techo?</h2>
+    <div class="sub">Una evaluación gratis y te decimos exactamente qué necesita — sin compromiso.</div>
+    <ul class="ctacks">
+      <li>Evaluación 100% gratis</li>
+      <li>Remoción incluida — pocos la hacen</li>
+      <li>Financiamiento disponible</li>
+    </ul>
+    <div class="cta">Comenta ROOFING</div>
+    <div class="site">windmar.com</div>
+  </div>
+</div>
+
+</body>
+</html>

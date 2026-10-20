@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar PR · Explicadores — Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--mono);padding:26px}
+/* 4 tarjetas de 368 + 3 gaps de 30 = 1562. El wrap tiene que pasar de eso o la
+   cuarta tarjeta se cae de fila y la secuencia deja de leerse de corrido. */
+.wrap{max-width:1600px;margin:0 auto}
+
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px}
+h1.pt{font-family:var(--disp);font-size:26px;letter-spacing:.4px}
+h1.pt .o{color:var(--orange)}
+.subt{color:#8fa0c6;font-size:13px;margin-top:5px;line-height:1.55}
+.subt b{color:#e7edfb}
+
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:13px 15px;
+  font-size:13px;color:#c9d6f5;margin:16px 0;line-height:1.6}
+.note b{color:var(--orange)}
+.note i{color:#9fb0d4}
+.note.warn{background:#2a1a08;border-color:rgba(245,124,10,.45)}
+.note ul{margin:7px 0 0 18px}
+.note li{margin:5px 0}
+
+h2.sec{font-family:var(--disp);font-size:30px;letter-spacing:.5px;margin:40px 0 0;color:#fff;
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h2.sec .tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#1a1206;background:var(--orange);border-radius:5px;padding:4px 9px}
+.secdesc{color:#9fb0d4;font-size:13px;line-height:1.65;margin:8px 0 4px;max-width:960px}
+.secdesc b{color:#e7edfb}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 2px}
+.allbtn{font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 15px;border-radius:9px;border:none;
+  cursor:pointer;background:var(--orange);color:#1a1206}
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:14px}
+.slot{display:flex;flex-direction:column;gap:9px;width:368px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-size:11px;color:#8fa0c6;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.cap .q{color:#1a1206;background:var(--orange);border-radius:4px;padding:2px 6px;margin-left:6px;
+  font-weight:700;letter-spacing:.08em}
+.dl{font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(28,123,255,.5);
+  background:transparent;color:#7fb0ff;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--blue);background:var(--blue);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ═══════════ TARJETA 4:5 (1080×1350) · BLUEPRINT ═══════════
+   Misma caja y mismos tokens del carrusel de permisología ya aprobado.      */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:368px;aspect-ratio:4/5;border-radius:14px;background:var(--paper);color:var(--ink);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);border:1px solid #26375f}
+.bg{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 42%),
+            radial-gradient(130% 80% at 50% 106%, rgba(10,40,130,.08) 0%, rgba(10,40,130,0) 52%)}
+.reg{position:absolute;z-index:2;width:4cqw;height:4cqw;border:.42cqw solid rgba(10,40,130,.3)}
+.reg.tl{top:3.4cqw;left:3.4cqw;border-right:0;border-bottom:0}
+.reg.tr{top:3.4cqw;right:3.4cqw;border-left:0;border-bottom:0}
+.reg.bl{bottom:3.4cqw;left:3.4cqw;border-right:0;border-top:0}
+.reg.br{bottom:3.4cqw;right:3.4cqw;border-left:0;border-top:0}
+.plate{position:absolute;z-index:3;bottom:3.4cqw;right:6cqw;font-family:var(--mono);font-size:1.9cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.5);text-transform:uppercase}
+/* el número de paso va calado, no relleno: es una marca de plano, no un titular */
+.stepno{position:absolute;z-index:3;top:6.2cqw;right:7cqw;font-family:var(--disp);font-size:13cqw;
+  line-height:1;color:transparent;-webkit-text-stroke:.42cqw rgba(10,40,130,.26)}
+
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:7.5cqw 7cqw 6.5cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+.spacer{flex:1}
+
+.kick{font-family:var(--mono);font-weight:500;font-size:2.35cqw;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--orange);display:flex;align-items:center;gap:2cqw}
+.kick::before{content:"";width:6cqw;height:.34cqw;background:var(--orange);flex:none}
+.h1{font-family:var(--disp);font-size:9.4cqw;line-height:.95;letter-spacing:-.01em;color:var(--navy);margin-top:3cqw;
+  max-width:76cqw}
+.h1 .o{color:var(--orange)}
+.h1.big{font-size:11.6cqw}
+.rule{width:15cqw;height:.65cqw;background:var(--orange);border-radius:1cqw;margin:3cqw 0 0}
+.sub{font-family:var(--mono);font-weight:400;font-size:2.8cqw;line-height:1.55;color:var(--navy2);max-width:84cqw;
+  margin-top:4.5cqw}
+
+.art{display:flex;align-items:center;justify-content:center;margin-top:5cqw;padding:0 2cqw;flex:1}
+/* el viewBox es 3:2, así que con max-height:46cqw el dibujo se pinta a 69cqw de
+   ancho y queda centrado. Subirlo más lo pega al titular. */
+.art svg{width:100%;height:auto;max-height:46cqw;display:block;overflow:visible;
+  stroke:var(--navy);stroke-width:2.1;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.art svg .wash{fill:var(--wash);stroke:none}
+.art svg .acc{stroke:var(--orange)}
+.art svg .thin{stroke-width:1.2;opacity:.55}
+.art svg .dash{stroke-dasharray:5 4;opacity:.7}
+/* en la tarjeta de capas el dibujo cede espacio: la lista es el contenido */
+.v-capas .art{margin-top:3.4cqw;flex:none}
+.v-capas .art svg{max-height:22cqw}
+
+.layers{list-style:none;display:flex;flex-direction:column;gap:2.4cqw;margin-top:3.4cqw;flex:1}
+.layers li{display:flex;gap:2.6cqw;align-items:flex-start;font-family:var(--mono);font-size:2.45cqw;
+  line-height:1.4;color:var(--navy2)}
+.layers li b{display:block;font-family:var(--disp);font-size:3.9cqw;color:var(--navy);letter-spacing:.01em;
+  font-weight:400;margin-bottom:.4cqw}
+.layers li .d{flex:none;width:1.7cqw;height:1.7cqw;border-radius:50%;background:var(--orange);margin-top:1.4cqw}
+
+.foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw;padding-top:4cqw}
+.foot .site{font-family:var(--mono);font-size:2.4cqw;letter-spacing:.06em;color:var(--navy2);
+  display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:11.5cqw;width:auto;display:block}
+
+/* bloque de dato que falta — fondo claro, así que re-declara el color de TODOS
+   sus hijos (incluido <b>) o heredan el azul de la tarjeta y se pierden */
+.gap{margin-top:3cqw;background:#FFF4E2;border-left:.8cqw solid var(--orange);border-radius:1.6cqw;
+  padding:3cqw 3.4cqw;font-family:var(--mono);font-size:2.5cqw;line-height:1.5;color:#4a3a22}
+.gap b{color:#2d2110;font-weight:800;display:block;font-size:2.7cqw;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:1cqw}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Explicadores de producto <span class="o">·</span> WindMar Puerto Rico</h1>
+    <div class="subt">Dirección <b>Blueprint</b> — la que escogiste. Feed 4:5 (1080×1350) · español · windmar.com.
+      Mismo sistema del carrusel de permisología: papel blanco, rejilla de plano, Bebas Neue en navy, filete naranja
+      y marcas de registro en las esquinas. Todos los dibujos son <b>SVG hechos a mano</b>, línea por línea: ninguno
+      es foto ni imagen generada por IA.</div>
+  </header>
+
+  <div class="note">
+    <b>Qué estás viendo.</b> El explicador de la <b>placa solar</b> completo: portada + 6 pasos + cierre = 8 tarjetas.
+    El texto sale <i>literal</i> de la pieza que ya tienes publicada (<i>windmar-qcells-explainer.html</i>) — no lo
+    reescribí. Los textos se editan haciendo clic y cada tarjeta exporta a PNG 1080×1350.
+    <br><br>
+    <b>Cisterna y sellado van en este mismo lenguaje</b>, pero les falta información que no voy a inventar. Abajo te
+    muestro exactamente dónde está el hueco.
+  </div>
+
+  <div class="note warn">
+    <b>Decisión pendiente antes de publicar la placa solar.</b> Dos de los seis pasos
+    (<i>«atrapa más luz, hasta con sombra parcial»</i> y <i>«rinde hasta en días nublados»</i>) están marcados
+    <b>Q CELLS</b> abajo. No son como funciona cualquier placa: son afirmaciones de esa marca. Dime cuál quieres:
+    <ul>
+      <li><b>Opción 1 —</b> la pieza se marca Q CELLS y las dos líneas se quedan como están.</li>
+      <li><b>Opción 2 —</b> la pieza va genérica y yo reescribo esas dos líneas en neutro, sin atribuir la ventaja a
+        ninguna marca.</li>
+    </ul>
+  </div>
+
+  <h2 class="sec">Cómo funciona una placa solar <span class="tag">8 tarjetas · listo para publicar*</span></h2>
+  <div class="secdesc">*Listo salvo la decisión de Q CELLS de arriba. <b>En video:</b> esta misma dirección se anima
+    trazando la línea del dibujo sola (stroke-dasharray) mientras entra el titular — fondo fijo, cámara quieta.
+    Es el tratamiento más barato de producir y el más fácil de repetir idéntico en los tres temas.</div>
+  <div class="bar"><button class="allbtn" id="allsolar">⬇︎ Descargar las 8 PNG</button></div>
+  <div class="gallery" id="gsolar"></div>
+
+  <h2 class="sec">Cisterna y sellado <span class="tag">no es concepto · es inventario</span></h2>
+  <div class="secdesc">Estas dos tarjetas no son una propuesta visual nueva: son el mismo Blueprint con el hueco
+    marcado en naranja donde falta el dato. Dame lo que pide cada una y monto los dos explicadores completos.</div>
+  <div class="gallery" id="ggaps"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SITE='windmar.com';
+const LOGO='wme/logos/wme-fc-stacked.png';
+
+/* ═══════════════ DIBUJOS · SVG a mano, viewBox 240×160 ═══════════════ */
+
+/* portada · casa con placas y sol */
+const ART_CASA=`<svg viewBox="0 0 240 160">
+  <circle class="acc" cx="206" cy="32" r="13"/>
+  <path class="acc" d="M206 11 v-7 M206 60 v7 M185 32 h-7 M234 32 h-7 M191 17 l-5 -5 M226 52 l5 5 M221 17 l5 -5 M191 47 l-5 5"/>
+  <path class="wash" d="M40 92 L104 46 L168 92 L168 140 L40 140 Z"/>
+  <path d="M26 98 L104 42 L182 98"/>
+  <path d="M40 90 V140 H168 V90"/>
+  <path d="M92 140 V112 H118 V140"/>
+  <path class="thin" d="M54 106 h20 v16 h-20 Z"/>
+  <path class="wash" d="M112 54 L166 91 L157 104 L103 67 Z"/>
+  <path d="M112 54 L166 91 L157 104 L103 67 Z"/>
+  <path class="thin" d="M130 66 l-9 13 M148 78 l-9 13"/>
+  <path class="thin" d="M14 140 H226"/>
+</svg>`;
+
+/* 01 · el sol toca tu placa */
+const ART_SOL=`<svg viewBox="0 0 240 160">
+  <circle class="acc" cx="48" cy="38" r="17"/>
+  <path class="acc" d="M48 11 v-8 M48 73 v8 M21 38 h-8 M83 38 h-8 M29 19 l-6 -6 M67 57 l6 6 M67 19 l6 -6 M29 57 l-6 6"/>
+  <path class="wash" d="M92 128 L156 98 L222 112 L158 145 Z"/>
+  <path d="M92 128 L156 98 L222 112 L158 145 Z"/>
+  <path class="thin" d="M108 120 L174 137 M124 113 L190 128 M140 106 L206 120 M125 136 L189 105"/>
+  <path class="acc" d="M66 58 L108 96 M99 94 L108 96 L106 87"/>
+  <path class="acc" d="M86 48 L132 90 M123 88 L132 90 L130 81"/>
+  <path class="acc" d="M106 40 L152 84 M143 82 L152 84 L150 75"/>
+</svg>`;
+
+/* 02 · atrapa más luz · celdas + sombra parcial en una esquina */
+const ART_CELDAS=`<svg viewBox="0 0 240 160">
+  <path class="acc" d="M10 44 A34 34 0 0 1 44 10"/>
+  <path class="acc" d="M20 16 L50 42 M41 40 L50 42 L48 33"/>
+  <path class="acc" d="M46 10 L72 36 M63 34 L72 36 L70 27"/>
+  <rect class="wash" x="66" y="26" width="118" height="104" rx="5"/>
+  <rect x="66" y="26" width="118" height="104" rx="5"/>
+  <path class="thin" d="M105 26 V130 M144 26 V130 M66 60 H184 M66 96 H184"/>
+  <path class="dash" d="M66 78 H184"/>
+  <path class="wash" d="M184 26 L184 68 L132 26 Z"/>
+  <path class="thin" d="M184 68 L132 26"/>
+  <path class="acc" d="M198 130 h26 M211 130 V96 M205 103 l6 -7 l6 7"/>
+</svg>`;
+
+/* 03 · lista para mover tu hogar · placa → inversor → casa */
+const ART_HOGAR=`<svg viewBox="0 0 240 160">
+  <rect class="wash" x="8" y="50" width="54" height="42" rx="4"/>
+  <rect x="8" y="50" width="54" height="42" rx="4"/>
+  <path class="thin" d="M26 50 V92 M44 50 V92 M8 71 H62"/>
+  <path d="M35 92 v16 M22 108 h26"/>
+  <path class="acc" d="M68 71 H90 M83 65 L90 71 L83 77"/>
+  <rect class="wash" x="94" y="44" width="36" height="54" rx="4"/>
+  <rect x="94" y="44" width="36" height="54" rx="4"/>
+  <path class="acc" d="M101 73 q6 -13 11 0 t11 0"/>
+  <path class="thin" d="M101 56 h22"/>
+  <path class="acc" d="M136 71 H158 M151 65 L158 71 L151 77"/>
+  <path class="wash" d="M170 82 L198 60 L226 82 L226 128 L170 128 Z"/>
+  <path d="M164 84 L198 56 L232 84"/>
+  <path d="M172 80 V128 H224 V80"/>
+  <path d="M190 128 V104 H206 V128"/>
+  <path class="thin" d="M158 140 H238"/>
+</svg>`;
+
+/* 04 · rinde hasta en días nublados */
+const ART_NUBE=`<svg viewBox="0 0 240 160">
+  <circle class="wash" cx="96" cy="60" r="21"/>
+  <circle class="wash" cx="128" cy="50" r="27"/>
+  <circle class="wash" cx="160" cy="62" r="19"/>
+  <path d="M77 72 a20 20 0 0 1 21 -29 a27 27 0 0 1 52 2 a19 19 0 0 1 18 27"/>
+  <path d="M77 72 H168"/>
+  <path class="acc dash" d="M94 78 V98 M118 78 V98 M142 78 V98 M164 78 V98"/>
+  <rect class="wash" x="74" y="104" width="96" height="34" rx="4"/>
+  <rect x="74" y="104" width="96" height="34" rx="4"/>
+  <path class="thin" d="M98 104 V138 M122 104 V138 M146 104 V138"/>
+  <path class="acc" d="M196 138 V104 M188 112 l8 -8 l8 8"/>
+</svg>`;
+
+/* 05 · más que un vidrio · cuatro capas separadas */
+const ART_CAPAS=`<svg viewBox="0 0 240 160">
+  <path class="wash" d="M52 34 L146 16 L196 34 L102 52 Z"/><path d="M52 34 L146 16 L196 34 L102 52 Z"/>
+  <path class="wash" d="M52 68 L146 50 L196 68 L102 86 Z"/><path d="M52 68 L146 50 L196 68 L102 86 Z"/>
+  <path class="wash" d="M52 102 L146 84 L196 102 L102 120 Z"/><path d="M52 102 L146 84 L196 102 L102 120 Z"/>
+  <path class="wash" d="M52 136 L146 118 L196 136 L102 154 Z"/><path d="M52 136 L146 118 L196 136 L102 154 Z"/>
+  <path class="acc thin" d="M206 30 h18 M206 64 h18 M206 98 h18 M206 132 h18"/>
+  <path class="acc" d="M224 30 V132"/>
+</svg>`;
+
+/* 06 · hecha para durar años · curva de producción casi plana */
+const ART_DURAR=`<svg viewBox="0 0 240 160">
+  <rect class="wash" x="24" y="16" width="86" height="56" rx="4"/>
+  <rect x="24" y="16" width="86" height="56" rx="4"/>
+  <path class="thin" d="M53 16 V72 M81 16 V72 M24 44 H110"/>
+  <path class="acc" d="M146 20 l30 12 v22 c0 18 -13 29 -30 36 c-17 -7 -30 -18 -30 -36 V32 Z"/>
+  <path class="acc" d="M134 50 l9 10 l20 -22"/>
+  <path d="M24 140 H216"/>
+  <path class="thin" d="M40 140 v7 M84 140 v7 M128 140 v7 M172 140 v7 M212 140 v7"/>
+  <path class="dash thin" d="M40 100 H212"/>
+  <path class="acc" d="M40 98 L212 110"/>
+  <circle class="acc" cx="40" cy="98" r="3.4"/><circle class="acc" cx="212" cy="110" r="3.4"/>
+</svg>`;
+
+/* cierre · dos casas con placas bajo el sol */
+const ART_CIERRE=`<svg viewBox="0 0 240 160">
+  <circle class="acc" cx="120" cy="54" r="24"/>
+  <path class="acc" d="M120 16 v-10 M120 102 v10 M82 54 h-10 M168 54 h10 M93 27 l-8 -8 M147 81 l8 8 M147 27 l8 -8 M93 81 l-8 8"/>
+  <path class="wash" d="M30 134 L58 112 L86 134 Z"/>
+  <path d="M26 136 L58 110 L90 136"/>
+  <path d="M34 134 V148 M82 134 V148"/>
+  <path class="wash" d="M154 134 L182 112 L210 134 Z"/>
+  <path d="M150 136 L182 110 L214 136"/>
+  <path d="M158 134 V148 M206 134 V148"/>
+  <path class="thin" d="M14 148 H226"/>
+</svg>`;
+
+/* ═══════════════ GUION · PLACA SOLAR ═══════════════
+   Texto literal de windmar-qcells-explainer.html. No reescrito, no resumido.
+   qcells:true marca las dos líneas que son afirmaciones de Q CELLS y no de
+   cualquier placa — se avisa en la etiqueta, nunca encima del arte.          */
+const SOLAR=[
+  { id:'portada', step:0, big:true,
+    kick:'WindMar · Solar Puerto Rico',
+    h1:'Cómo funciona una <span class="o">placa solar</span>',
+    sub:'En 6 pasos, sin tecnicismos. Así pone el sol a trabajar por tu casa.',
+    art:ART_CASA },
+
+  { id:'paso-01', step:1, kick:'Paso 01 de 06',
+    h1:'El sol toca tu placa',
+    sub:'La placa recibe la luz del sol durante todo el día.',
+    art:ART_SOL },
+
+  { id:'paso-02', step:2, kick:'Paso 02 de 06', qcells:true,
+    h1:'Atrapa más luz del sol',
+    sub:'La tecnología Q CELLS capta más luz, hasta con sombra parcial.',
+    art:ART_CELDAS },
+
+  { id:'paso-03', step:3, kick:'Paso 03 de 06',
+    h1:'Lista para mover tu hogar',
+    sub:'Convierte la luz del sol en energía lista para tu casa.',
+    art:ART_HOGAR },
+
+  { id:'paso-04', step:4, kick:'Paso 04 de 06', qcells:true,
+    h1:'Rinde hasta en días nublados',
+    sub:'Sigue produciendo aunque esté nublado o lluvioso.',
+    art:ART_NUBE },
+
+  { id:'paso-05', step:5, kick:'Paso 05 de 06', variant:'v-capas',
+    h1:'Más que un vidrio',
+    art:ART_CAPAS,
+    layers:[
+      ['Vidrio resistente','Protege la placa y deja pasar el sol'],
+      ['Celdas que generan energía','El corazón que produce tu electricidad'],
+      ['Marco de aluminio','Fuerte, liviano y no se oxida'],
+      ['Sellado protector','Aguanta calor, humedad y lluvia'] ] },
+
+  { id:'paso-06', step:6, kick:'Paso 06 de 06',
+    h1:'Hecha para durar años',
+    sub:'Rinde año tras año, casi sin perder fuerza con el tiempo.',
+    art:ART_DURAR },
+
+  { id:'cierre', step:7, big:true,
+    kick:'Evaluación gratis y sin compromiso',
+    h1:'Pon el sol a <span class="o">trabajar</span> por ti',
+    sub:'Te explicamos cuánto produce tu techo antes de que decidas nada.',
+    art:ART_CIERRE },
+];
+
+/* ═══════════════ LO QUE FALTA ═══════════════ */
+const GAPS=[
+  { id:'cisterna-paso-00', plate:'CISTERNA · PENDIENTE',
+    kick:'Cisterna · paso 00 de 05',
+    h1:'De dónde <span class="o">viene</span> el agua',
+    art:ART_CAPAS,
+    gap:'<b>Falta el dato</b>Ninguna pieza publicada dice por dónde entra el agua a la cisterna: ¿la línea de la AAA, la lluvia del techo, un camión? Sin ese paso 00 el explicador arranca por el medio. Dime cuál es y lo monto.' },
+
+  { id:'sellado-proceso', plate:'SELLADO · PENDIENTE',
+    kick:'Sellado · proceso',
+    h1:'Cómo se <span class="o">sella</span> un techo',
+    art:ART_DURAR,
+    gap:'<b>Falta el proceso</b>Revisé las piezas de sellado que tenemos. Ninguna describe cómo se hace: solo existe «Los 3 elementos de un techo bien hecho». Para 5–6 pasos necesito el proceso real, paso por paso, de boca de operaciones.' },
+];
+
+/* ═══════════════ RENDER ═══════════════ */
+function foot(){
+  return `<div class="foot">
+    <div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+    <div class="logo"><img src="${LOGO}" alt="WindMar"></div>
+  </div>`;
+}
+
+function body(c){
+  const head=`<div class="kick">${c.kick}</div>
+    <h2 class="h1${c.big?' big':''}" contenteditable="true">${c.h1}</h2>
+    <div class="rule"></div>`;
+  if(c.layers){
+    return head+`<div class="art">${c.art}</div>
+      <ul class="layers">${c.layers.map(([t,d])=>
+        `<li><span class="d"></span><span><b contenteditable="true">${t}</b><span contenteditable="true">${d}</span></span></li>`).join('')}</ul>
+      ${foot()}`;
+  }
+  return head+`<div class="art">${c.art}</div>
+    <p class="sub" contenteditable="true">${c.sub}</p>
+    ${foot()}`;
+}
+
+const REG=[];
+const gsolar=document.getElementById('gsolar');
+SOLAR.forEach((c,i)=>{
+  const id='pc-'+c.id, name='windmar-solar-'+c.id;
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.id} · ${i+1}/${SOLAR.length}${c.qcells?'<span class="q">Q CELLS</span>':''}</span>
+      <button class="dl" data-id="${id}" data-name="${name}">⬇︎ PNG</button>
+    </div>
+    <div class="piece ${c.variant||''}" id="${id}">
+      <div class="bg"></div><div class="vign"></div>
+      <div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+      ${c.step>0&&c.step<7?`<div class="stepno">${String(c.step).padStart(2,'0')}</div>`:''}
+      <div class="plate">WM-SOLAR · ${i+1}/${SOLAR.length}</div>
+      <div class="content">${body(c)}</div>
+    </div>`;
+  gsolar.appendChild(slot);
+  REG.push({id,name});
+});
+
+const ggaps=document.getElementById('ggaps');
+GAPS.forEach(c=>{
+  const id='pc-'+c.id, name='windmar-'+c.id;
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.id}</span>
+      <button class="dl" data-id="${id}" data-name="${name}">⬇︎ PNG</button>
+    </div>
+    <div class="piece" id="${id}">
+      <div class="bg"></div><div class="vign"></div>
+      <div class="reg tl"></div><div class="reg tr"></div><div class="reg bl"></div><div class="reg br"></div>
+      <div class="plate">${c.plate}</div>
+      <div class="content">
+        <div class="kick">${c.kick}</div>
+        <h2 class="h1" contenteditable="true">${c.h1}</h2>
+        <div class="rule"></div>
+        <div class="art" style="opacity:.26;filter:grayscale(1)">${c.art}</div>
+        <div class="gap">${c.gap}</div>
+        ${foot()}
+      </div>
+    </div>`;
+  ggaps.appendChild(slot);
+});
+
+/* ═══════════════ EXPORT PNG 1080×1350 ═══════════════ */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+async function exportNode(id,name){
+  const node=document.getElementById(id);
+  const css=await fontEmbedCSS();
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#ffffff'};
+  let blob=null;
+  try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+  if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+  if(!blob) throw new Error('imagen vacía');
+  const a=document.createElement('a'); a.download=name+'.png';
+  a.href=URL.createObjectURL(blob); a.click();
+}
+
+document.body.addEventListener('click',async e=>{
+  const b=e.target.closest('.dl');
+  if(b){
+    b.disabled=true; const old=b.textContent; b.textContent='…';
+    try{ await exportNode(b.dataset.id,b.dataset.name); }catch(err){ alert('No se pudo exportar: '+err.message); }
+    b.disabled=false; b.textContent=old; return;
+  }
+  if(e.target.id==='allsolar'){
+    const btn=e.target; btn.disabled=true; const old=btn.textContent;
+    for(let i=0;i<REG.length;i++){
+      btn.textContent=`Exportando ${i+1}/${REG.length}…`;
+      try{ await exportNode(REG[i].id,REG[i].name); await new Promise(r=>setTimeout(r,350)); }catch(err){}
+    }
+    btn.textContent=old; btn.disabled=false;
+  }
+});
+</script>
+</body>
+</html>

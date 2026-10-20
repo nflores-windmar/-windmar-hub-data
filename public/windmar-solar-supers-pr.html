@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WindMar Solar PR — Supers sobre el montaje de almacén</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   SUPERS PARA «Montage Almacenes v2» — WindMar Solar · Puerto Rico
+
+   QUÉ ES
+   Una capa de texto que va ENCIMA del video que ya está editado. No toca el
+   metraje: solo le pone los rótulos y los pone en el golpe de la música.
+
+   LOS DATOS SALIERON DEL ARCHIVO, NO DE UN ESTIMADO
+     duración      10.81 s   ·  2160×3840 (9:16)  ·  29.97 fps
+     tempo         117.45 BPM  →  0.5108 s por golpe
+     metraje       0 → 9.66 s  ·  cortinilla blanca 9.66 → 9.9 → logo hasta 10.81
+     downbeats     0.07 · 2.32 · 4.32 · 6.57 · 8.57 s
+
+   Los cinco supers entran EXACTAMENTE en esos cinco downbeats. Por eso son
+   cinco y no seis: seis no caben sin montarse encima de la placa del logo.
+
+   DOS MODOS
+     ?mode=play           reproduce el video con los supers encima (revisión)
+     ?t=4.321             pinta un solo cuadro, fondo transparente (render)
+     &dir=A / B / C       cambia la tanda de texto
+     &px=1080             ancho del lienzo (por defecto 1080)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --navy:#0a2882; --navy-d:#071e55; --orange:#fe9400; --orange-l:#ffbd5c; /* #FE9400 = el del sol del logo; el #f57c0a de antes era más rojizo */
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#11161f}
+body.render{background:transparent}
+
+/* El lienzo tiene medidas fijas en px y font-size = ancho/100, así que todo
+   lo de adentro va en em y escala igual a 1080 que a 2160. */
+.stage{position:relative;width:var(--w);height:var(--h);overflow:hidden;
+  font-size:calc(var(--w) / 100);margin:0 auto}
+body.render .stage{margin:0}
+
+video.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* ── el bloque de super ───────────────────────────────────────────────────
+   Va anclado abajo pero no pegado: en Instagram los últimos ~12% de la
+   pantalla se los come la interfaz (descripción, botones). Por eso el borde
+   inferior del texto queda a 22em del piso. */
+.supers{position:absolute;left:6.4em;right:6.4em;bottom:22em}
+
+.sup{position:absolute;left:0;right:0;bottom:0;opacity:0}
+
+/* Rayita naranja encima: es el gesto que amarra esto con el resto del
+   sistema de WindMar y le da un borde duro al texto sobre imagen movida. */
+.sup .bar{height:.55em;width:9em;background:var(--orange);
+  transform-origin:left center}
+
+.sup .kick{font-family:var(--body);font-weight:700;font-size:2.9em;
+  letter-spacing:.17em;text-transform:uppercase;color:var(--orange-l);
+  margin-top:1.5em;line-height:1}
+
+/* Bebas sobre video se pierde si no se le mete sombra. La sombra es dura y
+   corta, no un glow: tiene que leerse como rótulo de televisión, no como
+   texto con efecto. */
+.sup .big{font-family:var(--disp);font-size:11.4em;line-height:.88;
+  letter-spacing:.012em;color:#fff;margin-top:.14em;
+  text-shadow:0 .035em .09em rgba(4,10,30,.72)}
+.sup .big em{font-style:normal;color:var(--orange)}
+
+/* Velo oscuro solo detrás del texto. El metraje de almacén tiene paredes
+   claras y camisas azules: sin esto, media palabra desaparece. */
+.scrim{position:absolute;left:0;right:0;bottom:0;height:58em;
+  background:linear-gradient(to top,
+    rgba(7,30,85,.92) 0%, rgba(7,30,85,.82) 34%,
+    rgba(7,30,85,.46) 64%, rgba(7,30,85,0) 100%);
+  opacity:0}
+
+/* ── marco de pulso ──────────────────────────────────────────────────────
+   Un filete naranja que late en CADA golpe (no solo en los downbeats). Es
+   lo que hace que se sienta pegado a la música aunque el texto cambie cada
+   cuatro golpes. */
+.pulse{position:absolute;inset:0;border:.42em solid var(--orange);opacity:0;
+  pointer-events:none}
+
+/* ── placa final ─────────────────────────────────────────────────────────
+   El video ya trae su propio cierre con el logo a partir de 9.8 s, así que
+   aquí NO se dibuja ningún logo: sería ponerle un logo encima de otro. */
+
+/* ── barra de control, solo en modo revisión ─────────────────────────────── */
+.ui{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;
+  display:flex;gap:8px;align-items:center;font-family:var(--body)}
+.ui button,.ui a{font-weight:700;font-size:12px;border:none;border-radius:7px;
+  padding:9px 14px;cursor:pointer;background:var(--orange);color:#20140a;
+  text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.ui .ghost{background:#fff;color:var(--navy)}
+.ui .on{background:var(--navy);color:#fff}
+body.render .ui{display:none}
+.hint{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);
+  font-family:var(--body);font-size:12px;color:#8a97b5;z-index:60}
+body.render .hint{display:none}
+</style>
+</head>
+<body>
+
+<div class="ui" id="ui">
+  <button id="play">▶ Reproducir</button>
+  <button class="ghost" id="dA">Texto A</button>
+  <button class="ghost" id="dB">Texto B</button>
+  <button class="ghost" id="dC">Texto C</button>
+</div>
+
+<div class="stage" id="stage">
+  <video class="bg" id="vid" muted playsinline></video>
+  <div class="scrim" id="scrim"></div>
+  <div class="pulse" id="pulse"></div>
+  <div class="supers" id="supers"></div>
+</div>
+
+<div class="hint" id="hint"></div>
+
+<script src="lib/motion.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   LA REJILLA — medida del archivo, no inventada.
+   ═══════════════════════════════════════════════════════════════ */
+const BPM      = 117.45;
+const BEAT     = 60 / BPM;        // 0.5108 s
+const BEAT0    = 0.07;            // primer golpe
+/* 9.60 y no 9.80: midiendo el brillo del archivo cuadro a cuadro, la cortinilla
+   blanca del logo NO entra de golpe en 9.8 — empieza a barrer en ~9.66. Si el
+   último super se apaga en 9.80 queda medio rótulo encima de la cortinilla.
+   Cortando en 9.60 el texto ya salió antes de que la blanca toque la pantalla. */
+const FOOTAGE  = 9.60;
+const DUR      = 10.81;
+
+/* Los cinco downbeats donde entra cada super. Están tomados del análisis
+   del audio, no calculados a ojo: la pista tiene un arrastre pequeño y si
+   se calcula multiplicando el beat, el cuarto super entra tarde. */
+/* El primero entra en el SEGUNDO golpe (0.72), no en el primero (0.07):
+   en la versión final del video («Montage Almacenes vf[v2]») los primeros
+   0.73 s tienen un panel blanco justo donde va el texto, y el corte al aéreo
+   del almacén con placas cae exacto en 0.72. Texto blanco sobre blanco no se
+   lee; entrando con el corte, «SOMOS MÁS QUE PLACAS» aparece sobre las placas. */
+const HITS = [0.72, 2.32, 4.32, 6.57, 8.57];
+
+/* ═══════════════════════════════════════════════════════════════
+   EL TEXTO — tres tandas. Cambiar aquí, nada más.
+   kick = la línea chiquita de arriba · big = el rótulo grande
+   <em> pinta esa palabra en naranja.
+   ═══════════════════════════════════════════════════════════════ */
+const DIRS = {
+  /* A — la pregunta y las tres respuestas. Es la más directa al «somos los
+     mejores» sin decirlo de frente, que suena mejor que decirlo. */
+  A: [
+    { kick:'WindMar Solar',        big:'¿POR QUÉ<br>SOMOS <em>LOS<br>MEJORES?</em>' },
+    { kick:'Uno',                  big:'INVENTARIO<br><em>PROPIO</em>' },
+    { kick:'Dos',                  big:'EQUIPO<br><em>PROPIO</em>' },
+    { kick:'Tres',                 big:'RESPALDO<br><em>PROPIO</em>' },
+    { kick:'Solar · Puerto Rico',  big:'POR ESO<br><em>NO ESPERAS</em>' },
+  ],
+  /* B — el almacén como prueba. Pega más con lo que se ve en pantalla:
+     aquí no hay placas en techos, hay inventario y gente moviéndolo. */
+  B: [
+    { kick:'WindMar Solar',        big:'ESTO NO ES<br>UNA <em>PROMESA</em>' },
+    { kick:'Es nuestro almacén',   big:'ES NUESTRO<br><em>ALMACÉN</em>' },
+    { kick:'Equipo en mano',       big:'EL EQUIPO<br><em>YA ESTÁ AQUÍ</em>' },
+    { kick:'Sin esperar barco',    big:'TU SISTEMA<br><em>NO HACE FILA</em>' },
+    { kick:'Solar · Puerto Rico',  big:'INSTALAMOS<br><em>CUANDO<br>DECIMOS</em>' },
+  ],
+  /* C — «somos más que placas». Esta es la que mejor resuelve el choque entre
+     lo que dice y lo que se ve: en el metraje NO hay un solo techo con placas,
+     hay almacén, montacargas y gente. En vez de disimularlo, lo usa de prueba.
+     Los tres «SOMOS» del medio son a propósito: repetir la misma palabra en el
+     mismo sitio tres golpes seguidos amarra el ritmo sin que el ojo trabaje. */
+  C: [
+    { kick:'WindMar Solar',          big:'SOMOS MÁS<br>QUE <em>PLACAS</em>' },
+    { kick:'Detrás de cada sistema', big:'SOMOS EL<br><em>ALMACÉN</em>' },
+    { kick:'La gente que lo monta',  big:'SOMOS EL<br><em>EQUIPO</em>' },
+    { kick:'Y después de instalar',  big:'SOMOS EL<br><em>RESPALDO</em>' },
+    { kick:'Solar · Puerto Rico',    big:'ESO NO<br>SE <em>IMPROVISA</em>' },
+  ],
+};
+
+/* ═══════════════════════════════════════════════════════════════ */
+const q    = new URLSearchParams(location.search);
+const W    = +(q.get('px') || 1080);
+const H    = Math.round(W * 16 / 9);
+const DIR  = DIRS[q.get('dir')] ? q.get('dir') : 'A';
+const LINES= DIRS[DIR];
+const SRC  = q.get('src') || 'montage-almacenes.mp4';
+
+const stage = document.getElementById('stage');
+stage.style.setProperty('--w', W + 'px');
+stage.style.setProperty('--h', H + 'px');
+
+const supersEl = document.getElementById('supers');
+const scrimEl  = document.getElementById('scrim');
+const pulseEl  = document.getElementById('pulse');
+const vid      = document.getElementById('vid');
+
+/* Construir los nodos una sola vez. */
+const nodes = LINES.map(l => {
+  const d = document.createElement('div');
+  d.className = 'sup';
+  d.innerHTML = '<div class="bar"></div>'
+              + '<div class="kick">' + l.kick + '</div>'
+              + '<div class="big">' + l.big + '</div>';
+  supersEl.appendChild(d);
+  return d;
+});
+
+/* ── el motor ────────────────────────────────────────────────────────────
+   Todo se calcula a partir de t. Una función pura: el mismo t siempre pinta
+   el mismo cuadro. Eso es lo que permite renderizarlo frame por frame. */
+const IN_DUR   = 0.26;   // lo que tarda el super en entrar
+const OUT_DUR  = 0.18;   // lo que tarda en salir
+
+function easeOut(x){ return 1 - Math.pow(1 - x, 3); }
+/* Resortes (lib/motion.js) en vez de la curva fija: el texto llega con peso y
+   se asienta, sin rebote (en tipografía el rebote se lee como juguete). La
+   rayita sí se pasa un pelito: es un gesto de UI, no texto.
+   k 300 / d 35 = amortiguación crítica, se asienta en ~0.3 s, como antes. */
+const TXT = { k: 300, d: 35 };
+
+function draw(t){
+  /* cuál super manda ahora */
+  let idx = -1;
+  for (let i = 0; i < HITS.length; i++) if (t >= HITS[i]) idx = i;
+
+  nodes.forEach((n, i) => {
+    let op = 0, dy = 0, sx = 0;
+    if (i === idx && t < FOOTAGE){
+      const age = t - HITS[i];
+      const nextHit = (i + 1 < HITS.length) ? HITS[i+1] : FOOTAGE;
+      const left = nextHit - t;
+      const pIn  = Math.min(1, age / IN_DUR);
+      const pOut = Math.min(1, Math.max(0, left / OUT_DUR));
+      const sIn = Motion.spring(age, TXT.k, TXT.d);
+      op = Math.min(1, pIn * 2.2) * pOut;   // la opacidad llega rápido: entra subiendo, no apareciendo
+      dy = (1 - sIn) * 1.6;                 // sube 1.6em al entrar
+      sx = Motion.spring(age - 0.04, Motion.UI.k, Motion.UI.d);
+    }
+    n.style.opacity   = op.toFixed(4);
+    n.style.transform = 'translateY(' + dy.toFixed(3) + 'em)';
+    n.querySelector('.bar').style.transform = 'scaleX(' + sx.toFixed(4) + ')';
+  });
+
+  /* El velo entra con el primer super y se va justo antes del logo. */
+  const scrimOn = (t >= HITS[0] && t < FOOTAGE);
+  let so = 0;
+  if (scrimOn){
+    so = Math.min(1, (t - HITS[0]) / 0.35) * Math.min(1, (FOOTAGE - t) / 0.30);
+  }
+  scrimEl.style.opacity = Math.max(0, so).toFixed(4);
+
+  /* El latido: un destello corto en cada golpe, más fuerte en los downbeats. */
+  let po = 0;
+  if (t < FOOTAGE){
+    const since = (t - BEAT0) % BEAT;
+    const k = since < 0 ? 1 : Math.max(0, 1 - (since / 0.17));
+    const isHit = HITS.some(h => Math.abs(t - h) < 0.10);
+    po = k * (isHit ? 0.55 : 0.17);
+  }
+  pulseEl.style.opacity = po.toFixed(4);
+}
+
+/* ── modo render: un cuadro fijo, fondo transparente ─────────────────── */
+if (q.has('t')){
+  document.body.classList.add('render');
+  vid.style.display = 'none';
+  document.documentElement.style.background = 'transparent';
+  draw(parseFloat(q.get('t')));
+  /* Bandera para que el renderizador sepa que ya terminó de pintar. */
+  document.fonts.ready.then(() => { window.__ready = true; });
+} else {
+  /* ── modo revisión ───────────────────────────────────────────────── */
+  vid.src = SRC;
+  const hint = document.getElementById('hint');
+  hint.textContent = 'Texto ' + DIR + ' · 117.45 BPM · supers en 0.07 · 2.32 · 4.32 · 6.57 · 8.57 s';
+
+  function loop(){ draw(vid.currentTime); requestAnimationFrame(loop); }
+  loop();
+
+  document.getElementById('play').onclick = () => {
+    if (vid.paused){ vid.play(); } else { vid.pause(); }
+  };
+  document.getElementById('dA').onclick = () => { q.set('dir','A'); location.search = q; };
+  document.getElementById('dB').onclick = () => { q.set('dir','B'); location.search = q; };
+  document.getElementById('dC').onclick = () => { q.set('dir','C'); location.search = q; };
+  document.getElementById('d' + DIR).classList.add('on');
+
+  /* Si el video no carga, decirlo en vez de quedarse en negro callado. */
+  vid.onerror = () => {
+    hint.textContent = 'No se encontró el video (' + SRC + '). Los supers igual corren con ?t=';
+  };
+}
+</script>
+</body>
+</html>

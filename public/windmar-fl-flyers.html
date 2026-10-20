@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Home Florida · Product Flyers (4:5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a2540; --navy:#061f38; --orange:#f57c0a; --orange-ink:#c9600a;
+    --bg:#0d1524; --card:#141d2e; --line:#243149;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);font-family:'Montserrat',system-ui,sans-serif;color:#eaf2fb}
+  .bar{position:sticky;top:0;z-index:30;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;
+       padding:14px;background:#0b1220;border-bottom:1px solid var(--line)}
+  .bar h1{font-weight:800;font-size:13px;letter-spacing:2px;margin:0;text-transform:uppercase;color:#cfe0f3}
+  .bar .note{font-size:12px;color:#8aa2bd;max-width:560px}
+  .wrap{max-width:1200px;margin:0 auto;padding:22px}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;overflow:hidden}
+  .caprow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .cap{font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#bcd0e8}
+  .capbtns{display:flex;gap:8px}
+  .capbtns label,.capbtns button{font-weight:700;font-size:11px;letter-spacing:.5px;cursor:pointer;border:none;padding:8px 12px;border-radius:8px}
+  .capbtns label{background:#22314a;color:#d7e6f7}
+  .capbtns button{background:var(--orange);color:#fff}
+  .capbtns button:active,.capbtns label:active{transform:translateY(1px)}
+  .capbtns input[type=file]{display:none}
+  .scaler{transform-origin:top left}
+
+  /* ===== FLYER 1080×1350 ===== */
+  .flyer{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--navy);
+    font-family:'Montserrat',sans-serif}
+  .flyer .bg{position:absolute;inset:0;z-index:0}
+  .flyer .bg img{width:100%;height:100%;object-fit:cover;display:block}
+  .flyer .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(6,20,45,.55) 0%,rgba(6,20,45,.15) 34%,rgba(6,15,31,.62) 68%,rgba(4,12,28,.9) 100%)}
+  .flyer .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:82px}
+  .flyer .logo{height:132px;width:auto;display:block;filter:drop-shadow(0 5px 16px rgba(3,15,35,.5))}
+  .flyer .kicker{margin-top:44px;font-weight:800;font-size:30px;letter-spacing:8px;text-transform:uppercase;color:#ffd9ad;
+    display:flex;align-items:center;gap:20px}
+  .flyer .kicker::after{content:"";flex:0 0 90px;height:3px;background:var(--orange);border-radius:3px}
+  .flyer .head{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:150px;line-height:.9;letter-spacing:1px;
+    margin:26px 0 0;color:#fff;text-shadow:0 6px 30px rgba(3,15,35,.5)}
+  .flyer .head .hl{color:var(--orange)}
+  .flyer .sub{font-weight:600;font-size:40px;line-height:1.26;color:#eaf3ff;margin:30px 0 0;max-width:78%}
+  .flyer .spacer{flex:1}
+  .flyer .cta{display:inline-flex;align-items:center;gap:16px;align-self:flex-start;
+    background:var(--orange);color:#fff;font-weight:800;font-size:34px;letter-spacing:2px;text-transform:uppercase;
+    padding:26px 44px;border-radius:14px;box-shadow:0 12px 34px rgba(245,124,10,.4)}
+  .flyer .site{margin-top:22px;font-weight:700;font-size:26px;letter-spacing:3px;color:#cfe0f3;text-transform:uppercase}
+  .flyer .frule{position:absolute;left:82px;right:82px;bottom:0;height:0}
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>WindMar Home Florida · Product Flyers</h1>
+    <span class="note">1080×1350 (4:5). Arrastra tu render de Higgsfield sobre el flyer, o usa <b>Cargar fondo</b>. Luego <b>Descargar PNG</b>.</span>
+  </div>
+  <div class="wrap"><div class="gallery" id="gallery"></div></div>
+
+<script type="module">
+  import { toPng } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+  const FLYERS=[
+    { id:'solar', label:'Solar · Florida',
+      bg:'img/fl-solar-neighborhood-goldenhour.png',
+      kicker:'Solar · Florida',
+      head:'POWER YOUR<br><span class="hl">FLORIDA</span> HOME.',
+      sub:'Solar that lowers your bill, month after month.' },
+    { id:'roofing', label:'Roofing · Florida',
+      bg:'img/fl-aerial-neighborhood-clouds.png',
+      kicker:'Roofing · Florida',
+      head:'A ROOF BUILT<br>FOR <span class="hl">STORMS</span>.',
+      sub:'Owens Corning roofing, done right for Florida weather.' },
+    { id:'powerwall', label:'Powerwall · Florida',
+      bg:'img/fl-solar-house-pool-palms.png',
+      kicker:'Powerwall · Florida',
+      head:'KEEP THE<br><span class="hl">LIGHTS</span> ON.',
+      sub:'Tesla Powerwall backup for every outage.' },
+  ];
+
+  const LOGO='wme/logos/wmh-home-white-orange.png';
+  const gallery=document.getElementById('gallery');
+
+  FLYERS.forEach(f=>{
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <div class="caprow">
+        <span class="cap">${f.label}</span>
+        <div class="capbtns">
+          <label for="in-${f.id}">Cargar fondo</label>
+          <input id="in-${f.id}" type="file" accept="image/*">
+          <button data-dl="${f.id}">Descargar PNG</button>
+        </div>
+      </div>
+      <div class="scaler" id="sc-${f.id}">
+        <div class="flyer" id="fl-${f.id}">
+          <div class="bg"><img id="bg-${f.id}" src="${f.bg}" alt="${f.label} background" crossorigin="anonymous"></div>
+          <div class="scrim"></div>
+          <div class="content">
+            <img class="logo" src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
+            <div class="kicker">${f.kicker}</div>
+            <h2 class="head">${f.head}</h2>
+            <p class="sub">${f.sub}</p>
+            <div class="spacer"></div>
+            <div class="cta">Free evaluation <span>&rarr;</span></div>
+            <div class="site">windmar.com</div>
+          </div>
+        </div>
+      </div>`;
+    gallery.appendChild(card);
+
+    // scale flyer to card width
+    const scaler=card.querySelector('#sc-'+f.id);
+    const flyer=card.querySelector('#fl-'+f.id);
+    const fit=()=>{
+      const w=card.clientWidth-24; const s=w/1080;
+      scaler.style.transform='scale('+s+')';
+      scaler.style.height=(1350*s)+'px';
+    };
+    new ResizeObserver(fit).observe(card); fit();
+
+    // background swap
+    const bgimg=card.querySelector('#bg-'+f.id);
+    const loadFile=file=>{ if(!file)return; const r=new FileReader(); r.onload=()=>bgimg.setAttribute('src',r.result); r.readAsDataURL(file); };
+    card.querySelector('#in-'+f.id).addEventListener('change',e=>loadFile(e.target.files[0]));
+    flyer.addEventListener('dragover',e=>e.preventDefault());
+    flyer.addEventListener('drop',e=>{e.preventDefault();loadFile(e.dataTransfer.files[0]);});
+
+    // download
+    card.querySelector('[data-dl="'+f.id+'"]').addEventListener('click',async e=>{
+      const btn=e.currentTarget, old=btn.textContent; btn.textContent='Generando…'; btn.disabled=true;
+      try{
+        const fontEmbedCSS=await getEmbedCSS();
+        await document.fonts.ready;
+        const dataUrl=await toPng(flyer,{width:1080,height:1350,pixelRatio:2,cacheBust:true,fontEmbedCSS});
+        const a=document.createElement('a'); a.href=dataUrl; a.download='windmar-fl-'+f.id+'-flyer-4-5.png'; a.click();
+      }catch(err){ alert('Error al generar PNG: '+err); }
+      finally{ btn.textContent=old; btn.disabled=false; }
+    });
+  });
+
+  let __embedCSS=null;
+  function buf2b64(buf){const b=new Uint8Array(buf);let s='';const c=0x8000;for(let i=0;i<b.length;i+=c){s+=String.fromCharCode.apply(null,b.subarray(i,i+c));}return btoa(s);}
+  async function getEmbedCSS(){
+    if(__embedCSS!=null) return __embedCSS;
+    try{
+      const links=[...document.querySelectorAll('link[href*="fonts.googleapis.com/css"]')].map(l=>l.href);
+      let out='';
+      for(const href of links){
+        let css=await (await fetch(href)).text();
+        const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com[^)]+)\)/g)].map(m=>m[1]))];
+        for(const u of urls){ try{ const b=await (await fetch(u)).arrayBuffer(); css=css.split(u).join('data:font/woff2;base64,'+buf2b64(b)); }catch(e){} }
+        out+=css+'\n';
+      }
+      __embedCSS=out;
+    }catch(e){ __embedCSS=''; }
+    return __embedCSS;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar · Guía de Estilo Visual — Blueprint & Dinámico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-grid:rgba(26,82,199,.08); --bp-line:rgba(26,82,199,.34);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-muted:#5a6b8c;
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7; --paper:#fff;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'Martian Mono','DM Mono',ui-monospace,monospace;
+  /* acentos neón (solo en modo foto/oscuro) */
+  --n-solar:#ffd24a; --n-power:#ff4d4d; --n-anker:#54e0a6; --n-agua:#9fd4ff; --n-roof:#9fd4ff; --n-home:#ff8a3d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bp-navy);font-family:var(--body);
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:26px 26px;padding:0 22px 90px}
+.wrap{max-width:1120px;margin:0 auto}
+
+/* ── header ── */
+header.top{padding:46px 0 26px;border-bottom:4px solid var(--bp-orange);margin-bottom:8px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--bp-ink);margin-bottom:14px}
+h1.mast{font-family:var(--disp);font-weight:400;font-size:clamp(42px,8vw,92px);line-height:.9;letter-spacing:-.5px;text-transform:uppercase}
+h1.mast .o{color:var(--bp-orange)}
+.deck{margin-top:16px;max-width:640px;font-size:15px;line-height:1.6;color:var(--bp-ink-dark)}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:22px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta-row b{color:var(--bp-navy)}
+
+/* ── TOC ── */
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 8px}
+.toc a{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--bp-ink);
+  text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:#fff;transition:.15s}
+.toc a:hover{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+
+/* ── sections ── */
+section.sec{margin-top:56px;scroll-margin-top:20px}
+.sec-hd{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--bp-navy);padding-bottom:12px;margin-bottom:24px}
+.sec-num{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--bp-orange)}
+.sec-title{font-family:var(--disp);font-weight:400;font-size:clamp(26px,4.5vw,44px);line-height:.95;text-transform:uppercase;letter-spacing:-.3px}
+.sec-lead{max-width:720px;font-size:14.5px;line-height:1.65;color:var(--bp-ink-dark);margin-bottom:22px}
+.sec-lead b{color:var(--bp-navy)}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:0 8px 30px rgba(13,34,64,.06)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:780px){.grid2,.grid3{grid-template-columns:1fr}}
+
+h3.blk{font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--bp-ink);margin-bottom:12px}
+p.body{font-size:14px;line-height:1.65;color:#33517f}
+p.body + p.body{margin-top:10px}
+ul.ticks{list-style:none;margin:10px 0 0}
+ul.ticks li{position:relative;padding-left:22px;font-size:13.5px;line-height:1.55;color:#33517f;margin-bottom:9px}
+ul.ticks li::before{content:"→";position:absolute;left:0;color:var(--bp-orange);font-weight:700}
+
+/* ── swatches ── */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.sw{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.sw .chip{height:78px}
+.sw .lab{padding:9px 11px;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--bp-navy)}
+.sw .lab b{display:block;font-family:var(--body);font-weight:800;font-size:12px;letter-spacing:.02em;text-transform:uppercase}
+.sw .lab span{color:var(--muted)}
+
+/* ── type specimens ── */
+.spec{border:1px solid var(--line);border-radius:12px;padding:18px 20px;background:#fff;margin-bottom:14px}
+.spec .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--bp-orange);margin-bottom:8px}
+.spec .ex-disp{font-family:var(--disp);font-size:clamp(38px,6vw,64px);line-height:.86;text-transform:uppercase;letter-spacing:-.5px}
+.spec .ex-disp .o{color:var(--bp-orange)}
+.spec .ex-head{font-family:var(--body);font-weight:800;font-size:26px;line-height:1.05}
+.spec .ex-body{font-family:var(--body);font-weight:500;font-size:16px;line-height:1.55;color:#33517f}
+.spec .ex-mono{font-family:var(--mono);font-size:14px;letter-spacing:.04em;color:var(--bp-ink-dark)}
+.spec .note{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:10px;letter-spacing:.03em}
+
+/* ── mock pieces ── */
+.mockrow{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-start}
+.piecebox{display:flex;flex-direction:column;gap:9px}
+.piececap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);max-width:300px}
+.piece{position:relative;overflow:hidden;container-type:inline-size;width:300px;aspect-ratio:9/16;border-radius:14px;
+  box-shadow:0 14px 40px rgba(13,34,64,.18);border:1px solid var(--line);background:#fff;color:var(--bp-navy)}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(26,82,199,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(26,82,199,.08) 1px,transparent 1px);
+  background-size:6cqw 6cqw}
+.tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid var(--bp-ink);z-index:6}
+.tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+.pc-in{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:11cqw 8cqw}
+.pc-brand{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.32cqw;text-transform:uppercase}
+.pc-logo{height:6cqw;width:auto;object-fit:contain;display:block}
+.pc-kick{margin-top:auto;font-family:var(--mono);font-size:2.7cqw;letter-spacing:.2cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.pc-kick::before{content:"↳ ";color:var(--acc,var(--bp-orange))}
+.pc-word{font-family:var(--disp);font-size:15cqw;line-height:.88;text-transform:uppercase;margin-top:3cqw}
+.pc-word .hl{color:var(--acc,var(--bp-orange))}
+.pc-sub{margin-top:3.5cqw;font-weight:700;font-size:3.6cqw;line-height:1.2;color:var(--bp-ink-dark)}
+.pc-foot{margin-top:auto;padding-top:5cqw;display:flex;flex-direction:column;gap:2cqw}
+.pc-gancho{font-weight:800;font-size:3.8cqw;line-height:1.18;padding-left:3cqw;border-left:1.1cqw solid var(--acc,var(--bp-orange))}
+.pc-tag{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.18cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+
+/* dark photo variant */
+.piece.dark{background:#0a0e18;color:#fff;border-color:#1c2536;--acc:var(--n-solar)}
+.piece.dark .bgph{position:absolute;inset:0;z-index:0;
+  background:radial-gradient(120% 90% at 60% 20%,#2b3346 0%,#151a26 45%,#080b12 100%)}
+.piece.dark .grain{position:absolute;inset:0;z-index:1;opacity:.5;mix-blend-mode:overlay;pointer-events:none}
+.piece.dark .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,10,20,.35) 0%,rgba(6,10,20,.05) 40%,rgba(4,8,16,.85) 100%)}
+.piece.dark::before{--bp-grid:rgba(255,255,255,.06);z-index:2;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px)}
+.piece.dark .tick{border-color:var(--acc)}
+.piece.dark .pc-kick{color:rgba(255,255,255,.82)}
+.piece.dark .pc-word{text-shadow:0 .4cqw 2.6cqw rgba(0,0,0,.5)}
+.piece.dark .pc-sub{color:rgba(255,255,255,.86)}
+.piece.dark .pc-tag{color:rgba(255,255,255,.7)}
+
+/* poster (referencia) recreation */
+.poster{position:relative;overflow:hidden;width:320px;aspect-ratio:2/3;border-radius:12px;background:#0b0d10;
+  box-shadow:0 18px 50px rgba(0,0,0,.4);color:#f2efe6;container-type:inline-size}
+.poster .ph{position:absolute;inset:0;background:
+  radial-gradient(70% 55% at 42% 78%,rgba(150,155,160,.5) 0%,rgba(60,64,70,0) 60%),
+  linear-gradient(180deg,#15171b 0%,#0c0e11 55%,#17191d 100%)}
+.poster .road{position:absolute;left:-10%;right:-10%;bottom:-4%;height:34%;
+  background:linear-gradient(120deg,rgba(120,124,130,.55),rgba(90,94,100,.2));transform:skewY(-7deg);z-index:1}
+.poster .grain{position:absolute;inset:0;z-index:3;opacity:.55;mix-blend-mode:overlay}
+.poster svg.route{position:absolute;inset:0;z-index:4;width:100%;height:100%}
+.poster .flag{position:absolute;top:15%;left:46%;width:8cqw;height:8cqw;z-index:5;
+  background:conic-gradient(#eaff00 0 25%,#0b0d10 0 50%,#eaff00 0 75%,#0b0d10 0);background-size:50% 50%}
+.poster .start{position:absolute;top:70%;left:52%;z-index:5;font-family:var(--body);font-weight:700;font-size:3.6cqw;letter-spacing:.08em;color:#eaff00}
+.poster .corner{position:absolute;z-index:6;font-family:var(--mono);font-size:3.2cqw;line-height:1.5;letter-spacing:.08em;color:#eaff00;text-transform:uppercase}
+.poster .corner.bl{bottom:6%;left:7%}
+.poster .corner.br{bottom:6%;right:7%;text-align:right}
+.poster .corner.tr{top:6%;right:7%;text-align:right;color:rgba(242,239,230,.75)}
+
+/* charts */
+.chartcard{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px}
+.chartcard .ct{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--bp-ink);margin-bottom:4px}
+.chartcard .cbig{font-family:var(--disp);font-size:34px;color:var(--bp-navy);line-height:1}
+.chartcard .cbig .o{color:var(--bp-orange)}
+
+/* do / dont */
+.dd{border-radius:14px;padding:18px 20px;border:1.5px solid}
+.dd.do{background:rgba(84,224,166,.08);border-color:rgba(20,150,100,.5)}
+.dd.dont{background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.4)}
+.dd h4{font-family:var(--body);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.dd.do h4{color:#0f7a52}.dd.dont h4{color:#c0342b}
+.dd ul{list-style:none}.dd li{position:relative;padding-left:22px;font-size:13px;line-height:1.5;margin-bottom:8px;color:#33517f}
+.dd.do li::before{content:"✓";position:absolute;left:0;color:#0f7a52;font-weight:800}
+.dd.dont li::before{content:"✕";position:absolute;left:0;color:#c0342b;font-weight:800}
+
+/* video block */
+.vfmt{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px}
+.vf{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff;flex:1;min-width:180px}
+.vf .r{border:2px solid var(--bp-navy);border-radius:6px;background:var(--bg);margin-bottom:10px}
+.vf .r.a916{width:34px;height:60px}.vf .r.a11{width:52px;height:52px}.vf .r.a169{width:72px;height:40px}
+.vf b{font-family:var(--body);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.vf span{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;background:var(--bp-navy);color:#fff;margin:0 4px 6px 0}
+.pill.o{background:var(--bp-orange)}
+.fontdl{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.fbtn{display:flex;flex-direction:column;gap:2px;padding:13px 15px;border:1px solid var(--bp-line);border-radius:10px;background:#fff;text-decoration:none;transition:.15s}
+.fbtn:hover{border-color:var(--bp-orange);background:#fff8f1;transform:translateY(-1px)}
+.fbtn b{font-family:var(--disp);font-weight:400;font-size:20px;letter-spacing:0;color:var(--bp-navy);text-transform:uppercase}
+.fbtn span{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:var(--muted)}
+.fbtn::after{content:"↓ Descargar";font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--bp-orange);margin-top:6px}
+
+footer.foot{margin-top:70px;border-top:2px solid var(--bp-navy);padding-top:20px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ── strips / storyboard ── */
+.strip{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 16px}
+.strip .piece{flex:none}
+.covers .piece{width:230px}
+.mini .piece{width:150px}
+.slidecap{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:7px;max-width:150px;line-height:1.4}
+.frameno{position:absolute;top:6cqw;left:6cqw;z-index:7;font-family:var(--mono);font-size:2.8cqw;letter-spacing:.06em;color:var(--acc,var(--bp-orange))}
+.pc-lower{position:absolute;left:8cqw;bottom:16cqw;z-index:6;font-family:var(--mono);font-size:2.6cqw;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.pc-lower::before{content:"▸ ";color:var(--acc)}
+.motion{font-family:var(--mono);font-size:11px;line-height:1.5;color:#33517f;letter-spacing:.02em}
+.motion b{color:var(--bp-navy)}
+.stepgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.stepnum{font-family:var(--disp);font-size:30px;color:var(--bp-orange);line-height:1}
+</style>
+</head>
+<body>
+<!-- ═══ SVG grain filter (film) ═══ -->
+<svg width="0" height="0" style="position:absolute"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">WindMar Home · Sistema Visual · v1.0 · Nov 2026</div>
+    <h1 class="mast">Guía de <span class="o">Estilo</span><br>Visual</h1>
+    <p class="deck">El manual del look <b>“Blueprint Oscuro”</b> de WindMar — nuestro estilo firma — para el <b>artista gráfico</b> y el <b>editor de video</b>. Define cómo se ve, se siente y se arma nuestro contenido: foto cinematográfica, grano, tipografía técnica, acento neón, fotos dinámicas de Puerto Rico y Florida, diagramas, gráficas y anotaciones tipo plano.</p>
+    <div class="meta-row">
+      <span>ÁMBITO · <b>PR + FL</b></span>
+      <span>ESTILO FIRMA · <b>Blueprint Oscuro</b></span>
+      <span>MODO UTILITARIO · <b>Blueprint Claro</b></span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#filosofia">01 · Filosofía</a>
+    <a href="#modos">02 · Dos modos</a>
+    <a href="#color">03 · Color</a>
+    <a href="#tipo">04 · Tipografía</a>
+    <a href="#anot">05 · Anotaciones</a>
+    <a href="#fotos">06 · Fotos dinámicas</a>
+    <a href="#lineas">07 · Líneas & diagramas</a>
+    <a href="#graficas">08 · Gráficas</a>
+    <a href="#logo">09 · Logo & grilla</a>
+    <a href="#dodont">10 · Do & Don't</a>
+    <a href="#covers">11 · Reel covers</a>
+    <a href="#carrusel">12 · Carruseles</a>
+    <a href="#videovis">13 · Video</a>
+    <a href="#video">14 · Editor de video</a>
+    <a href="#aplic">15 · Aplicaciones</a>
+  </nav>
+
+  <!-- 01 FILOSOFÍA -->
+  <section class="sec" id="filosofia">
+    <div class="sec-hd"><span class="sec-num">01</span><h2 class="sec-title">Filosofía</h2></div>
+    <p class="sec-lead">WindMar es <b>energía, ingeniería y confianza</b>. Nuestro visual no es “bonito por bonito”: parece un <b>plano técnico</b> — preciso, limpio, con datos reales — pero con la energía de un póster deportivo. Como un mapa de ruta trazado sobre el mundo real.</p>
+    <div class="grid3">
+      <div class="card"><h3 class="blk">Técnico</h3><p class="body">Grilla, esquinas de registro, tipografía mono con datos. Todo se siente medido y confiable — como un blueprint de instalación.</p></div>
+      <div class="card"><h3 class="blk">Dinámico</h3><p class="body">Fotos reales de PR y FL, líneas que trazan rutas y flujos de energía, un solo color que grita. Movimiento y dirección.</p></div>
+      <div class="card"><h3 class="blk">Claro y honesto</h3><p class="body">Un mensaje por pieza. Espacio para respirar. Sin saturar. La info importante siempre legible de un vistazo.</p></div>
+    </div>
+  </section>
+
+  <!-- 02 DOS MODOS -->
+  <section class="sec" id="modos">
+    <div class="sec-hd"><span class="sec-num">02</span><h2 class="sec-title">El modo firma + su utilitario</h2></div>
+    <p class="sec-lead">Nuestro estilo es el <b>Blueprint Oscuro</b> (derecha): foto a sangre, grano de película y un acento neón. Es lo que define a WindMar. El <b>Blueprint Claro</b> (izquierda) es el modo utilitario para cuando hay que meter mucho texto o datos limpios. Mismos huesos — grilla, esquinas, tipografía, datos — distinta piel.</p>
+    <div class="mockrow">
+      <div class="piecebox">
+        <div class="piece">
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="pc-in">
+            <img class="pc-logo" src="whome/logos/windmar-home-color.png" alt="WindMar Home"/>
+            <div class="pc-word">AHORRA<br><span class="hl">DESDE</span><br>EL DÍA 1</div>
+            <div class="pc-sub">Energía solar que se paga sola.</div>
+            <div class="pc-foot">
+              <div class="pc-gancho">Tu techo puede trabajar para ti.</div>
+              <div class="pc-tag">SOLAR · PUERTO RICO</div>
+            </div>
+          </div>
+        </div>
+        <div class="piececap"><b>BLUEPRINT CLARO</b> — modo utilitario. Azul sobre blanco, acento naranja. Para carruseles con mucho texto, datos y educativo limpio.</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark">
+          <div class="bgph"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="pc-in">
+            <img class="pc-logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"/>
+            <div class="pc-word">SOL<br>DE <span class="hl">PR</span></div>
+            <div class="pc-sub">330 días de sol al año. Úsalos.</div>
+            <div class="pc-foot">
+              <div class="pc-gancho" style="border-color:var(--n-solar)">Energía que nunca para.</div>
+              <div class="pc-tag">SOLAR · 18.4655° N</div>
+            </div>
+          </div>
+        </div>
+        <div class="piececap"><b>BLUEPRINT OSCURO · ESTILO FIRMA</b> — foto a sangre + grano + acento neón. La cara de WindMar en redes: portadas de reels, piezas hero, teasers, la mayoría del feed premium. <span class="pill o">nuestro look</span></div>
+      </div>
+    </div>
+    <p class="body" style="margin-top:18px;max-width:720px"><b>Regla:</b> por defecto pensamos en <b>oscuro</b> — es lo que nos hace reconocibles. Cambiamos a claro solo cuando la pieza necesita cargar mucho texto o gráficas densas que en oscuro se leerían mal.</p>
+  </section>
+
+  <!-- 03 COLOR -->
+  <section class="sec" id="color">
+    <div class="sec-hd"><span class="sec-num">03</span><h2 class="sec-title">Color</h2></div>
+    <p class="sec-lead"><b>Naranja es el acento maestro</b> y manda en el modo claro. Los <b>neones por categoría</b> viven solo en el modo oscuro/foto, para diferenciar las <b>líneas de producto</b> de WindMar Home en Puerto Rico y Florida.</p>
+    <h3 class="blk" style="margin-top:6px">Base · Blueprint</h3>
+    <div class="swatches" style="margin-bottom:22px">
+      <div class="sw"><div class="chip" style="background:#0a2882"></div><div class="lab"><b>Navy</b><span>#0A2882 · texto / base</span></div></div>
+      <div class="sw"><div class="chip" style="background:#1a52c7"></div><div class="lab"><b>Ink</b><span>#1A52C7 · líneas / grilla</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0f3a96"></div><div class="lab"><b>Ink Dark</b><span>#0F3A96 · subtítulos</span></div></div>
+      <div class="sw"><div class="chip" style="background:#f57c0a"></div><div class="lab"><b>Naranja</b><span>#F57C0A · ACENTO MAESTRO</span></div></div>
+      <div class="sw"><div class="chip" style="background:#e9eef7;border-bottom:1px solid var(--line)"></div><div class="lab"><b>Paper</b><span>#E9EEF7 · fondo claro</span></div></div>
+    </div>
+    <h3 class="blk">Neones por producto · solo modo oscuro / foto</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#ffd24a"></span></div><div class="lab"><b>Solar</b><span>#FFD24A · amarillo sol</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#9fd4ff"></span></div><div class="lab"><b>Agua</b><span>#9FD4FF · azul pastel</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#9fd4ff"></span></div><div class="lab"><b>Roofing / Techos</b><span>#9FD4FF · azul pastel</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#54e0a6"></span></div><div class="lab"><b>Anker · batería portátil</b><span>#54E0A6 · verde</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#ff4d4d"></span></div><div class="lab"><b>Powerwall</b><span>#FF4D4D · rojo energía</span></div></div>
+      <div class="sw" style="outline:2px solid var(--bp-orange);outline-offset:-2px;border-radius:8px"><div class="chip" style="background:#0a0e18;position:relative"><span style="position:absolute;inset:0;margin:auto;width:40px;height:40px;border-radius:50%;background:#ff8a3d"></span></div><div class="lab"><b>Naranja · Marca / CTA</b><span>#FF8A3D · ACENTO MAESTRO</span></div></div>
+    </div>
+    <p class="body" style="margin-top:16px;max-width:720px"><b>Agua y Roofing comparten el azul pastel</b> (protección del hogar). <b>Anker</b> (batería portátil, lo esencial) es verde y <b>Powerwall</b> (batería de toda la casa) es rojo, para que se distingan a simple vista. El <b>naranja no es una línea de producto</b>: es el <b>acento maestro de la marca</b> — se usa para CTA, cierre, promociones y contenido general (no específico de un producto), y manda en el modo claro. <b>Un solo acento por pieza:</b> nunca mezcles dos neones compitiendo.</p>
+  </section>
+
+  <!-- 04 TIPOGRAFÍA -->
+  <section class="sec" id="tipo">
+    <div class="sec-hd"><span class="sec-num">04</span><h2 class="sec-title">Tipografía</h2></div>
+    <p class="sec-lead">Cuatro roles, cero improvisación. Titular que grita, cuerpo que informa, datos en mono.</p>
+    <div class="spec">
+      <div class="tag">Display · BEBAS NEUE — titulares gigantes</div>
+      <div class="ex-disp">SOLAR <span class="o">HOY</span></div>
+      <div class="note">Solo mayúsculas · line-height apretado (.88) · una o dos palabras · acento en 1 palabra</div>
+    </div>
+    <div class="grid2">
+      <div class="spec"><div class="tag">Head · ANEK LATIN 800 — subtítulos / ganchos</div><div class="ex-head">Tu techo puede trabajar para ti.</div><div class="note">Frases cortas, humanas, seguras</div></div>
+      <div class="spec"><div class="tag">Body · ANEK LATIN 500 — cuerpo</div><div class="ex-body">Instalamos sistemas solares certificados en toda la isla, con garantía y financiamiento.</div><div class="note">Máx ~2 líneas en redes</div></div>
+    </div>
+    <div class="spec"><div class="tag">Data · MARTIAN MONO — anotaciones, métricas, coordenadas</div><div class="ex-mono">SAN JUAN, PR · 18.4655° N · 66.1057° W · 8.4 kW · NOV 2026</div><div class="note">Mono geométrica y octagonal (look “documento técnico”). Mayúsculas · tracking abierto · SIEMPRE para datos técnicos y esquinas</div></div>
+
+    <div class="card" style="margin-top:18px">
+      <h3 class="blk">Descarga las fuentes</h3>
+      <p class="body" style="margin-bottom:14px">Las cuatro son gratuitas y de código abierto (Google Fonts). Instálalas en tu computadora antes de diseñar o editar para que todo calce con la guía.</p>
+      <div class="fontdl">
+        <a class="fbtn" href="https://fonts.google.com/specimen/Bebas+Neue" target="_blank" rel="noopener"><b>Bebas Neue</b><span>Display · titulares</span></a>
+        <a class="fbtn" href="https://fonts.google.com/specimen/Anek+Latin" target="_blank" rel="noopener"><b>Anek Latin</b><span>Head &amp; body · pesos 500/700/800</span></a>
+        <a class="fbtn" href="https://fonts.google.com/specimen/DM+Sans" target="_blank" rel="noopener"><b>DM Sans</b><span>Alterno de cuerpo</span></a>
+        <a class="fbtn" href="https://fonts.google.com/specimen/Martian+Mono" target="_blank" rel="noopener"><b>Martian Mono</b><span>Data · anotaciones técnicas</span></a>
+      </div>
+      <p class="note" style="font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:12px;letter-spacing:.03em">En cada página: botón <b>“Get font”</b> → <b>“Download all”</b>. Instala los <b>.ttf</b> (doble clic → Instalar). En Illustrator/Photoshop/Premiere/CapCut aparecen por su nombre exacto.</p>
+      <div style="margin-top:14px;padding:12px 14px;border:1px dashed var(--bp-orange);border-radius:10px;background:#fff8f1">
+        <p class="body" style="margin:0"><b>¿Quieres la Proto Mono exacta?</b> Es una fuente de pago de <b>ATK Studio</b> (no gratis). Si compran la licencia y me pasan el archivo, la embebo en la guía y en las plantillas. Mientras tanto usamos <b>Martian Mono</b>, que replica su estilo octagonal/técnico.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 ANOTACIONES -->
+  <section class="sec" id="anot">
+    <div class="sec-hd"><span class="sec-num">05</span><h2 class="sec-title">Anotaciones técnicas</h2></div>
+    <p class="sec-lead">La firma del estilo (como el póster de referencia): <b>datos en las esquinas</b>, esquinas de registro, y una etiqueta de contexto. Convierten una foto normal en un “documento técnico”.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 class="blk">El kit de anotación</h3>
+        <ul class="ticks">
+          <li><b>Esquinas de registro</b> (las 4 “L”): marco técnico, siempre presentes.</li>
+          <li><b>Esquina inf. izq.</b> — Lugar + métrica: <span style="font-family:var(--mono)">PONCE, PR · 12.6 kW</span></li>
+          <li><b>Esquina inf. der.</b> — Fecha + hora / dato: <span style="font-family:var(--mono)">NOV 2026 · 08:00</span></li>
+          <li><b>Marcadores</b> — “START”, checkpoint, o el sol de WindMar como punto.</li>
+          <li><b>Coordenadas reales</b> de PR/FL dan autenticidad: <span style="font-family:var(--mono)">18.22° N</span></li>
+        </ul>
+      </div>
+      <div class="piecebox">
+        <div class="poster">
+          <div class="ph"></div><div class="road"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <svg class="route" viewBox="0 0 320 480" preserveAspectRatio="none">
+            <path d="M175 430 C 205 400 150 380 195 350 C 230 325 120 300 150 260 C 175 225 205 250 210 210 C 214 175 165 150 168 100" fill="none" stroke="#eaff00" stroke-width="2.4"/>
+          </svg>
+          <div class="flag"></div>
+          <div class="start">START</div>
+          <div class="corner tr">WINDMAR<br>RUTA SOLAR</div>
+          <div class="corner bl">PONCE, PR<br>12.6 KW</div>
+          <div class="corner br">NOV 2026<br>08:00 HRS</div>
+        </div>
+        <div class="piececap">Recreación WindMar del póster de referencia: foto B&N + grano, ruta en neón, esquinas con datos reales. Aquí la “ruta” puede ser un <b>recorrido de instalación</b>, una <b>ruta de cobertura</b> o un <b>flujo de energía</b>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 FOTOS -->
+  <section class="sec" id="fotos">
+    <div class="sec-hd"><span class="sec-num">06</span><h2 class="sec-title">Fotos dinámicas · PR & FL</h2></div>
+    <p class="sec-lead">La foto es la energía. Dos tratamientos según el modo. Siempre <b>fotos reales</b> — techos, instaladores, costa, comunidad — no stock genérico.</p>
+    <div class="grid2">
+      <div class="card"><h3 class="blk">Tratamiento Claro</h3><p class="body">Foto a <b>todo color</b>, luminosa, con la grilla azul translúcida encima y esquinas de registro. Se siente fresca y de día. Ideal para producto, testimonios, procesos.</p></div>
+      <div class="card"><h3 class="blk">Tratamiento Oscuro (cinematográfico)</h3><p class="body">Foto en <b>blanco y negro o duotono</b>, con <b>grano de película</b>, gradiente oscuro abajo para legibilidad, y un solo acento neón. Se siente épico. Ideal para portadas de reel y aftermovies.</p></div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h3 class="blk">Qué fotografiar (banco de imágenes vivo)</h3>
+      <div>
+        <span class="pill">Techos solares aéreos (dron)</span><span class="pill">Instaladores en acción</span><span class="pill">Familia + su casa</span>
+        <span class="pill">Costa / paisaje PR</span><span class="pill">Skyline Miami / FL</span><span class="pill">Powerwall en pared</span>
+        <span class="pill">Detalle de panel / textura</span><span class="pill">Manos / trabajo humano</span><span class="pill">Comunidad / eventos</span>
+      </div>
+      <p class="body" style="margin-top:12px"><b>Nota de producción:</b> disparar con espacio negativo (cielo, pared, carretera) para que el titular y los datos tengan dónde vivir. Como en el póster: el sujeto abajo, aire arriba.</p>
+    </div>
+  </section>
+
+  <!-- 07 LÍNEAS / DIAGRAMAS -->
+  <section class="sec" id="lineas">
+    <div class="sec-hd"><span class="sec-num">07</span><h2 class="sec-title">Líneas & diagramas</h2></div>
+    <p class="sec-lead">El trazo es nuestro lenguaje: líneas finas que <b>conectan, explican y dirigen</b>. Rutas, flujos de energía, esquemas “cómo funciona”. Siempre en el acento, grosor fino y constante.</p>
+    <div class="grid3">
+      <div class="chartcard">
+        <div class="ct">Flujo de energía</div>
+        <svg viewBox="0 0 260 150" width="100%" style="margin-top:8px">
+          <g fill="none" stroke="#1a52c7" stroke-width="2">
+            <circle cx="30" cy="40" r="14"/><rect x="70" y="26" width="34" height="28" rx="3"/><rect x="130" y="26" width="30" height="28" rx="3"/><rect x="186" y="20" width="26" height="40" rx="3"/>
+            <path d="M44 40 H70 M104 40 H130 M160 40 H186" stroke="#f57c0a" marker-end="url(#ar)"/>
+            <path d="M199 60 V110 H60 V96" stroke="#f57c0a"/>
+            <rect x="40" y="96" width="40" height="34" rx="3"/>
+          </g>
+          <defs><marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="#f57c0a"/></marker></defs>
+          <g font-family="DM Mono" font-size="8" fill="#0f3a96"><text x="18" y="66">SOL</text><text x="72" y="70">PANEL</text><text x="128" y="70">INVERSOR</text><text x="184" y="74">BATERÍA</text><text x="44" y="142">CASA</text></g>
+        </svg>
+      </div>
+      <div class="chartcard">
+        <div class="ct">Ruta de cobertura</div>
+        <svg viewBox="0 0 260 150" width="100%" style="margin-top:8px">
+          <path d="M30 120 C 80 90 60 60 110 70 C 150 78 150 40 200 50 C 225 55 230 40 235 30" fill="none" stroke="#f57c0a" stroke-width="2.4" stroke-dasharray="2 5" stroke-linecap="round"/>
+          <circle cx="30" cy="120" r="4" fill="#1a52c7"/><circle cx="235" cy="30" r="4" fill="#f57c0a"/>
+          <g font-family="DM Mono" font-size="8" fill="#0f3a96"><text x="20" y="138">SAN JUAN</text><text x="196" y="26">MAYAGÜEZ</text></g>
+        </svg>
+      </div>
+      <div class="chartcard">
+        <div class="ct">Esquema “cómo funciona”</div>
+        <svg viewBox="0 0 260 150" width="100%" style="margin-top:8px">
+          <g fill="none" stroke="#1a52c7" stroke-width="1.6">
+            <path d="M40 110 L130 40 L220 110 Z"/><path d="M60 96 L130 52 L200 96" stroke="#f57c0a"/>
+            <line x1="130" y1="40" x2="130" y2="14" stroke="#f57c0a"/><circle cx="130" cy="10" r="6" fill="#f57c0a" stroke="none"/>
+          </g>
+          <g font-family="DM Mono" font-size="8" fill="#0f3a96"><text x="86" y="128">TECHO + PANELES</text></g>
+        </svg>
+      </div>
+    </div>
+    <ul class="ticks" style="margin-top:16px;max-width:760px">
+      <li>Grosor de línea <b>constante y fino</b> (1.6–2.4px). Nunca líneas gruesas o con sombra.</li>
+      <li>Punteado = movimiento/ruta · sólido = estructura/conexión.</li>
+      <li>El punto de inicio en azul, el de destino/energía en el acento.</li>
+    </ul>
+  </section>
+
+  <!-- 08 GRÁFICAS -->
+  <section class="sec" id="graficas">
+    <div class="sec-hd"><span class="sec-num">08</span><h2 class="sec-title">Gráficas & datos</h2></div>
+    <p class="sec-lead">Los datos venden. Preséntalos minimalistas, en la grilla, con <b>una sola barra/segmento en el acento</b> — el dato que quieres que recuerden.</p>
+    <div class="grid3">
+      <div class="chartcard">
+        <div class="ct">Ahorro mensual</div>
+        <svg viewBox="0 0 200 120" width="100%">
+          <g font-family="DM Mono" font-size="8" fill="#5a6b8c">
+            <rect x="20" y="70" width="26" height="40" fill="#1a52c7" opacity=".28"/>
+            <rect x="56" y="55" width="26" height="55" fill="#1a52c7" opacity=".28"/>
+            <rect x="92" y="40" width="26" height="70" fill="#1a52c7" opacity=".28"/>
+            <rect x="128" y="18" width="26" height="92" fill="#f57c0a"/>
+            <line x1="14" y1="110" x2="180" y2="110" stroke="#0a2882" stroke-width="1"/>
+            <text x="130" y="14" fill="#0a2882" font-family="Bebas Neue" font-size="12">-92%</text>
+          </g>
+        </svg>
+      </div>
+      <div class="chartcard">
+        <div class="ct">Producción por hora</div>
+        <svg viewBox="0 0 200 120" width="100%">
+          <polyline points="18,100 46,80 74,50 102,30 130,42 158,66 182,96" fill="none" stroke="#f57c0a" stroke-width="2.4"/>
+          <circle cx="102" cy="30" r="3.5" fill="#f57c0a"/>
+          <line x1="14" y1="105" x2="188" y2="105" stroke="#0a2882" stroke-width="1"/>
+          <g font-family="DM Mono" font-size="7.5" fill="#5a6b8c"><text x="90" y="22">PICO 12PM</text></g>
+        </svg>
+      </div>
+      <div class="chartcard">
+        <div class="ct">Mix de energía</div>
+        <svg viewBox="0 0 120 120" width="70%" style="display:block;margin:0 auto">
+          <circle cx="60" cy="60" r="42" fill="none" stroke="#1a52c7" stroke-width="14" opacity=".22"/>
+          <circle cx="60" cy="60" r="42" fill="none" stroke="#f57c0a" stroke-width="14" stroke-dasharray="198 264" transform="rotate(-90 60 60)" stroke-linecap="butt"/>
+          <text x="60" y="58" text-anchor="middle" font-family="Bebas Neue" font-size="20" fill="#0a2882">75%</text>
+          <text x="60" y="72" text-anchor="middle" font-family="DM Mono" font-size="7" fill="#5a6b8c">SOLAR</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 LOGO -->
+  <section class="sec" id="logo">
+    <div class="sec-hd"><span class="sec-num">09</span><h2 class="sec-title">Logo & grilla</h2></div>
+    <div class="grid2">
+      <div class="card"><h3 class="blk">Logo — WindMar Home</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0">
+          <div style="background:var(--bp-navy);border-radius:10px;padding:22px 16px;display:flex;align-items:center;justify-content:center;min-height:96px">
+            <img src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home logo blanco/naranja" style="max-width:100%;max-height:56px;object-fit:contain"/>
+          </div>
+          <div style="background:#fff;border:1px solid var(--bp-line);border-radius:10px;padding:22px 16px;display:flex;align-items:center;justify-content:center;min-height:96px">
+            <img src="whome/logos/windmar-home-color.png" alt="WindMar Home logo a color" style="max-width:100%;max-height:56px;object-fit:contain"/>
+          </div>
+        </div>
+        <ul class="ticks">
+          <li>Logo oficial <b>WindMar Home</b> (isotipo sol + wordmark).</li>
+          <li>Versión <b>blanco/naranja</b> sobre fondo oscuro/foto; versión <b>a color</b> sobre fondos claros.</li>
+          <li>Área de seguridad = altura del isotipo alrededor. No lo pegues al borde.</li>
+          <li>Tamaño en stories ≈ 16% del ancho. Nunca deformar ni rotar.</li>
+        </ul>
+      </div>
+      <div class="card"><h3 class="blk">Grilla & márgenes</h3>
+        <ul class="ticks">
+          <li>Grilla base translúcida siempre presente (el “papel de plano”).</li>
+          <li>Márgenes generosos: el contenido nunca toca las esquinas de registro.</li>
+          <li>Titular arriba o centro-izquierda; datos/gancho abajo. Alineación a la izquierda.</li>
+          <li>Un mensaje por pieza. Si no cabe respirando, sobra texto.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 DO / DONT -->
+  <section class="sec" id="dodont">
+    <div class="sec-hd"><span class="sec-num">10</span><h2 class="sec-title">Do & Don't</h2></div>
+    <div class="grid2">
+      <div class="dd do"><h4>Sí</h4><ul>
+        <li>Un solo mensaje y un solo acento por pieza.</li>
+        <li>Fotos reales de PR/FL con espacio negativo.</li>
+        <li>Datos reales en mono en las esquinas.</li>
+        <li>Titular en Bebas Neue, corto y contundente.</li>
+        <li>Líneas finas para explicar y dirigir la vista.</li>
+        <li>Dejar respirar: el vacío es parte del diseño.</li>
+      </ul></div>
+      <div class="dd dont"><h4>No</h4><ul>
+        <li>Mezclar dos neones o llenar de colores.</li>
+        <li>Stock genérico o fotos sin relación con WindMar.</li>
+        <li>Rellenar cada centímetro de texto.</li>
+        <li>Sombras pesadas, degradados sucios, líneas gruesas.</li>
+        <li>Abusar del modo oscuro (pierde el impacto “hero”).</li>
+        <li>Deformar el logo o rotar la tipografía.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 11 REEL COVERS -->
+  <section class="sec" id="covers">
+    <div class="sec-hd"><span class="sec-num">11</span><h2 class="sec-title">Reel covers · ejemplos</h2></div>
+    <p class="sec-lead">La portada es el <b>anzuelo</b>: lo primero que se ve en el grid y en “explorar”. Siempre <b>blueprint oscuro</b>, 9:16, con una palabra que detiene el scroll, el acento de la categoría y un dato en la esquina. Foto real de PR/FL.</p>
+    <div class="strip covers">
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 65% 25%,#3a4256,#151a26 50%,#080b12)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="pc-in">
+            <img class="pc-logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"/>
+            <div class="pc-word">EL SOL<br>ES <span class="hl">GRATIS</span></div>
+            <div class="pc-foot"><div class="pc-tag" style="color:var(--n-solar)">SOLAR · SAN JUAN, PR</div></div>
+          </div>
+        </div>
+        <div class="slidecap">SOLAR · acento amarillo · foto de techo/panel al sol</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-power)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 40% 30%,#26374a,#111826 55%,#070c14)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="pc-in">
+            <img class="pc-logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"/>
+            <div class="pc-word">LUZ AUN<br>SIN <span class="hl">LUZ</span></div>
+            <div class="pc-foot"><div class="pc-tag" style="color:var(--n-power)">POWERWALL · 13.5 KWH</div></div>
+          </div>
+        </div>
+        <div class="slidecap">POWERWALL · acento rojo · foto de batería / apagón</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-roof)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 55% 20%,#2a3446,#131a26 55%,#080c14)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="pc-in">
+            <img class="pc-logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"/>
+            <div class="pc-word">TECHO<br><span class="hl">BLINDADO</span></div>
+            <div class="pc-foot"><div class="pc-tag" style="color:var(--n-roof)">ROOFING · TEMP. HURACANES</div></div>
+          </div>
+        </div>
+        <div class="slidecap">ROOFING · acento azul pastel · foto de techo / cielo de tormenta</div>
+      </div>
+
+    </div>
+    <ul class="ticks" style="max-width:760px">
+      <li><b>1–3 palabras máximo.</b> Si necesitas leerla dos veces, no sirve de cover.</li>
+      <li>El acento va en la palabra clave y en la etiqueta de categoría — nada más.</li>
+      <li>La foto pide espacio arriba/al centro para que la palabra respire.</li>
+    </ul>
+  </section>
+
+  <!-- 12 CARRUSELES -->
+  <section class="sec" id="carrusel">
+    <div class="sec-hd"><span class="sec-num">12</span><h2 class="sec-title">Cómo visualizo los carruseles</h2></div>
+    <p class="sec-lead">Un carrusel es una <b>mini-historia de 5–7 slides</b> con un arco fijo: engancha → explica → prueba → cierra. La portada en oscuro; los slides de datos densos pueden ir claros para legibilidad.</p>
+    <div class="strip mini">
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph"></div><div class="scrim"></div><svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick br"></span>
+          <div class="pc-in"><div class="pc-brand" style="font-size:3.6cqw">01</div><div class="pc-word" style="font-size:13cqw">¿POR<br>QUÉ <span class="hl">SOLAR?</span></div><div class="pc-foot"><div class="pc-tag" style="color:var(--n-solar)">DESLIZA →</div></div></div>
+        </div>
+        <div class="slidecap"><b>01 · Portada</b> — hook en oscuro</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece"><span class="tick tl"></span><span class="tick br"></span>
+          <div class="pc-in"><div class="pc-brand" style="font-size:3.6cqw">02</div><div class="pc-sub" style="margin-top:6cqw;font-size:4.2cqw;color:var(--bp-navy)">Tu factura solo sube.<br>El sol no cobra.</div>
+          <svg viewBox="0 0 120 70" width="70%" style="margin-top:auto"><polyline points="6,60 40,45 74,26 110,8" fill="none" stroke="#f57c0a" stroke-width="2.4"/><line x1="4" y1="64" x2="116" y2="64" stroke="#0a2882"/></svg></div>
+        </div>
+        <div class="slidecap"><b>02 · Problema</b> — claro + gráfica</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece"><span class="tick tl"></span><span class="tick br"></span>
+          <div class="pc-in"><div class="pc-brand" style="font-size:3.6cqw">03</div><div class="pc-sub" style="margin-top:6cqw;font-size:4.2cqw;color:var(--bp-navy)">Así trabaja tu techo:</div>
+          <svg viewBox="0 0 130 90" width="88%" style="margin:auto 0"><g fill="none" stroke="#1a52c7" stroke-width="1.8"><path d="M20 70 L65 30 L110 70Z"/><line x1="65" y1="30" x2="65" y2="12" stroke="#f57c0a"/><circle cx="65" cy="9" r="5" fill="#f57c0a" stroke="none"/></g></svg></div>
+        </div>
+        <div class="slidecap"><b>03 · Explica</b> — diagrama de línea</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece"><span class="tick tl"></span><span class="tick br"></span>
+          <div class="pc-in"><div class="pc-brand" style="font-size:3.6cqw">04</div><div class="pc-word" style="font-size:20cqw;margin-top:auto;color:var(--bp-navy)">-92<span class="hl">%</span></div><div class="pc-sub" style="font-size:4cqw">en tu factura de luz</div></div>
+        </div>
+        <div class="slidecap"><b>04 · Prueba</b> — dato gigante</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph"></div><div class="scrim"></div><svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick br"></span>
+          <div class="pc-in"><div class="pc-brand" style="font-size:3.6cqw">05</div><div class="pc-word" style="font-size:12cqw;margin-top:auto">EMPIEZA<br><span class="hl">HOY</span></div><div class="pc-foot"><div class="pc-tag" style="color:var(--n-solar)">EVALÚA GRATIS · SIN COMPROMISO</div></div></div>
+        </div>
+        <div class="slidecap"><b>05 · CTA</b> — cierre en oscuro</div>
+      </div>
+
+    </div>
+    <div class="stepgrid" style="margin-top:8px">
+      <div class="card"><div class="stepnum">01</div><h3 class="blk" style="margin-top:8px">Hook</h3><p class="body">Pregunta o promesa. En oscuro. Manda “desliza →”.</p></div>
+      <div class="card"><div class="stepnum">02–03</div><h3 class="blk" style="margin-top:8px">Explica</h3><p class="body">Problema + cómo funciona, con diagramas de línea. Uno por slide.</p></div>
+      <div class="card"><div class="stepnum">04</div><h3 class="blk" style="margin-top:8px">Prueba</h3><p class="body">Un dato que impacta, gigante en Bebas Neue, acento en el número.</p></div>
+      <div class="card"><div class="stepnum">05</div><h3 class="blk" style="margin-top:8px">Cierre</h3><p class="body">CTA en oscuro. Evaluación gratis, sin compromiso.</p></div>
+    </div>
+  </section>
+
+  <!-- 13 VIDEO VIS -->
+  <section class="sec" id="videovis">
+    <div class="sec-hd"><span class="sec-num">13</span><h2 class="sec-title">Cómo visualizo los videos</h2></div>
+    <p class="sec-lead">Un reel es el sistema en movimiento. Storyboard de <b>5 beats</b> en ~20–40s. La línea se dibuja, los datos entran como telemetría, el acento pulsa al ritmo.</p>
+    <div class="strip mini">
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:#0a0e18"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="frameno">00:00</div>
+          <div class="pc-in"><img class="pc-logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" style="margin:auto auto;height:9cqw"/></div>
+        </div>
+        <div class="slidecap"><b>1 · INTRO</b> — grilla + esquinas se dibujan, logo aparece (0.6s)</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 60% 30%,#3a4256,#151a26 55%,#080b12)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <div class="frameno">00:02</div>
+          <div class="pc-in"><div class="pc-word" style="margin:auto 0;font-size:15cqw">¿CUÁNTO<br><span class="hl">PAGAS?</span></div></div>
+        </div>
+        <div class="slidecap"><b>2 · HOOK</b> — pregunta seca a los 2s, palabra clave en acento</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 45% 40%,#2b3346,#141a26 55%,#080b12)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <div class="frameno">00:08</div>
+          <svg viewBox="0 0 150 260" preserveAspectRatio="none" style="position:absolute;inset:0;z-index:4;width:100%;height:100%"><path d="M20 230 C 60 190 40 150 90 130 C 120 118 110 70 130 40" fill="none" stroke="var(--n-solar)" stroke-width="2.2" stroke-dasharray="3 5"/></svg>
+          <div class="pc-in"><div class="pc-lower">SAN JUAN · 8.4 KW</div></div>
+        </div>
+        <div class="slidecap"><b>3 · DESARROLLO</b> — la línea se dibuja sobre la foto, lower-third mono</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:#0a0e18"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick br"></span>
+          <div class="frameno">00:16</div>
+          <div class="pc-in"><div class="pc-word" style="margin:auto 0;font-size:24cqw">-92<span class="hl">%</span></div><div class="pc-sub" style="font-size:4cqw">en tu factura</div></div>
+        </div>
+        <div class="slidecap"><b>4 · DATO</b> — número gigante entra por caracteres (telemetría)</div>
+      </div>
+
+      <div class="piecebox">
+        <div class="piece dark" style="--acc:var(--n-solar)">
+          <div class="bgph" style="background:radial-gradient(120% 80% at 50% 60%,#2b3346,#141a26 55%,#080b12)"></div><div class="scrim"></div>
+          <svg class="grain" width="100%" height="100%"><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+          <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+          <div class="frameno">00:24</div>
+          <div class="pc-in"><div class="pc-word" style="margin:auto 0;font-size:12cqw">EVALÚA<br><span class="hl">GRATIS</span></div><div class="pc-foot"><div class="pc-tag" style="color:var(--n-solar)">WINDMAR.COM · SIN COMPROMISO</div></div></div>
+        </div>
+        <div class="slidecap"><b>5 · OUTRO/CTA</b> — sol traza al CTA + contacto en mono</div>
+      </div>
+
+    </div>
+    <div class="grid2">
+      <div class="card"><h3 class="blk">Ritmo</h3><p class="motion"><b>0–1s</b> intro · <b>1–3s</b> hook (¡o pierdes al viewer!) · <b>3–15s</b> desarrollo con b-roll + líneas · <b>15–20s</b> el dato · <b>20s+</b> CTA. Cortes al beat, duros.</p></div>
+      <div class="card"><h3 class="blk">Constantes</h3><p class="motion"><b>Siempre:</b> subtítulos legibles · grano sutil · un solo acento · lower-thirds en mono · líneas que se dibujan (stroke). <b>Nunca:</b> transiciones “blanditas”, efectos sin propósito, dos neones.</p></div>
+    </div>
+  </section>
+
+  <!-- 14 VIDEO -->
+  <section class="sec" id="video">
+    <div class="sec-hd"><span class="sec-num">14</span><h2 class="sec-title">Para el editor de video</h2></div>
+    <p class="sec-lead">El video es el sistema en movimiento. Mismo ADN: grilla, mono, acento, líneas que se dibujan. Cine técnico, no “efectos”.</p>
+
+    <h3 class="blk" style="margin-top:6px">Formatos base</h3>
+    <div class="vfmt">
+      <div class="vf"><div class="r a916"></div><b>9:16</b><span>Reels / Stories / TikTok · principal</span></div>
+      <div class="vf"><div class="r a11"></div><b>1:1</b><span>Feed IG/FB</span></div>
+      <div class="vf"><div class="r a169"></div><b>16:9</b><span>YouTube / aftermovie</span></div>
+    </div>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="card"><h3 class="blk">Intro / Outro</h3>
+        <ul class="ticks">
+          <li><b>Intro:</b> la grilla azul se dibuja + esquinas de registro aparecen “clic-clic” + logo. 0.6–1s.</li>
+          <li><b>Outro:</b> el sol de WindMar como punto → línea traza hacia el CTA + datos de contacto en mono.</li>
+        </ul>
+      </div>
+      <div class="card"><h3 class="blk">Tipografía en movimiento</h3>
+        <ul class="ticks">
+          <li>Titulares Bebas Neue entran <b>rápido y seco</b> (2–3 frames), sin easing “blandito”.</li>
+          <li>Datos en DM Mono aparecen como “telemetría”: por caracteres o con cursor.</li>
+          <li>La palabra clave cambia al color acento en el beat.</li>
+        </ul>
+      </div>
+      <div class="card"><h3 class="blk">Recursos gráficos animados</h3>
+        <ul class="ticks">
+          <li><b>Líneas que se dibujan</b> (stroke) sobre la imagen: rutas, flujos, subrayados.</li>
+          <li>Lower-thirds estilo mono: <span style="font-family:var(--mono)">▸ ELLIOT · INSTALADOR</span></li>
+          <li>Marcadores/checkpoints que “aterrizan” con un tick.</li>
+        </ul>
+      </div>
+      <div class="card"><h3 class="blk">Look & ritmo</h3>
+        <ul class="ticks">
+          <li>Grano de película sutil (10–20%) en piezas hero; nunca en educativo limpio.</li>
+          <li>Cortes al beat, duros. Transición estrella: <b>wipe con línea de acento</b>.</li>
+          <li>Color: educativo = natural y luminoso · hero = B&N/duotono + 1 acento.</li>
+          <li>Subtítulos SIEMPRE (Anek/DM Sans), legibles, abajo con margen.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="body" style="margin-top:16px;max-width:760px"><b>Regla de oro del editor:</b> si un efecto no comunica info (dirección, dato, energía), no va. Todo movimiento tiene propósito, como en un plano técnico.</p>
+  </section>
+
+  <!-- 12 APLICACIONES -->
+  <section class="sec" id="aplic">
+    <div class="sec-hd"><span class="sec-num">15</span><h2 class="sec-title">Aplicaciones</h2></div>
+    <p class="sec-lead">El sistema aplicado a los formatos reales del calendario de contenido.</p>
+    <div class="grid3">
+      <div class="card"><h3 class="blk">Story / Fun Fact</h3><p class="body">Modo claro. Dato grande en Bebas Neue + fuente en mono abajo. Referencia viva: <b>windmar-fl-stories.html</b>.</p></div>
+      <div class="card"><h3 class="blk">Portada de Reel</h3><p class="body">Modo oscuro. Foto B&N + grano, titular corto, esquina con lugar/dato. El “hook” visual.</p></div>
+      <div class="card"><h3 class="blk">Carrusel educativo</h3><p class="body">Modo claro. Slide 1 titular, slides con diagramas de línea, último slide con gráfica + CTA.</p></div>
+      <div class="card"><h3 class="blk">Mapa de cobertura</h3><p class="body">Ruta punteada PR/FL sobre foto o fondo plano, con checkpoints y coordenadas.</p></div>
+      <div class="card"><h3 class="blk">Testimonio</h3><p class="body">Foto a color de la familia + lower-third mono con nombre, pueblo y kW instalados.</p></div>
+      <div class="card"><h3 class="blk">Dato / resultado</h3><p class="body">Gráfica minimalista, una barra en naranja, número gigante en Bebas Neue. “-92% en luz”.</p></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>WindMar Home · Guía de Estilo Visual v1.0</span>
+    <span>Referencias · windmar-fl-stories.html · calendario de contenidos</span>
+  </footer>
+
+</div>
+</body>
+</html>

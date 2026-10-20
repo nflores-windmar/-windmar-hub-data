@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WindMar Florida + WindMar Pros — Guía de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<style>
+/* ──────────────────────────────────────────────────────────────────────────
+   Este documento usa la misma casa visual que windmar-home-brandguide.html:
+   papel blanco sobre cuadrícula azul, esquinas con marcas de registro, notas
+   en monoespaciada. No es una decisión nueva — es el mismo plano, otra hoja.
+   ────────────────────────────────────────────────────────────────────────── */
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  /* TRES naranjas, un trabajo cada uno. El de marca #f57c0a sobre papel blanco
+     da 2.7:1: sirve para rayas, rellenos y bordes — que no son texto y no tienen
+     que cumplir contraste — pero NO para letras, ni siquiera grandes (el mínimo
+     de texto grande es 3:1 y 2.7 no llega; esto es lo que la guía decía mal).
+       --bp-orange       relleno, raya, borde, marca de registro. Nunca letra.
+       --bp-orange-head  letra naranja de 24px+ (3.7:1). Solo titulares.
+       --bp-orange-text  letra naranja chiquita (4.7:1). Etiquetas mono, avisos.
+     Los dos de letra están medidos contra el fondo MÁS CLARO donde caen, que es
+     la cuadrícula #e9eef7, no el papel blanco: sobre papel sobran, sobre la
+     cuadrícula apenas pasan. Si los aclaras, se cae la barra de navegación. */
+  --bp-orange:#f57c0a;
+  --bp-orange-head:#d86400;
+  --bp-orange-text:#a85105;
+  --bp-grid:rgba(26,82,199,.07); --bp-line:rgba(26,82,199,.32);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-paper:#ffffff; --bp-bg:#e9eef7;
+  --bp-muted:#5a6b8c;
+  /* Una sola pareja en todo el sistema de Florida: Bebas grita, Montserrat habla.
+     --disp es Bebas y por eso SOLO se usa en titulares grandes: es de un solo peso
+     (font-weight no hace nada) y sus minúsculas son versalitas, así que cualquier
+     subtítulo o rótulo chico va en Montserrat 700/800, no en Bebas. */
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bp-bg);color:var(--bp-navy);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+nav{position:sticky;top:0;z-index:40;background:rgba(233,238,247,.9);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bp-line-soft);display:flex;align-items:center;gap:18px;padding:12px 22px;flex-wrap:wrap}
+nav .brand{font-family:var(--body);font-weight:800;font-size:18px;letter-spacing:-.3px;color:var(--bp-navy);line-height:1}
+nav .brand b{color:var(--bp-orange-text)}
+nav .links{display:flex;gap:13px;flex-wrap:wrap;flex:1;min-width:200px}
+nav .links a{font-family:var(--mono);font-size:12px;color:var(--bp-ink-dark);text-decoration:none;letter-spacing:.02em;transition:.15s}
+nav .links a:hover{color:var(--bp-orange-text)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+section{padding:46px 0}
+.panel{position:relative;background:var(--bp-paper);border:1px solid var(--bp-line);border-radius:4px;padding:34px}
+.tick{position:absolute;width:14px;height:14px;border-color:var(--bp-ink);border-style:solid;border-width:0}
+.tick.tl{top:8px;left:8px;border-top-width:2px;border-left-width:2px}
+.tick.tr{top:8px;right:8px;border-top-width:2px;border-right-width:2px}
+.tick.bl{bottom:8px;left:8px;border-bottom-width:2px;border-left-width:2px}
+.tick.br{bottom:8px;right:8px;border-bottom-width:2px;border-right-width:2px}
+.sec-num{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--bp-orange-text);text-transform:uppercase}
+/* Bebas es condensada: a igual px se lee más chica, por eso sube el
+   tamaño. Y como es de un solo peso, va en 400 — pedirle 800 solo dispara la
+   negrita sintética del navegador, que la ensucia. Tracking positivo, nunca
+   negativo: ya viene apretada de fábrica. */
+h2.big{font-family:var(--disp);font-weight:400;font-size:clamp(32px,5vw,54px);line-height:.98;letter-spacing:.01em;color:var(--bp-navy);margin-top:4px}
+h2.big .o{color:var(--bp-orange-head)}
+h3{font-family:var(--body);font-weight:700;font-size:18.5px;color:var(--bp-navy);letter-spacing:-.2px;margin-bottom:8px}
+.lead{max-width:760px;color:var(--bp-ink-dark);font-size:15.5px;margin-top:13px}
+.hair{height:2px;width:96px;background:var(--bp-orange);border:0;margin:15px 0}
+p{font-size:14.5px}
+p+p{margin-top:10px}
+ul{margin:10px 0 0 18px}
+li{font-size:14.5px;margin-bottom:6px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--bp-muted)}
+/* un nombre de archivo NO se pone en mayúsculas: la ruta real es minúscula y
+   WMH-HOME-WHITE-ORANGE.PNG se lee peor y además miente sobre el archivo */
+.label.file{text-transform:none;letter-spacing:.02em}
+.mut{color:var(--bp-muted);font-size:13.5px}
+.anno{font-family:var(--mono);font-size:12px;color:var(--bp-ink-dark);letter-spacing:.02em}
+code{font-family:var(--mono);font-size:12.5px;background:#eef3fc;border:1px solid var(--bp-line-soft);border-radius:3px;padding:1px 5px;color:var(--bp-ink-dark)}
+
+.bcard{position:relative;background:var(--bp-paper);border:1px solid var(--bp-line-soft);border-radius:4px;padding:20px}
+.bcard .ct{font-family:var(--body);font-weight:700;font-size:17px;color:var(--bp-navy);letter-spacing:-.2px}
+.bcard .cd{font-size:13.5px;color:var(--bp-muted);margin-top:6px}
+
+/* HERO */
+.hero{padding:40px 0 6px}
+.hero .panel{padding:44px 38px}
+.hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(46px,8.4vw,106px);line-height:.9;letter-spacing:.012em;color:var(--bp-navy)}
+.hero h1 .o{color:var(--bp-orange-head)}
+.hero .tagsys{font-family:var(--mono);font-size:clamp(11px,1.5vw,14px);letter-spacing:.17em;color:var(--bp-ink-dark);text-transform:uppercase;margin-top:13px}
+.hero p{max-width:660px;margin-top:15px;font-size:15px;color:var(--bp-ink-dark)}
+
+/* color swatches */
+.sw{border-radius:4px;overflow:hidden;border:1px solid var(--bp-line-soft);background:#fff}
+.sw .chip{height:78px}
+.sw .meta{padding:9px 11px}
+.sw .nm{font-weight:600;font-size:12.5px;color:var(--bp-navy)}
+.sw .hex{font-family:var(--mono);font-size:12px;color:var(--bp-muted);letter-spacing:.03em}
+.sw .use{font-size:12.5px;color:var(--bp-muted);margin-top:3px;line-height:1.35}
+
+/* logos */
+.logo-box{border:1px solid var(--bp-line-soft);border-radius:4px;display:flex;align-items:center;justify-content:center;padding:26px;min-height:140px;background:var(--bp-paper);flex-direction:column;gap:12px}
+.logo-box.dark{background:var(--bp-navy);border-color:var(--bp-navy)}
+.logo-box.dark .label{color:#9db4e6}
+.logo-box img{max-height:72px;max-width:100%;width:auto;display:block}
+
+/* aviso / alerta */
+.warn{border:1px solid rgba(245,124,10,.45);background:#fff5ec;border-radius:4px;padding:20px;margin-top:18px}
+.warn h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bp-orange-text);margin-bottom:9px}
+.falta{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;background:#c62828;color:#fff;border-radius:3px;padding:2px 7px;text-transform:uppercase}
+
+/* tabla */
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bp-muted);text-align:left;padding:7px 9px;border-bottom:1.5px solid var(--bp-line)}
+td{padding:8px 9px;border-bottom:1px solid var(--bp-line-soft);vertical-align:top}
+td code{font-size:12.5px}
+.tw{overflow-x:auto}
+
+/* do/dont */
+.dodont{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:18px}
+.dd{border-radius:4px;padding:19px;border:1px solid}
+.dd.do{background:#eef5ff;border-color:var(--bp-line)}
+.dd.dont{background:#fff3ea;border-color:rgba(245,124,10,.35)}
+.dd h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.dd.do h3{color:var(--bp-ink)}.dd.dont h3{color:var(--bp-orange-text)}
+.dd li{font-size:13.5px}
+
+/* muestra tipográfica */
+.ty{border:1px solid var(--bp-line-soft);border-radius:4px;padding:20px;background:#fff}
+.ty .sample{color:var(--bp-navy);line-height:1}
+.ty .bebas{font-family:'Bebas Neue',Impact,sans-serif;font-size:56px;letter-spacing:.01em}
+.ty .mont{font-family:'Montserrat',sans-serif;font-weight:800;font-size:34px}
+.ty .caveat{font-family:'Caveat',cursive;font-weight:600;font-size:48px;color:var(--bp-ink-dark)}
+.ty .dmmono{font-family:'DM Mono',monospace;font-size:26px;color:var(--bp-ink-dark)}
+.ty .meta2{margin-top:12px;border-top:1px solid var(--bp-line-soft);padding-top:10px}
+
+/* maqueta del cheque */
+.chk-demo{background:linear-gradient(160deg,#0a2a6f,#04102e);border-radius:6px;padding:26px 22px;margin-top:16px}
+.chk-demo .m{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.2em;color:#ffb347;text-align:right;margin-bottom:12px}
+.chk-demo .kick{font-family:'Montserrat',sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.3em;color:#ffb347;text-align:center}
+.chk-demo .pc{font-family:'Bebas Neue',Impact,sans-serif;font-size:52px;letter-spacing:.02em;color:#fff;text-align:center;line-height:.95}
+.chk-demo .hl{height:3px;width:70px;background:#f7941e;margin:10px auto 18px}
+.chk-paper{background:#fdfcf7;border-radius:5px;padding:16px;color:#0a2a6f}
+.chk-paper .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid rgba(10,42,111,.18);padding-bottom:10px}
+.chk-paper .hd img{height:26px;width:auto;display:block}
+.chk-paper .loc{font-family:'Montserrat',sans-serif;font-size:12px;color:#4a5a7a;margin-top:4px}
+.chk-paper .dt{font-family:'DM Mono',monospace;font-size:12px;color:#5a6b8c;text-align:right;line-height:1.5}
+.chk-paper .rw{display:flex;align-items:flex-end;gap:10px;margin-top:14px}
+.chk-paper .lb{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:#5a6b8c;line-height:1.2;min-width:52px}
+.chk-paper .ln{flex:1;border-bottom:1.5px solid rgba(10,42,111,.3);height:20px}
+.chk-paper .amtbox{border:2px solid #0a2a6f;border-radius:3px;padding:3px 12px;font-family:'Bebas Neue',sans-serif;font-size:21px;line-height:1.1;min-width:92px;text-align:right}
+.chk-paper .dol{font-family:'Montserrat',sans-serif;font-weight:600;font-size:12px;color:#5a6b8c}
+.chk-paper .ft{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;gap:14px}
+.chk-paper .sg{text-align:center}
+.chk-paper .sg .s{font-family:'Caveat',cursive;font-weight:600;font-size:26px;color:#0a2a6f;line-height:1;border-bottom:1px solid rgba(10,42,111,.3);padding:0 22px 2px}
+.chk-paper .sg .cap{font-family:'Montserrat',sans-serif;font-size:12px;color:#5a6b8c;margin-top:4px;letter-spacing:.04em}
+.chk-paper .micr{font-family:'DM Mono',monospace;font-size:12px;color:#0a2a6f;margin-top:14px;letter-spacing:.06em;border-top:1px solid rgba(10,42,111,.14);padding-top:9px}
+.chk-demo .tag{font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;letter-spacing:.22em;color:#ffb347;text-align:center;margin-top:16px}
+.cnote{font-family:var(--mono);font-size:12px;color:var(--bp-muted);margin-top:9px;line-height:1.5}
+.cnote b{color:var(--bp-ink-dark)}
+
+/* línea de tiempo del typewriter */
+.tl{margin-top:16px;border-left:2px solid var(--bp-line);padding-left:18px}
+.tl .ev{position:relative;padding-bottom:14px}
+.tl .ev::before{content:"";position:absolute;left:-24px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--bp-orange)}
+.tl .t{font-family:var(--mono);font-size:12px;color:var(--bp-orange-text);letter-spacing:.06em}
+.tl .d{font-size:13.5px;color:var(--bp-ink-dark);margin-top:2px}
+
+footer{padding:34px 0 60px;text-align:center}
+footer .anno{color:var(--bp-muted)}
+@media(max-width:620px){
+  .panel{padding:24px 18px}
+  .hero .panel{padding:30px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">WindMar <b>Florida + Pros</b></div>
+  <div class="links">
+    <a href="#alcance">00 Alcance</a>
+    <a href="#marcas">01 Las dos marcas</a>
+    <a href="#color">02 Color</a>
+    <a href="#naranjas">03 Los tres naranjas</a>
+    <a href="#tipo">04 Tipografía</a>
+    <a href="#logos">05 Logos</a>
+    <a href="#formatos">06 Formatos</a>
+    <a href="#cheque">07 El cheque</a>
+    <a href="#editaje">08 Editaje</a>
+    <a href="#video">09 Video y audio</a>
+    <a href="#voz">10 Voz y copy</a>
+    <a href="#reglas">11 Reglas</a>
+    <a href="#inventario">12 Inventario</a>
+    <a href="#pendientes">13 Pendientes</a>
+    <a href="#pedidos">14 Pedidos</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<div class="wrap hero">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">Guía de marca · Documento de trabajo · Oct 2026</div>
+    <h1>FLORIDA<br>+ WINDMAR <span class="o">PROS</span></h1>
+    <div class="tagsys">Color · Tipografía · Logos · El cheque · Elementos de editaje</div>
+    <p>Esto no es una guía inventada desde cero. Es el inventario de lo que <b>ya existe y ya se publicó</b>: cada color, cada fuente y cada medida salió de leer los archivos del proyecto, no de una propuesta nueva. Donde encontré que el material real se contradice a sí mismo, lo digo en vez de escoger por ti.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ 00 ══════════════════════════════════ -->
+<section id="alcance"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">00</div>
+    <h2 class="big">Cómo leer este <span class="o">documento</span></h2>
+    <hr class="hair">
+    <div class="grid g3" style="margin-top:18px">
+      <div class="bcard">
+        <div class="ct">Lo que SÍ es</div>
+        <div class="cd">Un retrato fiel del sistema que ya está corriendo en Florida y en Pros. Todo valor tiene un archivo detrás.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">Lo que NO es</div>
+        <div class="cd">Una propuesta de rediseño. No cambié nada. No inventé paletas «mejores». No rellené huecos con suposiciones.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">Dónde decides tú</div>
+        <div class="cd">Las secciones con fondo naranja son contradicciones reales en el material. No las resolví sola: te las pongo para que tú mandes.</div>
+      </div>
+    </div>
+    <div class="warn">
+      <h3>Regla de este documento</h3>
+      <p>Si algo no aparece aquí es porque <b>no lo encontré en los archivos</b>, no porque no exista. Lo que falta está marcado con una etiqueta roja <span class="falta">Falta</span>. Nada está estimado «a ojo».</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 01 ══════════════════════════════════ -->
+<section id="marcas"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">01</div>
+    <h2 class="big">Las dos marcas que viven <span class="o">en Florida</span></h2>
+    <p class="lead">Comparten empresa y comparten naranja, pero no hablan igual ni le hablan a la misma persona. Confundirlas es el error más caro: un cheque en el feed del cliente ahuyenta; un carrusel de ahorro en el feed del vendedor aburre.</p>
+    <hr class="hair">
+    <div class="grid g2" style="margin-top:18px">
+      <div class="bcard">
+        <div class="ct">WindMar Home Florida</div>
+        <div class="cd" style="margin-top:10px">
+          <b>A quién le habla:</b> el dueño de casa en Florida Central.<br>
+          <b>Cuenta:</b> <code>@windmarhomefl</code><br>
+          <b>Sitio:</b> <code>windmarcommand.com</code><br>
+          <b>Idioma:</b> <b>inglés</b> — el feed de Florida es en inglés, no en español.<br>
+          <b>Tema:</b> solar, techo, agua, ahorro, tranquilidad.<br>
+          <b>Tono:</b> cálido, claro, de vecino. Nunca miedo.
+        </div>
+      </div>
+      <div class="bcard">
+        <div class="ct">WindMar Pros</div>
+        <div class="cd" style="margin-top:10px">
+          <b>A quién le habla:</b> el vendedor — el que ya está y el que queremos reclutar.<br>
+          <b>Base:</b> Orlando, Florida (es el texto fijo del cheque).<br>
+          <b>Idioma:</b> español en las piezas del cheque y ranking.<br>
+          <b>Tema:</b> comisión, ranking, reconocimiento, hype.<br>
+          <b>Tono:</b> competitivo, celebratorio, alto contraste. Fondo oscuro.
+        </div>
+      </div>
+    </div>
+    <div class="warn">
+      <h3>La diferencia que más se nota</h3>
+      <p>Florida Home trabaja casi siempre sobre <b>papel claro</b> (blanco o azul pálido). WindMar Pros trabaja casi siempre sobre <b>azul casi negro</b> con brillo naranja. Si una pieza de Pros te sale clara, probablemente agarraste la plantilla equivocada.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 02 ══════════════════════════════════ -->
+<section id="color"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">02</div>
+    <h2 class="big">Color</h2>
+    <hr class="hair">
+
+    <h3 style="margin-top:22px">Florida Home — dirección aprobada</h3>
+    <p class="mut">Tomado de <code>fl-reels.html</code> y confirmado contando los colores de <code>fl-home-carousel.html</code>, que es el artefacto que ganó.</p>
+    <div class="grid g4" style="margin-top:14px">
+      <div class="sw"><div class="chip" style="background:#1d429b"></div><div class="meta"><div class="nm">Azul WindMar</div><div class="hex">#1d429b</div><div class="use">Color base. Titulares, bloques sólidos.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#142a63"></div><div class="meta"><div class="nm">Azul profundo</div><div class="hex">#142a63</div><div class="use">Fondos oscuros, degradados.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#16204a"></div><div class="meta"><div class="nm">Azul tinta</div><div class="hex">#16204a</div><div class="use">Texto largo sobre claro.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f89b24"></div><div class="meta"><div class="nm">Naranja Florida</div><div class="hex">#f89b24</div><div class="use">El acento. Es el más usado del carrusel aprobado.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffd9a3"></div><div class="meta"><div class="nm">Arena</div><div class="hex">#ffd9a3</div><div class="use">Naranja suave para fondos y resaltados.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#e8e6e1"></div><div class="meta"><div class="nm">Papel cálido</div><div class="hex">#e8e6e1</div><div class="use">Fondo neutro del carrusel.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#e4ebfa"></div><div class="meta"><div class="nm">Azul pálido</div><div class="hex">#e4ebfa</div><div class="use">Fondo frío alterno.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffffff;border:1px solid #d8def0"></div><div class="meta"><div class="nm">Blanco</div><div class="hex">#ffffff</div><div class="use">Texto sobre azul. Respiro.</div></div></div>
+    </div>
+    <p class="anno" style="margin-top:12px">↳ Grises de apoyo que aparecen en el carrusel: <code>#b4b0a8</code> · <code>#a7a39b</code> · <code>#8d8982</code> · <code>#4a463f</code> · <code>#21274e</code>. Son sombras y textos secundarios, no colores de marca.</p>
+
+    <h3 style="margin-top:34px">Florida Blueprint — la variante de plano</h3>
+    <p class="mut">De <code>fl-reels-bp.html</code>. Azul de dibujo técnico sobre papel blanco. Es el look que más te gusta y el que usa el festival de Sanford.</p>
+    <div class="grid g4" style="margin-top:14px">
+      <div class="sw"><div class="chip" style="background:#1a52c7"></div><div class="meta"><div class="nm">Azul plano</div><div class="hex">#1a52c7</div><div class="use">Líneas, trazo, cuadrícula.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0a2882"></div><div class="meta"><div class="nm">Azul marino</div><div class="hex">#0a2882</div><div class="use">Titulares y masas.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f57c0a"></div><div class="meta"><div class="nm">Naranja plano</div><div class="hex">#f57c0a</div><div class="use">Acento único. Nunca dominante.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffffff;border:1px solid #d8def0"></div><div class="meta"><div class="nm">Papel</div><div class="hex">#ffffff</div><div class="use">El fondo. Siempre claro, nunca oscuro.</div></div></div>
+    </div>
+
+    <h3 style="margin-top:34px">WindMar Pros — cheque y ranking</h3>
+    <p class="mut">De <code>windmar-pros-paycheck.html</code> (los <code>--navy1/2/3</code>) y <code>windmar-pros-ranking.html</code>.</p>
+    <div class="grid g4" style="margin-top:14px">
+      <div class="sw"><div class="chip" style="background:#0a2a6f"></div><div class="meta"><div class="nm">Navy 1 · cheque</div><div class="hex">#0a2a6f</div><div class="use">Arriba del degradado del cheque.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#061c50"></div><div class="meta"><div class="nm">Navy 2 · cheque</div><div class="hex">#061c50</div><div class="use">Medio.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#04102e"></div><div class="meta"><div class="nm">Navy 3 · cheque</div><div class="hex">#04102e</div><div class="use">Abajo. Casi negro.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0e3a8a"></div><div class="meta"><div class="nm">Navy 0 · cheque</div><div class="hex">#0e3a8a</div><div class="use">Brillo, resplandor.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f7941e"></div><div class="meta"><div class="nm">Naranja Pros</div><div class="hex">#f7941e</div><div class="use">Acento del cheque y del hype.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffb347"></div><div class="meta"><div class="nm">Naranja claro</div><div class="hex">#ffb347</div><div class="use">Degradado, confeti, subrayados.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#050f2c"></div><div class="meta"><div class="nm">Navy ranking</div><div class="hex">#050f2c</div><div class="use">Fondo del ranking.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffb04d"></div><div class="meta"><div class="nm">Oro</div><div class="hex">#ffb04d</div><div class="use">Primer lugar, medallas.</div></div></div>
+    </div>
+    <p class="anno" style="margin-top:12px">↳ El confeti del hype usa exactamente cuatro colores: <code>#f7941e</code> · <code>#ffb347</code> · <code>#ffffff</code> · <code>#8fb4ff</code>. Ese azul claro no aparece en ningún otro lado del sistema.</p>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 03 ══════════════════════════════════ -->
+<section id="naranjas"><div class="wrap">
+  <div class="panel" style="border-color:rgba(245,124,10,.5)">
+    <span class="tick tl" style="border-color:var(--bp-orange)"></span><span class="tick tr" style="border-color:var(--bp-orange)"></span><span class="tick bl" style="border-color:var(--bp-orange)"></span><span class="tick br" style="border-color:var(--bp-orange)"></span>
+    <div class="sec-num">03 · Decisión pendiente</div>
+    <h2 class="big">Hay <span class="o">tres naranjas</span> distintos circulando</h2>
+    <p class="lead">Este es el hallazgo principal de la revisión. Conté archivo por archivo y el reparto no es aleatorio: cada naranja pertenece limpiamente a un sub-sistema. O sea, no es un error de dedo — son tres decisiones separadas que nadie unificó.</p>
+    <hr class="hair">
+    <div class="grid g3" style="margin-top:18px">
+      <div class="sw">
+        <div class="chip" style="background:#f89b24;height:92px"></div>
+        <div class="meta">
+          <div class="nm">#f89b24 — el de Florida Home</div>
+          <div class="hex">Más claro, más amarillo</div>
+          <div class="use" style="margin-top:7px"><b>Vive en:</b> fl-home-carousel · fl-reels · fl-reels-index · fl-direcciones.<br><br>Es el naranja de <b>la dirección que aprobaste</b> para Florida Home.</div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:#f57c0a;height:92px"></div>
+        <div class="meta">
+          <div class="nm">#f57c0a — el del blueprint</div>
+          <div class="hex">Más oscuro, más rojo</div>
+          <div class="use" style="margin-top:7px"><b>Vive en:</b> fl-festival-sanford · fl-reels-bp · windmar-fl-carousels-en · -flyers · -funfacts · -stories · pros-ranking · pros-stories · pros-recap-story · solar-fl-kinetic.<br><br>Es el más extendido: <b>12 archivos</b>.</div>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="chip" style="background:#f7941e;height:92px"></div>
+        <div class="meta">
+          <div class="nm">#f7941e — el de Pros</div>
+          <div class="hex">Justo en el medio</div>
+          <div class="use" style="margin-top:7px"><b>Vive en:</b> los tres paychecks · los cuatro hype (Anthony, Arianna, Carlos, Sebastián) · pro-semana.<br><br>Es el naranja del <b>cheque y del video de celebración</b>.</div>
+        </div>
+      </div>
+    </div>
+    <div class="warn">
+      <h3>Lo que necesito que decidas</h3>
+      <p>Los tres se ven casi iguales en pantalla, pero <b>en impresión se notan</b> y en una cuadrícula de Instagram donde salen dos piezas vecinas también. Hay tres caminos:</p>
+      <ul>
+        <li><b>Dejarlo así</b> — asumir que cada sub-sistema tiene su naranja. Es defendible si Pros y Home nunca se mezclan en el mismo feed.</li>
+        <li><b>Unificar todo en <code>#f57c0a</code></b> — es el que más archivos usa, el menos trabajo de cambiar.</li>
+        <li><b>Unificar todo en <code>#f89b24</code></b> — es el de la dirección que aprobaste para Florida, pero obliga a tocar 21 archivos.</li>
+      </ul>
+      <p style="margin-top:10px">No escogí por ti. Dime cuál y lo cambio de una vez en todos los archivos.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 04 ══════════════════════════════════ -->
+<section id="tipo"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">04</div>
+    <h2 class="big">Tipografía</h2>
+    <p class="lead">Una sola pareja en todo Florida, sin excepciones: <b>Bebas Neue</b> para gritar y <b>Montserrat</b> para hablar. Aplica igual al cheque, a los carruseles, a los reels y a esta guía. <b>Anton</b> y <b>Anek Latin</b> ya no son opciones — si aparecen en una pieza de Florida, la pieza está fuera de marca.</p>
+    <p class="mut" style="max-width:760px;margin-top:9px">Las otras dos fuentes de esta página no son tipografía de marca, son <b>herramientas</b>: DM Mono existe porque un cheque necesita números de cuenta que parezcan de banco, y Caveat existe porque un cheque necesita una firma. Fuera de ese trabajo no se usan.</p>
+    <hr class="hair">
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="ty">
+        <div class="label">Display · todo Florida</div>
+        <div class="sample bebas" style="margin-top:10px">TU CASA ESTÁ READY</div>
+        <div class="meta2">
+          <div class="anno">Bebas Neue · un solo peso · siempre MAYÚSCULAS</div>
+          <div class="mut" style="margin-top:5px">Condensada y alta. Aguanta titulares largos sin romper la línea. Es la que dice <b>PAYCHECK</b> en el cheque.</div>
+        </div>
+      </div>
+      <div class="ty">
+        <div class="label">Texto · todo Florida</div>
+        <div class="sample mont" style="margin-top:10px">Páguese a:</div>
+        <div class="meta2">
+          <div class="anno">Montserrat · 400 / 500 / 600 / 700 / 800</div>
+          <div class="mut" style="margin-top:5px">Las etiquetas del cheque, el cuerpo de los carruseles, los subtítulos de los reels y los subtítulos de esta guía. Todo lo que no sea un titular grande.</div>
+        </div>
+      </div>
+      <div class="ty" style="grid-column:1/-1">
+        <div class="label">Dónde se parte el pelo</div>
+        <div class="meta2" style="margin-top:4px">
+          <div class="mut">Bebas <b>solo</b> en titulares grandes. En cuanto el texto baja de ~24px se pasa a Montserrat 700/800: Bebas tiene un solo peso (pedirle negrita solo activa la falsa del navegador) y sus minúsculas son versalitas, así que en chiquito se vuelve ilegible. Tracking de Bebas siempre en positivo, nunca negativo — ya viene apretada.</div>
+        </div>
+      </div>
+      <div class="ty">
+        <div class="label">Monoespaciada · datos</div>
+        <div class="sample dmmono" style="margin-top:10px">⑆123456789⑆ 1001</div>
+        <div class="meta2">
+          <div class="anno">DM Mono · 400 / 500</div>
+          <div class="mut" style="margin-top:5px">Números de cuenta, fechas, anotaciones de plano, etiquetas técnicas. Le da credibilidad de documento.</div>
+        </div>
+      </div>
+      <div class="ty" style="grid-column:1/-1">
+        <div class="label">Manuscrita · solo la firma</div>
+        <div class="sample caveat" style="margin-top:10px">WindMar</div>
+        <div class="meta2">
+          <div class="anno">Caveat 600 · uso exclusivo: la firma del cheque</div>
+          <div class="mut" style="margin-top:5px">Esta fuente tiene <b>un solo trabajo</b> en todo el sistema: firmar el cheque. No se usa para titulares, ni para citas, ni para «dar calidez». Si aparece en otra pieza, está mal puesta.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 05 ══════════════════════════════════ -->
+<section id="logos"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">05</div>
+    <h2 class="big">Logos</h2>
+    <p class="lead">Dos versiones del mismo logo, y la regla es de una línea: <b>a todo color sobre fondo claro, blanco-naranja sobre fondo oscuro.</b> No hay una tercera opción, no se recolorea, no se le pone sombra ni contorno para «que se vea».</p>
+    <hr class="hair">
+    <div class="grid g2" style="margin-top:18px">
+      <div class="logo-box">
+        <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home a todo color">
+        <div class="label file">wmh-home-fc.png · sobre claro</div>
+      </div>
+      <div class="logo-box dark">
+        <img src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home blanco y naranja">
+        <div class="label file">wmh-home-white-orange.png · sobre oscuro</div>
+      </div>
+      <div class="logo-box dark">
+        <img src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+        <div class="label file">windmar-pros.png · el del cheque</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">La medida que casi siempre se calcula mal</div>
+        <div class="cd" style="margin-top:10px">
+          Los dos archivos de WindMar Home miden <b>1734 × 1113 px</b>, o sea una proporción de <b>1.558 : 1</b>. Se ve más alargado de lo que es; si lo asumes como 2.6:1 (el error típico) el logo te sale casi el doble de alto y se te sale de la pieza.
+          <br><br><b>Alto = ancho ÷ 1.558.</b> Siempre.
+        </div>
+      </div>
+    </div>
+    <div class="warn">
+      <h3>Lo que nunca se hace con el logo</h3>
+      <ul>
+        <li>No se genera con IA. Nunca. Se usa el archivo real o no se usa.</li>
+        <li>No se estira ni se aplasta — se escala proporcional.</li>
+        <li>No se pone encima de una bandera. En el festival de Sanford la solución fue imprimir una <b>base blanca</b> debajo del paño y poner el logo ahí; intervenir la bandera en el medio se lee como falta de respeto, y en una esquina el logo blanco desaparece sobre la franja blanca.</li>
+        <li>No se pone sobre foto sin un fondo que lo sostenga.</li>
+      </ul>
+    </div>
+    <h3 style="margin-top:28px">Logos de terceros disponibles</h3>
+    <p class="mut">Están en <code>wme/logos/</code>: Home Depot, Owens Corning, Bravo, Tesla Powerwall Premier. <b>Ojo:</b> son marcas ajenas — usarlas en una pieza pública necesita permiso del socio, no basta con tener el archivo.</p>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 06 ══════════════════════════════════ -->
+<section id="formatos"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">06</div>
+    <h2 class="big">Formatos y lienzos</h2>
+    <hr class="hair">
+    <div class="tw"><table>
+      <tr><th>Pieza</th><th>Lienzo</th><th>Dónde vive</th></tr>
+      <tr><td>Carrusel de Florida</td><td>1080 × 1350 (4:5)</td><td><code>fl-home-carousel.html</code>, <code>windmar-fl-carousels-en.html</code></td></tr>
+      <tr><td>Story / reel</td><td>1080 × 1920 (9:16)</td><td><code>fl-reels.html</code>, <code>fl-reels-bp.html</code>, <code>windmar-fl-stories.html</code></td></tr>
+      <tr><td>Cheque Pros</td><td>1080 × 1920 (9:16)</td><td><code>windmar-pros-paycheck*.html</code></td></tr>
+      <tr><td>Hype / typewriter</td><td>1080 × 1920 (9:16)</td><td><code>windmar-pros-hype-*.html</code></td></tr>
+      <tr><td>Ranking</td><td>1080 × 1920 (9:16)</td><td><code>windmar-pros-ranking.html</code></td></tr>
+      <tr><td>Carteles del festival</td><td>Lienzo en pulgadas, <code>?px=</code> define la resolución</td><td><code>fl-festival-sanford.html</code></td></tr>
+    </table></div>
+
+    <h3 style="margin-top:28px">El truco del lienzo escalable</h3>
+    <p>Las piezas de impresión usan un patrón que vale la pena entender porque ahorra rehacer trabajo: el contenedor <code>.stage</code> tiene medidas fijas en píxeles y su <code>font-size</code> es <b>el ancho dividido entre 100</b>. Como todo lo de adentro está en <code>em</code>, el mismo archivo HTML sirve para un banner de 8 pies y para una prueba en pantalla. Se cambia <code>?px=</code> y ya.</p>
+    <p>Las piezas de pantalla usan el equivalente moderno: unidades <code>cqw</code> (porcentaje del ancho del contenedor). Mismo principio, un solo número manda.</p>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 07 EL CHEQUE ══════════════════════════ -->
+<section id="cheque"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">07 · La pieza insignia</div>
+    <h2 class="big">El cheque <span class="o">WindMar Pros</span></h2>
+    <p class="lead">Funciona porque parece un documento, no un anuncio. Todo lo que lo hace creíble —las etiquetas en español correcto, la línea de números abajo, la firma a mano— es exactamente lo que se rompe cuando alguien «mejora» el texto. Por eso esta sección transcribe las palabras fijas <b>literalmente</b>.</p>
+    <hr class="hair">
+
+    <h3 style="margin-top:22px">Anatomía, de arriba hacia abajo</h3>
+    <div class="chk-demo">
+      <div class="m">SEPTIEMBRE 2026</div>
+      <div class="kick">WINDMAR PROS</div>
+      <div class="pc">PAYCHECK</div>
+      <div class="hl"></div>
+      <div class="chk-paper">
+        <div class="hd">
+          <div>
+            <img src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+            <div class="loc">Orlando, Florida</div>
+          </div>
+          <div class="dt">FECHA:<br>_______</div>
+        </div>
+        <div class="rw">
+          <div class="lb">Páguese<br>a:</div>
+          <div class="ln"></div>
+        </div>
+        <div class="rw">
+          <div class="ln"></div>
+          <div class="dol">Dólares</div>
+          <div class="amtbox">$ &nbsp;</div>
+        </div>
+        <div class="ft">
+          <div class="dol">Memo: ____________</div>
+          <div class="sg">
+            <div class="s">WindMar</div>
+            <div class="cap">Firma autorizada</div>
+          </div>
+        </div>
+        <div class="micr">⑆123456789⑆ ⑉000123456789⑉ 1001</div>
+      </div>
+      <div class="tag">MÁS VENTAS · MÁS GANANCIAS</div>
+    </div>
+    <div class="cnote">↳ Maqueta reconstruida con el texto real del archivo. <b>El cheque de verdad se exporta desde <code>windmar-pros-paycheck.html</code></b>, no desde aquí.</div>
+
+    <h3 style="margin-top:32px">Las palabras que NO se tocan</h3>
+    <p class="mut">Están escritas así en el archivo. Cambiarlas rompe el efecto de documento.</p>
+    <div class="tw"><table>
+      <tr><th>Dónde</th><th>Texto exacto</th><th>Nota</th></tr>
+      <tr><td>Antetítulo</td><td><b>WINDMAR PROS</b></td><td>Montserrat 800, muy espaciado, naranja</td></tr>
+      <tr><td>Titular</td><td><b>PAYCHECK</b></td><td>En inglés a propósito. Bebas Neue, blanco</td></tr>
+      <tr><td>Ciudad del cheque</td><td><b>Orlando, Florida</b></td><td>Debajo del logo Pros</td></tr>
+      <tr><td>Etiqueta de fecha</td><td><b>FECHA:</b></td><td>El valor va <b>en blanco</b> a propósito</td></tr>
+      <tr><td>Etiqueta de pago</td><td><b>Páguese a:</b></td><td>Con tilde. Dos líneas: «Páguese» / «a:»</td></tr>
+      <tr><td>Unidad</td><td><b>Dólares</b></td><td>Con tilde y mayúscula inicial</td></tr>
+      <tr><td>Memo</td><td><b>Memo:</b></td><td>Opcional, pero la etiqueta se queda</td></tr>
+      <tr><td>Firma</td><td><b>WindMar</b></td><td>Fuente Caveat — se ve manuscrita</td></tr>
+      <tr><td>Bajo la firma</td><td><b>Firma autorizada</b></td><td>Letra chiquita</td></tr>
+      <tr><td>Línea MICR</td><td><code>⑆123456789⑆ ⑉000123456789⑉ 1001</code></td><td>Son números <b>ficticios</b>. No es una cuenta real y no debe sustituirse por una</td></tr>
+      <tr><td>Cierre</td><td><b>MÁS VENTAS · MÁS GANANCIAS</b></td><td>Con el punto medio «·», no un guion</td></tr>
+    </table></div>
+
+    <h3 style="margin-top:32px">Cómo se llena</h3>
+    <p>Todo campo editable es <code>contenteditable</code>: se hace clic encima y se escribe. No hay panel de formulario ni parámetros de URL. Los campos son: mes, nombre, monto en números, monto en palabras, fecha, memo, firma y la línea MICR.</p>
+    <p>La foto se sube haciendo clic en el recuadro que dice <b>«Clic para subir foto»</b>. Se exporta con el botón de descarga; sale a 2× de resolución como <code>windmar-pros-paycheck.png</code>.</p>
+
+    <h3 style="margin-top:28px">Los tres estilos y los tres archivos</h3>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="bcard"><div class="ct">Estilos a / b / c</div><div class="cd">Dentro del mismo archivo: <b>Clásico</b>, <b>Naranja</b>, <b>Impacto</b>. Cambian el peso del fondo, no la estructura.</div></div>
+      <div class="bcard"><div class="ct">paycheck.html</div><div class="cd">El molde en blanco. SEPTIEMBRE 2026 por defecto. Este es el que se usa para un Pro nuevo.</div></div>
+      <div class="bcard"><div class="ct">paycheck-anthony.html</div><div class="cd">Versión llena de ejemplo. Convierte el número a palabras automáticamente, foto más grande, y suma un cuarto estilo «Momento» a sangre completa.</div></div>
+      <div class="bcard"><div class="ct">paycheck-nofoto.html</div><div class="cd">Sin recuadro de foto; el cheque se ensancha para ocupar el espacio. Para cuando no hay retrato del Pro.</div></div>
+    </div>
+
+    <div class="warn">
+      <h3>Cuidado legal con esta pieza</h3>
+      <ul>
+        <li>Los números MICR son inventados. <b>No los sustituyas por una cuenta real</b> — publicar un número de cuenta real es un problema serio.</li>
+        <li>Un monto publicado es una promesa implícita. Si el monto no es un pago real y verificable de esa persona, no se publica.</li>
+        <li>La foto y el nombre del Pro necesitan su permiso. No se asume.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 08 EDITAJE ════════════════════════════ -->
+<section id="editaje"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">08</div>
+    <h2 class="big">Elementos de <span class="o">editaje</span></h2>
+    <p class="lead">El movimiento también es marca. Nuestros videos no usan transiciones de plantilla: todo está calculado al compás de la música, cuadro por cuadro. Esta sección es para que cualquiera pueda hacer uno nuevo que se sienta igual.</p>
+    <hr class="hair">
+
+    <h3 style="margin-top:22px">El sistema «typewriter» — el del hype</h3>
+    <p>Es el que usan los videos de Anthony, Arianna, Carlos y Sebastián. La idea: el texto se escribe solo, letra por letra, <b>al ritmo de la pista</b>. No hay animaciones CSS; una función calcula cada cuadro según el tiempo exacto. Por eso siempre sale idéntico.</p>
+    <div class="tl">
+      <div class="ev"><div class="t">148 BPM → 0.4054 s por tiempo</div><div class="d">Todo el video está amarrado a este número. Si cambias de canción, cambia este valor primero.</div></div>
+      <div class="ev"><div class="t">0.325 s</div><div class="d">Entra la primera línea. No empieza en cero: deja respirar el primer golpe.</div></div>
+      <div class="ev"><div class="t">0.052 s por letra</div><div class="d">Velocidad del tecleo. Más rápido se ve nervioso, más lento se ve muerto.</div></div>
+      <div class="ev"><div class="t">0.18 s</div><div class="d">El desvanecido entre bloques.</div></div>
+      <div class="ev"><div class="t">0.26 s</div><div class="d">Ciclo del cursor parpadeando, sincronizado con el tecleo.</div></div>
+      <div class="ev"><div class="t">16.38 s</div><div class="d">Duración total. Seis bloques de texto: 2352, 3243, 2432, 2433, 2838 y 3082 milisegundos.</div></div>
+      <div class="ev"><div class="t">46 partículas</div><div class="d">El confeti del final. Siempre las mismas 46, en las mismas posiciones — no es aleatorio, por eso se puede volver a renderizar exacto.</div></div>
+    </div>
+    <p class="anno" style="margin-top:14px">↳ El resaltado naranja detrás de una palabra no aparece de golpe: barre de izquierda a derecha con <code>scaleX</code>, como si lo pasaras con un marcador.</p>
+
+    <h3 style="margin-top:32px">Reglas de movimiento que aplican a todo</h3>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="bcard"><div class="ct">El ritmo manda</div><div class="cd">Los cortes caen en el tiempo de la música. Un corte fuera de tiempo se siente barato aunque el diseño sea bueno.</div></div>
+      <div class="bcard"><div class="ct">Una idea por bloque</div><div class="cd">Cada entrada de texto dice una sola cosa. Si necesitas dos ideas, son dos bloques.</div></div>
+      <div class="bcard"><div class="ct">El naranja entra, no está</div><div class="cd">El acento aparece en movimiento (barrido, confeti, subrayado). Si ya estaba ahí desde el cuadro uno, no acentúa nada.</div></div>
+      <div class="bcard"><div class="ct">Todo determinista</div><div class="cd">Nada al azar. Si vuelves a renderizar mañana tiene que salir idéntico, cuadro por cuadro.</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 09 VIDEO ══════════════════════════════ -->
+<section id="video"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">09</div>
+    <h2 class="big">Video y audio — especificación de salida</h2>
+    <p class="lead">Estos son los números con los que salen todos los videos del proyecto. Si un video se ve o suena distinto a los demás, lo primero que hay que cotejar es esta tabla.</p>
+    <hr class="hair">
+    <div class="tw"><table>
+      <tr><th>Parámetro</th><th>Valor</th><th>Por qué</th></tr>
+      <tr><td>Resolución</td><td>1080 × 1920</td><td>Vertical de Instagram / TikTok</td></tr>
+      <tr><td>Cuadros por segundo</td><td>30</td><td>Estándar de las plataformas</td></tr>
+      <tr><td>Códec de video</td><td>libx264 · yuv420p</td><td>Compatible con todo</td></tr>
+      <tr><td>Calidad</td><td>CRF 19 · preset slow</td><td>Casi sin pérdida; el archivo pesa más pero no se degrada al subirlo</td></tr>
+      <tr><td>Normalización de audio</td><td><code>loudnorm I=-15 TP=-1.5 LRA=11</code></td><td>Volumen parejo entre piezas. Sin esto unas suenan el doble que otras</td></tr>
+      <tr><td>Entrada de audio</td><td>0.35 s</td><td>No arranca en seco</td></tr>
+      <tr><td>Salida de audio</td><td>1.4 s</td><td>No corta en seco</td></tr>
+      <tr><td>Códec de audio</td><td>AAC 192 kbps</td><td></td></tr>
+    </table></div>
+
+    <div class="warn">
+      <h3>Regla de entrega: siempre dos archivos</h3>
+      <p>Todo video se entrega con <b>dos exportaciones</b>, nombradas así:</p>
+      <ul>
+        <li><code>…-con-musica.mp4</code></li>
+        <li><code>…-sin-musica.mp4</code></li>
+      </ul>
+      <p>La versión sin música existe porque a veces se publica con audio de la plataforma, o se usa en un evento donde ya hay música sonando. Pedirla después obliga a renderizar todo otra vez.</p>
+      <p>Además se entrega un <b>reproductor HTML</b> con botones de pausa / con música / sin música, para poder revisar sin bajar nada.</p>
+    </div>
+    <p class="anno" style="margin-top:14px">↳ Si el video lleva voz: la voz se normaliza a −15 LUFS y la música se baja a −26 / −29 dB con <i>ducking</i> (la música se agacha cuando alguien habla).</p>
+
+    <h3 style="margin-top:26px">Las camas musicales que hay</h3>
+    <p>Viven en <code>public/wme/</code>. Son las únicas dos licenciadas para Florida:</p>
+    <table>
+      <tr><th>Archivo</th><th>Dura</th><th>Para qué sirve</th></tr>
+      <tr><td><code>fl-stomp-clap.mp3</code></td><td>1:33</td>
+          <td>La cama por defecto. Pisadas y palmas, sin melodía que compita con el texto.
+              Larga, así que se recorta al largo del reel y se le pone <i>fade</i>.
+              Es la de los tres reels blueprint.</td></tr>
+      <tr><td><code>fl-piano-stomps-logo.mp3</code></td><td>0:12</td>
+          <td>Un <i>sting</i> de cierre, no una cama. Resuelve en un golpe final,
+              así que solo sirve para piezas de 10–13 s. Estirarlo con <code>atempo</code>
+              para que cubra un reel largo lo deja sonando pesado — no se hace.</td></tr>
+    </table>
+    <div class="warn" style="margin-top:16px">
+      <h3>Antes de decir «no hay música»</h3>
+      <p style="margin-top:4px">El repositorio casi no tiene música, pero <b>sí hay pistas compradas</b> que nunca
+      se subieron: están sueltas en la carpeta de descargas de la computadora de Nicolle, en carpetas tipo
+      <code>~/Downloads/*_source_*/</code>. Las dos de arriba salieron de ahí.</p>
+      <p style="margin-top:10px"><b>Esto importa para trabajar en equipo:</b> esas descargas están en una sola
+      computadora. Si hace falta una cama nueva, lo que se sube a <code>public/wme/</code> es lo único que
+      las dos pueden usar. Una pista que solo existe en <code>~/Downloads</code> no existe para la otra persona.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 10 VOZ ════════════════════════════════ -->
+<section id="voz"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">10</div>
+    <h2 class="big">Voz y copy</h2>
+    <hr class="hair">
+    <div class="grid g2" style="margin-top:18px">
+      <div class="bcard">
+        <div class="ct">Florida Home · en inglés</div>
+        <div class="cd" style="margin-top:9px">
+          Sencillo, directo, tranquilizador. Habla de lo que el cliente gana, no de lo que pierde si no compra. Frases cortas. Nada técnico sin traducir.
+        </div>
+      </div>
+      <div class="bcard">
+        <div class="ct">WindMar Pros · en español</div>
+        <div class="cd" style="margin-top:9px">
+          Celebratorio y competitivo. Le habla a un vendedor que ya sabe de qué va esto. Nombres propios, números reales, reconocimiento público.
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px">Lo que no se dice nunca</h3>
+    <div class="dodont">
+      <div class="dd do">
+        <h3>Sí</h3>
+        <ul>
+          <li>«Ahorro», «evaluación gratis sin compromiso», «tranquilidad».</li>
+          <li>Números que podemos probar.</li>
+          <li>Beneficio concreto en la primera línea.</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>No</h3>
+        <ul>
+          <li><b>«Gratis total»</b> ni ninguna promesa de algo absolutamente gratis.</li>
+          <li>Miedo o pérdida como gancho — preocupa al cliente y no vende.</li>
+          <li>Pictogramas sustituyendo palabras en un titular (el emoji en vez de la palabra). Titular limpio, tipográfico.</li>
+          <li>Estadísticas sin fuente. Si no la tenemos, el espacio se deja en blanco.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 11 REGLAS ═════════════════════════════ -->
+<section id="reglas"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">11</div>
+    <h2 class="big">Reglas duras de producción</h2>
+    <p class="lead">Estas no son preferencias de estilo. Son las que, si se rompen, hay que rehacer la pieza.</p>
+    <hr class="hair">
+    <div class="dodont">
+      <div class="dd do">
+        <h3>Siempre</h3>
+        <ul>
+          <li>Logo real. Archivo de <code>wme/logos/</code>.</li>
+          <li>Bebas Neue o Montserrat. <b>Ninguna otra.</b></li>
+          <li>Dato verificable o espacio en blanco marcado <span class="falta">Falta</span>.</li>
+          <li>Florida en inglés, Pros en español.</li>
+          <li><code>windmarcommand.com</code> para Florida — <b>no</b> <code>windmar.com</code>, que es el de Puerto Rico.</li>
+          <li>Dos exportaciones de audio en todo video.</li>
+          <li>Archivo sin usar se <b>mueve</b> a <code>_para-borrar/</code>, no se borra.</li>
+        </ul>
+      </div>
+      <div class="dd dont">
+        <h3>Nunca</h3>
+        <ul>
+          <li>Logo o imagen generada por IA.</li>
+          <li>Anton, Anek Latin o DM Sans en una pieza de Florida.</li>
+          <li>Cifra inventada para «rellenar» un diseño.</li>
+          <li>El sitio de Puerto Rico en una pieza de Florida.</li>
+          <li>Logo encima del paño de una bandera.</li>
+          <li>Montos o nombres de Pros sin su permiso.</li>
+          <li>Logo de un socio sin aprobación del socio.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn">
+      <h3>Dos trampas al publicar que parecen que funcionaron</h3>
+      <p style="margin-top:4px"><b>1. El deploy no mueve el link.</b> <code>npx vercel deploy --prod</code> sube
+      la versión nueva pero deja el link de siempre apuntando a la vieja. Abres la página, la ves, se ve
+      igual que antes, y asumes que no se guardó. Sí se guardó — en otro URL. Hay que correr después:</p>
+      <p style="margin-top:7px"><code>npx vercel alias set &lt;deployment-nuevo&gt; studio-windmar-home.vercel.app</code></p>
+      <p style="margin-top:12px"><b>2. Un archivo nuevo con el nombre viejo sigue sirviendo el viejo.</b>
+      Si rehaces un video o una imagen y la subes con el mismo nombre, la caché de Vercel sigue entregando
+      el archivo anterior por horas. Por eso los reels llevan versión en el nombre
+      (<code>fl-bp-roofing-v3</code>, no <code>fl-bp-roofing</code>). Al rehacer uno, sube el número.</p>
+      <p style="margin-top:12px"><b>Cómo se comprueba de verdad:</b> que la página cargue (código 200) no prueba
+      nada — la vieja también carga. Se compara la huella del archivo local contra el que sirve el servidor:</p>
+      <p style="margin-top:7px"><code>md5 public/archivo.mp4</code> &nbsp;·&nbsp; <code>curl -s https://…/archivo.mp4 | md5</code></p>
+      <p class="mut" style="margin-top:9px">Si los dos números no son idénticos, lo que está publicado no es lo que hiciste.</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 12 INVENTARIO ═════════════════════════ -->
+<section id="inventario"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">12</div>
+    <h2 class="big">Inventario de archivos</h2>
+    <p class="lead">Todo vive en <code>studio/public/</code> y se ve en <code>studio-windmar-home.vercel.app/&lt;archivo&gt;</code>.</p>
+    <hr class="hair">
+
+    <h3 style="margin-top:22px">Florida</h3>
+    <div class="tw"><table>
+      <tr><th>Archivo</th><th>Qué es</th></tr>
+      <tr><td><code>fl-home-carousel.html</code></td><td><b>La dirección aprobada.</b> Carrusel 4:5</td></tr>
+      <tr><td><code>fl-direcciones.html</code></td><td>Comparación de las direcciones visuales que se propusieron</td></tr>
+      <tr><td><code>fl-reels.html</code></td><td>Reels en el estilo aprobado</td></tr>
+      <tr><td><code>fl-reels-bp.html</code></td><td>Reels en estilo blueprint</td></tr>
+      <tr><td><code>fl-reels-index.html</code></td><td>Índice de los reels</td></tr>
+      <tr><td><code>fl-festival-sanford.html</code></td><td>Los cuatro carteles del festival + hoja de props</td></tr>
+      <tr><td><code>windmar-fl-carousels-en.html</code></td><td>Carruseles en inglés</td></tr>
+      <tr><td><code>windmar-fl-stories.html</code></td><td>Stories</td></tr>
+      <tr><td><code>windmar-fl-flyers.html</code></td><td>Flyers</td></tr>
+      <tr><td><code>windmar-fl-funfacts.html</code></td><td>Datos curiosos</td></tr>
+      <tr><td><code>windmar-fl-calendario.html</code></td><td>Calendario de contenido</td></tr>
+    </table></div>
+
+    <h3 style="margin-top:28px">WindMar Pros</h3>
+    <div class="tw"><table>
+      <tr><th>Archivo</th><th>Qué es</th></tr>
+      <tr><td><code>windmar-pros-paycheck.html</code></td><td><b>El cheque en blanco.</b> El molde</td></tr>
+      <tr><td><code>windmar-pros-paycheck-anthony.html</code></td><td>Cheque lleno de ejemplo, con el estilo «Momento»</td></tr>
+      <tr><td><code>windmar-pros-paycheck-nofoto.html</code></td><td>Cheque sin foto</td></tr>
+      <tr><td><code>windmar-pros-ranking.html</code></td><td>Ranking de vendedores</td></tr>
+      <tr><td><code>windmar-pros-ranking-canva.html</code></td><td>Versión para pasar a Canva</td></tr>
+      <tr><td><code>windmar-pros-stories.html</code></td><td>Stories de Pros</td></tr>
+      <tr><td><code>windmar-pros-recap-story.html</code></td><td>Resumen</td></tr>
+      <tr><td><code>windmar-pro-semana.html</code></td><td>Pro de la semana</td></tr>
+      <tr><td><code>windmar-pros-hype-arianna.html</code> · <code>-carlos.html</code></td><td>Videos de celebración</td></tr>
+      <tr><td><code>windmar-pros-hype-*-typewriter.html</code></td><td>Videos con el sistema de tecleo (Anthony, Arianna, Sebastián)</td></tr>
+      <tr><td><code>pros-anthony-typewriter.html</code> y hermanos</td><td>Versiones sueltas de los mismos</td></tr>
+    </table></div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 13 PENDIENTES ═════════════════════════ -->
+<section id="pendientes"><div class="wrap">
+  <div class="panel" style="border-color:rgba(245,124,10,.5)">
+    <span class="tick tl" style="border-color:var(--bp-orange)"></span><span class="tick tr" style="border-color:var(--bp-orange)"></span><span class="tick bl" style="border-color:var(--bp-orange)"></span><span class="tick br" style="border-color:var(--bp-orange)"></span>
+    <div class="sec-num">13</div>
+    <h2 class="big">Lo que falta</h2>
+    <p class="lead">Huecos reales del sistema. Los dejo visibles en vez de taparlos con algo inventado.</p>
+    <hr class="hair">
+    <div class="grid g2" style="margin-top:18px">
+      <div class="bcard">
+        <div class="ct"><span class="falta">Falta</span> &nbsp;Teléfono de Florida</div>
+        <div class="cd">No hay un número de Florida confirmado en ningún archivo. Las piezas que lo necesitan muestran una etiqueta roja. Los números que tengo (787-489-1154 TV / 787-489-1155 radio) son <b>de Puerto Rico</b> y no sirven aquí.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct"><span class="falta">Falta</span> &nbsp;Arte del QR</div>
+        <div class="cd">Los carteles del festival tienen el espacio reservado pero no el código.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct"><span class="falta">Falta</span> &nbsp;Medidas reales de impresión</div>
+        <div class="cd">Los cuatro carteles de Sanford están con medidas provisionales. Con las reales se vuelven a renderizar en minutos.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">Decisión · Los tres naranjas</div>
+        <div class="cd">Sección 03. Dime cuál se queda y lo unifico en todos los archivos de una vez.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">Decisión · «Comment ROOF»</div>
+        <div class="cd">En Puerto Rico quitamos las llamadas a comentar. En Florida siguen vivas: el reel de techo todavía dice «Comment ROOF», y los de batería y solar dicen «Comment POWERWALL» / «Comment SOLAR». ¿Aplica la misma regla aquí?</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">Verificar · Bravo Supermarket</div>
+        <div class="cd">Aparece como socio en material nuevo pero no en nada aprobado antes. Antes de publicar hay que confirmar que la alianza es pública y que los tres logos de socios tienen permiso de uso.</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ══════════════════════════════════ 14 ══════════════════════════════════
+     COLA DE PEDIDOS
+     Esta sección no describe la marca: la pone a producir. Lleva data-nonotes
+     porque el botón «Notas» que se le pega a cada sección aquí sobraría — un
+     pedido ya ES la nota, con estado propio. -->
+<section id="pedidos" data-nonotes><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="sec-num">14</div>
+    <h2 class="big">Pedir una pieza <span class="o">nueva</span></h2>
+    <p class="lead">Las notas de las secciones anteriores comentan lo que ya existe. Esto es lo contrario: aquí se pide algo que todavía no existe — un reel, un carrusel, un cheque, una story. Escribes el encargo, queda guardado para las dos, y el link del resultado vuelve a aparecer en la misma tarjeta.</p>
+    <hr class="hair">
+
+    <div class="warn" style="margin-top:18px">
+      <h3>Cómo funciona de verdad (y qué no es)</h3>
+      <p>Esto <b>no produce solo</b>. Es una bandeja de entrada: el pedido se queda esperando hasta que Nicolle abra su sesión de trabajo, porque la producción corre en su computadora, no en esta página. Lo que esta página garantiza es que <b>el encargo no se pierde</b> y que las dos ven el mismo estado — no que salga en cinco minutos. Si algo es para hoy, ponlo en la fecha y además escríbele.</p>
+    </div>
+
+    <div class="grid g3" style="margin-top:18px">
+      <div class="bcard">
+        <div class="ct">1 · Lo escribes</div>
+        <div class="cd">Tipo de pieza, para cuál de las dos marcas, y el encargo en tus palabras. Mientras más contexto, menos vueltas.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">2 · Se produce</div>
+        <div class="cd">El pedido pasa a <b>En proceso</b> cuando alguien lo agarra. Ese cambio lo ven las dos, así que nadie duplica trabajo.</div>
+      </div>
+      <div class="bcard">
+        <div class="ct">3 · Vuelve el link</div>
+        <div class="cd">El resultado se pega en la tarjeta como link. El pedido queda <b>Listo</b> con su entregable al lado, no en un chat perdido.</div>
+      </div>
+    </div>
+
+    <div id="pqMount"></div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="anno">WindMar Florida + WindMar Pros · Guía de marca · Documento vivo<br>
+    Cada valor de este documento salió de leer el archivo correspondiente en <code>studio/public/</code>.</div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     ESTUDIO COMPARTIDO
+     La guía dejó de ser de solo lectura: cada sección acepta notas que las dos
+     ven. Vive en Supabase (tabla guide_notes), no en localStorage — localStorage
+     es por navegador, así que una nota tuya nunca le llegaría a ella.
+     Tabla propia a propósito: client_comments alimenta el feed del portal de
+     aprobaciones y estas notas de trabajo interno serían ruido ahí.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<style>
+.gn-btn{position:absolute;top:10px;right:34px;display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--bp-ink-dark);background:#eef3fc;border:1px solid var(--bp-line-soft);
+  border-radius:3px;padding:5px 9px;cursor:pointer;transition:.15s;z-index:2}
+.gn-btn:hover{border-color:var(--bp-orange);color:var(--bp-orange-text)}
+.gn-btn .n{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;
+  /* blanco sobre el naranja de marca da 2.7:1 y este número hay que leerlo:
+     tinta oscura sobre el mismo naranja da 6.6:1 y el globo sigue cantando igual */
+  border-radius:8px;background:var(--bp-orange);color:#241301;font-weight:700;
+  font-size:12px;letter-spacing:0}
+.gn-btn.zero .n{display:none}
+
+/* barra de identidad: quién está escribiendo */
+.gn-who{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(10,40,130,.97);
+  backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;gap:12px;
+  padding:11px 18px;flex-wrap:wrap;font-family:var(--mono);font-size:12px}
+.gn-who b{font-family:var(--body);font-weight:700;font-size:13px}
+.gn-who input{font-family:var(--body);font-size:13px;padding:7px 10px;border-radius:3px;
+  border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;min-width:190px}
+.gn-who input::placeholder{color:rgba(255,255,255,.75)}
+.gn-who button{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  padding:8px 14px;border:0;border-radius:3px;background:var(--bp-orange);color:#241301;
+  font-weight:700;cursor:pointer}
+.gn-who .sp{flex:1}
+.gn-who a{color:#ffd9a3;font-size:12px}
+
+/* panel lateral de la conversación */
+.gn-ov{position:fixed;inset:0;z-index:70;background:rgba(7,30,85,.46);display:none}
+.gn-ov.on{display:block}
+.gn-pane{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);z-index:71;
+  background:var(--bp-paper);border-left:1px solid var(--bp-line);display:none;
+  flex-direction:column;box-shadow:-18px 0 60px rgba(7,30,85,.22)}
+.gn-pane.on{display:flex}
+.gn-hd{padding:18px 20px;border-bottom:1px solid var(--bp-line-soft)}
+.gn-hd .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--bp-orange-text)}
+.gn-hd h3{font-family:var(--body);font-weight:800;font-size:19px;color:var(--bp-navy);margin-top:3px;letter-spacing:-.3px}
+.gn-x{position:absolute;top:14px;right:16px;border:0;background:none;font-family:var(--body);
+  font-size:23px;line-height:1;color:var(--bp-muted);cursor:pointer}
+.gn-list{flex:1;overflow:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.gn-empty{font-size:13.5px;color:var(--bp-muted);font-style:italic;margin-top:6px}
+.gn-note{border:1px solid var(--bp-line-soft);border-radius:4px;padding:12px 13px;background:#fcfdff}
+/* una nota resuelta se baja de tono, no se vuelve ilegible: con opacity:.5 el
+   texto quedaba bajo el mínimo de contraste y todavía hay que poder releerla */
+.gn-note.done{background:#f4f7fc;border-style:dashed}
+.gn-note.done .bd{color:var(--bp-muted)}
+.gn-note .m{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.gn-note .au{font-weight:700;font-size:13px;color:var(--bp-navy)}
+.gn-note .dt{font-family:var(--mono);font-size:12px;color:var(--bp-muted)}
+.gn-note .bd{font-size:14px;margin-top:6px;white-space:pre-wrap;color:var(--bp-navy)}
+.gn-note .done-btn{margin-top:9px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;background:none;border:1px solid var(--bp-line-soft);border-radius:3px;
+  padding:4px 8px;color:var(--bp-muted);cursor:pointer}
+.gn-note .done-btn:hover{border-color:var(--bp-orange);color:var(--bp-orange-text)}
+.gn-ft{padding:14px 20px;border-top:1px solid var(--bp-line-soft);background:#f7faff}
+.gn-ft textarea{width:100%;font-family:var(--body);font-size:14px;padding:10px;border-radius:4px;
+  border:1px solid var(--bp-line);resize:vertical;min-height:74px;color:var(--bp-navy)}
+.gn-ft .row{display:flex;align-items:center;gap:10px;margin-top:9px}
+.gn-ft button{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  padding:9px 16px;border:0;border-radius:3px;background:var(--bp-navy);color:#fff;font-weight:700;cursor:pointer}
+.gn-ft button:disabled{opacity:.4;cursor:default}
+.gn-ft .as{font-family:var(--mono);font-size:12px;color:var(--bp-muted)}
+body{padding-bottom:54px}
+@media print{.gn-btn,.gn-who,.gn-ov,.gn-pane{display:none!important}body{padding-bottom:0}}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  const SB_URL = 'https://mywxxipguoaqknoczgav.supabase.co';
+  const SB_KEY = 'sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
+  const GUIDE  = 'florida-pros';
+  let sb = null;
+  try { if (window.supabase?.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); }
+  catch(e){ console.error('Supabase no arrancó', e); }
+
+  /* ── quién eres ─────────────────────────────────────────────────────────── */
+  const WHO_KEY = 'wm_guia_fl_autor';
+  let who = localStorage.getItem(WHO_KEY) || '';
+
+  const whoBar = document.createElement('div');
+  whoBar.className = 'gn-who';
+  document.body.appendChild(whoBar);
+
+  function paintWho(){
+    if (who){
+      whoBar.innerHTML = `<span>Escribiendo como</span> <b>${esc(who)}</b>
+        <span class="sp"></span>
+        <span id="gnTotal" class="sp" style="flex:0"></span>
+        <a href="#" id="gnSwap">cambiar</a>`;
+      whoBar.querySelector('#gnSwap').onclick = e => { e.preventDefault(); who=''; localStorage.removeItem(WHO_KEY); paintWho(); };
+      document.dispatchEvent(new CustomEvent('wm-autor', { detail: who }));
+    } else {
+      whoBar.innerHTML = `<span>¿Quién eres? Tu nombre va en cada nota que dejes.</span>
+        <input id="gnName" placeholder="Tu nombre" autocomplete="name">
+        <button id="gnGo">Entrar</button>`;
+      const inp = whoBar.querySelector('#gnName');
+      const go = () => { const v = inp.value.trim(); if(!v) return;
+        who = v; localStorage.setItem(WHO_KEY, who); paintWho(); paintCounts(); };
+      whoBar.querySelector('#gnGo').onclick = go;
+      inp.onkeydown = e => { if(e.key==='Enter') go(); };
+      document.dispatchEvent(new CustomEvent('wm-autor', { detail: '' }));
+    }
+    updateTotal();
+  }
+
+  /* ── estado ─────────────────────────────────────────────────────────────── */
+  let notes = [];                       // todas las notas de la guía
+  let openSection = null;
+  const sections = [...document.querySelectorAll('section[id]')];
+  const titleOf = id => {
+    const s = document.getElementById(id);
+    const h = s?.querySelector('h2.big');
+    return h ? h.textContent.trim() : id;
+  };
+
+  const esc = s => String(s).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const when = iso => {
+    const d = new Date(iso), now = new Date();
+    const mins = Math.round((now-d)/60000);
+    if (mins < 1) return 'ahora';
+    if (mins < 60) return `hace ${mins} min`;
+    if (mins < 1440) return `hace ${Math.round(mins/60)} h`;
+    return d.toLocaleDateString('es', {day:'numeric', month:'short'});
+  };
+
+  /* ── botones por sección ────────────────────────────────────────────────── */
+  sections.forEach(sec => {
+    const panel = sec.querySelector('.panel');
+    if (!panel) return;
+    if (sec.hasAttribute('data-nonotes')) return;   // la cola de pedidos no se comenta: se contesta
+    const b = document.createElement('button');
+    b.className = 'gn-btn zero';
+    b.dataset.sec = sec.id;
+    b.innerHTML = `Notas <span class="n">0</span>`;
+    b.onclick = () => openPane(sec.id);
+    panel.appendChild(b);
+  });
+
+  function openFor(id){ return notes.filter(n => n.section===id && !n.resolved); }
+
+  function paintCounts(){
+    document.querySelectorAll('.gn-btn').forEach(b => {
+      const n = openFor(b.dataset.sec).length;
+      b.querySelector('.n').textContent = n;
+      b.classList.toggle('zero', n===0);
+    });
+    updateTotal();
+  }
+
+  function updateTotal(){
+    const el = document.getElementById('gnTotal');
+    if (!el) return;
+    const n = notes.filter(x => !x.resolved).length;
+    el.textContent = n ? `${n} nota${n>1?'s':''} abierta${n>1?'s':''}` : 'sin notas abiertas';
+  }
+
+  /* ── panel ──────────────────────────────────────────────────────────────── */
+  const ov = document.createElement('div'); ov.className='gn-ov';
+  const pane = document.createElement('aside'); pane.className='gn-pane';
+  pane.innerHTML = `
+    <div class="gn-hd">
+      <div class="k" id="gnK"></div><h3 id="gnT"></h3>
+      <button class="gn-x" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="gn-list" id="gnList"></div>
+    <div class="gn-ft">
+      <textarea id="gnBody" placeholder="Qué hay que cambiar, qué falta, qué decidimos…"></textarea>
+      <div class="row"><button id="gnSend">Dejar nota</button><span class="as" id="gnAs"></span></div>
+    </div>`;
+  document.body.append(ov, pane);
+  ov.onclick = closePane;
+  pane.querySelector('.gn-x').onclick = closePane;
+
+  function closePane(){ ov.classList.remove('on'); pane.classList.remove('on'); openSection=null; }
+
+  function openPane(id){
+    openSection = id;
+    pane.querySelector('#gnK').textContent = 'Nota sobre la sección';
+    pane.querySelector('#gnT').textContent = titleOf(id);
+    ov.classList.add('on'); pane.classList.add('on');
+    paintList();
+    pane.querySelector('#gnBody').focus();
+  }
+
+  function paintList(){
+    const list = pane.querySelector('#gnList');
+    const mine = notes.filter(n => n.section===openSection)
+                      .sort((a,b)=> new Date(a.created_at)-new Date(b.created_at));
+    list.innerHTML = mine.length ? '' : `<div class="gn-empty">Todavía no hay notas en esta sección.</div>`;
+    mine.forEach(n => {
+      const d = document.createElement('div');
+      d.className = 'gn-note' + (n.resolved ? ' done' : '');
+      d.innerHTML = `<div class="m"><span class="au">${esc(n.author)}</span>
+          <span class="dt">${when(n.created_at)}</span></div>
+        <div class="bd">${esc(n.body)}</div>
+        <button class="done-btn">${n.resolved ? 'Reabrir' : 'Marcar resuelta'}</button>`;
+      d.querySelector('.done-btn').onclick = () => toggleResolved(n);
+      list.appendChild(d);
+    });
+    list.scrollTop = list.scrollHeight;
+    pane.querySelector('#gnAs').textContent = who ? `como ${who}` : 'pon tu nombre abajo primero';
+    pane.querySelector('#gnSend').disabled = !who;
+  }
+
+  /* ── escribir ───────────────────────────────────────────────────────────── */
+  pane.querySelector('#gnSend').onclick = async () => {
+    const ta = pane.querySelector('#gnBody');
+    const body = ta.value.trim();
+    if (!body || !who || !sb) return;
+    const btn = pane.querySelector('#gnSend');
+    btn.disabled = true; btn.textContent = 'Guardando…';
+    const { data, error } = await sb.from('guide_notes')
+      .insert({ guide:GUIDE, section:openSection, author:who, body })
+      .select().single();
+    btn.textContent = 'Dejar nota'; btn.disabled = false;
+    if (error){ alert('No se pudo guardar la nota: ' + error.message); return; }
+    ta.value = '';
+    if (!notes.some(n => n.id===data.id)) notes.push(data);
+    paintList(); paintCounts();
+  };
+
+  async function toggleResolved(n){
+    if (!sb) return;
+    const next = !n.resolved;
+    const { error } = await sb.from('guide_notes').update({ resolved: next }).eq('id', n.id);
+    if (error){ alert('No se pudo actualizar: ' + error.message); return; }
+    n.resolved = next;
+    paintList(); paintCounts();
+  }
+
+  /* ── leer ───────────────────────────────────────────────────────────────── */
+  async function load(){
+    if (!sb) return;
+    const { data, error } = await sb.from('guide_notes').select('*')
+      .eq('guide', GUIDE).order('created_at', { ascending:true });
+    if (error){ console.error(error); return; }
+    notes = data || [];
+    paintCounts();
+    if (openSection) paintList();
+  }
+
+  paintWho();
+  load();
+
+  /* en vivo: la nota de la otra persona aparece sola. Si realtime no conecta,
+     el refresco al volver a la pestaña cubre el caso igual. */
+  if (sb){
+    sb.channel('guide_notes_live')
+      .on('postgres_changes', { event:'*', schema:'public', table:'guide_notes' }, load)
+      .subscribe();
+  }
+  window.addEventListener('focus', load);
+  setInterval(load, 45000);
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     COLA DE PEDIDOS
+     Tabla propia (studio_requests), no guide_notes. Una nota comenta el
+     documento; un pedido pide una pieza que todavía no existe y tiene estado
+     propio. Mezclarlas haría que el contador de «notas abiertas» incluyera
+     trabajo por hacer, que es otra cosa.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<style>
+.pq{margin-top:22px}
+.pq-new{border:1px solid var(--bp-line-soft);border-radius:5px;background:#f7faff;padding:16px 17px}
+.pq-new h3{font-family:var(--body);font-weight:800;font-size:17px;color:var(--bp-navy);letter-spacing:-.2px}
+.pq-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.pq-f{display:flex;flex-direction:column;gap:5px;flex:1;min-width:150px}
+.pq-f label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--bp-orange-text)}
+.pq select,.pq input,.pq textarea{font-family:var(--body);font-size:14px;color:var(--bp-navy);
+  background:var(--bp-paper);border:1px solid var(--bp-line);border-radius:4px;padding:9px 10px;width:100%}
+.pq textarea{resize:vertical;min-height:84px;line-height:1.45}
+.pq-send{display:flex;align-items:center;gap:11px;margin-top:11px;flex-wrap:wrap}
+.pq-send button{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  padding:10px 18px;border:0;border-radius:3px;background:var(--bp-navy);color:#fff;font-weight:700;cursor:pointer}
+.pq-send button:disabled{opacity:.4;cursor:default}
+.pq-send .as{font-family:var(--mono);font-size:12px;color:var(--bp-muted)}
+
+.pq-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 12px}
+.pq-tab{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  border:1px solid var(--bp-line-soft);background:var(--bp-paper);color:var(--bp-muted);
+  border-radius:3px;padding:6px 11px;cursor:pointer}
+.pq-tab.on{background:var(--bp-navy);border-color:var(--bp-navy);color:#fff}
+
+.pq-list{display:flex;flex-direction:column;gap:12px}
+.pq-empty{font-size:13.5px;color:var(--bp-muted);font-style:italic}
+.pq-card{border:1px solid var(--bp-line-soft);border-radius:5px;background:#fcfdff;padding:14px 15px}
+.pq-card.listo{border-left:3px solid #157a44}
+.pq-card.descartado{background:#f6f8fb}
+.pq-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+/* los cuatro estados llevan letra oscura sobre su propio tinte: ningún chip
+   baja de 5.9:1, que es lo que pide un texto de 12px */
+.pq-chip{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:3px;padding:3px 8px;font-weight:500}
+.pq-chip.pendiente{background:#fdf0df;color:#8a4a05}
+.pq-chip.en-proceso{background:#e4ecff;color:#0f3a96}
+.pq-chip.listo{background:#e2f3e9;color:#115c33}
+.pq-chip.descartado{background:#eef1f6;color:#4d5c79}
+.pq-kind{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--bp-muted)}
+.pq-top .sp{flex:1}
+.pq-meta{font-family:var(--mono);font-size:12px;color:var(--bp-muted)}
+.pq-brief{font-size:14.5px;line-height:1.55;color:var(--bp-navy);margin-top:9px;white-space:pre-wrap}
+.pq-due{font-family:var(--mono);font-size:12px;color:var(--bp-muted);margin-top:7px}
+.pq-due.late{color:#a11b1b;font-weight:500}
+.pq-res{display:inline-block;margin-top:10px;font-weight:700;font-size:14px;color:var(--bp-ink-dark);text-decoration:underline}
+.pq-rnote{font-size:13.5px;color:var(--bp-muted);margin-top:5px}
+.pq-prod{margin-top:11px;border-top:1px dashed var(--bp-line-soft);padding-top:9px}
+.pq-prod summary{font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--bp-muted);cursor:pointer}
+.pq-prod .in{margin-top:10px;display:flex;flex-direction:column;gap:9px}
+.pq-st{display:flex;gap:7px;flex-wrap:wrap}
+.pq-st button{font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;
+  border:1px solid var(--bp-line-soft);background:var(--bp-paper);color:var(--bp-ink-dark);
+  border-radius:3px;padding:5px 9px;cursor:pointer}
+.pq-st button:hover{border-color:var(--bp-orange)}
+.pq-st button[aria-pressed="true"]{background:var(--bp-navy);border-color:var(--bp-navy);color:#fff}
+.pq-save{align-self:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.09em;
+  text-transform:uppercase;padding:8px 14px;border:0;border-radius:3px;
+  background:var(--bp-orange);color:#241301;font-weight:700;cursor:pointer}
+nav .links a .pqn{display:inline-grid;place-items:center;min-width:16px;height:16px;padding:0 4px;
+  margin-left:5px;border-radius:8px;background:var(--bp-orange);color:#241301;font-weight:700;font-size:11px}
+@media print{.pq-new,.pq-bar,.pq-prod,nav .links a .pqn{display:none!important}}
+</style>
+
+<script>
+(function(){
+  const mount = document.getElementById('pqMount');
+  if (!mount) return;
+
+  const SB_URL = 'https://mywxxipguoaqknoczgav.supabase.co';
+  const SB_KEY = 'sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
+  const PROJECT = 'florida';
+  let sb = null;
+  try { if (window.supabase?.createClient) sb = window.supabase.createClient(SB_URL, SB_KEY); }
+  catch(e){ console.error('Supabase no arrancó (pedidos)', e); }
+
+  /* misma identidad que las notas: un solo nombre para todo el documento */
+  const WHO_KEY = 'wm_guia_fl_autor';
+  const whoNow = () => localStorage.getItem(WHO_KEY) || '';
+
+  const KINDS  = {reel:'Reel', carrusel:'Carrusel', cheque:'Cheque', story:'Story', otro:'Otro'};
+  const BRANDS = {home:'Florida Home', pros:'WindMar Pros'};
+  const STATES = {pendiente:'Pendiente', 'en-proceso':'En proceso', listo:'Listo', descartado:'Descartado'};
+
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const when = iso => {
+    const d = new Date(iso), mins = Math.round((Date.now()-d)/60000);
+    if (mins < 1) return 'ahora';
+    if (mins < 60) return `hace ${mins} min`;
+    if (mins < 1440) return `hace ${Math.round(mins/60)} h`;
+    return d.toLocaleDateString('es', {day:'numeric', month:'short'});
+  };
+
+  /* 'YYYY-MM-DD' con new Date() se lee como UTC y en Florida se corre un día
+     hacia atrás. Por eso se parte a mano y se arma la fecha en local. */
+  const localDate = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+  const fmtDue = s => localDate(s).toLocaleDateString('es', {day:'numeric', month:'long'});
+  const isLate = s => { const t = new Date(); t.setHours(0,0,0,0); return localDate(s) < t; };
+
+  mount.innerHTML = `
+  <div class="pq">
+    <div class="pq-new">
+      <h3>Escribir un pedido</h3>
+      <div class="pq-row">
+        <div class="pq-f"><label for="pqKind">Qué pieza</label>
+          <select id="pqKind">${Object.entries(KINDS).map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select></div>
+        <div class="pq-f"><label for="pqBrand">Para cuál marca</label>
+          <select id="pqBrand">${Object.entries(BRANDS).map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select></div>
+        <div class="pq-f"><label for="pqDue">Para cuándo (opcional)</label>
+          <input type="date" id="pqDue"></div>
+      </div>
+      <div class="pq-row">
+        <div class="pq-f"><label for="pqBrief">El encargo</label>
+          <textarea id="pqBrief" placeholder="Qué tiene que decir, a quién le habla, dónde se publica. Ej: reel de baterías para Orlando, cliente que ya tiene placas y se le va la luz."></textarea></div>
+      </div>
+      <div class="pq-send">
+        <button id="pqSend">Dejar el pedido</button>
+        <span class="as" id="pqAs"></span>
+      </div>
+    </div>
+
+    <div class="pq-bar" id="pqTabs">
+      <button class="pq-tab on" data-f="abiertos">Abiertos</button>
+      <button class="pq-tab" data-f="todos">Todos</button>
+      <button class="pq-tab" data-f="listo">Listos</button>
+    </div>
+    <div class="pq-list" id="pqList"></div>
+  </div>`;
+
+  const $ = s => mount.querySelector(s);
+  let reqs = [], filter = 'abiertos';
+
+  /* contador en el menú: si hay pedidos esperando, se ve sin bajar a la sección */
+  const navLink = document.querySelector('nav .links a[href="#pedidos"]');
+  function paintNav(){
+    if (!navLink) return;
+    const n = reqs.filter(r => r.status === 'pendiente').length;
+    let b = navLink.querySelector('.pqn');
+    if (!n){ b?.remove(); return; }
+    if (!b){ b = document.createElement('span'); b.className='pqn'; navLink.appendChild(b); }
+    b.textContent = n;
+  }
+
+  function paintWhoBits(){
+    const w = whoNow();
+    $('#pqAs').textContent = w ? `como ${w}` : 'pon tu nombre en la barra de abajo primero';
+    $('#pqSend').disabled = !w;
+  }
+  document.addEventListener('wm-autor', paintWhoBits);
+
+  function visible(){
+    if (filter === 'todos')  return reqs;
+    if (filter === 'listo')  return reqs.filter(r => r.status === 'listo');
+    return reqs.filter(r => r.status === 'pendiente' || r.status === 'en-proceso');
+  }
+
+  function paintList(){
+    const list = $('#pqList');
+    const rows = visible().slice().sort((a,b)=> new Date(b.created_at) - new Date(a.created_at));
+    list.innerHTML = '';
+    if (!rows.length){
+      /* «vacío» no significa lo mismo si nunca hubo pedidos que si ya se
+         entregaron todos: decir «no hay pedidos» con cinco entregados detrás
+         sería mentira */
+      const msg = filter === 'listo' ? 'Todavía no hay nada entregado por aquí.'
+                : reqs.length         ? 'Nada esperando: todo lo pedido ya está entregado o descartado. Míralo en «Todos».'
+                :                       'No hay pedidos. El primero se escribe arriba.';
+      list.innerHTML = `<div class="pq-empty">${msg}</div>`;
+      return;
+    }
+    rows.forEach(r => {
+      const el = document.createElement('article');
+      el.className = 'pq-card ' + r.status;
+      el.innerHTML = `
+        <div class="pq-top">
+          <span class="pq-chip ${r.status}">${STATES[r.status] || r.status}</span>
+          <span class="pq-kind">${esc(KINDS[r.kind] || r.kind)} · ${esc(BRANDS[r.brand] || r.brand)}</span>
+          <span class="sp"></span>
+          <span class="pq-meta">${esc(r.author)} · ${when(r.created_at)}</span>
+        </div>
+        <div class="pq-brief">${esc(r.brief)}</div>
+        ${r.needed_by ? `<div class="pq-due${isLate(r.needed_by) && r.status !== 'listo' ? ' late' : ''}">Para el ${fmtDue(r.needed_by)}</div>` : ''}
+        ${r.result_url ? `<a class="pq-res" href="${esc(r.result_url)}" target="_blank" rel="noopener">Ver el resultado →</a>` : ''}
+        ${r.result_note ? `<div class="pq-rnote">${esc(r.result_note)}</div>` : ''}
+        <details class="pq-prod">
+          <summary>Producción</summary>
+          <div class="in">
+            <div class="pq-st">${Object.entries(STATES).map(([v,t]) =>
+              `<button data-st="${v}" aria-pressed="${r.status===v}">${t}</button>`).join('')}</div>
+            <input class="pq-url" type="url" placeholder="Link del resultado (https://…)" value="${esc(r.result_url||'')}">
+            <input class="pq-note" type="text" placeholder="Una línea sobre la entrega" value="${esc(r.result_note||'')}">
+            <button class="pq-save">Guardar entrega</button>
+          </div>
+        </details>`;
+
+      el.querySelectorAll('.pq-st button').forEach(b => {
+        b.onclick = () => setStatus(r, b.dataset.st);
+      });
+      el.querySelector('.pq-save').onclick = async (ev) => {
+        const btn = ev.currentTarget;
+        const url  = el.querySelector('.pq-url').value.trim();
+        const note = el.querySelector('.pq-note').value.trim();
+        btn.disabled = true; btn.textContent = 'Guardando…';
+        /* entregar un link es lo que vuelve «listo» un pedido: si quien lo pega
+           se olvida de mover el estado, el estado se mueve solo */
+        const patch = { result_url: url || null, result_note: note || null };
+        if (url && r.status !== 'listo') patch.status = 'listo';
+        const ok = await save(r, patch);
+        btn.disabled = false; btn.textContent = 'Guardar entrega';
+        if (ok) paintAll();
+      };
+      list.appendChild(el);
+    });
+  }
+
+  async function save(r, patch){
+    if (!sb) return false;
+    const { error } = await sb.from('studio_requests').update(patch).eq('id', r.id);
+    if (error){ alert('No se pudo guardar: ' + error.message); return false; }
+    Object.assign(r, patch);
+    return true;
+  }
+
+  async function setStatus(r, st){
+    if (r.status === st) return;
+    if (await save(r, { status: st })) paintAll();
+  }
+
+  function paintAll(){ paintList(); paintNav(); }
+
+  $('#pqTabs').onclick = e => {
+    const b = e.target.closest('.pq-tab'); if (!b) return;
+    filter = b.dataset.f;
+    mount.querySelectorAll('.pq-tab').forEach(t => t.classList.toggle('on', t === b));
+    paintList();
+  };
+
+  $('#pqSend').onclick = async () => {
+    const w = whoNow();
+    const brief = $('#pqBrief').value.trim();
+    if (!w || !sb) return;
+    if (!brief){ $('#pqBrief').focus(); return; }
+    const btn = $('#pqSend');
+    btn.disabled = true; btn.textContent = 'Guardando…';
+    const { data, error } = await sb.from('studio_requests').insert({
+      project: PROJECT, author: w,
+      kind:  $('#pqKind').value,
+      brand: $('#pqBrand').value,
+      brief,
+      needed_by: $('#pqDue').value || null
+    }).select().single();
+    btn.textContent = 'Dejar el pedido'; btn.disabled = false;
+    if (error){ alert('No se pudo guardar el pedido: ' + error.message); return; }
+    $('#pqBrief').value = ''; $('#pqDue').value = '';
+    if (!reqs.some(x => x.id === data.id)) reqs.push(data);
+    filter = 'abiertos';
+    mount.querySelectorAll('.pq-tab').forEach(t => t.classList.toggle('on', t.dataset.f === 'abiertos'));
+    paintAll();
+  };
+
+  async function load(){
+    if (!sb) return;
+    const { data, error } = await sb.from('studio_requests').select('*')
+      .eq('project', PROJECT).order('created_at', { ascending:false });
+    if (error){ console.error(error); return; }
+    reqs = data || [];
+    paintAll();
+  }
+
+  paintWhoBits();
+  paintAll();
+  load();
+
+  if (sb){
+    sb.channel('studio_requests_live')
+      .on('postgres_changes', { event:'*', schema:'public', table:'studio_requests' }, load)
+      .subscribe();
+  }
+  window.addEventListener('focus', load);
+  setInterval(load, 45000);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Sellado PR — Video highspeed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#082A6F; --blue:#1c7bff; --sky:#3aa5ec;
+  --orange:#f7911e; --yellow:#ffd21e; --white:#fff; --mut:#cfe0ff;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#05070d;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--body);padding:16px;gap:18px;flex-wrap:wrap}
+
+/* ===== Escenario 9:16 (1080×1920) ===== */
+.stage{position:relative;width:min(430px,92vw);aspect-ratio:9/16;border-radius:26px;overflow:hidden;
+  background:
+    radial-gradient(120% 62% at 50% 2%, rgba(120,190,255,.45) 0%, rgba(120,190,255,0) 46%),
+    linear-gradient(160deg, #4aa8ea 0%, #2f7cd0 30%, #1a52c7 56%, #0a2882 80%, #061634 100%);
+  color:#fff;box-shadow:0 30px 90px rgba(4,16,46,.6);container-type:inline-size}
+/* video de fondo — clip dron (techo blanco sellado) en loop continuo, sin efectos */
+.bgvideo{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  transform:translateZ(0);backface-visibility:hidden}
+.bgvideo.active{opacity:1;z-index:0}
+/* velo para legibilidad del texto (arriba y abajo más oscuro) */
+.bgtint{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(4,16,46,.55) 0%, rgba(6,26,72,.20) 32%, rgba(6,26,72,.22) 60%, rgba(4,16,46,.72) 100%)}
+/* pausa: congela animaciones */
+.stage.paused *, .stage.paused::before, .stage.paused::after{animation-play-state:paused!important}
+
+/* ===== Escenas (beats de palabra) ===== */
+.scene{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:10cqw 8cqw;opacity:0;pointer-events:none;transition:opacity .16s ease}
+.scene.active{opacity:1}
+
+/* kicker de apertura */
+.kick{font-family:var(--mono);font-weight:500;font-size:3.6cqw;letter-spacing:.36em;text-transform:uppercase;color:#fff;
+  text-shadow:0 2px 12px rgba(0,0,0,.7);opacity:0}
+.scene.active .kick{animation:rise .6s .1s ease forwards}
+.kick.big{font-family:var(--disp);font-size:11cqw;letter-spacing:.02em;margin-top:2cqw;text-shadow:0 3px 18px rgba(0,0,0,.75)}
+
+/* palabra kinética gigante */
+.word{font-family:var(--disp);font-weight:400;font-size:34cqw;line-height:.82;letter-spacing:.01em;text-transform:uppercase;
+  color:var(--yellow);-webkit-text-stroke:.55cqw currentColor;paint-order:stroke fill;
+  text-shadow:0 .4cqw 1.4cqw rgba(0,0,0,.5)}
+.word.small{font-size:24cqw}
+.word.hero{font-size:30cqw;color:var(--orange);-webkit-text-stroke:.7cqw currentColor;
+  text-shadow:0 .5cqw 1.8cqw rgba(0,0,0,.6)}
+/* cada palabra: entra en el golpe, aguanta, y se apaga ANTES del próximo — pausa entre palabras */
+.word{opacity:0}
+.scene.active .word{animation:wordbeat .95s ease forwards}
+.scene.active .word.hero{animation:heroin 2.15s ease forwards}
+@keyframes wordbeat{0%{opacity:0}8%{opacity:1}75%{opacity:1}100%{opacity:0}}
+/* SELLAR cae en el drop: entra snappy y aguanta casi todo el compás */
+@keyframes heroin{0%{opacity:0}6%{opacity:1}92%{opacity:1}100%{opacity:0}}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* cierre: frase completa + marca */
+.close .phrase{font-family:var(--disp);font-weight:400;font-size:12.5cqw;line-height:.9;letter-spacing:.01em;text-transform:uppercase;
+  color:#fff;text-shadow:0 3px 16px rgba(0,0,0,.7);opacity:0}
+.close .phrase .hl{color:var(--yellow)}
+.scene.active .close .phrase{animation:rise .6s .05s ease forwards}
+.brand{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.8cqw;margin-top:2cqw;transform:translateY(-4cqw)}
+.brand .wmlogo{width:58cqw;height:auto;
+  filter:drop-shadow(0 3cqw 4.5cqw rgba(0,0,0,.55)) drop-shadow(0 .5cqw 1cqw rgba(0,0,0,.4));
+  opacity:0}
+.scene.active .brand .wmlogo{animation:rise .7s .3s ease forwards}
+.brand .site{font-family:var(--mono);font-size:3.5cqw;letter-spacing:.14em;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.7);
+  opacity:0;display:flex;align-items:center;justify-content:center;gap:1.6cqw;white-space:nowrap}
+.brand .site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--orange)}
+.scene.active .brand .site{animation:rise .6s .55s ease forwards}
+
+/* barra progreso */
+.prog{position:absolute;z-index:4;top:0;left:0;height:5px;background:linear-gradient(90deg,var(--orange),var(--yellow));width:0}
+
+/* controles */
+.panel{display:flex;flex-direction:column;gap:10px;color:#cdd6ea;font-family:var(--body);max-width:280px}
+.panel h1{font-family:var(--disp);font-weight:400;font-size:22px;color:#fff;letter-spacing:.5px}
+.panel p{font-size:12.5px;line-height:1.5;color:#93a2c4}
+.panel button{font-family:var(--body);font-weight:800;font-size:13px;padding:11px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.panel button.sec{background:transparent;border:1.5px solid #2c3a5c;color:#cdd6ea}
+.panel .tip{font-size:11px;color:#6f7fa3;line-height:1.5;border-top:1px solid #1c2740;padding-top:10px}
+.panel .tip b{color:#9db0d6}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <video class="bgvideo" muted loop playsinline autoplay preload="auto">
+      <source src="wme/sellado-build.mp4?v=2" type="video/mp4">
+    </video>
+    <audio id="bgaudio" loop preload="auto">
+      <source src="wme/sellado-audio-sync.wav?v=5" type="audio/wav">
+    </audio>
+    <div class="bgtint"></div>
+    <div class="prog" id="prog"></div>
+
+    <!-- 1 · apertura -->
+    <div class="scene">
+      <div class="kick">Sellado de techo · Puerto Rico</div>
+      <div class="kick big">WINDMAR</div>
+    </div>
+
+    <!-- 2-5 · palabras kinéticas -->
+    <div class="scene"><div class="word small">ES</div></div>
+    <div class="scene"><div class="word">HORA</div></div>
+    <div class="scene"><div class="word small">DE</div></div>
+    <div class="scene"><div class="word hero">SELLAR</div></div>
+
+    <!-- 6 · cierre -->
+    <div class="scene close">
+      <div class="phrase">ES HORA<br>DE <span class="hl">SELLAR</span></div>
+      <div class="brand">
+        <img class="wmlogo" src="wme/logos/windmar-roofing-white-orange.png" alt="WindMar Roofing">
+        <div class="site"><span class="dot"></span>windmar.com<span style="opacity:.6;margin:0 1.4cqw">·</span>787-395-7716</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+    <h1>Sellado PR · Highspeed</h1>
+    <p>Reel 9:16 estilo dron + texto kinético (sin narrador). Se reproduce en loop. Mercado: <b>Puerto Rico (windmar.com)</b>. Servicio: <b>sellado / impermeabilización de techo</b>. Lleva <b>pista de audio</b> (Sport Epic). El audio empieza al darle ▶︎ (el navegador no deja sonar solo).</p>
+    <button onclick="play()">▶︎ Reproducir de nuevo</button>
+    <button class="sec" onclick="togglePause()" id="pausebtn">❚❚ Pausar</button>
+    <button class="sec" onclick="toggleLoop()" id="loopbtn">Loop: ON</button>
+    <div class="tip">Frase kinética: <b>ES · HORA · DE · SELLAR</b>. Fondo: clip dron <b>techo blanco sellado</b> (6s, en loop continuo, sin efectos). Si generas más clips (equipo aplicando, etc.) me los mandas y armo el montaje con cortes.</div>
+  </div>
+
+<script>
+const scenes = [...document.querySelectorAll('.scene')];
+const prog = document.getElementById('prog');
+const stage = document.getElementById('stage');
+const vids = [...document.querySelectorAll('.bgvideo')];
+const audio = document.getElementById('bgaudio');
+// un solo clip de dron continuo en todos los beats
+const CLIP = [0, 0, 0, 0, 0, 0];
+// música limpia EN BEAT (audio-sync.wav = groove del track, 20 golpes/5 compases, loop perfecto)
+// todo alineado a la rejilla de 592ms; cada palabra = 2 golpes (snappy), SELLAR = 4 golpes
+const DUR = [4736, 1184, 1184, 1184, 2368, 4144]; // beats: 8·2·2·2·4·7 = 25 = 14800ms (~15s); apertura larga (~2.4s de pausa) antes de ES HORA DE SELLAR
+const RATE = 1.45; // velocidad del clip (highspeed, sin trancar)
+function cutTo(n){
+  if(!vids.length) return;
+  const idx = CLIP[n] % vids.length;
+  vids.forEach((v,k)=>{
+    v.classList.toggle('active', k===idx);
+    // sin zoom-punch: el video corre limpio en loop continuo
+    try{ v.playbackRate = RATE; if(v.paused) v.play().catch(()=>{}); }catch(e){}
+  });
+}
+let i = 0, timer = null, looping = true, paused = false, sceneStart = 0, remaining = 0;
+
+function setPauseLabel(t){ const b=document.getElementById('pausebtn'); if(b) b.textContent=t; }
+function startProg(ms){
+  prog.classList.remove('run'); prog.style.transition='none'; prog.style.width='0';
+  requestAnimationFrame(()=>{ prog.style.transition='width '+ms+'ms linear'; prog.style.width='100%'; });
+}
+function show(n){
+  scenes.forEach((s,k)=>s.classList.toggle('active', k===n));
+  cutTo(n);
+  startProg(DUR[n]);
+}
+function primeVideos(){ vids.forEach(v=>{ try{ v.play().catch(()=>{}); }catch(e){} }); }
+function schedule(ms){
+  sceneStart = Date.now(); remaining = ms;
+  timer = setTimeout(()=>{
+    i++;
+    if(i>=scenes.length){ if(looping){ i=0; try{ if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); } }catch(e){} } else { return; } }
+    show(i); schedule(DUR[i]);
+  }, ms);
+}
+function next(){ show(i); schedule(DUR[i]); }
+function play(){
+  clearTimeout(timer); paused=false; stage.classList.remove('paused');
+  vids.forEach(v=>{ try{ v.currentTime=0; v.play(); }catch(e){} });
+  primeVideos();
+  try{ if(audio){ audio.currentTime=0; audio.play().catch(()=>{}); } }catch(e){}
+  setPauseLabel('❚❚ Pausar'); i=0; next();
+}
+function togglePause(){
+  if(!paused){
+    paused=true; clearTimeout(timer);
+    remaining = Math.max(0, remaining - (Date.now()-sceneStart));
+    const w = getComputedStyle(prog).width; prog.style.transition='none'; prog.style.width=w;
+    stage.classList.add('paused'); vids.forEach(v=>{ try{ v.pause(); }catch(e){} });
+    try{ if(audio) audio.pause(); }catch(e){}
+    setPauseLabel('▶︎ Continuar');
+  } else {
+    paused=false; stage.classList.remove('paused'); vids.forEach(v=>{ try{ v.play(); }catch(e){} });
+    try{ if(audio) audio.play().catch(()=>{}); }catch(e){}
+    primeVideos();
+    requestAnimationFrame(()=>{ prog.style.transition='width '+remaining+'ms linear'; prog.style.width='100%'; });
+    schedule(remaining);
+    setPauseLabel('❚❚ Pausar');
+  }
+}
+function toggleLoop(){ looping=!looping; const b=document.getElementById('loopbtn'); if(b) b.textContent='Loop: '+(looping?'ON':'OFF'); }
+play();
+</script>
+</body>
+</html>

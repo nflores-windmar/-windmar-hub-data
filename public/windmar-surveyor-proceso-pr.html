@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · El Site Survey — Pieza estática (blueprint PR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{background:#0b1533;display:flex;flex-direction:column;align-items:center;gap:16px;
+  padding:28px 16px 60px;font-family:var(--disp)}
+
+/* ===== Lienzo 4:5 (1080×1350) ===== */
+.stage{position:relative;width:1080px;height:1350px;background:var(--paper);color:var(--ink);
+  container-type:inline-size;overflow:hidden;transform-origin:top center;
+  box-shadow:0 30px 90px rgba(4,16,46,.6)}
+.scaler{width:min(460px,94vw)}
+.scaler .stage{transform:scale(calc(min(460px,94vw)/1080))}
+.scaler{height:calc(min(460px,94vw)*1.25)}
+
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.6) 0%, rgba(255,255,255,0) 42%),
+            radial-gradient(130% 80% at 50% 106%, rgba(10,40,130,.08) 0%, rgba(10,40,130,0) 52%)}
+.reg{position:absolute;z-index:2;width:4cqw;height:4cqw;border:.42cqw solid rgba(10,40,130,.32)}
+.reg.tl{top:3.4cqw;left:3.4cqw;border-right:0;border-bottom:0}
+.reg.tr{top:3.4cqw;right:3.4cqw;border-left:0;border-bottom:0}
+.reg.bl{bottom:3.4cqw;left:3.4cqw;border-right:0;border-top:0}
+.reg.br{bottom:3.4cqw;right:3.4cqw;border-left:0;border-top:0}
+.plate{position:absolute;z-index:3;bottom:3.6cqw;right:6cqw;font-family:var(--mono);font-size:1.9cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.5);text-transform:uppercase}
+
+.inner{position:relative;z-index:4;height:100%;display:flex;flex-direction:column;padding:6cqw 7.5cqw 5cqw}
+
+.kick{font-family:var(--mono);font-weight:500;font-size:2.2cqw;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--orange);display:flex;align-items:center;gap:2cqw}
+.kick::before{content:"";width:6cqw;height:.34cqw;background:var(--orange)}
+.h1{font-family:var(--disp);font-weight:900;font-size:10.5cqw;line-height:.9;letter-spacing:-.02em;
+  color:var(--navy);text-transform:uppercase;margin-top:2.4cqw}
+.sub{font-family:var(--mono);font-weight:400;font-size:2.5cqw;line-height:1.5;color:var(--navy2);
+  margin-top:2.4cqw;max-width:80cqw}
+.rule{width:15cqw;height:.65cqw;background:var(--orange);border-radius:1cqw;margin:2.6cqw 0 0}
+
+.steps{margin-top:3cqw;display:flex;flex-direction:column;gap:2.4cqw;flex:1}
+.step{display:flex;align-items:center;gap:3.4cqw;border:.28cqw solid rgba(10,40,130,.18);border-radius:2.2cqw;
+  padding:2cqw 3.2cqw;background:rgba(28,123,255,.03)}
+.step .ico{flex:0 0 auto;width:11cqw;height:11cqw;display:flex;align-items:center;justify-content:center}
+.step .ico svg{width:100%;height:100%;overflow:visible;display:block}
+.step .body{flex:1;min-width:0}
+.step .num{font-family:var(--mono);font-weight:500;font-size:2cqw;letter-spacing:.2em;color:var(--orange)}
+.step .t{font-family:var(--disp);font-weight:800;font-size:4.6cqw;line-height:1;color:var(--navy);margin-top:.5cqw}
+.step .d{font-family:var(--mono);font-weight:400;font-size:2.35cqw;line-height:1.4;color:var(--navy2);margin-top:1.1cqw}
+
+.foot{margin-top:3cqw;display:flex;align-items:flex-end;justify-content:space-between;gap:4cqw}
+.foot .why{font-family:var(--mono);font-size:2.4cqw;line-height:1.5;color:var(--navy2)}
+.foot .why b{color:var(--navy);font-family:var(--disp);font-weight:800;font-size:3.2cqw}
+.foot .site{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.06em;color:var(--navy2);
+  display:flex;align-items:center;gap:1.4cqw;margin-top:1.6cqw;white-space:nowrap}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo{flex:0 0 auto}
+.foot .logo img{height:13cqw;width:auto;display:block}
+
+.ln{fill:none;stroke:var(--navy);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ln.thin{stroke-width:1.6;stroke:var(--navy2)}
+.ln.acc{stroke:var(--orange);stroke-width:3}
+.fillwash{fill:var(--wash);stroke:none}
+.dot{fill:var(--navy)}
+.olabel{font-family:'DM Mono',monospace;font-size:9px;fill:var(--navy2);letter-spacing:.04em}
+.olabel.acc{fill:var(--orange)}
+
+.panel{display:flex;gap:10px;align-items:center;color:#cdd6ea;font-family:var(--disp);flex-wrap:wrap;justify-content:center}
+.panel button{font-family:var(--disp);font-weight:800;font-size:13px;padding:11px 18px;border-radius:10px;border:none;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.panel .note{font-family:var(--mono);font-size:11px;color:#8195bd}
+@media print{body{background:#fff;padding:0}.panel{display:none}.scaler{width:1080px;height:1350px}.scaler .stage{transform:none}.stage{box-shadow:none}}
+</style>
+</head>
+<body>
+  <div class="scaler">
+    <div class="stage" id="stage">
+      <div class="grid"></div>
+      <div class="vign"></div>
+      
+      <div class="plate">WM-SURVEY · PR</div>
+
+      <div class="inner">
+        <div class="kick">WindMar · Solar Puerto Rico</div>
+        <h1 class="h1">El Site<br>Survey</h1>
+        <p class="sub">La visita técnica que convierte tu proyecto de la adivinanza a datos reales. Esto hacemos en tu casa antes de diseñar tu sistema:</p>
+        <div class="rule"></div>
+
+        <div class="steps">
+          <!-- 01 techo -->
+          <div class="step">
+            <div class="ico">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <polygon class="fillwash" points="30,74 74,40 104,40 60,74"/>
+                <path class="ln" d="M30 74 L74 40 H104 L60 74 Z"/>
+                <path class="ln thin" d="M45 63 L89 29 M58 63 L102 29 M44 52 L88 52 M52 57 L96 57"/>
+                <path class="ln acc" d="M30 86 H60 M30 82 V90 M60 82 V90"/>
+                <text class="olabel acc" x="34" y="102">ÁREA·m²</text>
+                <path class="ln thin" d="M16 34 V16 M11 24 L16 16 L21 24"/>
+                <text class="olabel" x="10" y="46">N</text>
+              </svg>
+            </div>
+            <div class="body">
+              <div class="num">PASO 01</div>
+              <div class="t">Mide el techo</div>
+              <div class="d">Área, orientación e inclinación reales para tus placas.</div>
+            </div>
+          </div>
+
+          <!-- 02 eléctrico -->
+          <div class="step">
+            <div class="ico">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect class="fillwash" x="34" y="20" width="52" height="80" rx="4"/>
+                <path class="ln" d="M34 24 a4 4 0 0 1 4 -4 H82 a4 4 0 0 1 4 4 V96 a4 4 0 0 1 -4 4 H38 a4 4 0 0 1 -4 -4 Z"/>
+                <path class="ln acc" d="M44 32 H76 V44 H44 Z"/>
+                <text class="olabel acc" x="46" y="41">200A</text>
+                <path class="ln thin" d="M44 54 H58 M62 54 H76 M44 64 H58 M62 64 H76 M44 74 H58 M62 74 H76 M44 84 H58 M62 84 H76"/>
+              </svg>
+            </div>
+            <div class="body">
+              <div class="num">PASO 02</div>
+              <div class="t">Revisa el eléctrico</div>
+              <div class="d">Panel, capacidad y punto de conexión de tu sistema.</div>
+            </div>
+          </div>
+
+          <!-- 03 sol -->
+          <div class="step">
+            <div class="ico">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="ln acc" cx="86" cy="30" r="13" style="fill:none"/>
+                <path class="ln acc" d="M86 8 V0 M104 16 L110 10 M108 38 L116 42 M64 16 L58 10"/>
+                <path class="ln thin" d="M74 44 L40 78 M86 46 L52 80"/>
+                <path class="ln" d="M14 96 V70"/>
+                <circle class="fillwash" cx="14" cy="58" r="15"/>
+                <path class="ln" d="M14 43 a15 15 0 1 0 .1 0 Z"/>
+                <polygon class="fillwash" points="40,96 96,96 112,112 24,112"/>
+                <path class="ln" d="M24 112 H112 L96 96 H40 Z"/>
+                <path class="ln thin" d="M40 112 L48 100 M52 112 L60 100 M64 112 L72 100"/>
+                <text class="olabel" x="34" y="90">SOMBRA</text>
+              </svg>
+            </div>
+            <div class="body">
+              <div class="num">PASO 03</div>
+              <div class="t">Estudia el sol</div>
+              <div class="d">Sombras y horas de sol: tu producción real.</div>
+            </div>
+          </div>
+
+          <!-- 04 documenta -->
+          <div class="step">
+            <div class="ico">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <rect class="fillwash" x="26" y="22" width="60" height="80" rx="6"/>
+                <path class="ln" d="M26 28 a6 6 0 0 1 6 -6 H80 a6 6 0 0 1 6 6 V96 a6 6 0 0 1 -6 6 H32 a6 6 0 0 1 -6 -6 Z"/>
+                <path class="ln" d="M46 18 h20 a4 4 0 0 1 4 4 v6 h-28 v-6 a4 4 0 0 1 4 -4 Z"/>
+                <path class="ln acc" d="M34 46 l5 5 l9 -11"/>
+                <path class="ln thin" d="M56 46 H78"/>
+                <path class="ln acc" d="M34 64 l5 5 l9 -11"/>
+                <path class="ln thin" d="M56 64 H78"/>
+                <path class="ln acc" d="M34 82 l5 5 l9 -11"/>
+                <path class="ln thin" d="M56 82 H78"/>
+                <rect class="fillwash" x="80" y="70" width="34" height="26" rx="5"/>
+                <path class="ln" d="M80 76 a5 5 0 0 1 5 -5 h4 l3 -4 h8 l3 4 h4 a5 5 0 0 1 5 5 V92 a5 5 0 0 1 -5 5 H85 a5 5 0 0 1 -5 -5 Z"/>
+                <circle class="ln" cx="97" cy="84" r="7" style="fill:none"/>
+              </svg>
+            </div>
+            <div class="body">
+              <div class="num">PASO 04</div>
+              <div class="t">Documenta todo</div>
+              <div class="d">Fotos y medidas exactas: el diseño se basa en tu casa.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <div class="why">
+            <b>La base de todo.</b><br>
+            Diseño preciso · permiso limpio · instalación sin sorpresas.
+            <div class="site"><span class="d"></span>windmar.com<span style="opacity:.5;margin:0 1cqw">·</span>787-395-7716</div>
+          </div>
+          <div class="logo"><img src="wme/logos/wme-fc-stacked.png" alt="WindMar Energy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <button onclick="exportPNG()">⬇︎ PNG (1080×1350)</button>
+    <span class="note">Pieza estática · IG feed 4:5 · estilo blueprint</span>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+<script>
+async function exportPNG(){
+  const node=document.getElementById('stage');
+  try{
+    const dataUrl=await htmlToImage.toPng(node,{width:1080,height:1350,pixelRatio:1,
+      style:{transform:'none'},cacheBust:true});
+    const a=document.createElement('a');
+    a.download='windmar-surveyor-proceso-pr.png'; a.href=dataUrl; a.click();
+  }catch(e){ alert('No se pudo exportar: '+(e.message||e)); }
+}
+</script>
+</body>
+</html>

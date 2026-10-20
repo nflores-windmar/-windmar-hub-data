@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar × Anker · Flyer (4:5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a2540; --navy:#061f38; --orange:#f57c0a; --orange-ink:#c9600a;
+    --bg:#0d1524; --card:#141d2e; --line:#243149;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);font-family:'Montserrat',system-ui,sans-serif;color:#eaf2fb}
+  .bar{position:sticky;top:0;z-index:30;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;
+       padding:14px;background:#0b1220;border-bottom:1px solid var(--line)}
+  .bar h1{font-weight:800;font-size:13px;letter-spacing:2px;margin:0;text-transform:uppercase;color:#cfe0f3}
+  .bar .note{font-size:12px;color:#8aa2bd;max-width:620px}
+  .wrap{max-width:720px;margin:0 auto;padding:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;overflow:hidden}
+  .caprow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .cap{font-weight:700;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#bcd0e8}
+  .capbtns{display:flex;gap:8px}
+  .capbtns label,.capbtns button{font-weight:700;font-size:11px;letter-spacing:.5px;cursor:pointer;border:none;padding:8px 12px;border-radius:8px}
+  .capbtns label{background:#22314a;color:#d7e6f7}
+  .capbtns button{background:var(--orange);color:#fff}
+  .capbtns button:active,.capbtns label:active{transform:translateY(1px)}
+  .capbtns input[type=file]{display:none}
+  .scaler{transform-origin:top left}
+
+  /* ===== FLYER 1080×1350 ===== */
+  .flyer{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--navy);
+    font-family:'Montserrat',sans-serif}
+  .flyer .bg{position:absolute;inset:0;z-index:0}
+  .flyer .bg img{width:100%;height:100%;object-fit:cover;display:block}
+  .flyer .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(6,20,45,.5) 0%,rgba(6,20,45,.12) 30%,rgba(6,15,31,.55) 60%,rgba(4,12,28,.92) 100%)}
+  .flyer .content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:82px}
+  .flyer .logo{height:120px;width:auto;display:block;filter:drop-shadow(0 5px 16px rgba(3,15,35,.5))}
+  .flyer .kicker{margin-top:44px;align-self:flex-start;display:inline-flex;align-items:center;gap:16px;
+    background:#fff;color:#0a2882;font-weight:800;font-size:26px;letter-spacing:5px;text-transform:uppercase;
+    padding:15px 30px;border-radius:999px;box-shadow:0 8px 22px rgba(3,15,35,.28)}
+  .flyer .kicker::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--orange);flex:none}
+  .flyer .head{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:150px;line-height:.9;letter-spacing:1px;
+    margin:26px 0 0;color:#fff;text-shadow:0 6px 30px rgba(3,15,35,.5)}
+  .flyer .head .hl{color:var(--orange)}
+  .flyer .sub{font-weight:600;font-size:40px;line-height:1.26;color:#eaf3ff;margin:30px 0 0;max-width:80%}
+  .flyer .spacer{flex:1}
+  .flyer .cta{display:inline-flex;align-items:center;gap:16px;align-self:flex-start;
+    background:var(--orange);color:#fff;font-weight:800;font-size:34px;letter-spacing:2px;text-transform:uppercase;
+    padding:26px 48px;border-radius:999px;box-shadow:0 12px 34px rgba(245,124,10,.4)}
+  .flyer .site{margin-top:22px;font-weight:700;font-size:26px;letter-spacing:3px;color:#cfe0f3;text-transform:uppercase}
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>WindMar × Anker · Flyer</h1>
+    <span class="note">1080×1350 (4:5). Arrastra tu foto sobre el flyer o usa <b>Cargar fondo</b> (súbela como fondo de este arte). Luego <b>Descargar PNG</b>.</span>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="caprow">
+        <span class="cap">Anker · Energía portátil</span>
+        <div class="capbtns">
+          <label for="in-anker">Cargar fondo</label>
+          <input id="in-anker" type="file" accept="image/*">
+          <button id="dl-anker">Descargar PNG</button>
+        </div>
+      </div>
+      <div class="scaler" id="sc-anker">
+        <div class="flyer" id="fl-anker">
+          <div class="bg"><img id="bg-anker" src="img/pr-anker-powerstation-playa.png" alt="Estación de energía Anker con paneles solares" crossorigin="anonymous"></div>
+          <div class="scrim"></div>
+          <div class="content">
+            <img class="logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" crossorigin="anonymous">
+            <div class="kicker">WindMar &times; Anker</div>
+            <h2 class="head">ENERGÍA<br>DONDE<br><span class="hl">QUIERAS</span>.</h2>
+            <p class="sub">Respaldo portátil que recargas con el sol.</p>
+            <div class="spacer"></div>
+            <div class="cta">Evaluación gratis <span>&rarr;</span></div>
+            <div class="site">windmar.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+  import { toPng } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+  const card=document.querySelector('.card');
+  const scaler=document.getElementById('sc-anker');
+  const flyer=document.getElementById('fl-anker');
+  const bgimg=document.getElementById('bg-anker');
+
+  const fit=()=>{ const w=card.clientWidth-24; const s=w/1080; scaler.style.transform='scale('+s+')'; scaler.style.height=(1350*s)+'px'; };
+  new ResizeObserver(fit).observe(card); fit();
+
+  const loadFile=file=>{ if(!file)return; const r=new FileReader(); r.onload=()=>bgimg.setAttribute('src',r.result); r.readAsDataURL(file); };
+  document.getElementById('in-anker').addEventListener('change',e=>loadFile(e.target.files[0]));
+  flyer.addEventListener('dragover',e=>e.preventDefault());
+  flyer.addEventListener('drop',e=>{e.preventDefault();loadFile(e.dataTransfer.files[0]);});
+
+  document.getElementById('dl-anker').addEventListener('click',async e=>{
+    const btn=e.currentTarget, old=btn.textContent; btn.textContent='Generando…'; btn.disabled=true;
+    try{
+      const fontEmbedCSS=await getEmbedCSS();
+      await document.fonts.ready;
+      const dataUrl=await toPng(flyer,{width:1080,height:1350,pixelRatio:2,cacheBust:true,fontEmbedCSS});
+      const a=document.createElement('a'); a.href=dataUrl; a.download='windmar-anker-flyer-4-5.png'; a.click();
+    }catch(err){ alert('Error al generar PNG: '+err); }
+    finally{ btn.textContent=old; btn.disabled=false; }
+  });
+
+  let __embedCSS=null;
+  function buf2b64(buf){const b=new Uint8Array(buf);let s='';const c=0x8000;for(let i=0;i<b.length;i+=c){s+=String.fromCharCode.apply(null,b.subarray(i,i+c));}return btoa(s);}
+  async function getEmbedCSS(){
+    if(__embedCSS!=null) return __embedCSS;
+    try{
+      const links=[...document.querySelectorAll('link[href*="fonts.googleapis.com/css"]')].map(l=>l.href);
+      let out='';
+      for(const href of links){
+        let css=await (await fetch(href)).text();
+        const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com[^)]+)\)/g)].map(m=>m[1]))];
+        for(const u of urls){ try{ const b=await (await fetch(u)).arrayBuffer(); css=css.split(u).join('data:font/woff2;base64,'+buf2b64(b)); }catch(e){} }
+        out+=css+'\n';
+      }
+      __embedCSS=out;
+    }catch(e){ __embedCSS=''; }
+    return __embedCSS;
+  }
+</script>
+</body>
+</html>

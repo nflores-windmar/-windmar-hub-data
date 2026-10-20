@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Home Florida · Reels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1d429b;--navy-deep:#142a63;--orange:#f89b24;
+  --disp:'Bebas Neue',Impact,sans-serif;--mono:'Montserrat',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e8eefc;font-family:var(--mono);
+  padding:46px 20px 72px;display:flex;flex-direction:column;align-items:center;gap:34px}
+
+.head{text-align:center;max-width:620px}
+.head .kick{font-size:11px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--orange)}
+.head h1{font-family:var(--disp);font-weight:400;font-size:46px;line-height:1;margin-top:10px;
+  text-transform:uppercase;color:#fff;letter-spacing:.01em}
+.head p{font-size:15px;color:#9db0d6;margin-top:12px;line-height:1.65}
+
+.grid{display:flex;gap:22px;flex-wrap:wrap;justify-content:center;width:100%;max-width:1100px}
+
+.card{width:min(320px,88vw);background:#101c42;border-radius:20px;overflow:hidden;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;
+  box-shadow:0 24px 70px rgba(0,0,0,.45);transition:.18s ease;border:1.5px solid rgba(255,255,255,.07)}
+.card:hover{transform:translateY(-4px);border-color:rgba(248,155,36,.5)}
+.card video{width:100%;aspect-ratio:9/16;object-fit:cover;display:block;background:#000}
+.card .body{padding:20px 22px 24px}
+.card .ek{font-size:10px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--orange)}
+.card h2{font-family:var(--disp);font-weight:400;font-size:28px;line-height:1.02;margin-top:9px;
+  text-transform:uppercase;color:#fff}
+.card .m{font-size:11.5px;color:#8195bd;margin-top:10px;letter-spacing:.04em}
+.card .go{margin-top:16px;display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:#16204a;background:var(--orange);padding:11px 18px;border-radius:100px}
+
+.note{font-size:14px;color:#9db0d6;text-align:center;max-width:560px;line-height:1.7}
+.note b{color:#cdd6ea}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="kick">WindMar Home Florida</div>
+  <h1>Reels blueprint</h1>
+  <p>Tipografía ultra bold sobre papel técnico, con una vista aérea de Florida lavada en azul
+     de marca por debajo del plano. 1080×1920, 18.2 s — cada frase aguanta 2.4 s para que dé
+     tiempo a leerla. Se entrega en dos versiones de audio: con música y sin música.</p>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<p class="note">
+  Cama musical nueva: <b>Stomp And Clap</b> — piano, palmas y pisadas, la misma familia
+  que el <i>Piano and Stomps Claps Logo</i>, pero de 1:33 en vez de 12 s, así que cubre
+  el reel completo sin cortarse. La versión <b>sin música</b> va sin pista, lista para
+  montarle audio de tendencia dentro de Instagram.
+</p>
+
+<script>
+const REELS = [
+  { id:'roofing', kick:'Roofing · Florida',          ttl:'A roof ready for Florida' },
+  { id:'battery', kick:'Tesla Powerwall · Florida',  ttl:'Your panels need storage' },
+  { id:'solar',   kick:'Solar · Florida',            ttl:'Solar is still a smart investment' }
+];
+
+document.getElementById('grid').innerHTML = REELS.map(r => {
+  // el nombre lleva versión a propósito: el CDN cachea el mp4 por ruta y
+  // volver a subir el mismo nombre sigue sirviendo el viejo.
+  const base = '/fl-bp-' + r.id + '-v3';
+  const href = 'reel-player.html?v=' + encodeURIComponent(base)
+             + '&t=' + encodeURIComponent(r.ttl)
+             + '&k=' + encodeURIComponent(r.kick);
+  return `<a class="card" href="${href}">
+    <video src="${base}-sin-musica.mp4#t=2.4" muted playsinline preload="metadata"></video>
+    <div class="body">
+      <div class="ek">${r.kick}</div>
+      <h2>${r.ttl}</h2>
+      <div class="m">1080×1920 · 18.2 s · 30 fps</div>
+      <span class="go">Abrir en el player</span>
+    </div>
+  </a>`;
+}).join('');
+</script>
+
+</body>
+</html>

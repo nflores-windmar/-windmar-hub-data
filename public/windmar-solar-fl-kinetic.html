@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home — Solar FL · "Let Them Talk" Kinetic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@600;700;800&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --orange:#f57c0a; --gold:#ffcf5a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#0b1020}
+body{font-family:var(--body);display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px}
+
+.stage{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1920px;background:#0b1020;color:#fff;border-radius:2px}
+@media(max-width:1120px){.stage{width:94vw;height:calc(94vw*1.7778)}}
+body.render .stage{border-radius:0}
+/* transparent overlay mode: drop bg + photo, keep text/scrims/ticks/logo */
+body.overlay,body.overlay .stage{background:transparent!important}
+body.overlay .photo{display:none}
+
+.photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+  background-image:url('img/fl-solar-neighborhood-goldenhour.png');transform:scale(1.04)}
+
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,12,30,.36) 0%,rgba(6,12,30,0) 24%,rgba(6,12,30,0) 58%,rgba(6,12,30,.55) 100%)}
+
+.tick{position:absolute;width:5cqw;height:5cqw;border:.45cqw solid rgba(255,255,255,.72);z-index:5}
+.tick.tl{top:4.5cqw;left:4.5cqw;border-right:none;border-bottom:none}
+.tick.tr{top:4.5cqw;right:4.5cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:4.5cqw;left:4.5cqw;border-right:none;border-top:none}
+.tick.br{bottom:4.5cqw;right:4.5cqw;border-left:none;border-top:none}
+
+.top{position:absolute;top:7cqw;left:7cqw;right:7cqw;z-index:6;display:flex;align-items:center;justify-content:space-between}
+.wlogo{height:5.4cqw;width:auto;object-fit:contain;filter:drop-shadow(0 .6cqw 1.6cqw rgba(0,0,0,.45))}
+.kick{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.32em;text-transform:uppercase;color:#fff;
+  text-shadow:0 .3cqw 1.2cqw rgba(0,0,0,.55)}
+
+/* one phrase at a time, centered */
+.words{position:absolute;inset:0;z-index:4;display:block}
+.w{position:absolute;left:8cqw;right:8cqw;top:50%;transform:translateY(-50%);text-align:center;
+  font-family:var(--disp);text-transform:uppercase;line-height:.86;letter-spacing:-.005em;
+  color:#fff;text-shadow:0 1.4cqw 3.4cqw rgba(0,0,0,.45);will-change:transform,opacity}
+.w .strike{position:relative;display:inline-block}
+.w .strike::after{content:"";position:absolute;left:-1.5cqw;right:-1.5cqw;top:50%;height:1.4cqw;background:var(--orange);
+  transform:scaleX(0);transform-origin:left;border-radius:1cqw;box-shadow:0 .4cqw 1cqw rgba(245,124,10,.4)}
+
+.end{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2.6cqw;padding:0 9cqw;text-align:center;
+  background:linear-gradient(180deg,rgba(6,12,30,.40),rgba(6,12,30,.66));will-change:opacity}
+.end .elogo{height:8cqw;width:auto;object-fit:contain;filter:drop-shadow(0 .8cqw 2cqw rgba(0,0,0,.5))}
+.end h2{font-family:var(--disp);text-transform:uppercase;font-size:13cqw;line-height:.88}
+.end h2 .o{color:var(--gold)}
+.end .sub{font-family:var(--body);font-weight:700;font-size:3.1cqw;letter-spacing:.01em;color:rgba(255,255,255,.9);max-width:70cqw}
+.end .cta{margin-top:1.4cqw;display:inline-flex;align-items:center;gap:1.6cqw;
+  font-family:var(--mono);font-size:3cqw;letter-spacing:.16em;text-transform:uppercase;color:#0b1020;
+  background:var(--orange);padding:2.4cqw 4.6cqw;border-radius:100px;font-weight:500}
+.end .url{font-family:var(--mono);font-size:2.6cqw;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.86)}
+
+.prog{position:absolute;top:0;left:0;right:0;height:.7cqw;z-index:8;background:rgba(255,255,255,.18)}
+.prog i{display:block;height:100%;width:0;background:var(--gold)}
+body.render .prog{display:none}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+body.render .bar{display:none}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0b1020;
+  background:#ffcf5a;border:none;border-radius:100px;padding:10px 18px;cursor:pointer}
+.btn.ghost{background:transparent;color:#cdd7f0;border:1px solid rgba(200,215,255,.4)}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage" data-document-role="page" data-label="Solar FL · Let Them Talk">
+  <div class="prog"><i id="prog"></i></div>
+  <div class="photo" id="photo"></div>
+  <div class="scrim"></div>
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+
+  <div class="top">
+    <img class="wlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+    <div class="kick">Solar · Florida</div>
+  </div>
+
+  <div class="words" id="words"></div>
+
+  <div class="end" id="end">
+    <img class="elogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+    <h2>LET THEM<br><span class="o">TALK.</span></h2>
+    <div class="sub">The savings speak for themselves.</div>
+    <div class="cta">Comment SOLAR</div>
+    <div class="url">windmar.com</div>
+  </div>
+</div>
+
+<div class="bar">
+  <button class="btn" id="replay">▶ Play</button>
+  <button class="btn ghost" id="editHint">Edit copy in code ↑</button>
+</div>
+
+<script>
+/* ===== EDITABLE COPY =====
+   One phrase per beat (shows one at a time, big).
+   size = cqw font size · gold:true = golden · strike:true = orange strike-through  */
+const LINES = [
+  { t:'THEY SAY',          size:15 },
+  { t:'SOLAR IN\nFLORIDA',  size:15 },
+  { t:'IS A SCAM',          size:18, strike:true },
+  { t:'WE SAY',             size:14, gold:true },
+  { t:'LET THEM',           size:16 },
+  { t:'TALK.',              size:30, gold:true },
+];
+const STEP = 1350;       // ms per phrase
+const HOLD_END = 3000;   // ms the end card stays
+/* ========================= */
+
+const wordsEl = document.getElementById('words');
+const endEl   = document.getElementById('end');
+const progEl  = document.getElementById('prog');
+const photoEl = document.getElementById('photo');
+
+const WORDS_DUR = LINES.length * STEP;
+const TOTAL = WORDS_DUR + HOLD_END;
+window.__duration = TOTAL;
+
+// build phrase nodes once
+const nodes = LINES.map(l=>{
+  const d = document.createElement('div');
+  d.className = 'w';
+  d.style.fontSize = l.size + 'cqw';
+  if(l.gold) d.style.color = 'var(--gold)';
+  const txt = l.t.replace(/\n/g,'<br>');
+  d.innerHTML = l.strike ? '<span class="strike">'+txt+'</span>' : txt;
+  wordsEl.appendChild(d);
+  return d;
+});
+
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const easeOut=p=>1-Math.pow(1-p,3);
+
+/* pure function of time -> visual state (deterministic, seekable) */
+function applyAt(t){
+  t = clamp(t,0,TOTAL);
+  // ken burns
+  const kb = t/TOTAL;
+  photoEl.style.transform = 'scale('+(1.03+0.10*kb)+') translateY('+((0.5-kb)*3)+'cqw)';
+  // progress
+  progEl.style.width = (100*t/TOTAL)+'%';
+
+  // words
+  const inEnd = t >= WORDS_DUR;
+  LINES.forEach((l,i)=>{
+    const n = nodes[i];
+    const start = i*STEP;
+    const pin  = easeOut(clamp((t-start)/520,0,1));
+    const pout = clamp((t-(start+STEP-180))/240,0,1);
+    let op = pin*(1-pout);
+    if(inEnd) op = 0;
+    n.style.opacity = op;
+    const ty = (1-pin)*2.4 - pout*1.6;
+    const sc = 0.94 + 0.06*pin;
+    n.style.transform = 'translateY(calc(-50% + '+ty+'cqw)) scale('+sc+')';
+    if(l.strike){
+      const s = n.querySelector('.strike::after') ? null : n.querySelector('.strike');
+    }
+  });
+  // strike widths
+  LINES.forEach((l,i)=>{
+    if(!l.strike) return;
+    const span = nodes[i].querySelector('.strike');
+    if(!span) return;
+    const start = i*STEP;
+    const sp = clamp((t-(start+280))/480,0,1);
+    span.style.setProperty('--sx', sp);
+  });
+
+  // end card
+  const ein = clamp((t-WORDS_DUR)/420,0,1);
+  endEl.style.opacity = easeOut(ein);
+  endEl.style.pointerEvents = ein>0?'auto':'none';
+}
+window.__seek = applyAt;
+
+/* drive strike scaleX via css var */
+const styleFix = document.createElement('style');
+styleFix.textContent = '.w .strike::after{transform:scaleX(var(--sx,0))}';
+document.head.appendChild(styleFix);
+
+/* live playback (skipped in render mode) */
+let raf=null, t0=null;
+function frame(ts){
+  if(t0==null) t0=ts;
+  const t = ts - t0;
+  applyAt(t);
+  if(t < TOTAL){ raf=requestAnimationFrame(frame); }
+  else { t0=null; raf=requestAnimationFrame(frame); } // loop
+}
+function play(){ if(raf) cancelAnimationFrame(raf); t0=null; raf=requestAnimationFrame(frame); }
+
+document.getElementById('replay').addEventListener('click', play);
+document.getElementById('editHint').addEventListener('click', ()=>{
+  alert('Edit the LINES array in the <script> to change words, sizes, gold:true, and strike:true.');
+});
+
+const q = new URLSearchParams(location.search);
+const isOverlay = q.has('overlay');
+const isRender = q.has('render') || isOverlay;
+if(isOverlay){
+  document.body.classList.add('overlay');
+  document.documentElement.style.background='transparent';
+  document.body.style.background='transparent';
+}
+if(isRender){ document.body.classList.add('render'); applyAt(0); }
+else { play(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home — Palabra sobre la casa · Plantilla editable</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@500;600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1466c4; --ink:#0d2240;
+  --yellow:#F2C33C; --orange:#f57c0a;
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#eef2f8;
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);padding:22px}
+.wrap{max-width:1200px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:var(--navy);color:var(--navy)}
+header.top{border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:6px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#f4f7fc;border:1px solid #d9e3f2;border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5}
+.note.depth{background:#fff5ec;border-color:#f3d9b8;color:#7a4a12}
+
+/* control panel */
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0 22px;box-shadow:0 6px 20px rgba(13,34,64,.06)}
+.panel h3{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:12px}
+.grid-c{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field input[type=text],.field textarea,.field select{font-family:var(--body);font-size:14px;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;color:var(--ink);background:#fff;resize:vertical}
+.field textarea{min-height:58px;line-height:1.15}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--navy)}
+.file-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:13px;padding:9px 14px;border:1.5px solid var(--navy);border-radius:9px;background:var(--navy);color:#fff;cursor:pointer;transition:.15s}
+.file-btn:hover{background:var(--navy2)}
+.file-btn.ghost{background:#fff;color:var(--navy)}
+.file-btn.ghost:hover{background:#eef2fb}
+.file-btn input{display:none}
+.act{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:700;font-size:13px;padding:9px 14px;border:1.5px solid var(--orange);border-radius:9px;background:var(--orange);color:#fff;cursor:pointer;transition:.15s}
+.act:hover{filter:brightness(.94)}
+.act:disabled{opacity:.55;cursor:default}
+.mini{font-family:var(--body);font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--muted);cursor:pointer}
+.mini:hover{border-color:var(--navy);color:var(--navy)}
+.hint{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.status{font-family:var(--mono);font-size:11px;color:var(--navy)}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{font-family:var(--body);font-weight:700;font-size:12px;padding:8px 12px;border:none;background:#fff;color:var(--ink);cursor:pointer;transition:.15s;border-left:1px solid var(--line)}
+.seg button:first-child{border-left:none}
+.seg button.on{background:var(--navy);color:#fff}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 12px;border-radius:8px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;transition:.15s;white-space:nowrap}
+.dl:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* gallery */
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:6px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.slot .caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.slot .cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+/* ===== THE PIECE (layered for depth) ===== */
+.piece{
+  position:relative;overflow:hidden;container-type:inline-size;background:#0a1830;color:#fff;
+  border-radius:16px;box-shadow:0 14px 40px rgba(13,34,64,.18);border:1px solid var(--line);display:block;
+}
+.piece.feed{width:320px;aspect-ratio:4/5}
+.piece.story{width:288px;aspect-ratio:9/16}
+
+/* z0 · background photo */
+.piece .photo{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;z-index:0}
+.piece .photo.empty{background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2cqw,transparent 2cqw 4cqw),
+  linear-gradient(160deg,#12336b,#0a1830 70%)}
+.piece .photo.empty::after{content:"↳ sube tu foto de casa / techo";position:absolute;inset:0;display:flex;
+  align-items:center;justify-content:center;font-family:var(--mono);font-size:3.2cqw;color:rgba(255,255,255,.5);text-align:center;padding:0 8cqw}
+/* z1 · legibility scrim */
+.piece .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,18,42,.55) 0%,rgba(6,18,42,.12) 34%,rgba(6,18,42,.15) 60%,rgba(6,18,42,.78) 100%)}
+/* z2 · the giant WORD (sits BEHIND the foreground cutout) */
+.piece .backstage{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:flex-start;
+  justify-content:var(--wjust,center);padding:20cqw 7cqw}
+.piece.story .backstage{padding:24cqw 7cqw}
+.word{font-family:var(--disp);font-weight:400;line-height:.9;text-transform:uppercase;letter-spacing:.1cqw;
+  font-size:var(--wsize,18cqw);color:#fff;text-shadow:0 .4cqw 3cqw rgba(0,0,0,.45);white-space:pre-wrap;word-break:break-word}
+.word .hl{color:var(--acc,#fff)}
+/* z3 · foreground cutout (houses w/ transparent sky) → occludes the word */
+.piece .fg{position:absolute;inset:0;z-index:3;background-size:cover;background-position:center;background-repeat:no-repeat;display:none;pointer-events:none}
+.piece.has-fg .fg{display:block}
+/* z4 · white corner ticks — blueprint signature */
+.piece .tick{position:absolute;width:5cqw;height:5cqw;border:.55cqw solid rgba(255,255,255,.85);z-index:4}
+.piece .tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.piece .tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.piece .tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.piece .tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+/* z5 · UI overlay (brand, kicker, subline, gancho, tag — always readable on top) */
+.piece .content{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:space-between;
+  padding:9cqw 7cqw;pointer-events:none}
+.piece.story .content{padding:14cqw 7cqw}
+
+.brow{display:flex;align-items:center;gap:2.4cqw}
+.sun{width:6.2cqw;height:6.2cqw;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 50% 40%,#fff,#ffd66b 52%,var(--orange) 100%);
+  box-shadow:0 0 0 .5cqw rgba(255,255,255,.35)}
+.brand{font-family:var(--body);font-weight:800;font-size:3.1cqw;letter-spacing:.35cqw;line-height:1;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.brand small{display:block;font-weight:600;font-size:2.2cqw;opacity:.82;letter-spacing:.16cqw}
+.kick{align-self:flex-start;margin-top:3cqw;font-family:var(--mono);font-weight:500;
+  font-size:2.7cqw;letter-spacing:.28cqw;text-transform:uppercase;padding:1.3cqw 2.8cqw;border-radius:99px;background:var(--orange);color:#fff}
+.kick:empty{display:none}
+.topblock{display:flex;flex-direction:column;align-items:flex-start}
+.foot{display:flex;flex-direction:column;gap:2.4cqw}
+.subline{font-family:var(--body);font-weight:700;font-size:4cqw;line-height:1.18;max-width:82%;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.subline:empty{display:none}
+.gancho{font-family:var(--body);font-weight:800;font-size:3.8cqw;line-height:1.18;padding-left:3cqw;
+  border-left:1.1cqw solid var(--acc,var(--orange));color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.45)}
+.gancho:empty{display:none}
+.tag{font-family:var(--mono);font-weight:500;font-size:2.5cqw;letter-spacing:.22cqw;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.tag:empty{display:none}
+
+@media print{body{background:#fff;padding:0}.topnav,.panel,.note,header.top,.caprow{display:none}
+  .gallery{gap:0}.piece{box-shadow:none;border-radius:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topnav">
+  <a href="windmar-home-brandguide.html">📐 Brand Guide</a>
+  <a href="windmar-fl-stories.html">📱 Stories FL</a>
+  <a href="letthemtalk-brandguide.html">💬 Let Them Talk</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a onclick="window.print()">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <h1>WindMar <span class="o">Home</span> — Palabra sobre la casa</h1>
+  <div class="sub">Plantilla editable · concepto <b>“Let Them Talk”</b> · palabra gigante <b>detrás de los techos</b> · <b>Feed 4:5</b> + <b>Stories 9:16</b> · exporta PNG 1080</div>
+</header>
+
+<div class="note"><b>Cómo se usa:</b> 1) Sube tu foto de casa/techo. 2) Escribe la <b>palabra</b> (Enter = saltos de línea). 3) Ajusta kicker, subtítulo, gancho, tag, acento, posición y tamaño. 4) Baja cada PNG con ⬇︎ (Feed <b>1080×1350</b>, Stories <b>1080×1920</b>). La foto la pones tú, así cada pieza es tuya.</div>
+
+<div class="note depth"><b>✨ Efecto “palabra detrás de los techos”:</b> para que las letras queden ocultas tras las casas necesitas una <b>capa frontal</b> = las casas recortadas con el cielo transparente. Dos caminos: <b>(A)</b> súbela tú como PNG recortado (lo más fiable) o <b>(B)</b> usa <b>Auto-recortar (beta)</b> — separa el cielo en tu navegador (descarga un modelo la 1ª vez, ~tarda unos segundos; funciona mejor con la palabra <b>arriba</b> y fotos con cielo despejado). Sin capa frontal, la palabra simplemente va encima de la foto.</div>
+
+<!-- CONTROLS -->
+<div class="panel">
+  <h3>Contenido</h3>
+  <div class="grid-c">
+    <div class="field" style="grid-column:1/-1">
+      <label>Palabra gigante · usa Enter para líneas · **texto** = línea resaltada</label>
+      <textarea id="fWord">LET THEM
+TALK</textarea>
+    </div>
+    <div class="field"><label>Kicker (chip naranja)</label><input type="text" id="fKick" value="WindMar Home · Florida"></div>
+    <div class="field"><label>Subtítulo (opcional)</label><input type="text" id="fSub" value=""></div>
+    <div class="field"><label>Gancho (barra inferior)</label><input type="text" id="fGancho" value="Evaluación gratis, sin compromiso."></div>
+    <div class="field"><label>Tag (pie mono)</label><input type="text" id="fTag" value="Let Them Talk · Home FL"></div>
+    <div class="field"><label>Marca (arriba)</label><input type="text" id="fBrand" value="WindMar Home · Florida"></div>
+  </div>
+
+  <h3 style="margin-top:20px">Estilo</h3>
+  <div class="grid-c" style="align-items:end">
+    <div class="field">
+      <label>Acento (línea resaltada + barra)</label>
+      <select id="fAcc">
+        <option value="#ffffff">Blanco</option>
+        <option value="#f57c0a" selected>Naranja</option>
+        <option value="#F2C33C">Amarillo (ES)</option>
+        <option value="#1466c4">Azul (EN)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Posición de la palabra</label>
+      <div class="seg" id="segPos">
+        <button data-pos="flex-start" class="on">Arriba</button>
+        <button data-pos="center">Centro</button>
+        <button data-pos="flex-end">Abajo</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Tamaño palabra</label>
+      <div class="seg" id="segSize">
+        <button data-sz="15cqw">S</button>
+        <button data-sz="18cqw" class="on">M</button>
+        <button data-sz="22cqw">L</button>
+        <button data-sz="26cqw">XL</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:20px">Imágenes</h3>
+  <div class="grid-c" style="align-items:end">
+    <div class="field">
+      <label>Foto de fondo</label>
+      <label class="file-btn">📷 Subir foto<input type="file" id="fPhoto" accept="image/*"></label>
+      <span class="hint" id="photoName">ninguna — placeholder</span>
+    </div>
+    <div class="field">
+      <label>Capa frontal — casas recortadas (PNG)</label>
+      <label class="file-btn ghost">🏠 Subir recorte<input type="file" id="fFg" accept="image/*"></label>
+      <span class="hint" id="fgName">sin capa frontal</span>
+    </div>
+    <div class="field">
+      <label>Auto-recorte del cielo (beta)</label>
+      <button class="act" id="btnAuto">✨ Auto-recortar</button>
+      <span class="status" id="autoStatus"></span>
+    </div>
+    <div class="field">
+      <label>&nbsp;</label>
+      <button class="mini" id="btnClearFg">✕ Quitar capa frontal</button>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="slot">
+    <div class="caprow"><span class="cap">Feed · 4:5 · 1080×1350</span><button class="dl" data-fmt="feed">⬇︎ PNG</button></div>
+    <div class="piece feed" id="pieceFeed">
+      <div class="photo empty"></div>
+      <div class="scrim"></div>
+      <div class="backstage"><div class="word"></div></div>
+      <div class="fg"></div>
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div class="content">
+        <div class="topblock"><div class="brow"><span class="sun"></span><span class="brand"></span></div><span class="kick"></span></div>
+        <div class="foot"><div class="subline"></div><span class="gancho"></span><span class="tag"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="caprow"><span class="cap">Stories · 9:16 · 1080×1920</span><button class="dl" data-fmt="story">⬇︎ PNG</button></div>
+    <div class="piece story" id="pieceStory">
+      <div class="photo empty"></div>
+      <div class="scrim"></div>
+      <div class="backstage"><div class="word"></div></div>
+      <div class="fg"></div>
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div class="content">
+        <div class="topblock"><div class="brow"><span class="sun"></span><span class="brand"></span></div><span class="kick"></span></div>
+        <div class="foot"><div class="subline"></div><span class="gancho"></span><span class="tag"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const pieces=[...document.querySelectorAll('.piece')];
+let photoURL=null, photoBlob=null, fgURL=null;
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmtWord(raw){
+  return esc(raw).split('\n').map(line=>line.replace(/\*\*(.+?)\*\*/g,'<span class="hl">$1</span>')).join('<br>');
+}
+function render(){
+  const word=$('#fWord').value, kick=$('#fKick').value.trim(), sub=$('#fSub').value.trim(),
+        gan=$('#fGancho').value.trim(), tag=$('#fTag').value.trim(), brand=$('#fBrand').value.trim(), acc=$('#fAcc').value;
+  pieces.forEach(p=>{
+    p.style.setProperty('--acc',acc);
+    p.querySelector('.word').innerHTML=fmtWord(word);
+    p.querySelector('.kick').textContent=kick;
+    p.querySelector('.subline').textContent=sub;
+    p.querySelector('.gancho').textContent=gan;
+    p.querySelector('.tag').textContent=tag;
+    p.querySelector('.brand').innerHTML=esc(brand).replace(/\s*·\s*(.+)$/,'<small>$1</small>');
+    const photo=p.querySelector('.photo');
+    if(photoURL){ photo.classList.remove('empty'); photo.style.backgroundImage=`url("${photoURL}")`; }
+    else { photo.classList.add('empty'); photo.style.backgroundImage=''; }
+    const fg=p.querySelector('.fg');
+    if(fgURL){ p.classList.add('has-fg'); fg.style.backgroundImage=`url("${fgURL}")`; }
+    else { p.classList.remove('has-fg'); fg.style.backgroundImage=''; }
+  });
+}
+['#fWord','#fKick','#fSub','#fGancho','#fTag','#fBrand','#fAcc'].forEach(id=>$(id).addEventListener('input',render));
+
+$('#fPhoto').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0]; if(!f) return;
+  if(photoURL) URL.revokeObjectURL(photoURL);
+  photoBlob=f; photoURL=URL.createObjectURL(f); $('#photoName').textContent=f.name; render();
+});
+$('#fFg').addEventListener('change',e=>{
+  const f=e.target.files&&e.target.files[0]; if(!f) return;
+  if(fgURL) URL.revokeObjectURL(fgURL);
+  fgURL=URL.createObjectURL(f); $('#fgName').textContent=f.name; $('#autoStatus').textContent=''; render();
+});
+$('#btnClearFg').addEventListener('click',()=>{
+  if(fgURL) URL.revokeObjectURL(fgURL); fgURL=null;
+  $('#fgName').textContent='sin capa frontal'; $('#autoStatus').textContent=''; $('#fFg').value=''; render();
+});
+
+$('#segPos').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  $('#segPos').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  pieces.forEach(p=>p.style.setProperty('--wjust',b.dataset.pos));});
+$('#segSize').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  $('#segSize').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  pieces.forEach(p=>p.style.setProperty('--wsize',b.dataset.sz));});
+
+// auto background removal (lazy, isolated so it can never break the tool)
+$('#btnAuto').addEventListener('click',async()=>{
+  const st=$('#autoStatus'), btn=$('#btnAuto');
+  if(!photoBlob){ st.textContent='Sube primero una foto.'; return; }
+  btn.disabled=true; st.textContent='Cargando modelo… (1ª vez ~unos MB)';
+  try{
+    const mod=await import('https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm');
+    const removeBackground=mod.removeBackground||mod.default;
+    st.textContent='Recortando el cielo…';
+    const blob=await removeBackground(photoBlob);
+    if(fgURL) URL.revokeObjectURL(fgURL);
+    fgURL=URL.createObjectURL(blob); $('#fgName').textContent='auto-recorte ✔';
+    st.textContent='Listo ✔ — palabra detrás de los techos';
+    render();
+  }catch(e){
+    st.textContent='No se pudo auto-recortar ('+(e.message||e)+'). Usa “Subir recorte”.';
+    console.error(e);
+  }finally{ btn.disabled=false; }
+});
+
+render();
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const DIM={feed:[1080,1350],story:[1080,1920]};
+const slug=s=>(s||'windmar').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50);
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+async function pieceToBlob(piece,w,h){
+  const holder=document.createElement('div');
+  holder.style.cssText=`position:fixed;left:-99999px;top:0;width:${w}px;height:${h}px;z-index:-1`;
+  const clone=piece.cloneNode(true);
+  clone.style.width=w+'px';clone.style.height=h+'px';
+  clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    await nextFrame();
+    return await toBlob(clone,{width:w,height:h,pixelRatio:1,cacheBust:false});
+  } finally { holder.remove(); }
+}
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const fmt=btn.dataset.fmt,[w,h]=DIM[fmt];
+    const piece=document.getElementById(fmt==='feed'?'pieceFeed':'pieceStory');
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{
+      const blob=await pieceToBlob(piece,w,h); if(!blob) throw new Error('render vacío');
+      const word=document.getElementById('fWord').value.replace(/\*/g,'').replace(/\s+/g,'-');
+      const url=URL.createObjectURL(blob);const a=document.createElement('a');
+      a.href=url;a.download='windmar-'+fmt+'-'+slug(word)+'.png';
+      document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+    }catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+</script>
+</body>
+</html>

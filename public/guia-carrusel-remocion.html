@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guía de diseño — Carrusel Remoción · WindMar Roofing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#eef3fb; --panel:#ffffff; --line:#1a52c7; --ink:#2b5fd6; --label:#33517f;
+    --acc:#2b5fd6;            /* acento roofing (azul de marca PR) */
+    --orange:#f57c0a;         /* acento maestro de marca / CTA */
+    --text:#0a2882; --muted:#5a6b8c;
+    --mono:'Martian Mono',ui-monospace,monospace;
+    --sans:'Montserrat',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--sans);color:var(--text);line-height:1.55;
+    background:
+      radial-gradient(120% 80% at 78% -8%, rgba(43,95,214,.08) 0%, rgba(43,95,214,0) 55%),
+      linear-gradient(0deg,var(--bg),var(--bg));
+    -webkit-font-smoothing:antialiased;
+  }
+  .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6;
+    background-image:linear-gradient(rgba(26,82,199,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(26,82,199,.08) 1px,transparent 1px);
+    background-size:45px 45px}
+  .wrap{position:relative;z-index:1;max-width:1040px;margin:0 auto;padding:0 26px}
+
+  /* top bar */
+  .bar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:14px;
+    padding:14px 26px;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(26,82,199,.16)}
+  .bar .b-brand{font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:15px;color:var(--text)}
+  .bar .b-brand span{color:var(--acc)}
+  .btn{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:#fff;background:var(--acc);border:none;border-radius:999px;padding:11px 20px;cursor:pointer;transition:.15s}
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+
+  /* hero */
+  header.hero{padding:64px 0 34px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--acc);border:1.5px solid var(--acc);border-radius:999px;padding:7px 16px;background:rgba(43,95,214,.08)}
+  h1{font-size:clamp(38px,6vw,70px);font-weight:900;line-height:.96;text-transform:uppercase;margin:22px 0 14px;letter-spacing:-.01em}
+  h1 span{color:var(--acc)}
+  .sub{max-width:680px;color:var(--muted);font-size:17px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--label);border:1px solid rgba(26,82,199,.20);
+    border-radius:8px;padding:8px 13px;background:#fff}
+  .chip b{color:var(--acc);font-weight:600}
+
+  /* sections */
+  section{padding:34px 0;border-top:1px solid rgba(26,82,199,.12)}
+  .sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+  .sec-n{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--orange);text-transform:uppercase}
+  h2{font-size:clamp(24px,3.2vw,36px);font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+  h3{font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.02em}
+  p.lead{max-width:760px;color:var(--muted);font-size:15.5px}
+
+  .cards{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .card{background:var(--panel);border:1px solid rgba(26,82,199,.14);border-radius:16px;padding:20px 22px;box-shadow:0 8px 24px rgba(13,34,64,.06)}
+  .card .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
+  /* swatches */
+  .swatch{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--label)}
+  .dot{width:34px;height:34px;border-radius:9px;flex-shrink:0;border:1px solid rgba(13,34,64,.14)}
+
+  /* process line explainer */
+  .flowbox{background:var(--panel);border:1px solid rgba(26,82,199,.14);border-radius:16px;padding:26px 20px;box-shadow:0 8px 24px rgba(13,34,64,.06)}
+  .stages{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}
+  .stage{text-align:center}
+  .stage .tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--label)}
+  .stage.acc .tag{color:var(--acc)}
+  .stage .desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+  /* slide breakdown */
+  .slide{display:grid;grid-template-columns:74px 1fr;gap:18px;background:var(--panel);
+    border:1px solid rgba(26,82,199,.14);border-radius:16px;padding:20px 22px;margin-bottom:14px;box-shadow:0 8px 24px rgba(13,34,64,.06)}
+  .slide .num{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--acc);border:1px solid rgba(43,95,214,.35);
+    border-radius:10px;height:56px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;text-align:center;background:rgba(43,95,214,.06)}
+  .slide .num small{font-size:9px;color:var(--muted);letter-spacing:.08em}
+  .slide .copy p{margin:2px 0;color:var(--label);font-size:14px}
+  .slide .copy .t{color:var(--text);font-weight:800;font-size:18px;text-transform:uppercase}
+  .row{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+  .pill{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:6px 11px;border-radius:999px;
+    border:1px solid rgba(26,82,199,.22);color:var(--label);background:rgba(43,95,214,.05)}
+  .pill.foto{border-color:rgba(245,124,10,.5);color:#b4560a;background:rgba(245,124,10,.10)}
+  .pill.node{border-color:var(--acc);color:var(--acc)}
+  .note{font-size:13px;color:var(--muted);margin-top:10px;padding-left:12px;border-left:2px solid rgba(43,95,214,.35)}
+
+  /* do / dont */
+  .dd{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .dd .card h3{margin-bottom:10px}
+  .dd ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .dd li{font-size:13.5px;color:var(--label);display:flex;gap:9px;align-items:flex-start}
+  .dd li::before{content:"";width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+  .do li::before{background:var(--acc)}
+  .dont li::before{background:var(--orange)}
+
+  footer{padding:40px 0 60px;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-align:center}
+
+  @media (max-width:640px){.dd{grid-template-columns:1fr}.stages{grid-template-columns:repeat(2,1fr)}.slide{grid-template-columns:1fr}}
+
+  /* print → clean PDF */
+  @media print{
+    @page{size:A4;margin:14mm}
+    html,body{background:#ffffff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .bar{display:none}
+    .grid-bg{opacity:.5}
+    section,.slide,.card,.flowbox{break-inside:avoid}
+    header.hero{padding-top:8px}
+  }
+</style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <div class="bar">
+    <div class="b-brand">WINDMAR <span>ROOFING</span> · GUÍA DE DISEÑO</div>
+    <button class="btn" onclick="window.print()">⤓ Descargar PDF</button>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <span class="eyebrow">Guía para diseñador · Carrusel</span>
+      <h1>La remoción<br>que otros <span>saltan</span></h1>
+      <p class="sub">Carrusel de Instagram (Puerto Rico · agosto). El objetivo: enseñar, con una <b style="color:var(--acc)">línea de proceso continua</b>, por qué remover el sellado viejo es lo que hace que el nuevo dure. Tono tranquilo y confiable — nada de miedo ni promesas absolutas.</p>
+      <div class="meta">
+        <span class="chip">Formato <b>4:5 vertical</b></span>
+        <span class="chip">Lienzo <b>1080 × 1350 px</b></span>
+        <span class="chip"><b>7</b> slides</span>
+        <span class="chip">Tema <b>Blueprint Claro</b></span>
+        <span class="chip">Editable en <b>studio-windmar-home.vercel.app/carruseles</b></span>
+      </div>
+    </header>
+
+    <!-- 01 CONCEPTO -->
+    <section>
+      <div class="sec-h"><span class="sec-n">01</span><h2>El concepto</h2></div>
+      <p class="lead">El carrusel gira alrededor de UNA sola línea gráfica que cruza todos los slides de contenido de borde a borde, como un plano técnico. La línea representa el techo y <b style="color:var(--acc)">cambia de estado de izquierda a derecha</b> mientras avanzas: el sellado viejo agrietado se levanta, la base queda limpia, y se aplica un sellado nuevo. Es la metáfora visual de por qué “remover primero” importa.</p>
+    </section>
+
+    <!-- 02 LÍNEA DE PROCESO -->
+    <section>
+      <div class="sec-h"><span class="sec-n">02</span><h2>La línea de proceso</h2></div>
+      <div class="flowbox">
+        <svg viewBox="0 0 900 130" width="100%" style="display:block" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- estados de la línea -->
+          <path d="M40 78 H 340" fill="none" stroke="#7a97cc" stroke-opacity=".7" stroke-width="7" stroke-dasharray="9 12" stroke-linecap="round"/>
+          <line x1="340" y1="78" x2="600" y2="78" stroke="#4c73c9" stroke-width="6" stroke-linecap="round"/>
+          <line x1="600" y1="78" x2="860" y2="78" stroke="#2b5fd6" stroke-width="9" stroke-linecap="round"/>
+          <!-- nodos -->
+          <g>
+            <circle cx="120" cy="78" r="9" fill="#ffffff" stroke="#7a97cc" stroke-width="4"/>
+            <circle cx="300" cy="78" r="9" fill="#ffffff" stroke="#7a97cc" stroke-width="4"/>
+            <circle cx="480" cy="78" r="9" fill="#ffffff" stroke="#4c73c9" stroke-width="4"/>
+            <circle cx="660" cy="78" r="9" fill="#ffffff" stroke="#2b5fd6" stroke-width="4"/>
+            <g><circle cx="840" cy="78" r="18" fill="none" stroke="#2b5fd6" stroke-width="4"/>
+               <path d="M832 78 L838 85 L850 71" fill="none" stroke="#2b5fd6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          </g>
+          <!-- etiquetas -->
+          <g font-family="'Martian Mono',monospace" font-size="13" fill="#33517f" text-anchor="middle">
+            <text x="120" y="112">01 · EVALÚA</text>
+            <text x="300" y="112">02 · REMUEVE</text>
+            <text x="480" y="112">03 · PREPARA</text>
+            <text x="660" y="112" fill="#2b5fd6">04 · SELLA</text>
+            <text x="840" y="112" fill="#2b5fd6">LISTO</text>
+          </g>
+        </svg>
+        <div class="stages">
+          <div class="stage"><div class="tag">01 · EVALÚA</div><div class="desc">Revisamos el techo. Línea aún con el sellado viejo (punteada).</div></div>
+          <div class="stage"><div class="tag">02 · REMUEVE</div><div class="desc">Se levanta el sellado gastado. Aquí termina lo punteado.</div></div>
+          <div class="stage"><div class="tag">03 · PREPARA</div><div class="desc">Base limpia y firme. Línea sólida clara.</div></div>
+          <div class="stage acc"><div class="tag">04 · SELLA</div><div class="desc">Se aplica el sistema nuevo. Línea gruesa en acento.</div></div>
+          <div class="stage acc"><div class="tag">LISTO</div><div class="desc">Resultado: techo sellado. Check en acento.</div></div>
+        </div>
+        <p class="note" style="margin-top:18px">Estados de la línea → <b style="color:var(--label)">Punteada tenue</b> = sellado viejo · <b style="color:var(--label)">Sólida clara</b> = base expuesta · <b style="color:var(--acc)">Gruesa en acento</b> = sellado nuevo. La línea debe conectarse de un slide al siguiente (misma altura, sin cortes).</p>
+      </div>
+    </section>
+
+    <!-- 03 ESPECIFICACIONES -->
+    <section>
+      <div class="sec-h"><span class="sec-n">03</span><h2>Especificaciones</h2></div>
+      <div class="cards g2">
+        <div class="card">
+          <div class="lbl">Paleta</div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px">
+            <div class="swatch"><span class="dot" style="background:#ffffff"></span> #FFFFFF — Fondo (canvas blanco / plano)</div>
+            <div class="swatch"><span class="dot" style="background:#2b5fd6"></span> #2B5FD6 — Acento Roofing (azul de marca)</div>
+            <div class="swatch"><span class="dot" style="background:#f57c0a"></span> #F57C0A — Naranja maestro (solo CTA)</div>
+            <div class="swatch"><span class="dot" style="background:#7a97cc"></span> #7A97CC — Líneas / estructura del plano</div>
+            <div class="swatch"><span class="dot" style="background:#0a2882"></span> #0A2882 — Texto (navy)</div>
+          </div>
+          <p class="note">Un solo acento por pieza. El azul pastel es el color del producto Roofing; el naranja se reserva para el botón de CTA.</p>
+        </div>
+        <div class="card">
+          <div class="lbl">Tipografías</div>
+          <div style="margin-top:10px;display:flex;flex-direction:column;gap:14px">
+            <div><div style="font-weight:900;font-size:26px;text-transform:uppercase;line-height:1">Montserrat 900</div><div class="mut" style="color:var(--muted);font-size:12.5px">Titulares y subtítulos (mayúsculas)</div></div>
+            <div><div style="font-weight:600;font-size:16px">Montserrat 400–700</div><div class="mut" style="color:var(--muted);font-size:12.5px">Bullets y cuerpo</div></div>
+            <div><div style="font-family:var(--mono);font-size:15px;color:var(--acc)">Martian Mono</div><div class="mut" style="color:var(--muted);font-size:12.5px">Etiquetas, datos y las etiquetas de la línea (01 · EVALÚA…)</div></div>
+          </div>
+          <p class="note">Titular: colorea la última palabra en el acento (ya viene así en el estudio). Botones tipo “chip” con ícono a la izquierda.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 SLIDE POR SLIDE -->
+    <section>
+      <div class="sec-h"><span class="sec-n">04</span><h2>Slide por slide</h2></div>
+      <p class="lead" style="margin-bottom:18px">Copy final abajo. La <b class="" style="color:#b4560a">foto</b> la coloca el equipo desde la galería del estudio (arrástrala y ajústala). El nodo indica qué etapa de la línea toca ese slide.</p>
+
+      <div class="slide">
+        <div class="num">S1<small>PORTADA</small></div>
+        <div class="copy">
+          <p class="t">La remoción que otros saltan</p>
+          <p>“El paso que hace que tu sellado dure.”</p>
+          <p class="mut" style="color:var(--muted)">El secreto no es lo que va encima, sino cómo se prepara el techo antes de sellarlo.</p>
+          <div class="row">
+            <span class="pill foto">FOTO: techo real a color, a pantalla completa como fondo</span>
+            <span class="pill">Tag: “remoción de techo”</span>
+          </div>
+          <p class="note">La foto va <b>a color</b> como fondo (estilo stories de Florida) con un velo blanco suave para que el titular lea. Conserva las esquinas del marco.</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S2<small>NODO 01</small></div>
+        <div class="copy">
+          <p class="t">De los pocos que removemos</p>
+          <p>• La mayoría sella por encima de lo gastado</p>
+          <p>• Nosotros lo retiramos primero, hasta la base</p>
+          <p>• Un servicio que pocos ofrecen</p>
+          <div class="row">
+            <span class="pill node">Línea: nodo 01 · EVALÚA</span>
+            <span class="pill">Highlight: “Remoción incluida — pocos la hacen”</span>
+            <span class="pill foto">Foto: opcional (sin foto se ve el plano + línea)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S3<small>NODO 02</small></div>
+        <div class="copy">
+          <p class="t">¿Qué es una remoción?</p>
+          <p>• Retiramos el sellado viejo y desgastado</p>
+          <p>• Dejamos una superficie limpia y firme</p>
+          <div class="row">
+            <span class="pill node">Línea: nodo 02 · REMUEVE</span>
+            <span class="pill">Highlight: “Lista para un sellado nuevo de verdad”</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S4<small>NODO 03</small></div>
+        <div class="copy">
+          <p class="t">La base lo cambia todo</p>
+          <p>• El sellado nuevo se adhiere mejor</p>
+          <p>• Protege de verdad, no solo por encima</p>
+          <p>• Un trabajo que dura años, no meses</p>
+          <div class="row">
+            <span class="pill node">Línea: nodo 03 · PREPARA</span>
+            <span class="pill">Highlight: “Tu techo queda como nuevo”</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S5<small>NODO 04</small></div>
+        <div class="copy">
+          <p class="t">Un trabajo que se ve y se siente</p>
+          <p>• Sin burbujas ni desprendimientos</p>
+          <p>• Acabado parejo y bien sellado</p>
+          <p>• Tranquilidad en cada lluvia</p>
+          <div class="row">
+            <span class="pill node">Línea: nodo 04 · SELLA (acento)</span>
+            <span class="pill">Highlight: “La diferencia se nota desde el primer aguacero”</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S6<small>LISTO</small></div>
+        <div class="copy">
+          <p class="t">Así lo hacemos bien</p>
+          <p>✓ Evaluamos tu techo sin costo</p>
+          <p>✓ Removemos el sellado anterior</p>
+          <p>✓ Preparamos la superficie</p>
+          <p>✓ Aplicamos el sistema nuevo</p>
+          <div class="row">
+            <span class="pill node">Línea: cierre · check LISTO (acento)</span>
+          </div>
+          <p class="note">Los 4 checks reflejan las 4 etapas de la línea, en orden. Aquí la línea llega al resultado.</p>
+        </div>
+      </div>
+
+      <div class="slide">
+        <div class="num">S7<small>CTA</small></div>
+        <div class="copy">
+          <p class="t">¿Tu techo necesita más?</p>
+          <p>“Una evaluación gratis, sin compromiso.”</p>
+          <div class="row">
+            <span class="pill" style="border-color:rgba(245,124,10,.5);color:#b4560a">Botón CTA: “Comenta ROOFING” (naranja)</span>
+          </div>
+          <p>✓ Evaluación 100% gratis &nbsp; ✓ Remoción incluida — pocos la hacen &nbsp; ✓ Financiamiento disponible</p>
+          <p class="note">Sitio: windmar.com · Foto de fondo opcional (a color, con velo).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 REGLAS -->
+    <section>
+      <div class="sec-h"><span class="sec-n">05</span><h2>Reglas de estilo</h2></div>
+      <div class="dd">
+        <div class="card do">
+          <h3 style="color:var(--acc)">Sí</h3>
+          <ul>
+            <li>Un solo acento (azul de marca) por pieza; naranja solo en el CTA.</li>
+            <li>Look de plano técnico sobre fondo blanco, limpio y con aire.</li>
+            <li>Fotos siempre a color como fondo, con velo blanco suave para legibilidad.</li>
+            <li>La línea debe alinearse de un slide al siguiente (misma altura).</li>
+            <li>Tono tranquilo y reconfortante: hablamos de calidad y durabilidad.</li>
+          </ul>
+        </div>
+        <div class="card dont">
+          <h3 style="color:var(--orange)">No</h3>
+          <ul>
+            <li>Nada de miedo o pérdida (“se te va a caer el techo”, etc.).</li>
+            <li>No prometer “gratis total” — usar “evaluación gratis, sin compromiso”.</li>
+            <li>No mezclar varios acentos ni fondos oscuros/moody.</li>
+            <li>No reemplazar palabras por pictogramas en los titulares.</li>
+            <li>No recortar la línea ni cambiar su altura entre slides.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      WindMar Roofing · Guía de diseño interna · Carrusel “Remoción” · Blueprint Claro
+    </footer>
+  </div>
+</body>
+</html>

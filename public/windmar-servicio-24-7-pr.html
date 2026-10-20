@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Servicio 24/7 — Overlay PNG (Jaime Pereles)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700;800;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{
+  --navy:#082A6F; --blue:#1c7bff; --sky:#3aa5ec;
+  --orange:#f7911e; --yellow:#ffd21e; --white:#fff; --mut:#cfe0ff;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#05070d;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:var(--body);padding:16px;gap:18px;flex-wrap:wrap}
+
+/* tablero de transparencia (solo preview, NO se captura) */
+.check{position:relative;border-radius:14px;padding:0;
+  background-image:
+    linear-gradient(45deg,#2a3340 25%,transparent 25%),
+    linear-gradient(-45deg,#2a3340 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#2a3340 75%),
+    linear-gradient(-45deg,transparent 75%,#2a3340 75%);
+  background-size:28px 28px;background-position:0 0,0 14px,14px -14px,-14px 0;background-color:#1a2028;
+  box-shadow:0 30px 90px rgba(4,16,46,.6)}
+
+/* ===== Overlay 9:16 (1080×1920) — FONDO TRANSPARENTE ===== */
+.stage{position:relative;width:min(430px,92vw);aspect-ratio:9/16;overflow:hidden;
+  background:transparent;color:#fff;container-type:inline-size}
+
+/* velo de legibilidad — SÍ va en el PNG (oscurece tu video abajo para que el texto lea) */
+.bgtint{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(10,14,20,.28) 0%, rgba(10,14,20,0) 26%, rgba(10,14,20,.12) 50%, rgba(8,12,18,.80) 84%, rgba(6,10,16,.92) 100%)}
+
+/* watermark display detrás del top */
+.mark{position:absolute;z-index:2;top:8.5cqw;left:0;right:0;text-align:left;
+  font-family:var(--disp);font-size:26cqw;line-height:.8;letter-spacing:.01em;text-transform:uppercase;
+  color:var(--orange);opacity:.34;white-space:nowrap;overflow:hidden;padding-left:6.5cqw}
+
+/* ===== contenido ===== */
+.wrap{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:6.5cqw 6.5cqw 6cqw}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:3cqw}
+.pill{font-family:var(--body);font-weight:800;font-size:3.1cqw;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--orange);color:#1a1206;padding:1.5cqw 3.6cqw;border-radius:999px;line-height:1}
+.date{font-family:var(--mono);font-weight:500;font-size:3cqw;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+  text-shadow:0 2px 8px rgba(0,0,0,.6)}
+
+.data{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.kick{font-family:var(--body);font-weight:800;font-size:3.9cqw;letter-spacing:.05em;text-transform:uppercase;color:var(--sky);
+  text-shadow:0 2px 10px rgba(0,0,0,.7);margin-bottom:1.5cqw;max-width:78cqw;line-height:1.15}
+.num{font-family:var(--disp);font-weight:400;font-size:44cqw;line-height:.82;letter-spacing:.005em;color:#fff;
+  text-shadow:0 4px 26px rgba(0,0,0,.6)}
+.num small{font-size:.5em;color:#fff;letter-spacing:0}
+.divider{width:16cqw;height:1.4cqw;background:var(--orange);border-radius:999px;margin:3cqw 0 3.2cqw}
+.label{font-family:var(--disp);font-weight:400;font-size:11cqw;line-height:.92;letter-spacing:.02em;text-transform:uppercase;color:#fff;
+  text-shadow:0 3px 14px rgba(0,0,0,.7)}
+.sub{font-family:var(--body);font-weight:600;font-size:3.7cqw;line-height:1.4;color:#e8eef6;margin-top:2.6cqw;max-width:74cqw;
+  text-shadow:0 2px 10px rgba(0,0,0,.7)}
+.by{font-family:var(--mono);font-weight:500;font-size:2.9cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);
+  margin-top:3cqw;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.by b{color:#fff}
+
+.foot{display:flex;align-items:center;justify-content:space-between;gap:3cqw;margin-top:5.5cqw;
+  border-top:1px solid rgba(255,255,255,.16);padding-top:4cqw}
+.foot .wmlogo{height:9cqw;width:auto;filter:drop-shadow(0 1.5cqw 3cqw rgba(0,0,0,.5))}
+.foot .site{font-family:var(--mono);font-weight:500;font-size:3.4cqw;letter-spacing:.14em;color:#fff;
+  display:flex;align-items:center;gap:2cqw;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.foot .site .dot{width:2cqw;height:2cqw;border-radius:50%;background:var(--orange)}
+
+/* controles */
+.panel{display:flex;flex-direction:column;gap:10px;color:#cdd6ea;font-family:var(--body);max-width:280px}
+.panel h1{font-family:var(--disp);font-weight:400;font-size:22px;color:#fff;letter-spacing:.5px}
+.panel p{font-size:12.5px;line-height:1.5;color:#93a2c4}
+.panel label{font-size:12px;font-weight:700;color:#9db0d6}
+.panel input[type=text]{font-family:var(--body);font-size:12.5px;padding:8px 10px;border-radius:8px;border:1.5px solid #2c3a5c;
+  background:#0b1428;color:#eaf2ff}
+.panel button{font-family:var(--body);font-weight:800;font-size:13px;padding:11px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.panel .tip{font-size:11px;color:#6f7fa3;line-height:1.5;border-top:1px solid #1c2740;padding-top:10px}
+.panel .tip b{color:#9db0d6}
+</style>
+</head>
+<body>
+  <div class="check">
+  <div class="stage" id="stage">
+    <div class="bgtint"></div>
+
+    <div class="wrap">
+      <div class="data">
+        <div class="kick">Invertimos en nuestro equipo de servicio</div>
+        <div class="num">24<small>/</small>7</div>
+        <div class="divider"></div>
+        <div class="label">Servicio sin parar</div>
+        <div class="sub">Invertimos en darte un servicio 24/7: antes, durante y después de tu instalación.</div>
+        <div class="by" id="byline">— <b>Jaime Pereles</b> · Equipo de Servicio</div>
+      </div>
+
+      <div class="foot">
+        <img class="wmlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar" crossorigin="anonymous">
+        <span class="site"><span class="dot"></span>WINDMAR.COM</span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="panel">
+    <h1>Servicio 24/7 · Overlay PNG</h1>
+    <p>Estilo <b>DATO</b> (mismo molde que Water/Cisternas y Anker × PYMES). Esto es el <b>overlay transparente</b>: descargas el PNG y lo montas encima de tu video de Jaime / el equipo. El cuadriculado del preview NO se captura.</p>
+    <label>Nombre / rol</label>
+    <input type="text" id="editby" value="Jaime Pereles · Equipo de Servicio">
+    <button onclick="dl()">⬇︎ Descargar PNG (1080×1920, transparente)</button>
+    <div class="tip">Overlay limpio: sin elementos arriba (se cortan en el story). Lleva <b>24/7</b> gigante, dato con bajada, tu nombre y la marca <b>WindMar Home</b>. El velo oscuro abajo va incluido para que el texto lea sobre tu video. Dime si quieres cambiar el <b>24/7</b> o el color del acento.</div>
+  </div>
+
+<script>
+document.getElementById('editby').addEventListener('input',e=>{
+  const v=e.target.value.trim();
+  const parts=v.split('·');
+  const name=(parts[0]||'').trim();
+  const rest=parts.slice(1).join('·').trim();
+  document.getElementById('byline').innerHTML='— <b>'+name+'</b>'+(rest?' · '+rest:'');
+});
+async function dl(){
+  try{ await document.fonts.ready; }catch(e){}
+  const node=document.getElementById('stage');
+  const scale=1080/node.offsetWidth;
+  const canvas=await html2canvas(node,{backgroundColor:null,scale:scale,useCORS:true,logging:false});
+  const a=document.createElement('a');
+  a.download='windmar-servicio-247-overlay.png';
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+}
+</script>
+</body>
+</html>

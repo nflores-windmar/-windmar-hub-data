@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>El buzón · Evidencia · WindMar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e9e9e7;
+  --panel:#fff;
+  --ink:#111112;
+  --ink-2:rgba(0,0,0,.62);
+  --gris:#686866;
+  --line:#d6d6d3;
+  --amarillo:#FFD24A;
+  --f:'Inter Tight',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;
+  -webkit-font-smoothing:antialiased;padding-bottom:70px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+@media(max-width:640px){.wrap{padding:0 13px}}
+
+.top{padding:22px 0 30px}
+.top .wrap{display:flex;gap:14px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}
+.mark{font-size:25px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.mark span{color:var(--gris)}
+.top .r{font-size:13px;font-weight:500;color:var(--gris);letter-spacing:-.01em;
+  display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.top .r a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ink)}
+.top .r a:hover{color:var(--gris);border-color:var(--gris)}
+
+/* ---------- titular ---------- */
+.hero{background:var(--amarillo);border-radius:var(--r);padding:34px 30px 32px;margin-bottom:12px}
+@media(max-width:640px){.hero{padding:24px 16px 24px}}
+.hero .k{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+.hero h1{font-size:clamp(32px,6.2vw,66px);font-weight:800;letter-spacing:-.05em;line-height:.98;max-width:19ch}
+.hero p{font-size:clamp(15px,2.1vw,18px);font-weight:500;line-height:1.52;color:rgba(0,0,0,.72);
+  max-width:62ch;margin-top:18px}
+.hero p b{color:var(--ink);font-weight:700}
+
+/* ---------- par de cifras enormes ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:34px}
+@media(max-width:640px){.duo{grid-template-columns:1fr}}
+.duo .c{background:var(--panel);border-radius:var(--r);padding:24px 24px 26px}
+.duo .c.neg{background:var(--ink);color:#fff}
+.duo .lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris)}
+.duo .c.neg .lbl{color:rgba(255,255,255,.66)}
+.duo .v{font-size:clamp(48px,8vw,82px);font-weight:800;letter-spacing:-.055em;line-height:.9;margin:10px 0 6px}
+.duo .nt{font-size:13px;font-weight:500;line-height:1.55;color:var(--ink-2);max-width:34ch}
+.duo .c.neg .nt{color:rgba(255,255,255,.72)}
+
+/* ---------- secciones ---------- */
+.sec{margin:0 0 14px;padding-top:6px}
+.sec .k{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gris);margin-bottom:8px}
+.sec h2{font-size:clamp(27px,4.3vw,44px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.sec p.lede{font-size:16.5px;font-weight:500;line-height:1.5;color:var(--ink-2);max-width:66ch;margin-top:11px}
+
+/* ---------- tarjeta de prueba ---------- */
+.ev{background:var(--panel);border-radius:var(--r);padding:22px 24px 24px;margin-bottom:8px}
+@media(max-width:640px){.ev{padding:18px 15px 20px}}
+.ev>.h{display:grid;grid-template-columns:44px 1fr;gap:15px;align-items:start}
+@media(max-width:640px){.ev>.h{grid-template-columns:36px 1fr;gap:12px}}
+.ev .num{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+  font-size:15px;font-weight:800;letter-spacing:-.02em;flex:none}
+@media(max-width:640px){.ev .num{width:34px;height:34px;font-size:13px}}
+.ev h3{font-size:clamp(19px,2.9vw,27px);font-weight:800;letter-spacing:-.04em;line-height:1.12}
+.ev .txt{font-size:14.5px;font-weight:500;line-height:1.58;color:var(--ink-2);margin-top:9px;max-width:76ch}
+.ev .txt b{color:var(--ink);font-weight:700}
+.ev .body{padding-left:59px}
+@media(max-width:640px){.ev .body{padding-left:0;margin-top:14px}}
+
+/* cita literal de Meta */
+.cita{background:#f4f4f1;border-left:3px solid var(--ink);border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-top:14px;max-width:76ch}
+.cita .qh{display:block;font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gris);margin-bottom:7px}
+.cita p{font-size:14px;font-weight:500;line-height:1.6;color:var(--ink)}
+.cita p+p{margin-top:9px}
+.cita .src{font-size:12.5px;font-weight:600;color:var(--gris);margin-top:10px;letter-spacing:-.005em;line-height:1.5}
+
+/* barras comparativas */
+.bars{margin-top:18px;max-width:640px}
+.bar{margin-bottom:14px}
+.bar .bl{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.bar .bn{font-size:12.5px;font-weight:700;letter-spacing:-.01em}
+.bar .bv{font-size:17px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.bar .track{height:16px;background:#ececea;border-radius:8px;overflow:hidden}
+.bar .fill{height:100%;background:var(--ink);border-radius:8px}
+.bar.pagado .fill{background:#7d0910}
+.bar.organico .fill{background:#08471c}
+.bar.cero .track{border:1.5px dashed #bdbdba;background:transparent}
+.bar .bnote{font-size:12.5px;font-weight:600;color:var(--gris);margin-top:6px;line-height:1.5}
+
+/* recreación de hilo */
+.chat{margin-top:16px;background:#f4f4f1;border-radius:14px;padding:16px 16px 14px;max-width:560px}
+.chat .ch{font-size:9.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--gris);
+  margin-bottom:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.msg{max-width:88%;border-radius:14px;padding:11px 13px;font-size:13.5px;line-height:1.5;font-weight:500}
+.msg.inb{background:#fff;border:1px solid #e2e2df;margin-bottom:12px}
+.msg.outb{background:#fff;border:1px solid #e2e2df;margin-left:auto}
+.msg .f{display:block;font-variant-numeric:tabular-nums}
+.msg .t{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gris);
+  display:block;margin-bottom:6px}
+.wbtn{display:block;margin-top:10px;border-top:1px solid #e2e2df;padding-top:9px;text-align:center;
+  font-size:13px;font-weight:700;color:#1b5ed8}
+.chat .leg{font-size:12.5px;font-weight:600;color:var(--gris);line-height:1.55;margin-top:12px}
+.chat .leg b{color:var(--ink)}
+
+/* ranura de captura */
+.shot{margin-top:16px;max-width:760px}
+.shot .dz{border:2px dashed #c8c8c4;border-radius:12px;padding:20px 18px;text-align:center;cursor:pointer;
+  background:#fafaf8;transition:border-color .15s,background .15s}
+.shot .dz:hover,.shot .dz.over{border-color:var(--ink);background:#f1f1ee}
+.shot .dz .dt{font-size:13px;font-weight:700;letter-spacing:-.01em}
+.shot .dz .dd{font-size:12.5px;font-weight:600;color:var(--gris);margin-top:6px;line-height:1.5}
+.shot img{width:100%;display:block;border-radius:12px;border:1px solid var(--line)}
+.shot .ctrl{display:flex;gap:10px;align-items:center;margin-top:9px}
+.shot .rm{background:none;border:1.5px solid var(--line);border-radius:999px;cursor:pointer;font-family:var(--f);
+  font-size:12.5px;font-weight:700;color:var(--gris);padding:5px 13px}
+.shot .rm:hover{border-color:var(--ink);color:var(--ink)}
+.shot .pv{font-size:12.5px;font-weight:600;color:var(--gris)}
+
+/* enlaces de verificación */
+.go{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;text-decoration:none;
+  border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:-.01em;padding:9px 18px;margin:14px 8px 0 0}
+.go:hover{background:#3a3a40}
+.go.alt{background:none;color:var(--ink);border:1.5px solid var(--ink)}
+.go.alt:hover{background:var(--ink);color:#fff}
+
+/* lista de pasos */
+.pasos{background:var(--panel);border-radius:var(--r);padding:22px 24px 24px;margin-bottom:34px}
+@media(max-width:640px){.pasos{padding:18px 15px 20px}}
+.pasos ol{list-style:none;counter-reset:p}
+.pasos li{counter-increment:p;display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;
+  padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;font-weight:500;line-height:1.55;color:var(--ink-2)}
+.pasos li:last-child{border-bottom:none}
+.pasos li::before{content:counter(p);width:26px;height:26px;border-radius:50%;border:2px solid var(--ink);
+  display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--ink)}
+.pasos li b{color:var(--ink);font-weight:700}
+
+.pasos code{font-family:var(--m);font-size:12.5px;background:#f4f4f1;padding:2px 6px;border-radius:4px;
+  word-break:break-all}
+
+/* correcciones */
+.fix{background:var(--panel);border-radius:var(--r);padding:22px 24px 24px;margin-bottom:8px;
+  border-left:5px solid #7d0910}
+@media(max-width:640px){.fix{padding:18px 15px 20px}}
+.fix h3{font-size:clamp(18px,2.6vw,24px);font-weight:800;letter-spacing:-.04em;line-height:1.14}
+.fix .txt{font-size:14.5px;font-weight:500;line-height:1.58;color:var(--ink-2);margin-top:9px;max-width:76ch}
+.fix .txt b{color:var(--ink);font-weight:700}
+.fix .tagx{display:inline-block;background:#7d0910;color:#fff;font-size:9.5px;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;padding:4px 9px;border-radius:4px;margin-bottom:10px}
+.fix.ok{border-left-color:#08471c}
+.fix.ok .tagx{background:#08471c}
+
+footer{font-size:12.5px;font-weight:500;line-height:1.75;color:var(--ink-2);border-top:2px solid var(--ink);
+  padding-top:18px;max-width:84ch;margin-top:10px}
+footer a{color:var(--ink);font-weight:700}
+footer code{font-family:var(--m);font-size:12.5px;background:#fff;padding:2px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <div class="mark">WindMar <span>El buzón</span></div>
+  <div class="r">
+    <span>Verificado en pantalla · 1 oct 2026</span>
+    <a href="/windmar_content_hub.html">portal</a>
+    <a href="/dashboard-redes.html">métricas</a>
+  </div>
+</div></div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="k">Hallazgo · WindMar Home · Facebook</div>
+    <h1>Pagamos 377 conversaciones en septiembre y contestamos cero.</h1>
+    <p>Meta no dice que el buzón esté vacío. Dice lo contrario: entraron <b>406 contactos</b> en 28 días.
+       De esos, <b>377 los trajo un anuncio</b> y solo 29 llegaron solos. Cada persona que llegó por el anuncio
+       dejó <b>nombre, teléfono y correo</b> en un formulario. El índice de respuesta del negocio en ese mismo
+       periodo es <b>0%</b>. Esta página es la prueba, pieza por pieza, con la definición de Meta al lado.</p>
+  </div>
+
+  <div class="duo">
+    <div class="c">
+      <div class="lbl">Conversaciones recibidas · 3–30 sep 2026</div>
+      <div class="v">408</div>
+      <div class="nt">«Conversaciones con mensajes iniciadas», ↑ 37,8% contra el periodo anterior.</div>
+    </div>
+    <div class="c neg">
+      <div class="lbl">Respuestas del negocio · mismos 28 días</div>
+      <div class="v">0</div>
+      <div class="nt">La línea «Respuestas del negocio diarias» está en cero los 28 días del gráfico.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="k">Las pruebas</div>
+    <h2>Seis cosas que se ven en pantalla</h2>
+    <p class="lede">Cada tarjeta trae el número tal como lo muestra Meta, la definición literal de Meta cuando
+      existe, y el botón que abre exactamente esa pantalla en tu cuenta. Puedes pegar tu propia captura en
+      cualquiera de ellas: se guarda solo en este navegador, no se publica.</p>
+  </div>
+
+  <!-- 1 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">1</div>
+      <div>
+        <h3>Meta mide el índice de respuesta en 0% y lo marca como caída del 100%</h3>
+        <div class="txt">En <b>Estadísticas › Mensajes › Nivel de respuesta diario</b>, la ventana de los
+          últimos 28 días (3 sep – 30 sep 2026) muestra <b>Índice de respuesta 0%</b> con una flecha roja
+          <b>↓100%</b> contra el periodo anterior, y <b>Tiempo de respuesta ––</b>. El «––» significa que no
+          hay tiempo que medir: no hubo respuestas que cronometrar.</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="cita">
+        <span class="qh">Definición de Meta, literal</span>
+        <p>«Porcentaje de conversaciones a las que tu negocio respondió en un plazo de 24 horas desde que
+           recibió el mensaje.»</p>
+        <p>Cómo se calcula: «se divide el número de conversaciones a las que respondiste en un intervalo de
+           24 horas por el número de conversaciones que recibiste».</p>
+        <div class="src">Tooltip de «Índice de respuesta» en Business Suite. Las únicas exclusiones que Meta
+          declara son WhatsApp y los anuncios de Europa y Japón — ninguna aplica aquí.</div>
+      </div>
+      <div class="bars">
+        <div class="bar">
+          <div class="bl"><span class="bn">Conversaciones diarias iniciadas · 28 días</span><span class="bv">408</span></div>
+          <div class="track"><div class="fill" style="width:100%"></div></div>
+          <div class="bnote">Sube a lo largo del mes: arranca cerca de 3 al día y cierra sobre 20.</div>
+        </div>
+        <div class="bar cero">
+          <div class="bl"><span class="bn">Respuestas del negocio diarias · 28 días</span><span class="bv">0</span></div>
+          <div class="track"></div>
+          <div class="bnote">Línea plana pegada al eje durante todo el gráfico.</div>
+        </div>
+      </div>
+      <div class="shot" data-shot="e1"></div>
+      <a class="go" target="_blank" rel="noopener"
+         href="https://business.facebook.com/latest/insights/messaging?asset_id=574271879301344&business_id=657350121376794">Abrir esta pantalla en Meta</a>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">2</div>
+      <div>
+        <h3>El 92,9% de los contactos los trajo un anuncio, no el contenido</h3>
+        <div class="txt">Mismo panel, bloque <b>Contactos</b>. Contactos totales <b>406</b> (↑35,8%). El desglose
+          que Meta pone al lado del gráfico parte ese número en <b>Orgánicos 29</b> (↑93,3%) y
+          <b>Pagados 377</b> (↑32,7%). En contactos nuevos la proporción es la misma: <b>369</b> en total,
+          <b>25 orgánicos</b> y <b>344 pagados</b>.</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="bars">
+        <div class="bar pagado">
+          <div class="bl"><span class="bn">Pagados</span><span class="bv">377 · 92,9%</span></div>
+          <div class="track"><div class="fill" style="width:92.9%"></div></div>
+        </div>
+        <div class="bar organico">
+          <div class="bl"><span class="bn">Orgánicos</span><span class="bv">29 · 7,1%</span></div>
+          <div class="track"><div class="fill" style="width:7.1%"></div></div>
+          <div class="bnote">29 contactos en 28 días es aproximadamente uno por día.</div>
+        </div>
+      </div>
+      <div class="cita">
+        <span class="qh">Definición de Meta, literal</span>
+        <p>Contactos de mensajes totales: «Número de cuentas que enviaron mensajes a tu negocio.
+           Esta métrica es una estimación.»</p>
+        <div class="src">El encabezado del panel añade que los resultados de anuncios se atribuyen a todos los
+          tipos de anuncio desde cualquier cuenta publicitaria.</div>
+      </div>
+      <div class="shot" data-shot="e2"></div>
+      <a class="go" target="_blank" rel="noopener"
+         href="https://business.facebook.com/latest/insights/messaging?asset_id=574271879301344&business_id=657350121376794">Abrir esta pantalla en Meta</a>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">3</div>
+      <div>
+        <h3>Lo que hay dentro de un mensaje pagado: un formulario lleno con teléfono y correo</h3>
+        <div class="txt">Abrí dos hilos de los que entraron esta mañana, uno a las 6:58 y otro a las 7:38. Los
+          dos son idénticos. El mensaje que llega no lo escribe la persona: lo genera el formulario del
+          anuncio, y <b>trae nombre, apellido, teléfono y correo</b>. Debajo aparece una sola respuesta, que
+          tampoco la escribió nadie del equipo: es el cierre automático del propio anuncio, con un botón
+          «Ver sitio web».</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="chat">
+        <div class="ch"><span>Recreación — datos sustituidos</span><span>Messenger · hoy 6:58 am</span></div>
+        <div class="msg inb">
+          <span class="t">Entra por el anuncio</span>
+          ¡Hola! Completé el formulario y me gustaría obtener más información sobre el negocio.
+          <span class="f">Last name: ██████</span>
+          <span class="f">Phone number: (787) ███-████</span>
+          <span class="f">First name: ██████</span>
+          <span class="f">Email: ██████@█████.com</span>
+        </div>
+        <div class="msg outb">
+          <span class="t">Respuesta automática del anuncio</span>
+          Puedes visitar nuestro sitio web o salir del formulario ahora.
+          <span class="wbtn">Ver sitio web</span>
+        </div>
+        <div class="leg">Los nombres, teléfonos y correos reales <b>no se publican aquí a propósito</b>: esta
+          página es pública. La estructura del hilo sí es exacta. En Meta verás los datos completos.</div>
+      </div>
+      <div class="txt" style="margin-top:16px">Esa misma línea de cierre aparece como último mensaje en
+        <b>seis hilos seguidos</b> de la bandeja, incluidos cuatro de los últimos dos días. Es la señal de que
+        nadie entró después del automático.</div>
+      <div class="shot" data-shot="e3"></div>
+      <a class="go" target="_blank" rel="noopener"
+         href="https://business.facebook.com/latest/inbox/all?asset_id=574271879301344&business_id=657350121376794">Abrir la bandeja en Meta</a>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">4</div>
+      <div>
+        <h3>Las respuestas automáticas con IA están apagadas</h3>
+        <div class="txt">Esto cierra la duda de «quizá el bot está contestando y Meta no lo cuenta». Debajo del
+          cuadro de escritura, en cada hilo, Meta ofrece un botón que dice <b>«Activar respuestas de la IA»</b>.
+          Ese botón solo aparece cuando la función <b>no está activada</b>. Es decir: no hay un bot contestando
+          en lugar del equipo. Lo único que sale es el cierre del formulario del anuncio.</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="txt"><b>Conclusión que sí se sostiene:</b> ni una persona ni una IA está contestando el buzón.
+        El 0% de Meta no es un error de medición ni un tecnicismo — es el número correcto.</div>
+      <div class="shot" data-shot="e4"></div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">5</div>
+      <div>
+        <h3>Cuando sí contesta una persona, llega unas 40 horas tarde</h3>
+        <div class="txt">Caso real visto hoy, por Instagram. El cliente escribió el <b>miércoles a las 5:03 pm</b>:
+          batería dañada, nadie fue a resolver, y encima un apagón en su urbanización. La primera respuesta
+          del negocio salió el <b>jueves a las 9:05 am</b> — y fue para pedirle que escribiera sus datos para
+          escalarlo a servicio.</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="bars">
+        <div class="bar">
+          <div class="bl"><span class="bn">Ventana que Meta considera «respondido»</span><span class="bv">24 h</span></div>
+          <div class="track"><div class="fill" style="width:60%"></div></div>
+        </div>
+        <div class="bar pagado">
+          <div class="bl"><span class="bn">Lo que tardó esta respuesta</span><span class="bv">≈ 40 h</span></div>
+          <div class="track"><div class="fill" style="width:100%"></div></div>
+          <div class="bnote">Fuera de la ventana de 24 h, así que para Meta ese hilo cuenta como no respondido.</div>
+        </div>
+      </div>
+      <div class="shot" data-shot="e5"></div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="ev">
+    <div class="h">
+      <div class="num">6</div>
+      <div>
+        <h3>Hay respuestas a anuncios sin abrir desde junio</h3>
+        <div class="txt">La bandeja tiene un filtro propio llamado <b>«Respuestas de anuncios»</b>. Al activarlo
+          aparecen hilos en negrita — o sea, <b>sin leer</b> — con fechas del <b>18 de septiembre, 5 de
+          septiembre, 20 de julio y 2 de junio</b>. Son personas que escribieron contestando a un anuncio
+          pagado y que nadie abrió nunca. El más viejo lleva cuatro meses ahí.</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="txt">En paralelo, la bandeja marca <b>9+ mensajes sin leer</b> y <b>9+ comentarios sin leer</b>
+        tanto en Facebook como en Instagram.</div>
+      <div class="shot" data-shot="e6"></div>
+      <a class="go" target="_blank" rel="noopener"
+         href="https://business.facebook.com/latest/inbox/all?asset_id=574271879301344&business_id=657350121376794">Abrir la bandeja en Meta</a>
+    </div>
+  </div>
+
+  <div class="sec" style="margin-top:34px">
+    <div class="k">Honestidad</div>
+    <h2>Lo que no puedo decir, y lo que tengo que corregir</h2>
+    <p class="lede">Si esta página va a servir para tomar decisiones, tiene que distinguir entre lo que vi y
+      lo que supuse. Esto es lo segundo.</p>
+  </div>
+
+  <div class="fix">
+    <span class="tagx">Corrección mía</span>
+    <h3>La acción #1 del plan de noviembre estaba mal planteada</h3>
+    <div class="txt">Escribí que conversaciones y seguidores debían ser «los dos números de arriba del reporte»
+      porque medían negocio y el alcance no. Era verdad a medias: <b>377 de esas 406 conversaciones se
+      compraron</b>. Subir conversaciones es, sobre todo, subir inversión publicitaria. El número orgánico real
+      del mes son <b>29 contactos</b>. A partir de ahora el reporte tiene que separar orgánico de pagado, o
+      vamos a seguir celebrando presupuesto como si fuera contenido.</div>
+  </div>
+
+  <div class="fix">
+    <span class="tagx">Ceros que no son ceros</span>
+    <h3>Pedidos 0, Ingresos $0,00 y Clientes potenciales 0 no significan que no haya ventas</h3>
+    <div class="txt">Son campos que alguien tiene que marcar a mano dentro de cada conversación. Meta lo dice en
+      la misma pantalla: cuando se creen pedidos directamente en las conversaciones, las estadísticas
+      aparecerán ahí. Como nadie los marca, salen en cero. <b>No los uses como evidencia de nada</b> hasta que
+      se empiecen a etiquetar. «Contactos recurrentes» también sale sin dato (––).</div>
+  </div>
+
+  <div class="fix ok">
+    <span class="tagx">Verificado</span>
+    <h3>La meta «índice de respuesta 0% → 60%» sí se sostiene, y ahora tiene fuente</h3>
+    <div class="txt">El 0% que llevaba en el plan venía de un informe que no existe en el proyecto — lo arrastré
+      sin comprobarlo. Hoy está comprobado en pantalla, con la definición de Meta al lado y con la causa
+      identificada: <b>nadie contesta, y la IA está apagada</b>. La meta se queda, pero ahora apunta a algo
+      concreto: que alguien con nombre abra la bandeja de Facebook todos los días.</div>
+  </div>
+
+  <div class="sec" style="margin-top:34px">
+    <div class="k">Dos minutos</div>
+    <h2>Cómo verificarlo tú misma</h2>
+  </div>
+  <div class="pasos">
+    <ol>
+      <li><b>El número.</b> Abre <code>business.facebook.com/latest/insights/messaging</code> con la página
+        WindMar Home seleccionada. Baja hasta <b>«Nivel de respuesta diario»</b>. Ahí está el 0%.</li>
+      <li><b>La definición.</b> Haz clic en la <b>ⓘ</b> al lado de «Índice de respuesta» — hay que hacer clic,
+        pasar el ratón por encima no abre nada. Sale el texto de Meta completo.</li>
+      <li><b>El desglose.</b> Sube al bloque <b>Contactos</b>, arriba del todo. El desglose Orgánicos / Pagados
+        está a la derecha del gráfico.</li>
+      <li><b>Los hilos.</b> Abre <code>business.facebook.com/latest/inbox/all</code> y mira la columna
+        izquierda: los que terminan en «Puedes visitar nuestro sitio web…» son los que nadie contestó.</li>
+      <li><b>Los olvidados.</b> En esa misma bandeja activa el filtro <b>«Respuestas de anuncios»</b>. Tarda
+        unos segundos en cargar. Los que salen en negrita están sin leer.</li>
+      <li><b>Las capturas.</b> Si quieres dejarlas aquí, arrástralas a cualquier recuadro punteado de esta
+        página. Se guardan <b>solo en tu navegador</b> — no viajan a internet, así que puedes pegar las que
+        tienen nombres y teléfonos sin exponer a nadie.</li>
+    </ol>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ---------- ranuras de captura: viven en este navegador y nada más ----------
+   Las capturas de la bandeja llevan nombres, teléfonos y correos de clientes.
+   Esta página es pública, así que las imágenes NO se suben a ningún sitio:
+   se guardan en localStorage y solo se ven en el equipo donde se pegaron. */
+const KEY = s => 'wm_buzon_shot_' + s;
+
+function pinta(box){
+  const id = box.dataset.shot;
+  const img = localStorage.getItem(KEY(id));
+  box.innerHTML = '';
+  if (img){
+    const i = document.createElement('img');
+    i.src = img; i.alt = 'Captura guardada en este navegador';
+    const c = document.createElement('div'); c.className = 'ctrl';
+    const b = document.createElement('button'); b.className = 'rm'; b.type = 'button';
+    b.textContent = 'Quitar captura';
+    b.onclick = () => { localStorage.removeItem(KEY(id)); pinta(box); };
+    const p = document.createElement('span'); p.className = 'pv';
+    p.textContent = 'Guardada solo en este navegador · no se publica';
+    c.append(b, p); box.append(i, c);
+    return;
+  }
+  const dz = document.createElement('div');
+  dz.className = 'dz'; dz.tabIndex = 0; dz.setAttribute('role','button');
+  dz.innerHTML = '<div class="dt">Arrastra aquí tu captura de Meta</div>' +
+                 '<div class="dd">O haz clic para escogerla. Se queda en este navegador: ' +
+                 'no se sube a internet ni se publica con la página.</div>';
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*'; inp.style.display = 'none';
+  const lee = f => {
+    if (!f || !/^image\//.test(f.type)) return;
+    const r = new FileReader();
+    r.onload = e => {
+      try { localStorage.setItem(KEY(id), e.target.result); pinta(box); }
+      catch (err) {
+        dz.querySelector('.dd').textContent =
+          'La imagen es muy grande para guardarla aquí. Pruébala a menos de ~2 MB (JPG en vez de PNG).';
+      }
+    };
+    r.readAsDataURL(f);
+  };
+  dz.onclick = () => inp.click();
+  dz.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); inp.click(); } };
+  inp.onchange = () => lee(inp.files[0]);
+  dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); };
+  dz.ondragleave = () => dz.classList.remove('over');
+  dz.ondrop = e => { e.preventDefault(); dz.classList.remove('over'); lee(e.dataTransfer.files[0]); };
+  box.append(dz, inp);
+}
+
+/* pegar con Cmd+V en la última ranura enfocada */
+let ultima = null;
+document.querySelectorAll('.shot').forEach(b => {
+  pinta(b);
+  b.addEventListener('mouseenter', () => ultima = b);
+});
+document.addEventListener('paste', e => {
+  if (!ultima) return;
+  const it = [...(e.clipboardData?.items || [])].find(i => /^image\//.test(i.type));
+  if (!it) return;
+  const f = it.getAsFile(); if (!f) return;
+  const r = new FileReader();
+  r.onload = ev => { try { localStorage.setItem(KEY(ultima.dataset.shot), ev.target.result); pinta(ultima); } catch(_){} };
+  r.readAsDataURL(f);
+});
+
+document.getElementById('foot').innerHTML =
+  '<b>Qué es esta página.</b> Un expediente de un solo hallazgo: el buzón de WindMar Home. ' +
+  'Todo lo que aparece aquí se vio en pantalla en Meta Business Suite el 1 de octubre de 2026, con el negocio ' +
+  '<code>657350121376794</code> y la página <code>574271879301344</code>. Las cifras del panel corresponden a la ' +
+  'ventana de 28 días que Meta tenía abierta: <b>3 sep – 30 sep 2026</b>. ' +
+  'El snapshot del dashboard usa una ventana distinta (2 – 29 sep) y por eso marca 395 conversaciones en vez de 408: ' +
+  'son días distintos, no datos distintos.<br><br>' +
+  '<b>Lo que no está verificado y por eso no se afirma:</b> no abrí la configuración de automatizaciones del anuncio, ' +
+  'así que digo «respuesta automática del anuncio» por lo que se ve en el hilo —mismo texto literal en seis ' +
+  'conversaciones, botón de sitio web, formato distinto al de un mensaje escrito por la página—, no por haberlo ' +
+  'leído en el panel de automatizaciones. Tampoco afirmo que Meta excluya los mensajes automáticos del cálculo: ' +
+  'su definición no lo menciona, y el 0% se explica sin esa hipótesis.<br><br>' +
+  '<a href="/dashboard-redes.html">Métricas de redes</a> · ' +
+  '<a href="/captura-semanal.html">Captura semanal</a> · ' +
+  '<a href="/windmar_content_hub.html">Portal</a>';
+</script>
+
+</body>
+</html>

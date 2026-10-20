@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home — Datos del Día · ¿Sabías que…?</title>
+<style>
+:root{color-scheme:light;
+  --bg:#f5f7fa; --card:#ffffff; --ink:#0f2740; --muted:#5b6b7c; --line:#e3e9f0;
+  --brand:#0a6ebd; --brand-soft:#eaf3fb; --wm:#e8791a; --wm-soft:#fff3e6;
+  --pr:#0a6ebd; --pr-soft:#eaf3fb; --fl:#e8791a; --fl-soft:#fff3e6;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:22px}
+.wrap{max-width:1040px;margin:0 auto}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px solid var(--brand);padding-bottom:14px;margin-bottom:10px}
+h1{font-size:24px;margin:0;letter-spacing:-.3px}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{display:inline-block;background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600}
+.note{background:#fff8ec;border:1px solid #f1dcae;border-radius:10px;padding:12px 14px;font-size:13px;color:#6b5418;margin:14px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 18px}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;padding:6px 14px;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:12.5px;padding:7px 14px;border-radius:9px;cursor:pointer}
+.btn:hover{background:#f2f6fb}
+.btn.warn{color:#b23b3b;border-color:#f0cfcf}
+.saved{font-size:12px;color:var(--muted);margin-left:auto}
+h2.week{font-size:16px;margin:26px 0 4px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+h2.week .bar{width:4px;height:18px;background:var(--wm);border-radius:2px}
+h2.week .when{font-size:11.5px;color:var(--brand);font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.theme{font-size:12.5px;color:var(--muted);margin:0 0 12px 14px}
+.day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:12px;box-shadow:0 1px 2px rgba(15,39,64,.04)}
+.day-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.daychip{display:inline-flex;align-items:center;gap:6px;background:#eef2f7;color:var(--ink);border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:800}
+.day-copy{margin-left:auto;font-size:11.5px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){.cols{grid-template-columns:1fr}}
+.mk{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.mk.pr{border-top:3px solid var(--pr);background:linear-gradient(180deg,var(--pr-soft),#fff 60%)}
+.mk.fl{border-top:3px solid var(--fl);background:linear-gradient(180deg,var(--fl-soft),#fff 60%)}
+.mk .lbl{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.mk.pr .lbl{color:var(--pr)}
+.mk.fl .lbl{color:var(--fl)}
+.mk .txt{font-size:13.5px;color:var(--ink);line-height:1.55;outline:none;border-radius:6px;padding:3px 4px;min-height:22px}
+.mk .txt:focus{background:#fffef5;box-shadow:0 0 0 2px rgba(232,121,26,.25)}
+.mk .txt.edited{background:#fbfff6}
+body.only-pr .mk.fl{display:none}
+body.only-pr .cols{grid-template-columns:1fr}
+body.only-fl .mk.pr{display:none}
+body.only-fl .cols{grid-template-columns:1fr}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:.25s;pointer-events:none;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <h1>Datos del Día · ¿Sabías que…?</h1>
+    <div class="sub">WindMar Home — Stories diarias · versión Puerto Rico y Florida</div>
+  </div>
+  <div style="text-align:right">
+    <span class="pill">Agosto 2026</span>
+    <div class="sub">Tono: claro, tranquilo, sin presión</div>
+  </div>
+</header>
+
+<div class="note">
+  <b>Cómo usar esto:</b> cada día trae un "dato" listo para tu Story. Puedes <b>editar cualquier texto</b> haciendo clic sobre él — los cambios se <b>guardan solos en este navegador</b>. Si prefieres, pídeme en el chat que cambie los que quieras. Usa el botón <b>Copiar</b> de cada día para pegarlo directo.
+</div>
+
+<div class="toolbar">
+  <div class="seg" id="seg">
+    <button data-view="both" class="on">Ambos</button>
+    <button data-view="pr">Solo PR</button>
+    <button data-view="fl">Solo Florida</button>
+  </div>
+  <button class="btn warn" id="reset">↺ Restaurar originales</button>
+  <span class="saved" id="saved">Sin cambios guardados</span>
+</div>
+
+<div id="cal"></div>
+
+<footer>
+  Datos del día de WindMar Home · Agosto 2026. Puerto Rico en azul, Florida en naranja. Los cambios que hagas aquí se guardan en tu navegador (no se comparten). Para extender a septiembre–diciembre o ajustar el tono, pídemelo en el chat.
+</footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WEEKS = [
+  { n:1, when:'Sáb 1 – Vie 7 ago', theme:'Arranca agosto: todo en un solo techo', days:[
+    { key:'2026-08-01', d:'Sáb 1',
+      pr:'¿Sabías que una batería de respaldo mantiene tu nevera, luces e internet encendidos cuando se va la luz? Tu casa sigue funcionando con tranquilidad.',
+      fl:'¿Sabías que una batería de respaldo mantiene tu nevera, luces e internet durante un apagón? En temporada de huracanes, eso es tranquilidad para tu familia.' },
+    { key:'2026-08-02', d:'Dom 2',
+      pr:'¿Sabías que un sistema solar se diseña según tu consumo real? Por eso te lo evaluamos sin compromiso, para que sea del tamaño justo para tu casa.',
+      fl:'¿Sabías que en Florida un sistema solar se diseña según tu consumo y tu compañía eléctrica? Te lo evaluamos sin compromiso, del tamaño justo para tu casa.' },
+    { key:'2026-08-03', d:'Lun 3',
+      pr:'¿Sabías que una cisterna te da tu propia reserva de agua en casa, lista para cuando la necesites? Tu hogar nunca se queda sin agua.',
+      fl:'¿Sabías que una cisterna te da tu propia reserva de agua en casa, lista para cuando la necesites? En Florida, es tranquilidad para toda la familia.' },
+    { key:'2026-08-04', d:'Mar 4',
+      pr:'¿Sabías que a veces conviene revisar el techo antes de instalar paneles? Un buen roofing protege tu inversión por muchos años.',
+      fl:'¿Sabías que conviene revisar el techo antes de instalar paneles? En Florida, un buen roofing resiste mejor el clima y protege tu inversión.' },
+    { key:'2026-08-05', d:'Mié 5',
+      pr:'¿Sabías que WindMar empezó con solar y hoy también hace sellado, baterías y sistemas de agua? Todo tu techo, con una sola empresa.',
+      fl:'¿Sabías que en Florida WindMar ofrece solar, batería, agua y roofing? Todo tu hogar, con una sola empresa.' },
+    { key:'2026-08-06', d:'Jue 6',
+      pr:'¿Sabías que agosto es de los meses más activos de la temporada? La mejor preparación es la que se hace con calma y a tiempo.',
+      fl:'¿Sabías que la temporada de huracanes en Florida va de junio a noviembre? La mejor preparación es la que se hace con calma y a tiempo.' },
+    { key:'2026-08-07', d:'Vie 7',
+      pr:'¿Sabías que el sellado de techo ayuda a mantener tu casa fresca y protegida de filtraciones? Cuidar el techo es cuidar todo lo que hay debajo.',
+      fl:'¿Sabías que el crédito solar federal puede cubrir parte de tu inversión? Te explicamos cómo aplica a tu caso, sin compromiso.' },
+  ]},
+  { n:2, when:'Sáb 8 – Vie 14 ago', theme:'Energía que no se apaga', days:[
+    { key:'2026-08-08', d:'Sáb 8',
+      pr:'¿Sabías que los paneles solares siguen produciendo energía en días nublados? Menos que a pleno sol, pero tu casa sigue generando.',
+      fl:'¿Sabías que aun en días nublados de Florida los paneles producen energía? Menos que a pleno sol, pero tu casa sigue generando.' },
+    { key:'2026-08-09', d:'Dom 9',
+      pr:'¿Sabías que combinar solar con una batería te da respaldo aunque se vaya la luz de noche? La energía que guardas de día te acompaña.',
+      fl:'¿Sabías que solar + batería te dan respaldo aunque se vaya la luz de noche o por una tormenta? La energía del día te acompaña.' },
+    { key:'2026-08-10', d:'Lun 10',
+      pr:'¿Sabías que el mantenimiento de un sistema solar es mínimo? Con mantenerlo limpio, trabaja para ti por años.',
+      fl:'¿Sabías que el mantenimiento de un sistema solar es mínimo? Mantenerlo limpio basta para que trabaje por años.' },
+    { key:'2026-08-11', d:'Mar 11',
+      pr:'¿Sabías que puedes empezar por donde más te convenga — solar, batería, agua o techo? No tienes que hacerlo todo de una vez.',
+      fl:'¿Sabías que en Florida puedes empezar por solar, batería, agua o techo — por donde más te convenga? No hay que hacerlo todo de una vez.' },
+    { key:'2026-08-12', d:'Mié 12',
+      pr:'¿Sabías que una batería de respaldo trabaja en silencio, sin humo ni gasolina? Tranquilidad para tu casa, sin ruido.',
+      fl:'¿Sabías que una batería trabaja en silencio, sin gasolina ni humo? Respaldo tranquilo, ideal para la temporada.' },
+    { key:'2026-08-13', d:'Jue 13',
+      pr:'¿Sabías que te evaluamos tu consumo sin compromiso para decirte qué tamaño de sistema te conviene? Información clara para decidir con calma.',
+      fl:'¿Sabías que te evaluamos tu consumo y tus incentivos disponibles sin compromiso? Información clara para decidir con calma.' },
+    { key:'2026-08-14', d:'Vie 14',
+      pr:'¿Sabías que invertir en energía es invertir en tu casa? Un hogar preparado es un hogar más tranquilo.',
+      fl:'¿Sabías que el net metering puede ayudarte a aprovechar la energía que produces? Te explicamos cómo funciona con tu compañía eléctrica.' },
+  ]},
+  { n:3, when:'Sáb 15 – Vie 21 ago', theme:'Techos que protegen + comunidad', days:[
+    { key:'2026-08-15', d:'Sáb 15',
+      pr:'¿Sabías que un techo con filtraciones puede afectar todo lo que hay debajo? Revisarlo a tiempo te ahorra dolores de cabeza.',
+      fl:'¿Sabías que en Florida las filtraciones de techo se agravan con la lluvia y el viento? Revisar a tiempo te ahorra sustos.' },
+    { key:'2026-08-16', d:'Dom 16',
+      pr:'¿Sabías que el sellado ayuda a mantener tu casa más fresca? Menos calor entrando = más comodidad adentro.',
+      fl:'¿Sabías que un buen sellado ayuda a mantener tu casa fresca y a bajar el uso del aire? Más comodidad, menos calor.' },
+    { key:'2026-08-17', d:'Lun 17',
+      pr:'¿Sabías que a veces hay que remover los paneles para atender el techo y luego reinstalarlos? Lo hacemos con cuidado para proteger tu inversión.',
+      fl:'¿Sabías que a veces se remueven los paneles para atender el techo y luego se reinstalan? Lo hacemos con cuidado para proteger tu inversión.' },
+    { key:'2026-08-18', d:'Mar 18',
+      pr:'¿Sabías que detrás de cada instalación hay un equipo que cuida los detalles? Personas reales que se toman en serio tu casa.',
+      fl:'¿Sabías que detrás de cada instalación hay un equipo local que cuida los detalles? Personas reales, cerca de ti.' },
+    { key:'2026-08-19', d:'Mié 19',
+      pr:'¿Sabías que atender el techo antes de la temporada te da más tranquilidad? Mejor con calma y a tiempo que a última hora.',
+      fl:'¿Sabías que preparar el techo antes de la temporada de huracanes te da más tranquilidad? Mejor a tiempo que a última hora.' },
+    { key:'2026-08-20', d:'Jue 20',
+      pr:'¿Sabías que un buen roofing protege tu casa por muchos años? Es la base que sostiene todo lo demás.',
+      fl:'¿Sabías que un buen roofing protege tu casa por muchos años, aun con el clima de Florida? Es la base de todo lo demás.' },
+    { key:'2026-08-21', d:'Vie 21',
+      pr:'¿Sabías que en WindMar puedes tener techo, solar, batería y agua con un solo equipo? Menos vueltas para ti.',
+      fl:'¿Sabías que en WindMar Florida tienes techo, solar, batería y agua con un solo equipo? Menos vueltas para ti.' },
+  ]},
+  { n:4, when:'Sáb 22 – Vie 28 ago', theme:'Tu cisterna: cómo funciona y cómo llega el agua a tu hogar', days:[
+    { key:'2026-08-22', d:'Sáb 22',
+      pr:'¿Sabías que una cisterna guarda agua en tu propia propiedad para que nunca te quedes sin ella? Es tu reserva personal, lista cuando la necesitas.',
+      fl:'¿Sabías que una cisterna guarda agua en tu propia propiedad para que nunca te quedes sin ella? En Florida, es tu reserva lista para cualquier temporada.' },
+    { key:'2026-08-23', d:'Dom 23',
+      pr:'¿Sabías que la cisterna trabaja con una bomba que lleva el agua con buena presión a toda la casa? Abres la llave y el agua sale igual que siempre.',
+      fl:'¿Sabías que la bomba de la cisterna manda el agua con buena presión a toda la casa? Abres la llave y sale igual que siempre.' },
+    { key:'2026-08-24', d:'Lun 24',
+      pr:'¿Sabías que si el servicio se interrumpe, tu casa sigue tomando agua de la cisterna sin que lo notes? El cambio es automático.',
+      fl:'¿Sabías que si el servicio falla, tu casa sigue usando el agua de la cisterna de forma automática? Ni te enteras del corte.' },
+    { key:'2026-08-25', d:'Mar 25',
+      pr:'¿Sabías que el agua puede pasar por un sistema de filtración antes de llegar a tus llaves? Así llega más limpia a la cocina y al baño.',
+      fl:'¿Sabías que el agua pasa por filtración antes de llegar a tus llaves? Llega más limpia y suave a toda la casa.' },
+    { key:'2026-08-26', d:'Mié 26',
+      pr:'¿Sabías que una cisterna sirve igual para tu casa que para tu negocio? La misma tranquilidad de tener agua siempre disponible.',
+      fl:'¿Sabías que la cisterna funciona igual en casa que en tu negocio en Florida? Agua siempre disponible para los dos.' },
+    { key:'2026-08-27', d:'Jue 27',
+      pr:'¿Sabías que instalamos la cisterna del tamaño justo según cuánta agua usa tu hogar? Te lo evaluamos sin compromiso.',
+      fl:'¿Sabías que la cisterna se instala del tamaño justo para tu consumo? Te lo evaluamos sin compromiso, del tamaño que necesitas.' },
+    { key:'2026-08-28', d:'Vie 28',
+      pr:'¿Sabías que con tu propia cisterna dejas de depender de cuándo llega el agua? Tu hogar tiene reserva y tranquilidad todo el año.',
+      fl:'¿Sabías que con tu cisterna tu hogar tiene su propia reserva de agua todo el año? Menos dependencia, más tranquilidad.' },
+  ]},
+  { n:5, when:'Sáb 29 – Lun 31 ago', theme:'Comunidad, éxito y comercial', days:[
+    { key:'2026-08-29', d:'Sáb 29',
+      pr:'¿Sabías que tu negocio también puede funcionar con energía solar? Menos costos de operación, más estabilidad.',
+      fl:'¿Sabías que tu negocio en Florida también puede operar con energía solar? Menos costos, más estabilidad.' },
+    { key:'2026-08-30', d:'Dom 30',
+      pr:'¿Sabías que el equipo WindMar trabaja casa por casa, municipio por municipio? Cerca de ti, de verdad.',
+      fl:'¿Sabías que el equipo WindMar atiende comunidades por toda Florida? Cerca de ti, de verdad.' },
+    { key:'2026-08-31', d:'Lun 31',
+      pr:'¿Sabías que septiembre trae más contenido y soluciones para tu hogar? Quédate con nosotros — lo mejor sigue.',
+      fl:'¿Sabías que septiembre trae más soluciones y contenido para tu hogar en Florida? Quédate con nosotros — lo mejor sigue.' },
+  ]},
+];
+
+// ===== Septiembre 2026 · Fun Facts (datos de impacto, solo PR) =====
+const FACTS_SEPT = [
+  { key:'2026-09-solar', icon:'☀️', theme:'Solar',
+    pr:'Más de 58,500 hogares puertorriqueños ya tienen su sistema solar residencial de WindMar Home instalado y generando su propia energía.' },
+  { key:'2026-09-alianzas', icon:'📺', theme:'Alianzas / Presencia',
+    pr:'44 entrevistas coordinadas solo en septiembre y presencia masiva en los principales canales de TV y radio del país. ¡WindMar está en todas partes!' },
+  { key:'2026-09-agua', icon:'💧', theme:'Agua',
+    pr:'962 cisternas instaladas asegurando el agua de nuestras familias en lo que va del 2026.' },
+  { key:'2026-09-roofing', icon:'🏠', theme:'Roofing',
+    pr:'80,353 pies cuadrados de techo instalados en Puerto Rico. Cuando se trata de proteger tu casa, la experiencia se nota.' },
+  { key:'2026-09-mision', icon:'🎯', theme:'Misión WindMar',
+    pr:'78 de 78. Tenemos clientes con sistemas operando en absolutamente todos los municipios de la isla.' },
+  { key:'2026-09-ecosistema', icon:'🧩', theme:'Ecosistema de Productos',
+    pr:'Cientos de familias ya cuentan con 2 o 3 de nuestros productos, ¡y tenemos a 1 cliente legendario que tiene las 4 líneas completas instaladas en su hogar!' },
+  { key:'2026-09-pymes', icon:'🏪', theme:'Comercios y PYMES',
+    pr:'2,353 pequeños y medianos negocios locales echan hacia adelante y protegen su operación con la energía de WindMar.' },
+];
+
+const LS_PREFIX = 'wm-datos-';
+const cal = document.getElementById('cal');
+const savedLbl = document.getElementById('saved');
+const toast = document.getElementById('toast');
+
+function showToast(msg){
+  toast.textContent = msg; toast.classList.add('show');
+  clearTimeout(showToast._t); showToast._t = setTimeout(()=>toast.classList.remove('show'), 1500);
+}
+function countEdits(){
+  return Object.keys(localStorage).filter(k=>k.startsWith(LS_PREFIX)).length;
+}
+function updateSaved(){
+  const n = countEdits();
+  savedLbl.textContent = n ? (n + ' cambio' + (n>1?'s':'') + ' guardado' + (n>1?'s':'') + ' en este navegador') : 'Sin cambios guardados';
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+WEEKS.forEach(w=>{
+  const h = document.createElement('h2'); h.className='week';
+  h.innerHTML = '<span class="bar"></span><span>Semana '+w.n+'</span><span class="when">'+w.when+'</span>';
+  cal.appendChild(h);
+  const th = document.createElement('div'); th.className='theme'; th.textContent = w.theme; cal.appendChild(th);
+
+  w.days.forEach(day=>{
+    const card = document.createElement('div'); card.className='day';
+    card.innerHTML =
+      '<div class="day-head"><span class="daychip">📅 '+day.d+'</span>'+
+      '<button class="btn day-copy" data-copy="'+day.key+'">Copiar</button></div>'+
+      '<div class="cols">'+
+        '<div class="mk pr"><div class="lbl">🇵🇷 Puerto Rico</div>'+
+          '<div class="txt" contenteditable="true" data-market="pr" data-key="'+day.key+'" data-orig="'+esc(day.pr)+'">'+esc(day.pr)+'</div></div>'+
+        '<div class="mk fl"><div class="lbl">🌴 Florida</div>'+
+          '<div class="txt" contenteditable="true" data-market="fl" data-key="'+day.key+'" data-orig="'+esc(day.fl)+'">'+esc(day.fl)+'</div></div>'+
+      '</div>';
+    cal.appendChild(card);
+  });
+});
+
+// ===== Septiembre · Fun Facts (por tema, solo PR) =====
+const hS = document.createElement('h2'); hS.className='week';
+hS.innerHTML = '<span class="bar"></span><span>Septiembre · Fun Facts</span><span class="when">Datos de impacto 2026</span>';
+cal.appendChild(hS);
+const thS = document.createElement('div'); thS.className='theme';
+thS.textContent = 'Logros reales de WindMar en Puerto Rico — un dato de impacto por tema.';
+cal.appendChild(thS);
+
+FACTS_SEPT.forEach(f=>{
+  const card = document.createElement('div'); card.className='day';
+  card.innerHTML =
+    '<div class="day-head"><span class="daychip">'+f.icon+' '+f.theme+'</span>'+
+    '<button class="btn day-copy" data-copy="'+f.key+'">Copiar</button></div>'+
+    '<div class="cols">'+
+      '<div class="mk pr"><div class="lbl">🇵🇷 Puerto Rico</div>'+
+        '<div class="txt" contenteditable="true" data-market="pr" data-key="'+f.key+'" data-orig="'+esc(f.pr)+'">'+esc(f.pr)+'</div></div>'+
+    '</div>';
+  cal.appendChild(card);
+});
+
+// restore saved edits
+document.querySelectorAll('.txt').forEach(el=>{
+  const k = LS_PREFIX + el.dataset.key + '-' + el.dataset.market;
+  const saved = localStorage.getItem(k);
+  if(saved !== null){ el.textContent = saved; if(saved !== el.dataset.orig) el.classList.add('edited'); }
+  el.addEventListener('input', ()=>{
+    const val = el.textContent;
+    if(val === el.dataset.orig){ localStorage.removeItem(k); el.classList.remove('edited'); }
+    else { localStorage.setItem(k, val); el.classList.add('edited'); }
+    updateSaved();
+  });
+});
+
+// copy per day
+cal.addEventListener('click', e=>{
+  const btn = e.target.closest('[data-copy]'); if(!btn) return;
+  const key = btn.dataset.copy;
+  const prEl = document.querySelector('.txt[data-key="'+key+'"][data-market="pr"]');
+  const flEl = document.querySelector('.txt[data-key="'+key+'"][data-market="fl"]');
+  const pr = prEl ? prEl.textContent : '';
+  const fl = flEl ? flEl.textContent : '';
+  const view = !flEl ? pr
+             : document.body.classList.contains('only-pr') ? pr
+             : document.body.classList.contains('only-fl') ? fl
+             : ('PR: ' + pr + '\n\nFlorida: ' + fl);
+  navigator.clipboard.writeText(view).then(()=>showToast('Copiado ✓')).catch(()=>showToast('No se pudo copiar'));
+});
+
+// view toggle
+document.getElementById('seg').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');
+  document.body.classList.remove('only-pr','only-fl');
+  if(b.dataset.view==='pr') document.body.classList.add('only-pr');
+  if(b.dataset.view==='fl') document.body.classList.add('only-fl');
+});
+
+// reset
+document.getElementById('reset').addEventListener('click', ()=>{
+  if(!countEdits()){ showToast('No hay cambios que restaurar'); return; }
+  if(!confirm('¿Restaurar TODOS los datos a su versión original? Se perderán tus ediciones guardadas en este navegador.')) return;
+  Object.keys(localStorage).filter(k=>k.startsWith(LS_PREFIX)).forEach(k=>localStorage.removeItem(k));
+  document.querySelectorAll('.txt').forEach(el=>{ el.textContent = el.dataset.orig; el.classList.remove('edited'); });
+  updateSaved(); showToast('Datos restaurados');
+});
+
+updateSaved();
+</script>
+</body>
+</html>

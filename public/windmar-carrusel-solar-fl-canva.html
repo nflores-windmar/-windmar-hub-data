@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home FL — Carrusel Solar (¿Scam? · Blueprint Claro · Canva import)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Martian+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --ink:#33517f; --acc:#d99a00; --acc-deep:#a97800; --line:#7a97cc;
+  --orange:#f57c0a; --grid:rgba(26,82,199,.08); --muted:#8a99b8;
+  --disp:'Montserrat',system-ui,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --mono:'Martian Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#dfe6f2;font-family:var(--body);display:flex;flex-wrap:wrap;gap:20px;padding:20px;justify-content:center}
+
+.slide{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1350px;background:#ffffff;color:var(--navy)}
+.slide::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:5cqw 5cqw}
+.tick{position:absolute;width:3.3cqw;height:3.3cqw;border:.45cqw solid var(--acc);z-index:6}
+.tick.tl{top:2.8cqw;left:2.8cqw;border-right:none;border-bottom:none}
+.tick.tr{top:2.8cqw;right:2.8cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:2.8cqw;left:2.8cqw;border-right:none;border-top:none}
+.tick.br{bottom:2.8cqw;right:2.8cqw;border-left:none;border-top:none}
+
+.bg{position:absolute;inset:0;z-index:0;object-fit:cover;width:100%;height:100%}
+.veil{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.84) 55%,rgba(255,255,255,.95))}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:8.5cqw 7cqw}
+.kick{font-family:var(--mono);font-size:2.4cqw;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--acc-deep)}
+h1{font-family:var(--disp);font-weight:900;text-transform:uppercase;line-height:.94;font-size:9.6cqw;letter-spacing:-.01em;margin-top:2.4cqw}
+h1 .o{color:var(--acc)}
+h2{font-family:var(--disp);font-weight:800;line-height:1.02;font-size:7cqw;letter-spacing:-.01em;margin-top:2.4cqw}
+.sub{font-size:3.6cqw;font-weight:500;color:var(--ink);margin-top:3cqw;max-width:80cqw}
+
+.bullets{margin-top:5cqw;display:flex;flex-direction:column;gap:2.4cqw}
+.bullets li{list-style:none;font-size:3.4cqw;font-weight:500;color:var(--ink);padding-left:5cqw;position:relative;line-height:1.25}
+.bullets li::before{content:"";position:absolute;left:0;top:1.3cqw;width:2cqw;height:2cqw;border-radius:50%;background:var(--acc)}
+.checks{margin-top:5cqw;display:flex;flex-direction:column;gap:2.6cqw}
+.checks li{list-style:none;font-size:3.5cqw;font-weight:600;color:var(--navy);padding-left:6cqw;position:relative;line-height:1.28}
+.checks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--acc);font-weight:800}
+
+.highlight{margin-top:auto;margin-bottom:2cqw;border:.28cqw solid var(--acc);border-radius:2.4cqw;
+  background:rgba(217,154,0,.08);padding:3.4cqw 4cqw;font-size:3.4cqw;font-weight:700;color:var(--acc-deep)}
+
+/* MITO → VERDAD block */
+.mythwrap{margin-top:6cqw;display:flex;flex-direction:column;gap:0}
+.mythlbl{font-family:var(--mono);font-size:2.4cqw;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.myth{font-family:var(--disp);font-weight:800;font-size:6.6cqw;line-height:1.02;color:#9aa7c2;margin-top:1.6cqw;
+  text-decoration:line-through;text-decoration-color:var(--orange);text-decoration-thickness:.5cqw}
+.truthrow{margin-top:6cqw;display:inline-flex;align-items:center;gap:2.4cqw}
+.truthtag{font-family:var(--mono);font-size:2.5cqw;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;background:var(--acc);padding:1.2cqw 3cqw;border-radius:99px}
+.truthrule{flex:1;height:.4cqw;background:linear-gradient(90deg,var(--acc),rgba(217,154,0,0))}
+.truth{margin-top:3cqw;font-family:var(--disp);font-weight:600;font-size:4.2cqw;line-height:1.28;color:var(--navy);max-width:86cqw}
+.truth b{color:var(--acc-deep)}
+
+/* myth counter rail */
+.rail{margin-top:auto;display:flex;align-items:center;gap:2.2cqw}
+.rail .seg{flex:1;height:.7cqw;border-radius:99px;background:#c9d6ee}
+.rail .seg.on{background:var(--acc)}
+.rail .n{font-family:var(--mono);font-size:2.2cqw;font-weight:600;letter-spacing:.14em;color:var(--muted)}
+
+.foot{position:absolute;left:7cqw;right:7cqw;bottom:6cqw;z-index:3;display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-size:2.1cqw;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.foot .b{color:var(--acc-deep);font-weight:600}
+.wlogo{position:absolute;top:8.5cqw;left:7cqw;z-index:4;height:6cqw;width:auto;object-fit:contain}
+
+/* CTA */
+.cta{margin-top:5cqw;align-self:flex-start;background:var(--orange);color:#fff;font-family:var(--disp);font-weight:800;
+  font-size:4cqw;text-transform:uppercase;letter-spacing:.02em;padding:3cqw 6cqw;border-radius:99px}
+.site{margin-top:4cqw;font-family:var(--mono);font-size:2.6cqw;font-weight:600;letter-spacing:.1em;color:var(--acc-deep)}
+</style>
+</head>
+<body>
+
+<!-- S1 · PORTADA -->
+<div class="slide" data-document-role="page" data-label="S1 · Portada">
+  <img class="bg" src="img/fl-solar-house-pool-palms.png" alt="Casa en Florida con placas solares">
+  <div class="veil"></div>
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+  <div class="content" style="justify-content:center">
+    <div class="kick">Solar en Florida</div>
+    <h1>¿El solar<br>es un <span class="o">scam</span>?</h1>
+    <div class="sub">Escuchas de todo. Vamos a separar los mitos de la realidad — con números claros y sin presión.</div>
+  </div>
+  <div class="foot"><span>WindMar Home · Solar</span><span class="b">Florida</span></div>
+</div>
+
+<!-- S2 · POR QUÉ LA MALA FAMA -->
+<div class="slide" data-document-role="page" data-label="S2 · La mala fama">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Por qué la mala fama</div>
+    <h2>No todo el que vende solar lo hace bien</h2>
+    <ul class="bullets">
+      <li>Vendedores que prometen ahorros irreales</li>
+      <li>Contratos largos y difíciles de entender</li>
+      <li>Sistemas mal dimensionados para la casa</li>
+    </ul>
+    <div class="highlight">El problema no es el solar — es cómo algunos lo venden.</div>
+    <div class="foot" style="position:static;left:auto;right:auto;bottom:auto;margin-top:5cqw"><span>WindMar Home · Solar</span><span class="b">Florida</span></div>
+  </div>
+</div>
+
+<!-- S3 · MITO 01 -->
+<div class="slide" data-document-role="page" data-label="S3 · Mito 01">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Mito 01</div>
+    <div class="mythwrap">
+      <div class="mythlbl">Lo que se dice</div>
+      <div class="myth">“El solar es gratis”</div>
+    </div>
+    <div class="truthrow"><span class="truthtag">La verdad</span><span class="truthrule"></span></div>
+    <div class="truth">Es una <b>inversión</b> que reemplaza lo que ya pagas de luz. No es un regalo — es dejar de pagar de más por la factura cada mes.</div>
+    <div class="rail"><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="n">01 / 03</span></div>
+  </div>
+</div>
+
+<!-- S4 · MITO 02 -->
+<div class="slide" data-document-role="page" data-label="S4 · Mito 02">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Mito 02</div>
+    <div class="mythwrap">
+      <div class="mythlbl">Lo que se dice</div>
+      <div class="myth">“Igual sigues<br>pagando lo mismo”</div>
+    </div>
+    <div class="truthrow"><span class="truthtag">La verdad</span><span class="truthrule"></span></div>
+    <div class="truth">Si el sistema se diseña a <b>tu consumo real</b>, tu factura sí baja. La clave está en dimensionarlo bien, no en vender de más.</div>
+    <div class="rail"><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="n">02 / 03</span></div>
+  </div>
+</div>
+
+<!-- S5 · MITO 03 -->
+<div class="slide" data-document-role="page" data-label="S5 · Mito 03">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Mito 03</div>
+    <div class="mythwrap">
+      <div class="mythlbl">Lo que se dice</div>
+      <div class="myth">“Te amarran a un<br>contrato de por vida”</div>
+    </div>
+    <div class="truthrow"><span class="truthtag">La verdad</span><span class="truthrule"></span></div>
+    <div class="truth">Tú eres el <b>dueño de tu sistema</b>. Financiamiento claro, con términos que entiendes antes de firmar.</div>
+    <div class="rail"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="n">03 / 03</span></div>
+  </div>
+</div>
+
+<!-- S6 · CÓMO RECONOCER UNA OFERTA HONESTA -->
+<div class="slide" data-document-role="page" data-label="S6 · Oferta honesta">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="content">
+    <div class="kick">Cómo saber si es real</div>
+    <h2>Reconoce una oferta honesta</h2>
+    <ul class="checks">
+      <li>Te muestran números basados en TU factura</li>
+      <li>Explican permisos e interconexión</li>
+      <li>Garantías por escrito</li>
+      <li>Cero presión para firmar hoy</li>
+    </ul>
+    <div class="highlight">Solar bien hecho no se esconde — te lo explican con claridad.</div>
+    <div class="foot" style="position:static;left:auto;right:auto;bottom:auto;margin-top:5cqw"><span>WindMar Home · Solar</span><span class="b">Florida</span></div>
+  </div>
+</div>
+
+<!-- S7 · CTA -->
+<div class="slide" data-document-role="page" data-label="S7 · CTA">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+  <div class="content" style="justify-content:center">
+    <div class="kick">WindMar Home · Solar</div>
+    <h2>Descubre si el solar te conviene</h2>
+    <div class="sub">Una evaluación gratis, sin compromiso y con números reales de tu casa.</div>
+    <ul class="checks">
+      <li>Análisis de tu factura</li>
+      <li>Diseño a la medida de tu consumo</li>
+      <li>Financiamiento disponible</li>
+    </ul>
+    <div class="cta">Comenta SOLAR</div>
+    <div class="site">windmar.com</div>
+  </div>
+</div>
+
+</body>
+</html>

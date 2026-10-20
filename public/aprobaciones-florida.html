@@ -60,6 +60,12 @@
   .bp-status.ok{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.08);}
   .bp-status.no{color:#dc2626;border-color:#dc2626;background:rgba(220,38,38,.08);}
   .bp-status.wait{color:var(--bp-ink-dark);}
+  .bp-hd-chips{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+  .bp-pub{font-family:var(--bp-mono);font-size:10px;font-weight:500;letter-spacing:1px;padding:3px 9px;border-radius:99px;border:1.5px solid var(--bp-line);text-transform:uppercase;}
+  .bp-pub.draft{color:#64748b;border-color:#cbd5e1;background:rgba(100,116,139,.08);}
+  .bp-pub.rev{color:var(--bp-ink-dark);border-color:var(--bp-line);background:rgba(26,82,199,.06);}
+  .bp-pub.prog{color:var(--bp-orange);border-color:var(--bp-orange);background:rgba(245,124,10,.1);}
+  .bp-pub.pub{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.1);}
   .bp-thumb{aspect-ratio:4/5;background:linear-gradient(135deg,#0f2d5e,#1e4d8c);position:relative;display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden;border-bottom:1.5px solid var(--bp-ink);}
   .bp-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
   .bp-thumb .ph{font-family:var(--bp-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.8;text-align:center;padding:0 16px;line-height:1.7;}
@@ -103,6 +109,29 @@
   .bp-empty{grid-column:1/-1;text-align:center;padding:60px 20px;border:1.5px dashed var(--bp-line);border-radius:14px;background:rgba(26,82,199,.02);}
   .bp-empty .big{font-family:var(--bp-disp);font-weight:700;font-size:22px;color:var(--bp-navy);margin-bottom:6px;}
   .bp-empty .sm{font-family:var(--bp-mono);font-size:12px;color:var(--bp-ink-dark);}
+  /* card actions (team only) */
+  .bp-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--bp-line);}
+  .bp-act{font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:.5px;background:#fff;border:1.5px solid var(--bp-line);border-radius:8px;padding:7px 13px;cursor:pointer;color:var(--bp-ink-dark);transition:.12s;}
+  .bp-act:hover{border-color:var(--bp-ink);}
+  .bp-act.del{color:#dc2626;border-color:#dc2626;background:rgba(220,38,38,.05);}
+  .bp-act.del:hover{background:#dc2626;color:#fff;}
+  .bp-act.arch{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.06);}
+  .bp-act.arch:hover{background:#16a34a;color:#fff;}
+  .bp-act.restore{color:var(--bp-navy);border-color:var(--bp-navy);}
+  .bp-act.restore:hover{background:var(--bp-navy);color:#fff;}
+  .bp-act.pub{color:var(--bp-orange);border-color:var(--bp-orange);background:rgba(245,124,10,.08);}
+  .bp-act.pub:hover{background:var(--bp-orange);color:#fff;}
+  .bp-act.musa{color:var(--bp-navy);border-color:var(--bp-navy);background:rgba(29,66,155,.06);}
+  .bp-act.musa:hover{background:var(--bp-navy);color:#fff;}
+  .bp-pub.arch,.bp-status.arch{color:#64748b;border-color:#94a3b8;background:rgba(100,116,139,.08);}
+  /* archive section */
+  .bp-archwrap{margin-top:40px;}
+  .bp-archhd{display:flex;align-items:center;gap:10px;font-family:var(--bp-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-ink-dark);cursor:pointer;padding:12px 0;border-top:1.5px solid var(--bp-line);user-select:none;}
+  .bp-archhd .cnt{background:rgba(100,116,139,.12);border-radius:99px;padding:2px 9px;font-size:10px;}
+  .bp-archhd .arrow{margin-left:auto;transition:.2s;}
+  .bp-archwrap.open .bp-archhd .arrow{transform:rotate(180deg);}
+  .bp-archgrid{display:none;}
+  .bp-archwrap.open .bp-archgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;margin-top:8px;opacity:.85;}
 </style>
 </head>
 <body>
@@ -124,10 +153,23 @@
   <div class="teambar">
     <button class="tbtn" id="teamToggle">Modo equipo · Subir contenido</button>
     <button class="tbtn solid team-only" id="addBtn">+ Añadir publicación</button>
+    <button class="tbtn" id="notifyBtn" style="border-color:var(--bp-orange);color:var(--bp-orange);">📣 Avisar al equipo · verificar contenido</button>
+    <a class="tbtn" href="guiones-florida.html" style="text-decoration:none;border-color:var(--bp-orange);color:var(--bp-orange);">🎬 Guiones de Grabación</a>
+    <a class="tbtn" href="aprobaciones-pros.html" style="text-decoration:none;">🛠️ Aprobación WindMar Pros</a>
     <span class="teamnote team-only">Sube el video, escribe la red social, la fecha y el caption. El cliente lo verá aquí mismo.</span>
   </div>
 
   <div class="bp-grid" id="grid"></div>
+
+  <div class="bp-archwrap" id="pubwrap" style="display:none;">
+    <div class="bp-archhd" id="pubhd">✅ Publicados <span class="cnt" id="pubcnt">0</span> <span style="font-family:var(--bp-mono);font-size:10px;text-transform:none;letter-spacing:0;color:#94a3b8;">ya salieron — fuera del main</span> <span class="arrow">▾</span></div>
+    <div class="bp-archgrid" id="pubgrid"></div>
+  </div>
+
+  <div class="bp-archwrap team-only" id="archwrap" style="display:none;">
+    <div class="bp-archhd" id="archhd">📦 Archivo <span class="cnt" id="archcnt">0</span> <span style="font-family:var(--bp-mono);font-size:10px;text-transform:none;letter-spacing:0;color:#94a3b8;">piezas aprobadas y guardadas</span> <span class="arrow">▾</span></div>
+    <div class="bp-archgrid" id="archgrid"></div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -136,7 +178,19 @@
   const SB_URL='https://mywxxipguoaqknoczgav.supabase.co';
   const SB_KEY='sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
   const BRAND='home_fl';
-  const REVIEWERS=[{key:'rafael',name:'Rafael Almonte',ini:'RA'},{key:'manuel',name:'Manuel Pales',ini:'MP'}];
+  // Candado solo-Nicolle: el botón "Enviar a Musa" solo aparece con ?admin=1 en el URL.
+  // Al entrar una vez con ?admin=1, se guarda en este navegador y ya no hace falta el parámetro.
+  if(new URLSearchParams(location.search).get('admin')==='1'){ localStorage.setItem('wm-fl-admin','1'); }
+  const IS_ADMIN = localStorage.getItem('wm-fl-admin')==='1';
+  const REVIEWERS=[{key:'rafael',name:'Rafael Almonte',ini:'RA'},{key:'manuel',name:'Manuel Pales',ini:'MP'},{key:'mario',name:'Mario Alfonso',ini:'MA'},{key:'chad',name:'Chad Jason Hahn',ini:'CH'}];
+  const STATUSES=[
+    {v:'borrador',   label:'Borrador',    cls:'draft'},
+    {v:'revision',   label:'En revisión', cls:'rev'},
+    {v:'programado', label:'Programado',  cls:'prog'},
+    {v:'publicado',  label:'Publicado',   cls:'pub'},
+    {v:'archivado',  label:'Archivado',   cls:'arch'}
+  ];
+  const statusMeta=v=>STATUSES.find(s=>s.v===(v||'revision'))||STATUSES[1];
   let sb=null;
   try{ sb=window.supabase.createClient(SB_URL,SB_KEY); }catch(e){ console.error('Supabase init',e); }
 
@@ -172,7 +226,7 @@
   }
 
   function cardHTML(p){
-    const pid=p.piece_id, st=overall(pid), cap=(p.caption||'').trim();
+    const pid=p.piece_id, st=overall(pid), cap=(p.caption||'').trim(), sm=statusMeta(p.status);
     const media=p.video_url?`<video src="${esc(p.video_url)}" controls playsinline preload="metadata"></video>`:`<div class="ph">Sin video aún<br>· usa Modo equipo para subirlo ·</div>`;
     const revs=REVIEWERS.map(r=>{const d=approvals[aKey(pid,r.key)];return `<div class="bp-rev"><span class="bp-rev-name"><span class="ini">${esc(r.ini)}</span>${esc(r.name)}</span><span class="bp-btns"><button class="bp-btn ok ${d==='aprobado'?'on':''}" onclick="bpDecide('${pid}','${r.key}','aprobado')">Aprobar</button><button class="bp-btn no ${d==='negado'?'on':''}" onclick="bpDecide('${pid}','${r.key}','negado')">Cambios</button></span></div>`;}).join('');
     const cl=comments[cKey(pid)]||[];
@@ -182,6 +236,7 @@
         <div class="ed-h">Modo equipo · detalles de la publicación</div>
         <div class="ed-row">
           <input class="ed-in" id="f-platform-${pid}" placeholder="Red social (ej. Instagram + Facebook)" value="${esc(p.platform||'')}">
+          <select class="ed-in" id="f-status-${pid}">${STATUSES.map(s=>`<option value="${s.v}" ${sm.v===s.v?'selected':''}>${s.label}</option>`).join('')}</select>
         </div>
         <div class="ed-row">
           <input class="ed-in" id="f-date-${pid}" type="date" value="${esc(p.pub_date||'')}">
@@ -192,8 +247,21 @@
         <div class="ed-up" id="up-${pid}"></div>
         <button class="ed-save" onclick="savePiece('${pid}')">Guardar detalles</button>
       </div>`;
+    const isArch=(p.status==='archivado'), isPub=(p.status==='publicado');
+    let actBtns;
+    if(isArch){
+      actBtns=`<button class="bp-act restore" onclick="restorePiece('${pid}')">♻️ Restaurar</button><button class="bp-act del" onclick="deletePiece('${pid}')">🗑 Eliminar</button>`;
+    }else if(isPub){
+      actBtns=`<button class="bp-act restore" onclick="unpublishPiece('${pid}')">↩︎ Volver a revisión</button><button class="bp-act arch" onclick="archivePiece('${pid}')">📦 Archivar</button>`;
+    }else if(st.cls==='ok'){
+      actBtns=`<button class="bp-act pub" onclick="publishPiece('${pid}')">✅ Marcar publicado</button><button class="bp-act arch" onclick="archivePiece('${pid}')">📦 Archivar</button>`;
+    }else{
+      actBtns=`<button class="bp-act pub" onclick="publishPiece('${pid}')">✅ Marcar publicado</button><button class="bp-act del" onclick="deletePiece('${pid}')">🗑 Eliminar pieza</button>`;
+    }
+    const musaBtn=(isArch||!IS_ADMIN)?'':`<button class="bp-act musa" onclick="sendToMusa('${pid}')">📨 Enviar a Musa</button>`;
+    const actions=`<div class="bp-actions team-only">${actBtns}${musaBtn}</div>`;
     return `<div class="bp-card">
-      <div class="bp-card-hd"><span>Pieza · ${esc(p.format||'Contenido')}</span><span class="bp-status ${st.cls}">${st.label}</span></div>
+      <div class="bp-card-hd"><span>Pieza · ${esc(p.format||'Contenido')}</span><span class="bp-hd-chips"><span class="bp-pub ${sm.cls}">${sm.label}</span><span class="bp-status ${st.cls}">${st.label}</span></span></div>
       <div class="bp-thumb">${media}</div>
       <div class="bp-body">
         <div class="bp-title">${esc(p.title||'Sin título')}</div>
@@ -204,14 +272,30 @@
           <div class="bp-cmt-form"><select id="ca-${pid}">${opts}</select><textarea id="ct-${pid}" placeholder="Escribe un comentario sobre este video…"></textarea><button class="bp-cmt-send" onclick="bpAddComment('${pid}')">Enviar comentario</button></div>
         </div>
         ${ed}
+        ${actions}
       </div>
     </div>`;
   }
 
   function draw(){
     const grid=document.getElementById('grid');
-    if(!pieces.length){ grid.innerHTML='<div class="bp-empty"><div class="big">Aún no hay contenido</div><div class="sm">Activa “Modo equipo” y usa “+ Añadir publicación”.</div></div>'; return; }
-    grid.innerHTML=pieces.map(cardHTML).join('');
+    const active=pieces.filter(p=>p.status!=='archivado' && p.status!=='publicado');
+    const published=pieces.filter(p=>p.status==='publicado');
+    const archived=pieces.filter(p=>p.status==='archivado');
+    if(!active.length){ grid.innerHTML='<div class="bp-empty"><div class="big">Aún no hay contenido</div><div class="sm">Activa “Modo equipo” y usa “+ Añadir publicación”.</div></div>'; }
+    else{ grid.innerHTML=active.map(cardHTML).join(''); }
+    const pw=document.getElementById('pubwrap');
+    if(published.length){
+      pw.style.display='';
+      document.getElementById('pubcnt').textContent=published.length;
+      document.getElementById('pubgrid').innerHTML=published.map(cardHTML).join('');
+    }else{ pw.style.display='none'; }
+    const aw=document.getElementById('archwrap');
+    if(archived.length){
+      aw.style.display='';
+      document.getElementById('archcnt').textContent=archived.length;
+      document.getElementById('archgrid').innerHTML=archived.map(cardHTML).join('');
+    }else{ aw.style.display='none'; }
   }
 
   async function refresh(){
@@ -246,7 +330,7 @@
 
   window.savePiece=async function(pid){
     const g=id=>document.getElementById(id+'-'+pid);
-    const platform=g('f-platform').value.trim(), pub_date=g('f-date').value, pub_time=g('f-time').value.trim(), caption=g('f-caption').value;
+    const platform=g('f-platform').value.trim(), pub_date=g('f-date').value, pub_time=g('f-time').value.trim(), caption=g('f-caption').value, status=g('f-status').value;
     const fileEl=g('f-video'), up=document.getElementById('up-'+pid);
     let video_url;
     try{
@@ -259,7 +343,7 @@
         if(upErr) throw upErr;
         video_url=sb.storage.from('client-media').getPublicUrl(path).data.publicUrl;
       }
-      const patch={platform,pub_date:pub_date||null,pub_time,caption,updated_at:new Date().toISOString()};
+      const patch={platform,pub_date:pub_date||null,pub_time,caption,status,updated_at:new Date().toISOString()};
       if(video_url) patch.video_url=video_url;
       const { error }=await sb.from('client_pieces').update(patch).match({brand:BRAND,piece_id:pid});
       if(error) throw error;
@@ -277,11 +361,100 @@
     catch(e){ console.error('añadir',e); alert('No se pudo añadir: '+(e.message||e)); }
   };
 
+  window.archivePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Archivar «'+((p&&p.title)||'esta pieza')+'»?\n\nSe moverá a la sección Archivo (queda guardada, no se borra).')) return;
+    if(p) p.status='archivado'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'archivado',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('archivar',e); alert('No se pudo archivar: '+(e.message||e)); await refresh(); }
+  };
+
+  window.restorePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(p) p.status='revision'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'revision',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('restaurar',e); alert('No se pudo restaurar: '+(e.message||e)); await refresh(); }
+  };
+
+  window.publishPiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Marcar «'+((p&&p.title)||'esta pieza')+'» como PUBLICADO?\n\nSaldrá del main y se moverá a la sección “Publicados”.')) return;
+    if(p) p.status='publicado'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'publicado',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('publicar',e); alert('No se pudo marcar como publicado: '+(e.message||e)); await refresh(); }
+  };
+
+  window.unpublishPiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(p) p.status='revision'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'revision',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('despublicar',e); alert('No se pudo volver a revisión: '+(e.message||e)); await refresh(); }
+  };
+
+  window.deletePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Eliminar «'+((p&&p.title)||'esta pieza')+'» permanentemente?\n\nSe borrarán también sus aprobaciones y comentarios. Esta acción no se puede deshacer.')) return;
+    pieces=pieces.filter(x=>x.piece_id!==pid); draw();
+    if(!sb) return;
+    try{
+      await Promise.all([
+        sb.from('client_comments').delete().match({brand:BRAND,piece_id:pid}),
+        sb.from('client_approvals').delete().match({brand:BRAND,piece_id:pid})
+      ]);
+      const { error }=await sb.from('client_pieces').delete().match({brand:BRAND,piece_id:pid});
+      if(error) throw error;
+    }catch(e){ console.error('eliminar',e); alert('No se pudo eliminar: '+(e.message||e)); await refresh(); }
+  };
+
+  // hand a specific piece to Musa (the agent) so she's notified WHAT to send/publish
+  window.sendToMusa=async function(pid){
+    if(!sb){ alert('Sin conexión. Intenta de nuevo.'); return; }
+    const p=pieces.find(x=>x.piece_id===pid); const title=(p&&p.title)||'esta pieza';
+    if(!confirm('¿Enviar a Musa para publicar?\n\nSe le notificará que prepare/envíe:\n• '+title)) return;
+    const btn=document.querySelector('.bp-act.musa[onclick*="'+pid+'"]');
+    const orig=btn?btn.textContent:''; if(btn){ btn.disabled=true; btn.textContent='Enviando…'; }
+    try{
+      const { error }=await sb.from('client_comments').insert({
+        brand:BRAND, piece_id:pid, author:'Equipo WindMar',
+        body:'@@[Musa]@@ Pieza aprobada lista para publicar: «'+title+'». Por favor prepárala y envíala.',
+        created_at:new Date().toISOString() });
+      if(error) throw error;
+      if(btn){ btn.textContent='✓ Enviado a Musa'; setTimeout(function(){ btn.disabled=false; btn.textContent=orig; },4000); }
+    }catch(e){ console.error('enviar a Musa',e); if(btn){ btn.disabled=false; btn.textContent=orig; } alert('No se pudo enviar a Musa: '+(e.message||e)); }
+  };
+
+  // notify the whole team (fires one Teams alert per person via the DB trigger)
+  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Rafael Almonte','Mario Alfonso','Chad Jason Hahn','Miguel Torres','Aaron Myers','Nicolle Flores'];
+  window.notifyAll=async function(){
+    if(!sb){ alert('Sin conexión. Intenta de nuevo.'); return; }
+    const btn=document.getElementById('notifyBtn');
+    if(!confirm('¿Avisar a TODO el equipo para que verifique el contenido pendiente?\n\nSe enviará una notificación a Teams a:\n• '+NOTIFY_TEAM.join('\n• '))) return;
+    const orig=btn.textContent; btn.disabled=true; btn.textContent='Enviando avisos…';
+    try{
+      const now=new Date().toISOString();
+      const rows=NOTIFY_TEAM.map(function(name){
+        return { brand:BRAND, piece_id:'general', author:'Equipo WindMar',
+          body:'@@['+name+']@@ Por favor revisa y verifica el contenido pendiente en el portal de Florida.', created_at:now };
+      });
+      const { error }=await sb.from('client_comments').insert(rows);
+      if(error) throw error;
+      btn.textContent='✓ Equipo notificado';
+      setTimeout(function(){ btn.disabled=false; btn.textContent=orig; },4000);
+    }catch(e){ console.error('notificar equipo',e); btn.disabled=false; btn.textContent=orig; alert('No se pudo enviar el aviso: '+(e.message||e)); }
+  };
+  document.getElementById('notifyBtn').addEventListener('click',()=>window.notifyAll());
+
   // team mode toggle (remembered on this device)
   const TEAM_KEY='wm-fl-team';
   function setTeam(on){ document.body.classList.toggle('team',on); localStorage.setItem(TEAM_KEY,on?'1':'0'); document.getElementById('teamToggle').textContent=on?'Modo equipo: ACTIVO':'Modo equipo · Subir contenido'; document.getElementById('teamToggle').classList.toggle('solid',on); }
   document.getElementById('teamToggle').addEventListener('click',()=>setTeam(!document.body.classList.contains('team')));
   document.getElementById('addBtn').addEventListener('click',()=>window.addPiece());
+  document.getElementById('archhd').addEventListener('click',()=>document.getElementById('archwrap').classList.toggle('open'));
+  document.getElementById('pubhd').addEventListener('click',()=>document.getElementById('pubwrap').classList.toggle('open'));
   setTeam(localStorage.getItem(TEAM_KEY)==='1');
 
   refresh();

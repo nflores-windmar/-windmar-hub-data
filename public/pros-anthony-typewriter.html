@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Pros · Anthony Fratto — hype typewriter 16s</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#082A6F; --deep:#04122F; --blue:#1C7BFF; --sky:#3AA5EC;
+  --orange:#F7911E; --yellow:#FFD21E; --line:#1C2740;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#05070d;color:#cdd6ea;font-family:var(--body);min-height:100vh;
+     display:flex;align-items:flex-start;justify-content:center;gap:34px;padding:38px 20px;flex-wrap:wrap}
+
+.player{position:relative;width:min(400px,90vw);aspect-ratio:9/16;border-radius:24px;overflow:hidden;
+        background:#000;box-shadow:0 24px 60px rgba(0,0,0,.55);flex:0 0 auto}
+.player video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.player .tapzone{position:absolute;inset:0;cursor:pointer}
+.bigplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+         background:rgba(4,18,47,.42);transition:opacity .2s;pointer-events:none}
+.bigplay.hide{opacity:0}
+.bigplay span{width:82px;height:82px;border-radius:50%;background:var(--orange);color:#1a1206;
+              display:flex;align-items:center;justify-content:center;font-size:30px;padding-left:6px;
+              box-shadow:0 10px 34px rgba(0,0,0,.5)}
+.bar{position:absolute;left:0;bottom:0;height:4px;background:rgba(255,255,255,.18);width:100%}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--yellow))}
+
+.panel{width:min(370px,90vw);display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--disp);font-weight:400;font-size:40px;line-height:.98;color:#fff;letter-spacing:.5px}
+h1 em{font-style:normal;color:var(--yellow)}
+.sub{font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);font-weight:700}
+p{font-size:15px;line-height:1.62;color:#aab8d6}
+
+.group{display:flex;flex-direction:column;gap:8px}
+.glabel{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#93a2c4;font-weight:700}
+.seg{display:flex;background:#0d1426;border:1.5px solid var(--line);border-radius:11px;padding:4px;gap:4px}
+.seg button{flex:1;font-family:var(--body);font-weight:700;font-size:15px;padding:12px 8px;border-radius:8px;
+            border:none;cursor:pointer;background:transparent;color:#aab8d6;transition:.15s}
+.seg button.on{background:var(--orange);color:#1a1206}
+.row{display:flex;gap:9px}
+.row button{flex:1;font-family:var(--body);font-weight:700;font-size:15px;padding:13px 10px;border-radius:10px;
+            border:1.5px solid var(--line);background:transparent;color:#cdd6ea;cursor:pointer;transition:.15s}
+.row button:hover{border-color:#2f4370;color:#fff}
+.row button.primary{background:var(--orange);border-color:var(--orange);color:#1a1206}
+
+.dl{display:flex;flex-direction:column;gap:7px}
+.dl a{display:flex;justify-content:space-between;align-items:center;gap:10px;
+      font-size:15px;font-weight:700;color:#cdd6ea;text-decoration:none;
+      border:1.5px solid var(--line);border-radius:10px;padding:13px 14px;transition:.15s}
+.dl a:hover{border-color:var(--orange);color:#fff}
+.dl a small{font-weight:500;color:#93a2c4;font-size:14px}
+
+.specs{border-top:1px solid var(--line);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+.specs div{font-size:14px;color:#93a2c4;line-height:1.45}
+.specs b{display:block;color:#b3c3e2;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+
+.beats{border-top:1px solid var(--line);padding-top:16px}
+.beats h2{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#93a2c4;font-weight:700;margin-bottom:11px}
+.beats ol{list-style:none;display:flex;flex-direction:column;gap:7px}
+.beats li{display:flex;gap:10px;font-size:14px;color:#a2b1d0;line-height:1.5}
+.beats li span{color:var(--orange);font-weight:700;font-variant-numeric:tabular-nums;flex:0 0 52px}
+
+/* aviso de datos que faltan — fondo claro, asi que re-declara el color de TODOS
+   sus hijos (incluido <b>) o heredan el #cdd6ea del body y se pierden */
+.falta{background:#FFF4E2;border-left:4px solid var(--orange);border-radius:8px;
+       padding:14px 16px;font-size:14px;line-height:1.6;color:#4a3a22}
+.falta b{color:#2d2110;font-weight:800}
+</style>
+</head>
+<body>
+
+<div class="player" id="player">
+  <video id="v" playsinline preload="auto">
+    <source id="src" src="wme/pros-anthony-typewriter-con-musica.mp4" type="video/mp4">
+  </video>
+  <div class="tapzone" onclick="toggle()"></div>
+  <div class="bigplay" id="bigplay"><span>&#9654;</span></div>
+  <div class="bar"><i id="barfill"></i></div>
+</div>
+
+<div class="panel">
+  <div>
+    <div class="sub">WindMar Pros · Orlando FL</div>
+    <h1>Anthony<br><em>Fratto</em></h1>
+  </div>
+  <p>Hype de 16 s en 9:16, mismo motor que el de Arianna. El texto no aparece: se <b>teclea</b>. Cada palabra arranca justo en el golpe de la pista (148 BPM) y las letras caen una por una con cursor. El cheque se escribe a mano en vivo.</p>
+
+  <div class="falta">
+    <b>Falta un solo dato: la fecha del cheque.</b> Ya están montados Orlando, el
+    periodo semanal y el <b>top closer</b>. El renglón de FECHA sigue fuera del
+    cheque porque no lo tengo, y ese es justo el dato que cualquiera puede cotejar
+    contra el cheque real. Dime el día y lo monto.
+  </div>
+
+  <div class="group">
+    <div class="glabel">Audio</div>
+    <div class="seg">
+      <button id="bmus" class="on" onclick="setTrack(true)">Con música</button>
+      <button id="bsil" onclick="setTrack(false)">Sin música</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <button class="primary" id="bplay" onclick="toggle()">❚❚ Pausar</button>
+    <button onclick="restart()">↺ Desde el inicio</button>
+  </div>
+  <div class="row">
+    <button id="bloop" onclick="toggleLoop()">Loop: ON</button>
+    <button id="bmute" onclick="toggleMute()">🔊 Sonido</button>
+  </div>
+
+  <div class="dl">
+    <a href="wme/pros-anthony-typewriter-con-musica.mp4" download>Descargar con música <small>MP4 · 2.8 MB</small></a>
+    <a href="wme/pros-anthony-typewriter-sin-musica.mp4" download>Descargar sin música <small>MP4 · 2.4 MB · mudo</small></a>
+  </div>
+
+  <div class="specs">
+    <div><b>Formato</b>1080×1920 · 9:16</div>
+    <div><b>Duración</b>16.38 s · 30 fps</div>
+    <div><b>Rejilla</b>148 BPM · 405 ms</div>
+    <div><b>Fondo</b>Metraje real WindMar</div>
+  </div>
+
+  <div class="beats">
+    <h2>Estructura</h2>
+    <ol>
+      <li><span>0.0 s</span>Hook: THE NUMBERS DON'T LIE</li>
+      <li><span>2.4 s</span>$1,208 · EN UNA SEMANA</li>
+      <li><span>5.6 s</span>TOP CLOSER · LETSS GOOO</li>
+      <li><span>8.0 s</span>Reveal: la foto pasa de silueta a luz</li>
+      <li><span>10.5 s</span>Cheque: se escribe a mano campo por campo</li>
+      <li><span>13.3 s</span>Fogonazo, confeti y cierre de marca</li>
+    </ol>
+  </div>
+</div>
+
+<script>
+const v=document.getElementById('v'), src=document.getElementById('src');
+const fill=document.getElementById('barfill'), big=document.getElementById('bigplay');
+let withMusic=true, looping=true;
+
+v.loop=true;
+
+function setTrack(m){
+  if(m===withMusic) return;
+  withMusic=m;
+  const at=v.currentTime, wasPlaying=!v.paused;
+  src.src = m ? 'wme/pros-anthony-typewriter-con-musica.mp4' : 'wme/pros-anthony-typewriter-sin-musica.mp4';
+  v.load();
+  v.addEventListener('loadeddata', ()=>{
+    v.currentTime=at;
+    if(wasPlaying) v.play().catch(()=>{});
+  }, {once:true});
+  document.getElementById('bmus').classList.toggle('on', m);
+  document.getElementById('bsil').classList.toggle('on', !m);
+}
+function toggle(){
+  if(v.paused){ v.play().catch(()=>{}); } else { v.pause(); }
+}
+function restart(){ v.currentTime=0; v.play().catch(()=>{}); }
+function toggleLoop(){
+  looping=!looping; v.loop=looping;
+  document.getElementById('bloop').textContent='Loop: '+(looping?'ON':'OFF');
+}
+function toggleMute(){
+  v.muted=!v.muted;
+  document.getElementById('bmute').textContent = v.muted ? '🔇 Silencio' : '🔊 Sonido';
+}
+v.addEventListener('play', ()=>{
+  big.classList.add('hide');
+  document.getElementById('bplay').textContent='❚❚ Pausar';
+});
+v.addEventListener('pause', ()=>{
+  big.classList.remove('hide');
+  document.getElementById('bplay').textContent='▶︎ Reproducir';
+});
+v.addEventListener('timeupdate', ()=>{
+  fill.style.width = (v.currentTime/(v.duration||16.38)*100)+'%';
+});
+</script>
+</body>
+</html>

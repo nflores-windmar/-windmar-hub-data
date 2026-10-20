@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "WindMar Home Florida — Calendario Tentativo Agosto 2026",
+  "schemaVersion": 1,
+  "description": "Calendario de contenido TENTATIVO de agosto 2026 para Florida. Bilingüe (ES/EN). Dos marcas: WindMar Home FL (publica en Facebook + Instagram) y WindMar Pros (solo Instagram). Incluye lista de publicaciones con fecha, hora, red y marca. Arranca con los 4 carruseles listos en el Studio (Home · Solar Q CELLS · Sellado Owens Corning · Tesla Powerwall) y suma los 6 videos del cronograma FL (3 reels educativos + 3 entrevistas) a medida que se graban. Borrador para revisión."
+}
+</script>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home Florida — Calendario Tentativo · Agosto 2026</title>
+<style>
+:root{color-scheme:light;
+  --bg:#f4f7fb; --card:#ffffff; --ink:#0d2240; --muted:#5b6b7c; --line:#e3e9f0;
+  --brand:#0a6ebd; --brand2:#1aa896; --orange:#FF6B00;
+  --home:#0a6ebd; --pros:#7c3aed;
+  --fb:#1877f2; --ig:#d6249f;
+  --edu:#0c8f7d; --intv:#c0287e; --car:#0a6ebd; --foto:#b9770a; --hist:#5b6b7c;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:22px}
+.wrap{max-width:1060px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:all .15s}
+.topnav a:hover{border-color:var(--brand);color:var(--brand)}
+header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;margin:0;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{display:inline-block;background:#fff3e8;color:var(--orange);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:700}
+.pill.draft{background:#fff8ec;color:#b9770a;border:1px dashed #e6b45a}
+h2{font-size:16px;margin:30px 0 12px;display:flex;align-items:center;gap:8px}
+h2 .bar{width:4px;height:18px;background:var(--orange);border-radius:2px}
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:repeat(2,1fr)}
+.cols3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:820px){.cols2,.cols3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(13,34,64,.04)}
+.note{background:#fff8ec;border:1px solid #f1dcae;border-radius:10px;padding:12px 14px;font-size:13px;color:#6b5418}
+
+/* brand cards */
+.brandbar{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(max-width:820px){.brandbar{grid-template-columns:1fr}}
+.brandcard{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff}
+.brandcard.home{border-top:3px solid var(--home)}
+.brandcard.pros{border-top:3px solid var(--pros)}
+.brandcard .bn{font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px}
+.brandcard.home .bn{color:var(--home)}
+.brandcard.pros .bn{color:var(--pros)}
+.brandcard .bd{font-size:12px;color:var(--muted);margin-top:5px}
+.nets{display:flex;gap:6px;margin-top:9px}
+.net{font-size:10px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.4px}
+.net.fb{background:#eaf1fe;color:var(--fb)}
+.net.ig{background:#fdeaf4;color:var(--ig)}
+
+/* master posting table */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+table.sched{width:100%;border-collapse:collapse;font-size:12.5px;min-width:720px}
+table.sched th{text-align:left;padding:10px 12px;background:#f3f6fb;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line);font-weight:700}
+table.sched td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.4}
+table.sched tr:last-child td{border-bottom:0}
+table.sched .dt{font-weight:700;white-space:nowrap}
+table.sched .dt small{display:block;color:var(--muted);font-weight:600;font-size:11px}
+.brandtag{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.3px;white-space:nowrap}
+.brandtag.home{background:#eaf3fb;color:var(--home)}
+.brandtag.pros{background:#f1eafe;color:var(--pros)}
+.netcell{font-size:10px;font-weight:800;letter-spacing:.3px;white-space:nowrap}
+.netcell .fb{color:var(--fb)} .netcell .ig{color:var(--ig)}
+.fmt{display:inline-block;font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;text-transform:uppercase;letter-spacing:.4px;vertical-align:middle}
+.f-edu{background:#e7f7f3;color:var(--edu)}
+.f-intv{background:#fdeaf4;color:var(--intv)}
+.f-car{background:#eaf3fb;color:var(--car)}
+.f-foto{background:#fdf0d6;color:var(--foto)}
+.f-hist{background:#eef1f5;color:var(--hist)}
+.lang{display:inline-block;font-size:9px;font-weight:800;padding:1px 6px;border-radius:5px;letter-spacing:.4px;vertical-align:middle}
+.l-bi{background:linear-gradient(90deg,#eaf3fb 50%,#f1eafe 50%);color:#3f3a6e}
+
+/* ready content */
+.readybar{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.readycard{border:1px solid var(--line);border-radius:10px;padding:12px 13px;background:#f7fbf9}
+.readycard .rt{font-weight:700;font-size:13px}
+.readycard .rd{font-size:11.5px;color:var(--muted);margin-top:2px}
+.readycard .rs{display:inline-block;margin-top:8px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--edu);background:#e7f7f3;border-radius:5px;padding:2px 7px}
+.readycard.pend{background:#fff8ec}
+.readycard.pend .rs{color:#b9770a;background:#fdf0d6}
+
+/* weekly */
+.week{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 16px 16px;margin-bottom:14px}
+.week h3{font-size:15px;margin:14px 0 2px}
+.week .when{font-size:11.5px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.week .theme{font-size:12.5px;color:var(--muted);margin:2px 0 12px}
+.task{display:flex;gap:9px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:12.8px}
+.task:first-of-type{border-top:0}
+.task input{margin-top:3px;width:15px;height:15px;accent-color:var(--brand2);cursor:pointer;flex:none}
+.task .t .h{font-weight:600}
+.task .t .h .day{color:var(--muted);font-weight:700}
+.task .t .meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0 2px}
+.task .t .d{color:var(--muted);font-size:12px;margin-top:2px}
+.task .t .en{color:#6d5aa8;font-size:11.5px;margin-top:2px;font-style:italic}
+.task.done .t .h{text-decoration:line-through;color:var(--muted)}
+.progwrap{display:flex;align-items:center;gap:12px;margin:4px 0 18px}
+.progbar{flex:1;height:9px;background:#e3e9f0;border-radius:999px;overflow:hidden}
+.progfill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--brand));transition:width .35s}
+.progtxt{font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap}
+.datechip{display:inline-flex;align-items:center;gap:6px;background:#fff3e0;color:#8a5a12;border:1px solid #f1dcae;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;margin:0 6px 6px 0}
+.copy .ct{font-weight:800;font-size:13px;margin-bottom:6px;color:var(--orange)}
+.cap{font-size:12px;color:var(--muted);margin:4px 0;line-height:1.55}
+.cap b{color:var(--ink)}
+.cap.en{color:#6d5aa8}
+.cap.en b{color:#4c3d7a}
+footer{margin-top:28px;padding-top:14px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+@media print{
+  body{background:#fff;padding:0}
+  .topnav{display:none}
+  .card,.week,.brandcard,.tablewrap,.readycard{box-shadow:none;break-inside:avoid}
+  .pill.draft{border-color:#e6b45a}
+  h2{margin-top:20px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topnav">
+  <a href="cronograma_fl.html">🎬 Cronograma FL (grabación)</a>
+  <a href="windmar-fl-stories.html">☀️ Artes Stories · Fun Facts</a>
+  <a href="aprobaciones-florida.html">✅ Aprobaciones FL</a>
+  <a href="windmar-agosto-2026.html">🇵🇷 Calendario PR</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a href="windmar-fl-calendario.pdf" download>📄 Descargar PDF</a>
+  <a onclick="window.print()" style="cursor:pointer">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <div>
+    <h1>WindMar <span class="o">Florida</span> — Calendario de Contenido</h1>
+    <div class="sub">Agosto 2026 · plan tentativo · bilingüe ES/EN</div>
+  </div>
+  <div style="text-align:right">
+    <span class="pill draft">Borrador · por aprobar</span>
+    <div class="sub">Fechas y talent por confirmar</div>
+  </div>
+</header>
+
+<div class="note" style="margin-top:14px">
+  <b>Cómo leer este plan:</b> es una <b>propuesta tentativa para agosto 2026</b>. Trabajamos con <b>dos marcas</b>: <b>WindMar Home FL</b> (publica en <b>Facebook + Instagram</b>) y <b>WindMar Pros</b> (<b>solo Instagram</b>). La tabla de abajo lista <b>cada publicación con su fecha, hora, red y marca</b>. Todo el contenido es <b>bilingüe</b> (ES/EN). Empezamos con los <b>4 carruseles ya listos</b> en el Studio y sumamos los <b>6 videos del cronograma FL</b> a medida que se graban. Las fechas son un punto de partida y se ajustan al confirmar grabaciones.
+</div>
+
+<h2><span class="bar"></span>Las dos marcas y sus redes</h2>
+<div class="brandbar">
+  <div class="brandcard home">
+    <div class="bn">🏠 WindMar Home FL</div>
+    <div class="bd">Marca al consumidor: solar, baterías, roofing y agua para el hogar. Lleva el grueso del contenido: carruseles, entrevistas de clientes e historias.</div>
+    <div class="nets"><span class="net fb">FACEBOOK</span><span class="net ig">INSTAGRAM</span></div>
+  </div>
+  <div class="brandcard pros">
+    <div class="bn">🛠️ WindMar Pros</div>
+    <div class="bd">Enfoque técnico / profesional: cómo se hace el trabajo, instalaciones paso a paso y detrás de cámara. Contenido de nicho para audiencia de Instagram.</div>
+    <div class="nets"><span class="net ig">INSTAGRAM</span></div>
+  </div>
+</div>
+<div class="note" style="margin-top:12px">El reparto de piezas entre <b>Home FL</b> y <b>Pros</b> es <b>tentativo</b> — cualquier pieza se puede mover o cruzar según decida el equipo. La regla fija es la red: <b>Home FL = Facebook + Instagram</b>, <b>Pros = solo Instagram</b>.</div>
+
+<h2><span class="bar"></span>Lista de publicaciones · agosto <span style="font-size:11px;font-weight:400;color:var(--muted)">· cuándo · red · página</span></h2>
+<div class="tablewrap">
+  <table class="sched">
+    <thead>
+      <tr><th>Fecha</th><th>Hora (ET)</th><th>Red</th><th>Página</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="dt">Sáb 1 <small>ago</small></td><td>8:00 AM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Sáb 1 <small>ago</small></td><td>12:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Mié 5 <small>ago</small></td><td>12:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Vie 8 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="ig">IG</span></td><td><span class="brandtag pros">WindMar Pros</span></td></tr>
+      <tr><td class="dt">Lun 11 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Mié 13 <small>ago</small></td><td>12:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Vie 15 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="ig">IG</span></td><td><span class="brandtag pros">WindMar Pros</span></td></tr>
+      <tr><td class="dt">Lun 18 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Mié 20 <small>ago</small></td><td>12:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Vie 22 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="ig">IG</span></td><td><span class="brandtag pros">WindMar Pros</span></td></tr>
+      <tr><td class="dt">Lun 25 <small>ago</small></td><td>6:00 PM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+      <tr><td class="dt">Dom 31 <small>ago</small></td><td>8:00 AM</td><td class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></td><td><span class="brandtag home">WindMar Home FL</span></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="note" style="margin-top:12px"><b>Horario base (hora de FL / ET):</b> Historias 8:00 AM · Carruseles 12:00 PM · Reels y entrevistas 6:00 PM. Son puntos de partida — ajusta según las estadísticas de cada cuenta. Historias diarias adicionales en Home FL a lo largo del mes.</div>
+
+<h2><span class="bar"></span>Contenido disponible para arrancar</h2>
+<div class="readybar">
+  <div class="readycard"><div class="rt">Carrusel · Home</div><div class="rd">Todo tu hogar en un lugar</div><span class="rs">Listo en Studio</span></div>
+  <div class="readycard"><div class="rt">Carrusel · Solar</div><div class="rd">Q CELLS</div><span class="rs">Listo en Studio</span></div>
+  <div class="readycard"><div class="rt">Carrusel · Sellado</div><div class="rd">Owens Corning · roofing</div><span class="rs">Listo en Studio</span></div>
+  <div class="readycard"><div class="rt">Carrusel · Baterías</div><div class="rd">Tesla Powerwall</div><span class="rs">Listo en Studio</span></div>
+  <div class="readycard pend"><div class="rt">Reel Edu · Baterías</div><div class="rd">Tesla Powerwall</div><span class="rs">Por grabar</span></div>
+  <div class="readycard pend"><div class="rt">Reel Edu · Solar</div><div class="rd">Q CELLS</div><span class="rs">Por grabar</span></div>
+  <div class="readycard pend"><div class="rt">Reel Edu · Roofing</div><div class="rd">instalación real</div><span class="rs">Por grabar</span></div>
+  <div class="readycard pend"><div class="rt">Entrevistas × 3</div><div class="rd">clientes reales FL</div><span class="rs">Por grabar</span></div>
+</div>
+
+<h2><span class="bar"></span>Plan semana por semana</h2>
+<div class="progwrap">
+  <div class="progbar"><div class="progfill" id="progfill"></div></div>
+  <div class="progtxt" id="progtxt">0 / 0 publicadas</div>
+</div>
+
+<!-- SEMANA 1 -->
+<div class="week">
+  <span class="when">Semana 1 · 1–2 ago (sáb–dom)</span>
+  <h3>Presentamos WindMar Home Florida</h3>
+  <div class="theme">Abrimos con el mensaje madre: una sola empresa para todo el hogar. Usamos los carruseles que ya están listos.</div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Sáb 1 ·</span> 8:00 AM · "WindMar ya está en Florida" + encuesta</span><span class="meta"><span class="fmt f-hist">Historia</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Anuncio corto + pregunta: ¿qué quieres para tu casa? Recoge temas.</span><span class="en">EN: "WindMar is now in Florida." Poll to gather interests.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Sáb 1 ·</span> 12:00 PM · Home — "Todo tu hogar, en un solo lugar"</span><span class="meta"><span class="fmt f-car">Carrusel</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Solar, baterías, sistemas de agua y roofing — presentación de la marca en Florida.</span><span class="en">EN: "Your whole home, in one place." Brand intro for Florida.</span></span></label>
+</div>
+
+<!-- FUN FACTS FLORIDA · 1-7 AGO -->
+<div class="week" style="border-left:4px solid var(--orange);background:linear-gradient(180deg,#fff8f1,#ffffff)">
+  <span class="when" style="background:var(--orange);color:#fff">☀️ Fun facts de Florida · Historias · 1–7 ago</span>
+  <h3>Datos curiosos para Stories</h3>
+  <div class="theme" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">Van como <b>Historias (Stories)</b> — idea de una por día durante la semana. Datos reales de Florida que conectan con lo que hace WindMar. Bilingüe. <span class="fmt f-hist">Historia</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span></div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">☀️ El apodo oficial de Florida es <b>"The Sunshine State"</b> — más de 230 días de sol al año.</span><span class="d">Gancho: «Tanto sol… ¿por qué no ponerlo a trabajar por ti?» → solar.</span><span class="en">EN: "The Sunshine State" — 230+ sunny days a year. Put that sun to work for you.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">⚡ Florida es de los lugares con <b>más rayos de EE.UU.</b> — la zona Tampa–Orlando se llama "Lightning Alley".</span><span class="d">Gancho: «Cuando el cielo se pone así, tu casa debería seguir encendida.» → baterías.</span><span class="en">EN: Florida sees more lightning than almost any US state. Keep your home running.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">🌀 La temporada de huracanes va de <b>junio a noviembre</b> y su punto más fuerte empieza a mediados de agosto.</span><span class="d">Gancho: «La mejor hora de prepararte es antes.» → respaldo Tesla Powerwall + roofing.</span><span class="en">EN: Hurricane season peaks from mid-August. The best time to prepare is before.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">❄️ El verano en Florida dispara la factura de luz por el aire acondicionado casi todo el año.</span><span class="d">Gancho: «¿Tu factura sube cada verano? Hay una forma de bajarla.» → solar + eficiencia.</span><span class="en">EN: AC runs year-round in Florida — a big reason bills spike. Solar helps.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h">🔆 Florida está entre los estados con <b>más energía solar instalada</b> de todo EE.UU.</span><span class="d">Gancho: «Miles de casas en Florida ya lo hicieron. ¿Te unes?» → prueba social.</span><span class="en">EN: Florida is among the top US states for installed solar. Thousands already made the move.</span></span></label>
+</div>
+
+<!-- SEMANA 2 -->
+<div class="week">
+  <span class="when">Semana 2 · 3–9 ago</span>
+  <h3>El sol de Florida en ahorro</h3>
+  <div class="theme">Solar al frente: el carrusel Q CELLS en Home FL y el reel educativo en WindMar Pros.</div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Mié 5 ·</span> 12:00 PM · Solar (Q CELLS) — "El sol de Florida, a tu favor"</span><span class="meta"><span class="fmt f-car">Carrusel</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Cómo el sol se convierte en ahorro. Educativo del producto.</span><span class="en">EN: "Florida sun, working for you." How solar turns into savings.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Vie 8 ·</span> 6:00 PM · Solar — "¿Tu factura sube cada verano?"</span><span class="meta"><span class="fmt f-edu">Reel edu</span><span class="brandtag pros">Pros</span><span class="netcell"><span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Q CELLS. Explica simple cómo el solar baja la factura en el calor de Florida.</span><span class="en">EN: "Does your bill spike every summer?" How solar cuts costs.</span></span></label>
+</div>
+
+<!-- SEMANA 3 -->
+<div class="week">
+  <span class="when">Semana 3 · 10–16 ago</span>
+  <h3>Energía aunque se vaya la luz</h3>
+  <div class="theme">Testimonio de solar + Tesla Powerwall: carrusel de baterías en Home FL y reel técnico en Pros.</div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Lun 11 ·</span> 6:00 PM · Cliente FL — enfoque solar / ahorro</span><span class="meta"><span class="fmt f-intv">Entrevista</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Testimonio real: cómo cambió su factura y su día a día con WindMar.</span><span class="en">EN: Real customer on how solar changed their bill and life.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Mié 13 ·</span> 12:00 PM · Baterías (Tesla Powerwall) — "Dónde se guarda tu energía"</span><span class="meta"><span class="fmt f-car">Carrusel</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Explica el rol de la batería junto al solar.</span><span class="en">EN: "Where your energy is stored." Battery + solar.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Vie 15 ·</span> 6:00 PM · Baterías — "Se fue la luz… ¿qué se queda encendido?"</span><span class="meta"><span class="fmt f-edu">Reel edu</span><span class="brandtag pros">Pros</span><span class="netcell"><span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Tesla Powerwall. Nevera, luces, internet — respaldo real.</span><span class="en">EN: "Power's out… what stays on?" Backup that keeps home running.</span></span></label>
+</div>
+
+<!-- SEMANA 4 -->
+<div class="week">
+  <span class="when">Semana 4 · 17–23 ago</span>
+  <h3>Un techo fuerte y asegurable</h3>
+  <div class="theme">Testimonio de baterías + roofing: carrusel de sellado en Home FL y el reel de instalación real en Pros.</div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Lun 18 ·</span> 6:00 PM · Cliente FL — enfoque baterías / energía</span><span class="meta"><span class="fmt f-intv">Entrevista</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Testimonio real: tranquilidad en apagones con su sistema.</span><span class="en">EN: Real customer on peace of mind during outages.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Mié 20 ·</span> 12:00 PM · Sellado (Owens Corning) — "La primera defensa del hogar"</span><span class="meta"><span class="fmt f-car">Carrusel</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Por qué sellar a tiempo protege la casa y la inversión.</span><span class="en">EN: "Your home's first defense." Seal it in time.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Vie 22 ·</span> 6:00 PM · Roofing — "Así sellamos un techo, paso a paso"</span><span class="meta"><span class="fmt f-edu">Reel edu</span><span class="brandtag pros">Pros</span><span class="netcell"><span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Instalación real: antes, durante y resultado final.</span><span class="en">EN: "How we seal a roof, step by step." Real install.</span></span></label>
+</div>
+
+<!-- SEMANA 5 -->
+<div class="week">
+  <span class="when">Semana 5 · 24–31 ago</span>
+  <h3>Cierre: cliente real + recap</h3>
+  <div class="theme">Cerramos el mes con el testimonio de roofing y un resumen que invita a escribir.</div>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Lun 25 ·</span> 6:00 PM · Cliente FL — enfoque roofing / tranquilidad</span><span class="meta"><span class="fmt f-intv">Entrevista</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Testimonio real: casa protegida y tranquila.</span><span class="en">EN: Real customer on a protected, worry-free home.</span></span></label>
+  <label class="task"><input type="checkbox"><span class="t"><span class="h"><span class="day">Dom 31 ·</span> 8:00 AM · Resumen del mes + "Escríbenos"</span><span class="meta"><span class="fmt f-hist">Historia</span><span class="brandtag home">Home FL</span><span class="netcell"><span class="fb">FB</span> · <span class="ig">IG</span></span><span class="lang l-bi">ES/EN</span></span><span class="d">Recap de las 4 soluciones + invitación a agendar evaluación.</span><span class="en">EN: Month recap + "Message us for a free evaluation."</span></span></label>
+</div>
+
+<h2><span class="bar"></span>Copies listos (bilingüe) <span style="font-size:11px;font-weight:400;color:var(--muted)">· gancho + caption ES/EN</span></h2>
+<div class="note" style="margin-top:0">Base para publicar. Cada pieza en español e inglés — ajusta al grabar. Cierre sugerido: ES «Escríbenos para una evaluación sin compromiso» · EN "Message us for a free, no-commitment evaluation."</div>
+<div class="grid cols2" style="margin-top:14px">
+
+  <div class="card copy">
+    <div class="ct">1 · Carrusel Home — Todo tu hogar <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Todo tu hogar, en un solo lugar.»</div>
+    <div class="cap"><b>Caption:</b> WindMar llegó a Florida con todo para tu casa: energía solar, baterías de respaldo, sistemas de agua y roofing. Una sola empresa que te acompaña de principio a fin. ¿Por dónde quieres empezar?</div>
+    <div class="cap en"><b>EN Hook:</b> "Your whole home, in one place."</div>
+    <div class="cap en"><b>EN Caption:</b> WindMar is now in Florida with everything your home needs: solar energy, backup batteries, water systems and roofing. One company with you every step of the way. Where would you like to start?</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">2 · Carrusel Solar — Q CELLS <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «El sol de Florida, a tu favor.»</div>
+    <div class="cap"><b>Caption:</b> Tu techo recibe sol casi todo el año. Con paneles Q CELLS ese sol se convierte en ahorro real en tu factura. Te evaluamos sin compromiso para ver cuánto puedes ahorrar.</div>
+    <div class="cap en"><b>EN Hook:</b> "Florida sun, working for you."</div>
+    <div class="cap en"><b>EN Caption:</b> Your roof gets sun almost all year. With Q CELLS panels, that sun turns into real savings on your bill. Free, no-commitment evaluation to see how much you could save.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">3 · Reel Solar — ¿Factura de verano? <span class="brandtag pros">Pros</span></div>
+    <div class="cap"><b>Gancho:</b> «¿Tu factura de luz sube cada verano en Florida?»</div>
+    <div class="cap"><b>Caption:</b> El calor sube el aire acondicionado… y la factura. Te explicamos, simple y honesto, cómo el solar te ayuda a controlarla. Sin promesas exageradas — números reales para tu casa.</div>
+    <div class="cap en"><b>EN Hook:</b> "Does your power bill spike every Florida summer?"</div>
+    <div class="cap en"><b>EN Caption:</b> The heat drives up the A/C… and the bill. Here's the simple, honest version of how solar helps you take control. No exaggerated promises — real numbers for your home.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">4 · Entrevista — cliente solar / ahorro <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Una historia real de WindMar Florida.»</div>
+    <div class="cap"><b>Caption:</b> Un cliente nos cuenta cómo cambió su factura y su tranquilidad después de instalar solar con WindMar. Tu casa puede ser la próxima historia.</div>
+    <div class="cap en"><b>EN Hook:</b> "A real WindMar Florida story."</div>
+    <div class="cap en"><b>EN Caption:</b> A customer shares how their bill — and their peace of mind — changed after going solar with WindMar. Your home could be the next story.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">5 · Carrusel Baterías — Tesla Powerwall <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Tus paneles generan… ¿pero dónde se guarda?»</div>
+    <div class="cap"><b>Caption:</b> Los paneles generan de día; la batería guarda para cuando la necesitas. Con Tesla Powerwall tu casa sigue con energía aunque se vaya la luz: nevera, luces e internet.</div>
+    <div class="cap en"><b>EN Hook:</b> "Your panels generate power… but where does it go?"</div>
+    <div class="cap en"><b>EN Caption:</b> Panels generate by day; the battery stores it for when you need it. With Tesla Powerwall your home keeps running through an outage: fridge, lights and internet.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">6 · Reel Baterías — ¿Qué se queda encendido? <span class="brandtag pros">Pros</span></div>
+    <div class="cap"><b>Gancho:</b> «Se fue la luz… ¿qué se queda encendido?»</div>
+    <div class="cap"><b>Caption:</b> Con una batería de respaldo tu casa no se apaga. Te mostramos qué puedes mantener funcionando y por cuánto tiempo. Tranquilidad para toda la familia.</div>
+    <div class="cap en"><b>EN Hook:</b> "Power's out… what stays on?"</div>
+    <div class="cap en"><b>EN Caption:</b> With a backup battery, your home doesn't go dark. We show you what keeps running and for how long. Peace of mind for the whole family.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">7 · Entrevista — cliente baterías / energía <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Cuando se fue la luz, mi casa siguió.»</div>
+    <div class="cap"><b>Caption:</b> Un cliente de Florida cuenta cómo vivió el último apagón con su sistema de respaldo. La diferencia entre esperar y seguir con tu vida normal.</div>
+    <div class="cap en"><b>EN Hook:</b> "When the power went out, my home stayed on."</div>
+    <div class="cap en"><b>EN Caption:</b> A Florida customer shares how the last outage felt with a backup system. The difference between waiting it out and carrying on.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">8 · Carrusel Sellado — Owens Corning <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Tu techo es la primera defensa del hogar.»</div>
+    <div class="cap"><b>Caption:</b> Un techo sellado a tiempo protege tu casa, tu familia y tu inversión — y ayuda a que sea asegurable. Con materiales Owens Corning y un equipo que lo hace bien.</div>
+    <div class="cap en"><b>EN Hook:</b> "Your roof is your home's first defense."</div>
+    <div class="cap en"><b>EN Caption:</b> A roof sealed in time protects your home, your family and your investment — and helps keep it insurable. Owens Corning materials, a team that does it right.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">9 · Reel Roofing — instalación paso a paso <span class="brandtag pros">Pros</span></div>
+    <div class="cap"><b>Gancho:</b> «Así sellamos un techo en Florida, paso a paso.»</div>
+    <div class="cap"><b>Caption:</b> Te llevamos a una instalación real: el techo antes, el equipo trabajando y el resultado final. Un trabajo hecho para durar.</div>
+    <div class="cap en"><b>EN Hook:</b> "How we seal a Florida roof, step by step."</div>
+    <div class="cap en"><b>EN Caption:</b> We take you inside a real install: the roof before, the crew at work, and the finished result. Work built to last.</div>
+  </div>
+
+  <div class="card copy">
+    <div class="ct">10 · Entrevista — cliente roofing / tranquilidad <span class="brandtag home">Home FL</span></div>
+    <div class="cap"><b>Gancho:</b> «Ahora duermo tranquilo cuando llueve.»</div>
+    <div class="cap"><b>Caption:</b> Un cliente cuenta cómo se siente su casa después de sellar el techo con WindMar. Tranquilidad en cada temporada.</div>
+    <div class="cap en"><b>EN Hook:</b> "Now I sleep easy when it rains."</div>
+    <div class="cap en"><b>EN Caption:</b> A customer shares how their home feels after sealing the roof with WindMar. Peace of mind, every season.</div>
+  </div>
+
+</div>
+
+<h2><span class="bar"></span>Notas y pendientes</h2>
+<div class="card">
+  <span class="datechip">📝 Plan tentativo · sujeto a aprobación del cliente</span>
+  <span class="datechip">🏠 Home FL → Facebook + Instagram</span>
+  <span class="datechip">🛠️ WindMar Pros → solo Instagram</span>
+  <span class="datechip">🎬 6 videos por grabar · ver Cronograma FL</span>
+  <span class="datechip">🌎 Todo bilingüe ES/EN</span>
+  <span class="datechip">✅ Aprobación de piezas · Rafael Almonte y Manuel Pales</span>
+</div>
+
+<footer>
+  Calendario tentativo de WindMar Florida · agosto 2026 · bilingüe ES/EN. Dos marcas: WindMar Home FL (Facebook + Instagram) y WindMar Pros (solo Instagram). Arranca con los 4 carruseles listos en el Studio (Home · Solar · Sellado · Tesla Powerwall) y suma los 6 videos del Cronograma FL (3 reels educativos + 3 entrevistas) a medida que se graban. El reparto de piezas entre marcas es tentativo y ajustable. Para cambiar semanas, fechas, redes, marcas o copies, pídemelo en el chat.
+</footer>
+
+</div>
+
+<script>
+const boxes=[...document.querySelectorAll('.task input')];
+const fill=document.getElementById('progfill'),txt=document.getElementById('progtxt');
+function upd(){const d=boxes.filter(b=>b.checked).length;
+  fill.style.width=(boxes.length?d/boxes.length*100:0)+'%';
+  txt.textContent=d+' / '+boxes.length+' publicadas';}
+boxes.forEach(b=>b.addEventListener('change',()=>{b.closest('.task').classList.toggle('done',b.checked);upd();}));
+upd();
+</script>
+</body>
+</html>

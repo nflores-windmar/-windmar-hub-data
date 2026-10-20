@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Site Survey PR — Reel blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#eaf1ff; --ink:#0a2882;
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0b1533;display:flex;align-items:center;justify-content:center;min-height:100vh;
+  font-family:var(--disp);padding:16px;gap:18px;flex-wrap:wrap}
+
+/* ===== Escenario 9:16 (1080×1920) — papel de plano ===== */
+.stage{position:relative;width:min(430px,92vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;
+  background-color:var(--paper);color:var(--ink);
+  box-shadow:0 30px 90px rgba(4,16,46,.6);container-type:inline-size}
+/* rejilla de plano (mayor + menor) */
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(10,40,130,.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,40,130,.11) 1px, transparent 1px),
+    linear-gradient(rgba(10,40,130,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,40,130,.055) 1px, transparent 1px);
+  background-size:12cqw 12cqw,12cqw 12cqw,3cqw 3cqw,3cqw 3cqw}
+/* viñeta suave + brillo superior */
+.vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 40%),
+            radial-gradient(130% 90% at 50% 108%, rgba(10,40,130,.10) 0%, rgba(10,40,130,0) 50%)}
+/* marcas de registro (esquinas) */
+.reg{position:absolute;z-index:2;width:6cqw;height:6cqw;border:.5cqw solid rgba(10,40,130,.35)}
+.reg.tl{top:5cqw;left:5cqw;border-right:0;border-bottom:0}
+.reg.tr{top:5cqw;right:5cqw;border-left:0;border-bottom:0}
+.reg.bl{bottom:5cqw;left:5cqw;border-right:0;border-top:0}
+.reg.br{bottom:5cqw;right:5cqw;border-left:0;border-top:0}
+/* sello de lámina */
+.plate{position:absolute;z-index:3;bottom:5.4cqw;right:9cqw;font-family:var(--mono);font-size:2.7cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.55);text-transform:uppercase}
+
+.stage.paused *, .stage.paused::before, .stage.paused::after{animation-play-state:paused!important}
+
+/* ===== Escenas ===== */
+.scene{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:14cqw 9cqw;opacity:0;pointer-events:none;transition:opacity .22s ease}
+.scene.active{opacity:1}
+
+/* chip / kicker mono */
+.chip{font-family:var(--mono);font-weight:500;font-size:3.3cqw;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--orange);opacity:0}
+.chip .num{color:var(--navy);background:var(--orange);border-radius:1.2cqw;padding:.3cqw 1.6cqw;margin-right:1cqw;
+  color:#fff}
+.scene.active .chip{animation:rise .5s .05s ease forwards}
+
+/* headline */
+.head{font-family:var(--disp);font-weight:800;font-size:9.6cqw;line-height:.98;letter-spacing:-.01em;color:var(--navy);
+  margin-top:5cqw;opacity:0}
+.head.big{font-size:7.4cqw;line-height:1.06;font-weight:800}
+.title{font-family:var(--disp);font-weight:900;font-size:19cqw;line-height:.9;letter-spacing:-.02em;color:var(--navy);opacity:0}
+.scene.active .head{animation:rise .55s .5s ease forwards}
+.scene.active .title{animation:rise .6s .1s ease forwards}
+
+/* subtítulo */
+.sub{font-family:var(--mono);font-weight:400;font-size:3.8cqw;line-height:1.5;letter-spacing:.02em;color:var(--navy2);
+  margin-top:4cqw;max-width:80cqw;opacity:0}
+.scene.active .sub{animation:rise .55s .68s ease forwards}
+
+/* línea/regla naranja */
+.rule{width:20cqw;height:.9cqw;background:var(--orange);border-radius:1cqw;margin:5cqw 0 1cqw;transform:scaleX(0);transform-origin:left}
+.scene.active .rule{animation:grow .6s .5s cubic-bezier(.2,.8,.2,1) forwards}
+
+/* lienzo del dibujo */
+.art{width:66cqw;max-width:66cqw;opacity:1}
+.art.lg{width:74cqw}
+.art svg{width:100%;height:auto;overflow:visible;display:block}
+
+/* ==== animación: el plano se dibuja solo (pathLength=1) ==== */
+svg .draw{stroke-dasharray:1;stroke-dashoffset:1}
+.scene.active svg .draw{animation:draw 1.15s .12s ease forwards}
+.scene.active svg .draw.d2{animation-delay:.42s}
+.scene.active svg .draw.d3{animation-delay:.72s}
+svg .wash{opacity:0}
+.scene.active svg .wash{animation:fade .7s .7s ease forwards}
+svg .tick{opacity:0}
+.scene.active svg .tick{animation:fade .5s .9s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(3cqw)}to{opacity:1;transform:none}}
+@keyframes grow{to{transform:scaleX(1)}}
+
+/* trazo del plano */
+.ln{fill:none;stroke:var(--navy);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ln.thin{stroke-width:1.4;stroke:var(--navy2)}
+.ln.acc{stroke:var(--orange);stroke-width:2.8}
+.fillwash{fill:var(--wash);stroke:none}
+.dot{fill:var(--navy)}
+.olabel{font-family:'DM Mono',monospace;font-size:9px;fill:var(--navy2);letter-spacing:.04em}
+.olabel.acc{fill:var(--orange)}
+
+/* beneficios (por qué importa) */
+.benefits{list-style:none;margin-top:6cqw;display:flex;flex-direction:column;gap:3.4cqw}
+.benefits li{font-family:var(--disp);font-weight:700;font-size:6.4cqw;color:var(--navy);
+  display:flex;align-items:center;justify-content:center;gap:2.6cqw;opacity:0}
+.benefits li::before{content:"";width:3.2cqw;height:3.2cqw;background:var(--orange);border-radius:50%;flex:0 0 auto}
+.scene.active .benefits li{animation:rise .5s ease forwards}
+.scene.active .benefits li:nth-child(1){animation-delay:.5s}
+.scene.active .benefits li:nth-child(2){animation-delay:.72s}
+.scene.active .benefits li:nth-child(3){animation-delay:.94s}
+
+/* cierre */
+.s-close .wmlogo{width:52cqw;height:auto;opacity:0}
+.scene.active .s-close .wmlogo{animation:rise .6s .1s ease forwards}
+.s-close .site{font-family:var(--mono);font-size:3.9cqw;letter-spacing:.1em;color:var(--navy2);margin-top:4cqw;
+  display:flex;align-items:center;justify-content:center;gap:2cqw;white-space:nowrap;opacity:0}
+.s-close .site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--orange)}
+.scene.active .s-close .site{animation:rise .55s .7s ease forwards}
+
+/* barra progreso */
+.prog{position:absolute;z-index:6;top:0;left:0;height:5px;background:var(--orange);width:0}
+
+/* controles */
+.panel{display:flex;flex-direction:column;gap:10px;color:#cdd6ea;font-family:var(--disp);max-width:280px}
+.panel h1{font-weight:800;font-size:20px;color:#fff;letter-spacing:.2px}
+.panel p{font-size:12.5px;line-height:1.5;color:#93a2c4;font-family:var(--mono)}
+.panel button{font-family:var(--disp);font-weight:800;font-size:13px;padding:11px 16px;border-radius:10px;border:none;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.panel button.sec{background:transparent;border:1.5px solid #2c3a5c;color:#cdd6ea}
+.panel .tip{font-size:11px;color:#6f7fa3;line-height:1.5;border-top:1px solid #1c2740;padding-top:10px;font-family:var(--mono)}
+.panel .tip b{color:#9db0d6}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="grid"></div>
+    <div class="vign"></div>
+    
+    <div class="plate">WM-SURVEY · 01</div>
+    <div class="prog" id="prog"></div>
+
+    <!-- 1 · gancho -->
+    <div class="scene">
+      <div class="chip">Site Survey · Visita técnica</div>
+      <div class="art lg">
+        <svg viewBox="0 0 240 190" aria-hidden="true">
+          <!-- suelo -->
+          <path class="ln thin draw" pathLength="1" d="M18 168 H222"/>
+          <!-- cuerpo casa -->
+          <path class="ln draw d2" pathLength="1" d="M60 168 V96 H180 V168"/>
+          <!-- techo -->
+          <path class="ln acc draw d2" pathLength="1" d="M48 100 L120 52 L192 100"/>
+          <polygon class="fillwash wash" points="60,96 120,52 180,96"/>
+          <!-- puerta -->
+          <path class="ln thin draw d3" pathLength="1" d="M104 168 V126 H128 V168"/>
+          <!-- ventana -->
+          <path class="ln thin draw d3" pathLength="1" d="M146 118 H168 V138 H146 Z M157 118 V138 M146 128 H168"/>
+          <!-- marca de medida -->
+          <circle class="dot tick" cx="120" cy="52" r="3.4"/>
+          <text class="olabel acc tick" x="126" y="50">as-built</text>
+        </svg>
+      </div>
+      <h2 class="head big">Antes de diseñar tu sistema,<br>alguien conoce tu casa a fondo.</h2>
+    </div>
+
+    <!-- 2 · título -->
+    <div class="scene">
+      <div class="chip">WindMar · Solar Puerto Rico</div>
+      <h1 class="title">EL SITE<br>SURVEY</h1>
+      <div class="rule"></div>
+      <p class="sub">La visita técnica que convierte tu proyecto<br>de "a la adivinanza" a datos reales.</p>
+    </div>
+
+    <!-- 3 · mide el techo -->
+    <div class="scene">
+      <div class="chip"><span class="num">01</span> Mide el techo</div>
+      <div class="art">
+        <svg viewBox="0 0 240 180" aria-hidden="true">
+          <!-- plano del techo (paralelogramo) -->
+          <polygon class="fillwash wash" points="70,120 150,60 210,60 130,120"/>
+          <path class="ln draw" pathLength="1" d="M70 120 L150 60 H210 L130 120 Z"/>
+          <!-- rejilla de placas -->
+          <path class="ln thin draw d2" pathLength="1" d="M97 100 L177 40 M124 100 L204 40 M96 80 L176 80 M111 90 L191 90"/>
+          <!-- cota horizontal -->
+          <path class="ln acc draw d3" pathLength="1" d="M70 138 H130 M70 133 V143 M130 133 V143"/>
+          <text class="olabel acc tick" x="86" y="156">ÁREA · m²</text>
+          <!-- ángulo pitch -->
+          <path class="ln draw d3" pathLength="1" d="M150 60 L150 92 M150 92 A34 34 0 0 0 176 78"/>
+          <text class="olabel tick" x="156" y="98">PITCH</text>
+          <!-- norte -->
+          <path class="ln thin draw d3" pathLength="1" d="M40 54 L40 30 M34 40 L40 30 L46 40"/>
+          <text class="olabel tick" x="35" y="66">N</text>
+        </svg>
+      </div>
+      <h2 class="head">Mide el techo</h2>
+      <p class="sub">Dimensiones, orientación e inclinación:<br>el área real disponible para tus placas.</p>
+    </div>
+
+    <!-- 4 · sistema eléctrico -->
+    <div class="scene">
+      <div class="chip"><span class="num">02</span> Revisa el eléctrico</div>
+      <div class="art">
+        <svg viewBox="0 0 240 180" aria-hidden="true">
+          <!-- panel -->
+          <rect class="fillwash wash" x="86" y="30" width="68" height="104" rx="4"/>
+          <path class="ln draw" pathLength="1" d="M86 34 a4 4 0 0 1 4 -4 H150 a4 4 0 0 1 4 4 V130 a4 4 0 0 1 -4 4 H90 a4 4 0 0 1 -4 -4 Z"/>
+          <!-- main breaker -->
+          <path class="ln acc draw d2" pathLength="1" d="M98 44 H142 V56 H98 Z"/>
+          <text class="olabel acc tick" x="108" y="53">MAIN 200A</text>
+          <!-- breakers filas -->
+          <path class="ln thin draw d2" pathLength="1" d="M98 66 H118 M122 66 H142 M98 78 H118 M122 78 H142 M98 90 H118 M122 90 H142 M98 102 H118 M122 102 H142 M98 114 H118 M122 114 H142"/>
+          <!-- conduit -->
+          <path class="ln draw d3" pathLength="1" d="M120 134 V152 H186"/>
+          <circle class="dot tick" cx="186" cy="152" r="3.6"/>
+          <text class="olabel tick" x="150" y="166">interconexión</text>
+        </svg>
+      </div>
+      <h2 class="head">Revisa el eléctrico</h2>
+      <p class="sub">Panel, capacidad y punto de amarre:<br>cómo y dónde se conecta tu sistema.</p>
+    </div>
+
+    <!-- 5 · asoleamiento -->
+    <div class="scene">
+      <div class="chip"><span class="num">03</span> Estudia el sol</div>
+      <div class="art">
+        <svg viewBox="0 0 240 180" aria-hidden="true">
+          <!-- sol -->
+          <circle class="ln acc draw" pathLength="1" cx="186" cy="42" r="16" style="fill:none"/>
+          <path class="ln acc draw d2" pathLength="1" d="M186 14 V4 M210 26 L218 18 M214 52 L224 56 M158 26 L150 18"/>
+          <!-- rayos -->
+          <path class="ln thin draw d2" pathLength="1" d="M172 58 L120 104 M186 62 L136 112 M200 58 L154 104"/>
+          <!-- árbol -->
+          <path class="ln draw d2" pathLength="1" d="M44 150 V112"/>
+          <circle class="fillwash wash" cx="44" cy="96" r="22"/>
+          <path class="ln draw d2" pathLength="1" d="M44 74 a22 22 0 1 0 .1 0 Z"/>
+          <!-- techo -->
+          <path class="ln draw d3" pathLength="1" d="M70 150 H206 L182 122 H94 Z"/>
+          <polygon class="fillwash wash" points="94,122 182,122 206,150 70,150"/>
+          <!-- sombra en el techo -->
+          <path class="ln thin draw d3" pathLength="1" d="M96 150 L108 128 M108 150 L120 128 M120 150 L132 128"/>
+          <text class="olabel tick" x="92" y="168">SOMBRA</text>
+        </svg>
+      </div>
+      <h2 class="head">Estudia el sol</h2>
+      <p class="sub">Sombras de árboles y estructuras<br>para saber tu producción real.</p>
+    </div>
+
+    <!-- 6 · documenta -->
+    <div class="scene">
+      <div class="chip"><span class="num">04</span> Documenta todo</div>
+      <div class="art">
+        <svg viewBox="0 0 240 180" aria-hidden="true">
+          <!-- clipboard -->
+          <rect class="fillwash wash" x="70" y="34" width="88" height="112" rx="6"/>
+          <path class="ln draw" pathLength="1" d="M70 40 a6 6 0 0 1 6 -6 H152 a6 6 0 0 1 6 6 V140 a6 6 0 0 1 -6 6 H76 a6 6 0 0 1 -6 -6 Z"/>
+          <path class="ln draw" pathLength="1" d="M100 30 h28 a4 4 0 0 1 4 4 v6 h-36 v-6 a4 4 0 0 1 4 -4 Z"/>
+          <!-- líneas + checks -->
+          <path class="ln acc draw d2" pathLength="1" d="M82 62 l6 6 l10 -12"/>
+          <path class="ln thin draw d2" pathLength="1" d="M106 62 H146"/>
+          <path class="ln acc draw d2" pathLength="1" d="M82 84 l6 6 l10 -12"/>
+          <path class="ln thin draw d2" pathLength="1" d="M106 84 H146"/>
+          <path class="ln acc draw d2" pathLength="1" d="M82 106 l6 6 l10 -12"/>
+          <path class="ln thin draw d2" pathLength="1" d="M106 106 H146"/>
+          <!-- cámara -->
+          <rect class="fillwash wash" x="150" y="104" width="58" height="42" rx="6"/>
+          <path class="ln draw d3" pathLength="1" d="M150 112 a6 6 0 0 1 6 -6 h6 l4 -6 h14 l4 6 h6 a6 6 0 0 1 6 6 V140 a6 6 0 0 1 -6 6 H156 a6 6 0 0 1 -6 -6 Z"/>
+          <circle class="ln draw d3" pathLength="1" cx="179" cy="124" r="10" style="fill:none"/>
+        </svg>
+      </div>
+      <h2 class="head">Documenta todo</h2>
+      <p class="sub">Fotos, medidas y evidencia:<br>el diseño se basa en tu casa real.</p>
+    </div>
+
+    <!-- 7 · por qué importa -->
+    <div class="scene">
+      <div class="chip">Por qué importa</div>
+      <h2 class="head big">La base de todo</h2>
+      <ul class="benefits">
+        <li>Diseño preciso</li>
+        <li>Permiso limpio</li>
+        <li>Instalación sin sorpresas</li>
+      </ul>
+    </div>
+
+    <!-- 8 · cierre -->
+    <div class="scene s-close">
+      <img class="wmlogo" src="wme/logos/wme-fc-stacked.png" alt="WindMar Energy">
+      <h2 class="head">Comienza tu proyecto solar</h2>
+      <div class="site"><span class="dot"></span>windmar.com<span style="opacity:.5;margin:0 1.2cqw">·</span>787-395-7716</div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+    <h1>Site Survey · Blueprint PR</h1>
+    <p>Reel 9:16 estilo plano arquitectónico que se dibuja solo. Explica el proceso del site survey al cliente. Mercado: Puerto Rico (windmar.com).</p>
+    <button onclick="play()">▶︎ Reproducir de nuevo</button>
+    <button class="sec" onclick="togglePause()" id="pausebtn">❚❚ Pausar</button>
+    <button class="sec" onclick="toggleLoop()" id="loopbtn">Loop: ON</button>
+    <div class="tip">8 escenas: gancho · título · <b>01 mide techo</b> · <b>02 eléctrico</b> · <b>03 sol/sombras</b> · <b>04 documenta</b> · por qué importa · cierre. Sin audio (puedo añadir un bed técnico calmado si quieres).</div>
+  </div>
+
+<script>
+const scenes = [...document.querySelectorAll('.scene')];
+const prog = document.getElementById('prog');
+const stage = document.getElementById('stage');
+// pacing explainer (ms) — legible, cada paso aguanta para leerse
+const DUR = [3400, 3000, 3800, 3800, 3800, 3800, 3600, 4400];
+let i = 0, timer = null, looping = true, paused = false, sceneStart = 0, remaining = 0;
+
+function setPauseLabel(t){ const b=document.getElementById('pausebtn'); if(b) b.textContent=t; }
+function startProg(ms){
+  prog.style.transition='none'; prog.style.width='0';
+  requestAnimationFrame(()=>{ prog.style.transition='width '+ms+'ms linear'; prog.style.width='100%'; });
+}
+function show(n){
+  scenes.forEach((s,k)=>s.classList.toggle('active', k===n));
+  startProg(DUR[n]);
+}
+function schedule(ms){
+  sceneStart = Date.now(); remaining = ms;
+  timer = setTimeout(()=>{
+    i++;
+    if(i>=scenes.length){ if(looping){ i=0; } else { return; } }
+    show(i); schedule(DUR[i]);
+  }, ms);
+}
+function next(){ show(i); schedule(DUR[i]); }
+function play(){
+  clearTimeout(timer); paused=false; stage.classList.remove('paused');
+  setPauseLabel('❚❚ Pausar'); i=0; next();
+}
+function togglePause(){
+  if(!paused){
+    paused=true; clearTimeout(timer);
+    remaining = Math.max(0, remaining - (Date.now()-sceneStart));
+    const w = getComputedStyle(prog).width; prog.style.transition='none'; prog.style.width=w;
+    stage.classList.add('paused');
+    setPauseLabel('▶︎ Continuar');
+  } else {
+    paused=false; stage.classList.remove('paused');
+    requestAnimationFrame(()=>{ prog.style.transition='width '+remaining+'ms linear'; prog.style.width='100%'; });
+    schedule(remaining);
+    setPauseLabel('❚❚ Pausar');
+  }
+}
+function toggleLoop(){ looping=!looping; const b=document.getElementById('loopbtn'); if(b) b.textContent='Loop: '+(looping?'ON':'OFF'); }
+play();
+</script>
+</body>
+</html>

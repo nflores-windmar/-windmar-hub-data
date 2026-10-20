@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Home FL — Reels kinéticos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1d429b;--navy-deep:#142a63;--orange:#f89b24;--gold:#ffd9a3}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#0b1020}
+body{font-family:'Montserrat',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px}
+
+.stage{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1920px;background:var(--navy);color:#fff}
+@media(max-width:1120px){.stage{width:94vw;height:calc(94vw*1.7778)}}
+/* El viewport de captura es exactamente 1080 de ancho, así que la media query
+   de arriba se dispara y encogía el escenario a 1015x1805: el cuadro salía
+   descentrado y las medidas en cqw, cortas. En render manda el tamaño real. */
+body.render{padding:0;gap:0}
+body.render .stage{width:1080px;height:1920px}
+
+/* render/overlay: the navy + footage is composited underneath by ffmpeg,
+   so the captured PNG must carry only the type and its scrims. */
+body.overlay,body.overlay .stage{background:transparent!important}
+body.overlay .bg,body.overlay .curve{display:none}
+
+.bg{position:absolute;inset:0;z-index:0;background:var(--navy)}
+.curve{position:absolute;top:0;right:0;height:100%;width:62%;z-index:1;
+  background:var(--navy-deep);border-radius:46% 0 0 46%/50% 0 0 50%}
+.scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,20,54,.56) 0%,rgba(8,20,54,.30) 22%,rgba(8,20,54,.52) 46%,rgba(8,20,54,.30) 72%,rgba(8,20,54,.64) 100%)}
+
+.top{position:absolute;top:7cqw;left:7cqw;right:7cqw;z-index:7;display:flex;align-items:center;justify-content:space-between}
+.wlogo{height:5.6cqw;width:auto;object-fit:contain;filter:drop-shadow(0 .6cqw 1.6cqw rgba(0,0,0,.5))}
+.kick{font-size:2.3cqw;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:#fff;
+  display:flex;align-items:center;gap:1.2cqw;text-shadow:0 .3cqw 1.2cqw rgba(0,0,0,.6)}
+.kick i{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange);display:block}
+
+/* one phrase at a time, centred */
+.words{position:absolute;inset:0;z-index:5}
+.w{position:absolute;left:8cqw;right:8cqw;top:50%;transform:translateY(-50%);text-align:center;
+  font-family:'Bebas Neue',sans-serif;text-transform:uppercase;line-height:.88;letter-spacing:.012em;
+  color:#fff;text-shadow:0 1.4cqw 3.4cqw rgba(0,0,0,.5);will-change:transform,opacity;opacity:0}
+.w .o{color:var(--orange)}
+.w.body{font-family:'Montserrat',sans-serif;font-weight:700;text-transform:none;line-height:1.24;letter-spacing:-.01em}
+
+/* the rule under the phrase, drawn left-to-right */
+.w .rule{display:block;height:1.1cqw;background:var(--orange);border-radius:1cqw;margin:3.2cqw auto 0;width:16cqw;
+  transform:scaleX(0);transform-origin:center}
+
+.end{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2.4cqw;padding:0 9cqw;text-align:center;opacity:0;
+  background:linear-gradient(180deg,rgba(10,24,64,.58),rgba(10,24,64,.82));will-change:opacity}
+.end .elogo{height:8.4cqw;width:auto;object-fit:contain;filter:drop-shadow(0 .8cqw 2cqw rgba(0,0,0,.5))}
+.end h2{font-family:'Bebas Neue',sans-serif;text-transform:uppercase;font-size:12.5cqw;line-height:.9;margin-top:1cqw}
+.end h2 .o{color:var(--orange)}
+.end .sub{font-weight:600;font-size:3cqw;color:rgba(255,255,255,.92);max-width:70cqw;line-height:1.4}
+.end .cta{margin-top:1.6cqw;display:inline-flex;align-items:center;
+  font-size:3.1cqw;letter-spacing:.06em;text-transform:uppercase;color:#16204a;font-weight:800;
+  background:var(--orange);padding:2.6cqw 5cqw;border-radius:100px}
+.end .url{font-size:2.5cqw;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.88);font-weight:700}
+
+.prog{position:absolute;top:0;left:0;right:0;height:.6cqw;z-index:9;background:rgba(255,255,255,.18)}
+.prog i{display:block;height:100%;width:0;background:var(--orange)}
+body.render .prog{display:none}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+body.render .bar{display:none}
+.btn{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#0b1020;font-weight:700;
+  background:var(--orange);border:none;border-radius:100px;padding:10px 18px;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:#cdd7f0;border:1px solid rgba(200,215,255,.4)}
+.btn.on{background:#ffd9a3}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="prog"><i id="prog"></i></div>
+  <div class="bg"></div>
+  <div class="curve"></div>
+  <div class="scrim"></div>
+
+  <div class="top">
+    <img class="wlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+    <div class="kick"><i></i><span id="kick">Roofing · Florida</span></div>
+  </div>
+
+  <div class="words" id="words"></div>
+
+  <div class="end" id="end">
+    <img class="elogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+    <h2 id="endTtl"></h2>
+    <div class="sub" id="endSub"></div>
+    <div class="cta" id="endCta"></div>
+    <div class="url">windmarcommand.com</div>
+  </div>
+</div>
+
+<div class="bar">
+  <button class="btn" id="replay">▶ Play</button>
+  <button class="btn ghost" data-reel="roofing">Roofing</button>
+  <button class="btn ghost" data-reel="battery">Powerwall</button>
+  <button class="btn ghost" data-reel="solar">Solar</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   Copy EXACTO de flRoofingCarouselEn / flBateriaCarouselEn /
+   flSolarCarouselEn en src/data/carousel.ts. No se inventó texto:
+   cada frase es un title, bullet, check o highlight ya aprobado.
+
+   size = cqw · o:true = naranja · body:true = Montserrat (frases
+   largas que en Bebas condensada se vuelven ilegibles) · rule:true
+   = regla naranja que se dibuja debajo.
+   ═══════════════════════════════════════════════════════════════ */
+const REELS = {
+  roofing: {
+    kick: 'Roofing · Florida',
+    lines: [
+      { t:'A ROOF',                    size:17 },
+      { t:'READY FOR\nFLORIDA',        size:19, o:true, rule:true },
+      { t:'Stands up to sun, rain\nand strong winds',      size:7.2, body:true },
+      { t:'Sealed deck that\nkeeps water out',             size:7.2, body:true },
+      { t:"Meets Florida's current\nbuilding code",        size:7.2, body:true },
+      { t:'A SEALED ROOF\nBRINGS PEACE OF\nMIND ALL YEAR', size:12, o:true },
+    ],
+    end: { ttl:"LET'S TALK<br>ABOUT <span class='o'>YOUR ROOF</span>", sub:'A free inspection, no obligation.', cta:'Comment ROOF' }
+  },
+  battery: {
+    kick: 'Tesla Powerwall · Florida',
+    lines: [
+      { t:'YOUR PANELS',               size:16 },
+      { t:'NEED\nSTORAGE',             size:22, o:true, rule:true },
+      { t:'Panels alone\ndon’t store power',               size:7.4, body:true },
+      { t:'Stores what your panels\nmake during the day',  size:7.2, body:true },
+      { t:'Powers your home at night\nand in outages',     size:7.2, body:true },
+      { t:'YOUR ENERGY,\nREADY WHEN\nYOU NEED IT',         size:13, o:true },
+    ],
+    end: { ttl:"LET'S TALK<br>ABOUT <span class='o'>YOUR BATTERY</span>", sub:'A free consultation, no obligation.', cta:'Comment POWERWALL' }
+  },
+  solar: {
+    kick: 'Solar · Florida',
+    lines: [
+      { t:'SOLAR IS STILL',            size:14 },
+      { t:'A SMART\nINVESTMENT.',      size:18, o:true, rule:true },
+      { t:'THE SUN\nDIDN’T FAIL.',     size:15 },
+      { t:'WHOEVER\nSOLD IT DID.',     size:15, o:true },
+      { t:'Those companies are gone.\nThe serious ones remain.', size:7.0, body:true },
+      { t:'FIRST YOU\nUNDERSTAND.\nTHEN YOU DECIDE.',           size:12, o:true },
+    ],
+    end: { ttl:"WANT<br><span class='o'>GUIDANCE?</span>", sub:'Free consultation, no commitment.', cta:'Comment SOLAR' }
+  }
+};
+
+const STEP = 1.5;        // segundos por frase
+const HOLD_END = 3.2;    // segundos que aguanta la tarjeta final
+/* ═══════════════════════════════════════════════════════════════ */
+
+const q = new URLSearchParams(location.search);
+const reelId = REELS[q.get('reel')] ? q.get('reel') : 'roofing';
+const REEL = REELS[reelId];
+const LINES = REEL.lines;
+
+const wordsEl = document.getElementById('words');
+const endEl   = document.getElementById('end');
+const progEl  = document.getElementById('prog');
+const topEl   = document.querySelector('.top');
+
+document.getElementById('kick').textContent = REEL.kick;
+document.getElementById('endTtl').innerHTML = REEL.end.ttl;
+document.getElementById('endSub').textContent = REEL.end.sub;
+document.getElementById('endCta').textContent = REEL.end.cta;
+document.title = 'WindMar Home FL — Reel ' + reelId;
+
+const WORDS_DUR = LINES.length * STEP;
+const TOTAL = WORDS_DUR + HOLD_END;
+window.__duration = TOTAL;   // segundos — lo lee el render
+
+const nodes = LINES.map(l=>{
+  const d = document.createElement('div');
+  d.className = 'w' + (l.body ? ' body' : '');
+  d.style.fontSize = l.size + 'cqw';
+  if(l.o && !l.body) d.style.color = 'var(--orange)';
+  d.innerHTML = l.t.replace(/\n/g,'<br>') + (l.rule ? '<span class="rule"></span>' : '');
+  wordsEl.appendChild(d);
+  return d;
+});
+
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const easeOut=p=>1-Math.pow(1-p,3);
+
+/* función pura del tiempo → estado visual. Determinista y seekable:
+   el mismo t da siempre el mismo cuadro, por eso el video calza con el audio. */
+function applyAt(t){
+  t = clamp(t,0,TOTAL);
+  progEl.style.width = (100*t/TOTAL)+'%';
+
+  const inEnd = t >= WORDS_DUR;
+  LINES.forEach((l,i)=>{
+    const n = nodes[i];
+    const start = i*STEP;
+    const pin  = easeOut(clamp((t-start)/0.52,0,1));
+    const pout = clamp((t-(start+STEP-0.20))/0.26,0,1);
+    n.style.opacity = inEnd ? 0 : pin*(1-pout);
+    const ty = (1-pin)*2.4 - pout*1.6;
+    n.style.transform = 'translateY(calc(-50% + '+ty+'cqw)) scale('+(0.94+0.06*pin)+')';
+    if(l.rule){
+      const r = n.querySelector('.rule');
+      if(r) r.style.transform = 'scaleX('+easeOut(clamp((t-(start+0.30))/0.52,0,1))+')';
+    }
+  });
+
+  endEl.style.opacity = easeOut(clamp((t-WORDS_DUR)/0.42,0,1));
+  /* la tarjeta final trae su propio logo centrado: el de la barra sobra y compite */
+  topEl.style.opacity = 1 - clamp((t-(WORDS_DUR-0.25))/0.35,0,1);
+}
+window.__seek = applyAt;
+
+let raf=null, t0=null;
+function frame(ts){
+  if(t0==null) t0=ts;
+  const t = (ts-t0)/1000;
+  applyAt(t);
+  if(t < TOTAL){ raf=requestAnimationFrame(frame); }
+  else { t0=null; raf=requestAnimationFrame(frame); }
+}
+function play(){ if(raf) cancelAnimationFrame(raf); t0=null; raf=requestAnimationFrame(frame); }
+
+document.getElementById('replay').addEventListener('click', play);
+document.querySelectorAll('[data-reel]').forEach(b=>{
+  b.addEventListener('click',()=>{ location.search = '?reel='+b.dataset.reel; });
+  if(b.dataset.reel===reelId) b.classList.add('on');
+});
+
+const isOverlay = q.has('overlay');
+const isRender  = q.has('render') || isOverlay;
+if(isOverlay){
+  document.body.classList.add('overlay');
+  document.documentElement.style.background='transparent';
+  document.body.style.background='transparent';
+}
+if(isRender){ document.body.classList.add('render'); applyAt(0); }
+else { play(); }
+
+/* El render espera a que las fuentes estén compuestas: Bebas condensada
+   mide distinto que el fallback y las frases saldrían descuadradas. */
+(async ()=>{
+  try{ await document.fonts.ready; }catch(e){}
+  await Promise.all([...document.images].map(i=>i.complete?1:i.decode().catch(()=>0)));
+  window.__ready = true;
+})();
+</script>
+</body>
+</html>

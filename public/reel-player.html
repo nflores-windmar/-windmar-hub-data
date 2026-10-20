@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Player de reels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff;
+  --orange:#f57c0a; --ink:#0a2882;
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{background:#0b1533;color:#e8eefc;font-family:var(--mono);
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 16px 56px;gap:18px}
+
+.head{text-align:center;max-width:640px}
+.kick{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--orange)}
+h1{font-family:var(--disp);font-weight:400;font-size:38px;letter-spacing:.01em;
+  line-height:1;margin-top:8px;color:#fff;text-transform:uppercase}
+.meta{font-size:12px;color:#8195bd;margin-top:8px;letter-spacing:.04em}
+
+.frame{position:relative;width:min(380px,92vw);aspect-ratio:9/16;
+  border-radius:18px;overflow:hidden;background:#000;
+  box-shadow:0 30px 90px rgba(4,16,46,.7)}
+video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+
+.loading{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  background:rgba(7,20,50,.72);font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;color:#cdd6ea;pointer-events:none}
+.loading.on{display:flex}
+
+/* Aviso de archivo que no existe. Sin esto el player se queda en negro y el que
+   recibe el link no sabe si cargó lento, si falló el internet o si el video
+   no está — pasó con un link a -v2 después de archivar ese corte. */
+.errbox{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;
+  justify-content:center;gap:12px;background:#0b1533;padding:30px;text-align:center}
+.errbox.on{display:flex}
+.errbox .t{font-family:var(--disp);font-size:27px;line-height:1.05;color:#f0b46a;text-transform:uppercase}
+/* Más grande que el resto del texto auxiliar a propósito: cuando esto aparece,
+   es lo único que hay que leer en pantalla y lo lee alguien de afuera. */
+.errbox .f{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;color:#9eb0d4;
+  word-break:break-all;line-height:1.5;border:1px solid #1d3172;border-radius:7px;padding:9px 11px}
+.errbox .h{font-size:14px;color:#dbe3f4;line-height:1.55;max-width:280px}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+button{font-family:var(--mono);font-weight:700;font-size:12.5px;letter-spacing:.08em;
+  text-transform:uppercase;padding:13px 20px;border-radius:11px;border:1.6px solid transparent;
+  cursor:pointer;transition:.15s ease;background:#16255a;color:#cdd6ea}
+/* El hover genérico le ganaba en especificidad a .primary y .on por culpa del
+   :not() — (0,2,1) contra (0,1,1). Al pasar el mouse, el botón naranja de Play
+   se volvía azul y su texto oscuro quedaba en 1.53:1: la palabra desaparecía.
+   Ahora el hover genérico se queda fuera de los botones con variante propia. */
+button:hover:not(:disabled):not(.primary):not(.on){background:#1d3172}
+button.primary{background:var(--orange);color:#1a1206;min-width:132px}
+button.primary:hover:not(:disabled){filter:brightness(1.08)}
+button.on{background:transparent;border-color:var(--orange);color:var(--orange)}
+button.on:hover:not(:disabled){background:rgba(245,124,10,.14)}
+button:disabled{opacity:.34;cursor:not-allowed}
+
+.seek{width:min(380px,92vw);display:flex;align-items:center;gap:10px;font-size:11px;color:#8195bd}
+.seek input{flex:1;accent-color:var(--orange);cursor:pointer}
+
+.note{font-size:11.5px;color:#8195bd;text-align:center;max-width:420px;line-height:1.6}
+.note b{color:#cdd6ea}
+.warn{color:#f0b46a}
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <div class="kick" id="kick">WindMar</div>
+    <h1 id="title">Reel</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+
+  <div class="frame">
+    <video id="vid" playsinline preload="auto"></video>
+    <div class="loading" id="load">cambiando audio…</div>
+    <div class="errbox" id="err">
+      <div class="t">Video no<br>encontrado</div>
+      <div class="f" id="errfile"></div>
+      <div class="h">Este corte ya no está publicado. Pídele a quien te mandó el link la versión al día.</div>
+    </div>
+  </div>
+
+  <div class="seek">
+    <span id="tcur">0:00</span>
+    <input type="range" id="bar" min="0" max="1000" value="0" step="1">
+    <span id="tdur">0:00</span>
+  </div>
+
+  <div class="controls">
+    <button class="primary" id="btnPlay">▶︎ Play</button>
+    <button id="btnMusic" class="on">♪ Con música</button>
+    <button id="btnNoMusic">✕ Sin música</button>
+  </div>
+
+  <p class="note" id="note"></p>
+
+<script>
+const qs   = new URLSearchParams(location.search);
+const base = qs.get('v')  || 'reel-ramon';
+const ttl  = qs.get('t')  || 'Ramón Torres · Yauco Coop';
+const kick = qs.get('k')  || 'WindMar Comercial';
+// nomusic=0  → no existe versión sin música (audio quemado en el export)
+const hasNoMusic = qs.get('nomusic') !== '0';
+// si se pasa ?single=archivo.mp4 se usa una sola fuente sin toggle
+const single = qs.get('single');
+
+const SRC = {
+  music:   single || (base + '-con-musica.mp4'),
+  nomusic: single || (base + '-sin-musica.mp4')
+};
+
+const vid  = document.getElementById('vid');
+const load = document.getElementById('load');
+const err  = document.getElementById('err');
+const errfile = document.getElementById('errfile');
+const bar  = document.getElementById('bar');
+const tcur = document.getElementById('tcur');
+const tdur = document.getElementById('tdur');
+const btnPlay    = document.getElementById('btnPlay');
+const btnMusic   = document.getElementById('btnMusic');
+const btnNoMusic = document.getElementById('btnNoMusic');
+
+document.getElementById('title').textContent = ttl;
+document.getElementById('kick').textContent  = kick;
+
+let mode = 'music';
+
+function fmt(s){
+  if(!isFinite(s)) return '0:00';
+  const m = Math.floor(s/60), x = Math.floor(s%60);
+  return m + ':' + String(x).padStart(2,'0');
+}
+
+function setMode(next){
+  if(next === mode) return;
+  if(next === 'nomusic' && !hasNoMusic) return;
+  const t = vid.currentTime;
+  const wasPlaying = !vid.paused && !vid.ended;
+  mode = next;
+  load.classList.add('on');
+  vid.src = SRC[mode];
+  vid.load();
+  vid.addEventListener('loadedmetadata', function once(){
+    vid.removeEventListener('loadedmetadata', once);
+    vid.currentTime = t;
+    load.classList.remove('on');
+    if(wasPlaying) vid.play();
+  });
+  btnMusic.classList.toggle('on',   mode === 'music');
+  btnNoMusic.classList.toggle('on', mode === 'nomusic');
+}
+
+btnPlay.onclick    = () => vid.paused ? vid.play() : vid.pause();
+btnMusic.onclick   = () => setMode('music');
+btnNoMusic.onclick = () => setMode('nomusic');
+
+/* Si el archivo no existe (404), <video> falla en silencio y el marco se queda
+   negro: el que recibe el link no distingue entre «cargando», «se cayó el
+   internet» y «este video ya no está». Aquí se dice cuál es y qué archivo pidió. */
+vid.addEventListener('error', () => {
+  const f = (vid.currentSrc || vid.src || '').split('/').pop() || '(sin archivo)';
+  load.classList.remove('on');
+  errfile.textContent = decodeURIComponent(f);
+  err.classList.add('on');
+  btnPlay.disabled = true;
+});
+vid.addEventListener('loadeddata', () => {
+  err.classList.remove('on');
+  btnPlay.disabled = false;
+});
+
+vid.addEventListener('play',  () => btnPlay.textContent = '❚❚ Pausa');
+vid.addEventListener('pause', () => btnPlay.textContent = '▶︎ Play');
+vid.addEventListener('ended', () => btnPlay.textContent = '▶︎ Play');
+
+vid.addEventListener('timeupdate', () => {
+  if(vid.duration){
+    bar.value = (vid.currentTime / vid.duration) * 1000;
+    tcur.textContent = fmt(vid.currentTime);
+  }
+});
+vid.addEventListener('loadedmetadata', () => tdur.textContent = fmt(vid.duration));
+bar.addEventListener('input', () => {
+  if(vid.duration) vid.currentTime = (bar.value / 1000) * vid.duration;
+});
+
+// estado inicial
+if(single){
+  btnMusic.style.display = 'none';
+  btnNoMusic.style.display = 'none';
+} else if(!hasNoMusic){
+  btnNoMusic.disabled = true;
+  btnNoMusic.title = 'La música viene quemada en este export';
+  document.getElementById('note').innerHTML =
+    '<span class="warn">⚠ Este video no tiene versión sin música:</span> ' +
+    'la música viene <b>quemada</b> en el export. Para separarla hay que ' +
+    'rehacer el video desde el material original.';
+}
+
+vid.src = SRC.music;
+</script>
+</body>
+</html>

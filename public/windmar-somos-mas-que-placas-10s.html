@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Somos más que placas 10s</title>
+<!--
+  windmar-somos-mas-que-placas-10s.html — capa tipográfica del reel de 10 s.
+
+  Recrea la entrada del pin «THE next STOP» (Pinterest) cuadro a cuadro, medida en
+  ref-fino/ a 1/24 s:
+    H+0.00  rayita: asoma el borde de arriba del primer renglón
+    H+0.00…0.17  «SOMOS» se revela de arriba hacia abajo (máscara que baja) con una
+                 estela vertical en el borde que baja
+    H+0.09…0.17  «MÁS QUE» chiquito, alineado ABAJO con «SOMOS» (así está «NEXT»)
+    H+0.13…0.37  la palabra enorme baja igual, más lenta, con la estela; lo que se arrastra
+                 hacia la izquierda es el borde que baja (el ~25 % de abajo, hasta 11 % de la
+                 altura con 55 % revelado), arriba no se mueve; después queda QUIETA hasta el corte
+  Los resortes salen de ajustar motion.js a las alturas medidas en cada cuadro del pin
+  (THE 9 %→24 %→46 %→79 %→100 %, STOP 12 %→41 %→63 %→82 %→96 %→100 %): para STOP,
+  k 210 d 20.8 (rms 1.2 %). La máscara se recorta a 1: nada rebota.
+  PESO (r1): Bebas Neue engordada con un trazo del mismo color (asta ≈ 21–23 % de la
+  mayúscula, como la letra pesada del pin) y apretada letra por letra (hueco 3–7 px).
+
+  CONTRATO DE RENDER (render.js): window.seek(t) pinta el cuadro exacto del segundo t,
+  window.__duration, window.__ready. Fondo transparente (para --alpha).
+  Nada de Math.random: la textura gastada es ruido con semilla (Motion.rand) y no se anima.
+  El desenfoque de movimiento se calcula aquí (16 muestras en un obturador de 180°) y se
+  promedia en coma flotante, así el naranja queda #FE9400 exacto donde la letra está quieta.
+
+  PREVISUALIZAR
+    windmar-somos-mas-que-placas-10s.html?bg=ruta/cuadro.jpg      fondo fijo
+    …?bg=ruta/video.mp4                                           fondo de video (seek)
+    …&guides=1                                                    zona segura de Reels
+    …&t=3.5                                                       abre en ese segundo
+-->
+<style>
+  html, body { margin: 0; background: #000; }
+  .stage { display: block; width: 1080px; height: 1920px; }
+</style>
+</head>
+<body>
+<canvas id="c" class="stage" width="1080" height="1920"></canvas>
+<script src="lib/motion.js"></script>
+<script>
+(function () {
+  'use strict';
+  const { spring, rand, clamp } = Motion;
+
+  /* ── tiempo ─────────────────────────────────────────────────────────────── */
+  const FPS = 30000 / 1001;                 // 29.97, el de las cámaras
+  const FRAMES = 300;                       // 10.01 s
+  const fr = (n) => n / FPS;
+  const frameOf = (t) => Math.round(t * FPS + 1e-6);
+  window.__duration = FRAMES / FPS;
+  window.__ready = false;
+
+  /* ── marca ──────────────────────────────────────────────────────────────── */
+  const ORANGE = [254, 148, 0];             // #FE9400, el del sol del logo
+  const FONT = 'Bebas Neue';
+  const LOGO_SRC = 'wme/logos/wmh-home-white-orange.png';
+
+  /* ── tamaños (px del lienzo 1080×1920) ─────────────────────────────────── */
+  const X = 72;                             // margen izquierdo (al borde de la tinta)
+  const BIG = 282;                          // «PLACAS» ≈ 695 px = 64 % del ancho (con el trazo)
+  const MID = Math.round(BIG * 0.62);       // «SOMOS»: 0.62× del enorme
+  let SMALL = 104;                          // «MÁS QUE»: se ajusta en build() para que «SOMOS MÁS QUE» = «PLACAS»
+  const LEAD = 12;                          // aire entre renglones (en el pin: 0.04× del enorme)
+  const SMALL_GAP = 20;                     // entre «SOMOS» y «MÁS QUE»
+  // marca chiquita, como la del pin (texto + logo ≈ 10–30 % del bloque): centrada bajo «CAS»
+  const LOGO_W = 190, LOGO_GAP = 26;
+
+  /* ── peso: la del pin es condensada y MUY pesada (asta 28 % de la mayúscula, letras que
+     casi se tocan). Bebas Neue sola da 15 % y huecos de 9–18 px. Se engorda con un trazo
+     del mismo color (las esquinas siguen en punta) y se aprieta letra por letra: cada letra
+     queda a GAP de la anterior en su punto más cercano (no un tracking parejo, que con el
+     trazo pega la L con la A y deja la O lejos de la M). ── */
+  const STROKE = 0.064;                     // grosor del trazo / cuerpo → asta ≈ 21–23 % (sola: 15 %)
+  const GAP = 0.026;                        // hueco mínimo / alto de mayúscula (pin: THE 0, STOP 4.5 %)
+  const MITER = 2.5;                        // sin púas en la punta de la A
+
+  /* ── frases: cuadro del golpe (h), cuadro del corte (out), alto del bloque ── */
+  const PHRASES = [
+    { id: 'agua',   h: 15,  out: 66,  top: 440,  l1: 'SOMOS', l2: 'AGUA',   seed: 11 },
+    { id: 'equipo', h: 99,  out: 169, top: 600,  l1: 'SOMOS', l2: 'EQUIPO', seed: 23 },
+    { id: 'placas', h: 201, out: 300, top: 1005, l1: 'SOMOS', sm: 'MÁS QUE', l2: 'PLACAS', seed: 37,
+      logo: { h: 240 } },
+  ];
+
+  /* ── movimiento (ajustado al pin) ───────────────────────────────────────── */
+  //   t0 = arranque del resorte respecto al golpe; skew = inclinación inicial (grados)
+  const MOVE = {
+    // «THE» en el pin acelera hasta el final y aterriza seco (9→24→46→79→100 %): la máscara
+    // viaja 1.6 veces la altura de la letra y la letra se completa a mitad del viaje
+    l1:   { t0: -0.024, k: 100,  d: 16.4, travel: 1.6, skew: 5, streak: 0.016 },
+    sm:   { t0: 0.093,  k: 3000, d: 90,  skew: 3,  streak: 0.010 },
+    // «STOP» (12→41→63→82→96→100 % cada 1/24 s): k 210 / d 20.8 lo calca (rms 1.2 %; el
+    // anterior, k 280 / d 27.4, aterrizaba un cuadro tarde: 82→93→98→100). Sin inclinación
+    // global: lo que se arrastra es el borde que baja (drag), como en el pin
+    l2:   { t0: 0.133,  k: 210,  d: 20.8, skew: 0, drag: 0.11, streak: 0.018 },
+    logo: { t0: -0.012, k: 800,  d: 46.4, skew: 0, streak: 0.016 },   // quieto en f245, el pico del acorde
+  };
+  const SHUTTER = 0.5 / FPS;                // 180°
+  const SAMPLES = 16;                       // con 8 la estela se veía en escalones
+
+  /* ── parámetros de URL (solo para previsualizar) ───────────────────────── */
+  const Q = new URLSearchParams(location.search);
+  const GUIDES = Q.get('guides') === '1';
+  const BG = Q.get('bg');
+
+  const cv = document.getElementById('c');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+
+  /* ══ textura gastada: ruido de valor con semilla, estático ═════════════════ */
+  function lattice(cols, rows, seed) {
+    const g = new Float32Array((cols + 2) * (rows + 2));
+    for (let i = 0; i < g.length; i++) g[i] = rand(seed * 1000003 + i * 7 + 1);
+    return { g, cols: cols + 2 };
+  }
+  function noiseField(w, h, cell, seed) {
+    const cols = Math.ceil(w / cell) + 1, rows = Math.ceil(h / cell) + 1;
+    const L = lattice(cols, rows, seed), out = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) {
+      const gy = y / cell, j = Math.floor(gy), fy = gy - j, sy = fy * fy * (3 - 2 * fy);
+      for (let x = 0; x < w; x++) {
+        const gx = x / cell, i = Math.floor(gx), fx = gx - i, sx = fx * fx * (3 - 2 * fx);
+        const a = L.g[j * L.cols + i], b = L.g[j * L.cols + i + 1];
+        const c = L.g[(j + 1) * L.cols + i], d = L.g[(j + 1) * L.cols + i + 1];
+        out[y * w + x] = (a + (b - a) * sx) + ((c + (d - c) * sx) - (a + (b - a) * sx)) * sy;
+      }
+    }
+    return out;
+  }
+  function boxBlur(src, w, h, r) {
+    const tmp = new Float32Array(w * h), out = new Float32Array(w * h), n = 2 * r + 1;
+    for (let y = 0; y < h; y++) {
+      let s = 0;
+      for (let x = -r; x <= r; x++) s += src[y * w + clamp(x, 0, w - 1)];
+      for (let x = 0; x < w; x++) {
+        tmp[y * w + x] = s / n;
+        s += src[y * w + clamp(x + r + 1, 0, w - 1)] - src[y * w + clamp(x - r, 0, w - 1)];
+      }
+    }
+    for (let x = 0; x < w; x++) {
+      let s = 0;
+      for (let y = -r; y <= r; y++) s += tmp[clamp(y, 0, h - 1) * w + x];
+      for (let y = 0; y < h; y++) {
+        out[y * w + x] = s / n;
+        s += tmp[clamp(y + r + 1, 0, h - 1) * w + x] - tmp[clamp(y - r, 0, h - 1) * w + x];
+      }
+    }
+    return out;
+  }
+  const smooth = (a, b, x) => { const u = clamp((x - a) / (b - a)); return u * u * (3 - 2 * u); };
+
+  /* Alfa de la letra → alfa gastada: bordes mordidos, manchas de tinta y poros.
+     Sutil: la palabra se tiene que leer igual de fuerte a 360 px de ancho. */
+  function wear(alpha, w, h, seed, scale) {
+    const edge = boxBlur(alpha, w, h, Math.max(2, Math.round(3 * scale)));
+    const nBite = noiseField(w, h, 5.5 * scale, seed + 1);     // mordidas del borde
+    const nBite2 = noiseField(w, h, 2.2 * scale, seed + 2);
+    const nBlot = noiseField(w, h, 17 * scale, seed + 3);      // manchas
+    const nBlot2 = noiseField(w, h, 7 * scale, seed + 4);
+    const nPore = noiseField(w, h, 1.6, seed + 5);            // poros
+    const out = new Float32Array(w * h);
+    for (let i = 0; i < w * h; i++) {
+      const a = alpha[i];
+      if (a <= 0) continue;
+      const e = 1 - Math.abs(2 * edge[i] - 1);                // 1 en el borde, 0 adentro/afuera
+      const bite = smooth(0.58, 0.80, nBite[i] * 0.7 + nBite2[i] * 0.3) * e;
+      const blot = smooth(0.62, 0.95, nBlot[i] * 0.6 + nBlot2[i] * 0.4) * 0.22;
+      const pore = smooth(0.90, 0.985, nPore[i]) * 0.75;
+      out[i] = a * clamp(1 - bite) * (1 - blot) * (1 - pore);
+    }
+    return out;
+  }
+
+  /* ══ capas: cada renglón es una imagen premultiplicada en coma flotante ════ */
+  const PAD = 6;
+  // una letra engordada → su alfa y, por fila, dónde empieza y termina la tinta
+  function glyph(ch, size) {
+    const lw = STROKE * size, M = Math.ceil(size * 0.25);
+    const m = document.createElement('canvas').getContext('2d');
+    m.font = `${size}px "${FONT}"`;
+    const adv = m.measureText(ch).width;
+    const w = Math.ceil(adv + 2 * M), h = Math.ceil(size * 1.35 + 2 * M), base = M + size;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d');
+    g.font = m.font; g.fillStyle = g.strokeStyle = '#fff'; g.textBaseline = 'alphabetic';
+    g.lineWidth = lw; g.lineJoin = 'miter'; g.miterLimit = MITER;
+    const BASE_OF = { 'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U' };
+    if (BASE_OF[ch]) {
+      // el trazo que engorda la letra pegaba la tilde al vértice de la A («MÁS» se leía
+      // «MAS» con pico): se dibuja la letra sola y la tilde aparte, subida para que respire
+      g.strokeText(BASE_OF[ch], M, base); g.fillText(BASE_OF[ch], M, base);
+      const t = document.createElement('canvas'); t.width = w; t.height = h;
+      const tg = t.getContext('2d');
+      tg.font = m.font; tg.fillStyle = tg.strokeStyle = '#fff'; tg.textBaseline = 'alphabetic';
+      tg.lineWidth = lw; tg.lineJoin = 'miter'; tg.miterLimit = MITER;
+      tg.strokeText(ch, M, base); tg.fillText(ch, M, base);
+      // se borra la letra un poco engordada (±2 px) para que no quede un fantasma del borde
+      tg.globalCompositeOperation = 'destination-out';
+      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) tg.drawImage(c, dx, dy);
+      g.drawImage(t, 0, -Math.round(lw * 1.6));
+    } else {
+      g.strokeText(ch, M, base); g.fillText(ch, M, base);
+    }
+    const d = g.getImageData(0, 0, w, h).data;
+    const left = new Float32Array(h).fill(Infinity), right = new Float32Array(h).fill(-Infinity);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      if (d[(y * w + x) * 4 + 3] < 128) continue;
+      if (x < left[y]) left[y] = x;
+      if (x > right[y]) right[y] = x;
+    }
+    return { c, w, h, base, left, right, adv };
+  }
+  function textLayer(str, size, seed) {
+    const lw = STROKE * size;
+    const capH = size * 0.7 + lw;                       // alto de la mayúscula ya engordada
+    const gap = Math.max(3, GAP * capH), r = Math.ceil(gap);
+    const space = glyph(' ', size).adv * 0.75;
+    // colocar cada letra a «gap» de la anterior en su punto más cercano (con ±r filas: un disco)
+    const G = [], xs = [];
+    let pend = 0;
+    for (const ch of str) {
+      if (ch === ' ') { pend += space; continue; }
+      const gl = glyph(ch, size);
+      let x = 0;
+      if (G.length) {
+        const P = G[G.length - 1], xp = xs[xs.length - 1];
+        let need = -Infinity;
+        for (let y = 0; y < gl.h; y++) {
+          if (!isFinite(gl.left[y])) continue;
+          let pr = -Infinity;
+          for (let yy = Math.max(0, y - r); yy <= Math.min(P.h - 1, y + r); yy++) pr = Math.max(pr, P.right[yy]);
+          if (isFinite(pr)) need = Math.max(need, xp + pr + 1 + gap - gl.left[y]);
+        }
+        x = (isFinite(need) ? need : xp + P.adv) + pend;
+      }
+      G.push(gl); xs.push(Math.round(x)); pend = 0;
+    }
+    // componer la palabra y medir la tinta en píxeles (measureText no sabe del trazo)
+    const last = G.length - 1;
+    const cw = xs[last] + G[last].w, chh = G[0].h, base0 = G[0].base;
+    const cc = document.createElement('canvas'); cc.width = cw; cc.height = chh;
+    const gc = cc.getContext('2d');
+    G.forEach((gl, i) => gc.drawImage(gl.c, xs[i], 0));
+    const raw = gc.getImageData(0, 0, cw, chh).data;
+    let x0 = cw, x1 = -1, y0 = chh, y1 = -1;
+    for (let y = 0; y < chh; y++) for (let x = 0; x < cw; x++) {
+      if (raw[(y * cw + x) * 4 + 3] === 0) continue;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    const inkW = x1 - x0 + 1, inkH = y1 - y0 + 1;
+    const w = inkW + PAD * 2, h = inkH + PAD * 2;
+    const a0 = new Float32Array(w * h);
+    for (let y = 0; y < inkH; y++) for (let x = 0; x < inkW; x++)
+      a0[(y + PAD) * w + x + PAD] = raw[((y + y0) * cw + x + x0) * 4 + 3] / 255;
+    const a = wear(a0, w, h, seed, size / BIG);
+    const px = new Float32Array(w * h * 4);
+    for (let i = 0; i < w * h; i++) {
+      px[i * 4] = ORANGE[0] * a[i]; px[i * 4 + 1] = ORANGE[1] * a[i];
+      px[i * 4 + 2] = ORANGE[2] * a[i]; px[i * 4 + 3] = 255 * a[i];
+    }
+    // dónde queda cada letra (columnas de tinta, en coordenadas de la capa)
+    const glyphs = G.map((gl, i) => {
+      let l = Infinity, rr = -Infinity;
+      for (let y = 0; y < gl.h; y++) { l = Math.min(l, gl.left[y]); rr = Math.max(rr, gl.right[y]); }
+      return { x0: xs[i] + l - x0 + PAD, x1: xs[i] + rr - x0 + PAD };
+    });
+    // asc = de la tinta de arriba a la línea base (incluye el trazo); half = lo que el trazo
+    // baja de la línea base (para alinear renglones de distinto tamaño por la tinta)
+    return { w, h, px, inkW, asc: base0 - y0, desc: y1 + 1 - base0, half: lw / 2, cap: capH,
+      revealTop: PAD, revealH: inkH, glyphs };
+  }
+  function imageLayer(img, width) {
+    const height = Math.round(width * img.naturalHeight / img.naturalWidth);
+    const w = width + PAD * 2, h = height + PAD * 2;
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const g = c.getContext('2d');
+    g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    // bajar en dos pasos: de 1734 px a 230 de una vez se ve dentado
+    const mid = document.createElement('canvas'); mid.width = width * 2; mid.height = height * 2;
+    const gm = mid.getContext('2d'); gm.imageSmoothingQuality = 'high';
+    gm.drawImage(img, 0, 0, mid.width, mid.height);
+    g.drawImage(mid, PAD, PAD, width, height);
+    const d = g.getImageData(0, 0, w, h).data, px = new Float32Array(w * h * 4);
+    for (let i = 0; i < w * h; i++) {
+      // el sol del PNG oficial viene con alfa 232/255 (91 %): sobre el asfalto salía #EB8C07,
+      // más apagado que «PLACAS». Lo naranja se hace opaco (232 → 1) y los bordes antialias
+      // conservan su proporción; lo blanco queda igual
+      const naranja = d[i * 4 + 2] < 128;
+      const al = Math.min(1, d[i * 4 + 3] / (naranja ? 232 : 255));
+      px[i * 4] = d[i * 4] * al; px[i * 4 + 1] = d[i * 4 + 1] * al;
+      px[i * 4 + 2] = d[i * 4 + 2] * al; px[i * 4 + 3] = 255 * al;
+    }
+    return { w, h, px, inkW: width, revealTop: PAD, revealH: height };
+  }
+  // la versión quieta de cada capa, ya en un canvas (se pinta tal cual: color exacto)
+  function staticCanvas(L) {
+    const c = document.createElement('canvas'); c.width = L.w; c.height = L.h;
+    const g = c.getContext('2d'), id = g.createImageData(L.w, L.h);
+    for (let i = 0; i < L.w * L.h; i++) {
+      const a = L.px[i * 4 + 3];
+      if (a <= 0) continue;
+      const k = 255 / a;
+      id.data[i * 4] = Math.round(L.px[i * 4] * k); id.data[i * 4 + 1] = Math.round(L.px[i * 4 + 1] * k);
+      id.data[i * 4 + 2] = Math.round(L.px[i * 4 + 2] * k); id.data[i * 4 + 3] = Math.round(a);
+    }
+    g.putImageData(id, 0, 0);
+    return c;
+  }
+
+  /* ══ la entrada: máscara que baja + estela + inclinación, con motion blur ══ */
+  const SKEW_PAD = 48, STREAK_MAX = 60;
+  const work = document.createElement('canvas');
+  const wctx = work.getContext('2d');
+
+  // la máscara llega al 100 % la primera vez que el resorte cruza 1: desde ahí, quieta
+  // (el 1 % que se pasa el resorte no existe para una máscara, que se recorta a 1)
+  const mask = (mv, tau) => spring(tau, mv.k, mv.d) * (mv.travel || 1);
+  for (const k in MOVE) {
+    const mv = MOVE[k]; let t = 0;
+    while (mask(mv, t) < 1 && t < 3) t += 0.0005;
+    mv.tc = t;
+  }
+  function progress(mv, tau) { return tau >= mv.tc ? 1 : clamp(mask(mv, tau)); }
+  function speed(mv, tau) {           // en alturas por segundo
+    if (tau >= mv.tc || tau <= 0) return 0;
+    const e = 1e-3;
+    return Math.max(0, (mask(mv, tau + e) - mask(mv, tau - e)) / (2 * e));
+  }
+
+  // pinta la capa L con su esquina (sin PAD) en (x, y) del lienzo, a tiempo local tau
+  function drawLayer(L, x, y, mv, tau) {
+    const ox = x - PAD, oy = y - PAD;
+    // quieta en todo el obturador → se pinta la versión exacta
+    if (tau - SHUTTER >= mv.tc) { ctx.drawImage(L.still, ox, oy); return; }
+    if (tau <= 0) return;
+    const ow = L.w + SKEW_PAD, oh = L.h + STREAK_MAX;
+    const acc = new Float32Array(ow * oh * 4);
+    let any = false;
+    for (let s = 0; s < SAMPLES; s++) {
+      const ts = tau - SHUTTER * (s + 0.5) / SAMPLES;
+      if (ts <= 0) continue;
+      const p = progress(mv, ts);
+      if (p <= 0) continue;
+      any = true;
+      const v = speed(mv, ts) * L.revealH;                       // px/s del borde
+      const edge = L.revealTop + p * L.revealH;                  // fila del borde (float)
+      const r0 = Math.floor(edge), cover = edge - r0;
+      const sl = Math.min(STREAK_MAX - 2, v * mv.streak) * (p < 1 ? 1 : 0);
+      const tanA = Math.tan((mv.skew * (1 - p)) * Math.PI / 180);
+      // arrastre del borde que baja (la firma del pin, medida por fila en STOP: con 62 %
+      // revelado las últimas ~30 filas se corren 11 % de la altura; arriba no se mueve nada).
+      // Pico hacia p ≈ 0.55, cero desde p 0.95
+      const band = 0.25 * L.revealH;
+      const D = mv.drag ? mv.drag * L.revealH * Math.sin(Math.PI * clamp((p - 0.1) / 0.85)) : 0;
+      const srcStreak = Math.max(0, Math.min(L.h - 1, r0 - 1));
+      const yEnd = Math.min(oh, Math.ceil(edge + sl) + 1);
+      const wgt = 1 / SAMPLES;
+      for (let yy = 0; yy < yEnd; yy++) {
+        let row, a;
+        if (yy < r0) { row = yy; a = 1; }
+        else if (yy === r0 && yy < L.h) { row = yy; a = cover; }
+        else if (sl > 0.5) {
+          // estela: rampa recta de 1 a 0.3 que termina seca (en el pin, de 0.33 a 0.05 en 2 px)
+          const u = (yy - edge) / sl;
+          if (u >= 1 || u < 0) continue;
+          row = srcStreak; a = 1 - 0.7 * u;
+        } else continue;
+        if (row >= L.h || a <= 0) continue;
+        // inclinación anclada arriba («/») o arrastre local del borde: lo de abajo va a la izquierda
+        let shift;
+        if (mv.drag) { const u = clamp((yy - (edge - band)) / band); shift = D * u * u; }
+        else shift = (yy - L.revealTop) * tanA;
+        const base = row * L.w;
+        const orow = yy * ow;
+        for (let xx = 0; xx < ow; xx++) {
+          const sx = xx - SKEW_PAD + shift;                      // x en la capa
+          const i0 = Math.floor(sx), f = sx - i0;
+          if (i0 < -1 || i0 >= L.w) continue;
+          const o = (orow + xx) * 4, k = a * wgt;
+          if (i0 >= 0) {
+            const q = (base + i0) * 4, m0 = (1 - f) * k;
+            acc[o] += L.px[q] * m0; acc[o + 1] += L.px[q + 1] * m0;
+            acc[o + 2] += L.px[q + 2] * m0; acc[o + 3] += L.px[q + 3] * m0;
+          }
+          if (i0 + 1 < L.w) {
+            const q = (base + i0 + 1) * 4, m1 = f * k;
+            acc[o] += L.px[q] * m1; acc[o + 1] += L.px[q + 1] * m1;
+            acc[o + 2] += L.px[q + 2] * m1; acc[o + 3] += L.px[q + 3] * m1;
+          }
+        }
+      }
+    }
+    if (!any) return;
+    if (work.width !== ow || work.height !== oh) { work.width = ow; work.height = oh; }
+    const id = wctx.createImageData(ow, oh), D = id.data;
+    for (let i = 0; i < ow * oh; i++) {
+      const a = acc[i * 4 + 3];
+      if (a < 0.5) continue;
+      const k = 255 / a;
+      D[i * 4] = Math.min(255, Math.round(acc[i * 4] * k));
+      D[i * 4 + 1] = Math.min(255, Math.round(acc[i * 4 + 1] * k));
+      D[i * 4 + 2] = Math.min(255, Math.round(acc[i * 4 + 2] * k));
+      D[i * 4 + 3] = Math.min(255, Math.round(a));
+    }
+    wctx.putImageData(id, 0, 0);
+    ctx.drawImage(work, ox - SKEW_PAD, oy);
+  }
+
+  /* ══ armado de cada frase ═══════════════════════════════════════════════════ */
+  let built = [];
+  function build(logoImg) {
+    built = PHRASES.map((P) => {
+      const l1 = textLayer(P.l1, MID, P.seed);
+      const l2 = textLayer(P.l2, BIG, P.seed + 100);
+      let sm = null;
+      if (P.sm) {
+        // «SOMOS MÁS QUE» mide lo mismo que «PLACAS» (como «THE NEXT» y «STOP»): el tamaño
+        // de «MÁS QUE» se busca (casi lineal con el cuerpo; dos pasadas bastan)
+        const want = l2.inkW - l1.inkW - SMALL_GAP;
+        for (let k = 0; k < 3; k++) {
+          sm = textLayer(P.sm, SMALL, P.seed + 200);
+          if (Math.abs(sm.inkW - want) < 1.5) break;
+          SMALL = Math.round(SMALL * want / sm.inkW * 10) / 10;
+        }
+      }
+      [l1, l2, sm].forEach((L) => L && (L.still = staticCanvas(L)));
+      // línea base de «SOMOS» = arriba del bloque + su ascent (tinta, con el trazo)
+      const base1 = P.top + l1.asc;
+      const items = [];
+      items.push({ L: l1, x: X, y: P.top, mv: MOVE.l1 });
+      // «MÁS QUE» sentado en la misma línea que «SOMOS»: se alinea el borde de abajo de la
+      // tinta engordada (cada tamaño baja su propio medio trazo)
+      if (sm) items.push({ L: sm, x: X + l1.inkW + SMALL_GAP, y: base1 + l1.half - sm.half - sm.asc, mv: MOVE.sm });
+      const top2 = base1 + l1.half + LEAD;
+      items.push({ L: l2, x: X, y: top2, mv: MOVE.l2 });
+      let logo = null;
+      if (P.logo) {
+        const LL = imageLayer(logoImg, LOGO_W); LL.still = staticCanvas(LL);
+        // marca chiquita centrada bajo «CAS» (en el pin la marca va bajo «OP»)
+        const g = l2.glyphs, n = g.length;
+        const cx = X + ((g[n - 3].x0 + g[n - 1].x1) / 2 - PAD);
+        logo = { L: LL, x: Math.round(cx - LOGO_W / 2), y: Math.round(top2 + l2.asc + l2.half + LOGO_GAP), mv: MOVE.logo };
+      }
+      return { P, items, logo, box: { x: X, y: P.top, w: Math.max(l2.inkW, l1.inkW + (sm ? SMALL_GAP + sm.inkW : 0)),
+        h: top2 + l2.asc + l2.half - P.top } };
+    });
+    window.__sizes = { BIG, MID, SMALL, STROKE, GAP };
+    window.__layout = built.map((b) => ({ id: b.P.id, box: b.box,
+      items: b.items.map((it) => ({ x: it.x, y: it.y, w: it.L.inkW, h: it.L.revealH })),
+      logo: b.logo && { x: b.logo.x, y: b.logo.y, w: b.logo.L.inkW, h: b.logo.L.revealH } }));
+  }
+
+  /* ══ fondo opcional (solo previsualización) ════════════════════════════════ */
+  let bgEl = null, bgIsVideo = false;
+  function drawBg() {
+    if (!bgEl) return;
+    const iw = bgIsVideo ? bgEl.videoWidth : bgEl.naturalWidth, ih = bgIsVideo ? bgEl.videoHeight : bgEl.naturalHeight;
+    const s = Math.max(W / iw, H / ih);
+    ctx.drawImage(bgEl, (W - iw * s) / 2, (H - ih * s) / 2, iw * s, ih * s);
+  }
+  function drawGuides() {
+    ctx.save(); ctx.strokeStyle = 'rgba(255,0,0,.8)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, 1600); ctx.lineTo(W, 1600); ctx.moveTo(950, 0); ctx.lineTo(950, H);
+    ctx.stroke(); ctx.restore();
+  }
+
+  /* ══ seek(t): función pura del tiempo ══════════════════════════════════════ */
+  function paint(t) {
+    ctx.clearRect(0, 0, W, H);
+    drawBg();
+    const n = frameOf(t);
+    for (const b of built) {
+      if (n < b.P.h || n >= b.P.out) continue;                // entra en el golpe, se va en el corte
+      const H0 = fr(b.P.h);
+      for (const it of b.items) drawLayer(it.L, it.x, it.y, it.mv, t - (H0 + it.mv.t0));
+      if (b.logo) {
+        const HL = fr(b.P.logo.h);
+        drawLayer(b.logo.L, b.logo.x, b.logo.y, b.logo.mv, t - (HL + b.logo.mv.t0));
+      }
+    }
+    if (GUIDES) drawGuides();
+  }
+  window.seek = function (t) {
+    if (bgEl && bgIsVideo) {
+      return new Promise((res) => {
+        const go = () => { paint(t); res(); };
+        if (Math.abs(bgEl.currentTime - t) < 1e-4) return go();
+        bgEl.onseeked = () => { bgEl.onseeked = null; go(); };
+        bgEl.currentTime = t;
+      });
+    }
+    paint(t);
+  };
+
+  /* ══ carga: fuente local + logo, después se arma todo ═════════════════════ */
+  (async () => {
+    const face = new FontFace(FONT, 'url("fonts/bebas-neue.woff2")');
+    await face.load(); document.fonts.add(face); await document.fonts.ready;
+    const logo = new Image(); logo.src = LOGO_SRC; await logo.decode();
+    if (BG) {
+      if (/\.(mp4|mov|webm)$/i.test(BG)) {
+        bgIsVideo = true; bgEl = document.createElement('video'); bgEl.muted = true; bgEl.src = BG;
+        await new Promise((r) => { bgEl.onloadeddata = r; });
+      } else { bgEl = new Image(); bgEl.src = BG; await bgEl.decode(); }
+    }
+    build(logo);
+    await window.seek(Number(Q.get('t') || 0));
+    window.__ready = true;
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Tesla Powershare — Carrusel línea Tesla (PR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   CARRUSEL POWERSHARE · VERSIÓN «LÍNEA TESLA»
+
+   Pedido de Nicolle (7 oct): ir más hacia la línea gráfica de Tesla — imagen
+   de fondo y las letras en los colores de WindMar. Es la hermana de
+   windmar-powershare-carrusel-pr.html (blueprint azul); MISMO texto y MISMOS
+   datos, solo cambia la puesta en página. Ver las notas de fuente allá.
+
+   LO QUE SE TOMA DE TESLA
+     · Foto a sangre en CADA lámina; la imagen es la protagonista.
+     · Titular arriba, centrado, en minúscula de oración y peso medio — Tesla
+       no grita en mayúsculas. Mucho aire.
+     · Fila de especificaciones abajo: número grande + etiqueta chiquita, en
+       columnas, separadas solo por espacio. Es la firma de tesla.com.
+     · Dos botones en el cierre (uno lleno, uno de contorno).
+     · Cero adornos: sin retícula, sin cajas, sin rayitas.
+
+   LO QUE ES DE WINDMAR
+     · Letras en blanco con la palabra clave en NARANJA WindMar.
+     · Botón lleno naranja con texto azul marino.
+     · Velo de la foto con un tinte azul marino, no negro puro.
+     · Montserrat (titulares y texto) — sin tercera familia.
+
+   FOTOS: las 6 de wme/powershare/ia-*.jpg son GENERADAS CON IA (GPT Image 2.5,
+   7 oct 2026), pedidas por Nicolle a sabiendas de su regla de no usar IA.
+   Las «-v2» (láminas 2, 3, 4 y 6) se rehicieron con fotos OFICIALES de Tesla
+   como referencia (Powerwall 3 y Backup Gateway 2 del manual del dueño,
+   Model Y de tesla.com) tras el feedback: batería equivocada, carro mal
+   estacionado, cargador sin tubería, sin Gateway, carro que no era Tesla y
+   técnicos falsos. La 4 enseña la tubería A LA VISTA a propósito: así se
+   instala de verdad.
+   Las «-v3» (2, 4 y 6): la Powerwall va PARADA EN EL PISO, no colgada, y en la
+   pared van inversor solar + panel principal + Gateway con tubería, copiando
+   la foto de referencia que mandó Nicolle (diagrama de instalación de Tesla).
+   La batería sigue siendo Powerwall 3 (logo T): es la que pide Powershare.
+   Las «-v4»: se le BORRÓ el inversor solar aparte a las v3. Esa referencia era
+   de Powerwall 2; la Powerwall 3 trae el inversor por dentro y no lleva caja
+   aparte. Nicolle confirmó que la referencia estaba mal.
+   Las «-v5»: copian una instalación REAL de WindMar que mandó Nicolle
+   («tesla widnmar.png»): Powerwall 3 en el piso, Gateway justo encima,
+   cajas de desconexión grises con etiquetas a la izquierda, tubería vertical,
+   pared de paneles. Esa es la referencia buena; cualquier versión nueva sale
+   de ahí. El
+   prefijo «ia-» es a propósito: que nadie las confunda con fotos reales.
+   Se reemplazan soltando otra foto encima de la lámina.
+   SIN FOTO la lámina queda en carbón oscuro con el aviso de dónde soltarla.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#0a2882; --navy2:#071e55; --orange:#fe9400; /* el naranja EXACTO del sol del logo (muestreado del PNG): el #fe9400 de antes era más rojizo y al lado del logo se notaba */ --blue:#1c7bff;
+  --ink:#ffffff; --soft:rgba(255,255,255,.78); --dim:rgba(255,255,255,.5);
+  --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b0e14;color:#e7edfb;font-family:var(--body);padding:26px}
+.wrap{max-width:1300px;margin:0 auto}
+header.top{border-bottom:2px solid rgba(255,255,255,.1);padding-bottom:14px;margin-bottom:8px}
+h1.pt{font-size:22px;font-weight:600;letter-spacing:-.01em}
+h1.pt .o{color:var(--orange)}
+.subt{color:#9aa6bd;font-size:14px;margin-top:5px;line-height:1.5}
+.subt a{color:#8fb8ff}
+.note{background:#141922;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:13px 15px;font-size:14px;color:#c9d2e3;margin:16px 0;line-height:1.6}
+.note b{color:var(--orange)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.bar .allbtn{font-family:var(--body);font-size:14px;font-weight:700;padding:10px 18px;border-radius:6px;border:none;cursor:pointer;background:var(--orange);color:var(--navy2)}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:12px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-size:14px;color:#9aa6bd;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.dl{font-family:var(--body);font-size:14px;font-weight:600;padding:6px 13px;border-radius:6px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:#dfe6f3;cursor:pointer}
+.dl:hover{background:#fff;color:#111}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== TARJETA 4:5 (1080×1350) ===== */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:392px;aspect-ratio:4/5;border-radius:14px;color:var(--ink);
+  background:radial-gradient(120% 80% at 50% 45%, #232832 0%, #12151c 60%, #0b0d12 100%);
+  box-shadow:0 18px 48px rgba(0,0,0,.55);border:1px solid #232a38}
+
+/* foto a sangre */
+.ph{position:absolute;inset:0;z-index:0;cursor:pointer}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .drop{position:absolute;left:12cqw;right:12cqw;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:1.6cqw;text-align:center;
+  border:.3cqw dashed rgba(255,255,255,.28);border-radius:2cqw;padding:4.4cqw 4cqw}
+.ph .drop.drag{background:rgba(255,255,255,.08)}
+.ph .drop-tx{font-weight:600;font-size:3cqw;color:#fff}
+.ph .drop-sub{font-weight:400;font-size:2.4cqw;line-height:1.45;color:var(--dim)}
+.ph .drop-sub b{font-weight:600;color:var(--soft)}
+.piece.has-photo .ph .drop{display:none}
+
+/* Velo: oscuro arriba (titular) y abajo (especificaciones), abierto en el
+   medio para que la foto respire. Tinte azul marino, no negro. Se pone solo
+   cuando hay foto; el carbón vacío ya da contraste. */
+.shade{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,
+    rgba(4,12,34,.88) 0%, rgba(4,12,34,.7) 30%, rgba(4,12,34,.22) 42%, rgba(4,12,34,0) 50%,
+    rgba(4,12,34,0) 54%, rgba(4,12,34,.6) 70%, rgba(4,12,34,.92) 100%)}
+.piece.has-photo .shade{opacity:1}
+/* las láminas con mucho texto abajo necesitan el velo más alto */
+.piece.heavy .shade{background:linear-gradient(to bottom,
+    rgba(4,12,34,.88) 0%, rgba(4,12,34,.68) 28%, rgba(4,12,34,.16) 40%,
+    rgba(4,12,34,.2) 44%, rgba(4,12,34,.84) 60%, rgba(4,12,34,.95) 100%)}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;
+  padding:9cqw 7cqw 5.6cqw;pointer-events:none}
+.content [contenteditable]{pointer-events:auto;outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(254,148,0,.6);border-radius:4px}
+
+/* ---- arriba: titular centrado, a lo Tesla ---- */
+.head{text-align:center;text-shadow:0 .2cqw 1.6cqw rgba(4,12,34,.55)}
+.eyebrow{font-weight:600;font-size:2.2cqw;letter-spacing:.24em;text-transform:uppercase;color:var(--orange)}
+.h1{font-weight:600;font-size:7.6cqw;line-height:1.08;letter-spacing:-.025em;color:#fff;margin-top:2.2cqw;
+  text-wrap:balance}
+.h1 .o{color:var(--orange);white-space:nowrap}
+.sub{font-weight:400;font-size:3cqw;line-height:1.5;color:var(--soft);margin:2.4cqw auto 0;max-width:74cqw;text-wrap:balance}
+.sub b{font-weight:600;color:#fff}
+
+.spacer{flex:1}
+
+/* ---- abajo: fila de especificaciones ---- */
+.specs{display:grid;gap:3cqw;text-align:center}
+.specs.c2{grid-template-columns:1fr 1fr}
+.specs.c3{grid-template-columns:1fr 1fr 1fr}
+.specs .n{font-weight:600;font-size:7cqw;line-height:1;letter-spacing:-.03em;color:#fff;white-space:nowrap}
+.specs .n .o{color:var(--orange)}
+.specs .n small{font-size:.5em;font-weight:500;letter-spacing:0;margin-left:.15em}
+.specs .l{font-weight:500;font-size:2.25cqw;line-height:1.4;color:var(--soft);margin-top:1.3cqw}
+.fine{font-weight:400;font-size:1.9cqw;line-height:1.5;color:var(--dim);text-align:center;margin:3.4cqw auto 0;max-width:80cqw}
+
+/* lista fina: sin cajas, solo una línea entre filas */
+.list{list-style:none;border-top:.25cqw solid rgba(255,255,255,.18)}
+.list li{display:flex;justify-content:space-between;align-items:baseline;gap:4cqw;
+  padding:2.5cqw 0;border-bottom:.25cqw solid rgba(255,255,255,.18)}
+.list .t{font-weight:600;font-size:3.1cqw;color:#fff}
+.list .s{font-weight:400;font-size:2.4cqw;color:var(--soft);text-align:right}
+.after{font-weight:500;font-size:2.6cqw;line-height:1.5;color:var(--soft);text-align:center;margin-top:3.2cqw}
+
+/* ruta en la pantalla: TEXTO, no cajitas. Con cajas se leían como botones
+   que se pueden tocar, y en Instagram no se toca nada. Uno debajo del otro
+   con una flecha naranja: se lee como «entra aquí, luego aquí». El último
+   paso va en naranja porque es lo que hay que buscar. */
+.crumbs{display:flex;flex-direction:column;align-items:center;gap:.6cqw;text-align:center}
+.crumbs .st{font-weight:600;font-size:3.3cqw;line-height:1.2;color:#fff}
+.crumbs .st.on{color:var(--orange);font-weight:700}
+.crumbs i{font-style:normal;font-weight:700;font-size:4.2cqw;line-height:1;color:var(--orange);margin:.4cqw 0}
+
+/* botones del cierre: el gesto más Tesla de todos, en colores WindMar */
+.btns{display:flex;gap:2.4cqw;justify-content:center;margin-top:4.4cqw}
+.btn{font-weight:700;font-size:2.6cqw;letter-spacing:.02em;border-radius:1.2cqw;padding:2.3cqw 0;width:36cqw;text-align:center}
+.btn.fill{background:var(--orange);color:var(--navy2)}
+.btn.line{border:.35cqw solid rgba(255,255,255,.85);color:#fff}
+.proof{text-align:center;margin-top:3.2cqw}
+.proof .n{font-weight:600;font-size:10cqw;line-height:1;letter-spacing:-.035em;color:var(--orange)}
+.proof .l{font-weight:500;font-size:2.7cqw;color:var(--soft);margin-top:1cqw}
+.logos{display:flex;align-items:center;justify-content:center;gap:6cqw;margin-top:5cqw}
+.logos .wm{height:10cqw;width:auto;display:block}
+.logos .tc{height:5.6cqw;width:auto;display:block}
+.legal{font-weight:400;font-size:1.65cqw;color:var(--dim);text-align:center;margin-top:3cqw}
+
+/* pie */
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:3.6cqw;
+  font-weight:500;font-size:2.1cqw;letter-spacing:.06em;color:var(--dim)}
+.foot .site{color:var(--soft)}
+.swipe{display:inline-flex;align-items:center;gap:1.4cqw;color:#fff;font-weight:600}
+.swipe::after{content:"";width:4cqw;height:.3cqw;background:var(--orange)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Carrusel <span class="o">·</span> Tesla Powershare — versión línea Tesla (PR)</h1>
+    <div class="subt">Feed 4:5 (1080×1350) · foto a sangre en cada lámina · Montserrat · textos editables (clic) · export PNG ·
+      <a href="windmar-powershare-carrusel-pr.html">ver la versión blueprint azul</a></div>
+  </header>
+  <div class="note">
+    <b>Fotos:</b> las 6 de fondo están <b>generadas con IA</b>. Para cambiar cualquiera, suelta otra foto encima de la lámina (o haz clic).
+    Mismo texto y mismos datos que la versión azul; solo cambia la puesta en página.
+  </div>
+  <div class="bar"><button class="allbtn" id="allbtn">Descargar las 6 PNG</button></div>
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SITE='windmar.com';
+const LOGO_W='wme/logos/wmh-home-white-orange.png';
+const TESLA_CERT='wme/logos/tesla-powerwall-premier-w-crop.png';
+
+const CARDS=[
+  { id:'portada', img:'wme/powershare/ia-01-portada.jpg', mode:'cover',
+    photo:'Un <b>Model 3 o Model Y</b> en la marquesina, de tarde, con las luces de la casa prendidas',
+    eyebrow:'Nuevo de Tesla · Puerto Rico',
+    h1:'Tu Tesla también prende tu <span class="o">casa</span>',
+    sub:'Con Powershare, los Model 3 y Model Y nuevos le pasan energía a tu hogar cuando se va la luz.' },
+
+  { id:'cuanto', img:'wme/powershare/ia-02-powerwall-v5.jpg', mode:'stat',
+    photo:'La <b>Powerwall 3</b> instalada en la pared',
+    eyebrow:'¿Cuánto rinde?',
+    h1:'Más de <span class="o">dos días</span> de respaldo extra',
+    sub:'El carro se suma a tu <b>Powerwall 3</b> y estira el respaldo en los apagones largos.',
+    specs:[
+      ['+2<small>días</small>', 'Premium y<br>Performance'],
+      ['2<small>días</small>',  'Standard<br>(hasta dos días)'],
+      ['30<small>kWh</small>',  'consumo diario<br>de la casa base'] ],
+    fine:'Estimado de Tesla: casa promedio de EE.UU. que usa 30 kWh al día, con el carro cargado al 90 %. Varía según tu consumo y tus placas.' },
+
+  { id:'como', img:'wme/powershare/ia-03-techo-solar-v2.jpg', mode:'stat',
+    photo:'<b>Placas en el techo</b> de una casa en PR, con el carro en la marquesina',
+    eyebrow:'Cómo trabaja',
+    h1:'Tres fuentes, una <span class="o">casa</span>',
+    sub:'Las placas cargan la casa, la Powerwall y el carro, también durante el apagón.',
+    specs:[
+      ['<span class="o">01</span>', 'El sol<br>carga todo'],
+      ['<span class="o">02</span>', 'La Powerwall 3<br>respalda la casa'],
+      ['<span class="o">03</span>', 'Tu Model 3 o Y<br>estira el respaldo'] ] },
+
+  { id:'necesitas', img:'wme/powershare/ia-04-instalacion-v5.jpg', lift:12, mode:'list', heavy:true,
+    photo:'El <b>Wall Connector</b> conectado al carro',
+    eyebrow:'Lo que necesitas',
+    h1:'Cuatro <span class="o">piezas</span>',
+    items:[
+      ['Model 3 o Model Y', 'ordenado después del 1 oct 2026'],
+      ['Powerwall 3', ''],
+      ['Wall Connector 3', 'o Universal Wall Connector'],
+      ['Powerwall y cargador', 'emparejados, misma Wi-Fi'] ],
+    after:'Con eso listo, Tesla lo activa a través de su servicio al cliente.' },
+
+  { id:'revisa', img:'wme/powershare/ia-05-pantalla.jpg', mode:'crumbs',
+    photo:'La <b>pantalla del carro</b> por dentro',
+    eyebrow:'¿Ya tienes un Tesla?',
+    h1:'Revísalo en la <span class="o">pantalla</span>',
+    sub:'Algunos Model 3 y Model Y de antes de octubre también son compatibles. Toca el ícono del carro, abajo a la izquierda:',
+    path:['Software','Additional Vehicle Information','Powershare Support'],
+    after:'Si «Powershare Support» está encendido, tu carro ya puede.' },
+
+  { id:'cierre', img:'wme/powershare/ia-06-casa-noche-v5.jpg', mode:'cierre', heavy:true,
+    photo:'El <b>equipo de WindMar</b> instalando una Powerwall',
+    eyebrow:'Evaluación gratis y sin compromiso',
+    h1:'El carro ya lo tienes.<br>La batería, <span class="o">con nosotros</span>',
+    proofN:'+65,000', proofL:'baterías Tesla instaladas',
+    legal:'Powershare, Powerwall, Model 3 y Model Y son marcas de Tesla, Inc.' },
+];
+const N=CARDS.length;
+
+const head=c=>`<div class="head">
+    <div class="eyebrow" contenteditable="true">${c.eyebrow}</div>
+    <h2 class="h1" contenteditable="true">${c.h1}</h2>
+    ${c.sub?`<p class="sub" contenteditable="true">${c.sub}</p>`:''}
+  </div>`;
+const foot=(i,swipe)=>`<div class="foot">
+    <span class="site" contenteditable="true">${SITE}</span>
+    ${swipe?`<span class="swipe">Desliza</span>`:`<span>${String(i+1).padStart(2,'0')} / ${String(N).padStart(2,'0')}</span>`}
+  </div>`;
+
+function body(c,i){
+  if(c.mode==='cover') return `${head(c)}<div class="spacer"></div>${foot(i,true)}`;
+  if(c.mode==='stat') return `${head(c)}<div class="spacer"></div>
+    <div class="specs c${c.specs.length}">${c.specs.map(([n,l])=>`<div><div class="n">${n}</div><div class="l" contenteditable="true">${l}</div></div>`).join('')}</div>
+    ${c.fine?`<p class="fine" contenteditable="true">${c.fine}</p>`:''}
+    ${foot(i)}`;
+  if(c.mode==='list') return `${head(c)}<div class="spacer"></div>
+    <ul class="list">${c.items.map(([t,s])=>`<li><span class="t" contenteditable="true">${t}</span><span class="s" contenteditable="true">${s}</span></li>`).join('')}</ul>
+    <p class="after" contenteditable="true">${c.after}</p>
+    ${foot(i)}`;
+  if(c.mode==='crumbs') return `${head(c)}<div class="spacer"></div>
+    <div class="crumbs">${c.path.map((p,k)=>`${k?'<i>↓</i>':''}<span class="st${k===c.path.length-1?' on':''}">${p}</span>`).join('')}</div>
+    <p class="after" contenteditable="true">${c.after}</p>
+    ${foot(i)}`;
+  if(c.mode==='cierre') return `${head(c)}<div class="spacer"></div>
+    <div class="proof"><div class="n">${c.proofN}</div><div class="l" contenteditable="true">${c.proofL}</div></div>
+    <div class="btns"><div class="btn fill" contenteditable="true">Evaluación gratis</div><div class="btn line" contenteditable="true">${SITE}</div></div>
+    <div class="logos">
+      <img class="wm" src="${LOGO_W}" alt="WindMar Home" crossorigin="anonymous">
+      <img class="tc" src="${TESLA_CERT}" alt="Tesla Powerwall Premier Certified Installer" crossorigin="anonymous">
+    </div>
+    <p class="legal" contenteditable="true">${c.legal}</p>`;
+  return '';
+}
+
+const gallery=document.getElementById('gallery');
+CARDS.forEach((c,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow"><span class="cap">${c.id} · ${i+1}/${N}</span><button class="dl" data-i="${i}">PNG</button></div>
+    <div class="piece${c.heavy?' heavy':''}${c.img?' has-photo':''}" id="pc-${i}">
+      <div class="ph">
+        ${c.img?`<img src="${c.img}" alt="" crossorigin="anonymous"${c.lift?` style="transform:translateY(-${c.lift}%)"`:''}>`:''}
+        <div class="drop">
+          <div class="drop-tx">Arrastra la foto aquí</div>
+          <div class="drop-sub">Va bien: ${c.photo}</div>
+        </div>
+        <input type="file" accept="image/*" class="vin" hidden>
+      </div>
+      <div class="shade"></div>
+      <div class="content">${body(c,i)}</div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* La foto se suelta sobre la lámina entera: el contenido deja pasar los
+   clics (pointer-events:none) y solo lo editable los toma. */
+gallery.querySelectorAll('.piece').forEach(piece=>{
+  const ph=piece.querySelector('.ph');
+  const setMedia=file=>{
+    if(!file || !file.type.startsWith('image/')) return;
+    const old=ph.querySelector('img'); if(old) old.remove();
+    const img=new Image(); img.crossOrigin='anonymous'; img.alt='';
+    img.src=URL.createObjectURL(file);
+    ph.prepend(img); piece.classList.add('has-photo');
+  };
+  ph.querySelector('.vin').addEventListener('change',e=>setMedia(e.target.files[0]));
+  ph.addEventListener('click',()=>ph.querySelector('.vin').click());
+  piece.addEventListener('dragover',e=>{e.preventDefault();ph.querySelector('.drop').classList.add('drag');});
+  piece.addEventListener('dragleave',()=>ph.querySelector('.drop').classList.remove('drag'));
+  piece.addEventListener('drop',e=>{e.preventDefault();ph.querySelector('.drop').classList.remove('drag');setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+async function exportOne(i){
+  const node=document.getElementById('pc-'+i);
+  const css=await fontEmbedCSS();
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#0b0d12'};
+  let blob=null;
+  try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+  if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+  if(!blob) throw new Error('imagen vacía');
+  const a=document.createElement('a');
+  a.download=`windmar-powershare-tesla-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.png`;
+  a.href=URL.createObjectURL(blob); a.click();
+}
+gallery.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const i=btn.dataset.i; btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    try{ await exportOne(i); }catch(e){ alert('No se pudo exportar: '+e.message); }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+document.getElementById('allbtn').addEventListener('click',async()=>{
+  const btn=document.getElementById('allbtn'); btn.disabled=true; const old=btn.textContent;
+  for(let i=0;i<N;i++){ btn.textContent=`Exportando ${i+1}/${N}…`; try{ await exportOne(i); await new Promise(r=>setTimeout(r,350)); }catch(e){} }
+  btn.textContent=old; btn.disabled=false;
+});
+</script>
+</body>
+</html>

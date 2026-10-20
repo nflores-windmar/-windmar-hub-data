@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Se paga solo — animación ROI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   ROI «TU SISTEMA SOLAR SE PAGA SOLO» — animaciones en código, 1080×1920
+
+   Referencia de ESTILO: roi-aumento-luz-v17-corto-9x16.mp4 (pantalla de bloqueo
+   azul con notificación tipo iOS, tarjetas blancas redondeadas, texto azul marino,
+   acento naranja, cierre azul con logo y botón).
+
+   CORTES Y DATOS: studio/_render/roi/edl.json (14 oct 2026). Solo esos números.
+     · 28.57¢ → 33.86¢ por kWh, oct–dic (NEPR, El Nuevo Día 30 sep 2026)
+     · $42 más al mes (cliente residencial promedio SIN SUBSIDIO, 800 kWh)
+     · fila $350/mes de ready.windmar.com: $4,152 año 1 · $141,548 en 25 años ·
+       payback 5.2 años · ROI 25 años 521 %
+     · 1 de octubre de 2026 = JUEVES
+     · NADA de 7.86 kW ni $22,795.
+
+   VUELTA 5 (14 oct, apertura corta del largo — decisión de Nicolle):
+     largo = teléfono 0–2.5 · texto-sube 2.5–4.5 («$42 más al mes.» → «Y va a seguir
+     subiendo.», SIN repetir el gancho) · C0276 4.5–15.0 · C0278 15.0–18.6333 ·
+     cierre 18.6333–22.1. La escena «decide» SE QUITÓ.
+     · Nada entra ni sale por rampa de opacidad: las tarjetas suben desde una
+       ventana cuyo borde es su propio borde de abajo (y=1436) y se van hundiéndose
+       por ella, o se van EN el corte de la toma.
+     · Contadores (calculadora del largo): arrancan en el 60 % de la cifra (nunca
+       «$0») y llegan a la cifra exacta en ~0.34 s; ahí se quedan. La tarjeta
+       $141,548 NO cuenta (QA r1): sube ya con la cifra, para que se lea más tiempo.
+     · Subtítulos SIN placa: blanco con contorno azul marino; palabra activa
+       #FE9400. Van ENTRE las manos y las tarjetas: C0276 y≈1130–1216; en C0278
+       el portavoz tiene las manos más abajo (y≈1100–1260, medido) y el renglón
+       baja a y≈1262–1348 (ahí ya no hay tarjeta: la C se va en el corte).
+
+   PARÁMETROS
+     ?ver=corto (14.4 s, por defecto) | ?ver=largo (22.1 s)
+     ?wipe=0    quita el círculo azul que entra 0.10 s (3 cuadros) ANTES del cierre
+     ?bg=<ruta|url de imagen o video>   SOLO revisión: pinta eso detrás
+     ?t=3.2     abre parado en ese segundo · ?play=1 reproduce (vista previa)
+
+   SEGMENTOS
+     «anim»    la página pinta la escena completa y OPACA.
+     «persona» la página es TRANSPARENTE salvo tarjetas (marco único x 90–990,
+               y 1236–1436) y subtítulos palabra por palabra.
+               El video del portavoz va debajo en la edición.
+
+   AUDIO: la notificación cae a los 0.80 s (ahí va el «ding»). Toques: 2.02 s
+   (notificación) · cierre +1.78 s (botón).
+
+   ZONA SEGURA: la interfaz de Reels tapa de y≈1450 para abajo (y la columna de
+   íconos de x≈990 a la derecha). Nada asentado pasa de y=1440 ni de x=990.
+
+   CONTRATO: window.seek(t) puro (sin Math.random, timers ni transiciones
+   CSS), window.__duration, window.__ready. Resortes de lib/motion.js.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#0a2882; --navy2:#16399f; --ink:#071e55; --orange:#FE9400;
+  --lbl:#3a4256; --sub:#4f5568; --box:#eef3f7;
+  --f:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:transparent}
+body{font-family:var(--f);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:transparent}
+.layer{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+.ctr{left:0;right:0;text-align:center}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* Ventana de máscara para texto que sube. Se estira arriba y abajo con
+   padding y se devuelve con margen negativo: así caben tildes (é, ú, Á) y
+   colas (g, p, q) sin cortarse y sin mover el diseño. */
+.ln{overflow:hidden;padding:.32em 0 .22em;margin:-.32em 0 -.22em}
+.ln > span{display:block;transform:translateY(150%)}
+
+/* ── revisión ─────────────────────────────────────────────────────────── */
+#bgReview{position:absolute;inset:0;display:none}
+#bgReview img,#bgReview video{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── 1 · PANTALLA DE BLOQUEO ──────────────────────────────────────────── */
+#scPhone{background:#052567}
+#scPhone .phbg{position:absolute;inset:0;background:
+   radial-gradient(58% 30% at 50% 25%, rgba(13,56,160,.40) 0%, rgba(13,56,160,.18) 40%, rgba(13,56,160,0) 100%),
+   radial-gradient(62% 18% at 50% 100%, rgba(254,148,0,.13) 0%, rgba(254,148,0,.05) 50%, rgba(254,148,0,0) 100%),
+   linear-gradient(180deg,#052567 0%,#04225f 45%,#03194c 74%,#0b1733 100%)}
+#dots{position:absolute;inset:0}
+#dots i{position:absolute;border-radius:50%;background:#FE9400}
+#phCam{position:absolute;inset:0;transform-origin:640px 1076px}
+#lock{position:absolute;left:521px;top:440px;width:38px;height:48px}
+#phDate{top:532px;font:600 40px/48px var(--f);color:#d9edff;letter-spacing:.005em}
+#phTime{top:586px;display:flex;justify-content:center;align-items:baseline;color:#fff}
+#phTime .hm{font:800 257px/1 var(--f);letter-spacing:-.022em}
+#phTime .col{margin:0 .035em 0 .045em}
+#phTime .pm{font:800 76px/1 var(--f);color:var(--orange);margin-left:14px;letter-spacing:.01em}
+/* gancho a 52 px (x≈97–983): se lee desde el cuadro 0 (portada) */
+#phHook{top:908px;font:700 52px/62px var(--f);color:#fff;white-space:nowrap}
+#phHook .w{display:inline-block;vertical-align:top;margin:-.32em .12em -.22em}
+/* notificación en x 56–976: con el empuje de cámara (×1.025 hacia x=640) termina en x≈984,
+   antes de la columna de íconos de Reels (≈990) */
+#notif{left:56px;top:1037px;width:920px;height:250px;border-radius:52px;display:none;
+  background:rgba(214,222,236,.97);box-shadow:0 24px 60px -18px rgba(0,8,40,.55);transform-origin:460px 125px}
+#notif .app{position:absolute;left:28px;top:30px;width:92px;height:92px;border-radius:22px;
+  background:#FE9400;color:var(--navy);font:800 54px/92px var(--f);text-align:center}
+#notif .tx{position:absolute;left:144px;right:28px;top:24px}
+#notif .r1{display:flex;justify-content:space-between;align-items:baseline;font:700 33px/50px var(--f);color:#000004}
+#notif .r1 span{font:500 29px/50px var(--f);color:#5d6170}
+#notif .r2{font:700 34px/50px var(--f);color:#000004;letter-spacing:-.008em;white-space:nowrap}
+#notif .r3{font:500 36px/46px var(--f);color:#0b0b19;white-space:nowrap}
+#notif .r3 b{font-weight:800;position:relative;display:inline-block}
+/* marcatexto: naranja de marca REAL (#FE9400 sólido), texto azul marino encima (≈6.5:1) */
+#notif .mark{position:absolute;left:-7px;right:-7px;top:12%;bottom:6%;border-radius:9px;
+  background:#FE9400;transform-origin:0 50%;transform:scaleX(0);z-index:-1}
+#notif .r3 .hl{z-index:0;isolation:isolate;color:#071e55;margin-right:.12em}
+.tap{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;
+  background:rgba(255,255,255,.95);box-shadow:0 0 0 10px rgba(255,255,255,.28);display:none}
+#tapPh{box-shadow:0 0 0 10px rgba(10,40,130,.25)}
+
+/* ── 2 · TEXTO SUBE (solo largo) ──────────────────────────────────────────
+   Campo plano #eef2f8, alineado a la izquierda en x=90 (marco de las tarjetas).
+   NO repite «Tu factura de luz acaba de subir.» (ya salió en el teléfono). */
+#lightBg{background:#eef2f8}
+.lf{left:90px;right:90px;text-align:left}
+#sbStack{position:absolute;inset:0;transform-origin:540px 860px}
+#sbL2{top:510px}
+#sbL2 .big{font:800 320px/290px var(--f);color:var(--orange);letter-spacing:-.04em}
+#sbL2 .mid{font:800 100px/106px var(--f);color:var(--ink);letter-spacing:-.02em}
+#sbL3{top:976px;font:700 72px/82px var(--f);color:var(--ink);letter-spacing:-.01em}
+/* «subiendo.» en azul marino sobre marcatexto #FE9400 sólido */
+#sbL3 em{font-style:normal;color:#071e55;position:relative;display:inline-block;isolation:isolate}
+#sbL3 .mk{position:absolute;left:-10px;right:-10px;top:50%;bottom:4%;border-radius:10px;
+  background:#FE9400;transform-origin:0 50%;transform:scaleX(0);z-index:-1}
+/* nota a 36 px, #3f4558 sobre #eef2f8 (≈9:1), en dos renglones, CON «sin subsidio» */
+#sbNote{top:1122px;font:500 36px/46px var(--f);color:#3f4558}
+
+/* ── 3 · PERSONA: tarjetas + subtítulos ───────────────────────────────── */
+#persona{position:absolute;inset:0;pointer-events:none}
+/* z-index: los subtítulos van encima del círculo azul del cierre (nace detrás de ellos) */
+#subs{position:absolute;left:0;right:0;top:0;height:0;z-index:6}
+/* Sin placa: blanco con contorno azul marino (trazo de 7 px detrás del relleno) y una
+   sombra suave; palabra activa #FE9400. Medido sobre la camisa blanca: el contorno
+   #071e55 contra la camisa ≈14:1, el blanco contra su contorno ≈16:1 y el naranja
+   contra su contorno ≈7:1. */
+.subline{position:absolute;left:0;right:0;height:86px;text-align:center;white-space:nowrap;display:none;
+  font:800 64px/86px var(--f);color:#fff;letter-spacing:-.01em;
+  -webkit-text-stroke:7px #071e55;paint-order:stroke fill;
+  text-shadow:0 4px 14px rgba(7,30,85,.45);transform-origin:50% 60%}
+.subline .w{display:inline-block;margin:0 .13em;transform-origin:50% 62%}
+
+/* Tarjetas de persona: un solo marco (x 90–990), y 1236–1436 (debajo del renglón de
+   subtítulos, por encima de la interfaz de Reels). Entran subiendo desde una ventana
+   cuyo borde es y=1436; la sombra es corta (≤40 px) para caber en esa ventana. */
+.pcard{position:absolute;display:none;left:90px;top:1236px;width:900px;height:200px;border-radius:40px;overflow:hidden;
+  box-shadow:0 16px 30px -12px rgba(5,18,60,.55),0 4px 12px rgba(5,18,60,.20)}
+.pcard .lbl{position:absolute;font:700 38px/42px var(--f);letter-spacing:.06em;color:var(--lbl);white-space:nowrap}
+#pA{background:linear-gradient(135deg,#0a2882 0%,#16399f 100%)}
+#pA .num{position:absolute;left:54px;top:22px;font:800 112px/1 var(--f);color:#fff;letter-spacing:-.035em;white-space:nowrap}
+#pA .sub{position:absolute;left:58px;top:140px;font:600 40px/46px var(--f);color:#e6edfc}
+.badge{position:absolute;width:92px;height:92px;border-radius:50%;background:var(--orange);
+  box-shadow:0 6px 14px -6px rgba(5,18,60,.45)}
+.badge svg{position:absolute;inset:0;width:92px;height:92px}
+#pA .badge{right:52px;top:54px}
+#pC{background:#fdfdfd;box-shadow:0 16px 30px -12px rgba(5,18,60,.55),0 4px 12px rgba(5,18,60,.20),inset 0 0 0 2px rgba(10,40,130,.10)}
+#pC .lbl{left:56px;top:28px}
+#pC .num{position:absolute;left:52px;top:78px;font:800 106px/1 var(--f);color:var(--navy);letter-spacing:-.035em;white-space:nowrap}
+#pC .prog{position:absolute;left:0;right:0;bottom:0;height:12px;background:var(--orange);transform-origin:0 50%}
+/* Calculadora (largo) en 200 px: a la izquierda la entrada (lo que pagas al mes), a la
+   derecha tres renglones etiqueta → valor. Etiquetas a 36 px #3a4256 (≈10:1). */
+#pB{background:#fdfdfd;box-shadow:0 16px 30px -12px rgba(5,18,60,.55),0 4px 12px rgba(5,18,60,.20),inset 0 0 0 2px rgba(10,40,130,.10)}
+#pB .inp{position:absolute;left:16px;top:16px;width:250px;bottom:16px;border-radius:26px;background:var(--box)}
+#pB .inp .k{position:absolute;left:24px;top:12px;font:700 36px/36px var(--f);letter-spacing:.04em;color:var(--lbl)}
+#pB .amt{position:absolute;left:22px;top:100px;font:800 64px/64px var(--f);color:var(--navy);letter-spacing:-.02em;white-space:nowrap}
+#pB .amt .dol{font-weight:700;font-size:52px;color:#4f5568;margin-right:4px}
+#pB .caret{display:inline-block;width:6px;height:52px;margin-left:6px;background:var(--navy);border-radius:3px;vertical-align:-4px}
+#pB .rows{position:absolute;left:286px;right:16px;top:16px;bottom:16px}
+#pB .row{position:absolute;left:0;right:0;height:56px}
+#pB #pBr1{top:0} #pB #pBr2{top:56px} #pB #pBr3{top:112px}
+#pB .row + .row{border-top:2px solid #e3e8f1}
+#pB .row .k{position:absolute;left:16px;top:9px;font:700 36px/38px var(--f);letter-spacing:.02em;color:var(--lbl);white-space:nowrap}
+#pB .row .v{position:absolute;right:16px;top:2px;font:800 50px/52px var(--f);color:var(--ink);letter-spacing:-.02em;white-space:nowrap;transform-origin:100% 60%}
+#pB .row .v small{font:700 32px/1 var(--f);color:var(--sub);letter-spacing:0;margin-left:6px}
+#pB #pBr1 .v{color:var(--navy)}
+/* anillo del PAYBACK: se DIBUJA (trazo), #FE9400 sólido, sin fundido */
+#pB .ring{position:absolute;left:0;top:0;width:598px;height:56px;overflow:visible}
+#pB .ring rect{fill:none;stroke:#FE9400;stroke-width:5;stroke-dasharray:100 100;stroke-dashoffset:100}
+
+/* ── 4 · CIERRE ───────────────────────────────────────────────────────── */
+/* campo plano #0a2882 (sin el resplandor radial: el skill prohíbe título sobre degradado) */
+#cBg{position:absolute;inset:0;background:#0a2882}
+#cContent{position:absolute;inset:0}
+#cLogo{position:absolute;left:280px;top:252px;width:520px;height:auto}
+#cTitle{top:686px;font:800 86px/92px var(--f);color:#fff;letter-spacing:-.02em}
+#cTitle .or span{color:var(--orange)}
+#cBtnWrap{position:absolute;left:90px;top:942px;width:900px;height:160px}
+#cBtn{position:absolute;inset:0;border-radius:80px;background:var(--orange);display:none;
+  box-shadow:0 0 0 12px rgba(255,255,255,.08),0 26px 50px -18px rgba(0,6,30,.6);transform-origin:50% 50%}
+#cBtn .t{position:absolute;left:72px;top:0;font:800 54px/160px var(--f);color:var(--navy);letter-spacing:-.01em;white-space:nowrap}
+#cBtn .ar{position:absolute;right:22px;top:22px;width:116px;height:116px;border-radius:50%;background:#fff}
+#cBtn .ar svg{position:absolute;inset:0;width:116px;height:116px}
+#cSub{top:1146px;font:600 40px/48px var(--f);color:#dfe8ff}
+#cUrl{top:1232px;font:800 64px/76px var(--f);color:#fff;letter-spacing:-.01em}
+/* letra pequeña a 36 px, #dfe8ff sobre #0a2882 (≈11:1); termina en y≈1430 */
+#cLegal{top:1342px;font:500 36px/44px var(--f);color:#dfe8ff}
+#tapC{left:790px;top:1022px;box-shadow:0 0 0 10px rgba(10,40,130,.30)}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div id="bgReview"></div>
+
+  <!-- 1 · pantalla de bloqueo -->
+  <section class="layer" id="scPhone">
+    <div class="phbg"></div>
+    <div id="dots"></div>
+    <div id="phCam">
+      <svg id="lock" viewBox="0 0 38 48" aria-hidden="true">
+        <path d="M9 21v-7a10 10 0 0 1 20 0v7" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/>
+        <rect x="3" y="19" width="32" height="27" rx="6.5" fill="#fff"/>
+      </svg>
+      <div class="abs ctr" id="phDate">jueves, 1 de octubre</div>
+      <div class="abs ctr" id="phTime"><span class="hm">1<span class="col">:</span>00</span><span class="pm">PM</span></div>
+      <div class="abs ctr" id="phHook"></div>
+      <div class="abs" id="notif">
+        <div class="app">N</div>
+        <div class="tx">
+          <div class="r1">Noticias<span>ahora</span></div>
+          <div class="r2">Aprueban aumento en la tarifa de la luz</div>
+          <div class="r3">De <b>28.57¢</b> a <b class="hl"><i class="mark" id="mark"></i>33.86¢</b> por kWh</div>
+          <div class="r3">octubre a diciembre</div>
+        </div>
+      </div>
+      <div class="tap" id="tapPh" style="left:640px;top:1076px"></div>
+    </div>
+  </section>
+
+  <!-- fondo claro (texto-sube) -->
+  <section class="layer" id="lightBg"></section>
+
+  <!-- 2 · texto sube (largo) -->
+  <section class="layer" id="scSube">
+    <div id="sbStack">
+      <div class="abs lf" id="sbL2">
+        <div class="ln big"><span class="tnum"><span style="margin-right:.035em">$</span><b id="n42" style="font-weight:800">42</b></span></div>
+        <div class="ln mid"><span>más al mes.</span></div>
+      </div>
+      <div class="abs lf" id="sbL3">
+        <div class="ln"><span>Y va a seguir <em><i class="mk" id="mk3"></i>subiendo.</em></span></div>
+      </div>
+      <div class="abs lf" id="sbNote">
+        <div class="ln"><span>Cliente residencial promedio sin subsidio,</span></div>
+        <div class="ln"><span>800 kWh, oct–dic 2026.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · persona: transparente salvo tarjetas y subtítulos -->
+  <div id="persona">
+    <div id="subs"></div>
+
+    <div class="pcard" id="pA">
+      <div class="num ln"><span><b class="tnum" id="pANum">5.2</b> años</span></div>
+      <div class="sub ln"><span>y ya se pagó.</span></div>
+      <div class="badge" id="pABadge">
+        <svg viewBox="0 0 92 92"><path id="pAChk" d="M27 47 L40 60 L66 33" fill="none" stroke="#0a2882" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="pcard" id="pB">
+      <div class="inp">
+        <div class="k"><div class="ln"><span>PAGAS</span></div><div class="ln"><span>AL MES</span></div></div>
+        <div class="amt"><span class="dol">$</span><span id="pBAmt"></span><i class="caret" id="pBCaret"></i></div>
+      </div>
+      <div class="rows">
+        <div class="row" id="pBr1">
+          <svg class="ring" id="pBRingSvg" width="598" height="56" viewBox="0 0 598 56"><rect id="pBRing" x="2.5" y="2.5" width="593" height="51" rx="16" ry="16" pathLength="100"/></svg>
+          <div class="k ln"><span>PAYBACK</span></div>
+          <div class="v ln" id="pBv1w"><span><b class="tnum" id="pBv1">5.2</b><small>años</small></span></div>
+        </div>
+        <div class="row" id="pBr2"><div class="k ln"><span>AHORRO AÑO 1</span></div><div class="v ln"><span class="tnum" id="pBv2">$4,152</span></div></div>
+        <div class="row" id="pBr3"><div class="k ln"><span>ROI 25 AÑOS</span></div><div class="v ln"><span class="tnum" id="pBv3">521%</span></div></div>
+      </div>
+    </div>
+
+    <div class="pcard" id="pC">
+      <div class="ln lbl"><span>AHORRO EN 25 AÑOS</span></div>
+      <div class="num ln"><span class="tnum" id="pCNum">$141,548</span></div>
+      <div class="prog" id="pCProg"></div>
+    </div>
+  </div>
+
+  <!-- 4 · cierre -->
+  <section class="layer" id="scCierre">
+    <div id="cBg"></div>
+    <div id="cContent">
+      <img id="cLogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" />
+      <div class="abs ctr" id="cTitle">
+        <div class="ln"><span>Tu sistema solar</span></div>
+        <div class="ln or"><span>se paga solo.</span></div>
+      </div>
+      <div id="cBtnWrap">
+        <div id="cBtn">
+          <div class="t">Corre tus números</div>
+          <div class="ar"><svg viewBox="0 0 116 116"><g id="cArrow"><path d="M38 58 H76 M60 41 L77 58 L60 75" fill="none" stroke="#FE9400" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+        </div>
+      </div>
+      <div class="abs ctr" id="cSub"><div class="ln"><span>Evaluación gratis · Sin compromiso</span></div></div>
+      <div class="abs ctr" id="cUrl"><div class="ln"><span>ready.windmar.com</span></div></div>
+      <div class="abs ctr" id="cLegal"><div class="ln"><span>Ejemplo con una factura de $350 al mes.</span></div><div class="ln"><span>Tu número sale de tu factura real.</span></div></div>
+      <div class="tap" id="tapC"></div>
+    </div>
+  </section>
+</div>
+
+<script src="lib/motion.js"></script>
+<script>
+(function () {
+  window.__ready = false;
+  const { spring, track, rand, clamp } = Motion;
+  const ty = (x) => spring(x, Motion.TYPE.k, Motion.TYPE.d);   // texto: sin rebote
+  const ui = (x) => spring(x, Motion.UI.k, Motion.UI.d);       // tarjetas/botones: se pasa un pelito
+  const $ = (id) => document.getElementById(id);
+  const P = new URLSearchParams(location.search);
+  const VER = P.get('ver') === 'largo' ? 'largo' : 'corto';
+  const WIPE = P.get('wipe') !== '0';
+  const PRE = 0.10;                     // círculo azul: 3 cuadros antes del cierre
+
+  /* ── EDL (studio/_render/roi/edl.json, 14 oct, apertura corta) — tiempos EXACTOS ─
+     Cortes en cuadros de 30 fps escritos como fracción (302/30, no 10.0667: el
+     decimal cae DESPUÉS del cuadro y ese cuadro saldría con la toma anterior).
+     Largo: 4.5 (cuadro 135) · 15.0 (450) · 18.6333 (559) · fin 22.1 (663).
+     punchAt: punch-in del montaje [desde, hasta, escala] — la capa no escala, pero
+     los cambios de renglón se alinean a esos cuadros. */
+  const EDL = {
+    corto: { dur: 14.4, segs: [
+      { a: 0.00,     b: 2.50,     tipo: 'anim',    escena: 'telefono' },
+      { a: 2.50,     b: 190 / 30, tipo: 'persona', clip: 'C0276', src: [3.70, 7.5333] },
+      { a: 190 / 30, b: 302 / 30, tipo: 'persona', clip: 'C0276', src: [10.3367, 14.07], punch: 1.08 },
+      { a: 302 / 30, b: 335 / 30, tipo: 'persona', clip: 'C0278', src: [3.82, 4.92] },
+      { a: 335 / 30, b: 14.40,    tipo: 'anim',    escena: 'cierre' } ] },   // QA r1: cierre +0.4 s (14.0 → 14.4)
+    largo: { dur: 22.1, segs: [
+      { a: 0.00,     b: 2.50,     tipo: 'anim',    escena: 'telefono' },
+      { a: 2.50,     b: 4.50,     tipo: 'anim',    escena: 'texto-sube' },
+      { a: 4.50,     b: 15.00,    tipo: 'persona', clip: 'C0276', src: [3.62, 14.12], punchAt: [[339 / 30, 411 / 30, 1.08]] },
+      { a: 15.00,    b: 559 / 30, tipo: 'persona', clip: 'C0278', src: [1.2867, 4.92] },
+      { a: 559 / 30, b: 22.10,    tipo: 'anim',    escena: 'cierre' } ] }
+  }[VER];
+  const DUR = EDL.dur;
+  window.__duration = DUR;
+  window.__version = VER;
+  window.__edl = EDL;
+
+  /* Palabras de la EDL: [texto, inicio, fin] en tiempo de la fuente (ACÚSTICOS, 14 oct).
+     Dice «lo PAGAS». La pregunta lleva ¿?, «Sí,» su coma; ningún otro renglón lleva punto.
+     QA r1 (15 oct, envolvente de 10 ms): «es» 13.59 y «tuyo» 13.78 (antes 13.39/13.52, se
+     encendían mientras él estaba callado); «que» 4.62 y «tú» 3.53 = estallido de la oclusiva. */
+  const WORDS = {
+    C0276: [['¿Y',3.74,3.82],['si',3.83,4.04],['te',4.05,4.17],['digo',4.18,4.52],
+            ['que',4.62,4.74],['tu',4.75,4.88],['sistema',4.89,5.28],['solar',5.29,5.57],
+            ['se',5.58,5.81],['paga',5.82,6.08],['solo',6.09,6.38],
+            ['en',6.39,6.49],['cinco',6.50,6.98],['años?',6.99,7.51],
+            ['Sí,',7.83,8.13],['escuchaste',8.44,9.10],['bien',9.11,9.33],
+            ['Cinco',9.38,9.97],['años',9.98,10.27],
+            ['Con',10.53,10.81],['WindMar',10.82,11.22],
+            ['lo',11.50,11.58],['pagas',11.59,11.84],['en',11.85,11.96],['cinco',11.97,12.44],['años',12.45,12.74],
+            ['El',12.89,12.96],['resto',12.97,13.38],['es',13.59,13.66],['tuyo',13.78,14.01]],
+    C0278: [['Tu',1.43,1.59],['casa',1.60,2.05],['está',2.06,2.37],['ready',2.38,2.69],
+            ['Solo',2.76,3.09],['faltas',3.10,3.46],['tú',3.53,3.72],
+            ['Corre',4.02,4.26],['tus',4.27,4.34],['números',4.35,4.87]]
+  };
+  const LINE_AT = { C0276: [3.74, 4.62, 5.58, 6.39, 7.83, 9.38, 10.53, 11.50, 12.89], C0278: [1.43, 2.76, 4.02] };
+  /* Altura del renglón por toma (medido: piel por franjas en los videos difuminados).
+     C0276: manos y≈1000–1120 → renglón 1130–1216. C0278: manos y≈1100–1260 → 1262–1348. */
+  const SUB_Y = { C0276: 1130, C0278: 1262 };
+  const SUB_H = 86;
+  const HOLD = 0.62;                    // cuánto se queda el último renglón de una frase
+  const LEAD = 0.05;                    // el renglón asoma hasta 0.05 s antes de su primera palabra
+  const CUTIN = 0.25;                   // tras un corte (o punch-in), si la voz entra antes de esto,
+                                        // el renglón cambia EN ese cuadro
+  const FR = 1 / 30;
+
+  const toEdit = (seg, srcT) => Math.round((seg.a + srcT - seg.src[0]) * 1e4) / 1e4;
+  const S = EDL.segs;
+  const cSeg = S.find(s => s.escena === 'cierre');
+  const P1 = S[1].tipo === 'persona' ? S[1] : S[2];       // primera toma de C0276
+  const P76b = VER === 'corto' ? S[2] : P1;             // toma con «Con WindMar… El resto»
+  const P78 = S.find(s => s.clip === 'C0278');
+  /* Tarjetas: [entra, sale, cómo sale]. 'hunde' = baja por su ventana; 'corte' = se va EN
+     el corte de la toma (sin cola sobre la toma siguiente). */
+  const CARDS = VER === 'corto'
+    ? { A: [toEdit(P1, 6.50), toEdit(P76b, 11.97) + 0.70, 'hunde'],     // «cinco» 5.30 → 8.67
+        C: [toEdit(P76b, 12.89), P78.a, 'corte'] }                       // «El» 8.8866 → corte a C0278 (10.0667)
+    : { B: [toEdit(P1, 6.50), 339 / 30, 'corte'],                        // «cinco» 7.38 → se va con el punch-in (11.30)
+        C: [toEdit(P1, 12.89), P78.a, 'corte'] };                        // «El» 13.77 → corte a C0278 (15.0)
+  const HILITE = VER === 'largo' ? toEdit(P1, 9.38) : null;           // «Cinco» 10.26: se dibuja el anillo
+  window.__cards = CARDS;
+
+  /* ── subtítulos: renglones por segmento persona ────────────────────── */
+  const PUNCH_B = [];
+  S.forEach(s => (s.punchAt || []).forEach(p => PUNCH_B.push(p[0], p[1])));
+  const LINES = [];
+  S.forEach((seg) => {
+    if (seg.tipo !== 'persona') return;
+    const ws = WORDS[seg.clip].filter(w => w[1] >= seg.src[0] - 1e-6 && w[1] < seg.src[1]);
+    let cur = null;
+    ws.forEach((w) => {
+      if (!cur || LINE_AT[seg.clip].some(x => Math.abs(x - w[1]) < 1e-6)) {
+        cur = { words: [], seg }; LINES.push(cur);
+      }
+      cur.words.push({ txt: w[0], e: toEdit(seg, w[1]), f: toEdit(seg, w[2]) });
+    });
+  });
+  const lastW = (ln) => ln.words[ln.words.length - 1];
+  LINES.forEach((ln, i) => {
+    const pv = LINES[i - 1];
+    ln.start = ln.words[0].e;
+    ln.cont = !!pv && pv.seg === ln.seg;
+    ln.lead = ln.cont ? clamp(ln.start - lastW(pv).f, 0, LEAD) : LEAD;
+    ln.t0 = Math.max(ln.start - ln.lead, ln.seg.a);
+    // punch-in: si el renglón cambia poco después del salto de encuadre y la frase anterior
+    // ya terminó, el renglón cambia EN el cuadro del punch (un solo salto, no dos)
+    PUNCH_B.forEach((b) => {
+      if (ln.cont && b <= ln.t0 + 1e-6 && ln.t0 - b < CUTIN && lastW(pv).f <= b + 1e-6) ln.t0 = b;
+    });
+  });
+  LINES.forEach((ln, i) => {
+    const nxt = LINES[i + 1];
+    const last = lastW(ln);
+    ln.end = nxt && nxt.seg === ln.seg ? nxt.t0 : Math.min(ln.seg.b, Math.max(last.e + HOLD, last.f + 0.15));
+  });
+  // corte persona→persona: si el renglón anterior llega al corte y la voz entra en menos de
+  // CUTIN, el renglón nuevo se enciende EN el corte, sin subir (cambia con la toma)
+  LINES.forEach((ln, i) => {
+    const pv = LINES[i - 1];
+    if (pv && pv.seg !== ln.seg && pv.seg.tipo === 'persona' && Math.abs(pv.end - ln.seg.a) < 1e-3 &&
+        ln.start - ln.seg.a < CUTIN) { ln.t0 = ln.seg.a; ln.cont = true; }
+  });
+  LINES.forEach((ln) => {
+    const el = document.createElement('div');
+    el.className = 'subline';
+    el.style.top = SUB_Y[ln.seg.clip] + 'px';
+    ln.words.forEach((w) => { const s = document.createElement('span'); s.className = 'w'; s.textContent = w.txt; el.appendChild(s); w.el = s; });
+    $('subs').appendChild(el);
+    ln.el = el;
+  });
+  window.__lines = LINES.map(l => ({ text: l.words.map(w => w.txt).join(' '), on: +l.t0.toFixed(4), start: +l.start.toFixed(4), end: +l.end.toFixed(4), y: SUB_Y[l.seg.clip] }));
+  // el círculo del cierre nace detrás del último renglón («Corre tus números», C0278)
+  const CIRCLE_Y = SUB_Y.C0278 + SUB_H / 2;
+
+  /* ── puntitos de la pantalla de bloqueo (con semilla, casi quietos) ── */
+  const DOTS = [];
+  for (let i = 0; i < 8; i++) {
+    const d = document.createElement('i');
+    const s = 4 + rand(i * 7 + 3) * 4;
+    d.style.width = d.style.height = s.toFixed(1) + 'px';
+    $('dots').appendChild(d);
+    DOTS.push({ el: d, x: 40 + rand(i * 13 + 1) * 1000, y: 1300 + rand(i * 17 + 5) * 580, sp: 2 + rand(i * 5 + 9) * 3,
+                ph: rand(i * 3 + 11) * 6.28, a: .12 + rand(i * 19 + 2) * .13 });
+  }
+
+  /* gancho palabra por palabra, cada una en su máscara (.ln) */
+  'Tu factura de luz acaba de subir.'.split(' ').forEach((w) => {
+    const m = document.createElement('span'); m.className = 'ln w';
+    const s = document.createElement('span'); s.textContent = w; m.appendChild(s);
+    $('phHook').appendChild(m);
+  });
+  const hookW = [...document.querySelectorAll('#phHook .w > span')];
+
+  /* ── utilidades de pintura ─────────────────────────────────────────── */
+  const show = (el, on) => { el.style.display = on ? 'block' : 'none'; };
+  // renglón que sube dentro de su máscara (sin fundido: la máscara lo esconde)
+  const rise = (span, t0, t, dist = 150) => {
+    const p = ty(t - t0);
+    span.style.transform = `translateY(${((1 - p) * dist).toFixed(2)}%)`;
+    span.style.visibility = t < t0 ? 'hidden' : 'visible';
+  };
+  // números/etiquetas que llegan CON su tarjeta: resorte rápido sin rebote
+  const riseFast = (span, t0, t, dist = 125) => {
+    const p = spring(t - t0, 300, 35);
+    span.style.transform = `translateY(${((1 - p) * dist).toFixed(2)}%)`;
+    span.style.visibility = t < t0 ? 'hidden' : 'visible';
+  };
+  // contador: arranca en el 60 % (nunca «$0»), llega a la cifra EXACTA en ~0.34 s y se queda
+  const countP = (x) => { const p = spring(x, 300, 35); return x <= 0 ? 0 : p >= 0.98 ? 1 : p; };
+  const countV = (v, x) => v * (0.6 + 0.4 * countP(x));
+  const money = (v) => '$' + Math.round(v).toLocaleString('en-US');
+  const segAt = (t) => S.find(s => t >= s.a && t < s.b) || S[S.length - 1];
+  const chkLen = 62;
+  $('pAChk').style.strokeDasharray = chkLen;
+
+  /* Tarjeta de persona: sube desde una ventana cuyo borde es su propio borde de abajo
+     (y=1436) — opacidad SIEMPRE 1; la ventana se abre 40 px más al asentarse para que
+     quepa la sombra. Sale hundiéndose por la misma ventana, o EN el corte. */
+  const CARD_BOT = 1436, SHADOW = 40;
+  function cardIn(el, t, card) {
+    const [tin, tout, how] = card;
+    const gone = how === 'corte' ? t >= tout : t >= tout + 0.5;
+    if (t < tin || gone) { el.style.display = 'none'; return -1; }
+    const H = 200 + 8;
+    const p = ui(t - tin);
+    // al hundirse no se queda una rayita en el borde: sale entera cuando el resorte va en 0.88
+    const q = how === 'hunde' && t >= tout ? Math.min(1, spring(t - tout, 400, 40) / 0.88) : 0;
+    const dy = (1 - p) * H + q * H;
+    if (dy >= H - 0.5) { el.style.display = 'none'; return -1; }
+    const clipLine = CARD_BOT + SHADOW * clamp(p) * (1 - clamp(q));
+    const insetB = (CARD_BOT + dy) - clipLine;           // en coordenadas de la tarjeta
+    el.style.display = 'block';
+    el.style.opacity = '1';
+    el.style.transform = `translateY(${dy.toFixed(2)}px)`;
+    el.style.clipPath = `inset(-80px -80px ${insetB.toFixed(2)}px -80px)`;
+    return t - tin;
+  }
+
+  /* ── 1 · teléfono ──────────────────────────────────────────────────── */
+  function drawPhone(t) {
+    DOTS.forEach((d) => {
+      const y = d.y - d.sp * t;
+      d.el.style.transform = `translate(${(d.x + Math.sin(t * 0.5 + d.ph) * 3).toFixed(1)}px, ${y.toFixed(1)}px)`;
+      d.el.style.opacity = d.a.toFixed(3);
+    });
+    // empuje de cámara lento; en el corto, al soltar el toque (2.16) la cámara se mete
+    // en la notificación y el corte a la persona sale de ahí
+    const dive = VER === 'corto' ? 0.10 * ui(t - 2.16) : 0;
+    $('phCam').style.transform = `scale(${(1 + 0.025 * spring(t, 6, 5) + dive).toFixed(4)})`;
+    // candado, fecha y hora: nítidos y enteros desde el cuadro 0; solo se asientan unos px
+    const h = ty(t + 0.45), hb = ty(t + 0.40);
+    $('lock').style.transform = `translateY(${((1 - h) * 24).toFixed(1)}px)`;
+    $('phDate').style.transform = `translateY(${((1 - hb) * 26).toFixed(1)}px)`;
+    $('phTime').style.transform = `translateY(${((1 - h) * 30).toFixed(1)}px)`;
+    // gancho: en el cuadro 0 cada palabra ya subió ≈80 % (se LEE en la portada) y se
+    // asienta del todo hacia 0.15 s
+    hookW.forEach((w, i) => rise(w, -0.34 + i * 0.012, t, 120));
+    // notificación: CAE como banner, nítida y opaca, desde detrás de la línea que hay
+    // debajo del gancho (y=1000); sin blur ni fundido
+    const n0 = 0.80, NT = 1037, NH = 250, MASK = 1000;
+    const nEl = $('notif');
+    if (t < n0) nEl.style.display = 'none';
+    else {
+      const np = ui(t - n0);
+      const press = track(t, [[0, 0], [2.02, 1], [2.16, 0]], 420, 34);
+      const dy = -(1 - np) * (NT + NH - MASK);
+      nEl.style.display = 'block';
+      nEl.style.transform = `translateY(${dy.toFixed(1)}px) scale(${(1 - 0.025 * press).toFixed(4)})`;
+      nEl.style.clipPath = `inset(${Math.max(MASK - (NT + dy), -60).toFixed(1)}px -80px -120px -80px)`;
+    }
+    // marcatexto naranja detrás de 33.86¢
+    $('mark').style.transform = `scaleX(${clamp(spring(t - 1.38, 170, 26)).toFixed(4)})`;
+    // toque en la notificación: aparece con escala (sin fundido), aprieta y se encoge
+    const tp = $('tapPh');
+    const press2 = track(t, [[0, 0], [2.02, 1], [2.16, 0]], 420, 34);
+    if (t >= 1.92) {
+      const a = ui(t - 1.92), o = spring(t - 2.22, 400, 40);
+      const s = (0.55 + 0.45 * a - 0.12 * press2) * (1 - o);
+      tp.style.display = s > 0.03 ? 'block' : 'none';
+      tp.style.transform = `scale(${s.toFixed(3)})`;
+    } else tp.style.display = 'none';
+  }
+
+  /* ── 2 · texto sube (largo, 2.0 s) ─────────────────────────────────── */
+  function drawSube(tl) {
+    // todo el bloque se asienta subiendo y luego se acerca despacio: el corte a la
+    // persona (4.50) cae sobre movimiento, con todo quieto y entero (sin cascada de salida)
+    $('sbStack').style.transform =
+      `translateY(${(50 * (1 - ty(tl + 0.10))).toFixed(1)}px) scale(${(1 + 0.03 * spring(tl - 0.5, 6, 5)).toFixed(4)})`;
+    const l2 = $('sbL2').querySelectorAll('.ln > span');
+    rise(l2[0], -0.22, tl, 125);                    // $42 nace dentro del círculo del toque (2.18)
+    rise(l2[1], -0.10, tl, 125);
+    $('n42').textContent = Math.round(countV(42, tl + 0.22));
+    rise($('sbL3').querySelector('.ln > span'), 0.25, tl);
+    $('mk3').style.transform = `scaleX(${clamp(spring(tl - 0.55, 170, 26)).toFixed(4)})`;
+    const nt = $('sbNote').querySelectorAll('.ln > span');
+    rise(nt[0], 0.40, tl, 120); rise(nt[1], 0.46, tl, 120);
+  }
+
+  /* ── 3 · persona: subtítulos + tarjetas ────────────────────────────── */
+  function drawSubs(t) {
+    LINES.forEach((ln) => {
+      const on = t >= ln.t0 && t < ln.end;
+      if (!on) { ln.el.style.display = 'none'; return; }
+      ln.el.style.display = 'block';
+      // primer renglón de cada toma: aparece entero y sube 14 px (sin fundido);
+      // los siguientes cambian EN su sitio
+      const p = ln.cont ? 1 : ty(t - ln.t0);
+      ln.el.style.transform = `translateY(${((1 - p) * 14).toFixed(1)}px) scale(${(0.965 + 0.035 * p).toFixed(4)})`;
+      ln.words.forEach((w, i) => {
+        const next = i + 1 < ln.words.length ? ln.words[i + 1].e : ln.end + 1;
+        // se enciende en el cuadro MÁS CERCANO al inicio acústico (nunca un cuadro entero tarde)
+        const active = t + FR / 2 >= w.e && t + FR / 2 < next;
+        w.el.style.color = active ? '#FE9400' : '#fff';
+        const s = 1 + 0.035 * (ty(t - w.e) - ty(t - next));
+        w.el.style.transform = `scale(${s.toFixed(4)})`;
+      });
+    });
+  }
+
+  function drawCards(t) {
+    // A · 5.2 años (corto): el número NO cuenta; sube con la tarjeta; palomita en «años?»
+    if (CARDS.A) {
+      const k = cardIn($('pA'), t, CARDS.A);
+      if (k >= 0) {
+        riseFast($('pA').querySelector('.num > span'), 0, k);
+        riseFast($('pA').querySelector('.sub > span'), 0.05, k);
+        const g = ui(k - 0.30);
+        $('pABadge').style.visibility = k < 0.30 ? 'hidden' : 'visible';
+        $('pABadge').style.transform = `scale(${Math.max(0, g).toFixed(4)})`;
+        $('pAChk').style.strokeDashoffset = (chkLen * (1 - clamp(ty(k - 0.38)))).toFixed(2);
+      }
+    }
+    // B · calculadora (largo): se teclea $350 todavía en «cinco»; el 5.2 sube en «cinco»;
+    // ahorro y ROI cuentan desde el 60 %; en «Cinco años» se DIBUJA el anillo del PAYBACK
+    if (CARDS.B) {
+      const k = cardIn($('pB'), t, CARDS.B);
+      if (k >= 0) {
+        $('pB').querySelectorAll('.inp .k .ln > span').forEach((s, i) => riseFast(s, i * 0.03, k));
+        const typed = k < 0.06 ? '' : k < 0.10 ? '3' : k < 0.14 ? '35' : '350';
+        $('pBAmt').textContent = typed;
+        $('pBCaret').style.visibility = (k < 0.20 || (k < 0.9 && Math.floor(k * 4) % 2 === 1)) ? 'visible' : 'hidden';
+        [['pBr1', 0.02, 0.18], ['pBr2', 0.05, 0.60], ['pBr3', 0.08, 0.76]].forEach(([id, tk, tv]) => {
+          riseFast($(id).querySelector('.k > span'), tk, k);
+          rise($(id).querySelector('.v > span'), tv, k, 130);
+        });
+        $('pBv2').textContent = money(countV(4152, k - 0.60));
+        $('pBv3').textContent = Math.round(countV(521, k - 0.76)) + '%';
+        const hl = HILITE == null ? 0 : clamp(ty(t - HILITE) * 1.02);
+        $('pBRing').style.strokeDashoffset = (100 * (1 - hl)).toFixed(2);
+        $('pBRing').style.visibility = hl > 0.001 ? 'visible' : 'hidden';
+        const bump = HILITE == null ? 0 : ty(t - HILITE) - ty(t - (HILITE + 0.9));
+        $('pBv1w').style.transform = `scale(${(1 + 0.08 * bump).toFixed(4)})`;
+      }
+    }
+    // C · ahorro en 25 años: etiqueta y número llegan CON la tarjeta. QA r1: el número NO
+    // cuenta (el contador se comía 0.36 s de lectura de la cifra principal): sube ya en $141,548
+    if (CARDS.C) {
+      const k = cardIn($('pC'), t, CARDS.C);
+      if (k >= 0) {
+        riseFast($('pC').querySelector('.lbl > span'), 0, k);
+        riseFast($('pCNum'), 0.02, k);
+        $('pCNum').textContent = '$141,548';
+        $('pCProg').style.transform = 'scaleX(1)';
+      }
+    }
+  }
+
+  /* ── 4 · cierre ────────────────────────────────────────────────────── */
+  function drawCierre(tl) {
+    // círculo azul: nace DETRÁS del renglón «Corre tus números» (encima va el renglón)
+    const pre = WIPE ? PRE : 0;
+    const w = spring(tl + pre, 400, 40);
+    $('cBg').style.clipPath = tl + pre < 0.9 ? `circle(${(w * 2500).toFixed(1)}px at 540px ${CIRCLE_Y}px)` : 'none';
+    const C = $('cContent');
+    if (tl < 0) { C.style.display = 'none'; return; }
+    C.style.display = 'block';
+    // logo ENTERO desde el cuadro del corte (sin recorte que lo parta): solo se asienta subiendo
+    const lg = ty(tl + 0.10);
+    $('cLogo').style.transform = `translateY(${((1 - lg) * 46).toFixed(1)}px)`;
+    const tt = $('cTitle').querySelectorAll('.ln > span');
+    rise(tt[0], 0.22, tl); rise(tt[1], 0.34, tl);
+    // botón: barre de izquierda a derecha (el texto va dentro del barrido).
+    // QA r1: la cascada del cierre se adelantó (botón 0.58→0.46, texto 0.90→0.52, URL
+    // 1.02→0.58, letra pequeña 1.14/1.20→0.64/0.68) para que la URL y la letra pequeña
+    // queden quietas ≈2 s; el orden de arriba a abajo se mantiene y el toque (1.66/1.78,
+    // sincronizado con el efecto) no se mueve.
+    const BTN0 = 0.46;
+    const bw = ui(tl - BTN0);
+    const press = track(tl, [[0, 0], [1.78, 1], [1.92, 0]], 420, 34);
+    const B = $('cBtn');
+    B.style.display = tl < BTN0 ? 'none' : 'block';
+    B.style.clipPath = `inset(-30px ${(Math.max(0, 1 - bw) * 100).toFixed(2)}% -30px -30px round 80px)`;
+    B.style.transform = `scale(${(1 - 0.03 * press).toFixed(4)})`;
+    const bp = ty(tl - (BTN0 + 0.08));
+    B.querySelector('.t').style.transform = `translateX(${((1 - bp) * -40).toFixed(1)}px)`;
+    const ar = ui(tl - (BTN0 + 0.22));
+    const ax = track(tl, [[0, 0], [1.25, 12], [1.5, 0], [2.6, 12], [2.85, 0]], 260, 24);
+    B.querySelector('.ar').style.transform = `scale(${Math.max(0, ar).toFixed(4)})`;
+    $('cArrow').setAttribute('transform', `translate(${ax.toFixed(2)} 0)`);
+    // toque en el botón: aparece con escala, aprieta en 1.78, se encoge desde 1.92
+    const tp = $('tapC');
+    if (tl >= 1.66) {
+      const a = ui(tl - 1.66), o = spring(tl - 1.92, 400, 40);
+      const s = (0.55 + 0.45 * a - 0.12 * press) * (1 - o);
+      tp.style.display = s > 0.03 ? 'block' : 'none';
+      tp.style.transform = `scale(${s.toFixed(3)})`;
+    } else tp.style.display = 'none';
+    rise($('cSub').querySelector('.ln > span'), 0.52, tl);
+    rise($('cUrl').querySelector('.ln > span'), 0.58, tl);
+    const lgl = $('cLegal').querySelectorAll('.ln > span'); rise(lgl[0], 0.64, tl); rise(lgl[1], 0.68, tl);
+  }
+
+  /* ── seek ──────────────────────────────────────────────────────────── */
+  const L = { phone: $('scPhone'), light: $('lightBg'), sube: $('scSube'), cierre: $('scCierre') };
+  const subeSeg = S.find(s => s.escena === 'texto-sube');
+  function seek(t) {
+    t = clamp(+t || 0, 0, DUR - 1e-6);
+    window.__t = t;
+    const seg = segAt(t);
+    const esc = seg.tipo === 'anim' ? seg.escena : null;
+
+    show(L.phone, esc === 'telefono');
+    if (esc === 'telefono') drawPhone(t - seg.a);
+
+    // largo: el fondo claro entra como círculo desde el toque (2.18) y trae el texto-sube
+    const tapCircle = !!subeSeg && esc === 'telefono' && t >= 2.18;
+    const lightOn = esc === 'texto-sube' || tapCircle;
+    show(L.light, lightOn);
+    show(L.sube, lightOn);
+    if (lightOn) {
+      const cp = tapCircle ? `circle(${(spring(t - 2.18, 90, 19) * 2300).toFixed(1)}px at 640px 1076px)` : 'none';
+      L.light.style.clipPath = cp; L.sube.style.clipPath = cp;
+      drawSube(t - subeSeg.a);
+    }
+
+    drawSubs(t);
+    drawCards(t);
+
+    const cOn = t >= cSeg.a - (WIPE ? PRE : 0);
+    show(L.cierre, cOn);
+    if (cOn) drawCierre(t - cSeg.a);
+
+    if (BGV) { try { BGV.currentTime = t; } catch (e) {} }
+  }
+  window.seek = seek;
+
+  /* ── ?bg= (solo revisión) ──────────────────────────────────────────── */
+  let BGV = null;
+  const bg = P.get('bg');
+  if (bg) {
+    const box = $('bgReview'); box.style.display = 'block';
+    if (/\.(mp4|mov|webm|m4v)(\?|$)/i.test(bg)) {
+      BGV = document.createElement('video'); BGV.src = bg; BGV.muted = true; BGV.playsInline = true; BGV.preload = 'auto';
+      box.appendChild(BGV);
+    } else { const im = document.createElement('img'); im.src = bg; box.appendChild(im); }
+  }
+
+  /* ── vista previa en el navegador (no se usa en render) ────────────── */
+  function fit() {
+    const st = $('stage');
+    const k = Math.min(innerWidth / 1080, innerHeight / 1920);
+    st.style.transformOrigin = '0 0';
+    st.style.transform = `scale(${k})`;
+    document.body.style.background = '#111';
+  }
+
+  const fontsP = Promise.all(['500', '600', '700', '800'].map(w => document.fonts.load(`${w} 40px Montserrat`, 'ÁÉÍÓÚáéíóúñ¿$0123456789¢')))
+    .then(() => document.fonts.ready).catch(() => {});
+  const imgsP = Promise.all([...document.images].map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; })));
+  seek(+P.get('t') || 0);
+  Promise.all([fontsP, imgsP]).then(() => {
+    seek(+P.get('t') || 0);
+    window.__ready = true;
+    if (P.get('play') === '1') {
+      fit(); addEventListener('resize', fit);
+      const t0 = performance.now();
+      const loop = () => { seek(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    }
+  });
+})();
+</script>
+</body>
+</html>

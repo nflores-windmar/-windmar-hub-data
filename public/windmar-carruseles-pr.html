@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Carruseles PR — Antes de firmar + Permisología</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --ink:#1a52c7; --orange:#f57c0a;
+  --bg:#e9eef7; --muted:#5a6b8c; --line:#e3e9f0;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--navy);font-family:var(--body);padding:26px}
+.wrap{max-width:900px;margin:0 auto}
+header.top{border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid rgba(26,82,199,.16);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:16px 0;line-height:1.5}
+.section-h{margin:34px 0 2px;display:flex;align-items:center;gap:12px}
+.section-h h2{font-family:var(--disp);font-weight:400;font-size:34px;letter-spacing:.5px;color:var(--navy);text-transform:uppercase;line-height:1}
+.section-h .badge{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--orange);padding:4px 9px;border-radius:6px}
+.section-sub{color:var(--muted);font-size:12.5px;margin:2px 0 4px}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:14px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== CARRUSEL 4:5 · blueprint sobre foto ===== */
+.piece{--acc:#f7a03a;position:relative;overflow:hidden;container-type:inline-size;
+  width:360px;aspect-ratio:4/5;border-radius:16px;background:#0a1626;color:#fff;
+  box-shadow:0 18px 48px rgba(13,34,64,.22);border:1px solid var(--line)}
+.ph{position:absolute;inset:0;z-index:0}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.04) saturate(1.06)}
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#0c1c40,#0c1c40 14px,#0a1836 14px,#0a1836 28px);
+  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;padding:8cqw}
+.ph .vdrop.drag{border-color:var(--acc);background:#13224e}
+.ph .vdrop-ic{font-size:11cqw;line-height:1}
+.ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:3.6cqw;color:#fff;letter-spacing:.1cqw}
+.ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:2.6cqw;color:rgba(255,255,255,.62)}
+.ph.blue{background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 13px),
+  repeating-linear-gradient(-45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 13px),
+  radial-gradient(120% 90% at 80% 0%, #14336e 0%, #0b1f4c 45%, #081736 100%)}
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,14,34,.60) 0%,rgba(6,14,34,.30) 26%,rgba(6,14,34,.80) 56%,rgba(4,10,26,.99) 100%)}
+.piece.data .scrim{background:linear-gradient(180deg,rgba(6,14,34,.62) 0%,rgba(6,14,34,.50) 40%,rgba(4,10,26,.90) 100%)}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:8cqw 7cqw 9cqw;pointer-events:none}
+.content [contenteditable]{pointer-events:auto;outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(247,160,58,.6);border-radius:4px}
+.tagrow{display:flex;align-items:center;justify-content:flex-end;gap:2cqw}
+.chip{font-family:var(--body);font-weight:800;font-size:2.9cqw;letter-spacing:.28cqw;text-transform:uppercase;
+  color:var(--acc);line-height:1;text-shadow:0 .2cqw 1.4cqw rgba(0,0,0,.9),0 0 .6cqw rgba(0,0,0,.8)}
+.spacer{flex:1}
+.kicker{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.16cqw;text-transform:uppercase;color:var(--acc);margin-bottom:2.6cqw;text-shadow:0 .2cqw 1.4cqw rgba(0,0,0,.9),0 0 .6cqw rgba(0,0,0,.8)}
+.headline{font-family:var(--disp);font-weight:400;font-size:12.5cqw;line-height:.92;letter-spacing:.2cqw;text-transform:uppercase;color:#fff;text-shadow:0 .3cqw 2.4cqw rgba(0,0,0,.75),0 0 .8cqw rgba(0,0,0,.5)}
+.headline .hl{color:var(--acc)}
+.rule{width:20cqw;height:1cqw;background:var(--acc);margin:3.4cqw 0 3cqw;border-radius:2px}
+.desc{font-family:var(--body);font-weight:600;font-size:3.3cqw;line-height:1.32;color:rgba(255,255,255,.92);margin-top:3cqw;max-width:96%;text-shadow:0 .2cqw 1.2cqw rgba(0,0,0,.85)}
+.listhead{font-family:var(--disp);font-weight:400;font-size:9.5cqw;line-height:.94;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
+.listhead .hl{color:var(--acc)}
+.items{margin-top:5cqw;display:flex;flex-direction:column;gap:3.4cqw}
+.item{display:flex;gap:3.2cqw;align-items:flex-start}
+.item .n{font-family:var(--disp);font-weight:400;font-size:7.5cqw;line-height:.8;color:var(--acc);min-width:8cqw}
+.item .tx{font-family:var(--body);color:#fff}
+.item .tt{font-weight:800;font-size:3.5cqw;letter-spacing:.06cqw;text-transform:uppercase;line-height:1.05}
+.item .ds{font-weight:600;font-size:2.9cqw;line-height:1.28;color:rgba(255,255,255,.82);margin-top:.6cqw}
+.vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
+.vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
+.vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
+.vslab{font-family:var(--body);font-weight:800;font-size:2.7cqw;text-transform:uppercase;letter-spacing:.1cqw;color:rgba(255,255,255,.8);margin-top:1.4cqw}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:3cqw;margin-top:5.5cqw;
+  padding-top:4cqw;border-top:.5cqw solid rgba(255,255,255,.22)}
+.brandbar img{height:7cqw;width:auto;display:block}
+.site{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
+.site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--acc);flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Carruseles <span class="o">·</span> Puerto Rico</h1>
+    <div class="sub">Feed 4:5 (1080×1350) · tres carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
+  </header>
+  <div class="note"><b>Un solo link, tres campañas.</b> «Antes de firmar, compara» · «Permisología» · «Vayan a la segura». Cada tarjeta se exporta por separado en PNG 1080×1350.</div>
+
+  <div class="section-h"><h2>Antes de firmar, compara</h2><span class="badge">Educativo</span></div>
+  <div class="section-sub">Ayuda al cliente a comparar cotizaciones con calma — sin venta agresiva.</div>
+  <div class="gallery" id="g-firmar"></div>
+
+  <div class="section-h"><h2>Permisología</h2><span class="badge">Servicio</span></div>
+  <div class="section-sub">Nosotros manejamos permisos, papeleo y trámites. Tú te concentras en tu proyecto.</div>
+  <div class="gallery" id="g-permisos"></div>
+
+  <div class="section-h"><h2>Vayan a la segura</h2><span class="badge">Campaña</span></div>
+  <div class="section-sub">Luz y agua. WindMar llega a ti — presencia en la calle + evaluación gratis de tu factura.</div>
+  <div class="gallery" id="g-vayan"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const LOGO='wme/logos/wmh-home-white-orange.png';
+const SITE='windmar.com';
+
+const FIRMAR=[
+  { id:'still', cls:'', chip:'Guía · Compara', imgSlot:true, bg:'img/firmar-1-still.png', type:'headline',
+    kicker:'Conoce tus números',
+    headline:'ANTES DE<br>FIRMAR, <span class="hl">COMPARA</span>',
+    desc:'No todas las cotizaciones solares dicen lo mismo. Aprende a leer los números que de verdad importan.' },
+  { id:'numeros', cls:'data', chip:'4 números clave', blue:true, type:'list',
+    listhead:'LOS 4 NÚMEROS QUE<br><span class="hl">CAMBIAN</span> ENTRE<br>COTIZACIONES',
+    items:[
+      { n:'1', tt:'Precio por vatio', ds:'$/W, no el precio total. Así comparas justo entre compañías.' },
+      { n:'2', tt:'Tamaño del sistema', ds:'kW y número de placas. Que cubra lo que tu hogar necesita.' },
+      { n:'3', tt:'Producción estimada', ds:'kWh al año. Lo que de verdad vas a generar.' },
+      { n:'4', tt:'Financiamiento', ds:'Tasa y plazo. Lo que pagas de más con el tiempo.' },
+    ] },
+  { id:'garantia', cls:'', chip:'La pregunta clave', imgSlot:true, bg:'img/firmar-2-garantia.png', type:'vs',
+    kicker:'Pregunta: ¿cuánta experiencia?',
+    big:'25+', biglab:'años de experiencia', sml:'', smllab:'',
+    desc:'La experiencia se ve en el resultado: más de 25 años energizando hogares en Puerto Rico.' },
+  { id:'cta', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/firmar-3-cta.png', type:'headline',
+    kicker:'Estamos contigo',
+    headline:'TRAE TU<br><span class="hl">COTIZACIÓN</span>,<br>LA LEEMOS<br>JUNTOS',
+    desc:'Te ayudamos a entender cada número para que compares con calma y firmes con confianza.' },
+];
+
+const PERMISOS=[
+  { id:'papeleo', cls:'', chip:'Permisología', imgSlot:true, type:'headline',
+    kicker:'Antes de empezar',
+    headline:'LOS PERMISOS.<br>EL PAPELEO.<br>LA <span class="hl">BUROCRACIA</span>.',
+    desc:'Todo lo que frena tu proyecto antes de empezar.' },
+  { id:'mapeado', cls:'', chip:'Permisología', imgSlot:true, type:'headline',
+    kicker:'Anissa y su equipo',
+    headline:'LO TIENEN<br><span class="hl">MAPEADO</span>',
+    desc:'Cada paso, cada firma, cada trámite burocrático — ellos lo manejan.' },
+  { id:'papeleo-nosotros', cls:'', chip:'Permisología', imgSlot:true, type:'headline',
+    kicker:'Cada quien en lo suyo',
+    headline:'TÚ EN TU<br>PROYECTO.<br>NOSOTROS EN<br>EL <span class="hl">PAPELEO</span>.',
+    desc:'Permisos listos, sin demoras.' },
+  { id:'mas-que-placas', cls:'', chip:'WindMar Home', imgSlot:true, type:'headline',
+    kicker:'Vayan a la segura',
+    headline:'SOMOS MÁS<br>QUE <span class="hl">PLACAS</span>',
+    desc:'En WindMar Home te acompañamos de principio a fin. ¡Vayan a la segura!' },
+];
+
+const VAYAN=[
+  { id:'problema', cls:'', chip:'Luz y agua', imgSlot:true, type:'headline',
+    kicker:'Si la luz y el agua no llegan',
+    headline:'WINDMAR<br>LLEGA <span class="hl">A TI</span>',
+    desc:'Si la luz y el agua no te llegan a tu casa, entonces WindMar llega a ti con soluciones de luz y agua hoy.' },
+  { id:'presencia', cls:'', chip:'Estamos cerca', imgSlot:true, type:'headline',
+    kicker:'Nos vas a ver en la calle',
+    headline:'¿VES UNA<br>GUAGUA <span class="hl">WINDMAR</span>?',
+    desc:'Cada vez que veas una guagua identificada como WindMar, es que la solución llegó a ti: evaluación de tu factura ahí mismo.' },
+  { id:'oportunidad', cls:'', chip:'Evaluación gratis', imgSlot:true, type:'headline',
+    kicker:'Sin costo, sin compromiso',
+    headline:'EVALUAMOS TU<br>LUZ Y <span class="hl">AGUA</span>',
+    desc:'Recibe una evaluación gratis de tu gasto de luz y agua. Descubre cómo convertirte en productor de energía para siempre.' },
+  { id:'cierre', cls:'', chip:'WindMar Home', imgSlot:true, type:'headline',
+    kicker:'Soluciones de luz y agua',
+    headline:'VAYAN A<br>LA <span class="hl">SEGURA</span>',
+    desc:'WindMar llega a ti. Soluciones de luz y agua para tu hogar. ¡Vayan a la segura!' },
+];
+
+function renderGallery(cards, containerId){
+  const gallery=document.getElementById(containerId);
+  cards.forEach((c,i)=>{
+    const slot=document.createElement('div'); slot.className='slot';
+    const bgEl = c.bg
+      ? `<img src="${c.bg}" alt="" crossorigin="anonymous"><input type="file" accept="image/*,video/*" class="vin" hidden>`
+      : c.imgSlot
+      ? `<div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Arrastra tu foto aquí</div><div class="vdrop-sub">o haz clic para elegirla</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`
+      : '';
+
+    let hero='';
+    if(c.type==='headline'){
+      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+        <div class="headline" contenteditable="true">${c.headline}</div>
+        <div class="rule"></div>
+        <div class="desc" contenteditable="true">${c.desc}</div>`;
+    } else if(c.type==='list'){
+      hero=`<div class="listhead" contenteditable="true">${c.listhead}</div>
+        <div class="items">${c.items.map(it=>`
+          <div class="item"><div class="n">${it.n}</div>
+            <div class="tx"><div class="tt" contenteditable="true">${it.tt}</div><div class="ds" contenteditable="true">${it.ds}</div></div>
+          </div>`).join('')}</div>`;
+    } else if(c.type==='vs'){
+      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+        <div class="vsrow">
+          <div><div class="vsbig" contenteditable="true">${c.big}</div><div class="vslab" contenteditable="true">${c.biglab}</div></div>
+          ${c.sml?`<div><div class="vssm">${c.sml}</div><div class="vslab">${c.smllab}</div></div>`:''}
+        </div>
+        <div class="rule"></div>
+        <div class="desc" contenteditable="true">${c.desc}</div>`;
+    }
+
+    const pid=`${containerId}-${i}`;
+    slot.innerHTML=`
+      <div class="caprow">
+        <span class="cap">${c.chip} · ${i+1}/${cards.length}</span>
+        <button class="dl" data-pid="${pid}" data-name="${c.id}">⬇︎ PNG</button>
+      </div>
+      <div class="piece ${c.cls}" id="${pid}">
+        <div class="ph ${c.blue?'blue':''}">${bgEl}</div>
+        <div class="scrim"></div>
+        <div class="content">
+          <div class="tagrow"><span class="chip" contenteditable="true">${c.chip}</span></div>
+          <div class="spacer"></div>
+          <div class="stat">${hero}</div>
+          <div class="brandbar">
+            <img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
+            <span class="site"><span class="dot"></span>${SITE}</span>
+          </div>
+        </div>
+      </div>`;
+    gallery.appendChild(slot);
+  });
+}
+
+renderGallery(FIRMAR,'g-firmar');
+renderGallery(PERMISOS,'g-permisos');
+renderGallery(VAYAN,'g-vayan');
+
+/* colocar / reemplazar foto o video */
+document.querySelectorAll('.ph').forEach(ph=>{
+  const inp=ph.querySelector('.vin'); if(!inp) return;
+  const drop=ph.querySelector('.vdrop');
+  const setMedia=file=>{
+    if(!file) return;
+    const url=URL.createObjectURL(file);
+    const vin='<input type="file" accept="image/*,video/*" class="vin" hidden>';
+    if(file.type.startsWith('video/')) ph.innerHTML=`<video src="${url}" autoplay muted loop playsinline preload="auto"></video>${vin}`;
+    else if(file.type.startsWith('image/')) ph.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">${vin}`;
+    else return;
+    rewire(ph);
+  };
+  const rewire=el=>{ const ni=el.querySelector('.vin'); if(ni) ni.addEventListener('change',e=>setMedia(e.target.files[0])); };
+  ph.addEventListener('click',()=>{const v=ph.querySelector('.vin'); if(v) v.click();});
+  inp.addEventListener('change',e=>setMedia(e.target.files[0]));
+  ph.addEventListener('dragover',e=>{e.preventDefault();drop&&drop.classList.add('drag');});
+  ph.addEventListener('dragleave',()=>drop&&drop.classList.remove('drag'));
+  ph.addEventListener('drop',e=>{e.preventDefault();drop&&drop.classList.remove('drag');setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+/* exportar PNG 1080×1350 */
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const node=document.getElementById(btn.dataset.pid);
+    btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    try{
+      const css=await fontEmbedCSS();
+      const rb=node.style.borderRadius, bd=node.style.border, sh=node.style.boxShadow;
+      node.style.borderRadius='0'; node.style.border='none'; node.style.boxShadow='none';
+      const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#0a1626',style:{borderRadius:'0',border:'none',boxShadow:'none'}};
+      let blob=null;
+      try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+      if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+      node.style.borderRadius=rb; node.style.border=bd; node.style.boxShadow=sh;
+      if(!blob) throw new Error('el navegador devolvió una imagen vacía');
+      const a=document.createElement('a');
+      a.download=`windmar-${btn.dataset.name}.png`;
+      a.href=URL.createObjectURL(blob); a.click();
+    }catch(e){ alert('No se pudo exportar: '+e.message); }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+</script>
+</body>
+</html>

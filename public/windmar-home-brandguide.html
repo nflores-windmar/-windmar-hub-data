@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WindMar Home — Sistema de Diseño · Blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-grid:rgba(26,82,199,.07); --bp-line:rgba(26,82,199,.32);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-paper:#ffffff; --bp-bg:#e9eef7;
+  --bp-muted:#5a6b8c;
+  --disp:'Anek Latin',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --body:'DM Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bp-bg);color:var(--bp-navy);font-family:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;position:relative}
+/* global blueprint grid */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+/* bilingual toggle */
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+/* nav */
+nav{position:sticky;top:0;z-index:40;background:rgba(233,238,247,.86);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bp-line-soft);display:flex;align-items:center;gap:18px;padding:12px 22px;flex-wrap:wrap}
+nav .brand{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.3px;color:var(--bp-navy);line-height:1}
+nav .brand b{color:var(--bp-orange)}
+nav .links{display:flex;gap:14px;flex-wrap:wrap;flex:1;min-width:200px}
+nav .links a{font-family:var(--mono);font-size:11px;color:var(--bp-ink-dark);text-decoration:none;letter-spacing:.02em;transition:.15s}
+nav .links a:hover{color:var(--bp-orange)}
+.langtog{display:flex;border:1.5px solid var(--bp-line);border-radius:4px;overflow:hidden;font-family:var(--mono)}
+.langtog button{border:none;background:transparent;font-weight:500;font-size:11px;letter-spacing:.06em;padding:6px 12px;cursor:pointer;color:var(--bp-muted)}
+body[data-lang="es"] .langtog .es-b,body[data-lang="en"] .langtog .en-b{background:var(--bp-navy);color:#fff}
+
+/* layout */
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+section{padding:52px 0}
+.panel{position:relative;background:var(--bp-paper);border:1px solid var(--bp-line);border-radius:4px;padding:36px}
+.tick{position:absolute;width:14px;height:14px;border-color:var(--bp-ink);border-style:solid;border-width:0}
+.tick.tl{top:8px;left:8px;border-top-width:2px;border-left-width:2px}
+.tick.tr{top:8px;right:8px;border-top-width:2px;border-right-width:2px}
+.tick.bl{bottom:8px;left:8px;border-bottom-width:2px;border-left-width:2px}
+.tick.br{bottom:8px;right:8px;border-bottom-width:2px;border-right-width:2px}
+.sec-num{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--bp-orange);text-transform:uppercase}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--bp-muted);text-transform:uppercase;margin:6px 0 2px}
+h2.big{font-family:var(--disp);font-weight:800;font-size:clamp(30px,4.6vw,50px);line-height:1;letter-spacing:-.6px;color:var(--bp-navy)}
+h2.big .o{color:var(--bp-orange)}
+.lead{max-width:720px;color:var(--bp-ink-dark);font-size:15.5px;margin-top:14px}
+.hair{height:2px;width:96px;background:var(--bp-orange);border:0;margin:16px 0}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.label{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--bp-muted)}
+.mut{color:var(--bp-muted);font-size:13.5px}
+.anno{font-family:var(--mono);font-size:11.5px;color:var(--bp-ink-dark);letter-spacing:.02em}
+
+/* card w/ inner ticks */
+.bcard{position:relative;background:var(--bp-paper);border:1px solid var(--bp-line-soft);border-radius:4px;padding:22px}
+.bcard .ct{font-family:var(--disp);font-weight:700;font-size:19px;color:var(--bp-navy);letter-spacing:-.2px}
+.bcard .cd{font-size:13.5px;color:var(--bp-muted);margin-top:6px}
+
+/* HERO */
+.hero{padding:44px 0 8px}
+.hero .panel{padding:48px 40px}
+.hero img.logo{height:104px;width:auto;display:block;margin-bottom:22px}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(44px,8vw,104px);line-height:.92;letter-spacing:-1.5px;color:var(--bp-navy)}
+.hero h1 .o{color:var(--bp-orange)}
+.hero .tagsys{font-family:var(--mono);font-size:clamp(12px,1.6vw,15px);letter-spacing:.18em;color:var(--bp-ink-dark);text-transform:uppercase;margin-top:14px}
+.hero p{max-width:640px;margin-top:16px;font-size:15px;color:var(--bp-ink-dark)}
+
+/* blueprint element demo */
+.bp-demo{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+.bp-swatch{position:relative;height:150px;border:1px solid var(--bp-line);border-radius:4px;background:var(--bp-paper);overflow:hidden}
+.bp-swatch.grid-sw{background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:24px 24px}
+.bp-swatch .cap{position:absolute;bottom:8px;left:10px;font-family:var(--mono);font-size:10.5px;color:var(--bp-muted);letter-spacing:.04em}
+.hair-demo{position:absolute;top:50%;left:20px;width:70px;height:3px;background:var(--bp-orange)}
+.anno-demo{position:absolute;top:18px;left:18px;font-family:var(--mono);font-size:11px;color:var(--bp-ink-dark)}
+.anno-demo::before{content:"↳ ";color:var(--bp-orange)}
+
+/* logos */
+.logo-row{display:flex;gap:16px;flex-wrap:wrap}
+.logo-box{flex:1;min-width:220px;border:1px solid var(--bp-line-soft);border-radius:4px;display:flex;align-items:center;justify-content:center;padding:30px;min-height:150px;background:var(--bp-paper)}
+.logo-box img{max-height:90px;max-width:100%;width:auto;display:block}
+
+/* colors */
+.sw{border-radius:4px;overflow:hidden;border:1px solid var(--bp-line-soft);background:#fff}
+.sw .chip{height:84px}
+.sw .meta{padding:9px 11px}
+.sw .nm{font-family:var(--body);font-weight:600;font-size:12.5px;color:var(--bp-navy)}
+.sw .hex{font-family:var(--mono);font-size:11px;color:var(--bp-muted);letter-spacing:.03em}
+
+/* type */
+.spec-disp{font-family:var(--disp);font-weight:800;font-size:74px;line-height:.95;letter-spacing:-1.5px;color:var(--bp-navy)}
+.spec-mono{font-family:var(--mono);font-size:26px;color:var(--bp-ink-dark);letter-spacing:.02em}
+.weights{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.weights span{font-family:var(--body);font-size:17px;color:var(--bp-navy)}
+
+/* motifs */
+.motif{border:1px solid var(--bp-line-soft);border-radius:4px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--bp-paper)}
+.motif svg{width:76px;height:76px}
+.motif .mn{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--bp-muted);text-transform:uppercase}
+
+/* components */
+.btn-navy{display:inline-flex;align-items:center;gap:.5em;font-family:var(--body);font-weight:700;font-size:15px;color:#fff;background:var(--bp-navy);border:none;border-radius:4px;padding:12px 22px;cursor:pointer}
+.btn-navy .arw{color:var(--bp-orange);font-weight:700}
+.btn-ghost{display:inline-flex;align-items:center;gap:.5em;font-family:var(--body);font-weight:700;font-size:15px;color:var(--bp-navy);background:transparent;border:1.5px solid var(--bp-line);border-radius:4px;padding:11px 20px;cursor:pointer}
+.chip{display:inline-block;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;border:1.5px solid var(--bp-line);color:var(--bp-ink-dark);background:var(--bp-paper)}
+.chip.on{background:var(--bp-orange);color:#fff;border-color:var(--bp-orange)}
+.compstage{background:var(--bp-bg);border-radius:4px;padding:22px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;min-height:88px;margin-top:12px}
+
+/* spacing */
+.sp-row{display:flex;align-items:center;gap:14px;margin-bottom:7px}
+.sp-bar{height:14px;background:var(--bp-ink);border-radius:2px}
+.sp-nm{font-family:var(--mono);font-size:11px;color:var(--bp-ink-dark);min-width:110px}
+
+/* formats */
+.fmt-card{display:flex;flex-direction:column;gap:12px;align-items:center}
+.fmt-frame{position:relative;background:var(--bp-bg);border:1px solid var(--bp-line);border-radius:3px;overflow:hidden;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:16px 16px}
+.fmt-frame .safe{position:absolute;border:1.5px dashed var(--bp-ink);opacity:.5;inset:8%}
+.fmt-frame .zone{position:absolute;left:0;right:0;background:repeating-linear-gradient(45deg,rgba(245,124,10,.18) 0 6px,transparent 6px 12px);font-family:var(--mono);font-size:9px;color:var(--bp-orange);display:flex;align-items:center;justify-content:center}
+.fmt-name{font-family:var(--disp);font-weight:700;font-size:20px;color:var(--bp-navy)}
+.fmt-dim{font-family:var(--mono);font-size:11px;color:var(--bp-muted)}
+
+/* do/dont */
+.dodont{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:20px}
+.dd{border-radius:4px;padding:20px;border:1px solid}
+.dd.do{background:#eef5ff;border-color:var(--bp-line)}
+.dd.dont{background:#fff3ea;border-color:rgba(245,124,10,.35)}
+.dd h4{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.dd.do h4{color:var(--bp-ink)}.dd.dont h4{color:var(--bp-orange)}
+.dd ul{margin:0;padding-left:18px}.dd li{font-size:13.5px;color:var(--bp-ink-dark);margin-bottom:7px}
+
+/* rules */
+.rules{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.rule{background:var(--bp-paper);border:1px solid var(--bp-line-soft);border-left:3px solid var(--bp-orange);border-radius:4px;padding:15px 17px;font-size:13.5px;color:var(--bp-ink-dark)}
+.rule b{color:var(--bp-navy)}
+
+footer{text-align:center;padding:46px 22px 60px;position:relative;z-index:1}
+footer .fb{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.4px;color:var(--bp-navy)}
+footer .fb b{color:var(--bp-orange)}
+footer p{font-family:var(--mono);font-size:11px;color:var(--bp-muted);margin-top:8px;letter-spacing:.06em}
+</style>
+</head>
+<body data-lang="es">
+
+<nav>
+  <span class="brand">WindMar <b>Home</b></span>
+  <span class="links">
+    <a href="#blueprint">Blueprint</a>
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#type"><span class="es">Tipografía</span><span class="en">Type</span></a>
+    <a href="#motifs"><span class="es">Motivos</span><span class="en">Motifs</span></a>
+    <a href="#comp"><span class="es">Componentes</span><span class="en">Components</span></a>
+    <a href="#format"><span class="es">Formatos</span><span class="en">Formats</span></a>
+    <a href="#photo"><span class="es">Fotografía</span><span class="en">Photography</span></a>
+    <a href="#signature"><span class="es">Firma</span><span class="en">Signature</span></a>
+    <a href="#rules"><span class="es">Reglas</span><span class="en">Rules</span></a>
+  </span>
+  <span class="langtog">
+    <button class="es-b" onclick="setLang('es')">ES</button>
+    <button class="en-b" onclick="setLang('en')">EN</button>
+  </span>
+</nav>
+
+<!-- HERO -->
+<header class="hero"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <img class="logo" src="whome/logos/windmar-home-color.png" alt="WindMar Home" />
+    <h1>WindMar <span class="o">Home.</span></h1>
+    <div class="tagsys"><span class="es">Sistema de diseño · Blueprint · Florida</span><span class="en">Design system · Blueprint · Florida</span></div>
+    <hr class="hair" />
+    <p>
+      <span class="es">La base visual de WindMar Home: el elemento blueprint, el logo, el color, la tipografía, los motivos de línea, los componentes y los formatos. Estética de plano técnico — azul sobre blanco, brillante, con el naranja solo como acento. Bilingüe ESP / ENG.</span>
+      <span class="en">WindMar Home's visual foundation: the blueprint element, the logo, color, typography, line motifs, components and formats. A technical-drawing aesthetic — blue on white, bright, with orange as an accent only. Bilingual ESP / ENG.</span>
+    </p>
+  </div>
+</div></header>
+
+<!-- 01 BLUEPRINT ELEMENT -->
+<section id="blueprint"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">01 — <span class="es">El elemento</span><span class="en">The element</span></span>
+    <div class="eyebrow"><span class="es">La firma de la marca</span><span class="en">The brand's signature</span></div>
+    <h2 class="big"><span class="es">El</span><span class="en">The</span> <span class="o">Blueprint.</span></h2>
+    <p class="lead">
+      <span class="es">Toda pieza de WindMar Home se dibuja como un plano técnico: una grilla azul fina sobre papel blanco, esquinas marcadas con ticks, anotaciones en tipografía mono y una hairline naranja de acento. Comunica precisión, confianza e ingeniería — nunca oscuro, nunca dramático.</span>
+      <span class="en">Every WindMar Home piece is drawn like a technical blueprint: a fine blue grid on white paper, corners marked with ticks, mono-type annotations and an orange accent hairline. It reads as precision, trust and engineering — never dark, never moody.</span>
+    </p>
+    <div class="bp-demo">
+      <div class="bp-swatch grid-sw"><span class="cap">grid · 32px · rgba(26,82,199,.07)</span></div>
+      <div class="bp-swatch"><span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span><span class="cap">corner ticks · #1a52c7</span></div>
+      <div class="bp-swatch"><span class="hair-demo"></span><span class="cap">hairline · #f57c0a (acento)</span></div>
+      <div class="bp-swatch"><span class="anno-demo"><span class="es">anotación técnica</span><span class="en">technical note</span></span><span class="cap">mono annotation · DM Mono</span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 02 LOGO -->
+<section id="logo"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">02 — Logo</span>
+    <h2 class="big">Logo</h2>
+    <p class="lead">
+      <span class="es">El logo se coloca libre sobre superficies blancas — sin caja ni sombra. Es una unidad indivisible: nunca se descompone ni se usa el sol suelto.</span>
+      <span class="en">The logo sits freely on white surfaces — no box, no shadow. It's an indivisible unit: never decomposed, never the sun used alone.</span>
+    </p>
+    <div class="logo-row" style="margin-top:22px">
+      <div class="logo-box"><img src="whome/logos/windmar-home-color.png" alt="WindMar Home — full color" style="max-height:130px" /></div>
+    </div>
+    <p class="anno" style="margin-top:14px">↳ <span class="es">versión full-color (azul + sol naranja) sobre blanco — la principal. Existen también variantes monocromas en negro y en blanco para fondos oscuros.</span><span class="en">full-color version (blue + orange sun) on white — the primary. Black and white monochrome variants also exist for dark backgrounds.</span></p>
+  </div>
+</div></section>
+
+<!-- 03 COLOR -->
+<section id="color"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">03 — Color</span>
+    <h2 class="big">Color</h2>
+    <p class="lead">
+      <span class="es">Una paleta de plano: azules profundos y de tinta sobre papel blanco. El naranja aparece solo como acento — hairlines, ticks activos, un dato clave. Nunca como fondo dominante.</span>
+      <span class="en">A blueprint palette: deep and ink blues on white paper. Orange appears only as an accent — hairlines, active ticks, a key figure. Never as a dominant background.</span>
+    </p>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="sw"><div class="chip" style="background:#0a2882"></div><div class="meta"><div class="nm">Navy</div><div class="hex">#0A2882</div></div></div>
+      <div class="sw"><div class="chip" style="background:#071e55"></div><div class="meta"><div class="nm">Navy 2</div><div class="hex">#071E55</div></div></div>
+      <div class="sw"><div class="chip" style="background:#1a52c7"></div><div class="meta"><div class="nm">Ink</div><div class="hex">#1A52C7</div></div></div>
+      <div class="sw"><div class="chip" style="background:#0f3a96"></div><div class="meta"><div class="nm">Ink dark</div><div class="hex">#0F3A96</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f57c0a"></div><div class="meta"><div class="nm">Orange · <span class="es">acento</span><span class="en">accent</span></div><div class="hex">#F57C0A</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffffff;border-bottom:1px solid var(--bp-line-soft)"></div><div class="meta"><div class="nm">Paper</div><div class="hex">#FFFFFF</div></div></div>
+      <div class="sw"><div class="chip" style="background:#e9eef7"></div><div class="meta"><div class="nm">BG</div><div class="hex">#E9EEF7</div></div></div>
+      <div class="sw"><div class="chip" style="background:#5a6b8c"></div><div class="meta"><div class="nm">Muted</div><div class="hex">#5A6B8C</div></div></div>
+    </div>
+    <div class="rule" style="margin-top:18px"><span class="es"><b>Brillante, nunca oscuro.</b> El sistema vive sobre blanco/azul claro. Nada de fondos negros, moody o dramáticos — la marca proyecta claridad y confianza.</span><span class="en"><b>Bright, never dark.</b> The system lives on white / light blue. No black, moody or dramatic backgrounds — the brand projects clarity and trust.</span></div>
+  </div>
+</div></section>
+
+<!-- 04 TYPE -->
+<section id="type"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">04 — <span class="es">Tipografía</span><span class="en">Type</span></span>
+    <h2 class="big"><span class="es">Tipografía</span><span class="en">Typography</span></h2>
+    <p class="lead">
+      <span class="es">Tres roles. Anek Latin para los titulares (display, peso 800). DM Sans para el cuerpo. DM Mono para etiquetas, anotaciones y datos técnicos — el toque de plano.</span>
+      <span class="en">Three roles. Anek Latin for headlines (display, weight 800). DM Sans for body. DM Mono for labels, annotations and technical figures — the blueprint touch.</span>
+    </p>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="bcard"><div class="label">Anek Latin · Display</div><div class="spec-disp">Aa</div><p class="mut" style="margin-top:8px"><span class="es">Titulares, ceñido, -0.6px a -1.5px.</span><span class="en">Headlines, tight tracking, -0.6px to -1.5px.</span></p></div>
+      <div class="bcard"><div class="label">DM Sans · Body</div><div class="weights"><span style="font-weight:400">400 · Regular</span><span style="font-weight:500">500 · Medium</span><span style="font-weight:600">600 · SemiBold</span><span style="font-weight:700">700 · Bold</span></div></div>
+      <div class="bcard"><div class="label">DM Mono · Annotations</div><div class="spec-mono">↳ 01 · label</div><p class="mut" style="margin-top:8px"><span class="es">Etiquetas, números, notas técnicas. Letter-spacing amplio.</span><span class="en">Labels, figures, technical notes. Wide letter-spacing.</span></p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 MOTIFS -->
+<section id="motifs"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">05 — <span class="es">Motivos</span><span class="en">Motifs</span></span>
+    <h2 class="big"><span class="es">Line-art</span><span class="en">Line-art</span></h2>
+    <p class="lead">
+      <span class="es">Iconografía dibujada como plano: trazo azul de ~1.8px, sin relleno, sobre blanco. Un solo detalle en naranja por ícono, como acento.</span>
+      <span class="en">Iconography drawn as a blueprint: ~1.8px blue stroke, no fill, on white. A single orange detail per icon, as accent.</span>
+    </p>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linecap="round"><circle cx="24" cy="24" r="8" stroke="#f57c0a"/><g><line x1="24" y1="6" x2="24" y2="12"/><line x1="24" y1="36" x2="24" y2="42"/><line x1="6" y1="24" x2="12" y2="24"/><line x1="36" y1="24" x2="42" y2="24"/><line x1="11" y1="11" x2="15" y2="15"/><line x1="33" y1="33" x2="37" y2="37"/><line x1="37" y1="11" x2="33" y2="15"/><line x1="15" y1="33" x2="11" y2="37"/></g></svg><span class="mn">Sol</span></div>
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linejoin="round"><rect x="8" y="12" width="32" height="22" rx="1"/><line x1="8" y1="19.5" x2="40" y2="19.5"/><line x1="8" y1="27" x2="40" y2="27"/><line x1="18.7" y1="12" x2="18.7" y2="34"/><line x1="29.3" y1="12" x2="29.3" y2="34"/><line x1="24" y1="34" x2="24" y2="40" stroke="#f57c0a"/></svg><span class="mn">Panel</span></div>
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M10 22 L24 10 L38 22"/><path d="M13 22 V38 H35 V22"/><rect x="21" y="29" width="6" height="9" stroke="#f57c0a"/></svg><span class="mn">Casa</span></div>
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14 8 H30 L36 14 V40 H14 Z"/><path d="M30 8 V14 H36"/><line x1="19" y1="22" x2="31" y2="22"/><line x1="19" y1="28" x2="31" y2="28"/><path d="M24 40 v-6 m-3 3 3 3 3-3" stroke="#f57c0a"/></svg><span class="mn"><span class="es">Factura</span><span class="en">Bill</span></span></div>
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linecap="round"><path d="M6 28 Q13 16 20 24 T34 24 T42 20" stroke="#f57c0a"/><line x1="6" y1="36" x2="42" y2="36"/></svg><span class="mn">Wave</span></div>
+      <div class="motif"><svg viewBox="0 0 48 48" fill="none" stroke="#1a52c7" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M10 12 H38 V32 H24 L16 39 V32 H10 Z"/><line x1="16" y1="20" x2="32" y2="20"/><line x1="16" y1="26" x2="26" y2="26" stroke="#f57c0a"/></svg><span class="mn"><span class="es">Testimonio</span><span class="en">Quote</span></span></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 06 COMPONENTS -->
+<section id="comp"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">06 — <span class="es">Componentes</span><span class="en">Components</span></span>
+    <h2 class="big"><span class="es">Componentes</span><span class="en">Components</span></h2>
+    <p class="lead">
+      <span class="es">Piezas de interfaz coherentes con el plano: botones de esquina recta, chips mono, tarjetas con ticks y divisores de hairline.</span>
+      <span class="en">Interface parts consistent with the blueprint: square-cornered buttons, mono chips, ticked cards and hairline dividers.</span>
+    </p>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="bcard"><div class="label"><span class="es">Botones</span><span class="en">Buttons</span></div><div class="compstage"><button class="btn-navy"><span class="es">Comienza tu proyecto solar</span><span class="en">Start your solar project</span> <span class="arw">→</span></button><button class="btn-ghost"><span class="es">Saber más</span><span class="en">Learn more</span></button></div></div>
+      <div class="bcard"><div class="label">Chips</div><div class="compstage"><span class="chip on"><span class="es">Evaluación gratis</span><span class="en">Free evaluation</span></span><span class="chip"><span class="es">Sin compromiso</span><span class="en">No obligation</span></span><span class="chip">Florida</span></div></div>
+      <div class="bcard"><div class="label"><span class="es">Tarjeta con ticks</span><span class="en">Ticked card</span></div><div class="compstage"><div class="panel" style="padding:20px;min-width:200px"><span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span><div class="ct"><span class="es">Título</span><span class="en">Title</span></div><div class="mut" style="margin-top:4px"><span class="es">contenido de la tarjeta</span><span class="en">card content</span></div></div></div></div>
+      <div class="bcard"><div class="label"><span class="es">Anotación + hairline</span><span class="en">Annotation + hairline</span></div><div class="compstage" style="flex-direction:column;align-items:flex-start;gap:8px"><span class="anno">↳ <span class="es">nota técnica en mono</span><span class="en">technical note in mono</span></span><hr class="hair" style="margin:0" /></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 07 FORMATS -->
+<section id="format"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">07 — <span class="es">Formatos & espaciado</span><span class="en">Formats & spacing</span></span>
+    <h2 class="big"><span class="es">Formatos</span><span class="en">Formats</span></h2>
+    <div class="grid g2" style="margin-top:20px">
+      <div>
+        <div class="grid g3">
+          <div class="fmt-card"><div class="fmt-frame" style="width:150px;height:188px"><div class="safe"></div></div><div class="fmt-name">Feed 4:5</div><div class="fmt-dim">1080 × 1350</div></div>
+          <div class="fmt-card"><div class="fmt-frame" style="width:120px;height:214px"><div class="zone" style="top:0;height:13%">UI</div><div class="safe" style="inset:14% 8%"></div><div class="zone" style="bottom:0;height:13%">UI</div></div><div class="fmt-name">Stories 9:16</div><div class="fmt-dim">1080 × 1920</div></div>
+          <div class="fmt-card"><div class="fmt-frame" style="width:150px;height:188px"><div class="safe"></div></div><div class="fmt-name"><span class="es">Volante</span><span class="en">Flyer</span></div><div class="fmt-dim">1080 × 1350</div></div>
+        </div>
+      </div>
+      <div class="bcard">
+        <div class="label"><span class="es">Escala · base 4px</span><span class="en">Scale · 4px base</span></div>
+        <div style="margin-top:14px">
+          <div class="sp-row"><span class="sp-nm">sp-1 · 4</span><div class="sp-bar" style="width:4px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-2 · 8</span><div class="sp-bar" style="width:8px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-3 · 16</span><div class="sp-bar" style="width:16px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-4 · 24</span><div class="sp-bar" style="width:24px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-5 · 32</span><div class="sp-bar" style="width:32px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-6 · 48</span><div class="sp-bar" style="width:48px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-7 · 64</span><div class="sp-bar" style="width:64px"></div></div>
+          <div class="sp-row"><span class="sp-nm">sp-8 · 96</span><div class="sp-bar" style="width:96px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 08 PHOTOGRAPHY -->
+<section id="photo"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">08 — <span class="es">Fotografía</span><span class="en">Photography</span></span>
+    <h2 class="big"><span class="es">Fotografía</span><span class="en">Photography</span></h2>
+    <p class="lead">
+      <span class="es">Cuando entra foto, mantiene el espíritu del plano: luminosa, clara, de día. El azul y el blanco mandan; el naranja solo acentúa.</span>
+      <span class="en">When photography enters, it keeps the blueprint spirit: luminous, clear, daytime. Blue and white lead; orange only accents.</span>
+    </p>
+    <div class="dodont">
+      <div class="dd do"><h4><span class="es">Sí</span><span class="en">Do</span></h4><ul>
+        <li><span class="es">Imágenes brillantes, de día, con cielo claro y luz natural.</span><span class="en">Bright, daytime images with clear sky and natural light.</span></li>
+        <li><span class="es">Casas y familias reales de Florida; sensación de confianza y cercanía.</span><span class="en">Real Florida homes and families; a trustworthy, close feel.</span></li>
+        <li><span class="es">El naranja como un único acento (un detalle, un dato).</span><span class="en">Orange as a single accent (one detail, one figure).</span></li>
+      </ul></div>
+      <div class="dd dont"><h4><span class="es">No</span><span class="en">Don't</span></h4><ul>
+        <li><span class="es">Nada de tonos oscuros, nocturnos, moody o dramáticos.</span><span class="en">No dark, night, moody or dramatic tones.</span></li>
+        <li><span class="es">Nada de naranja dominante ni fondos saturados.</span><span class="en">No dominant orange or saturated backgrounds.</span></li>
+        <li><span class="es">Nada de blanco y negro ni grano pesado.</span><span class="en">No black & white or heavy grain.</span></li>
+      </ul></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 09 SIGNATURE — WORD OVER THE HOUSE -->
+<section id="signature"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">09 — <span class="es">Firma · Palabra sobre la casa</span><span class="en">Signature · Word over the house</span></span>
+    <h2 class="big"><span class="es">Palabra sobre la casa</span><span class="en">Word over the house</span></h2>
+    <p class="lead">
+      <span class="es">El tratamiento de portada de la marca: una <b>palabra gigante en blanco</b> (Anton) sangrando sobre una foto real de casa o techo de Florida. Nace del concepto <i>“Let Them Talk”</i> — dejar que los hogares hablen. La foto manda; la palabra flota encima con contraste limpio.</span>
+      <span class="en">The brand's cover treatment: a <b>giant white word</b> (Anton) bleeding over a real Florida home or roof photo. It comes from the <i>“Let Them Talk”</i> idea — letting the homes speak. The photo leads; the word floats over it with clean contrast.</span>
+    </p>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin-top:22px">
+      <!-- mini mockup -->
+      <div style="position:relative;width:220px;aspect-ratio:9/16;border-radius:12px;overflow:hidden;container-type:inline-size;background:linear-gradient(160deg,#12336b,#0a1830 70%);box-shadow:0 12px 30px rgba(13,34,64,.2);flex:none">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0 2cqw,transparent 2cqw 4cqw)"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,42,.5),rgba(6,18,42,.1) 40%,rgba(6,18,42,.8))"></div>
+        <span style="position:absolute;top:4cqw;left:4cqw;width:5cqw;height:5cqw;border:.55cqw solid rgba(255,255,255,.85);border-right:none;border-bottom:none"></span>
+        <span style="position:absolute;top:4cqw;right:4cqw;width:5cqw;height:5cqw;border:.55cqw solid rgba(255,255,255,.85);border-left:none;border-bottom:none"></span>
+        <span style="position:absolute;bottom:4cqw;left:4cqw;width:5cqw;height:5cqw;border:.55cqw solid rgba(255,255,255,.85);border-right:none;border-top:none"></span>
+        <span style="position:absolute;bottom:4cqw;right:4cqw;width:5cqw;height:5cqw;border:.55cqw solid rgba(255,255,255,.85);border-left:none;border-top:none"></span>
+        <div style="position:absolute;inset:0;padding:9cqw 7cqw;display:flex;flex-direction:column">
+          <div style="font-family:var(--body);font-weight:800;font-size:3.1cqw;letter-spacing:.35cqw;text-transform:uppercase;color:#fff">WindMar Home</div>
+          <span style="align-self:flex-start;margin-top:3cqw;font-family:var(--mono);font-size:2.7cqw;letter-spacing:.28em;text-transform:uppercase;padding:1.3cqw 2.8cqw;border-radius:99px;background:var(--bp-orange);color:#fff">Florida</span>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;padding-top:6cqw">
+            <div style="font-family:var(--disp);font-weight:400;line-height:.9;text-transform:uppercase;font-size:19cqw;color:#fff;text-shadow:0 .4cqw 3cqw rgba(0,0,0,.45)">LET<br>THEM<br>TALK</div>
+          </div>
+          <div style="font-family:var(--body);font-weight:800;font-size:3.8cqw;line-height:1.18;padding-left:3cqw;border-left:1.1cqw solid var(--bp-orange);color:#fff">Evaluación gratis.</div>
+        </div>
+      </div>
+      <div style="flex:1;min-width:260px">
+        <p class="anno" style="margin:0 0 14px">↳ <span class="es">la receta</span><span class="en">the recipe</span></p>
+        <div class="rules">
+          <div class="rule"><span class="es"><b>Foto real de día.</b> Casa o techo de Florida, luz natural, cielo claro — nunca oscura ni moody.</span><span class="en"><b>Real daytime photo.</b> A Florida home or roof, natural light, clear sky — never dark or moody.</span></div>
+          <div class="rule"><span class="es"><b>Palabra en Anton, blanca.</b> Grande, en mayúsculas, 1–3 líneas cortas. Sombra suave para contraste.</span><span class="en"><b>Word in Anton, white.</b> Large, uppercase, 1–3 short lines. Soft shadow for contrast.</span></div>
+          <div class="rule"><span class="es"><b>Naranja solo de acento.</b> Una línea resaltada, el chip o la barra del gancho — nunca la palabra entera.</span><span class="en"><b>Orange as accent only.</b> One highlighted line, the chip or the gancho bar — never the whole word.</span></div>
+          <div class="rule"><span class="es"><b>Corner ticks + marca arriba.</b> Los ticks blancos y “WindMar Home” fijan la firma blueprint sobre la foto.</span><span class="en"><b>Corner ticks + brand on top.</b> White ticks and “WindMar Home” lock the blueprint signature over the photo.</span></div>
+          <div class="rule"><span class="es"><b>Gancho abajo, reasegurador.</b> “Evaluación gratis, sin compromiso.” — nunca miedo ni pérdida.</span><span class="en"><b>Reassuring gancho below.</b> “Free evaluation, no obligation.” — never fear or loss.</span></div>
+        </div>
+        <a class="saved-link" href="palabra-sobre-casa.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-decoration:none;color:#fff;background:var(--bp-navy);padding:10px 16px;border-radius:6px">→ <span class="es">Abrir plantilla editable (Feed 4:5 + Stories 9:16)</span><span class="en">Open editable template (Feed 4:5 + Stories 9:16)</span></a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 10 RULES -->
+<section id="rules"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">10 — <span class="es">Reglas de oro</span><span class="en">Golden rules</span></span>
+    <h2 class="big"><span class="es">Reglas de oro</span><span class="en">Golden rules</span></h2>
+    <div class="rules" style="margin-top:20px">
+      <div class="rule"><span class="es"><b>Blueprint siempre.</b> Grilla, ticks, mono y hairline presentes — es la firma de la marca.</span><span class="en"><b>Blueprint always.</b> Grid, ticks, mono and hairline present — it's the brand's signature.</span></div>
+      <div class="rule"><span class="es"><b>Naranja solo de acento.</b> Nunca como fondo ni bloque dominante.</span><span class="en"><b>Orange as accent only.</b> Never as a background or dominant block.</span></div>
+      <div class="rule"><span class="es"><b>Brillante, nunca oscuro.</b> Azul sobre blanco; claridad y confianza.</span><span class="en"><b>Bright, never dark.</b> Blue on white; clarity and trust.</span></div>
+      <div class="rule"><span class="es"><b>Logo íntegro.</b> Colocación libre en blanco, sin caja; nunca el sol suelto.</span><span class="en"><b>Whole logo.</b> Free placement on white, no box; never the sun alone.</span></div>
+      <div class="rule"><span class="es"><b>Bilingüe.</b> ESP + ENG, mismo layout, solo cambia el texto.</span><span class="en"><b>Bilingual.</b> ESP + ENG, identical layout, only the text changes.</span></div>
+      <div class="rule"><span class="es"><b>Copy que tranquiliza.</b> Ahorro y evaluación gratis sin compromiso; sin miedo, sin promesas absolutas.</span><span class="en"><b>Reassuring copy.</b> Savings and a free, no-obligation evaluation; no fear, no absolute promises.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="fb">WindMar <b>Home</b></div>
+  <p><span class="es">Sistema de diseño · Blueprint · uso interno · ESP / ENG</span><span class="en">Design system · Blueprint · internal use · ESP / ENG</span></p>
+</footer>
+
+<script>
+function setLang(l){document.body.setAttribute('data-lang',l);document.documentElement.lang=l;}
+</script>
+</body>
+</html>

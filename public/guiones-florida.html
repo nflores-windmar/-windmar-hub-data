@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WindMar Home Florida · Guiones de Grabación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bp-navy:#0a2882; --bp-navy2:#071e55;
+    --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+    --bp-orange:#f57c0a;
+    --bp-grid:rgba(26,82,199,.07);
+    --bp-line:rgba(26,82,199,.32);
+    --bp-paper:#ffffff;
+    --bp-mono:'DM Mono',ui-monospace,monospace;
+    --bp-disp:'Anek Latin',sans-serif;
+    --bp-body:'DM Sans',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#e9eef7;font-family:var(--bp-body);color:var(--bp-navy);min-height:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 16px 80px;}
+
+  /* masthead */
+  .bp-mast{position:relative;background:var(--bp-paper);border:2px solid var(--bp-ink);border-radius:16px;padding:34px 38px 30px;margin-bottom:24px;overflow:hidden;}
+  .bp-mast::before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:32px 32px;}
+  .bp-mast > *{position:relative;z-index:1;}
+  .bp-tick{position:absolute;width:14px;height:14px;border:2px solid var(--bp-ink);background:var(--bp-paper);z-index:2;}
+  .bp-tick.tl{top:-2px;left:-2px;} .bp-tick.tr{top:-2px;right:-2px;} .bp-tick.bl{bottom:-2px;left:-2px;} .bp-tick.br{bottom:-2px;right:-2px;}
+  .bp-toprule{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--bp-ink-dark);padding-bottom:14px;border-bottom:1.5px solid var(--bp-ink);}
+  .bp-toprule .r{color:var(--bp-orange);}
+  .bp-kick{font-family:var(--bp-mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--bp-orange);font-weight:500;margin:22px 0 8px;display:flex;align-items:center;gap:12px;}
+  .bp-kick::before{content:"";width:34px;height:2px;background:var(--bp-orange);}
+  .bp-h1{font-family:var(--bp-disp);font-weight:800;font-size:clamp(38px,6vw,72px);line-height:.92;color:var(--bp-navy);letter-spacing:-1.5px;text-transform:uppercase;margin:0;}
+  .bp-h1 .o{color:var(--bp-orange);}
+  .bp-sub{font-family:var(--bp-body);font-size:14px;line-height:1.6;color:var(--bp-ink-dark);margin-top:14px;max-width:680px;}
+  .bp-sync{font-family:var(--bp-mono);font-size:10.5px;color:var(--bp-ink-dark);letter-spacing:.6px;margin-top:16px;display:inline-block;}
+
+  /* team bar */
+  .teambar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 26px;font-family:var(--bp-mono);font-size:11px;}
+  .tbtn{font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:.5px;padding:8px 15px;border-radius:9px;border:1.5px solid var(--bp-line);background:var(--bp-paper);color:var(--bp-ink-dark);cursor:pointer;transition:all .15s;text-decoration:none;}
+  .tbtn:hover{border-color:var(--bp-ink);}
+  .tbtn.solid{background:linear-gradient(135deg,var(--bp-navy),var(--bp-navy2));color:#fff;border-color:transparent;}
+
+  /* section heading */
+  .sec-hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:30px 0 16px;padding-bottom:10px;border-bottom:1.5px solid var(--bp-line);}
+  .sec-hd h2{font-family:var(--bp-disp);font-weight:800;font-size:26px;letter-spacing:-.5px;color:var(--bp-navy);text-transform:uppercase;}
+  .sec-hd .note{font-family:var(--bp-mono);font-size:11px;color:var(--bp-ink-dark);letter-spacing:.4px;}
+  .sec-hd .add{margin-left:auto;}
+  .gu-disclaimer{font-family:var(--bp-body);font-size:12.5px;line-height:1.5;color:var(--bp-ink-dark);background:rgba(245,124,10,.08);border:1.5px solid var(--bp-orange);border-radius:10px;padding:11px 14px;margin:0 0 16px;}
+  .gu-disclaimer b{color:var(--bp-navy);}
+
+  /* key phrases */
+  .phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+  .phrase{position:relative;background:var(--bp-paper);border:1.5px solid var(--bp-ink);border-radius:14px;padding:16px 16px 14px;box-shadow:0 8px 24px rgba(10,40,130,.07);display:flex;flex-direction:column;gap:9px;}
+  .phrase::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:14px 0 0 14px;background:var(--bp-orange);}
+  .ph-tag{font-family:var(--bp-mono);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-orange);}
+  .ph-es{font-family:var(--bp-disp);font-weight:700;font-size:18px;line-height:1.2;color:var(--bp-navy);outline:none;border-radius:6px;padding:2px 4px;}
+  .ph-en{font-family:var(--bp-body);font-size:13.5px;font-style:italic;color:var(--bp-ink-dark);line-height:1.35;outline:none;border-radius:6px;padding:2px 4px;}
+  .ph-es:focus,.ph-en:focus,.gu-body:focus,.gu-title:focus{background:rgba(245,124,10,.08);box-shadow:0 0 0 2px rgba(245,124,10,.35);}
+  .ph-lbl{font-family:var(--bp-mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#9aa8c4;margin-bottom:-4px;}
+  .ph-foot{display:flex;justify-content:flex-end;margin-top:2px;}
+
+  /* scripts */
+  .gu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px;}
+  .gu-card{position:relative;background:var(--bp-paper);border:1.5px solid var(--bp-ink);border-radius:14px;overflow:hidden;box-shadow:0 10px 30px rgba(10,40,130,.08);display:flex;flex-direction:column;}
+  .gu-card::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:28px 28px;}
+  .gu-card > *{position:relative;z-index:1;}
+  .gu-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1.5px solid var(--bp-ink);}
+  .gu-title{font-family:var(--bp-disp);font-weight:700;font-size:16px;color:var(--bp-navy);outline:none;border-radius:6px;padding:2px 4px;flex:1;}
+  .gu-body-wrap{padding:14px 16px 6px;}
+  .gu-lbl{font-family:var(--bp-mono);font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--bp-orange);margin-bottom:5px;display:block;}
+  .gu-body{font-family:var(--bp-body);font-size:13.5px;line-height:1.55;color:#243a5e;white-space:pre-wrap;outline:none;border:1px dashed var(--bp-line);border-radius:10px;padding:11px 13px;background:rgba(26,82,199,.02);min-height:60px;}
+  .gu-body.en{margin-top:12px;}
+  .gu-foot{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:10px 16px 14px;}
+  .gu-status{font-family:var(--bp-mono);font-size:10.5px;letter-spacing:.3px;color:#94a3b8;margin-right:auto;}
+  .gu-status.saving{color:var(--bp-ink-dark);}
+  .gu-status.ok{color:#1f9d55;}
+  .gu-status.err{color:#d33;}
+
+  .mini{font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:.5px;background:#fff;border:1.5px solid var(--bp-line);border-radius:8px;padding:7px 13px;cursor:pointer;color:var(--bp-ink-dark);transition:.12s;}
+  .mini:hover{border-color:var(--bp-ink);}
+  .mini.solid{background:var(--bp-orange);color:#fff;border-color:var(--bp-orange);}
+  .mini.solid:hover{background:#e06d00;}
+  .mini.del{color:#dc2626;border-color:#dc2626;background:rgba(220,38,38,.05);}
+  .mini.del:hover{background:#dc2626;color:#fff;}
+
+  .empty{grid-column:1/-1;text-align:center;padding:40px 20px;border:1.5px dashed var(--bp-line);border-radius:14px;background:rgba(26,82,199,.02);font-family:var(--bp-mono);font-size:12px;color:var(--bp-ink-dark);}
+
+  /* ideas de video */
+  .idea-addbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 14px;border-radius:12px;background:var(--bp-paper);border:1.5px solid var(--bp-line);margin-bottom:18px;}
+  .idea-addbar input,.idea-addbar select{font-family:var(--bp-body);font-size:12.5px;padding:8px 11px;border:1.5px solid var(--bp-line);border-radius:8px;background:var(--bp-paper);color:var(--bp-navy);}
+  .idea-addbar input{flex:1;min-width:200px;}
+  .idea-series{margin-bottom:20px;}
+  .idea-series-header{display:flex;align-items:center;gap:10px;font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-orange);padding:6px 0 8px;border-bottom:1.5px solid var(--bp-line);margin-bottom:10px;}
+  .idea-series-count{font-size:10px;font-weight:500;background:rgba(245,124,10,.1);color:var(--bp-orange);padding:2px 8px;border-radius:10px;margin-left:auto;}
+  .idea-list{display:flex;flex-direction:column;gap:6px;}
+  .idea-item{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:10px 12px;border-radius:10px;background:var(--bp-paper);border:1.5px solid var(--bp-line);}
+  .idea-item.done{border-color:rgba(34,150,90,.4);background:rgba(34,150,90,.05);}
+  .idea-item.dropped{opacity:.6;}
+  .idea-item.done .idea-text{text-decoration:line-through;color:#9aa8c4;}
+  .idea-main{display:flex;align-items:flex-start;gap:10px;}
+  .idea-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--bp-line);}
+  .idea-meta label{font-family:var(--bp-mono);font-size:9.5px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:#7a8bb0;display:inline-flex;align-items:center;gap:6px;}
+  .idea-meta select{font-family:var(--bp-body);font-size:12px;padding:4px 8px;border:1.5px solid var(--bp-line);border-radius:7px;background:var(--bp-paper);color:var(--bp-navy);cursor:pointer;}
+  .idea-meta select.set{border-color:var(--bp-orange);color:var(--bp-ink-dark);font-weight:600;}
+  .idea-link{flex:1;min-width:180px;font-family:var(--bp-body);font-size:12px;padding:4px 8px;border:1.5px solid var(--bp-line);border-radius:7px;background:var(--bp-paper);color:var(--bp-navy);}
+  .idea-link.set{border-color:var(--bp-orange);}
+  .idea-link.warn{border-color:#e08a00;background:rgba(224,138,0,.06);}
+  .idea-linkwarn{font-family:var(--bp-mono);font-size:10px;font-weight:500;letter-spacing:.3px;color:#b56b00;white-space:nowrap;}
+  .idea-who{min-width:150px;font-family:var(--bp-body);font-size:12px;padding:4px 8px;border:1.5px solid var(--bp-line);border-radius:7px;background:var(--bp-paper);color:var(--bp-navy);}
+  .idea-who.set{border-color:var(--bp-orange);color:var(--bp-ink-dark);font-weight:600;}
+  .idea-open{font-family:var(--bp-mono);font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--bp-orange);text-decoration:none;padding:4px 8px;border:1.5px solid var(--bp-orange);border-radius:7px;white-space:nowrap;}
+  .idea-summary{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+  .idea-summary span{font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:.5px;padding:5px 11px;border-radius:20px;background:rgba(26,82,199,.07);color:var(--bp-ink-dark);border:1px solid var(--bp-line);}
+  .idea-summary span b{color:var(--bp-orange);font-weight:700;}
+  .idea-num{font-family:var(--bp-mono);font-size:11px;color:#9aa8c4;flex-shrink:0;margin-top:2px;min-width:20px;}
+  .idea-text{flex:1;font-size:13px;color:var(--bp-navy);line-height:1.5;outline:none;border-radius:6px;padding:2px 4px;}
+  .idea-text:focus{background:rgba(245,124,10,.08);box-shadow:0 0 0 2px rgba(245,124,10,.35);}
+  .idea-author{display:inline-flex;align-items:center;gap:5px;font-family:var(--bp-mono);font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:rgba(26,82,199,.08);color:var(--bp-ink-dark);border:1px solid var(--bp-line);white-space:nowrap;flex-shrink:0;align-self:center;}
+  .idea-author .dot{width:6px;height:6px;border-radius:50%;background:var(--bp-ink);}
+  .idea-actions{display:flex;gap:6px;flex-shrink:0;}
+  .mini.on{background:#16a34a;border-color:#16a34a;color:#fff;}
+  @media(max-width:560px){ .bp-mast{padding:26px 20px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bp-mast">
+    <span class="bp-tick tl"></span><span class="bp-tick tr"></span><span class="bp-tick bl"></span><span class="bp-tick br"></span>
+    <div class="bp-toprule"><span>WindMar Home · Florida</span><span class="r">Guiones de Grabación</span></div>
+    <div class="bp-kick">Producción · editar en vivo</div>
+    <h1 class="bp-h1">Guiones<br><span class="o">de Grabación</span></h1>
+    <p class="bp-sub">Frases clave y guiones para grabar en Florida. Toca cualquier texto para editarlo — se guarda al instante y todo el equipo lo ve. Escribe en español e inglés (ES/EN) para tener las dos versiones listas.</p>
+    <span class="bp-sync" id="sync">— sincronizando —</span>
+  </div>
+
+  <div class="teambar">
+    <a class="tbtn" href="aprobaciones-florida.html">← Aprobación FL</a>
+    <a class="tbtn" href="banco-de-ideas.html" style="border-color:var(--bp-orange);color:var(--bp-orange);">🎬 Banco de Ideas</a>
+    <a class="tbtn" href="aprobaciones-pros.html">🛠️ Aprobación Pros</a>
+    <button class="tbtn" id="refresh">↻ Actualizar</button>
+  </div>
+
+  <!-- FRASES CLAVE -->
+  <div class="sec-hd">
+    <h2>Frases clave</h2>
+    <span class="note">Líneas de marca — úsalas como gancho o cierre · ES / EN</span>
+    <button class="mini solid add" id="addFrase">+ Añadir frase</button>
+  </div>
+  <div class="phrase-grid" id="frases"></div>
+
+  <!-- GUIONES -->
+  <div class="sec-hd">
+    <h2>Guiones</h2>
+    <span class="note">Escaletas de grabación — gancho, desarrollo y cierre</span>
+    <button class="mini add" id="dlGuiones" style="margin-left:auto;">⬇︎ Descargar PDF</button>
+    <button class="mini solid" id="addGuion">+ Añadir guion</button>
+  </div>
+  <div class="gu-disclaimer">📝 <b>Nota:</b> estos guiones son una <b>guía</b> y están <b>sujetos a cambios</b>. El equipo puede editarlos en vivo — úsalos como referencia, no como texto final palabra por palabra.</div>
+  <div class="gu-grid" id="guiones"></div>
+
+  <!-- IDEAS DE VIDEO -->
+  <div class="sec-hd">
+    <h2>Ideas de Video</h2>
+    <span class="note">Ideas por producto · Florida — edítalas, márcalas o añade nuevas</span>
+  </div>
+  <div class="idea-addbar">
+    <input id="idea-input" type="text" placeholder="Escribe una nueva idea..." onkeydown="if(event.key==='Enter')ideaAdd()">
+    <select id="idea-series-select" title="Producto"></select>
+    <select id="idea-author-select" title="¿Quién la escribió?"></select>
+    <button class="mini solid" id="ideaAddBtn">Añadir idea</button>
+  </div>
+  <div id="ideas-summary" class="idea-summary"></div>
+  <div id="ideas-body"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+(function(){
+  const SB_URL='https://mywxxipguoaqknoczgav.supabase.co';
+  const SB_KEY='sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
+  const BRAND='home_fl';
+  let sb=null;
+  try{ sb=window.supabase.createClient(SB_URL,SB_KEY); }catch(e){ console.error('Supabase init',e); }
+
+  // Mismos perfiles que aprueban los videos de Florida + Miguel Torres
+  const PROFILES=[{name:'Rafael Almonte',ini:'RA'},{name:'Manuel Pales',ini:'MP'},{name:'Miguel Torres',ini:'MT'}];
+  const PRODUCTS_ORDER=['Certificaciones (Florida)','Solar (Q CELLS)','Baterías (Tesla Powerwall)','Roofing / Sellado (Owens Corning)','Agua para el hogar','WindMar Pros (técnico / detrás de cámara)','Testimonios de clientes FL'];
+  const AUTHOR_KEY='wm_guiones_fl_author';
+
+  let items=[], vIdeas=[];
+  const esc=s=>(s==null?'':String(s)).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const pad2=n=>{n=String(n);return n.length<2?'0'+n:n;};
+  function setSync(m){ const el=document.getElementById('sync'); if(el) el.textContent=m||''; }
+  function busy(){ const a=document.activeElement; return !!(a && (a.isContentEditable || a.id==='idea-input')); }
+
+  async function loadAll(){
+    if(!sb) throw new Error('sin supabase');
+    const r=await sb.from('client_scripts').select('*').eq('brand',BRAND).order('sort',{ascending:true}).order('created_at',{ascending:true});
+    if(r.error) throw r.error;
+    items=r.data||[];
+  }
+
+  function fraseHTML(it){
+    return `<div class="phrase">
+      <span class="ph-tag">Frase clave</span>
+      <div><div class="ph-lbl">Español</div><div class="ph-es" contenteditable="true" data-f="body_es" onblur="guEdit('${it.id}','body_es',this.innerText)">${esc(it.body_es)}</div></div>
+      <div><div class="ph-lbl">English</div><div class="ph-en" contenteditable="true" data-f="body_en" onblur="guEdit('${it.id}','body_en',this.innerText)">${esc(it.body_en)}</div></div>
+      <div class="ph-foot"><button class="mini del" onclick="guDelete('${it.id}')">Eliminar</button></div>
+    </div>`;
+  }
+
+  function guionHTML(it){
+    return `<div class="gu-card" id="gu-${it.id}">
+      <div class="gu-hd">
+        <div class="gu-title" contenteditable="true" onblur="guEdit('${it.id}','title',this.innerText)">${esc(it.title||'Guion sin título')}</div>
+      </div>
+      <div class="gu-body-wrap">
+        <span class="gu-lbl">Guion · Español</span>
+        <div class="gu-body" contenteditable="true" onblur="guEdit('${it.id}','body_es',this.innerText)">${esc(it.body_es)}</div>
+        <span class="gu-lbl" style="margin-top:12px;">Script · English</span>
+        <div class="gu-body en" contenteditable="true" onblur="guEdit('${it.id}','body_en',this.innerText)">${esc(it.body_en)}</div>
+      </div>
+      <div class="gu-foot"><span class="gu-status" id="gust-${it.id}">Los cambios se guardan solos</span><button class="mini solid" onclick="guSave('${it.id}')">💾 Guardar cambios</button><button class="mini" onclick="pdfGuiones('${it.id}')">⬇︎ PDF</button><button class="mini del" onclick="guDelete('${it.id}')">🗑 Eliminar guion</button></div>
+    </div>`;
+  }
+
+  function draw(){
+    const frases=items.filter(i=>i.kind==='frase');
+    const guiones=items.filter(i=>i.kind!=='frase');
+    const fg=document.getElementById('frases');
+    fg.innerHTML=frases.length?frases.map(fraseHTML).join(''):'<div class="empty">Sin frases todavía. Toca “+ Añadir frase”.</div>';
+    const gg=document.getElementById('guiones');
+    gg.innerHTML=guiones.length?guiones.map(guionHTML).join(''):'<div class="empty">Sin guiones todavía. Toca “+ Añadir guion”.</div>';
+  }
+
+  // ── Descargar guiones en PDF ──
+  window.pdfGuiones=function(one){
+    const list = one ? items.filter(i=>i.id===one) : items.filter(i=>i.kind!=='frase');
+    if(!list.length){ alert('No hay guiones para descargar.'); return; }
+    const JP = window.jspdf && window.jspdf.jsPDF;
+    if(!JP){ alert('No se pudo cargar el generador de PDF. Revisa tu conexión e intenta de nuevo.'); return; }
+    const doc=new JP({unit:'pt',format:'letter'});
+    const M=54, W=doc.internal.pageSize.getWidth(), H=doc.internal.pageSize.getHeight(), CW=W-M*2;
+    let y=M;
+    const banner=()=>{ doc.setFillColor(10,40,130); doc.rect(0,0,W,34,'F'); doc.setTextColor(255,255,255); doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.text('WINDMAR HOME · FLORIDA — GUIONES DE GRABACION', M, 22); y=54; };
+    const ensure=h=>{ if(y+h>H-M){ doc.addPage(); banner(); } };
+    const label=t=>{ ensure(18); doc.setTextColor(245,124,10); doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.text(t, M, y); y+=14; };
+    const para=t=>{ doc.setTextColor(40,58,94); doc.setFont('helvetica','normal'); doc.setFontSize(11); const lines=doc.splitTextToSize(String(t||'').replace(/\r/g,''), CW); lines.forEach(l=>{ ensure(15); doc.text(l, M, y); y+=15; }); };
+    banner();
+    doc.setTextColor(150,110,40); doc.setFont('helvetica','italic'); doc.setFontSize(9);
+    doc.splitTextToSize('Nota: estos guiones son una guia y estan sujetos a cambios. El equipo puede editarlos en vivo; usalos como referencia, no como texto final palabra por palabra.', CW).forEach(l=>{ doc.text(l,M,y); y+=12; });
+    y+=10;
+    list.forEach((it,idx)=>{
+      ensure(34);
+      doc.setTextColor(10,40,130); doc.setFont('helvetica','bold'); doc.setFontSize(15);
+      doc.splitTextToSize(it.title||'Guion sin titulo', CW).forEach(l=>{ ensure(20); doc.text(l,M,y); y+=20; });
+      doc.setDrawColor(245,124,10); doc.setLineWidth(2); doc.line(M,y-4,M+50,y-4); y+=12;
+      label('GUION · ESPANOL'); para(it.body_es); y+=8;
+      label('SCRIPT · ENGLISH'); para(it.body_en); y+=20;
+      if(idx<list.length-1){ ensure(16); doc.setDrawColor(210,214,224); doc.setLineWidth(.6); doc.line(M,y-8,W-M,y-8); }
+    });
+    const slug = one ? (list[0].title||'guion').toString().replace(/[^\w]+/g,'-').toLowerCase().replace(/^-+|-+$/g,'') : 'guiones-windmar-florida';
+    doc.save((slug||'guion')+'.pdf');
+  };
+
+  async function refresh(){
+    setSync('— sincronizando —');
+    try{ await Promise.all([loadAll(), loadIdeas()]); setSync('sincronizado con el equipo ✓ · '+items.length+' guiones · '+vIdeas.length+' ideas'); }
+    catch(e){ setSync('sin conexión'); console.error(e); }
+    draw(); paintIdeaSelects(); drawIdeas();
+  }
+
+  // ── Ideas de Video (tabla video_ideas, compartida) ──
+  async function loadIdeas(){
+    if(!sb) return;
+    const r=await sb.from('video_ideas').select('*').order('created_at',{ascending:true});
+    if(r.error){ console.error('fetch ideas',r.error); return; }
+    vIdeas=r.data||[];
+  }
+  function ideaSeriesList(){ const seen=PRODUCTS_ORDER.slice(); vIdeas.forEach(i=>{ if(seen.indexOf(i.product)<0) seen.push(i.product); }); return seen; }
+  function paintIdeaSelects(){
+    const series=ideaSeriesList();
+    const sel=document.getElementById('idea-series-select');
+    if(sel){ const cur=sel.value; sel.innerHTML=series.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join(''); if(cur&&series.indexOf(cur)>=0) sel.value=cur; }
+    const asel=document.getElementById('idea-author-select');
+    if(asel && !asel.options.length){ let sa=''; try{ sa=localStorage.getItem(AUTHOR_KEY)||''; }catch(e){} asel.innerHTML=PROFILES.map(p=>`<option value="${esc(p.name)}"${p.name===sa?' selected':''}>${esc(p.name)}</option>`).join(''); }
+  }
+  function drawIdeas(){
+    const body=document.getElementById('ideas-body'); if(!body) return;
+    const series=ideaSeriesList(); let html='';
+    series.forEach(s=>{
+      const list=vIdeas.filter(i=>i.product===s); if(!list.length) return;
+      html+=`<div class="idea-series"><div class="idea-series-header">${esc(s)}<span class="idea-series-count">${list.length} ideas</span></div><div class="idea-list">`;
+      list.forEach((it,idx)=>{
+        const at=it.author?`<span class="idea-author"><span class="dot"></span>${esc(it.author)}</span>`:'';
+        const opt=(v,cur,label)=>`<option value="${v}"${cur===v?' selected':''}>${label}</option>`;
+        const recSel=`<select class="${it.recommend?'set':''}" onchange="ideaSet('${it.id}','recommend',this.value)">${opt('','',it.recommend?'—':'— sin definir —')}${opt('ustedes',it.recommend,'Ustedes (equipo)')}${opt('videografo',it.recommend,'Con videógrafo')}</select>`;
+        const capSel=`<select class="${it.capture?'set':''}" onchange="ideaSet('${it.id}','capture',this.value)">${opt('',it.capture,'— pendiente —')}${opt('grabado',it.capture,'Se grabó')}${opt('no_usado',it.capture,'No se utilizó')}</select>`;
+        const rw=it.recorded_with?String(it.recorded_with):'';
+        const whoField=`<label>Se grabó con <input class="idea-who${rw?' set':''}" type="text" placeholder="¿Con quién? (ej. videógrafo, equipo)" value="${esc(rw)}" onblur="ideaSet('${it.id}','recorded_with',this.value)"></label>`;
+        const cls='idea-item'+(it.done?' done':'')+(it.capture==='no_usado'?' dropped':'');
+        const lk=it.link?String(it.link):'';
+        const spBad=lk&&!isSharePoint(lk);
+        const openBtn=lk?`<a class="idea-open" href="${esc(lk)}" target="_blank" rel="noopener">Abrir ↗</a>`:'';
+        const warnNote=spBad?`<span class="idea-linkwarn">⚠ No parece SharePoint</span>`:'';
+        const linkField=`<input class="idea-link${lk?(spBad?' warn':' set'):''}" type="url" placeholder="Pega el link de SharePoint del material a editar…" value="${esc(lk)}" onblur="ideaSet('${it.id}','link',this.value)">${openBtn}${warnNote}`;
+        html+=`<div class="${cls}"><div class="idea-main"><div class="idea-num">${pad2(idx+1)}</div><div class="idea-text" contenteditable="true" onblur="ideaEdit('${it.id}',this.innerText)">${esc(it.text)}</div>${at}<div class="idea-actions"><button class="mini del" onclick="ideaDelete('${it.id}')">Eliminar</button></div></div><div class="idea-meta"><label>Recomiendo ${recSel}</label><label>Grabación ${capSel}</label>${whoField}<button class="mini${it.done?' on':''}" onclick="ideaToggle('${it.id}')">${it.done?'✓ Hecho':'Marcar hecho'}</button></div><div class="idea-meta">${linkField}</div></div>`;
+      });
+      html+='</div></div>';
+    });
+    body.innerHTML=html||'<div class="empty">No hay ideas todavía. Añade una arriba.</div>';
+    const sum=document.getElementById('ideas-summary');
+    if(sum){
+      const total=vIdeas.length;
+      const conVideo=vIdeas.filter(i=>i.recommend==='videografo').length;
+      const conEquipo=vIdeas.filter(i=>i.recommend==='ustedes').length;
+      const grabadas=vIdeas.filter(i=>i.capture==='grabado').length;
+      const noUsadas=vIdeas.filter(i=>i.capture==='no_usado').length;
+      const hechas=vIdeas.filter(i=>i.done).length;
+      const conLink=vIdeas.filter(i=>i.link).length;
+      sum.innerHTML = total ? [
+        `<span><b>${total}</b> ideas</span>`,
+        `<span><b>${conEquipo}</b> equipo · <b>${conVideo}</b> videógrafo</span>`,
+        `<span><b>${grabadas}</b> grabadas · <b>${noUsadas}</b> descartadas</span>`,
+        `<span><b>${hechas}</b> hechas</span>`,
+        `<span><b>${conLink}</b> con link</span>`
+      ].join('') : '';
+    }
+  }
+  window.ideaEdit=async function(id,text){
+    if(!sb) return; const t=String(text).trim(); const it=vIdeas.find(i=>i.id===id);
+    if(!t){ drawIdeas(); return; } if(it&&it.text===t) return;
+    const r=await sb.from('video_ideas').update({text:t,updated_at:new Date().toISOString()}).eq('id',id);
+    if(r.error){ console.error('edit idea',r.error); return; } if(it) it.text=t;
+  };
+  window.ideaToggle=async function(id){
+    if(!sb) return; const it=vIdeas.find(i=>i.id===id); if(!it) return; const nd=!it.done;
+    const r=await sb.from('video_ideas').update({done:nd,updated_at:new Date().toISOString()}).eq('id',id);
+    if(r.error){ console.error('toggle idea',r.error); return; } it.done=nd; drawIdeas();
+  };
+  function isSharePoint(u){ return /sharepoint\.com|1drv\.ms|onedrive\.live|-my\.sharepoint/i.test(String(u)); }
+  window.ideaSet=async function(id,field,val){
+    if(!sb) return; const it=vIdeas.find(i=>i.id===id); if(!it) return;
+    const v=(typeof val==='string'?val.trim():val)||null; if((it[field]||null)===v){ drawIdeas(); return; }
+    if(field==='link' && v && !isSharePoint(v)){
+      alert('⚠ Este enlace no parece ser de SharePoint.\n\nSe guardará de todos modos, pero recuerda que el estándar del equipo es subir el material a SharePoint y pegar ese link.');
+    }
+    const patch={updated_at:new Date().toISOString()}; patch[field]=v;
+    const r=await sb.from('video_ideas').update(patch).eq('id',id);
+    if(r.error){ console.error('set idea',r.error); return; } it[field]=v; drawIdeas();
+  };
+  window.ideaDelete=async function(id){
+    if(!sb) return; if(!confirm('¿Eliminar esta idea para todo el equipo?')) return;
+    const r=await sb.from('video_ideas').delete().eq('id',id);
+    if(r.error){ console.error('delete idea',r.error); return; } vIdeas=vIdeas.filter(i=>i.id!==id); drawIdeas();
+  };
+  window.ideaAdd=async function(){
+    const inp=document.getElementById('idea-input'),sel=document.getElementById('idea-series-select'),asel=document.getElementById('idea-author-select');
+    if(!inp) return; const text=inp.value.trim(); if(!text) return;
+    if(!sb){ alert('No hay conexión con el servidor.'); return; }
+    const author=(asel&&asel.value)||''; try{ if(author) localStorage.setItem(AUTHOR_KEY,author); }catch(e){}
+    const product=(sel&&sel.value)||PRODUCTS_ORDER[0]; inp.value='';
+    const r=await sb.from('video_ideas').insert({product,text,author:author||null});
+    if(r.error){ console.error('add idea',r.error); alert('No se pudo guardar la idea.'); }
+    await loadIdeas(); paintIdeaSelects(); drawIdeas();
+  };
+
+  function guStatus(id,txt,cls){ const st=document.getElementById('gust-'+id); if(st){ st.textContent=txt; st.className='gu-status'+(cls?' '+cls:''); } }
+  function guNow(){ return new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'}); }
+  window.guEdit=async function(id,field,val){
+    const it=items.find(x=>x.id===id); if(!it) return;
+    const v=String(val); if(it[field]===v) return;
+    it[field]=v;
+    guStatus(id,'Guardando…','saving');
+    if(!sb){ guStatus(id,'Sin conexión','err'); return; }
+    try{ const patch={updated_at:new Date().toISOString()}; patch[field]=v; const {error}=await sb.from('client_scripts').update(patch).eq('id',id); if(error) throw error; guStatus(id,'Guardado ✓ '+guNow(),'ok'); }
+    catch(e){ console.error('editar',e); guStatus(id,'Error al guardar','err'); }
+  };
+
+  window.guSave=async function(id){
+    const card=document.getElementById('gu-'+id); const it=items.find(x=>x.id===id); if(!card||!it) return;
+    const titleEl=card.querySelector('.gu-title'); const bodies=card.querySelectorAll('.gu-body');
+    const title=titleEl?titleEl.innerText:it.title;
+    const body_es=bodies[0]?bodies[0].innerText:it.body_es;
+    const body_en=bodies[1]?bodies[1].innerText:it.body_en;
+    it.title=title; it.body_es=body_es; it.body_en=body_en;
+    guStatus(id,'Guardando…','saving');
+    if(!sb){ guStatus(id,'Sin conexión','err'); return; }
+    try{ const {error}=await sb.from('client_scripts').update({title,body_es,body_en,updated_at:new Date().toISOString()}).eq('id',id); if(error) throw error; guStatus(id,'Guardado ✓ '+guNow(),'ok'); }
+    catch(e){ console.error('guardar guion',e); guStatus(id,'Error al guardar','err'); }
+  };
+
+  window.guDelete=async function(id){
+    const it=items.find(x=>x.id===id); const isF=it&&it.kind==='frase';
+    if(!confirm('¿Eliminar '+(isF?'esta frase':'este guion')+' para todo el equipo?')) return;
+    items=items.filter(x=>x.id!==id); draw();
+    if(!sb) return;
+    try{ await sb.from('client_scripts').delete().eq('id',id); }
+    catch(e){ console.error('eliminar',e); alert('No se pudo eliminar.'); await refresh(); }
+  };
+
+  async function addItem(kind){
+    if(!sb){ alert('No hay conexión con el servidor.'); return; }
+    const sort=(items.reduce((m,i)=>Math.max(m,i.sort||0),0))+1;
+    const row={brand:BRAND,kind,sort};
+    if(kind==='guion'){ row.title='Nuevo guion'; row.body_es='GANCHO:\nDESARROLLO:\nCIERRE:'; row.body_en='HOOK:\nBODY:\nCLOSE:'; }
+    else{ row.body_es='Nueva frase…'; row.body_en='New phrase…'; }
+    try{ const {error}=await sb.from('client_scripts').insert(row); if(error) throw error; await refresh(); }
+    catch(e){ console.error('añadir',e); alert('No se pudo añadir: '+(e.message||e)); }
+  }
+
+  document.getElementById('addFrase').addEventListener('click',()=>addItem('frase'));
+  document.getElementById('addGuion').addEventListener('click',()=>addItem('guion'));
+  document.getElementById('ideaAddBtn').addEventListener('click',()=>window.ideaAdd());
+  document.getElementById('dlGuiones').addEventListener('click',()=>window.pdfGuiones());
+  document.getElementById('refresh').addEventListener('click',()=>refresh());
+
+  refresh();
+  setInterval(()=>{ if(!busy()) refresh(); }, 45000);
+  window.addEventListener('focus',()=>{ if(!busy()) refresh(); });
+})();
+</script>
+</body>
+</html>

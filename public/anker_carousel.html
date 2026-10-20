@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar × Anker — Carrusel (blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-green:#1f9d66;
+  --bp-grid:rgba(26,82,199,.08); --bp-line:rgba(26,82,199,.34); --bp-line-soft:rgba(26,82,199,.16);
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bp-navy);font-family:var(--body);padding:22px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;width:100%}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:var(--bp-navy);color:var(--bp-navy)}
+header.top{border-bottom:3px solid var(--bp-orange);padding-bottom:14px;margin-bottom:6px;width:100%}
+h1{font-size:23px;letter-spacing:-.3px}
+h1 .o{color:var(--bp-orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid var(--bp-line-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5;width:100%}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 18px;justify-content:center;width:100%}
+.btn{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--bp-navy)}
+.btn.on{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+
+.nav{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.nav-btn{width:42px;height:42px;border-radius:50%;background:#fff;border:1.5px solid var(--line);color:var(--bp-navy);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.nav-btn:hover{border-color:var(--bp-navy)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.nav-counter{color:var(--muted);font-family:var(--mono);font-size:13px}
+.dl-inline{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer}
+.dl-inline:hover{border-color:var(--bp-navy);background:var(--bp-navy);color:#fff}
+.dl-inline:disabled{opacity:.5;cursor:default}
+
+.stage{width:100%;max-width:460px}
+.dot-row{display:flex;gap:6px;justify-content:center;margin-top:16px}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(26,82,199,.22);transition:all .3s}
+.dot.active{background:var(--bp-green);width:24px;border-radius:4px}
+
+/* ===== BLUEPRINT CAROUSEL PIECE (4:5 feed) ===== */
+.piece{--acc:var(--bp-green);position:relative;overflow:hidden;container-type:inline-size;background:#fff;color:var(--bp-navy);
+  width:100%;aspect-ratio:4/5;border-radius:14px;box-shadow:0 14px 40px rgba(13,34,64,.16);border:1px solid var(--line);display:none}
+.piece.active{display:block}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:5cqw 5cqw}
+.piece > .tick{position:absolute;width:4cqw;height:4cqw;border:.5cqw solid var(--acc);z-index:6}
+.piece > .tick.tl{top:3.5cqw;left:3.5cqw;border-right:none;border-bottom:none}
+.piece > .tick.tr{top:3.5cqw;right:3.5cqw;border-left:none;border-bottom:none}
+.piece > .tick.bl{bottom:3.5cqw;left:3.5cqw;border-right:none;border-top:none}
+.piece > .tick.br{bottom:3.5cqw;right:3.5cqw;border-left:none;border-top:none}
+
+.content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:7.5cqw 7cqw;pointer-events:none}
+
+.brow{display:flex;align-items:center;justify-content:space-between;gap:2.4cqw}
+.wlogo{height:7cqw;width:auto;display:block}
+.brow .anklogo{height:6cqw}
+.kick{margin-top:4cqw;font-family:var(--mono);font-weight:500;font-size:2.9cqw;letter-spacing:.16cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.kick::before{content:"↳ ";color:var(--acc)}
+.hair{margin-top:2.2cqw;width:16cqw;height:.7cqw;background:var(--acc)}
+
+.word{font-family:var(--disp);font-weight:700;line-height:.92;text-transform:uppercase;letter-spacing:.1cqw;
+  margin-top:3.2cqw;font-size:var(--wsize,10.5cqw);color:var(--bp-navy);white-space:pre-wrap;word-break:break-word}
+.word .hl{color:var(--acc)}
+.subline{margin-top:2.6cqw;font-family:var(--body);font-weight:700;font-size:3.5cqw;line-height:1.2;max-width:96%;color:var(--bp-ink-dark)}
+
+/* product viewport (framed on the blueprint) */
+.viewport{position:relative;margin-top:3.4cqw;flex:1;min-height:0;border:.4cqw dashed var(--bp-line);border-radius:2cqw;background:#f4f7fd;overflow:hidden}
+.viewport img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:2.5cqw;z-index:2}
+.viewport .ph{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4cqw;text-align:center;padding:4cqw;
+  background:repeating-linear-gradient(45deg,#f4f7fd 0 3cqw,#eaf0fa 3cqw 6cqw)}
+.viewport .ph .lab{font-family:var(--disp);font-size:5cqw;letter-spacing:.3cqw;color:var(--bp-ink);text-transform:uppercase}
+.viewport .ph .hint{font-family:var(--mono);font-size:2.4cqw;color:var(--muted);letter-spacing:.06cqw}
+.viewport .ph .ic{font-size:8cqw;line-height:1;filter:grayscale(.2)}
+.viewport.loaded .ph{display:none}
+.viewport .vlabel{position:absolute;left:2cqw;top:2cqw;z-index:3;font-family:var(--mono);font-size:2.3cqw;letter-spacing:.1cqw;text-transform:uppercase;color:var(--bp-ink);background:rgba(255,255,255,.82);padding:.6cqw 1.6cqw;border-radius:1cqw;border:1px solid var(--bp-line-soft)}
+
+/* spec list — blueprint mono ticks */
+.spec{margin-top:3cqw;display:flex;flex-direction:column;gap:1.6cqw}
+.spec .row{display:flex;align-items:flex-start;gap:2cqw;font-family:var(--body);font-weight:700;font-size:3.2cqw;line-height:1.2;color:var(--bp-navy)}
+.spec .row .sq{width:2.4cqw;height:2.4cqw;flex:none;margin-top:.8cqw;border:.45cqw solid var(--acc);background:transparent}
+.spec .row .sq.fill{background:var(--acc)}
+.spec .row b{font-weight:800}
+.spec .row .em{color:var(--acc)}
+
+.foot{position:relative;z-index:4;margin-top:auto;display:flex;flex-direction:column;gap:2cqw;padding-top:4cqw}
+.gancho{font-family:var(--body);font-weight:800;font-size:3.6cqw;line-height:1.15;padding-left:2.6cqw;border-left:1cqw solid var(--bp-orange);color:var(--bp-navy)}
+.tag{font-family:var(--mono);font-weight:500;font-size:2.5cqw;letter-spacing:.14cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+
+/* CTA chip */
+.cta-chip{display:inline-block;align-self:flex-start;background:var(--bp-orange);color:#fff;font-family:var(--disp);font-size:6.5cqw;letter-spacing:.4cqw;text-transform:uppercase;padding:2.4cqw 5cqw;border-radius:2cqw}
+.cta-checks{display:flex;flex-direction:column;gap:1.4cqw;margin-top:1cqw}
+.cta-checks .c{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:700;font-size:3cqw;color:var(--bp-ink-dark)}
+.cta-checks .c .sq{width:3.4cqw;height:3.4cqw;flex:none;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:2.2cqw}
+.url{font-family:var(--mono);font-size:2.8cqw;letter-spacing:.14cqw;color:var(--bp-ink);margin-top:1cqw}
+
+/* ===== PHOTO-BG variant (bright, product on ambient photo) ===== */
+.piece.has-bg{--bp-grid:rgba(255,255,255,.08);color:#fff}
+.piece.has-bg .bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.piece.has-bg .bg img{width:100%;height:100%;object-fit:cover}
+.piece.has-bg .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,20,60,.5) 0%,rgba(6,20,60,.35) 42%,rgba(4,12,36,.86) 100%)}
+.piece.has-bg::before{z-index:1}
+.piece.has-bg .word{color:#fff;text-shadow:0 .4cqw 2.4cqw rgba(0,0,0,.4)}
+.piece.has-bg .subline{color:rgba(255,255,255,.92)}
+.piece.has-bg .kick{color:rgba(255,255,255,.82)}
+.piece.has-bg .tag{color:rgba(255,255,255,.72)}
+.piece.has-bg .gancho{color:#fff}
+.piece.has-bg .spec .row{color:#fff}
+.piece.has-bg > .tick{border-color:var(--acc)}
+
+@media print{body{background:#fff;padding:0}.topnav,.controls,.nav,.note,header.top,.dot-row{display:none}
+  .piece{display:block!important;box-shadow:none;border-radius:0;page-break-after:always;margin-bottom:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topnav">
+  <a href="windmar-pr-stories.html">📐 Stories PR (blueprint)</a>
+  <a href="Water_Carousel_v2.html">💧 Carrusel Water</a>
+  <a href="windmar-home-brandguide.html">📐 Brand Guide</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a onclick="window.print()">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <h1>WindMar × <span class="o">Anker</span> — Carrusel</h1>
+  <div class="sub">Estética <b>blueprint</b> · 6 slides · formato feed 4:5 (1080×1350) · basado en el transcript de Ángel · exporta PNG por slide</div>
+</header>
+
+<div class="note"><b>Cómo se usa:</b> mismo lenguaje que los <b>Stories blueprint</b> — azul sobre blanco, palabra gigante Bebas, esquinas de plano y acento <b>verde Anker</b> (naranja para el CTA). Los slots grises esperan tus <b>fotos de producto</b>: coloca los archivos en <b>/img</b> como <code>anker_f3800.png</code>, <code>anker_f2600.png</code>, <code>anker_everfrost.png</code>, <code>anker_lineup.png</code>. Navega con las flechas y baja cada slide en <b>PNG 1080×1350</b>.</div>
+
+<div class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>&#8592;</button>
+  <span class="nav-counter" id="counter">1 / 6</span>
+  <button class="nav-btn" id="nextBtn" onclick="go(1)">&#8594;</button>
+  <button class="dl-inline" id="dlOne">⬇︎ PNG este slide</button>
+  <button class="dl-inline" id="dlAll">⬇︎ Todas</button>
+</div>
+
+<div class="stage">
+
+  <!-- ═══ SLIDE 1 — COVER ═══ -->
+  <div class="piece active has-bg" id="p1" style="--wsize:12cqw;">
+    <div class="bg"><img src="img/pr-anker-powerstation-playa.png" alt="Anker" crossorigin="anonymous"></div>
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-white-orange.png" alt="Anker"></div>
+      <span class="kick">Energía portátil Anker</span>
+      <div class="hair"></div>
+      <div class="word">NUNCA TE<br>QUEDES SIN<br><span class="hl">ENERGÍA</span></div>
+      <div class="subline">En tu casa. En el parque. Donde vayas.</div>
+      <div class="foot">
+        <span class="gancho">Con Anker, siempre tienes poder.</span>
+        <span class="tag">WindMar × Anker · Puerto Rico</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2 — F 3800 ═══ -->
+  <div class="piece" id="p2" style="--wsize:13cqw;">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-fc.png" alt="Anker"></div>
+      <span class="kick">Para tu hogar completo</span>
+      <div class="hair"></div>
+      <div class="word">ANKER <span class="hl">F 3800</span></div>
+      <div class="subline">Tu casa sigue, aunque se vaya la luz.</div>
+      <div class="viewport" id="v2">
+        <span class="vlabel">F 3800</span>
+        <img src="img/anker_f3800.png" alt="Anker F 3800" crossorigin="anonymous">
+        <div class="ph"><div class="ic">🔋</div><div class="lab">Anker F 3800</div><div class="hint">coloca la foto en /img/anker_f3800.png</div></div>
+      </div>
+      <div class="spec">
+        <div class="row"><span class="sq fill"></span><span>Se <b>conecta a tu hogar</b> con transfer automático</span></div>
+        <div class="row"><span class="sq fill"></span><span><b>Enciende sola</b> cuando se va la luz</span></div>
+        <div class="row"><span class="sq"></span><span>Y se <b>recarga sola</b> — sin que hagas nada</span></div>
+      </div>
+      <div class="foot">
+        <span class="gancho">El respaldo que ni tienes que pensar.</span>
+        <span class="tag">Anker F 3800 · WindMar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3 — F 2600 ═══ -->
+  <div class="piece" id="p3" style="--wsize:13cqw;">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-fc.png" alt="Anker"></div>
+      <span class="kick">Lo esencial, siempre prendido</span>
+      <div class="hair"></div>
+      <div class="word">ANKER <span class="hl">F 2600</span></div>
+      <div class="subline">Apagas y prendes la batería… y todo vuelve.</div>
+      <div class="viewport" id="v3">
+        <span class="vlabel">F 2600</span>
+        <img src="img/anker_f2600.png" alt="Anker F 2600" crossorigin="anonymous">
+        <div class="ph"><div class="ic">🔋</div><div class="lab">Anker F 2600</div><div class="hint">coloca la foto en /img/anker_f2600.png</div></div>
+      </div>
+      <div class="spec">
+        <div class="row"><span class="sq fill"></span><span>Nevera, abanico y televisor</span></div>
+        <div class="row"><span class="sq fill"></span><span><b>Equipo médico</b> siempre encendido</span></div>
+        <div class="row"><span class="sq"></span><span><span class="em">110v</span> · lo que tú quieras</span></div>
+      </div>
+      <div class="foot">
+        <span class="gancho">Prende lo que de verdad importa.</span>
+        <span class="tag">Anker F 2600 · WindMar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4 — EVERFROST ═══ -->
+  <div class="piece" id="p4" style="--wsize:12cqw;">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-fc.png" alt="Anker"></div>
+      <span class="kick">La reina de los parques y las canchas</span>
+      <div class="hair"></div>
+      <div class="word">LA NEVERITA <span class="hl">EVERFROST</span></div>
+      <div class="subline">Enfría, congela y se mueve contigo.</div>
+      <div class="viewport" id="v4">
+        <span class="vlabel">EverFrost</span>
+        <img src="img/anker_everfrost.png" alt="Anker EverFrost" crossorigin="anonymous">
+        <div class="ph"><div class="ic">🧊</div><div class="lab">Anker EverFrost</div><div class="hint">coloca la foto en /img/anker_everfrost.png</div></div>
+      </div>
+      <div class="spec">
+        <div class="row"><span class="sq fill"></span><span>Enfría <b>y también congela</b> — trae su freezer</span></div>
+        <div class="row"><span class="sq fill"></span><span>Batería con <b>Power Bank</b> para cargar tus equipos</span></div>
+        <div class="row"><span class="sq"></span><span>Trae su <b>mesita</b> y se va contigo a donde quieras</span></div>
+      </div>
+      <div class="foot">
+        <span class="gancho">Del parque a la cancha, siempre fría.</span>
+        <span class="tag">Anker EverFrost · WindMar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 5 — LINEUP ═══ -->
+  <div class="piece" id="p5" style="--wsize:11cqw;">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-fc.png" alt="Anker"></div>
+      <span class="kick">Una para cada momento</span>
+      <div class="hair"></div>
+      <div class="word">CUALQUIER EQUIPO. <span class="hl">DONDE VAYAS.</span></div>
+      <div class="viewport" id="v5">
+        <span class="vlabel">Línea Anker</span>
+        <img src="img/anker_lineup.png" alt="Línea Anker" crossorigin="anonymous">
+        <div class="ph"><div class="ic">⚡</div><div class="lab">Línea Anker</div><div class="hint">foto de los 3 productos · /img/anker_lineup.png</div></div>
+      </div>
+      <div class="spec">
+        <div class="row"><span class="sq fill"></span><span><b>F 3800</b> — respaldo para tu hogar completo</span></div>
+        <div class="row"><span class="sq fill"></span><span><b>F 2600</b> — lo esencial siempre prendido</span></div>
+        <div class="row"><span class="sq fill"></span><span><b>EverFrost</b> — la neverita que se mueve contigo</span></div>
+      </div>
+      <div class="foot">
+        <span class="gancho">Para que no te quedes sin carga — ni en casa, ni en el parque.</span>
+        <span class="tag">WindMar × Anker · Puerto Rico</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6 — CTA ═══ -->
+  <div class="piece has-bg" id="p6" style="--wsize:12cqw;">
+    <div class="bg"><img src="img/pr-anker-powerstation-playa.png" alt="Anker" crossorigin="anonymous"></div>
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="content">
+      <div class="brow"><img class="wlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"><img class="wlogo anklogo" src="wme/logos/anker-white-orange.png" alt="Anker"></div>
+      <span class="kick">Orientación gratis, sin compromiso</span>
+      <div class="hair"></div>
+      <div class="word">¿LA QUIERES<br>EN TU <span class="hl">CASA?</span></div>
+      <div class="subline">Te orientamos gratis y sin compromiso.</div>
+      <div class="foot" style="gap:2.6cqw;">
+        <span class="cta-chip">Comenta ANKER</span>
+        <div class="cta-checks">
+          <div class="c"><span class="sq">✓</span>Energía en casa y donde vayas</div>
+          <div class="c"><span class="sq">✓</span>Financiamiento disponible</div>
+        </div>
+        <span class="url">windmarhome.com</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="dot-row" id="dotRow"></div>
+</div>
+
+<script>
+  let cur = 1; const total = 6;
+  function buildDots(){const row=document.getElementById('dotRow');row.innerHTML='';for(let i=1;i<=total;i++){const d=document.createElement('div');d.className='dot'+(i===cur?' active':'');row.appendChild(d);}}
+  function go(dir){
+    document.getElementById('p'+cur).classList.remove('active');
+    cur=Math.max(1,Math.min(total,cur+dir));
+    document.getElementById('p'+cur).classList.add('active');
+    document.getElementById('counter').textContent=cur+' / '+total;
+    document.getElementById('prevBtn').disabled=cur===1;
+    document.getElementById('nextBtn').disabled=cur===total;
+    buildDots();
+  }
+  buildDots();
+
+  // product/photo image placeholders: reveal photo only when it actually loads
+  document.querySelectorAll('.viewport img, .bg img').forEach(img=>{
+    const zone=img.closest('.viewport');
+    if(zone){
+      img.addEventListener('load',()=>{ if(img.naturalWidth>1) zone.classList.add('loaded'); });
+      img.addEventListener('error',()=>{ zone.classList.remove('loaded'); img.style.display='none'; });
+      if(!img.getAttribute('src')) img.style.display='none';
+    } else {
+      // ambient background photo: if missing, fall back to navy so text stays legible
+      img.addEventListener('error',()=>{ img.style.display='none'; const p=img.closest('.piece'); if(p) p.style.background='linear-gradient(180deg,#123069,#050f2c)'; });
+    }
+  });
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function toPng(piece){
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1350px;z-index:-1;background:#fff';
+  const clone=piece.cloneNode(true);
+  clone.style.width='1080px';clone.style.height='1350px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';clone.style.display='block';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    await nextFrame(); await wait(120);
+    return await toBlob(clone,{width:1080,height:1350,pixelRatio:1,cacheBust:false,backgroundColor:'#ffffff'});
+  } finally { holder.remove(); }
+}
+async function downloadSlide(n){
+  const piece=document.getElementById('p'+n);
+  const blob=await toPng(piece); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download='windmar-anker-carrusel-'+n+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+const one=document.getElementById('dlOne');
+one.addEventListener('click',async()=>{const t=one.textContent;one.textContent='…';one.disabled=true;
+  try{ await downloadSlide(cur); }catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+  finally{ one.textContent=t;one.disabled=false; }});
+const all=document.getElementById('dlAll');
+all.addEventListener('click',async()=>{const t=all.textContent;all.disabled=true;
+  for(let n=1;n<=6;n++){ all.textContent='Generando '+n+'/6…'; try{ await downloadSlide(n); }catch(e){ console.error(e); } await wait(500); }
+  all.textContent=t;all.disabled=false;});
+</script>
+</body>
+</html>

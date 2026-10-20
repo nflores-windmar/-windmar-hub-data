@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Propuesta de Colaboración — WindMar Home × Mari Laura Teresa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   PROPUESTA DE COLABORACIÓN — versión con la marca WindMar Home.
+
+   EL TEXTO ES EL DEL PDF de Nicolle, salvo tres cambios que ella pidió
+   expresamente y que conviene tener presentes al revisar:
+     1. La colaboración es entre DOS partes (WindMar × Mari Laura). Platea PR
+        salió de la portada y de los encabezados.
+     2. La sección 05 ahora dice que Platea PR es producción contratada y
+        cubierta por WindMar, y que el video sí es entre los tres.
+     3. Se añadió la sección 08 de firmas: firman Mari Laura y WindMar. Platea
+        NO firma ni aprueba.
+   Todo lo demás —introducción, oferta, alcance, mensajes clave y pasos— sigue
+   palabra por palabra como lo escribió ella.
+
+   CÓMO SE EXPORTA A PDF
+     Botón «Guardar como PDF» arriba a la derecha (o ⌘P).
+     En el diálogo de impresión: tamaño Carta, márgenes «Ninguno»,
+     y marcar «Gráficos de fondo» para que salgan el navy y el naranja.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* Paleta oficial WindMar — la misma de la guía de marca. */
+  --navy:#0a2882; --navy-d:#071e55; --blue:#1a52c7; --blue-l:#4a84ea;
+  --orange:#f57c0a; --orange-l:#f9a84d;
+  --ink:#16204a; --muted:#5a6b8c; --rule:#dfe5f2; --soft:#f3f6fc;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  /* El documento usa SOLO las dos fuentes de marca: Bebas Neue para display
+     y Montserrat para todo lo demás. Lo que antes iba en DM Mono (etiquetas,
+     numeritos de sección, cabeceras) ahora es Montserrat 600 con tracking
+     abierto: hace el mismo trabajo de «etiqueta» sin meter una tercera fuente. */
+  --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#55607a;font-family:var(--body);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* ── la hoja ──────────────────────────────────────────────────────────────
+   Carta exacta. Todo el documento son hojas de 8.5×11 apiladas: lo que ves
+   en pantalla es exactamente lo que sale impreso, sin sorpresas de salto. */
+.page{position:relative;width:8.5in;height:11in;background:#fff;
+  margin:28px auto;padding:0.72in 0.8in 0.62in;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.28);display:flex;flex-direction:column}
+
+/* ── portada ─────────────────────────────────────────────────────────── */
+.cover{background:var(--navy-d);color:#fff;padding:0;justify-content:space-between;height:11in}
+/* Trama de rayos del sistema: le quita el plano muerto al navy sin competir
+   con el texto. Es la misma textura de los banners del festival. */
+.cover .mesh{position:absolute;inset:0;opacity:.07;
+  background-image:linear-gradient(0deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%),
+                   linear-gradient(90deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%);
+  background-size:0.5in 0.5in}
+.cover .bar{position:absolute;top:0;left:0;right:0;height:.13in;background:var(--orange)}
+.cover .ctop{position:relative;padding:1.15in 0.9in 0}
+.cover .cmid{position:relative;padding:0 0.9in}
+.cover .cbot{position:relative;padding:0 0.9in 0.95in}
+.cover img.logo{height:0.78in;width:auto;display:block}
+.cover .eyebrow{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--orange-l);margin-top:0.55in}
+.cover h1{font-family:var(--disp);font-size:52pt;line-height:.93;letter-spacing:.005em;
+  color:#fff;margin-top:0.16in}
+.cover h1 .o{color:var(--orange)}
+.cover .names{font-weight:700;font-size:13.5pt;line-height:1.5;color:#cfdcf7;
+  margin-top:0.26in}
+.cover .names b{color:#fff;font-weight:800}
+.cover .names.sub{font-size:10pt;font-weight:500;color:#9db4e6;margin-top:0.11in}
+.cover .names.sub b{color:#cfdcf7;font-weight:700}
+.cover .rule{height:3px;width:1.5in;background:var(--orange);margin:0.3in 0}
+.cover .meta{font-family:var(--mono);font-weight:500;font-size:8.5pt;letter-spacing:.1em;
+  text-transform:uppercase;color:#9db4e6;line-height:2}
+.cover .meta b{color:#fff;font-weight:700}
+.cover .site{font-family:var(--mono);font-weight:600;font-size:8.5pt;letter-spacing:.16em;
+  color:var(--orange-l);text-transform:uppercase;margin-top:0.22in}
+
+/* ── encabezado y pie de las hojas de contenido ───────────────────────── */
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:0.3in;
+  padding-bottom:0.09in;border-bottom:1.5px solid var(--rule);margin-bottom:0.26in}
+.rhead img{height:0.28in;width:auto;display:block}
+.rhead .t{font-family:var(--mono);font-weight:600;font-size:7pt;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.5}
+.rfoot{margin-top:auto;padding-top:0.13in;border-top:1.5px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-weight:600;font-size:7pt;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.rfoot .pg{color:var(--navy);font-weight:700}
+
+/* ── secciones ───────────────────────────────────────────────────────── */
+section{margin-bottom:0.27in}
+section:last-of-type{margin-bottom:0}
+/* El número de sección va en naranja y en mono: marca el paso sin robarle
+   peso al título, que es lo que la persona realmente busca al hojear. */
+.snum{font-family:var(--mono);font-weight:700;font-size:8pt;letter-spacing:.2em;
+  color:#b85a07;text-transform:uppercase}
+h2{font-family:var(--body);font-weight:800;font-size:17pt;line-height:1.15;
+  letter-spacing:-.015em;color:var(--navy);margin-top:3px}
+h2 .o{color:var(--orange)}
+.hair{height:3px;width:0.66in;background:var(--orange);margin:0.08in 0 0.13in}
+p{font-size:10pt;margin-bottom:0.105in}
+p:last-child{margin-bottom:0}
+strong,b{font-weight:700;color:var(--navy)}
+
+/* Frase destacada. En el original venía en negrita suelta dentro del párrafo;
+   aquí se saca a un bloque con filete naranja porque es la tesis del
+   documento y en una propuesta tiene que encontrarse de un vistazo. */
+.pull{border-left:4px solid var(--orange);background:var(--soft);
+  padding:0.13in 0.18in;margin:0.13in 0;border-radius:0 4px 4px 0}
+.pull p{font-size:10.5pt;margin:0}
+
+ul,ol{margin:0.08in 0 0.11in 0.24in}
+li{font-size:10pt;margin-bottom:0.055in;padding-left:0.04in}
+li::marker{color:var(--orange);font-weight:700}
+ul.clean{list-style:none;margin-left:0}
+ul.clean li{position:relative;padding-left:0.24in}
+ul.clean li::before{content:"";position:absolute;left:0;top:.42em;
+  width:8px;height:8px;background:var(--orange);border-radius:2px}
+
+/* ── tablas ──────────────────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;margin:0.11in 0;
+  border:1px solid var(--rule)}
+th{background:var(--navy);color:#fff;font-weight:700;font-size:8pt;
+  letter-spacing:.13em;text-transform:uppercase;text-align:left;
+  padding:0.08in 0.12in}
+td{padding:0.075in 0.12in;font-size:9.5pt;border-top:1px solid var(--rule);
+  vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--soft)}
+td.k{font-weight:700;color:var(--navy);white-space:nowrap;width:1.35in}
+
+/* Calendario a tres columnas. La del mes se encoge y la de Platea se fija
+   angosta para que la columna ancha siga siendo la de la colaboración:
+   el peso visual tiene que estar donde está el trabajo. */
+table.cal td.k{width:0.72in}
+table.cal th:last-child,table.cal td:last-child{width:1.75in;
+  border-left:1px solid var(--rule)}
+table.cal td.nil{color:#aab4c9;font-weight:600}
+
+/* ── lista de próximos pasos con casillas ────────────────────────────── */
+ul.steps{list-style:none;margin:0.14in 0 0;padding:0}
+ul.steps li{position:relative;padding:0.09in 0 0.09in 0.4in;
+  border-bottom:1px solid var(--rule);font-size:10.5pt;margin:0}
+ul.steps li:last-child{border-bottom:0}
+ul.steps li::before{content:"";position:absolute;left:0;top:0.105in;
+  width:0.19in;height:0.19in;border:2px solid var(--navy);border-radius:3px}
+
+/* ── bloque de firmas ─────────────────────────────────────────────────────
+   Dos cajas iguales: el acuerdo es entre dos partes y se ve a simple vista.
+   El hueco de arriba es aire real para firmar a mano, no decoración. */
+.sigs{display:grid;grid-template-columns:1fr 1fr;gap:0.45in;margin-top:0.3in}
+.sigbox .space{height:0.62in}
+.sigbox .line{height:1.5px;background:var(--navy)}
+.sigbox .who{font-weight:800;font-size:11pt;color:var(--navy);margin-top:0.09in}
+.sigbox .role{font-family:var(--mono);font-weight:600;font-size:7.5pt;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+  margin-top:0.02in}
+/* La línea de fecha es más corta y gris: es un dato que se llena, no un
+   rótulo que compite con el nombre. */
+.sigbox .date{font-family:var(--mono);font-weight:600;font-size:7.5pt;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+  margin-top:0.28in;padding-top:0.05in;border-top:1px solid var(--rule);
+  width:1.7in}
+
+/* Cierre cálido: es la última frase que lee y cierra en navy, no en blanco. */
+.closing{background:var(--navy);color:#fff;border-radius:5px;
+  padding:0.24in 0.28in;margin-top:0.24in}
+.closing p{font-size:11.5pt;font-weight:600;margin:0;color:#fff}
+.closing .sig{font-family:var(--mono);font-weight:600;font-size:8pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--orange-l);margin-top:0.14in}
+
+/* ── barra de acción, solo en pantalla ───────────────────────────────── */
+.toolbar{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:8px}
+.toolbar button,.toolbar .btn{font-family:var(--body);font-weight:700;font-size:12px;
+  border:none;border-radius:7px;padding:10px 15px;cursor:pointer;
+  background:var(--orange);color:#20140a;box-shadow:0 4px 14px rgba(0,0,0,.3);
+  text-decoration:none;display:inline-block;line-height:1.3}
+.toolbar .ghost{background:#fff;color:var(--navy)}
+
+@media print{
+  @page{size:letter;margin:0}
+  body{background:#fff}
+  .toolbar{display:none}
+  .page{margin:0;box-shadow:none;page-break-after:always;width:8.5in;height:11in}
+  .page:last-child{page-break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <!-- Dos caminos para bajarlo: el PDF ya generado (lo normal, sale igual
+       siempre) y la impresión del navegador por si quiere reimprimirlo. -->
+  <a class="btn" href="propuesta-marilaurateresa-platea.pdf"
+     download="Propuesta WindMar Home x Mari Laura Teresa.pdf">Descargar PDF</a>
+  <button class="ghost" onclick="window.print()">Imprimir</button>
+</div>
+
+<!-- ═══════════════════════════ 1 · PORTADA ═══════════════════════════ -->
+<div class="page cover">
+  <div class="mesh"></div>
+  <div class="bar"></div>
+
+  <div class="ctop">
+    <img class="logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+  </div>
+
+  <div class="cmid">
+    <div class="eyebrow">Propuesta de colaboración</div>
+    <h1>CUATRO REELS<br>CONTANDO<br><span class="o">TU EXPERIENCIA</span></h1>
+    <!-- La colaboración es entre DOS partes: WindMar y Mari Laura. Platea PR es
+         un servicio de producción que WindMar contrata y cubre, así que baja a
+         una línea aparte y no comparte el «×» de la portada. -->
+    <div class="names">
+      <b>WindMar Home</b> &nbsp;×&nbsp; <b>Mari Laura Teresa</b>
+    </div>
+    <div class="names sub">con un video colaborativo producido por <b>Platea PR</b></div>
+    <div class="rule"></div>
+    <div class="meta">
+      Preparado para &nbsp;<b>Mari Laura Teresa · @marilaurateresa</b><br>
+      Preparado por &nbsp;<b>Nicolle Flores · WindMar Home</b><br>
+      Fecha &nbsp;<b>13 de octubre de 2026</b>
+    </div>
+  </div>
+
+  <div class="cbot">
+    <div class="site">windmar.com &nbsp;·&nbsp; Puerto Rico</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 2 · HOJA 1 — introducción y oferta ══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Mari Laura Teresa</div>
+  </div>
+
+  <section>
+    <div class="snum">01</div>
+    <h2>Introducción y <span class="o">propósito</span></h2>
+    <div class="hair"></div>
+    <p>WindMar Home invita a Mari Laura Teresa (@marilaurateresa) a una colaboración de noviembre a enero para documentar, en tu voz, tu proceso como clienta y cómo WindMar te acompañó en cada paso.</p>
+    <div class="pull">
+      <p><strong>El propósito no es vender un producto. Es compartir la experiencia real de trabajar con nosotros:</strong> desde la primera orientación hasta el uso diario del equipo en tu hogar.</p>
+    </div>
+    <p>En WindMar creemos que nuestro trabajo no termina con la venta. Nuestro propósito es estar con nuestros clientes paso a paso y aportar a la comunidad para echar a Puerto Rico hacia adelante. Esta alianza busca llevar ese mensaje de forma auténtica, a través de tu contenido y tu comunidad.</p>
+    <p>Estamos emocionadas de presentarte la nueva serie de productos Anker. Con ellos, Anker ayuda a WindMar a seguir ayudando a nuestra comunidad, porque nuestro propósito es echar a Puerto Rico hacia adelante.</p>
+  </section>
+
+  <section>
+    <div class="snum">02</div>
+    <h2>Lo que <span class="o">ofrecemos</span></h2>
+    <div class="hair"></div>
+    <p>Como compensación por la colaboración, WindMar Home entrega a Mari Laura:</p>
+    <ul class="clean">
+      <li>Una batería portátil <strong>Anker SOLIX F2600</strong> — valorada en <strong>$3,490</strong>.</li>
+      <li>Una <strong>placa solar portátil de 200 W</strong> — valorada en <strong>$1,090</strong>.</li>
+    </ul>
+    <ul class="clean">
+      <li>Son tuyas para usar en tu hogar, apartamento o negocio durante y después de la colaboración.</li>
+      <li>Te permite mostrar el producto en uso real, desde tu propia experiencia.</li>
+      <li>Incluye acompañamiento del equipo de WindMar para orientación sobre los equipos y su uso.</li>
+    </ul>
+  </section>
+
+  <div class="rfoot"><div>windmar.com</div><div class="pg">Página 1 de 4</div></div>
+</div>
+
+<!-- ═══════════════════════════ 3 · HOJA 2 — alcance y mensajes clave ══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Mari Laura Teresa</div>
+  </div>
+
+  <section>
+    <div class="snum">03</div>
+    <h2>Alcance de la <span class="o">colaboración</span></h2>
+    <div class="hair"></div>
+    <p>La colaboración consiste en <strong>cuatro Reels en total</strong>: tres en el feed de Mari Laura publicados en colaboración con WindMar, y uno producido por Platea PR, que se detalla en la sección 05.</p>
+    <table>
+      <thead><tr><th>Elemento</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Vigencia</td><td>Noviembre 2026 a enero 2027</td></tr>
+        <tr><td class="k">Entregables</td><td>3 Reels en el feed de Mari Laura, publicados en colaboración con WindMar</td></tr>
+        <tr><td class="k">Formato</td><td>Reel de Instagram publicado como colaboración, para que salga en tu perfil y en el de WindMar a la vez</td></tr>
+        <tr><td class="k">Creatividad</td><td>Libertad creativa total: tú decides el concepto, tono y estilo</td></tr>
+        <tr><td class="k">Aprobación</td><td>Revisión breve de WindMar antes de publicar, solo para validar los datos técnicos</td></tr>
+      </tbody>
+    </table>
+    <p>Queremos que el contenido se sienta tuyo. No hay guion: solo pedimos que cada Reel incluya los mensajes clave de la siguiente sección.</p>
+  </section>
+
+  <section>
+    <div class="snum">04</div>
+    <h2>Mensajes clave <span class="o">en cada Reel</span></h2>
+    <div class="hair"></div>
+    <p>Cada video debe mencionar estos tres puntos, con tus propias palabras y como parte natural de tu historia, no como un anuncio:</p>
+    <ol>
+      <li><strong>Cuánto dura la batería</strong> — hasta 3 días de energía para equipos esenciales (nevera, teléfonos, router, luces y más).</li>
+      <li><strong>La cantidad de kilovatios</strong> — 2,560 Wh de capacidad (expandible a 5,120 Wh) y 2,400 W de salida (2,800 W pico).</li>
+      <li><strong>Es la solución para apartamentos y negocios</strong> — no requiere instalación en techo, ideal para quien no puede poner placas solares.</li>
+    </ol>
+    <p>WindMar te enviará una ficha con los datos técnicos oficiales para que los menciones con exactitud.</p>
+  </section>
+
+  <div class="rfoot"><div>windmar.com</div><div class="pg">Página 2 de 4</div></div>
+</div>
+
+<!-- ═══════════════════════════ 4 · HOJA 3 — Platea PR y calendario ══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Mari Laura Teresa</div>
+  </div>
+
+  <section>
+    <div class="snum">05</div>
+    <h2>Reel adicional <span class="o">con Platea PR</span></h2>
+    <div class="hair"></div>
+    <!-- El collab es de TRES cuentas: Platea, Mari Laura y WindMar (confirmado
+         13 oct 2026). Los terminos nuevos solo nombraban a Mari Laura y se
+         redacto asi por un momento; queda aclarado que WindMar tambien va.
+         Ojo con la distincion que sigue viva mas abajo: el VIDEO sale en tres
+         perfiles, pero el ACUERDO es solo entre WindMar y Mari Laura. Platea
+         es produccion contratada: no firma, no aprueba y no negocia terminos. -->
+    <p>Aparte de los tres Reels anteriores, Platea PR produce <strong>un Reel adicional</strong> con su propio equipo, publicado <strong>en colaboración con Mari Laura y WindMar</strong>. WindMar contrata y cubre esa producción; Mari Laura no asume costo ni gestión.</p>
+    <ul class="clean">
+      <li><strong>Objetivo:</strong> explicar cómo WindMar trajo la solución, cómo Mari Laura la vivió y por qué la compañía está dispuesta a aportar a la comunidad.</li>
+      <li><strong>Mensaje central:</strong> WindMar está con sus clientes paso a paso y trabaja para echar a Puerto Rico hacia adelante.</li>
+      <li><strong>Formato:</strong> Reel producido por el equipo de Platea PR y publicado como <strong>collab entre las tres cuentas</strong> — Platea PR, @marilaurateresa y WindMar — para que salga en los tres perfiles a la vez.</li>
+      <li><strong>Ventana de publicación:</strong> dentro de la vigencia del contrato, <strong>entre noviembre y enero</strong>.</li>
+      <li><strong>Pauta:</strong> esta publicación <strong>no incluye boosting ni pauta pagada</strong>.</li>
+      <li><strong>Participantes en cámara:</strong> Mari Laura, un portavoz de WindMar Home y Platea PR.</li>
+      <li><strong>Aprobación:</strong> el contenido y las fechas los acuerdan WindMar y Mari Laura.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="snum">06</div>
+    <h2>Calendario tentativo <span class="o">y entregables</span></h2>
+    <div class="hair"></div>
+    <p>La vigencia va de noviembre 2026 a enero 2027. El reparto de abajo es tentativo: las fechas exactas se acuerdan en la reunión inicial.</p>
+    <!-- Dos columnas de entregables: lo que corresponde a la colaboración
+         (WindMar × Mari Laura) y lo que corresponde al servicio de Platea PR.
+         El Reel de Platea NO se fija a un mes: los terminos solo dicen que se
+         publique dentro de la vigencia, asi que va como ventana debajo de la
+         tabla en vez de clavado en una fila que nadie acordo. -->
+    <table class="cal">
+      <thead><tr><th>Mes</th><th>Colaboración · WindMar × Mari Laura</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Noviembre</td><td>Entrega de la Anker SOLIX F2600 y la placa de 200 W + Reel #1 (el inicio del proceso con WindMar)</td></tr>
+        <tr><td class="k">Diciembre</td><td>Reel #2</td></tr>
+        <tr><td class="k">Enero</td><td>Reel #3 (cierre: cómo fue la experiencia completa)</td></tr>
+      </tbody>
+    </table>
+    <p>El <strong>Reel de Platea PR</strong> se publica en cualquier punto de la vigencia, entre noviembre y enero; la fecha la acuerdan WindMar, Platea y Mari Laura. Esa publicación no lleva boosting ni pauta pagada.</p>
+  </section>
+
+  <div class="rfoot"><div>windmar.com</div><div class="pg">Página 3 de 4</div></div>
+</div>
+
+<!-- ═══════════════════════════ 5 · HOJA 4 — próximos pasos y cierre ══════════════════════════ -->
+<div class="page closepage">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Mari Laura Teresa</div>
+  </div>
+
+  <section>
+    <div class="snum">07</div>
+    <h2>Próximos <span class="o">pasos</span></h2>
+    <div class="hair"></div>
+    <ul class="steps">
+      <li>Confirmar interés en la colaboración de noviembre a enero</li>
+      <li>Reunión inicial con WindMar para alinear fechas</li>
+      <li>Firma del acuerdo de colaboración</li>
+      <li>Entrega de la Anker SOLIX F2600, la placa de 200 W y la ficha técnica</li>
+    </ul>
+    <div class="closing">
+      <p>Estamos emocionados de construir esto contigo, Mari Laura. ¡Gracias por considerar ser parte de este proyecto!</p>
+      <div class="sig">WindMar Home · Puerto Rico</div>
+    </div>
+  </section>
+
+  <!-- Firmas: SOLO las dos partes de la colaboración. Platea PR no firma ni
+       aprueba porque es un servicio contratado, no una parte del acuerdo.
+       Por WindMar firma Manuel Palés Font, Branding Director. -->
+  <section class="firmas">
+    <div class="snum">08</div>
+    <h2>Firmas <span class="o">de aceptación</span></h2>
+    <div class="hair"></div>
+    <p>Al firmar, ambas partes aceptan la colaboración de noviembre 2026 a enero 2027 descrita en este documento.</p>
+    <div class="sigs">
+      <div class="sigbox">
+        <div class="space"></div>
+        <div class="line"></div>
+        <div class="who">Mari Laura Teresa</div>
+        <div class="role">@marilaurateresa</div>
+        <div class="date">Fecha</div>
+      </div>
+      <div class="sigbox">
+        <div class="space"></div>
+        <div class="line"></div>
+        <div class="who">Manuel Palés Font</div>
+        <div class="role">Branding Director &middot; WindMar Home</div>
+        <div class="date">Fecha</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rfoot"><div>windmar.com</div><div class="pg">Página 4 de 4</div></div>
+</div>
+
+</body>
+</html>

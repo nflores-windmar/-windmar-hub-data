@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WindMar Pros · Aprobación de Contenido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bp-navy:#0a2882; --bp-navy2:#071e55;
+    --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+    --bp-orange:#f57c0a;
+    --bp-grid:rgba(26,82,199,.07);
+    --bp-line:rgba(26,82,199,.32);
+    --bp-paper:#ffffff;
+    --bp-mono:'DM Mono',ui-monospace,monospace;
+    --bp-disp:'Anek Latin',sans-serif;
+    --bp-body:'DM Sans',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#e9eef7;font-family:var(--bp-body);color:var(--bp-navy);min-height:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 16px 80px;}
+
+  /* masthead */
+  .bp-mast{position:relative;background:var(--bp-paper);border:2px solid var(--bp-ink);border-radius:16px;padding:34px 38px 30px;margin-bottom:24px;overflow:hidden;}
+  .bp-mast::before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:32px 32px;}
+  .bp-mast > *{position:relative;z-index:1;}
+  .bp-tick{position:absolute;width:14px;height:14px;border:2px solid var(--bp-ink);background:var(--bp-paper);z-index:2;}
+  .bp-tick.tl{top:-2px;left:-2px;} .bp-tick.tr{top:-2px;right:-2px;} .bp-tick.bl{bottom:-2px;left:-2px;} .bp-tick.br{bottom:-2px;right:-2px;}
+  .bp-toprule{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--bp-ink-dark);padding-bottom:14px;border-bottom:1.5px solid var(--bp-ink);}
+  .bp-toprule .r{color:var(--bp-orange);}
+  .bp-kick{font-family:var(--bp-mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--bp-orange);font-weight:500;margin:22px 0 8px;display:flex;align-items:center;gap:12px;}
+  .bp-kick::before{content:"";width:34px;height:2px;background:var(--bp-orange);}
+  .bp-h1{font-family:var(--bp-disp);font-weight:800;font-size:clamp(38px,6vw,72px);line-height:.92;color:var(--bp-navy);letter-spacing:-1.5px;text-transform:uppercase;margin:0;}
+  .bp-h1 .o{color:var(--bp-orange);}
+  .bp-sub{font-family:var(--bp-body);font-size:14px;line-height:1.6;color:var(--bp-ink-dark);margin-top:14px;max-width:660px;}
+  .bp-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-family:var(--bp-mono);font-size:11px;color:var(--bp-ink-dark);align-items:center;}
+  .bp-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .bp-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--bp-ink);}
+  .bp-dot.ok{background:#16a34a;border-color:#16a34a;} .bp-dot.no{background:#dc2626;border-color:#dc2626;} .bp-dot.wait{background:transparent;}
+  .bp-sync{font-family:var(--bp-mono);font-size:10.5px;color:var(--bp-ink-dark);letter-spacing:.6px;margin-left:auto;}
+
+  /* team bar */
+  .teambar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 22px;font-family:var(--bp-mono);font-size:11px;}
+  .tbtn{font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:.5px;padding:8px 15px;border-radius:9px;border:1.5px solid var(--bp-line);background:var(--bp-paper);color:var(--bp-ink-dark);cursor:pointer;transition:all .15s;}
+  .tbtn:hover{border-color:var(--bp-ink);}
+  .tbtn.solid{background:linear-gradient(135deg,var(--bp-navy),var(--bp-navy2));color:#fff;border-color:transparent;}
+  .teamnote{color:var(--bp-ink-dark);opacity:.8;}
+  body:not(.team) .team-only{display:none !important;}
+
+  /* grid + cards */
+  .bp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px;}
+  .bp-card{position:relative;background:var(--bp-paper);border:1.5px solid var(--bp-ink);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(10,40,130,.08);}
+  .bp-card::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:28px 28px;}
+  .bp-card > *{position:relative;z-index:1;}
+  .bp-card-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1.5px solid var(--bp-ink);font-family:var(--bp-mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-ink-dark);}
+  .bp-status{font-family:var(--bp-mono);font-size:10px;font-weight:500;letter-spacing:1px;padding:3px 9px;border-radius:99px;border:1.5px solid var(--bp-line);text-transform:uppercase;}
+  .bp-status.ok{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.08);}
+  .bp-status.no{color:#dc2626;border-color:#dc2626;background:rgba(220,38,38,.08);}
+  .bp-status.wait{color:var(--bp-ink-dark);}
+  .bp-hd-chips{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+  .bp-pub{font-family:var(--bp-mono);font-size:10px;font-weight:500;letter-spacing:1px;padding:3px 9px;border-radius:99px;border:1.5px solid var(--bp-line);text-transform:uppercase;}
+  .bp-pub.draft{color:#64748b;border-color:#cbd5e1;background:rgba(100,116,139,.08);}
+  .bp-pub.rev{color:var(--bp-ink-dark);border-color:var(--bp-line);background:rgba(26,82,199,.06);}
+  .bp-pub.prog{color:var(--bp-orange);border-color:var(--bp-orange);background:rgba(245,124,10,.1);}
+  .bp-pub.pub{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.1);}
+  .bp-thumb{aspect-ratio:4/5;background:linear-gradient(135deg,#0f2d5e,#1e4d8c);position:relative;display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden;border-bottom:1.5px solid var(--bp-ink);}
+  .bp-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;}
+  .bp-thumb .ph{font-family:var(--bp-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:.8;text-align:center;padding:0 16px;line-height:1.7;}
+  .bp-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+  .bp-title{font-family:var(--bp-disp);font-weight:700;font-size:18px;line-height:1.15;color:var(--bp-navy);}
+  .bp-specs{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--bp-mono);font-size:11.5px;color:var(--bp-ink-dark);align-items:center;}
+  .bp-specs .k{color:var(--bp-orange);letter-spacing:.6px;text-transform:uppercase;font-size:10px;}
+  .bp-sectitle{font-family:var(--bp-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-ink-dark);margin-bottom:2px;}
+  .bp-caption{border:1px dashed var(--bp-line);border-radius:10px;padding:10px 12px;background:rgba(26,82,199,.03);font-size:13px;line-height:1.5;color:#243a5e;white-space:pre-wrap;}
+  .bp-caption.empty{color:#9aa8c4;font-style:italic;}
+
+  .bp-approvals{display:flex;flex-direction:column;gap:10px;border-top:1.5px dashed var(--bp-line);padding-top:12px;}
+  .bp-rev{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .bp-rev-name{font-family:var(--bp-mono);font-size:12px;font-weight:500;color:var(--bp-navy);display:flex;align-items:center;gap:7px;}
+  .bp-rev-name .ini{width:24px;height:24px;border-radius:50%;background:var(--bp-navy);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .bp-btns{display:flex;gap:6px;}
+  .bp-btn{font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:.5px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--bp-line);background:var(--bp-paper);color:var(--bp-ink-dark);cursor:pointer;transition:all .15s;}
+  .bp-btn:hover{border-color:var(--bp-ink);}
+  .bp-btn.ok.on{background:#16a34a;border-color:#16a34a;color:#fff;}
+  .bp-btn.no.on{background:#dc2626;border-color:#dc2626;color:#fff;}
+
+  .bp-comments{border-top:1.5px dashed var(--bp-line);padding-top:12px;display:flex;flex-direction:column;gap:8px;}
+  .bp-cmt{background:rgba(26,82,199,.04);border-left:2.5px solid var(--bp-ink);border-radius:0 8px 8px 0;padding:8px 11px;}
+  .bp-cmt .who{font-family:var(--bp-mono);font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--bp-orange);margin-bottom:2px;}
+  .bp-cmt .txt{font-size:12.5px;line-height:1.45;color:#243a5e;}
+  .bp-cmt .when{font-family:var(--bp-mono);font-size:9.5px;color:#9aa8c4;margin-top:3px;}
+  .bp-cmt-empty{font-family:var(--bp-mono);font-size:11px;color:#9aa8c4;letter-spacing:.4px;}
+  .bp-cmt-form{display:flex;flex-direction:column;gap:7px;}
+  .bp-cmt-form select,.bp-cmt-form textarea,.ed-in{font-family:var(--bp-body);font-size:12.5px;border:1.5px solid var(--bp-line);border-radius:8px;padding:8px 10px;color:var(--bp-navy);background:var(--bp-paper);width:100%;}
+  .bp-cmt-form textarea{resize:vertical;min-height:44px;}
+  .bp-cmt-send{align-self:flex-end;font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:.5px;background:linear-gradient(135deg,var(--bp-navy),var(--bp-navy2));color:#fff;border:none;border-radius:8px;padding:7px 16px;cursor:pointer;}
+
+  /* team editor inside card */
+  .ed-box{border-top:1.5px dashed var(--bp-orange);padding-top:12px;display:flex;flex-direction:column;gap:9px;background:rgba(245,124,10,.04);margin:0 -16px -14px;padding:12px 16px 16px;}
+  .ed-box .ed-h{font-family:var(--bp-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-orange);font-weight:500;}
+  .ed-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .ed-row > *{flex:1;min-width:120px;}
+  .ed-save{align-self:flex-start;font-family:var(--bp-mono);font-size:11px;font-weight:500;letter-spacing:.5px;background:var(--bp-orange);color:#fff;border:none;border-radius:8px;padding:8px 16px;cursor:pointer;}
+  .ed-file{font-family:var(--bp-mono);font-size:11px;}
+  .ed-up{font-family:var(--bp-mono);font-size:10.5px;color:var(--bp-ink-dark);}
+  .bp-empty{grid-column:1/-1;text-align:center;padding:60px 20px;border:1.5px dashed var(--bp-line);border-radius:14px;background:rgba(26,82,199,.02);}
+  .bp-empty .big{font-family:var(--bp-disp);font-weight:700;font-size:22px;color:var(--bp-navy);margin-bottom:6px;}
+  .bp-empty .sm{font-family:var(--bp-mono);font-size:12px;color:var(--bp-ink-dark);}
+  /* card actions (team only) */
+  .bp-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding-top:12px;border-top:1.5px dashed var(--bp-line);}
+  .bp-act{font-family:var(--bp-mono);font-size:10.5px;font-weight:500;letter-spacing:.5px;background:#fff;border:1.5px solid var(--bp-line);border-radius:8px;padding:7px 13px;cursor:pointer;color:var(--bp-ink-dark);transition:.12s;}
+  .bp-act:hover{border-color:var(--bp-ink);}
+  .bp-act.del{color:#dc2626;border-color:#dc2626;background:rgba(220,38,38,.05);}
+  .bp-act.del:hover{background:#dc2626;color:#fff;}
+  .bp-act.arch{color:#16a34a;border-color:#16a34a;background:rgba(22,163,74,.06);}
+  .bp-act.arch:hover{background:#16a34a;color:#fff;}
+  .bp-act.restore{color:var(--bp-navy);border-color:var(--bp-navy);}
+  .bp-act.restore:hover{background:var(--bp-navy);color:#fff;}
+  .bp-act.pub{color:var(--bp-orange);border-color:var(--bp-orange);background:rgba(245,124,10,.08);}
+  .bp-act.pub:hover{background:var(--bp-orange);color:#fff;}
+  .bp-pub.arch,.bp-status.arch{color:#64748b;border-color:#94a3b8;background:rgba(100,116,139,.08);}
+  /* archive section */
+  .bp-archwrap{margin-top:40px;}
+  .bp-archhd{display:flex;align-items:center;gap:10px;font-family:var(--bp-mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--bp-ink-dark);cursor:pointer;padding:12px 0;border-top:1.5px solid var(--bp-line);user-select:none;}
+  .bp-archhd .cnt{background:rgba(100,116,139,.12);border-radius:99px;padding:2px 9px;font-size:10px;}
+  .bp-archhd .arrow{margin-left:auto;transition:.2s;}
+  .bp-archwrap.open .bp-archhd .arrow{transform:rotate(180deg);}
+  .bp-archgrid{display:none;}
+  .bp-archwrap.open .bp-archgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;margin-top:8px;opacity:.85;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bp-mast">
+    <span class="bp-tick tl"></span><span class="bp-tick tr"></span><span class="bp-tick bl"></span><span class="bp-tick br"></span>
+    <div class="bp-toprule"><span>WindMar · Pros</span><span class="r">Aprobación de Contenido</span></div>
+    <div class="bp-kick">Revisión del cliente</div>
+    <h1 class="bp-h1">Aprobación<br><span class="o">WindMar Pros</span></h1>
+    <p class="bp-sub">Contenido técnico / profesional para <b>Instagram</b>. Revisa cada publicación: mira el video, la fecha y el caption. Deja tus comentarios y marca <b>Aprobar</b> o <b>Cambios</b>. Rafael Almonte y Manuel Pales aprueban este contenido.</p>
+    <div class="bp-legend">
+      <span><i class="bp-dot ok"></i> Aprobado</span>
+      <span><i class="bp-dot no"></i> Pide cambios</span>
+      <span><i class="bp-dot wait"></i> Pendiente</span>
+      <span class="bp-sync" id="sync">— sincronizando —</span>
+    </div>
+  </div>
+
+  <div class="teambar">
+    <button class="tbtn" id="teamToggle">Modo equipo · Subir contenido</button>
+    <button class="tbtn solid team-only" id="addBtn">+ Añadir publicación</button>
+    <button class="tbtn" id="notifyBtn" style="border-color:var(--bp-orange);color:var(--bp-orange);">📣 Avisar al equipo · verificar contenido</button>
+    <a class="tbtn" href="banco-de-ideas.html" style="text-decoration:none;border-color:var(--bp-orange);color:var(--bp-orange);">🎬 Banco de Ideas de Video</a>
+    <a class="tbtn" href="aprobaciones-florida.html" style="text-decoration:none;">📘 Aprobación WindMar Home FL</a>
+    <span class="teamnote team-only">Sube el video, escribe la red social, la fecha y el caption. El cliente lo verá aquí mismo.</span>
+  </div>
+
+  <div class="bp-grid" id="grid"></div>
+
+  <div class="bp-archwrap" id="pubwrap" style="display:none;">
+    <div class="bp-archhd" id="pubhd">✅ Publicados <span class="cnt" id="pubcnt">0</span> <span style="font-family:var(--bp-mono);font-size:10px;text-transform:none;letter-spacing:0;color:#94a3b8;">ya salieron — fuera del main</span> <span class="arrow">▾</span></div>
+    <div class="bp-archgrid" id="pubgrid"></div>
+  </div>
+
+  <div class="bp-archwrap team-only" id="archwrap" style="display:none;">
+    <div class="bp-archhd" id="archhd">📦 Archivo <span class="cnt" id="archcnt">0</span> <span style="font-family:var(--bp-mono);font-size:10px;text-transform:none;letter-spacing:0;color:#94a3b8;">piezas aprobadas y guardadas</span> <span class="arrow">▾</span></div>
+    <div class="bp-archgrid" id="archgrid"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  const SB_URL='https://mywxxipguoaqknoczgav.supabase.co';
+  const SB_KEY='sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
+  const BRAND='pros';
+  const REVIEWERS=[{key:'rafael',name:'Rafael Almonte',ini:'RA'},{key:'manuel',name:'Manuel Pales',ini:'MP'}];
+  const STATUSES=[
+    {v:'borrador',   label:'Borrador',    cls:'draft'},
+    {v:'revision',   label:'En revisión', cls:'rev'},
+    {v:'programado', label:'Programado',  cls:'prog'},
+    {v:'publicado',  label:'Publicado',   cls:'pub'},
+    {v:'archivado',  label:'Archivado',   cls:'arch'}
+  ];
+  const statusMeta=v=>STATUSES.find(s=>s.v===(v||'revision'))||STATUSES[1];
+  let sb=null;
+  try{ sb=window.supabase.createClient(SB_URL,SB_KEY); }catch(e){ console.error('Supabase init',e); }
+
+  let pieces=[], approvals={}, comments={};
+  const aKey=(p,r)=>p+'|'+r, cKey=p=>p;
+  const esc=s=>(s==null?'':String(s)).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+  function fmtDate(p){
+    if(!p.pub_date) return '—';
+    try{ const d=new Date(p.pub_date+'T00:00:00'); let s=d.toLocaleDateString('es',{day:'numeric',month:'long',year:'numeric'}); if(p.pub_time) s+=' · '+p.pub_time; return s; }
+    catch(e){ return p.pub_date; }
+  }
+  const fmtWhen=iso=>{ try{ return new Date(iso).toLocaleString('es',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
+
+  async function loadAll(){
+    if(!sb) throw new Error('sin supabase');
+    const [pc,ap,cm]=await Promise.all([
+      sb.from('client_pieces').select('*').eq('brand',BRAND).order('sort',{ascending:true}),
+      sb.from('client_approvals').select('piece_id,reviewer,decision').eq('brand',BRAND),
+      sb.from('client_comments').select('piece_id,author,body,created_at').eq('brand',BRAND).order('created_at',{ascending:true})
+    ]);
+    if(pc.error) throw pc.error;
+    pieces=pc.data||[];
+    approvals={}; (ap.data||[]).forEach(r=>{ if(r.decision) approvals[aKey(r.piece_id,r.reviewer)]=r.decision; });
+    comments={}; (cm.data||[]).forEach(r=>{ (comments[cKey(r.piece_id)]=comments[cKey(r.piece_id)]||[]).push(r); });
+  }
+
+  function overall(pid){
+    const decs=REVIEWERS.map(r=>approvals[aKey(pid,r.key)]);
+    if(decs.indexOf('negado')>=0) return {cls:'no',label:'Cambios pedidos'};
+    if(decs.length && decs.every(d=>d==='aprobado')) return {cls:'ok',label:'Aprobado'};
+    return {cls:'wait',label:'Pendiente'};
+  }
+
+  function cardHTML(p){
+    const pid=p.piece_id, st=overall(pid), cap=(p.caption||'').trim(), sm=statusMeta(p.status);
+    const media=p.video_url?`<video src="${esc(p.video_url)}" controls playsinline preload="metadata"></video>`:`<div class="ph">Sin video aún<br>· usa Modo equipo para subirlo ·</div>`;
+    const revs=REVIEWERS.map(r=>{const d=approvals[aKey(pid,r.key)];return `<div class="bp-rev"><span class="bp-rev-name"><span class="ini">${esc(r.ini)}</span>${esc(r.name)}</span><span class="bp-btns"><button class="bp-btn ok ${d==='aprobado'?'on':''}" onclick="bpDecide('${pid}','${r.key}','aprobado')">Aprobar</button><button class="bp-btn no ${d==='negado'?'on':''}" onclick="bpDecide('${pid}','${r.key}','negado')">Cambios</button></span></div>`;}).join('');
+    const cl=comments[cKey(pid)]||[];
+    const cH=cl.length?cl.map(c=>`<div class="bp-cmt"><div class="who">${esc(c.author)}</div><div class="txt">${esc(c.body)}</div><div class="when">${fmtWhen(c.created_at)}</div></div>`).join(''):'<div class="bp-cmt-empty">Sin comentarios aún.</div>';
+    const opts=REVIEWERS.map(r=>`<option value="${esc(r.name)}">${esc(r.name)}</option>`).join('');
+    const ed=`<div class="ed-box team-only">
+        <div class="ed-h">Modo equipo · detalles de la publicación</div>
+        <div class="ed-row">
+          <input class="ed-in" id="f-platform-${pid}" placeholder="Red social (ej. Instagram)" value="${esc(p.platform||'')}">
+          <select class="ed-in" id="f-status-${pid}">${STATUSES.map(s=>`<option value="${s.v}" ${sm.v===s.v?'selected':''}>${s.label}</option>`).join('')}</select>
+        </div>
+        <div class="ed-row">
+          <input class="ed-in" id="f-date-${pid}" type="date" value="${esc(p.pub_date||'')}">
+          <input class="ed-in" id="f-time-${pid}" placeholder="Hora (ej. 3:00 PM)" value="${esc(p.pub_time||'')}">
+        </div>
+        <textarea class="ed-in" id="f-caption-${pid}" placeholder="Caption de la publicación…" style="min-height:60px;">${esc(p.caption||'')}</textarea>
+        <div class="ed-row"><input class="ed-in ed-file" id="f-video-${pid}" type="file" accept="video/*"></div>
+        <div class="ed-up" id="up-${pid}"></div>
+        <button class="ed-save" onclick="savePiece('${pid}')">Guardar detalles</button>
+      </div>`;
+    const isArch=(p.status==='archivado'), isPub=(p.status==='publicado');
+    let actBtns;
+    if(isArch){
+      actBtns=`<button class="bp-act restore" onclick="restorePiece('${pid}')">♻️ Restaurar</button><button class="bp-act del" onclick="deletePiece('${pid}')">🗑 Eliminar</button>`;
+    }else if(isPub){
+      actBtns=`<button class="bp-act restore" onclick="unpublishPiece('${pid}')">↩︎ Volver a revisión</button><button class="bp-act arch" onclick="archivePiece('${pid}')">📦 Archivar</button>`;
+    }else if(st.cls==='ok'){
+      actBtns=`<button class="bp-act pub" onclick="publishPiece('${pid}')">✅ Marcar publicado</button><button class="bp-act arch" onclick="archivePiece('${pid}')">📦 Archivar</button>`;
+    }else{
+      actBtns=`<button class="bp-act pub" onclick="publishPiece('${pid}')">✅ Marcar publicado</button><button class="bp-act del" onclick="deletePiece('${pid}')">🗑 Eliminar pieza</button>`;
+    }
+    const actions=`<div class="bp-actions team-only">${actBtns}</div>`;
+    return `<div class="bp-card">
+      <div class="bp-card-hd"><span>Pieza · ${esc(p.format||'Contenido')}</span><span class="bp-hd-chips"><span class="bp-pub ${sm.cls}">${sm.label}</span><span class="bp-status ${st.cls}">${st.label}</span></span></div>
+      <div class="bp-thumb">${media}</div>
+      <div class="bp-body">
+        <div class="bp-title">${esc(p.title||'Sin título')}</div>
+        <div class="bp-specs"><span class="k">Red</span><span>${esc(p.platform||'—')}</span><span class="k">Fecha</span><span>${esc(fmtDate(p))}</span></div>
+        <div><div class="bp-sectitle">Caption</div><div class="bp-caption ${cap?'':'empty'}">${cap?esc(cap):'El caption se agregará aquí.'}</div></div>
+        <div class="bp-approvals">${revs}</div>
+        <div class="bp-comments"><div class="bp-sectitle">Comentarios</div>${cH}
+          <div class="bp-cmt-form"><select id="ca-${pid}">${opts}</select><textarea id="ct-${pid}" placeholder="Escribe un comentario sobre este video…"></textarea><button class="bp-cmt-send" onclick="bpAddComment('${pid}')">Enviar comentario</button></div>
+        </div>
+        ${ed}
+        ${actions}
+      </div>
+    </div>`;
+  }
+
+  function draw(){
+    const grid=document.getElementById('grid');
+    const active=pieces.filter(p=>p.status!=='archivado' && p.status!=='publicado');
+    const published=pieces.filter(p=>p.status==='publicado');
+    const archived=pieces.filter(p=>p.status==='archivado');
+    if(!active.length){ grid.innerHTML='<div class="bp-empty"><div class="big">Aún no hay contenido</div><div class="sm">Activa “Modo equipo” y usa “+ Añadir publicación”.</div></div>'; }
+    else{ grid.innerHTML=active.map(cardHTML).join(''); }
+    const pw=document.getElementById('pubwrap');
+    if(published.length){
+      pw.style.display='';
+      document.getElementById('pubcnt').textContent=published.length;
+      document.getElementById('pubgrid').innerHTML=published.map(cardHTML).join('');
+    }else{ pw.style.display='none'; }
+    const aw=document.getElementById('archwrap');
+    if(archived.length){
+      aw.style.display='';
+      document.getElementById('archcnt').textContent=archived.length;
+      document.getElementById('archgrid').innerHTML=archived.map(cardHTML).join('');
+    }else{ aw.style.display='none'; }
+  }
+
+  async function refresh(){
+    const sync=document.getElementById('sync');
+    sync.textContent='— sincronizando —';
+    try{ await loadAll(); sync.textContent='sincronizado con el equipo ✓'; }
+    catch(e){ sync.textContent='sin conexión'; console.error(e); }
+    draw();
+  }
+
+  window.bpDecide=async function(pid,rev,decision){
+    const cur=approvals[aKey(pid,rev)], next=(cur===decision)?null:decision;
+    if(next===null) delete approvals[aKey(pid,rev)]; else approvals[aKey(pid,rev)]=next;
+    draw();
+    if(!sb) return;
+    try{
+      if(next===null){ await sb.from('client_approvals').delete().match({brand:BRAND,piece_id:pid,reviewer:rev}); }
+      else{ const p=pieces.find(x=>x.piece_id===pid); await sb.from('client_approvals').upsert({brand:BRAND,piece_id:pid,piece_title:p?p.title:null,reviewer:rev,decision:next,updated_at:new Date().toISOString()},{onConflict:'brand,piece_id,reviewer'}); }
+    }catch(e){ console.error('guardar decisión',e); alert('No se pudo guardar. Revisa la conexión.'); }
+  };
+
+  window.bpAddComment=async function(pid){
+    const a=document.getElementById('ca-'+pid), t=document.getElementById('ct-'+pid);
+    const author=a?a.value:'Cliente', body=(t?t.value:'').trim();
+    if(!body) return;
+    (comments[cKey(pid)]=comments[cKey(pid)]||[]).push({author,body,created_at:new Date().toISOString()});
+    if(t) t.value=''; draw();
+    if(!sb) return;
+    try{ await sb.from('client_comments').insert({brand:BRAND,piece_id:pid,author,body}); }
+    catch(e){ console.error('guardar comentario',e); }
+  };
+
+  window.savePiece=async function(pid){
+    const g=id=>document.getElementById(id+'-'+pid);
+    const platform=g('f-platform').value.trim(), pub_date=g('f-date').value, pub_time=g('f-time').value.trim(), caption=g('f-caption').value, status=g('f-status').value;
+    const fileEl=g('f-video'), up=document.getElementById('up-'+pid);
+    let video_url;
+    try{
+      if(fileEl && fileEl.files && fileEl.files[0]){
+        const f=fileEl.files[0];
+        if(up) up.textContent='Subiendo video…';
+        const ext=(f.name.split('.').pop()||'mp4').toLowerCase();
+        const path=BRAND+'/'+pid+'-'+Date.now()+'.'+ext;
+        const { error:upErr }=await sb.storage.from('client-media').upload(path,f,{upsert:true,contentType:f.type});
+        if(upErr) throw upErr;
+        video_url=sb.storage.from('client-media').getPublicUrl(path).data.publicUrl;
+      }
+      const patch={platform,pub_date:pub_date||null,pub_time,caption,status,updated_at:new Date().toISOString()};
+      if(video_url) patch.video_url=video_url;
+      const { error }=await sb.from('client_pieces').update(patch).match({brand:BRAND,piece_id:pid});
+      if(error) throw error;
+      if(up) up.textContent='Guardado ✓';
+      await refresh();
+    }catch(e){ console.error('guardar pieza',e); if(up) up.textContent=''; alert('No se pudo guardar: '+(e.message||e)); }
+  };
+
+  window.addPiece=async function(){
+    const title=prompt('Título de la publicación:'); if(!title) return;
+    const format=prompt('Formato (Reel, Carrusel, Historia…):','Reel')||'';
+    const pid='fl-'+Date.now();
+    const sort=(pieces.reduce((m,p)=>Math.max(m,p.sort||0),0))+1;
+    try{ const { error }=await sb.from('client_pieces').insert({brand:BRAND,piece_id:pid,title,format,sort}); if(error) throw error; await refresh(); }
+    catch(e){ console.error('añadir',e); alert('No se pudo añadir: '+(e.message||e)); }
+  };
+
+  window.archivePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Archivar «'+((p&&p.title)||'esta pieza')+'»?\n\nSe moverá a la sección Archivo (queda guardada, no se borra).')) return;
+    if(p) p.status='archivado'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'archivado',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('archivar',e); alert('No se pudo archivar: '+(e.message||e)); await refresh(); }
+  };
+
+  window.restorePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(p) p.status='revision'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'revision',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('restaurar',e); alert('No se pudo restaurar: '+(e.message||e)); await refresh(); }
+  };
+
+  window.publishPiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Marcar «'+((p&&p.title)||'esta pieza')+'» como PUBLICADO?\n\nSaldrá del main y se moverá a la sección “Publicados”.')) return;
+    if(p) p.status='publicado'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'publicado',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('publicar',e); alert('No se pudo marcar como publicado: '+(e.message||e)); await refresh(); }
+  };
+
+  window.unpublishPiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(p) p.status='revision'; draw();
+    if(!sb) return;
+    try{ const { error }=await sb.from('client_pieces').update({status:'revision',updated_at:new Date().toISOString()}).match({brand:BRAND,piece_id:pid}); if(error) throw error; }
+    catch(e){ console.error('despublicar',e); alert('No se pudo volver a revisión: '+(e.message||e)); await refresh(); }
+  };
+
+  window.deletePiece=async function(pid){
+    const p=pieces.find(x=>x.piece_id===pid);
+    if(!confirm('¿Eliminar «'+((p&&p.title)||'esta pieza')+'» permanentemente?\n\nSe borrarán también sus aprobaciones y comentarios. Esta acción no se puede deshacer.')) return;
+    pieces=pieces.filter(x=>x.piece_id!==pid); draw();
+    if(!sb) return;
+    try{
+      await Promise.all([
+        sb.from('client_comments').delete().match({brand:BRAND,piece_id:pid}),
+        sb.from('client_approvals').delete().match({brand:BRAND,piece_id:pid})
+      ]);
+      const { error }=await sb.from('client_pieces').delete().match({brand:BRAND,piece_id:pid});
+      if(error) throw error;
+    }catch(e){ console.error('eliminar',e); alert('No se pudo eliminar: '+(e.message||e)); await refresh(); }
+  };
+
+  // notify the whole team (fires one Teams alert per person via the DB trigger)
+  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Rafael Almonte','Miguel Torres','Aaron Myers','Nicolle Flores'];
+  window.notifyAll=async function(){
+    if(!sb){ alert('Sin conexión. Intenta de nuevo.'); return; }
+    const btn=document.getElementById('notifyBtn');
+    if(!confirm('¿Avisar a TODO el equipo para que verifique el contenido pendiente?\n\nSe enviará una notificación a Teams a:\n• '+NOTIFY_TEAM.join('\n• '))) return;
+    const orig=btn.textContent; btn.disabled=true; btn.textContent='Enviando avisos…';
+    try{
+      const now=new Date().toISOString();
+      const rows=NOTIFY_TEAM.map(function(name){
+        return { brand:BRAND, piece_id:'general', author:'Equipo WindMar',
+          body:'@@['+name+']@@ Por favor revisa y verifica el contenido pendiente en el portal de WindMar Pros.', created_at:now };
+      });
+      const { error }=await sb.from('client_comments').insert(rows);
+      if(error) throw error;
+      btn.textContent='✓ Equipo notificado';
+      setTimeout(function(){ btn.disabled=false; btn.textContent=orig; },4000);
+    }catch(e){ console.error('notificar equipo',e); btn.disabled=false; btn.textContent=orig; alert('No se pudo enviar el aviso: '+(e.message||e)); }
+  };
+  document.getElementById('notifyBtn').addEventListener('click',()=>window.notifyAll());
+
+  // team mode toggle (remembered on this device)
+  const TEAM_KEY='wm-fl-team';
+  function setTeam(on){ document.body.classList.toggle('team',on); localStorage.setItem(TEAM_KEY,on?'1':'0'); document.getElementById('teamToggle').textContent=on?'Modo equipo: ACTIVO':'Modo equipo · Subir contenido'; document.getElementById('teamToggle').classList.toggle('solid',on); }
+  document.getElementById('teamToggle').addEventListener('click',()=>setTeam(!document.body.classList.contains('team')));
+  document.getElementById('addBtn').addEventListener('click',()=>window.addPiece());
+  document.getElementById('archhd').addEventListener('click',()=>document.getElementById('archwrap').classList.toggle('open'));
+  document.getElementById('pubhd').addEventListener('click',()=>document.getElementById('pubwrap').classList.toggle('open'));
+  setTeam(localStorage.getItem(TEAM_KEY)==='1');
+
+  refresh();
+})();
+</script>
+</body>
+</html>

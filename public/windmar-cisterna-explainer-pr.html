@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Water PR · Cómo funciona una cisterna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  --disp:'Bebas Neue',Impact,sans-serif; --anton:'Anton',Impact,sans-serif;
+  --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--mono);padding:26px}
+.wrap{max-width:1600px;margin:0 auto}
+
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px}
+h1.pt{font-family:var(--disp);font-size:26px;letter-spacing:.4px}
+h1.pt .o{color:var(--orange)}
+.subt{color:#8fa0c6;font-size:13px;margin-top:5px;line-height:1.55}
+.subt b{color:#e7edfb}
+
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:13px 15px;
+  font-size:13px;color:#c9d6f5;margin:16px 0;line-height:1.6}
+.note b{color:var(--orange)}
+.note i{color:#9fb0d4;font-style:normal}
+.note ul{margin:8px 0 0 18px}
+.note li{margin-bottom:4px}
+
+/* selector de dirección: las mismas 7 tarjetas, tres vestidos distintos */
+.picker{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0 4px;
+  background:#111c3d;border:1px solid rgba(28,123,255,.26);border-radius:12px;padding:10px 12px}
+.picker .lbl{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8fa0c6;margin-right:4px}
+.picker button{font-family:var(--mono);font-size:12.5px;font-weight:700;padding:9px 15px;border-radius:9px;
+  border:1.5px solid rgba(28,123,255,.45);background:transparent;color:#9fc2ff;cursor:pointer;transition:.15s}
+.picker button:hover{border-color:var(--blue);color:#fff}
+.picker button.on{background:var(--orange);border-color:var(--orange);color:#1a1206}
+.dirdesc{color:#9fb0d4;font-size:13px;line-height:1.65;margin:12px 0 0;max-width:980px}
+.dirdesc b{color:#e7edfb}
+.fontnote{display:inline-block;margin-top:8px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;color:#7fb0ff;border:1.5px solid rgba(28,123,255,.45);border-radius:6px;padding:4px 10px}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 2px}
+.allbtn{font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 15px;border-radius:9px;border:none;
+  cursor:pointer;background:var(--orange);color:#1a1206}
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:14px}
+.slot{display:flex;flex-direction:column;gap:9px;width:368px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-size:11px;color:#8fa0c6;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.cap .q{color:#1a1206;background:var(--orange);border-radius:4px;padding:2px 6px;margin-left:6px;
+  font-weight:700;letter-spacing:.08em}
+.dl{font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(28,123,255,.5);
+  background:transparent;color:#7fb0ff;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--blue);background:var(--blue);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ═══════════════ CAJA 4:5 (1080×1350) ═══════════════ */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:368px;aspect-ratio:4/5;border-radius:14px;background:var(--paper);color:var(--ink);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);border:1px solid #26375f}
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:7cqw 6.5cqw 6cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+
+svg.art{width:100%;height:auto;display:block;overflow:visible;
+  stroke:var(--navy);stroke-width:2.1;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+svg.art .wash{fill:var(--wash);stroke:none}
+svg.art .acc{stroke:var(--orange)}
+svg.art .thin{stroke-width:1.2;opacity:.55}
+svg.art .dash{stroke-dasharray:5 4;opacity:.7}
+
+.foot{display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw}
+.foot .site{font-family:var(--mono);font-weight:600;font-size:2.4cqw;letter-spacing:.06em;color:var(--navy2);
+  display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:11cqw;width:auto;display:block}
+
+/* El dato que falta se pinta como hueco, no se rellena con un invento. El dibujo
+   baja a 26% y el bloque naranja dice exactamente qué falta y quién lo tiene. */
+.piece.isgap svg.art{opacity:.26}
+.gapbox{background:#FFF4E2;border-left:.8cqw solid var(--orange);border-radius:1.6cqw;
+  padding:2.8cqw 3.2cqw;font-family:var(--mono);font-size:2.5cqw;line-height:1.5;color:#4a3a22}
+.gapbox b{color:#2d2110;font-weight:800;display:block;font-size:2.6cqw;letter-spacing:.1em;
+  text-transform:uppercase;margin-bottom:.9cqw}
+
+/* ══════════════════════════════════════════════════════════════════
+   D1 · TITULAR QUE LLENA LA TARJETA — Bebas a 17cqw, interlínea .84
+   ══════════════════════════════════════════════════════════════════ */
+.d1 .kick{font-family:var(--mono);font-weight:700;font-size:2.3cqw;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--orange)}
+.d1 .big{font-family:var(--disp);font-size:17cqw;line-height:.84;letter-spacing:-.005em;color:var(--navy);
+  margin-top:2.6cqw;text-transform:uppercase}
+.d1 .big em{font-style:normal;color:var(--orange)}
+.d1 .rule{width:22cqw;height:1.1cqw;background:var(--orange);border-radius:1cqw;margin:4cqw 0 0}
+.d1 .artbox{margin-top:auto;display:flex;align-items:flex-end;gap:4cqw}
+.d1 .artbox svg{max-height:30cqw;flex:1}
+.d1 .sub{font-family:var(--mono);font-weight:500;font-size:2.7cqw;line-height:1.5;color:var(--navy2);
+  flex:0 0 38cqw;padding-bottom:1cqw}
+.d1 .stepno{position:absolute;z-index:3;top:6cqw;right:6.5cqw;font-family:var(--disp);font-size:11cqw;line-height:1;
+  color:transparent;-webkit-text-stroke:.4cqw rgba(10,40,130,.3)}
+.d1 .foot{margin-top:5cqw;padding-top:3.4cqw;border-top:.3cqw solid rgba(10,40,130,.16)}
+/* en la tarjeta del hueco el aviso ocupa el lugar del texto chico */
+.d1.isgap .artbox svg{max-height:24cqw}
+.d1.isgap .gapbox{flex:0 0 46cqw}
+
+/* ══════════════════════════════════════════════════════════════════
+   D2 · CAMPO DE COLOR — Anton sobre navy / blanco / naranja alternos
+   ══════════════════════════════════════════════════════════════════ */
+.d2{background:var(--navy)}
+.d2 .field{position:absolute;inset:0;z-index:0}
+.d2 .field::after{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:9cqw 9cqw}
+.d2 .numfield{position:absolute;z-index:1;right:-6cqw;bottom:-14cqw;font-family:var(--anton);font-size:68cqw;
+  line-height:.8;color:rgba(255,255,255,.1)}
+.d2 .kick{font-family:var(--mono);font-weight:800;font-size:2.3cqw;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--orange)}
+.d2 .big{font-family:var(--anton);font-size:13.4cqw;line-height:.92;letter-spacing:-.018em;color:#fff;
+  margin-top:3cqw;text-transform:uppercase}
+.d2 .big em{font-style:normal;color:var(--orange)}
+.d2 .artbox{margin-top:auto;display:flex;justify-content:center;padding:4cqw 0 2cqw}
+.d2 .artbox svg{max-height:34cqw;stroke:#fff;stroke-width:2.4}
+.d2 .artbox svg .wash{fill:rgba(255,255,255,.12)}
+.d2 .artbox svg .thin{stroke:rgba(255,255,255,.5)}
+.d2 .sub{font-family:var(--mono);font-weight:500;font-size:2.8cqw;line-height:1.5;color:#c3d2f3;max-width:80cqw}
+.d2 .foot{margin-top:4.4cqw;padding-top:3.4cqw;border-top:.3cqw solid rgba(255,255,255,.22)}
+.d2 .foot .site{color:#fff}
+/* los titulares de cuatro renglones no caben a 13.4cqw: el logo se sale por abajo */
+.d2.lede .big{font-size:11.6cqw}
+.d2.lede .artbox svg{max-height:27cqw}
+
+.d2.on-orange{background:var(--orange)}
+.d2.on-orange .field::after{background-image:linear-gradient(rgba(10,40,130,.1) 1px,transparent 1px),
+                                             linear-gradient(90deg,rgba(10,40,130,.1) 1px,transparent 1px)}
+.d2.on-orange .numfield{color:rgba(10,40,130,.14)}
+.d2.on-orange .kick{color:var(--navy)}
+.d2.on-orange .big{color:var(--navy)}
+.d2.on-orange .big em{color:#fff}
+.d2.on-orange .artbox svg{stroke:var(--navy)}
+.d2.on-orange .artbox svg .wash{fill:rgba(10,40,130,.12)}
+.d2.on-orange .artbox svg .acc{stroke:#fff}
+.d2.on-orange .artbox svg .thin{stroke:rgba(10,40,130,.5)}
+.d2.on-orange .sub{color:#4a2c05}
+.d2.on-orange .foot{border-top-color:rgba(10,40,130,.28)}
+.d2.on-orange .foot .site{color:var(--navy)}
+.d2.on-orange .foot .site .d{background:var(--navy)}
+
+/* Azul #1c7bff NO es un color nuevo: es el --blue que ya está en los archivos
+   blueprint aprobados. Entra para tapar el hueco que abría la tarjeta blanca.
+   Sobre azul el titular va blanco y el acento va navy — el naranja contra este
+   azul da 1.3:1, se vuelve ilegible, así que aquí el acento cambia. */
+.d2.on-blue{background:var(--blue)}
+.d2.on-blue .field::after{background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),
+                                           linear-gradient(90deg,rgba(255,255,255,.12) 1px,transparent 1px)}
+.d2.on-blue .numfield{color:rgba(255,255,255,.14)}
+.d2.on-blue .kick{color:#fff}
+.d2.on-blue .big{color:#fff}
+.d2.on-blue .big em{color:var(--navy)}
+.d2.on-blue .artbox svg{stroke:#fff}
+.d2.on-blue .artbox svg .wash{fill:rgba(255,255,255,.16)}
+.d2.on-blue .artbox svg .acc{stroke:var(--navy)}
+.d2.on-blue .artbox svg .thin{stroke:rgba(255,255,255,.55)}
+.d2.on-blue .sub{color:#dde9ff}
+.d2.on-blue .foot{border-top-color:rgba(255,255,255,.3)}
+.d2.on-blue .foot .site{color:#fff}
+
+.d2.on-white{background:var(--paper)}
+.d2.on-white .field::after{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                                            linear-gradient(90deg,var(--grid) 1px,transparent 1px)}
+.d2.on-white .numfield{color:rgba(10,40,130,.08)}
+.d2.on-white .big{color:var(--navy)}
+.d2.on-white .artbox svg{stroke:var(--navy)}
+.d2.on-white .artbox svg .wash{fill:var(--wash)}
+.d2.on-white .artbox svg .thin{stroke:rgba(10,40,130,.5)}
+.d2.on-white .sub{color:var(--navy2)}
+.d2.on-white .foot{border-top-color:rgba(10,40,130,.16)}
+.d2.on-white .foot .site{color:var(--navy2)}
+
+/* ══════════════════════════════════════════════════════════════════
+   D3 · PALABRA GIGANTE — una palabra cortada por el borde, dibujo encima
+   ══════════════════════════════════════════════════════════════════ */
+.d3{background:var(--paper)}
+.d3 .word{position:absolute;z-index:1;left:-4cqw;top:40cqw;font-family:var(--anton);
+  font-size:var(--ws);line-height:.78;letter-spacing:-.03em;color:var(--wash);white-space:nowrap}
+.d3 .word.stroke{color:transparent;-webkit-text-stroke:.5cqw rgba(10,40,130,.22)}
+.d3 .artwrap{position:absolute;z-index:2;left:13cqw;right:13cqw;top:46cqw}
+.d3 .artwrap svg{max-height:36cqw}
+.d3 .kick{font-family:var(--mono);font-weight:800;font-size:2.3cqw;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--orange)}
+.d3 .ttl{font-family:var(--anton);font-size:13cqw;line-height:.92;letter-spacing:-.022em;color:var(--navy);
+  margin-top:2.6cqw;text-transform:uppercase;max-width:84cqw}
+.d3 .ttl em{font-style:normal;color:var(--orange)}
+.d3 .sub{font-family:var(--mono);font-weight:500;font-size:2.8cqw;line-height:1.5;color:var(--navy2);max-width:76cqw}
+.d3 .bottom{margin-top:auto;position:relative;z-index:5}
+.d3 .rule{width:22cqw;height:1.1cqw;background:var(--orange);border-radius:1cqw;margin:0 0 3.4cqw}
+.d3 .foot{margin-top:4cqw}
+.d3 .stepno{position:absolute;z-index:5;top:6.4cqw;right:6.5cqw;font-family:var(--anton);font-size:7cqw;
+  line-height:1;color:var(--orange)}
+/* Un titular de tres renglones baja hasta 40cqw y choca con la palabra gigante
+   —se ve PRESIÓN encima de PRESIÓN—. En esos casos la palabra y el dibujo bajan. */
+.d3.t3 .word{top:52cqw}
+.d3.t3 .artwrap{top:57cqw}
+.d3.t3 .artwrap svg{max-height:30cqw}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1 class="pt">WindMar Water · Puerto Rico — <span class="o">Cómo funciona una cisterna</span></h1>
+  <div class="subt">
+    6 tarjetas en 4:5 (1080×1350) — portada, 4 pasos y cierre. El texto sale
+    <b>literal del editorial de agua ya publicado</b> (<i>editorial_agua.html</i>) — no reescribí la copia.
+    Cambia la dirección con los botones de abajo: son las mismas tarjetas con los tres vestidos tipográficos.
+  </div>
+</header>
+
+<div class="note">
+  <b>Los colores fuertes, y una regla que hay que decidir.</b>
+  Saqué la tarjeta blanca de D2: puesta en la grilla del perfil abría un hueco pálido entre fondos
+  saturados y rompía el ritmo. En su lugar entró el <b>azul #1c7bff</b>, que no es un color nuevo —
+  es el <i>--blue</i> que ya está en los archivos blueprint aprobados.
+  <br><br>
+  Ahora el botón <b>«Paleta»</b> cambia entre dos versiones de D2:
+  <b>Navy · Naranja · Azul</b> (la más fuerte) y <b>Navy · Azul</b> (naranja solo de acento).
+  Las separo porque en <i>fundamentos-diseno.md</i> hay una regla escrita que dice
+  «<i>que el naranja sea acento y nunca fondo</i>», y la primera versión la rompe de frente.
+  No la salté por mi cuenta: o es una excepción que tú apruebas para esta serie, o nos quedamos
+  con la de dos tonos. <b>Dime cuál.</b>
+</div>
+
+<div class="note">
+  <b>De dónde entra el agua quedó fuera, y está bien así.</b>
+  No hay nada publicado que diga si la cisterna se llena de la línea de la AAA, de captación de lluvia o de
+  camión — y nadie lo tiene a mano. Pero el explicador no lo necesita:
+  <i>el editorial de agua tampoco lo menciona nunca</i> y funciona igual, porque para el cliente la historia
+  es «ya tienes servicio, la cisterna guarda una reserva para que no te quedes sin agua cuando se vaya».
+  De dónde se llena es un detalle de instalación, no parte del cómo funciona.
+  <br><br>
+  Si algún día aparece el dato, el botón <b>«+ Paso de la entrada»</b> enciende esa tarjeta y
+  <b>renumera las demás solo</b> — pasa de «Paso 01 de 04» a «Paso 02 de 05» sin que haya que tocar nada.
+  Mientras tanto sale con el dibujo en gris y el aviso a la vista, para que nadie la publique por error.
+</div>
+
+<div class="note">
+  <b>Lo que sí está verificado</b> y salió tal cual del editorial: «un depósito que almacena agua limpia y la
+  mantiene lista para cuando la necesites», «devuelve a cada llave el mismo flujo constante de siempre, sin
+  bajones ni sorpresas», «los sistemas de purificación reducen sedimentos, sabores y olores», y la frase de
+  David Fonseca «que la familia no tenga que cambiar su rutina cuando falta el servicio».
+  <br><br>
+  <b>Dos cosas que dejé fuera a propósito.</b> No puse capacidades (Hercules 600 gal / EcoTake 500 gal) porque
+  el sistema se arma a la medida y poner un número en un explicador genérico lo vuelve una promesa.
+  Tampoco puse el <i>99.9% de bacterias</i> del UV Viqua: ese es un claim de producto de marca, no de
+  «cómo funciona una cisterna» — si lo quieres dentro, lo pongo con el nombre Viqua al lado, nunca suelto.
+  <br><br>
+  <b>El URL.</b> Puse <i>windmar.com</i>. Ojo que el editorial de agua cierra con <i>windmarhome.com</i>;
+  los dos están publicados y no sé cuál es el bueno para esta pieza.
+</div>
+
+<div class="picker">
+  <span class="lbl">Dirección</span>
+  <button data-dir="d1" class="on">D1 · Titular que llena</button>
+  <button data-dir="d2">D2 · Campo de color</button>
+  <button data-dir="d3">D3 · Palabra gigante</button>
+  <span style="flex:1"></span>
+  <button id="palbtn" title="Solo aplica a D2">Paleta: Navy · Naranja · Azul</button>
+  <button id="gapbtn" title="Enciende la tarjeta de la entrada del agua">+ Paso de la entrada</button>
+</div>
+<div class="dirdesc" id="dirdesc"></div>
+
+<div class="bar"><button class="allbtn" id="dlall">⬇︎ Descargar todas en PNG</button></div>
+<div class="gallery" id="out"></div>
+
+</div>
+
+<script src="https://unpkg.com/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script>
+const SITE='windmar.com';
+const LOGO_FC='wme/logos/windmar-water-fc.png';
+const LOGO_W='wme/logos/windmar-water-white-orange.png';
+
+/* ═══════════ DIBUJOS (viewBox 240×160, trazo a mano, cero imagen generada) ═══════════ */
+
+/* portada: casa + cisterna al lado, unidas por la tubería */
+const ART_CASA_TANQUE=`
+<svg class="art" viewBox="0 0 240 160">
+  <path d="M16 84 L60 50 L104 84"/>
+  <path d="M25 84 v46 h70 v-46"/>
+  <path d="M48 130 v-24 h18 v24"/>
+  <path class="thin" d="M34 98 h14 v12 h-14 Z"/>
+  <path class="wash" d="M132 92 h70 v30 a9 9 0 0 1 -9 9 h-52 a9 9 0 0 1 -9 -9 Z"/>
+  <path d="M141 53 h52 a9 9 0 0 1 9 9 v60 a9 9 0 0 1 -9 9 h-52 a9 9 0 0 1 -9 -9 v-60 a9 9 0 0 1 9 -9 Z"/>
+  <path class="thin" d="M132 92 h70"/>
+  <path d="M158 53 v-8 h18 v8"/>
+  <path class="acc" d="M95 112 h37 M124 107 l8 5 l-8 5"/>
+  <path class="thin" d="M8 139 h224"/>
+</svg>`;
+
+/* paso 01 — la entrada: a propósito un signo de interrogación, no un invento */
+const ART_ENTRADA=`
+<svg class="art" viewBox="0 0 240 160">
+  <path class="dash acc" d="M10 62 h58"/>
+  <path class="dash" d="M18 30 h62 v64 h-62 Z"/>
+  <text x="49" y="78" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="46"
+        fill="#f57c0a" stroke="none">?</text>
+  <path class="acc" d="M80 62 h34 M106 57 l8 5 l-8 5"/>
+  <path class="wash" d="M122 84 h74 v34 a9 9 0 0 1 -9 9 h-56 a9 9 0 0 1 -9 -9 Z"/>
+  <path d="M131 44 h56 a9 9 0 0 1 9 9 v65 a9 9 0 0 1 -9 9 h-56 a9 9 0 0 1 -9 -9 v-65 a9 9 0 0 1 9 -9 Z"/>
+  <path class="thin" d="M122 84 h74"/>
+  <path d="M150 44 v-8 h18 v8"/>
+  <path class="thin" d="M100 136 h132"/>
+</svg>`;
+
+/* paso 02 — la reserva: tanque lleno con marcas de nivel */
+const ART_RESERVA=`
+<svg class="art" viewBox="0 0 240 160">
+  <path class="wash" d="M74 56 h92 v62 a10 10 0 0 1 -10 10 h-72 a10 10 0 0 1 -10 -10 Z"/>
+  <path d="M84 26 h72 a10 10 0 0 1 10 10 v82 a10 10 0 0 1 -10 10 h-72 a10 10 0 0 1 -10 -10 v-82 a10 10 0 0 1 10 -10 Z"/>
+  <path class="acc" d="M74 56 q11 -7 23 0 t23 0 t23 0 t23 0"/>
+  <path d="M106 26 v-9 h28 v9"/>
+  <path class="thin" d="M174 46 h12 M174 72 h12 M174 98 h12 M174 124 h12"/>
+  <path class="thin" d="M186 40 v90"/>
+  <path class="thin" d="M50 138 h140"/>
+</svg>`;
+
+/* paso 03 — la bomba: tanque, bomba con manómetro, salida con ondas de presión */
+const ART_BOMBA=`
+<svg class="art" viewBox="0 0 240 160">
+  <path class="wash" d="M14 62 h48 v46 a8 8 0 0 1 -8 8 h-32 a8 8 0 0 1 -8 -8 Z"/>
+  <path d="M22 38 h32 a8 8 0 0 1 8 8 v62 a8 8 0 0 1 -8 8 h-32 a8 8 0 0 1 -8 -8 v-62 a8 8 0 0 1 8 -8 Z"/>
+  <path class="thin" d="M14 62 h48"/>
+  <path d="M62 86 h22"/>
+  <path d="M90 60 h56 a7 7 0 0 1 7 7 v38 a7 7 0 0 1 -7 7 h-56 a7 7 0 0 1 -7 -7 v-38 a7 7 0 0 1 7 -7 Z"/>
+  <circle cx="110" cy="86" r="15"/>
+  <path class="acc" d="M110 86 l9 -8"/>
+  <path class="thin" d="M110 71 v4 M125 86 h-4 M110 101 v-4 M95 86 h4"/>
+  <path class="thin" d="M134 74 h12 M134 86 h12 M134 98 h12"/>
+  <path d="M153 86 h18"/>
+  <path class="acc" d="M178 68 q10 18 0 36 M192 60 q14 26 0 52 M206 52 q18 34 0 68"/>
+  <path class="thin" d="M8 134 h224"/>
+</svg>`;
+
+/* paso 04 — purificación: el filtro es un CILINDRO, así que las tapas van con
+   elipse de verdad. Con arcos se veía como una caja y no se entendía qué era. */
+const ART_FILTRO=`
+<svg class="art" viewBox="0 0 240 160">
+  <path d="M12 74 h62"/>
+  <path class="acc" d="M62 69 l8 5 l-8 5"/>
+  <path class="wash" d="M76 44 h60 v68 a30 11 0 0 1 -60 0 Z"/>
+  <path d="M76 44 v68 a30 11 0 0 0 60 0 v-68"/>
+  <ellipse cx="106" cy="44" rx="30" ry="11"/>
+  <path d="M100 33 h12 v-8 h-12 Z"/>
+  <path class="acc" d="M106 54 v56"/>
+  <path class="acc thin" d="M90 62 h-8 M90 82 h-8 M90 102 h-8 M122 62 h8 M122 82 h8 M122 102 h8"/>
+  <path d="M136 74 h30"/>
+  <path class="acc" d="M196 48 q22 30 22 46 a22 22 0 0 1 -44 0 q0 -16 22 -46 Z"/>
+  <path class="thin" d="M8 142 h224"/>
+</svg>`;
+
+/* paso 05 — el servicio cortado arriba, la llave abajo sigue dando. La llave va
+   como una sola tubería continua (sube, dobla, baja) o se lee como rayas sueltas. */
+const ART_SERVICIO=`
+<svg class="art" viewBox="0 0 240 160">
+  <path class="dash thin" d="M8 28 h70"/>
+  <path class="acc" d="M74 16 l22 22 M96 16 l-22 22"/>
+  <path class="thin" d="M102 28 h130"/>
+  <path class="wash" d="M20 88 h52 v38 a8 8 0 0 1 -8 8 h-36 a8 8 0 0 1 -8 -8 Z"/>
+  <path d="M28 62 h36 a8 8 0 0 1 8 8 v56 a8 8 0 0 1 -8 8 h-36 a8 8 0 0 1 -8 -8 v-56 a8 8 0 0 1 8 -8 Z"/>
+  <path class="thin" d="M20 88 h52"/>
+  <path d="M40 62 v-8 h12 v8"/>
+  <path class="acc" d="M72 102 h46 M110 97 l8 5 l-8 5"/>
+  <path d="M126 132 v-54 a10 10 0 0 1 10 -10 h44"/>
+  <path d="M180 68 v26"/>
+  <path d="M114 132 h24"/>
+  <path d="M154 68 v-13"/>
+  <circle cx="154" cy="48" r="7"/>
+  <path class="acc" d="M180 100 v13 M180 119 v9 M180 134 v6"/>
+  <path class="thin" d="M100 150 h132"/>
+</svg>`;
+
+/* cierre: casa con cisterna y sol */
+const ART_CIERRE=`
+<svg class="art" viewBox="0 0 240 160">
+  <circle class="acc" cx="206" cy="34" r="14"/>
+  <path class="acc thin" d="M206 12 v-7 M206 63 v7 M184 34 h-7 M235 34 h-7 M190 18 l-5 -5 M222 50 l5 5"/>
+  <path d="M30 86 L76 50 L122 86"/>
+  <path d="M40 86 v48 h72 v-48"/>
+  <path d="M64 134 v-26 h20 v26"/>
+  <path class="wash" d="M148 92 h50 v34 a9 9 0 0 1 -9 9 h-32 a9 9 0 0 1 -9 -9 Z"/>
+  <path d="M157 58 h32 a9 9 0 0 1 9 9 v59 a9 9 0 0 1 -9 9 h-32 a9 9 0 0 1 -9 -9 v-59 a9 9 0 0 1 9 -9 Z"/>
+  <path class="thin" d="M148 92 h50"/>
+  <path d="M164 58 v-8 h18 v8"/>
+  <path class="acc" d="M112 110 h36 M140 105 l8 5 l-8 5"/>
+  <path class="thin" d="M14 142 h212"/>
+</svg>`;
+
+/* ═══════════ TARJETAS ═══════════ */
+const CARDS=[
+  { id:'portada', role:'portada', word:'AGUA', ws:'44cqw', field:'navy',
+    kick:'WindMar Water · Puerto Rico',
+    big:'Cómo<br>funciona<br>una<br><em>cisterna</em>',
+    ttl:'Cómo funciona<br>una <em>cisterna</em>',
+    sub:'Sin tecnicismos. Así tu casa guarda su propia reserva de agua.',
+    art:ART_CASA_TANQUE },
+
+  /* La entrada del agua sale apagada: nadie en la compañía la tiene documentada.
+     El explicador cierra perfecto sin ella —el editorial publicado tampoco la
+     menciona— así que esta solo se enciende si algún día llega el dato. */
+  { id:'entrada', role:'paso', optional:true, word:'ENTRA', ws:'38cqw', field:'white', gap:true,
+    big:'De dónde<br>entra el<br><em>agua</em>',
+    ttl:'De dónde<br>entra el <em>agua</em>',
+    sub:'',
+    gapTtl:'Falta este dato',
+    gapTxt:'Nadie ha documentado si la cisterna se llena de la línea de la AAA, de captación de lluvia o de camión. Hasta que llegue el dato, esta tarjeta no se publica.',
+    art:ART_ENTRADA },
+
+  { id:'reserva', role:'paso', word:'RESERVA', ws:'26cqw', field:'orange',
+    big:'Tu casa<br>guarda su<br><em>reserva</em>',
+    ttl:'Tu casa<br>guarda su<br><em>reserva</em>',
+    sub:'Un depósito que almacena agua limpia y la mantiene lista para cuando la necesites.',
+    art:ART_RESERVA },
+
+  { id:'presion', role:'paso', word:'PRESIÓN', ws:'26cqw', field:'navy',
+    big:'La bomba<br>devuelve la<br><em>presión</em>',
+    ttl:'La bomba<br>devuelve la<br><em>presión</em>',
+    sub:'Devuelve a cada llave el mismo flujo constante de siempre, sin bajones ni sorpresas.',
+    art:ART_BOMBA },
+
+  { id:'limpia', role:'paso', word:'LIMPIA', ws:'30cqw', field:'white',
+    big:'El agua<br>sale<br><em>limpia</em>',
+    ttl:'El agua sale<br><em>limpia</em>',
+    sub:'Los sistemas de purificación reducen sedimentos, sabores y olores.',
+    art:ART_FILTRO },
+
+  { id:'servicio', role:'paso', word:'SIEMPRE', ws:'25cqw', field:'orange',
+    big:'Aunque<br>falte el<br><em>servicio</em>',
+    ttl:'Aunque falte<br>el <em>servicio</em>',
+    sub:'La familia no tiene que cambiar su rutina cuando falta el servicio. Tú solo abres la llave.',
+    art:ART_SERVICIO },
+
+  { id:'cierre', role:'cierre', word:'AGUA', ws:'44cqw', field:'navy',
+    kick:'WindMar Water · Puerto Rico',
+    big:'Evaluación<br><em>gratis</em> para<br>tu hogar',
+    ttl:'Evaluación <em>gratis</em><br>para tu hogar',
+    sub:'Un especialista te visita, mide tu consumo y te recomienda la solución ideal — sin compromiso.',
+    art:ART_CIERRE },
+];
+
+const DIRS={
+  d1:{ cls:'d1',
+    desc:'El sistema blueprint que ya aprobaste —papel blanco, rejilla de plano, naranja de acento— pero el titular en Bebas se come la mitad de arriba de la tarjeta. <b>Es el cambio más seguro:</b> no rompe nada de lo publicado.',
+    font:'Bebas Neue · 17cqw (≈184px en el export)' },
+  d2:{ cls:'d2',
+    desc:'Color plano a sangre que <b>alterna navy, blanco y naranja</b> de tarjeta en tarjeta, con el número del paso gigante cortado por la esquina. <b>Es la única de las tres que se ve desde la vista de grilla del perfil</b>, porque ahí lo que para el ojo es el bloque de color, no el tamaño de la letra.',
+    font:'Anton · 13.4cqw — más ancha y pesada que Bebas' },
+  d3:{ cls:'d3',
+    desc:'Una sola palabra —AGUA, RESERVA, PRESIÓN— a cuerpo enorme, cortada por el borde izquierdo y en azul muy claro, con el dibujo montado encima. <b>Es la más de autor</b> y la que más se despega de lo que ya publicaste.',
+    font:'Anton · 25–44cqw (≈270 a 475px en el export)' },
+};
+
+/* ═══════════ RENDER ═══════════ */
+/* El logo lo decide el fondo de la tarjeta, no la dirección: D2 alterna colores,
+   así que el logo blanco sobre la tarjeta blanca desaparecería. */
+function foot(dirKey,c){
+  const onLight = dirKey!=='d2' || c.field==='white';
+  const logo = onLight ? LOGO_FC : LOGO_W;
+  return `<div class="foot">
+    <div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+    <div class="logo"><img src="${logo}" alt="WindMar Water"></div>
+  </div>`;
+}
+
+function build(dirKey,c){
+  const no=String(c.step).padStart(2,'0');
+  const tail = c.gap
+    ? `<div class="gapbox"><b>${c.gapTtl}</b>${c.gapTxt}</div>`
+    : `<p class="sub" contenteditable="true">${c.sub}</p>`;
+
+  if(dirKey==='d1'){
+    return `<div class="grid"></div>
+      ${c.step>0?`<div class="stepno">${no}</div>`:''}
+      <div class="content">
+        <div class="kick">${c.kick}</div>
+        <div class="big" contenteditable="true">${c.big}</div>
+        <div class="rule"></div>
+        <div class="artbox">${c.art}${tail}</div>
+        ${foot(dirKey,c)}
+      </div>`;
+  }
+
+  if(dirKey==='d2'){
+    return `<div class="field"></div>
+      ${c.step>0?`<div class="numfield">${no}</div>`:''}
+      <div class="content">
+        <div class="kick">${c.kick}</div>
+        <div class="big" contenteditable="true">${c.big}</div>
+        <div class="artbox">${c.art}</div>
+        ${tail}
+        ${foot(dirKey,c)}
+      </div>`;
+  }
+
+  return `<div class="grid"></div>
+    <div class="word${c.step%2?' stroke':''}" style="--ws:${c.ws}">${c.word}</div>
+    <div class="artwrap">${c.art}</div>
+    ${c.step>0?`<div class="stepno">${no}</div>`:''}
+    <div class="content">
+      <div class="kick">${c.kick}</div>
+      <div class="ttl" contenteditable="true">${c.ttl}</div>
+      <div class="bottom">
+        <div class="rule"></div>
+        ${tail}
+        ${foot(dirKey,c)}
+      </div>
+    </div>`;
+}
+
+const out=document.getElementById('out');
+const dirdesc=document.getElementById('dirdesc');
+let CUR='d1';
+let REG=[];
+let SHOWGAP=false;
+
+/* La numeración NO va escrita en las tarjetas: se calcula. Si algún día entra el
+   paso de la entrada del agua, «Paso 01 de 04» pasa solo a «Paso 02 de 05» en
+   todas, en vez de quedar una tarjeta diciendo un número que ya no es. */
+/* Dos paletas para D2, no una.
+   · TRIO mete el naranja como fondo entero. Se ve fuerte, pero rompe una regla
+     escrita del proyecto (fundamentos-diseno.md: «el naranja sea acento y nunca
+     fondo»), así que va marcada y la decide ella, no yo.
+   · DUO respeta la regla: fondos navy y azul, naranja solo de acento.
+   Las dos sacaron la tarjeta blanca, que en la grilla del perfil abría un hueco. */
+const PALETAS={
+  trio:{ rot:['navy','orange','blue'], lbl:'Navy · Naranja · Azul' },
+  duo :{ rot:['navy','blue'],          lbl:'Navy · Azul' },
+};
+let PAL='trio';
+
+function activeCards(){
+  const list=CARDS.filter(c=>!c.optional||SHOWGAP);
+  const total=list.filter(c=>c.role==='paso').length;
+  let n=0;
+  return list.map(c=>{
+    if(c.role!=='paso') return {...c, step:0, kick:c.kick};
+    n++;
+    return {...c, step:n,
+      kick:`Paso ${String(n).padStart(2,'0')} de ${String(total).padStart(2,'0')}`};
+  });
+}
+
+function render(dirKey){
+  CUR=dirKey;
+  const D=DIRS[dirKey];
+  dirdesc.innerHTML=`${D.desc}<br><span class="fontnote">${D.font}</span>`;
+  out.innerHTML='';
+  REG=[];
+  const LIST=activeCards();
+  const ROT=PALETAS[PAL].rot;
+  LIST.forEach((c0,i)=>{
+    /* El color NO va escrito en cada tarjeta: se calcula por posición. Si entra o
+       sale el paso de la entrada, la alternancia se recalcula sola en vez de quedar
+       dos naranjas pegadas. */
+    const c = dirKey==='d2' ? {...c0, field:ROT[i%ROT.length]} : c0;
+    const id=`pc-${dirKey}-${i}`;
+    const field = dirKey==='d2' ? ` on-${c.field}${(c.big.split('<br>').length>3)?' lede':''}` : '';
+    const t3 = (dirKey==='d3' && c.ttl.split('<br>').length>2) ? ' t3' : '';
+    const gapc = c.gap ? ' isgap' : '';
+    const slot=document.createElement('div'); slot.className='slot';
+    slot.innerHTML=`
+      <div class="caprow">
+        <span class="cap">${c.id} · ${i+1}/${LIST.length}${c.gap?'<span class="q">falta dato</span>':''}</span>
+        <button class="dl" data-id="${id}" data-name="windmar-cisterna-${dirKey}-${c.id}">⬇︎ PNG</button>
+      </div>
+      <div class="piece ${D.cls}${field}${t3}${gapc}" id="${id}">${build(dirKey,c)}</div>`;
+    out.appendChild(slot);
+    REG.push({id,name:`windmar-cisterna-${dirKey}-${c.id}`});
+  });
+}
+
+document.querySelectorAll('.picker button[data-dir]').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('.picker button[data-dir]').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    render(b.dataset.dir);
+  };
+});
+
+const palbtn=document.getElementById('palbtn');
+palbtn.onclick=()=>{
+  PAL = PAL==='trio' ? 'duo' : 'trio';
+  palbtn.textContent='Paleta: '+PALETAS[PAL].lbl;
+  palbtn.classList.toggle('on',PAL==='duo');
+  if(CUR!=='d2'){ /* la paleta solo existe en D2, así que saltar allá */
+    document.querySelectorAll('.picker button[data-dir]').forEach(x=>x.classList.toggle('on',x.dataset.dir==='d2'));
+    render('d2');
+  } else render(CUR);
+};
+
+const gapbtn=document.getElementById('gapbtn');
+gapbtn.onclick=()=>{
+  SHOWGAP=!SHOWGAP;
+  gapbtn.classList.toggle('on',SHOWGAP);
+  gapbtn.textContent = SHOWGAP ? '− Quitar paso de la entrada' : '+ Paso de la entrada';
+  render(CUR);
+};
+
+/* ═══════════ EXPORT PNG 1080×1350 ═══════════ */
+/* html-to-image no trae las fuentes de Google: hay que bajar el CSS y meter cada
+   archivo como data-URI, o el PNG sale en la fuente de respaldo del sistema. */
+let FONT_CSS=null;
+async function fontEmbedCSS(){
+  if(FONT_CSS!==null) return FONT_CSS;
+  try{
+    const href=[...document.querySelectorAll('link[rel=stylesheet]')]
+      .map(l=>l.href).find(h=>h.includes('fonts.googleapis.com'));
+    let css=await (await fetch(href)).text();
+    const urls=[...new Set((css.match(/https:\/\/fonts\.gstatic\.com[^)]+/g)||[]))];
+    for(const u of urls){
+      const buf=await (await fetch(u)).arrayBuffer();
+      let bin=''; const bytes=new Uint8Array(buf);
+      for(let i=0;i<bytes.length;i++) bin+=String.fromCharCode(bytes[i]);
+      css=css.split(u).join(`data:font/woff2;base64,${btoa(bin)}`);
+    }
+    FONT_CSS=css;
+  }catch(e){ console.warn('fuentes no embebidas',e); FONT_CSS=''; }
+  return FONT_CSS;
+}
+
+async function shoot(id,name,btn){
+  const node=document.getElementById(id);
+  const label=btn?btn.textContent:null;
+  if(btn){ btn.disabled=true; btn.textContent='…'; }
+  const opts={pixelRatio:1080/node.offsetWidth, cacheBust:true, backgroundColor:null};
+  try{
+    const css=await fontEmbedCSS();
+    const blob=await htmlToImage.toBlob(node, css?{...opts,fontEmbedCSS:css}:opts);
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download=name+'.png'; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  }catch(e){
+    console.warn('reintento sin fuentes',e);
+    const blob=await htmlToImage.toBlob(node,{...opts,skipFonts:true});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download=name+'.png'; a.click();
+  }
+  if(btn){ btn.disabled=false; btn.textContent=label; }
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.dl');
+  if(b) shoot(b.dataset.id,b.dataset.name,b);
+});
+
+document.getElementById('dlall').onclick=async function(){
+  this.disabled=true; const t=this.textContent;
+  for(let i=0;i<REG.length;i++){
+    this.textContent=`Exportando ${i+1}/${REG.length}…`;
+    await shoot(REG[i].id,REG[i].name,null);
+    await new Promise(r=>setTimeout(r,420));
+  }
+  this.textContent=t; this.disabled=false;
+};
+
+/* ?dir=d2 abre directo en esa dirección — sirve para mandar un link a una sola.
+   ?pal=duo abre D2 con la paleta que respeta la regla del naranja. */
+const QS=new URLSearchParams(location.search);
+const START=(QS.get('dir')||'d1');
+const QPAL=QS.get('pal');
+if(PALETAS[QPAL]){ PAL=QPAL;
+  palbtn.textContent='Paleta: '+PALETAS[PAL].lbl;
+  palbtn.classList.toggle('on',PAL==='duo'); }
+const FIRST = DIRS[START] ? START : 'd1';
+document.querySelectorAll('.picker button[data-dir]').forEach(b=>{
+  b.classList.toggle('on', b.dataset.dir===FIRST);
+});
+render(FIRST);
+</script>
+</body>
+</html>

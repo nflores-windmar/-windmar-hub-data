@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anker Reel — Para prender lo esencial (blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anek+Latin:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-green:#1f9d66;
+  --bp-grid:rgba(26,82,199,.09);
+  --paper:#eef2fb; --letter:#dbe4f7;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Anek Latin',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#c7d0e3;color:var(--bp-navy);font-family:var(--body);padding:28px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+.btn{font-family:var(--body);font-size:13px;font-weight:800;padding:9px 16px;border-radius:9px;border:1.5px solid #fff;background:#fff;color:var(--bp-navy);cursor:pointer}
+.btn.pri{background:var(--bp-orange);border-color:var(--bp-orange);color:#fff}
+.hint{font-family:var(--mono);font-size:12px;color:#3a4a6c}
+
+/* on-screen scaler; export captures the real 1080x1920 node */
+.stage{width:405px;height:720px;overflow:hidden;border-radius:12px;box-shadow:0 18px 50px rgba(13,34,64,.28)}
+.scaler{transform:scale(.375);transform-origin:top left}
+
+.frame{position:relative;width:1080px;height:1920px;background:var(--paper);color:var(--bp-navy);overflow:hidden;font-family:var(--body)}
+.frame::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:60px 60px}
+
+/* ---- corner ticks ---- */
+.tick{position:absolute;width:52px;height:52px;border:6px solid var(--bp-ink);z-index:8}
+.tick.tl{top:40px;left:40px;border-right:none;border-bottom:none}
+.tick.tr{top:40px;right:40px;border-left:none;border-bottom:none}
+.tick.bl{bottom:40px;left:40px;border-right:none;border-top:none}
+.tick.br{bottom:40px;right:40px;border-left:none;border-top:none}
+
+/* ---- top pill strip (echo del ejemplo) ---- */
+.topstrip{position:absolute;top:64px;left:96px;right:96px;height:70px;z-index:7;
+  border:4px solid var(--bp-navy);border-radius:40px;display:flex;align-items:center;justify-content:center;gap:22px;background:var(--paper)}
+.topstrip .ln{flex:1;height:5px;background:var(--bp-navy);max-width:150px}
+.topstrip .tx{font-family:var(--mono);font-weight:500;font-size:22px;letter-spacing:.34em;text-transform:uppercase;color:var(--bp-navy);white-space:nowrap}
+.topstrip .st{color:var(--bp-orange);font-size:24px}
+.topstrip img{height:34px;width:auto;display:block}
+
+/* ---- GIANT background letter ANKER (uno solo, con aire) ---- */
+.bgtype{position:absolute;left:0;right:0;z-index:1;text-align:center;font-family:var(--disp);
+  color:var(--letter);line-height:.9;letter-spacing:34px;text-indent:34px;font-size:300px;pointer-events:none;user-select:none}
+.bgtype.bot{bottom:320px}
+
+/* ---- technical blueprint drawing ---- */
+.draw{position:absolute;inset:0;z-index:3;pointer-events:none}
+
+/* ---- headline overlay ---- */
+.head{position:absolute;left:96px;right:96px;top:300px;z-index:5;pointer-events:none}
+.kick{font-family:var(--mono);font-weight:500;font-size:26px;letter-spacing:.24em;text-transform:uppercase;color:var(--bp-ink-dark)}
+.kick::before{content:"↳ ";color:var(--bp-orange)}
+.hair{margin-top:16px;width:200px;height:8px;background:var(--bp-orange)}
+.word{font-family:var(--disp);font-weight:700;line-height:.9;text-transform:uppercase;font-size:150px;letter-spacing:4px;color:var(--bp-navy);margin-top:20px}
+.word .hl{color:var(--bp-orange)}
+
+/* ---- bottom foot ---- */
+.foot{position:absolute;left:96px;right:96px;bottom:150px;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;pointer-events:none}
+.foot .lft{display:flex;align-items:flex-end;gap:26px}
+.yr{font-family:var(--mono);font-weight:500;font-size:24px;color:var(--bp-navy);border:3px solid var(--bp-navy);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center}
+.qr{width:74px;height:74px}
+.bars{display:flex;align-items:flex-end;gap:3px;height:70px}
+.bars i{width:4px;background:var(--bp-navy);display:block}
+.url{font-family:var(--disp);font-weight:700;font-size:64px;letter-spacing:1px;color:var(--bp-navy);text-transform:uppercase;line-height:.9;text-align:right}
+.url small{display:block;font-family:var(--mono);font-size:20px;letter-spacing:.14em;color:var(--bp-orange);text-transform:none}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <button class="btn pri" id="dl">⤓ Descargar PNG (1080×1920)</button>
+  <span class="hint">Reel 9:16 · concepto "letras gigantes + blueprint"</span>
+</div>
+
+<div class="stage"><div class="scaler">
+<div class="frame" id="frame">
+
+  <!-- grid ticks -->
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+
+  <!-- top strip -->
+  <div class="topstrip">
+    <span class="ln"></span>
+    <span class="tx">WindMar Home</span>
+    <span class="st">✦</span>
+    <img src="wme/logos/anker-fc.png" alt="Anker">
+    <span class="ln"></span>
+  </div>
+
+  <!-- GIANT background letter (uno solo) -->
+  <div class="bgtype bot">ANKER</div>
+
+  <!-- technical drawing (viewBox = frame px) -->
+  <svg class="draw" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet">
+    <defs>
+      <style>
+        .ln{fill:none;stroke:#0a2882;stroke-width:3}
+        .ln2{fill:none;stroke:#1a52c7;stroke-width:2}
+        .lead{fill:none;stroke:#0a2882;stroke-width:2.5}
+        .acc{fill:none;stroke:#f57c0a;stroke-width:4}
+        .cir{fill:#eef2fb;stroke:#0a2882;stroke-width:3}
+        .code{font-family:'DM Mono',monospace;font-size:19px;fill:#0a2882;font-weight:500;text-anchor:middle}
+        .cap{font-family:'Anek Latin',sans-serif;font-size:26px;font-weight:800;fill:#0a2882}
+        .cap .em{fill:#1f9d66}
+        .axtx{font-family:'DM Mono',monospace;font-size:18px;fill:#1a52c7}
+      </style>
+
+      <!-- station node marker -->
+      <g id="node">
+        <line class="lead" x1="0" y1="0" x2="0" y2="-46"/>
+        <circle class="cir" cx="0" cy="-70" r="26"/>
+      </g>
+    </defs>
+
+    <!-- Y axis with 0 -->
+    <line class="ln2" x1="540" y1="640" x2="540" y2="1180"/>
+    <path class="ln2" d="M540 640 l-9 20 M540 640 l9 20"/>
+    <text class="axtx" x="556" y="656">y</text>
+    <!-- X axis with 0 -->
+    <line class="ln2" x1="150" y1="910" x2="930" y2="910"/>
+    <path class="ln2" d="M930 910 l-20 -9 M930 910 l-20 9"/>
+    <text class="axtx" x="908" y="900">x</text>
+    <circle class="ln2" cx="540" cy="910" r="7" fill="none"/>
+    <text class="axtx" x="520" y="940">0</text>
+
+    <!-- ===== ANKER POWER STATION (blueprint isometric-ish) ===== -->
+    <g transform="translate(540 900)">
+      <!-- body -->
+      <rect class="ln" x="-190" y="-120" width="380" height="240" rx="16"/>
+      <!-- inner face panel -->
+      <rect class="ln2" x="-160" y="-92" width="320" height="184" rx="10"/>
+      <!-- top handle -->
+      <path class="ln" d="M-120 -120 q0 -46 60 -46 h120 q60 0 60 46"/>
+      <!-- vents (right) -->
+      <line class="ln2" x1="150" y1="-70" x2="150" y2="70"/>
+      <line class="ln2" x1="166" y1="-70" x2="166" y2="70"/>
+      <!-- screen -->
+      <rect class="acc" x="-132" y="-64" width="150" height="70" rx="8"/>
+      <line class="ln2" x1="-120" y1="-46" x2="-40" y2="-46"/>
+      <line class="ln2" x1="-120" y1="-26" x2="-10" y2="-26"/>
+      <!-- outlets row -->
+      <circle class="ln" cx="60" cy="-40" r="20"/>
+      <circle class="ln2" cx="60" cy="-40" r="9"/>
+      <circle class="ln" cx="120" cy="-40" r="20"/>
+      <circle class="ln2" cx="120" cy="-40" r="9"/>
+      <!-- AC sockets -->
+      <rect class="ln" x="-120" y="30" width="60" height="46" rx="6"/>
+      <rect class="ln" x="-46" y="30" width="60" height="46" rx="6"/>
+      <line class="ln2" x1="-100" y1="44" x2="-100" y2="62"/>
+      <line class="ln2" x1="-80" y1="44" x2="-80" y2="62"/>
+      <line class="ln2" x1="-26" y1="44" x2="-26" y2="62"/>
+      <line class="ln2" x1="-6" y1="44" x2="-6" y2="62"/>
+      <!-- USB row -->
+      <rect class="ln2" x="40" y="40" width="34" height="12" rx="3"/>
+      <rect class="ln2" x="88" y="40" width="34" height="12" rx="3"/>
+      <rect class="ln2" x="40" y="60" width="34" height="12" rx="3"/>
+      <rect class="ln2" x="88" y="60" width="34" height="12" rx="3"/>
+      <!-- base feet -->
+      <line class="ln" x1="-150" y1="120" x2="-150" y2="140"/>
+      <line class="ln" x1="150" y1="120" x2="150" y2="140"/>
+    </g>
+
+    <!-- ===== CALLOUTS (lo esencial) ===== -->
+    <!-- 1 NEVERA (top-left, caption hacia la izquierda) -->
+    <g transform="translate(430 660)">
+      <circle class="cir" cx="0" cy="0" r="26"/>
+      <text class="code" x="0" y="6">E1</text>
+      <line class="lead" x1="-26" y1="0" x2="-118" y2="0"/>
+      <text class="cap" x="-130" y="-6" text-anchor="end">LA NEVERA</text>
+      <text class="cap" x="-130" y="24" text-anchor="end"><tspan class="em">que no se apaga</tspan></text>
+      <line class="lead" x1="12" y1="26" x2="72" y2="150"/>
+    </g>
+
+    <!-- 2 LUCES + BARRA (top-right, caption hacia la derecha) -->
+    <g transform="translate(650 660)">
+      <circle class="cir" cx="0" cy="0" r="26"/>
+      <text class="code" x="0" y="6">E2</text>
+      <line class="lead" x1="26" y1="0" x2="118" y2="0"/>
+      <text class="cap" x="130" y="-6">LUCES + BARRA</text>
+      <text class="cap" x="130" y="24"><tspan class="em">sigues atendiendo</tspan></text>
+      <line class="lead" x1="-12" y1="26" x2="-72" y2="150"/>
+    </g>
+
+    <!-- 3 EQUIPO MÉDICO (mid-left) -->
+    <g transform="translate(250 1060)">
+      <circle class="cir" cx="0" cy="0" r="26"/>
+      <text class="code" x="0" y="6">E3</text>
+      <line class="lead" x1="26" y1="0" x2="120" y2="0"/>
+      <text class="cap" x="132" y="-6">EQUIPO</text>
+      <text class="cap" x="132" y="24"><tspan class="em">MÉDICO</tspan></text>
+    </g>
+    <line class="lead" x1="276" y1="1060" x2="420" y2="960"/>
+
+    <!-- 4 SALIDAS 110V / USB-C (mid-right) -->
+    <g transform="translate(838 1060)">
+      <circle class="cir" cx="0" cy="0" r="26"/>
+      <text class="code" x="0" y="6">E4</text>
+      <line class="lead" x1="-26" y1="0" x2="-140" y2="0"/>
+      <text class="cap" x="-140" y="-6" text-anchor="end">110V · USB-C</text>
+      <text class="cap" x="-140" y="24" text-anchor="end"><tspan class="em">se conecta fácil</tspan></text>
+    </g>
+    <line class="lead" x1="812" y1="1060" x2="640" y2="960"/>
+
+    <!-- FRL-style reference line -->
+    <line class="acc" x1="150" y1="1140" x2="930" y2="1140"/>
+    <text class="axtx" x="150" y="1128">TRANSFER AUTOMÁTICO — SE PRENDE SOLA</text>
+  </svg>
+
+  <!-- headline -->
+  <div class="head">
+    <div class="kick">Energía de respaldo · WindMar Home</div>
+    <div class="hair"></div>
+    <div class="word">Para prender<br><span class="hl">lo esencial</span></div>
+  </div>
+
+  <!-- foot -->
+  <div class="foot">
+    <div class="lft">
+      <div class="yr">'26</div>
+      <svg class="qr" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">
+        <rect width="10" height="10" fill="#eef2fb"/>
+        <path fill="#0a2882" d="M0 0h3v3h-3zM4 0h1v1h-1zM6 0h1v1h-1zM7 0h3v3h-3zM1 1h1v1h-1zM5 1h1v1h-1zM8 1h1v1h-1zM1 2h1v1h-1zM4 2h2v1h-2zM8 2h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM4 4h2v1h-2zM7 4h1v1h-1zM9 4h1v1h-1zM1 5h1v1h-1zM3 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM0 6h1v1h-1zM4 6h1v1h-1zM7 6h2v1h-2zM0 7h3v3h-3zM5 7h1v1h-1zM6 8h2v1h-2zM1 8h1v1h-1zM4 7h1v1h-1zM9 7h1v1h-1zM4 9h1v1h-1zM6 9h1v1h-1zM8 9h2v1h-2z"/>
+      </svg>
+      <div class="bars">
+        <i style="height:70px"></i><i style="height:44px"></i><i style="height:70px;width:8px"></i><i style="height:52px"></i><i style="height:70px"></i><i style="height:36px"></i><i style="height:70px;width:6px"></i><i style="height:60px"></i><i style="height:70px"></i><i style="height:40px"></i><i style="height:70px;width:8px"></i><i style="height:56px"></i>
+      </div>
+    </div>
+    <div class="url">windmarhome<small>.com · comenta ANKER</small></div>
+  </div>
+
+</div>
+</div></div>
+
+<script type="module">
+import { toBlob } from 'https://esm.sh/html-to-image@1.11.11';
+document.getElementById('dl').addEventListener('click', async (e)=>{
+  const btn=e.currentTarget, node=document.getElementById('frame');
+  btn.disabled=true; const old=btn.textContent; btn.textContent='Renderizando…';
+  try{
+    const blob=await toBlob(node,{width:1080,height:1920,pixelRatio:1,cacheBust:true,backgroundColor:'#eef2fb'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='anker-reel-esencial.png'; a.click(); URL.revokeObjectURL(a.href);
+  }catch(err){ alert('Error al exportar: '+err.message); }
+  btn.disabled=false; btn.textContent=old;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Pros · Paycheck — Anthony Fratto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  /* ─────────────────────────────────────────────────────────────────────────
+     WINDMAR PROS · PAYCHECK — version Anthony Fratto
+
+     Hereda la paleta y el armado de windmar-pros-paycheck.html. Lo nuevo:
+     1. Pre-cargado con Anthony Fratto / $1,208.
+     2. El monto en letras se escribe SOLO al teclear la cifra (numALetras).
+        En la version anterior esa linea quedaba siempre en blanco.
+     3. Variante D "Momento": la foto real a sangre completa. Pensada para la
+        foto de la entrega del cheque gigante, que en story rinde mucho mas
+        que el recuadro chiquito.
+     4. El recuadro de foto de las variantes A/B/C es mas grande.
+
+     OJO: mes, fecha y oficina quedan editables y SIN inventar. Rellenalos tu.
+     ───────────────────────────────────────────────────────────────────────── */
+  :root{
+    --navy1:#0a2a6f; --navy2:#061c50; --navy3:#04102e; --navy0:#0e3a8a;
+    --orange:#f7941e; --orange2:#ffb347;
+    --disp:'Bebas Neue',Impact,sans-serif;
+    --body:'Montserrat',system-ui,sans-serif;
+    --mono:'DM Mono',monospace;
+    --hand:'Caveat',cursive;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#05070d;color:#fff;font-family:var(--body)}
+  .app{min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 16px 60px}
+
+  /* ---- lienzo escalable ---- */
+  .fit{width:100%;max-width:540px;display:flex;justify-content:center}
+  .scaler{transform-origin:top center}
+  .stage{
+    position:relative;width:1080px;height:1920px;overflow:hidden;
+    container-type:inline-size;
+    background:
+      radial-gradient(120% 80% at 78% 8%, #14459c 0%, rgba(20,69,156,0) 55%),
+      radial-gradient(90% 60% at 12% 96%, #0d357f 0%, rgba(13,53,127,0) 60%),
+      linear-gradient(160deg, var(--navy1) 0%, var(--navy2) 46%, var(--navy3) 100%);
+    color:#fff;
+  }
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:0;opacity:.12;pointer-events:none;
+    background-image:linear-gradient(rgba(120,170,255,.35) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(120,170,255,.35) 1px,transparent 1px);
+    background-size:5.2cqw 5.2cqw;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 70%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 70%,transparent 100%);
+  }
+  .dots{position:absolute;z-index:1;width:60cqw;height:44cqw;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.16) 22%,transparent 24%);
+    background-size:3.2cqw 3.2cqw;}
+  .dots.bl{left:-6cqw;bottom:2cqw;-webkit-mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%);mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%)}
+  .dots.tr{right:-8cqw;top:20cqw;-webkit-mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%);mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%)}
+  .glow{position:absolute;z-index:1;width:52cqw;height:52cqw;left:-14cqw;top:40cqw;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(247,148,30,.35) 0%,rgba(247,148,30,0) 62%);filter:blur(4px)}
+
+  .inner{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;justify-content:center;gap:4cqw;padding:7cqw 4cqw}
+
+  /* topbar */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:3cqw}
+  .month{font-family:var(--body);font-weight:700;font-size:2.6cqw;letter-spacing:.22em;color:rgba(255,255,255,.82);text-transform:uppercase;border-bottom:.3cqw solid var(--orange);padding-bottom:.8cqw;line-height:1;outline:none}
+
+  /* titular */
+  .hero{margin-top:3cqw;text-align:center}
+  .kick{font-family:var(--disp);font-size:5.5cqw;letter-spacing:.34em;color:var(--orange);line-height:1;margin-bottom:1cqw;outline:none}
+  .paycheck{
+    font-family:var(--disp);font-size:16.5cqw;line-height:.86;letter-spacing:.02em;
+    background:linear-gradient(180deg,#ffffff 0%,#cfe0ff 42%,#8fb4ff 58%,#e9f1ff 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,.45));outline:none;
+  }
+  .hline{margin:2.5cqw auto 0;width:38cqw;height:.55cqw;border-radius:99px;
+    background:linear-gradient(90deg,transparent,var(--orange),transparent)}
+
+  /* ---- variante B · Naranja ---- */
+  .stage[data-variant="b"] .paycheck{
+    background:linear-gradient(180deg,#ffe0b0 0%,#ffb347 40%,#f7941e 58%,#ffd9a0 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .stage[data-variant="b"] .kick{color:#cfe0ff}
+  .stage[data-variant="b"] .hline{background:linear-gradient(90deg,transparent,#fff,transparent)}
+  .stage[data-variant="b"] .glow{opacity:1;background:radial-gradient(circle,rgba(247,148,30,.5) 0%,rgba(247,148,30,0) 62%)}
+  .stage[data-variant="b"] .check{box-shadow:0 3cqw 6cqw rgba(0,0,0,.5), 0 0 0 .4cqw rgba(247,148,30,.6) inset}
+  .stage[data-variant="b"] .foot .tag{color:var(--orange2)}
+
+  /* ---- variante C · Impacto ---- */
+  .stage[data-variant="c"]{background:
+      radial-gradient(120% 80% at 78% 6%, #123c86 0%, rgba(18,60,134,0) 55%),
+      radial-gradient(90% 60% at 10% 98%, #0a2f72 0%, rgba(10,47,114,0) 60%),
+      linear-gradient(160deg, #072256 0%, #04123a 50%, #020a1f 100%)}
+  .stage[data-variant="c"] .paycheck{
+    background:none;color:transparent;-webkit-text-stroke:.42cqw var(--orange2);
+    filter:drop-shadow(0 4px 12px rgba(0,0,0,.55))}
+  .stage[data-variant="c"] .kick{color:#fff;letter-spacing:.4em}
+  .stage[data-variant="c"] .dots{background-image:radial-gradient(rgba(255,255,255,.22) 22%,transparent 24%)}
+  .stage[data-variant="c"] .glow{opacity:.9}
+
+  /* cheque */
+  .check{flex:none;margin-top:3cqw;background:#fbfdff;color:#0a2a6f;border-radius:2.4cqw;
+    box-shadow:0 3cqw 6cqw rgba(0,0,0,.5), 0 0 0 .35cqw rgba(120,170,255,.55) inset;
+    padding:3cqw 5cqw;position:relative;overflow:hidden}
+  .check::after{content:"";position:absolute;inset:1.4cqw;border:.28cqw solid rgba(10,42,111,.16);border-radius:1.4cqw;pointer-events:none}
+  .chk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:3cqw}
+  .chk-brand{display:flex;flex-direction:column;gap:.6cqw}
+  .chk-brand .lg{height:9cqw;width:auto}
+  .chk-loc{font-family:var(--body);font-weight:600;font-size:2.5cqw;color:#2d4c87;letter-spacing:.02em;outline:none;
+    border-bottom:.22cqw dashed #a9bfe0;min-width:20cqw;padding-bottom:.3cqw}
+  .chk-date{font-family:var(--body);font-weight:700;font-size:2.6cqw;color:#0a2a6f;text-align:right;letter-spacing:.06em}
+  .chk-date .v{font-family:var(--hand);font-weight:700;font-size:4.2cqw;color:#12408f;border-bottom:.28cqw solid #9fb6dd;padding:0 1.5cqw .3cqw;display:inline-block;min-width:22cqw;text-align:center;outline:none}
+
+  .chk-mid{display:flex;gap:3.5cqw;margin-top:2cqw;align-items:stretch}
+  /* recuadro de foto mas grande que en la version anterior (era 18 x 15cqw) */
+  .photo{flex:none;width:24cqw;height:21cqw;border-radius:1.4cqw;overflow:hidden;position:relative;
+    background:#e6eefc;border:.35cqw solid #b9ccee;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center}
+  .photo img{width:100%;height:100%;object-fit:cover;display:none}
+  .photo.has img{display:block}
+  /* el texto de ayuda lleva respiro propio: si solo tuviera padding horizontal
+     queda pegado al borde del recuadro cuando el texto ocupa dos lineas */
+  .photo .ph{font-family:var(--body);font-weight:600;font-size:2.2cqw;color:#44629b;padding:1.2cqw;line-height:1.3}
+  .photo.has .ph{display:none}
+
+  .chk-lines{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2.4cqw}
+  .row-pay{display:flex;align-items:flex-end;gap:2cqw;min-width:0}
+  .lbl{flex:none;font-family:var(--body);font-weight:700;font-size:2.2cqw;letter-spacing:.03em;color:#2d4c87;text-transform:uppercase;line-height:1.05}
+  .payto{flex:1;min-width:0;display:flex;align-items:flex-end;gap:1.5cqw}
+  .name{flex:1;min-width:0;font-family:var(--hand);font-weight:700;font-size:5cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .3cqw;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .amt-box{flex:none;display:flex;align-items:center;gap:1cqw}
+  .amt-box .dollar{font-family:var(--body);font-weight:800;font-size:4.4cqw;color:#0a2a6f}
+  .amt{flex:none;font-family:var(--hand);font-weight:700;font-size:4.2cqw;color:#12408f;border:.3cqw solid #9fb6dd;border-radius:1cqw;padding:.4cqw 1.4cqw;min-width:15cqw;text-align:center;background:#fff;outline:none;white-space:nowrap}
+  .row-words{display:flex;align-items:flex-end;gap:1.5cqw}
+  .words{flex:1;min-width:0;font-family:var(--hand);font-weight:600;font-size:2.9cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .3cqw;outline:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dollars{flex:none;font-family:var(--body);font-weight:700;font-size:2.1cqw;letter-spacing:.03em;color:#2d4c87;text-transform:uppercase}
+
+  .chk-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2cqw;gap:4cqw}
+  .memo{display:flex;align-items:flex-end;gap:1.5cqw}
+  .memo .v{font-family:var(--hand);font-weight:600;font-size:3.4cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;min-width:26cqw;outline:none}
+  .sign{text-align:center}
+  .sign .s{font-family:var(--hand);font-weight:700;font-size:5.2cqw;color:#12408f;line-height:.9;outline:none}
+  .sign .cap{font-family:var(--body);font-weight:700;font-size:1.9cqw;letter-spacing:.04em;color:#2d4c87;text-transform:uppercase;border-top:.28cqw solid #9fb6dd;padding-top:.8cqw;margin-top:.4cqw}
+  .micr{margin-top:1.8cqw;font-family:var(--mono);font-weight:500;font-size:2.7cqw;letter-spacing:.14em;color:#1c3d7a}
+  .name:empty::before,.words:empty::before,.amt:empty::before,
+  .chk-loc:empty::before,.chk-date .v:empty::before,.memo .v:empty::before{content:"\00a0"}
+
+  /* pie */
+  .foot{margin-top:4.5cqw;text-align:center;padding-top:3.5cqw}
+  .foot .tag{font-family:var(--disp);font-size:4.2cqw;letter-spacing:.42em;color:rgba(255,255,255,.88);outline:none}
+  .foot .line{margin:2.5cqw auto 0;width:44cqw;height:.4cqw;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent)}
+
+  /* ═══════════ VARIANTE D · MOMENTO (figura recortada) ═══════════
+     La foto llego como cutout con transparencia real (974 x 944), asi que en
+     vez de una foto rectangular a sangre se arma el poster por capas:
+       z1  monto gigante en naranja
+       z2  la figura recortada, anclada al borde inferior
+       z3  nombre, bajada y degradado de pie
+     El monto queda parcialmente detras de la cabeza: por eso el bloque del
+     monto termina ~7cqw despues de donde arranca la figura. */
+  .momento{position:absolute;inset:0;z-index:3;display:none}
+  .stage[data-variant="d"] .inner{display:none}
+  .stage[data-variant="d"] .momento{display:block}
+  .stage[data-variant="d"] .dots.tr{display:none}
+  .stage[data-variant="d"] .glow{left:-18cqw;top:58cqw;opacity:.9}
+
+  .mo-top{position:absolute;top:7cqw;left:6cqw;right:6cqw;z-index:4;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:3cqw}
+  .mo-kick{font-family:var(--disp);font-size:5.2cqw;letter-spacing:.34em;color:var(--orange);
+    line-height:1;outline:none}
+  .mo-month{font-family:var(--body);font-weight:700;font-size:2.5cqw;letter-spacing:.2em;
+    color:rgba(255,255,255,.88);text-transform:uppercase;text-align:right;line-height:1.4;outline:none}
+
+  .mo-head{position:absolute;top:22cqw;left:6cqw;right:6cqw;z-index:4}
+  .mo-rule{width:16cqw;height:.7cqw;background:var(--orange);border-radius:99px}
+  .mo-lab{margin-top:3cqw;font-family:var(--body);font-weight:800;font-size:2.8cqw;
+    letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.92)}
+  .mo-name{margin-top:1.6cqw;font-family:var(--disp);font-size:11cqw;line-height:.9;
+    letter-spacing:.015em;color:#fff;text-transform:uppercase;outline:none;
+    filter:drop-shadow(0 .4cqw 1.4cqw rgba(0,0,0,.55))}
+
+  /* monto gigante — capa de atras.
+     Baja hasta 63cqw para que el borde inferior del monto (63 + 34x.86 = 92cqw)
+     quede DEBAJO de donde arranca la figura (177.8 - 104 = 74cqw): son 18cqw de
+     solape real. En la primera version el monto cerraba en 87 contra una figura
+     que arrancaba en 82 y el cruce casi no se veia. */
+  .mo-amt{position:absolute;top:63cqw;left:0;right:0;z-index:1;text-align:center;
+    font-family:var(--disp);font-size:34cqw;line-height:.86;letter-spacing:.005em;
+    color:var(--orange);outline:none;filter:drop-shadow(0 .6cqw 2cqw rgba(0,0,0,.45))}
+
+  /* figura recortada — capa del medio, anclada abajo.
+     El cutout es un hombre de ropa oscura sobre fondo navy: sin ayuda el cuerpo
+     desaparece y queda una cabeza flotando. El filo naranja de 1px dibuja la
+     silueta completa y la separa del fondo sin aclarar la foto. */
+  .mo-fig{position:absolute;z-index:2;bottom:0;left:50%;transform:translateX(-50%);
+    height:104cqw;width:auto;display:block;
+    filter:contrast(1.06) brightness(1.05)
+           drop-shadow(0 0 .35cqw rgba(247,148,30,.85))
+           drop-shadow(0 0 4cqw rgba(0,0,0,.5))
+           drop-shadow(0 1cqw 2cqw rgba(0,0,0,.4))}
+
+  /* pie — capa de alante. El degradado tiene que dejar ver los hombros: si cierra
+     opaco se come el torso y vuelve el efecto de cabeza suelta. */
+  .mo-foot{position:absolute;z-index:4;left:0;right:0;bottom:0;padding:0 6cqw 8cqw;
+    background:linear-gradient(180deg,rgba(4,16,46,0) 0%,rgba(4,16,46,.45) 34%,
+      rgba(4,16,46,.86) 72%,rgba(4,16,46,.95) 100%);padding-top:24cqw}
+  .mo-words{font-family:var(--body);font-weight:600;font-size:2.8cqw;letter-spacing:.04em;
+    color:rgba(255,255,255,.92);line-height:1.4}
+  .mo-tag{margin-top:3cqw;padding-top:2.8cqw;border-top:.25cqw solid rgba(255,255,255,.34);
+    font-family:var(--disp);font-size:3.8cqw;letter-spacing:.38em;color:rgba(255,255,255,.92);outline:none}
+
+  /* panel de control */
+  .panel{width:100%;max-width:540px;background:#0d1730;border:1px solid #21335f;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .panel h2{margin:0;font-size:15px;font-weight:800;letter-spacing:.02em}
+  .panel p{margin:0;font-size:14px;line-height:1.55;color:#c3cfe8}
+  .panel .btns{display:flex;flex-wrap:wrap;gap:10px}
+  .panel button{font-family:var(--body);font-weight:700;font-size:13px;border:none;border-radius:10px;padding:11px 16px;cursor:pointer}
+  .panel .prim{background:var(--orange);color:#20140a}
+  .panel .sec{background:#1b2b52;color:#dbe6ff;border:1px solid #2c437a}
+  .panel .up{background:#133a7a;color:#dbe6ff;border:1px solid #2f58a8}
+  .hint{font-size:14px;color:#a8b9dd;line-height:1.6}
+  .hint b{color:#dbe6ff}
+  .todo{font-size:14px;line-height:1.6;color:#ffd9a0;background:#2a1d08;border:1px solid #6b4a12;
+    border-radius:10px;padding:12px 14px}
+  .todo b{color:#ffb347}
+  input[type=file]{display:none}
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="fit"><div class="scaler" id="scaler">
+      <div class="stage" id="stage" data-variant="a">
+        <div class="dots bl"></div>
+        <div class="dots tr"></div>
+        <div class="glow"></div>
+
+        <!-- variantes A/B/C: cheque dibujado -->
+        <div class="inner">
+          <div class="top">
+            <div class="month" contenteditable="true">OCTUBRE 2026</div>
+          </div>
+
+          <div class="hero">
+            <div class="kick" contenteditable="true">WINDMAR PROS</div>
+            <div class="paycheck" contenteditable="true">PAYCHECK</div>
+            <div class="hline"></div>
+          </div>
+
+          <div class="check" id="check">
+            <div class="chk-head">
+              <div class="chk-brand">
+                <img class="lg" src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+                <div class="chk-loc" contenteditable="true"></div>
+              </div>
+              <div class="chk-date">FECHA:<br><span class="v" contenteditable="true"></span></div>
+            </div>
+
+            <div class="chk-mid">
+              <div class="photo has" id="photo" title="Haz clic para cambiar la foto">
+                <img id="photoImg" src="img/pros/anthony-fratto.png" alt="Anthony Fratto">
+                <div class="ph">Clic para<br>subir foto</div>
+              </div>
+              <div class="chk-lines">
+                <div class="row-pay">
+                  <div class="lbl">Páguese<br>a:</div>
+                  <div class="payto">
+                    <div class="name" id="nameEl" contenteditable="true">Anthony Fratto</div>
+                  </div>
+                </div>
+                <div class="row-words">
+                  <div class="words" id="wordsEl" contenteditable="true">Mil doscientos ocho</div>
+                  <div class="dollars">Dólares</div>
+                  <div class="amt-box">
+                    <span class="dollar">$</span>
+                    <div class="amt" id="amtEl" contenteditable="true">1,208</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chk-foot">
+              <div class="memo"><span class="lbl">Memo:</span><span class="v" contenteditable="true"></span></div>
+              <div class="sign">
+                <div class="s" contenteditable="true">WindMar</div>
+                <div class="cap">Firma autorizada</div>
+              </div>
+            </div>
+
+            <div class="micr" contenteditable="true">⑆123456789⑆ ⑉000123456789⑉ 1001</div>
+          </div>
+
+          <div class="foot">
+            <div class="tag" contenteditable="true">MÁS VENTAS · MÁS GANANCIAS</div>
+            <div class="line"></div>
+          </div>
+        </div>
+
+        <!-- variante D · Momento: poster por capas con la figura recortada -->
+        <div class="momento">
+          <div class="mo-amt" id="moAmt" contenteditable="true">$1,208</div>
+          <img class="mo-fig" id="moFig" src="img/pros/anthony-fratto.png" alt="Anthony Fratto">
+
+          <div class="mo-top">
+            <div class="mo-kick" contenteditable="true">WINDMAR PROS</div>
+            <div class="mo-month" contenteditable="true">OCTUBRE 2026</div>
+          </div>
+
+          <div class="mo-head">
+            <div class="mo-rule"></div>
+            <div class="mo-lab">Páguese a</div>
+            <div class="mo-name" id="moName" contenteditable="true">Anthony Fratto</div>
+          </div>
+
+          <div class="mo-foot">
+            <div class="mo-words" id="moWords">Mil doscientos ocho dólares</div>
+            <div class="mo-tag" contenteditable="true">MÁS VENTAS · MÁS GANANCIAS</div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+
+    <div class="panel">
+      <h2>Cheque WindMar Pros — Anthony Fratto</h2>
+      <p>Haz clic sobre cualquier texto para escribirlo. Al cambiar la cifra, <b>el monto en letras se escribe solo</b>.</p>
+      <div class="btns" id="variants">
+        <button class="prim" data-v="a">Clásico</button>
+        <button class="sec" data-v="b">Naranja</button>
+        <button class="sec" data-v="c">Impacto</button>
+        <button class="sec" data-v="d">Momento · foto</button>
+      </div>
+      <div class="btns">
+        <button class="up" id="upload">⬆︎ Subir foto</button>
+        <button class="prim" id="dl">⬇︎ Descargar PNG</button>
+        <button class="sec" id="reset">Restablecer</button>
+      </div>
+      <div class="todo">
+        <b>Falta por llenar (no lo inventé):</b> la oficina, la fecha y el memo están en blanco.
+        El mes dice <b>octubre 2026</b> porque es el mes de hoy — cámbialo si la entrega fue en otro.
+      </div>
+      <div class="hint">Formato <b>1080 × 1920</b> (Story · 9:16). El PNG sale en alta resolución.
+        La misma foto que subas sirve para el recuadro del cheque y para la variante <b>Momento</b>.</div>
+    </div>
+  </div>
+  <input type="file" id="file" accept="image/*">
+
+<script>
+  const stage  = document.getElementById('stage');
+  const scaler = document.getElementById('scaler');
+  const fit    = document.querySelector('.fit');
+
+  function rescale(){
+    const w = fit.clientWidth;
+    const s = Math.min(1, w / 1080);
+    scaler.style.transform = 'scale(' + s + ')';
+    scaler.style.height = (1920 * s) + 'px';
+    scaler.style.width  = '1080px';
+  }
+  window.addEventListener('resize', rescale);
+  rescale();
+
+  /* ── monto en letras (español) ─────────────────────────────────────────
+     La version anterior dejaba esta linea siempre vacia porque habia que
+     escribirla a mano. Aqui se calcula sola desde la cifra. */
+  function numALetras(n){
+    n = Math.floor(Math.abs(n));
+    if(n === 0) return 'Cero';
+    const u = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez',
+               'once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho',
+               'diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro',
+               'veinticinco','veintiséis','veintisiete','veintiocho','veintinueve'];
+    const d = ['','','','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+    const c = ['','ciento','doscientos','trescientos','cuatrocientos','quinientos',
+               'seiscientos','setecientos','ochocientos','novecientos'];
+
+    const dos = x => x < 30 ? u[x]
+      : d[Math.floor(x/10)] + (x % 10 ? ' y ' + u[x % 10] : '');
+
+    const tres = x => {
+      if(x === 100) return 'cien';
+      const cen = Math.floor(x/100), r = x % 100;
+      return (c[cen] || '') + (cen && r ? ' ' : '') + (r ? dos(r) : '');
+    };
+
+    const mil = x => {
+      if(x < 1000) return tres(x);
+      const m = Math.floor(x/1000), r = x % 1000;
+      return (m === 1 ? 'mil' : tres(m) + ' mil') + (r ? ' ' + tres(r) : '');
+    };
+
+    const mill = x => {
+      if(x < 1000000) return mil(x);
+      const m = Math.floor(x/1000000), r = x % 1000000;
+      return (m === 1 ? 'un millón' : mil(m) + ' millones') + (r ? ' ' + mil(r) : '');
+    };
+
+    const s = mill(n);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  function parseMonto(txt){
+    const limpio = String(txt).replace(/[^\d.,]/g,'').replace(/,/g,'');
+    const v = parseFloat(limpio);
+    return isNaN(v) ? 0 : v;
+  }
+
+  function enLetras(valor){
+    const entero = Math.floor(valor);
+    const cent   = Math.round((valor - entero) * 100);
+    let s = numALetras(entero);
+    if(cent > 0) s += ' con ' + String(cent).padStart(2,'0') + '/100';
+    return s;
+  }
+
+  const amtEl   = document.getElementById('amtEl');
+  const wordsEl = document.getElementById('wordsEl');
+  const nameEl  = document.getElementById('nameEl');
+  const moName  = document.getElementById('moName');
+  const moAmt   = document.getElementById('moAmt');
+  const moWords = document.getElementById('moWords');
+
+  function fmtMoneda(v){
+    return '$' + v.toLocaleString('en-US', {
+      minimumFractionDigits: v % 1 ? 2 : 0,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function sincronizarMonto(origen){
+    const v = parseMonto(origen.textContent);
+    const letras = enLetras(v);
+    wordsEl.textContent = letras;
+    moWords.textContent = letras + ' dólares';
+    if(origen !== amtEl)  amtEl.textContent = v.toLocaleString('en-US',{maximumFractionDigits:2});
+    if(origen !== moAmt)  moAmt.textContent = fmtMoneda(v);
+  }
+
+  amtEl.addEventListener('input', () => sincronizarMonto(amtEl));
+  moAmt.addEventListener('input', () => sincronizarMonto(moAmt));
+
+  // el nombre se escribe una sola vez y viaja a las dos variantes
+  nameEl.addEventListener('input', () => { moName.textContent = nameEl.textContent; });
+  moName.addEventListener('input', () => { nameEl.textContent = moName.textContent; });
+
+  /* ── foto ───────────────────────────────────────────────────────────── */
+  const photo    = document.getElementById('photo');
+  const photoImg = document.getElementById('photoImg');
+  const moFig    = document.getElementById('moFig');
+  const file     = document.getElementById('file');
+
+  photo.addEventListener('click', () => file.click());
+  document.getElementById('upload').addEventListener('click', () => file.click());
+
+  // una sola foto alimenta el recuadro del cheque y la figura de la variante D.
+  // Para que la variante D funcione, la imagen tiene que venir recortada (PNG
+  // con transparencia); si tiene fondo, se vera el rectangulo.
+  file.addEventListener('change', e => {
+    const f = e.target.files[0]; if(!f) return;
+    const r = new FileReader();
+    r.onload = ev => {
+      photoImg.src = ev.target.result;
+      moFig.src    = ev.target.result;
+      photo.classList.add('has');
+    };
+    r.readAsDataURL(f);
+  });
+
+  /* ── descargar PNG ──────────────────────────────────────────────────── */
+  document.getElementById('dl').addEventListener('click', async () => {
+    const btn = document.getElementById('dl'); const t = btn.textContent;
+    btn.textContent = 'Generando…';
+    document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable','false'));
+    // se anula el scale del .scaler para que html2canvas capture a tamaño nativo
+    const pT = scaler.style.transform, pW = scaler.style.width, pH = scaler.style.height;
+    scaler.style.transform = 'none'; scaler.style.width = '1080px'; scaler.style.height = '1920px';
+    try{
+      const canvas = await html2canvas(stage, {scale:2, backgroundColor:null, useCORS:true,
+        width:1080, height:1920, windowWidth:1080, windowHeight:1920, scrollX:0, scrollY:0});
+      const a = document.createElement('a');
+      a.download = 'windmar-pros-paycheck-' + (stage.dataset.variant === 'd' ? 'momento' : stage.dataset.variant) + '.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    }catch(err){ alert('No se pudo generar el PNG: ' + err.message); }
+    scaler.style.transform = pT; scaler.style.width = pW; scaler.style.height = pH; rescale();
+    document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable','true'));
+    btn.textContent = t;
+  });
+
+  /* ── selector de estilo ─────────────────────────────────────────────── */
+  const vars = document.getElementById('variants');
+  vars.addEventListener('click', e => {
+    const b = e.target.closest('button[data-v]'); if(!b) return;
+    stage.dataset.variant = b.dataset.v;
+    vars.querySelectorAll('button').forEach(x => x.className = x === b ? 'prim' : 'sec');
+  });
+
+  document.getElementById('reset').addEventListener('click', () => {
+    if(confirm('¿Restablecer el cheque?')) location.reload();
+  });
+
+  // arranque: cuadra las letras con la cifra pre-cargada
+  sincronizarMonto(amtEl);
+</script>
+</body>
+</html>

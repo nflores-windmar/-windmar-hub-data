@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar PR — Reels blueprint · instalaciones por producto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1a52c7;--navy:#0a2882;--orange:#f57c0a;--paper:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#0b1020}
+body{font-family:'Montserrat',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px}
+
+.stage{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1920px;background:var(--paper);color:var(--navy)}
+@media(max-width:1120px){.stage{width:94vw;height:calc(94vw*1.7778)}}
+/* El viewport de captura mide exactamente 1080, así que la media query de
+   arriba se dispara y encoge el escenario: en render manda el tamaño real. */
+body.render{padding:0;gap:0}
+body.render .stage{width:1080px;height:1920px}
+
+/* ── el sitio, debajo del plano ───────────────────────────────── */
+.site{position:absolute;inset:0;z-index:0;overflow:hidden}
+.site img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(1) sepia(1) hue-rotate(176deg) saturate(2.4) brightness(1.12) contrast(.9);
+  opacity:.22;transform-origin:52% 46%;will-change:transform,opacity}
+.site::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 74% 48% at 40% 50%,
+    rgba(255,255,255,.94) 0%,rgba(255,255,255,.6) 56%,rgba(255,255,255,0) 100%)}
+
+/* ── papel técnico ───────────────────────────────────────────── */
+.grid{position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(circle,rgba(26,82,199,.17) 1.6px,transparent 1.6px);
+  background-size:4.2cqw 4.2cqw;will-change:background-position}
+.frame{position:absolute;inset:3.4cqw;z-index:2;border:.34cqw solid var(--blue);pointer-events:none}
+.tick{position:absolute;z-index:3;width:2.4cqw;height:2.4cqw;border:.44cqw solid var(--orange)}
+.tick.tl{top:2.2cqw;left:2.2cqw;border-right:0;border-bottom:0}
+.tick.tr{top:2.2cqw;right:2.2cqw;border-left:0;border-bottom:0}
+.tick.bl{bottom:2.2cqw;left:2.2cqw;border-right:0;border-top:0}
+.tick.br{bottom:2.2cqw;right:2.2cqw;border-left:0;border-top:0}
+
+.ruler{position:absolute;z-index:3;left:6.4cqw;top:22cqw;bottom:22cqw;width:.3cqw;background:rgba(26,82,199,.34)}
+.ruler i{position:absolute;left:-1.1cqw;width:2.5cqw;height:.3cqw;background:rgba(26,82,199,.34)}
+
+.mono{font-family:'DM Mono',monospace;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
+
+.top{position:absolute;z-index:7;top:7.4cqw;left:7.4cqw;right:7.4cqw;display:flex;align-items:center;justify-content:space-between}
+.wlogo{height:6cqw;width:auto;object-fit:contain}
+.kick{font-size:2.3cqw}
+.kick b{color:var(--orange);font-weight:500}
+
+.plate{position:absolute;z-index:4;right:9cqw;bottom:14cqw;
+  font-size:26cqw;font-weight:900;line-height:.8;letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:.34cqw rgba(26,82,199,.22);will-change:opacity,transform}
+
+/* ── las frases ──────────────────────────────────────────────── */
+.words{position:absolute;inset:0;z-index:5}
+.w{position:absolute;left:9.6cqw;right:7.4cqw;top:50%;
+  font-weight:900;line-height:.82;letter-spacing:-.035em;text-transform:uppercase;
+  color:var(--navy);will-change:transform,opacity,clip-path;opacity:0;
+  transform-origin:left center}
+.w .o{color:var(--orange)}
+.w.body{font-weight:700;text-transform:none;line-height:1.14;letter-spacing:-.022em;color:var(--blue)}
+.w .rule{display:block;height:1.5cqw;background:var(--orange);margin-top:3.4cqw;width:34cqw;
+  transform:scaleX(0);transform-origin:left center}
+
+/* ── la lámina del número ────────────────────────────────────────
+   Es la razón de ser de estos reels: el dato es el protagonista, no un
+   adorno dentro de una frase. Por eso ocupa su propia lámina.
+   Todo mide en em para que el ajuste automático escale el bloque entero
+   (número + etiqueta + sello) sin que se descuadren entre sí. */
+.w.big{line-height:.84;letter-spacing:-.045em}
+.w.big .blabel{display:block;font-family:'DM Mono',monospace;font-weight:500;font-size:.15em;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:.34em}
+/* tabular-nums fija el ancho de cada dígito: sin esto el número BAILA de izquierda
+   a derecha mientras cuenta, porque el 1 es más angosto que el 8. */
+.w.big .bnum{display:block;color:var(--orange);font-variant-numeric:tabular-nums;
+  font-feature-settings:'tnum' 1}
+.w.big .blbl{display:block;font-size:.23em;font-weight:800;letter-spacing:-.012em;
+  line-height:1.06;margin-top:.3em;color:var(--navy)}
+/* el sello de fecha: sin él, el número flota sin saberse de cuándo es */
+.w.big .bnota{display:block;font-family:'DM Mono',monospace;font-weight:500;font-size:.105em;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-top:.9em;opacity:.8}
+
+/* ── tarjeta final ───────────────────────────────────────────── */
+.end{position:absolute;inset:0;z-index:8;background:var(--paper);opacity:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 9.6cqw;gap:2.6cqw;will-change:opacity}
+.end .egrid{position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(circle,rgba(26,82,199,.17) 1.6px,transparent 1.6px);
+  background-size:4.2cqw 4.2cqw}
+.end .eframe{position:absolute;inset:3.4cqw;z-index:0;border:.34cqw solid var(--blue)}
+.end > *{position:relative;z-index:1}
+.end .site{position:absolute;inset:0;z-index:0}
+.end .site img{transform:scale(1.14)}
+.end .elogo{height:7.4cqw;width:auto;object-fit:contain;align-self:flex-start;margin-bottom:1.6cqw}
+.end h2{font-size:13.6cqw;font-weight:900;line-height:.84;letter-spacing:-.04em;text-transform:uppercase}
+.end h2 .o{color:var(--orange)}
+.end .sub{font-size:3.4cqw;font-weight:700;color:var(--blue);line-height:1.35;max-width:74cqw}
+.end .cta{align-self:flex-start;margin-top:1.4cqw;background:var(--orange);color:#1a1206;
+  font-size:3.6cqw;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:3cqw 6cqw}
+/* Al quitarse el botón de comentar, el URL pasó de ser el pie del cierre a ser
+   la única acción de la pieza. Estaba medido para ir debajo del botón, donde
+   solo tenía que rematar; solo se queda chico. Sube de 2.5 a 3.2cqw — en un
+   teléfono eso es la diferencia entre leerlo y adivinarlo. */
+.end .url{font-size:3.2cqw;margin-top:1.4cqw}
+
+.prog{position:absolute;top:0;left:0;right:0;height:.6cqw;z-index:9;background:rgba(26,82,199,.16)}
+.prog i{display:block;height:100%;width:0;background:var(--orange)}
+body.render .prog{display:none}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;padding:13px 20px;border:0;border-radius:11px;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.btn.ghost{background:#16255a;color:#cdd6ea}
+body.render .bar{display:none}
+
+/* Aviso de que los totales son provisionales. Va FUERA del escenario: se ve
+   al revisar en pantalla y no sale en el render ni en el video. */
+.aviso{max-width:620px;font-size:12.5px;line-height:1.6;color:#cdd6ea;background:#16255a;
+  border-left:4px solid var(--orange);border-radius:0 9px 9px 0;padding:14px 16px}
+.aviso b{color:#f0b46a}
+body.render .aviso{display:none}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="site"><img id="site" src="img/pr-solar-vecindario-placas.png" alt=""></div>
+  <div class="grid" id="grid"></div>
+  <div class="frame"></div>
+  <span class="tick tl"></span><span class="tick tr"></span>
+  <span class="tick bl"></span><span class="tick br"></span>
+  <div class="ruler" id="ruler"></div>
+
+  <div class="plate" id="plate">01</div>
+
+  <div class="top">
+    <img class="wlogo" id="logo" src="wme/logos/wmh-home-fc.png" alt="WindMar">
+    <div class="kick mono" id="kick">Solar · Puerto Rico</div>
+  </div>
+
+  <div class="words" id="words"></div>
+
+  <div class="end" id="end">
+    <div class="site"><img id="esite" src="img/pr-solar-vecindario-placas.png" alt=""></div>
+    <div class="egrid"></div><div class="eframe"></div>
+    <img class="elogo" id="elogo" src="wme/logos/wmh-home-fc.png" alt="WindMar">
+    <h2 id="endTtl"></h2>
+    <div class="sub" id="endSub"></div>
+    <div class="cta" id="endCta"></div>
+    <!-- PR va con windmar.com. windmarcommand.com es el de Florida: no se cruzan. -->
+    <div class="url mono">windmar.com</div>
+  </div>
+
+  <div class="prog"><i id="prog"></i></div>
+</div>
+
+<div class="bar">
+  <button class="btn" id="replay">▶ Play</button>
+  <button class="btn ghost" data-reel="solar">Solar</button>
+  <button class="btn ghost" data-reel="roofing">Roofing</button>
+  <button class="btn ghost" data-reel="water">Water</button>
+  <button class="btn ghost" data-reel="comercial">Comercial</button>
+</div>
+
+<p class="aviso" id="aviso"></p>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   LOS TOTALES — EL ÚNICO SITIO QUE HAY QUE TOCAR
+
+   Estos reels existen para enseñar CUÁNTO se ha instalado por producto, así
+   que el número es la pieza que más va a cambiar. Vive aquí arriba, suelto,
+   para que actualizarlo sea cambiar un dígito y no buscarlo dentro del guión.
+
+   ⚠ PROVISIONALES. Salen de las stories de PR ya aprobadas (sello
+     «Dato · Sept 2026»), NO son los totales finales que Nicolle va a confirmar.
+     Cuando lleguen los definitivos: cambiar n y nota aquí. Nada más.
+
+   NO se inventa ningún número. Si un producto no tiene dato, se deja n:null y
+   la lámina del número no se arma — el reel sale sin ella en vez de con un
+   relleno falso. (Caso real: «Sistemas instalados» está en ____ en las stories.)
+   ═══════════════════════════════════════════════════════════════ */
+/* top = el rótulo chiquito encima del número. Va por producto porque no todos
+   cuentan lo mismo: roofing cuenta pies², no instalaciones, y comercial cuenta
+   negocios atendidos. Un «Instalaciones» para los cuatro diría algo falso en
+   dos de ellos. No repite la fecha: de eso se encarga nota. */
+const TOTALES = {
+  solar:     { top:'Total instalado', n: 58500, label: 'Hogares con solar',       nota: 'Dato · Sept 2026' },
+  roofing:   { top:'Total instalado', n: 80353, label: 'Pies² instalados',        nota: 'Dato · Sept 2026' },
+  water:     { top:'Total instalado', n:   962, label: 'Cisternas instaladas',    nota: 'Dato · Sept 2026' },
+  comercial: { top:'Total atendido',  n:  2353, label: 'Negocios en Puerto Rico', nota: 'Dato · Sept 2026' },
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   LOS GUIONES
+   size = cqw · <span class="o"> = naranja · body:true = frase larga en caja
+   baja · rule:true = barra naranja debajo · big:true = la lámina del número,
+   que se arma sola desde TOTALES (no se escribe el dato en el guión).
+
+   Los saltos <br> van escritos uno por uno a propósito: el motor no respeta
+   un salto si la línea igual cabe partida sola, así que si no se fijan aquí
+   la lámina cambia según la fuente que cargue.
+   ═══════════════════════════════════════════════════════════════ */
+const REELS = {
+  solar: {
+    kick: 'Solar <b>·</b> Puerto Rico',
+    logo: 'wme/logos/wmh-home-fc.png',
+    site: 'img/pr-solar-vecindario-placas.png',
+    lines: [
+      { t:'CADA PLACA<br>QUE PONEMOS<br>ES UNA CASA<br><span class="o">MÁS TRANQUILA</span>', size:11.6 },
+      { t:'EN PUERTO RICO<br><span class="o">YA SON</span>', size:13.4, rule:true },
+      { big:'solar', size:21 },
+      { t:'Y SEGUIMOS<br><span class="o">SUBIENDO<br>TECHOS</span>', size:15 },
+    ],
+    end: { ttl:'¿HABLAMOS<br>DE <span class="o">TU CASA?</span>', sub:'Evaluación gratis, sin compromiso.' }
+  },
+  roofing: {
+    kick: 'Roofing <b>·</b> Puerto Rico',
+    logo: 'wme/logos/windmar-roofing-fc.png',
+    site: 'img/pr-roofing-techos-blancos.png',
+    lines: [
+      { t:'UN TECHO<br>BIEN HECHO<br><span class="o">NO SE NOTA</span>', size:14 },
+      { t:'HASTA QUE<br>LLUEVE Y<br><span class="o">NO PASA NADA</span>', size:13, rule:true },
+      { big:'roofing', size:21 },
+      { t:'TECHO<br>POR TECHO,<br><span class="o">CASA<br>POR CASA</span>', size:13.4 },
+    ],
+    end: { ttl:'¿HABLAMOS<br>DE <span class="o">TU TECHO?</span>', sub:'Inspección gratis, sin compromiso.' }
+  },
+  water: {
+    kick: 'Water <b>·</b> Puerto Rico',
+    logo: 'wme/logos/windmar-water-fc.png',
+    site: 'img/pr-cisterna-techo-coast.png',
+    lines: [
+      { t:'EL AGUA<br>NO AVISA<br><span class="o">CUÁNDO VUELVE</span>', size:13.4 },
+      { t:'POR ESO<br><span class="o">INSTALAMOS</span>', size:16, rule:true },
+      { big:'water', size:24 },
+      { t:'300 GALONES<br>AL DÍA PARA<br><span class="o">CADA FAMILIA</span>', size:12.4 },
+    ],
+    end: { ttl:'¿HABLAMOS<br>DE <span class="o">TU CISTERNA?</span>', sub:'Evaluación gratis, sin compromiso.' }
+  },
+  comercial: {
+    kick: 'Comercial <b>·</b> Puerto Rico',
+    logo: 'wme/logos/wmh-home-fc.png',
+    site: 'img/pr-anker-foodtruck-park.jpg',
+    lines: [
+      { t:'EL NEGOCIO<br>QUE NO PARA<br><span class="o">ES EL QUE CRECE</span>', size:12.4 },
+      { t:'YA ACOMPAÑAMOS A', size:11, rule:true },
+      { big:'comercial', size:24 },
+      { t:'DEL FOOD TRUCK<br><span class="o">A LA PLANTA</span>', size:12.4 },
+    ],
+    end: { ttl:'¿HABLAMOS<br>DE <span class="o">TU NEGOCIO?</span>', sub:'Evaluación gratis, sin compromiso.' }
+  }
+};
+
+/* El ritmo: cada frase tiene que poder LEERSE, no solo verse pasar. */
+const STEP = 2.4;        // segundos por frase
+const HOLD_END = 3.8;    // segundos que aguanta la tarjeta final
+const COUNT_DUR = 1.30;  // lo que tarda el número en subir de 0 al total
+/* ═══════════════════════════════════════════════════════════════ */
+
+const q = new URLSearchParams(location.search);
+const reelId = REELS[q.get('reel')] ? q.get('reel') : 'solar';
+const REEL = REELS[reelId];
+
+/* Si el producto todavía no tiene total, su lámina se cae en vez de salir con
+   un número inventado o con rayas. El reel queda más corto y ya. */
+const LINES = REEL.lines.filter(l => !l.big || (TOTALES[l.big] && TOTALES[l.big].n != null));
+
+const wordsEl = document.getElementById('words');
+const endEl   = document.getElementById('end');
+const progEl  = document.getElementById('prog');
+const gridEl  = document.getElementById('grid');
+const plateEl = document.getElementById('plate');
+const topEl   = document.querySelector('.top');
+const rulerEl = document.getElementById('ruler');
+const siteEl  = document.getElementById('site');
+
+siteEl.src = REEL.site;
+document.getElementById('esite').src = REEL.site;
+document.getElementById('logo').src  = REEL.logo;
+document.getElementById('elogo').src = REEL.logo;
+document.getElementById('kick').innerHTML   = REEL.kick;
+document.getElementById('endTtl').innerHTML = REEL.end.ttl;
+document.getElementById('endSub').textContent = REEL.end.sub;
+/* El botón es opcional. Se quitó el «Escribe SOLAR» de los cuatro reels, pero el
+   soporte se queda: si algún día uno vuelve a necesitar botón, se le pone
+   cta:'…' en su guión y aparece. Sin cta el botón NO se arma — si solo se le
+   borrara el texto quedaría una caja naranja vacía en el cierre. */
+const ctaEl = document.getElementById('endCta');
+if(REEL.end.cta) ctaEl.textContent = REEL.end.cta;
+else ctaEl.remove();
+
+rulerEl.innerHTML = Array.from({length:9},(_,i)=>`<i style="top:${i*12.5}%"></i>`).join('');
+
+/* Separador de millares escrito a mano en vez de toLocaleString: el formato
+   automático depende de la configuración del navegador que renderice, y el
+   video tiene que salir idéntico siempre. */
+const fmtNum = v => String(v).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+
+const nodes = LINES.map(l => {
+  const d = document.createElement('div');
+  d.className = 'w' + (l.body ? ' body' : '') + (l.big ? ' big' : '');
+  d.style.fontSize = l.size + 'cqw';
+  if(l.big){
+    const T = TOTALES[l.big];
+    /* el número se escribe YA completo: el medidor de tamaño tiene que medir el
+       valor final, no un intermedio de la cuenta (si no, se pasa de ancho al
+       terminar de subir). */
+    d.innerHTML = '<span class="blabel">' + T.top + '</span>'
+                + '<span class="bnum">' + fmtNum(T.n) + '</span>'
+                + '<span class="blbl">' + T.label + '</span>'
+                + '<span class="bnota">' + T.nota + '</span>';
+  } else {
+    d.innerHTML = l.t + (l.rule ? '<span class="rule"></span>' : '');
+  }
+  wordsEl.appendChild(d);
+  return d;
+});
+
+const WORDS_DUR = LINES.length * STEP;
+const TOTAL = WORDS_DUR + HOLD_END;
+window.__duration = TOTAL;
+
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const easeOut=p=>1-Math.pow(1-p,3);
+const easeBack=p=>{const c=2.2;return 1+(c+1)*Math.pow(p-1,3)+c*Math.pow(p-1,2)};
+
+/* función pura del tiempo → estado visual. Determinista y seekable:
+   el mismo t da siempre el mismo cuadro, por eso el video calza con el audio.
+   La cuenta del número también es función de t, así que no rompe el render. */
+function applyAt(t){
+  t = clamp(t,0,TOTAL);
+  progEl.style.width = (100*t/TOTAL)+'%';
+
+  const idx   = clamp(Math.floor(t/STEP),0,LINES.length-1);
+  const inEnd = t >= WORDS_DUR;
+
+  gridEl.style.backgroundPosition = (idx*1.4)+'cqw '+(idx*-1.0)+'cqw';
+
+  const p01 = t/TOTAL;
+  siteEl.style.transform = 'scale('+(1.06 + 0.09*p01)+')';
+  siteEl.style.opacity   = 0.22 * easeOut(clamp(t/0.9,0,1));
+
+  plateEl.textContent = String(Math.min(idx+1,LINES.length)).padStart(2,'0');
+  plateEl.style.opacity = inEnd ? 0 : 1;
+
+  LINES.forEach((l,i)=>{
+    const n = nodes[i];
+    const start = i*STEP;
+    const pin  = clamp((t-start)/0.60,0,1);
+    const pout = clamp((t-(start+STEP-0.34))/0.30,0,1);
+    n.style.opacity = inEnd ? 0 : (pin>0 ? 1-pout : 0);
+
+    const back = easeBack(pin);
+    const ty   = (1-back)*7;
+    const sc   = 0.86 + 0.14*back;
+    n.style.transform = 'translateY(calc(-50% + '+(ty - pout*5)+'cqw)) scale('+sc+')';
+    n.style.clipPath  = 'inset(0 '+((1-easeOut(clamp((t-start)/0.56,0,1)))*100)+'% 0 0)';
+
+    if(l.rule){
+      const r = n.querySelector('.rule');
+      if(r) r.style.transform = 'scaleX('+easeOut(clamp((t-(start+0.34))/0.60,0,1))+')';
+    }
+
+    /* la cuenta: arranca un pelo después de que la lámina entra, para que el ojo
+       llegue al número antes de que empiece a correr */
+    if(l.big){
+      const T = TOTALES[l.big];
+      const pc = easeOut(clamp((t-(start+0.28))/COUNT_DUR,0,1));
+      n.querySelector('.bnum').textContent = fmtNum(Math.round(pc*T.n));
+    }
+  });
+
+  endEl.style.opacity = easeOut(clamp((t-WORDS_DUR)/0.50,0,1));
+  topEl.style.opacity = 1 - clamp((t-(WORDS_DUR-0.35))/0.45,0,1);
+}
+window.__seek = applyAt;
+
+let raf=null, t0=null;
+function frame(ts){
+  if(t0==null) t0=ts;
+  const t=(ts-t0)/1000;
+  applyAt(t);
+  if(t<TOTAL) raf=requestAnimationFrame(frame); else raf=null;
+}
+function play(){ if(raf) cancelAnimationFrame(raf); t0=null; raf=requestAnimationFrame(frame); }
+
+document.getElementById('replay').addEventListener('click', play);
+document.querySelectorAll('[data-reel]').forEach(b=>b.addEventListener('click',()=>{
+  location.search = '?reel='+b.dataset.reel;
+}));
+
+const isRender = q.has('render') || q.has('overlay');
+if(isRender){ document.body.classList.add('render'); applyAt(0); }
+
+const T = TOTALES[reelId];
+document.getElementById('aviso').innerHTML =
+  '<b>⚠ Número provisional.</b> Este reel muestra <b>' + (T ? fmtNum(T.n) : '—') + '</b> ('
+  + (T ? T.label.toLowerCase() : 'sin dato') + '), que sale de las stories de PR con sello '
+  + (T ? T.nota : '—') + '. No son los totales finales. Para actualizarlo se cambia '
+  + 'solo el bloque TOTALES al principio del archivo — el guión no se toca. '
+  + 'Duración actual: ' + TOTAL.toFixed(2) + 's.';
+
+/* Una palabra larga en mayúscula 900 no parte línea: si no cabe, se sale del
+   cuadro y el render la corta. Los tamaños del guión son el techo, no la ley. */
+const stageEl = document.getElementById('stage');
+function fit(node, maxCqw, maxHeightRatio){
+  const cap = stageEl.clientHeight * maxHeightRatio;
+  let s = maxCqw, guard = 0;
+  node.style.fontSize = s + 'cqw';
+  while (guard++ < 80 && s > 3.5 &&
+         (node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > cap)) {
+    s *= 0.96;
+    node.style.fontSize = s.toFixed(2) + 'cqw';
+  }
+}
+
+(async () => {
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(()=>{})));
+  nodes.forEach((n,i) => fit(n, LINES[i].size, 0.62));
+  fit(document.getElementById('endTtl'), 13.6, 0.40);
+  window.__ready = true;
+  if(!isRender) play();
+})();
+</script>
+
+</body>
+</html>

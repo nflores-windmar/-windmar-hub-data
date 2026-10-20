@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Home FL — Reels blueprint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1a52c7;--navy:#0a2882;--orange:#f57c0a;--paper:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#0b1020}
+body{font-family:'Montserrat',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px}
+
+.stage{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1920px;background:var(--paper);color:var(--navy)}
+@media(max-width:1120px){.stage{width:94vw;height:calc(94vw*1.7778)}}
+/* El viewport de captura mide exactamente 1080, así que la media query de
+   arriba se dispara y encoge el escenario: en render manda el tamaño real.
+   Aquí NO hay modo overlay — el papel es opaco y el cuadro sale completo. */
+body.render{padding:0;gap:0}
+body.render .stage{width:1080px;height:1920px}
+
+/* ── el sitio, debajo del plano ───────────────────────────────── */
+/* La foto NO es metraje de fondo: va lavada en azul de marca sobre el papel,
+   como la vista aérea que un plano lleva impresa debajo del dibujo. */
+.site{position:absolute;inset:0;z-index:0;overflow:hidden}
+.site img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;
+  /* duotono: gris → sepia → el tono se gira hasta el azul de marca */
+  filter:grayscale(1) sepia(1) hue-rotate(176deg) saturate(2.4) brightness(1.12) contrast(.9);
+  opacity:.22;transform-origin:52% 46%;will-change:transform,opacity}
+/* el papel vuelve a ganar donde cae el texto: la foto queda de contexto, no de fondo */
+.site::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 74% 48% at 40% 50%,
+    rgba(255,255,255,.94) 0%,rgba(255,255,255,.6) 56%,rgba(255,255,255,0) 100%)}
+
+/* ── papel técnico ───────────────────────────────────────────── */
+.grid{position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(circle,rgba(26,82,199,.17) 1.6px,transparent 1.6px);
+  background-size:4.2cqw 4.2cqw;will-change:background-position}
+.frame{position:absolute;inset:3.4cqw;z-index:2;border:.34cqw solid var(--blue);pointer-events:none}
+.tick{position:absolute;z-index:3;width:2.4cqw;height:2.4cqw;border:.44cqw solid var(--orange)}
+.tick.tl{top:2.2cqw;left:2.2cqw;border-right:0;border-bottom:0}
+.tick.tr{top:2.2cqw;right:2.2cqw;border-left:0;border-bottom:0}
+.tick.bl{bottom:2.2cqw;left:2.2cqw;border-right:0;border-top:0}
+.tick.br{bottom:2.2cqw;right:2.2cqw;border-left:0;border-top:0}
+
+/* la regla de medir del margen: puro gesto de plano técnico */
+.ruler{position:absolute;z-index:3;left:6.4cqw;top:22cqw;bottom:22cqw;width:.3cqw;background:rgba(26,82,199,.34)}
+.ruler i{position:absolute;left:-1.1cqw;width:2.5cqw;height:.3cqw;background:rgba(26,82,199,.34)}
+
+.mono{font-family:'DM Mono',monospace;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
+
+.top{position:absolute;z-index:7;top:7.4cqw;left:7.4cqw;right:7.4cqw;display:flex;align-items:center;justify-content:space-between}
+.wlogo{height:6cqw;width:auto;object-fit:contain}
+.kick{font-size:2.3cqw}
+.kick b{color:var(--orange);font-weight:500}
+
+/* el número de lámina, gigante y hueco, como marca de agua de plano */
+.plate{position:absolute;z-index:4;right:9cqw;bottom:14cqw;
+  font-size:26cqw;font-weight:900;line-height:.8;letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:.34cqw rgba(26,82,199,.22);will-change:opacity,transform}
+
+/* ── las frases ──────────────────────────────────────────────── */
+.words{position:absolute;inset:0;z-index:5}
+.w{position:absolute;left:9.6cqw;right:7.4cqw;top:50%;
+  font-weight:900;line-height:.82;letter-spacing:-.035em;text-transform:uppercase;
+  color:var(--navy);will-change:transform,opacity,clip-path;opacity:0;
+  transform-origin:left center}
+.w .o{color:var(--orange)}
+/* las frases largas bajan de peso y de caja: en 900 todo mayúscula se vuelven un muro */
+.w.body{font-weight:700;text-transform:none;line-height:1.14;letter-spacing:-.022em;color:var(--blue)}
+
+/* ── lámina de socios ────────────────────────────────────────────
+   Van los artes oficiales que entregó Nicolle, recortados al contenido y con el
+   blanco EXTERIOR en transparente (ver _render/, se hizo por inundación desde el
+   borde) para que el papel cuadriculado se vea alrededor. El blanco de ADENTRO
+   se conserva: la curva del Owens Corning y el filete del Bravo son parte del
+   logo, no fondo.
+   Todo mide en em para que el ajuste automático de tamaño escale el bloque entero. */
+/* Esta lámina va CENTRADA, no a la izquierda como las frases. Tres logos de
+   marcas distintas alineados a un margen se ven torcidos: cada uno tiene su
+   propio aire interno y el ojo no encuentra el eje. Centrados sí. */
+.w.parts{font-weight:800;text-transform:none;letter-spacing:-.01em;line-height:1;
+  color:var(--navy);text-align:center}
+.w.parts .plabel{display:block;font-family:'DM Mono',monospace;font-weight:500;font-size:.092em;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:.52em}
+/* Apilados, no en fila. El cuadro es vertical: en una sola fila cada logo solo
+   puede ocupar un tercio del ancho y los tres salen diminutos. Apilados usan el
+   ancho completo y comparten el mismo eje vertical. */
+.w.parts .pslots{display:flex;flex-direction:column;align-items:center;gap:.16em}
+/* Cada logo va dentro de una caja del MISMO tamaño y se encoge hasta caber,
+   centrado. Así los tres pesan igual aunque uno sea cuadrado, otro casi
+   cuadrado y el tercero un logotipo ancho: lo que se alinea es la caja, no el
+   dibujo. Ponerlos a la misma altura hacía justo lo contrario — el Bravo salía
+   tres veces más grande que los otros dos. */
+.w.parts .pslot{display:flex;align-items:center;justify-content:center;
+  width:1.9em;height:1em}
+.w.parts .pslot img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+.w .rule{display:block;height:1.5cqw;background:var(--orange);margin-top:3.4cqw;width:34cqw;
+  transform:scaleX(0);transform-origin:left center}
+
+/* ── tarjeta final ───────────────────────────────────────────── */
+.end{position:absolute;inset:0;z-index:8;background:var(--paper);opacity:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:0 9.6cqw;gap:2.6cqw;will-change:opacity}
+.end .egrid{position:absolute;inset:0;z-index:0;
+  background-image:radial-gradient(circle,rgba(26,82,199,.17) 1.6px,transparent 1.6px);
+  background-size:4.2cqw 4.2cqw}
+.end .eframe{position:absolute;inset:3.4cqw;z-index:0;border:.34cqw solid var(--blue)}
+.end > *{position:relative;z-index:1}
+/* la regla de arriba alcanzaría también a la foto y la subiría sobre el texto */
+.end .site{position:absolute;inset:0;z-index:0}
+.end .site img{transform:scale(1.14)}
+.end .elogo{height:7.4cqw;width:auto;object-fit:contain;align-self:flex-start;margin-bottom:1.6cqw}
+.end h2{font-size:13.6cqw;font-weight:900;line-height:.84;letter-spacing:-.04em;text-transform:uppercase}
+.end h2 .o{color:var(--orange)}
+.end .sub{font-size:3.4cqw;font-weight:700;color:var(--blue);line-height:1.35;max-width:74cqw}
+.end .cta{align-self:flex-start;margin-top:1.4cqw;background:var(--orange);color:#1a1206;
+  font-size:3.6cqw;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:3cqw 6cqw}
+.end .url{font-size:2.5cqw;margin-top:.8cqw}
+
+.prog{position:absolute;top:0;left:0;right:0;height:.6cqw;z-index:9;background:rgba(26,82,199,.16)}
+.prog i{display:block;height:100%;width:0;background:var(--orange)}
+body.render .prog{display:none}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:.08em;
+  text-transform:uppercase;padding:13px 20px;border:0;border-radius:11px;cursor:pointer;
+  background:var(--orange);color:#1a1206}
+.btn.ghost{background:#16255a;color:#cdd6ea}
+body.render .bar{display:none}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <!-- src por defecto = el del reel roofing, que es el que abre si no viene ?reel.
+       Iba vacío y el JS lo llenaba; mientras tanto el marcado servía dos <img>
+       rotos, y si el script fallaba se quedaban así. -->
+  <div class="site"><img id="site" src="img/fl-aerial-neighborhood-clouds.png" alt=""></div>
+  <div class="grid" id="grid"></div>
+  <div class="frame"></div>
+  <span class="tick tl"></span><span class="tick tr"></span>
+  <span class="tick bl"></span><span class="tick br"></span>
+  <div class="ruler" id="ruler"></div>
+
+  <div class="plate" id="plate">01</div>
+
+  <div class="top">
+    <img class="wlogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="kick mono" id="kick">Roofing · Florida</div>
+  </div>
+
+  <div class="words" id="words"></div>
+
+  <div class="end" id="end">
+    <div class="site"><img id="esite" src="img/fl-aerial-neighborhood-clouds.png" alt=""></div>
+    <div class="egrid"></div><div class="eframe"></div>
+    <img class="elogo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <h2 id="endTtl"></h2>
+    <div class="sub" id="endSub"></div>
+    <div class="cta" id="endCta"></div>
+    <div class="url mono">windmarcommand.com</div>
+  </div>
+
+  <div class="prog"><i id="prog"></i></div>
+</div>
+
+<div class="bar">
+  <button class="btn" id="replay">▶ Play</button>
+  <button class="btn ghost" data-reel="roofing">Roofing</button>
+  <button class="btn ghost" data-reel="battery">Powerwall</button>
+  <button class="btn ghost" data-reel="solar">Solar</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   battery y solar: copy EXACTO de flBateriaCarouselEn / flSolarCarouselEn
+   en src/data/carousel.ts. roofing ya NO — lleva guión propio de Nicolle,
+   ver la nota dentro del bloque. No se inventó texto en ninguno de los tres.
+
+   size = cqw · o:true = naranja · body:true = frase larga en caja
+   baja · rule:true = barra naranja que se dibuja debajo.
+   ═══════════════════════════════════════════════════════════════ */
+const REELS = {
+  roofing: {
+    kick: 'Roofing <b>·</b> Florida',
+    site: 'img/fl-aerial-neighborhood-clouds.png',
+    /* Guión de Nicolle (5 láminas + la tarjeta final, que ya era su lámina 6).
+       Este reel YA NO sigue flRoofingCarouselEn: el carrusel habla del producto
+       («ready for Florida»), este habla de la compañía. Si alguien vuelve a
+       sincronizarlo con carousel.ts, borra el guión aprobado. */
+    /* Los saltos van escritos uno por uno a propósito. El motor no respeta un <br>
+       si la línea igual cabe partida sola: pone el salto donde le toca y el
+       resultado cambia según la fuente. Escritos así, la lámina sale igual
+       siempre. Los tamaños están medidos para que ninguna línea desborde. */
+    lines: [
+      { t:'YOUR ROOF<br>REPLACEMENT<br>DECISION<br>COULD GET<br><span class="o">STRESSFUL</span>', size:11.6 },
+      { t:'WE<br>MAKE<br>IT<br><span class="o">SIMPLE</span>', size:20, rule:true },
+      { t:'ALL<br>FACTORY<br>TRAINED<br><span class="o">W-2<br>EMPLOYEES</span>', size:13 },
+      { t:'IN<br>BUSINESS<br><span class="o">SINCE<br>2002</span>', size:15 },
+      { parts:true, size:26, t:'<span class="plabel">Trusted partnerships</span>'
+        + '<span class="pslots">'
+        + '<span class="pslot"><img src="wme/logos/partner-home-depot.png" alt="The Home Depot"></span>'
+        + '<span class="pslot"><img src="wme/logos/partner-owens-corning.png" alt="Owens Corning"></span>'
+        + '<span class="pslot"><img src="wme/logos/partner-bravo.png" alt="Bravo Supermarket"></span>'
+        + '</span>' },
+    ],
+    end: { ttl:"LET'S TALK<br>ABOUT <span class='o'>YOUR ROOF</span>", sub:'A free inspection, no obligation.', cta:'Comment ROOF' }
+  },
+  battery: {
+    kick: 'Tesla Powerwall <b>·</b> Florida',
+    site: 'img/fl-solar-house-pool-palms.png',
+    lines: [
+      { t:'YOUR PANELS',                                   size:13.4 },
+      { t:'NEED<br><span class="o">STORAGE</span>',        size:21, rule:true },
+      { t:'Panels alone don’t store power',                size:9.6, body:true },
+      { t:'Stores what your panels make during the day',   size:9.0, body:true },
+      { t:'Powers your home at night and in outages',      size:9.0, body:true },
+      { t:'YOUR ENERGY,<br><span class="o">READY WHEN<br>YOU NEED IT</span>', size:12.4 },
+    ],
+    end: { ttl:"LET'S TALK<br>ABOUT <span class='o'>YOUR BATTERY</span>", sub:'A free consultation, no obligation.', cta:'Comment POWERWALL' }
+  },
+  solar: {
+    kick: 'Solar <b>·</b> Florida',
+    site: 'img/fl-solar-neighborhood-goldenhour.png',
+    lines: [
+      { t:'SOLAR<br>IS STILL',                             size:16 },
+      { t:'A <span class="o">SMART<br>INVESTMENT</span>',  size:16, rule:true },
+      { t:'THE SUN<br>DIDN’T FAIL.',                       size:16 },
+      { t:'WHOEVER<br><span class="o">SOLD IT DID.</span>', size:16 },
+      { t:'Those companies are gone. The serious ones remain.', size:9.0, body:true },
+      { t:'FIRST YOU<br>UNDERSTAND.<br><span class="o">THEN YOU<br>DECIDE.</span>', size:12.4 },
+    ],
+    end: { ttl:"WANT<br><span class='o'>GUIDANCE?</span>", sub:'Free consultation, no commitment.', cta:'Comment SOLAR' }
+  }
+};
+
+/* El ritmo: cada frase tiene que poder LEERSE, no solo verse pasar.
+   2.4 s da tiempo a una línea larga; por debajo de 2 s se siente atropellado. */
+const STEP = 2.4;        // segundos por frase
+const HOLD_END = 3.8;    // segundos que aguanta la tarjeta final
+/* ═══════════════════════════════════════════════════════════════ */
+
+const q = new URLSearchParams(location.search);
+const reelId = REELS[q.get('reel')] ? q.get('reel') : 'roofing';
+const REEL = REELS[reelId];
+const LINES = REEL.lines;
+
+const wordsEl = document.getElementById('words');
+const endEl   = document.getElementById('end');
+const progEl  = document.getElementById('prog');
+const gridEl  = document.getElementById('grid');
+const plateEl = document.getElementById('plate');
+const topEl   = document.querySelector('.top');
+const rulerEl = document.getElementById('ruler');
+const siteEl  = document.getElementById('site');
+
+siteEl.src = REEL.site;
+document.getElementById('esite').src = REEL.site;
+document.getElementById('kick').innerHTML   = REEL.kick;
+document.getElementById('endTtl').innerHTML = REEL.end.ttl;
+document.getElementById('endSub').textContent = REEL.end.sub;
+document.getElementById('endCta').textContent = REEL.end.cta;
+
+rulerEl.innerHTML = Array.from({length:9},(_,i)=>`<i style="top:${i*12.5}%"></i>`).join('');
+
+const nodes = LINES.map(l => {
+  const d = document.createElement('div');
+  d.className = 'w' + (l.body ? ' body' : '') + (l.parts ? ' parts' : '');
+  d.style.fontSize = l.size + 'cqw';
+  d.innerHTML = l.t + (l.rule ? '<span class="rule"></span>' : '');
+  wordsEl.appendChild(d);
+  return d;
+});
+
+const WORDS_DUR = LINES.length * STEP;
+const TOTAL = WORDS_DUR + HOLD_END;
+window.__duration = TOTAL;
+
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const easeOut=p=>1-Math.pow(1-p,3);
+/* el rebote es el que hace que se sienta exagerado: pasa de largo y vuelve */
+const easeBack=p=>{const c=2.2;return 1+(c+1)*Math.pow(p-1,3)+c*Math.pow(p-1,2)};
+
+/* función pura del tiempo → estado visual. Determinista y seekable:
+   el mismo t da siempre el mismo cuadro, por eso el video calza con el audio. */
+function applyAt(t){
+  t = clamp(t,0,TOTAL);
+  progEl.style.width = (100*t/TOTAL)+'%';
+
+  const idx   = clamp(Math.floor(t/STEP),0,LINES.length-1);
+  const inEnd = t >= WORDS_DUR;
+
+  // el papel se corre un paso en cada frase: el plano "respira"
+  gridEl.style.backgroundPosition = (idx*1.4)+'cqw '+(idx*-1.0)+'cqw';
+
+  // la foto se acerca despacio durante todo el reel: da profundidad sin distraer
+  const p01 = t/TOTAL;
+  siteEl.style.transform = 'scale('+(1.06 + 0.09*p01)+')';
+  siteEl.style.opacity   = 0.22 * easeOut(clamp(t/0.9,0,1));
+
+  plateEl.textContent = String(Math.min(idx+1,LINES.length)).padStart(2,'0');
+  plateEl.style.opacity = inEnd ? 0 : 1;
+
+  LINES.forEach((l,i)=>{
+    const n = nodes[i];
+    const start = i*STEP;
+    const pin  = clamp((t-start)/0.60,0,1);
+    const pout = clamp((t-(start+STEP-0.34))/0.30,0,1);
+    n.style.opacity = inEnd ? 0 : (pin>0 ? 1-pout : 0);
+
+    // entra desde abajo, pasada de tamaño, y se revela por barrido
+    const back = easeBack(pin);
+    const ty   = (1-back)*7;
+    const sc   = 0.86 + 0.14*back;
+    n.style.transform = 'translateY(calc(-50% + '+(ty - pout*5)+'cqw)) scale('+sc+')';
+    n.style.clipPath  = 'inset(0 '+((1-easeOut(clamp((t-start)/0.56,0,1)))*100)+'% 0 0)';
+
+    if(l.rule){
+      const r = n.querySelector('.rule');
+      if(r) r.style.transform = 'scaleX('+easeOut(clamp((t-(start+0.34))/0.60,0,1))+')';
+    }
+  });
+
+  endEl.style.opacity = easeOut(clamp((t-WORDS_DUR)/0.50,0,1));
+  /* la tarjeta final trae su propio logo: el de la barra sobra y compite */
+  topEl.style.opacity = 1 - clamp((t-(WORDS_DUR-0.35))/0.45,0,1);
+}
+window.__seek = applyAt;
+
+let raf=null, t0=null;
+function frame(ts){
+  if(t0==null) t0=ts;
+  const t=(ts-t0)/1000;
+  applyAt(t);
+  if(t<TOTAL) raf=requestAnimationFrame(frame); else raf=null;
+}
+function play(){ if(raf) cancelAnimationFrame(raf); t0=null; raf=requestAnimationFrame(frame); }
+
+document.getElementById('replay').addEventListener('click', play);
+document.querySelectorAll('[data-reel]').forEach(b=>b.addEventListener('click',()=>{
+  location.search = '?reel='+b.dataset.reel;
+}));
+
+const isRender = q.has('render') || q.has('overlay');
+if(isRender){ document.body.classList.add('render'); applyAt(0); }
+
+/* Una palabra larga en mayúscula 900 no parte línea: si no cabe, se sale del
+   cuadro y el render la corta. Los tamaños del guión son el techo, no la ley —
+   aquí se mide el texto ya con la fuente cargada y se baja hasta que entra. */
+const stageEl = document.getElementById('stage');
+function fit(node, maxCqw, maxHeightRatio){
+  const cap = stageEl.clientHeight * maxHeightRatio;
+  let s = maxCqw, guard = 0;
+  node.style.fontSize = s + 'cqw';
+  // scrollWidth nunca baja de clientWidth: el umbral tiene que ser ese, no uno
+  // reducido, o el bucle no para nunca y lo encoge todo al mínimo.
+  while (guard++ < 80 && s > 3.5 &&
+         (node.scrollWidth > node.clientWidth + 1 || node.scrollHeight > cap)) {
+    s *= 0.96;
+    node.style.fontSize = s.toFixed(2) + 'cqw';
+  }
+}
+
+(async () => {
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(i => i.decode().catch(()=>{})));
+  nodes.forEach((n,i) => fit(n, LINES[i].size, 0.62));
+  fit(document.getElementById('endTtl'), 13.6, 0.40);
+  window.__ready = true;
+  if(!isRender) play();
+})();
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cronograma de Grabación · WindMar Puerto Rico</title>
+<title>Cronograma de Producción · WindMar Puerto Rico · Agosto</title>
 <style>
   :root {
     --orange: #FF6B00;
@@ -14,9 +14,10 @@
     --border: rgba(255,255,255,.08);
     --text: #f0f2f8;
     --text2: #8b90a7;
-    --am: #f5a623;      /* morning */
-    --pm: #3b82f6;      /* afternoon */
-    --both: #a855f7;    /* both */
+    --prod: #34d399;   /* producto */
+    --intv: #f472b6;   /* entrevista / testimonio */
+    --media: #f5a623;  /* media / colab */
+    --season: #a855f7; /* estacional */
     --radius: 12px;
     --font: 'Inter', -apple-system, sans-serif;
   }
@@ -29,34 +30,31 @@
   .topbar-title { font-size: 18px; font-weight: 800; color: var(--text); }
   .topbar-sub { font-size: 12px; color: var(--text2); }
   h1 { font-size: 24px; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
-  .sub { font-size: 13px; color: var(--text2); margin-bottom: 22px; max-width: 720px; line-height: 1.5; }
+  .sub { font-size: 13px; color: var(--text2); margin-bottom: 22px; max-width: 760px; line-height: 1.5; }
   .legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
   .chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); font-size: 12px; font-weight: 600; }
   .dot { width: 10px; height: 10px; border-radius: 50%; }
   .callout { background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 24px; font-size: 13px; line-height: 1.55; }
-  .callout b { color: var(--am); }
+  .callout b { color: var(--media); }
   .section-h { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--text2); font-weight: 700; margin: 26px 0 12px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 18px; }
   .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 900px; }
   th { text-align: left; padding: 11px 13px; color: var(--text2); border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; background: var(--surface2); }
   td { padding: 12px 13px; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.45; }
   tr:last-child td { border-bottom: none; }
-  td.date { font-weight: 700; white-space: nowrap; }
-  td.date small { display:block; font-weight: 500; color: var(--text2); font-size: 11px; }
-  .slotbadge { display:inline-block; padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: 800; white-space: nowrap; }
-  .slot-am { background: rgba(245,166,35,.16); color: var(--am); }
-  .slot-pm { background: rgba(59,130,246,.16); color: var(--pm); }
-  .slot-both { background: rgba(168,85,247,.16); color: var(--both); }
-  .slot-tbd { background: var(--surface2); color: var(--text2); }
+  td.idx { font-weight: 800; color: var(--orange); white-space: nowrap; font-size: 15px; }
+  .typebadge { display:inline-block; padding: 3px 9px; border-radius: 10px; font-size: 11px; font-weight: 800; white-space: nowrap; }
+  .t-prod { background: rgba(52,211,153,.16); color: var(--prod); }
+  .t-intv { background: rgba(244,114,182,.16); color: var(--intv); }
+  .t-media { background: rgba(245,166,35,.16); color: var(--media); }
+  .t-season { background: rgba(168,85,247,.16); color: var(--season); }
   .talent { font-weight: 600; }
   .talent small { display:block; font-weight:500; color: var(--text2); font-size:11px; }
-  .feat { background: rgba(245,166,35,.07); }
-  .feat td.date { color: var(--am); }
-  .star { color: var(--am); }
   .status { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; white-space: nowrap; }
   .st-todo { background: var(--surface2); color: var(--text2); }
   .st-conf { background: rgba(34,197,94,.15); color: #4ade80; }
+  .st-tbd { background: rgba(245,166,35,.12); color: var(--media); }
   ul.spec { list-style: none; padding: 14px 18px; }
   ul.spec li { padding: 5px 0 5px 22px; position: relative; font-size: 13px; color: var(--text); line-height: 1.5; }
   ul.spec li::before { content: '▸'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
@@ -79,7 +77,7 @@
   <div class="topbar-logo">🎬</div>
   <div>
     <div class="topbar-title">WindMar Puerto Rico</div>
-    <div class="topbar-sub">Content Hub · Cronograma de Grabación</div>
+    <div class="topbar-sub">Content Hub · Cronograma de Producción · Agosto</div>
   </div>
   <div style="margin-left:auto; display:flex; gap:8px;">
     <a class="topbar-back" href="cronograma_fl.html">☀️ Cronograma FL</a>
@@ -89,121 +87,175 @@
   </div>
 </div>
 
-<h1>🎬 Production Schedule — WindMar Puerto Rico</h1>
+<h1>🎬 Cronograma de Producción — Puerto Rico</h1>
 <div class="sub">
-  Cronograma de grabación para el equipo de videografía. Cada día se divide en
-  <b>tres franjas</b> para no chocar agendas: <b>Morning</b>, <b>Afternoon</b> o <b>Both</b>.
-  Regla: <b>una sola grabación por franja</b>.
+  Lista tentativa de piezas a producir para Puerto Rico. Cubre <b>productos</b> (Anker, Solar, Roofing, Water),
+  <b>entrevistas / testimonios</b> (post-venta, voceros), <b>colaboraciones de medios</b> (WAPA / media tour) y
+  <b>contenido estacional</b> (regreso a clases). Bilingüe (ES/EN), vertical 9:16. Fechas y talent <b>por confirmar</b>.
 </div>
 
 <div class="legend">
-  <span class="chip"><span class="dot" style="background:var(--am)"></span>🌅 Morning · 8 AM–12 PM</span>
-  <span class="chip"><span class="dot" style="background:var(--pm)"></span>🌇 Afternoon · 1–5 PM</span>
-  <span class="chip"><span class="dot" style="background:var(--both)"></span>🌅🌇 Both · día completo</span>
+  <span class="chip"><span class="dot" style="background:var(--prod)"></span>🛠️ Producto</span>
+  <span class="chip"><span class="dot" style="background:var(--intv)"></span>🎤 Entrevista / testimonio</span>
+  <span class="chip"><span class="dot" style="background:var(--media)"></span>📺 Media / colaboración</span>
+  <span class="chip"><span class="dot" style="background:var(--season)"></span>📅 Estacional</span>
 </div>
 
 <div class="callout">
-  ⭐ <b>Emmanuel Ortiz</b> — disponible <b>solo en la mañana (AM)</b>. Su grabación queda fija
-  el <b>jueves 16 de julio · 10:00 AM</b>. ⏱️ Ojo: para no publicar el mismo día de grabar,
-  su contenido se edita y <b>sale al aire ~5 días después (semana del 21 de julio)</b>.
+  📝 <b>Borrador de producción</b> — 8 temas confirmados para la semana (Canvaceo). La colaboración con
+  <b>WAPA (WA)</b> incluye a <b>Marie Lee</b> (mujer accionista). Ajustamos formato, talent y fechas al confirmar.
 </div>
 
-<div class="section-h">📹 Días de grabación (para los videógrafos)</div>
+<div class="section-h">📅 Semana de grabación · 10–14 de agosto (borrador)</div>
 <div class="card">
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th>Fecha</th>
-          <th>Franja</th>
-          <th>Talent / Disponibilidad</th>
-          <th>Qué grabar</th>
-          <th>Producto</th>
-          <th>Formato</th>
-          <th>Alimenta</th>
+          <th>Día</th>
+          <th>Enfoque del día</th>
+          <th>Piezas</th>
+          <th>Locación / Set</th>
+          <th>Talent / Colaborador</th>
           <th>Estado</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td class="date">Mié 24 Jun<small>semana 1</small></td>
-          <td><span class="slotbadge slot-am">🌅 AM</span></td>
-          <td class="talent">Equipo / instalador<small>técnico WindMar</small></td>
-          <td>B-roll de paneles en techo + exterior de la casa. Plano del equipo trabajando.</td>
-          <td>Home + Solar</td>
+          <td class="idx"><b>Lun 10</b></td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span><br><b>Solar</b><br><small style="color:var(--text2)">exteriores, luz de día</small></td>
+          <td>#2 Solar</td>
+          <td>Casa de cliente · techo / exterior</td>
+          <td class="talent">Equipo instalador<small>solar</small></td>
+          <td><span class="status st-tbd">Por confirmar</span></td>
+        </tr>
+        <tr>
+          <td class="idx"><b>Mar 11</b></td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span><br><b>Anker PYMES + Water</b><br><small style="color:var(--text2)">demos e instalación</small></td>
+          <td>#1 Anker PYMES · #4 Water instalación</td>
+          <td>Comercio / oficina + hogar</td>
+          <td class="talent">Dueño de PYME · instalador<small>WindMar</small></td>
+          <td><span class="status st-tbd">Por confirmar</span></td>
+        </tr>
+        <tr>
+          <td class="idx"><b>Mié 12</b></td>
+          <td><span class="typebadge t-prod">🛠️ Roofing</span> <span class="typebadge t-media">📺 Media / WAPA</span><br><b>Roofing 10am + bloque WAPA</b><br><small style="color:var(--text2)">Elliot Rodríguez · Media Tour · Marie Lee</small></td>
+          <td>#3 Roofing (10am) · #5 Media Tour BTS · #7 Marie Lee</td>
+          <td>Techo / exterior + set de medios (WAPA)</td>
+          <td class="talent">Elliot Rodríguez<small>roofing 10am</small> · Marie Lee<small>collab WAPA</small></td>
+          <td><span class="status st-conf">Roofing 10am ✓</span></td>
+        </tr>
+        <tr>
+          <td class="idx"><b>Jue 13</b></td>
+          <td><span class="typebadge t-season">📅 Estacional</span><br><b>Back to School + Canvaceo</b><br><small style="color:var(--text2)">energía que protege su educación</small></td>
+          <td>#6 Back to School · #8 Canvaceo</td>
+          <td>Hogar de familia con estudiantes</td>
+          <td class="talent">Familia · estudiantes</td>
+          <td><span class="status st-tbd">Por confirmar</span></td>
+        </tr>
+        <tr>
+          <td class="idx"><b>Vie 14</b></td>
+          <td><span class="typebadge t-prod">🎬 Reserva</span><br><b>Pickups + B-roll</b><br><small style="color:var(--text2)">respaldo de la semana</small></td>
+          <td>Tomas faltantes de #1–#8</td>
+          <td>Según lo que falte</td>
+          <td class="talent">Equipo WindMar</td>
+          <td><span class="status st-tbd">Reserva</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="callout" style="margin-top:14px">
+  📌 <b>Borrador de la semana</b> — reparte los <b>8 temas</b> en 5 días: producto en campo (lun–mar), el <b>miércoles 12</b> Roofing a las <b>10am con Elliot Rodríguez</b> + bloque media / WAPA (Media Tour + Marie Lee), jueves estacional (Back to School + Canvaceo) y el viernes reservado para <i>pickups</i> y B-roll. Clips crudos al drive <b>el mismo día</b>. Dime locaciones, horas y talent confirmado y lo fijo.
+</div>
+
+<div class="section-h">📹 Piezas a producir</div>
+<div class="card">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tipo</th>
+          <th>Tema</th>
+          <th>Qué grabar</th>
+          <th>Formato</th>
+          <th>Talent / Colaborador</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="idx">1</td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span></td>
+          <td><b>Anker — PYMES</b><br><small style="color:var(--text2)">respaldo para negocios</small></td>
+          <td>Batería Anker en un comercio / oficina · demo de la app · cómo mantiene el negocio operando en un apagón.</td>
           <td>Reel 9:16 + B-roll</td>
-          <td>Posts La casa (25 jun) y Solar (30 jun)</td>
+          <td class="talent">Dueño de PYME<small>+ instalador WindMar</small></td>
           <td><span class="status st-todo">Por agendar</span></td>
         </tr>
         <tr>
-          <td class="date">Mié 1 Jul<small>semana 2</small></td>
-          <td><span class="slotbadge slot-pm">🌇 PM</span></td>
-          <td class="talent">Equipo de techos</td>
-          <td>Inspección y sellado de techo. Antes/después. Detalle de la membrana sellada.</td>
-          <td>Sellado / Roofing</td>
+          <td class="idx">2</td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span></td>
+          <td><b>Solar</b></td>
+          <td>Paneles en techo · exterior de la casa · familia cómoda · referencia a la factura / ahorro.</td>
           <td>Reel 9:16 + B-roll</td>
-          <td>Post Sellado (7 jul)</td>
+          <td class="talent">Equipo / instalador</td>
           <td><span class="status st-todo">Por agendar</span></td>
         </tr>
         <tr>
-          <td class="date">Mié 8 Jul<small>semana 3</small></td>
-          <td><span class="slotbadge slot-am">🌅 AM</span></td>
+          <td class="idx">3</td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span></td>
+          <td><b>Roofing</b><br><small style="color:var(--text2)">sellado</small></td>
+          <td>Inspección y sellado de techo · antes / durante / después · detalle de la membrana.</td>
+          <td>Reel 9:16 + B-roll</td>
+          <td class="talent">Elliot Rodríguez<small>+ equipo de techos</small></td>
+          <td><span class="status st-conf">Mié 12 · 10am ✓</span></td>
+        </tr>
+        <tr>
+          <td class="idx">4</td>
+          <td><span class="typebadge t-prod">🛠️ Producto</span></td>
+          <td><b>Water — instalación</b></td>
+          <td>Instalación real de sistema de agua / cisterna · proceso paso a paso · agua limpia como resultado.</td>
+          <td>Reel 9:16 + B-roll</td>
           <td class="talent">Instalador WindMar</td>
-          <td>Instalación de batería de apoyo Anker + demo de la app en el teléfono.</td>
-          <td>Anker / Apoyo</td>
-          <td>Reel 9:16 + B-roll</td>
-          <td>Post Anker (14 jul)</td>
           <td><span class="status st-todo">Por agendar</span></td>
         </tr>
-        <tr class="feat">
-          <td class="date"><span class="star">★</span> Jue 9 Jul<small>semana 3 · 8:00 AM</small></td>
-          <td><span class="slotbadge slot-am">🌅 AM · 8:00</span></td>
-          <td class="talent"><span class="star">WindMar Champions</span><small>Christian Samir · Greisa Chacón · Jonathan Torres</small></td>
-          <td>Pieza grupal con voceros: testimonios / explicación de marca a cámara + B-roll de apoyo. Tomas individuales y en grupo.</td>
-          <td>Anker / Marca</td>
-          <td>Reel + testimonial grupal (ES & EN)</td>
-          <td>Post destacado (~14 jul)</td>
-          <td><span class="status st-conf">Confirmado 8:00 AM</span></td>
+        <tr>
+          <td class="idx">5</td>
+          <td><span class="typebadge t-media">📺 Media</span></td>
+          <td><b>Media Tour — BTS</b></td>
+          <td>Detrás de cámara del media tour · llegada al set · entrevistas · el equipo en acción. Stories + reel de resumen.</td>
+          <td>Reel + Stories</td>
+          <td class="talent">Equipo + vocero<small>set de medios</small></td>
+          <td><span class="status st-todo">Por agendar</span></td>
         </tr>
-        <tr class="feat">
-          <td class="date"><span class="star">★</span> Mar 14 Jul<small>semana 4 · 9:30 AM</small></td>
-          <td><span class="slotbadge slot-am">🌅 AM · 9:30</span></td>
-          <td class="talent"><span class="star">Elliot Rodríguez</span><small>disponible 9:30 AM</small></td>
-          <td>Pieza con vocero: testimonio / explicación de producto a cámara + B-roll de apoyo.</td>
-          <td>Anker / Marca</td>
-          <td>Reel + testimonial (ES & EN)</td>
-          <td>Post destacado (~21 jul)</td>
-          <td><span class="status st-conf">Confirmado 9:30 AM</span></td>
+        <tr>
+          <td class="idx">6</td>
+          <td><span class="typebadge t-season">📅 Estacional</span></td>
+          <td><b>Back to School</b><br><small style="color:var(--text2)">regreso a clases</small></td>
+          <td>Energía confiable para el hogar en época de clases · luz e internet que no se van · rutina de familia con estudiantes.</td>
+          <td>Reel 9:16</td>
+          <td class="talent">Familia / estudiantes</td>
+          <td><span class="status st-todo">Por agendar</span></td>
         </tr>
-        <tr class="feat">
-          <td class="date"><span class="star">★</span> Mar 14 Jul<small>semana 4 · PM</small></td>
-          <td><span class="slotbadge slot-pm">🌇 PM</span></td>
-          <td class="talent"><span class="star">Jesús Medina</span><small>disponible en la tarde (PM)</small></td>
-          <td>Pieza con vocero: testimonio / explicación de producto a cámara + B-roll de apoyo.</td>
-          <td>Anker / Marca</td>
-          <td>Reel + testimonial (ES & EN)</td>
-          <td>Post destacado (~21 jul)</td>
-          <td><span class="status st-conf">Confirmado PM</span></td>
+        <tr>
+          <td class="idx">7</td>
+          <td><span class="typebadge t-media">📺 Colab WA</span></td>
+          <td><b>Marie Lee — mujer accionista</b><br><small style="color:var(--text2)">colaboración con WAPA</small></td>
+          <td>Perfil / testimonio de Marie Lee como mujer accionista y líder · a cámara + B-roll de apoyo. Coordinado con WAPA.</td>
+          <td>Reel + entrevista (ES/EN)</td>
+          <td class="talent">Marie Lee<small>collab WAPA (WA)</small></td>
+          <td><span class="status st-tbd">Coord. con WA</span></td>
         </tr>
-        <tr class="feat">
-          <td class="date"><span class="star">★</span> Mié 15 Jul<small>semana 4</small></td>
-          <td><span class="slotbadge slot-pm">🌇 1:30 PM</span></td>
-          <td class="talent"><span class="star">David Fonseca</span><small>disponible en la tarde (PM) · 1:30 PM</small></td>
-          <td>Pieza con vocero: testimonio / explicación de producto a cámara + B-roll de apoyo.</td>
-          <td>Anker / Marca</td>
-          <td>Reel + testimonial (ES & EN)</td>
-          <td>Post destacado (~22 jul)</td>
-          <td><span class="status st-conf">Confirmado PM</span></td>
-        </tr>
-        <tr class="feat">
-          <td class="date"><span class="star">★</span> Jue 16 Jul<small>semana 4</small></td>
-          <td><span class="slotbadge slot-am">🌅 10:00 AM</span></td>
-          <td class="talent"><span class="star">Emmanuel Ortiz</span><small>disponible solo AM · 10:00 AM</small></td>
-          <td>Pieza con vocero: mensaje de preparación + respaldo de energía. A cámara + B-roll de apoyo.</td>
-          <td>Anker / Marca</td>
-          <td>Reel + testimonial (ES & EN)</td>
-          <td>Post destacado (~21 jul)</td>
-          <td><span class="status st-conf">★ Confirmado AM</span></td>
+        <tr>
+          <td class="idx">8</td>
+          <td><span class="typebadge t-season">📅 Canvaceo</span></td>
+          <td><b>Canvaceo</b><br><small style="color:var(--text2)">confírmame el enfoque</small></td>
+          <td>Tema Canvaceo de la semana — dime el ángulo exacto (formato, mensaje y talent) y lo completo.</td>
+          <td>Por definir</td>
+          <td class="talent">Por definir</td>
+          <td><span class="status st-tbd">Por definir</span></td>
         </tr>
       </tbody>
     </table>
@@ -217,47 +269,30 @@
       <li>Grabar en <b>vertical 9:16</b> (Reels / Stories)</li>
       <li><b>Hook en los primeros 3 segundos</b></li>
       <li>Versión <b>con y sin texto</b> en pantalla</li>
-      <li><b>Audio limpio</b> — evitar viento y ruido de fondo</li>
-      <li>Múltiples ángulos del mismo momento</li>
-      <li>Contenido <b>bilingüe</b>: capturar tomas que sirvan para ES y EN</li>
+      <li><b>Audio limpio</b> — micrófono de solapa en entrevistas</li>
+      <li>Múltiples ángulos + B-roll de apoyo</li>
+      <li>Contenido <b>bilingüe</b>: capturar ES y EN cuando se pueda</li>
       <li>Elementos de marca en set (logo, colores WindMar)</li>
     </ul>
   </div>
   <div class="card">
-    <div class="card-head">📦 Entrega</div>
+    <div class="card-head">📦 Entrega y coordinación</div>
     <ul class="spec">
       <li>Clips crudos al <b>drive del equipo</b> el mismo día</li>
-      <li>Grabación lista <b>5–7 días antes</b> de cada publicación</li>
       <li><b>Edición: 1–3 días</b> por pieza</li>
-      <li>Reel del feature de Emmanuel: <b>prioridad</b> tras grabar 16 jul</li>
-      <li>Nombrar archivos: <b>PR_producto_fecha_idioma</b></li>
+      <li>Colaboraciones <b>WAPA (WA)</b>: coordinar fecha y permisos con producción</li>
+      <li>Post-venta: <b>release firmado</b> del cliente para usar su imagen</li>
+      <li>Nombrar archivos: <b>PR_tema_fecha_idioma</b></li>
       <li>Entregar <b>master + versión con subtítulos</b> (ES y EN)</li>
     </ul>
   </div>
 </div>
 
-<div class="section-h">🗓️ Cómo conecta con el calendario de publicación</div>
-<div class="card">
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr><th>Semana</th><th>Se graba</th><th>Se publica</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="date">1 · jun 23–28</td><td>Home + Solar B-roll (24 jun AM)</td><td>La casa ES/EN (25 jun)</td></tr>
-        <tr><td class="date">2 · jun 29–jul 5</td><td>Roofing B-roll (1 jul PM)</td><td>Solar ES/EN (30 jun) · 4 de julio (4 jul)</td></tr>
-        <tr><td class="date">3 · jul 6–12</td><td>Anker B-roll (8 jul AM) · <span class="star">★</span> WindMar Champions — Christian Samir, Greisa Chacón, Jonathan Torres (9 jul 8 AM)</td><td>Sellado ES/EN (7 jul)</td></tr>
-        <tr><td class="date">4 · jul 13–19</td><td><span class="star">★</span> Elliot Rodríguez (14 jul 9:30 AM) · <span class="star">★</span> Jesús Medina (14 jul PM) · <span class="star">★</span> David Fonseca (15 jul 1:30 PM) · <span class="star">★</span> Emmanuel Ortiz (16 jul 10:00 AM)</td><td>Anker ES/EN (14 jul) · <span class="star">★</span> Feature WindMar Champions ES/EN (~14 jul)</td></tr>
-        <tr><td class="date">5 · jul 20–26</td><td>—</td><td><span class="star">★</span> Feature Emmanuel ES/EN (~21 jul) · <span class="star">★</span> Feature David ES/EN (~22 jul)</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-
 <div class="foot">
-  Production schedule generado para WindMar Puerto Rico · marca bilingüe (ES/EN) · @windmarhome<br>
-  Las piezas gráficas (carruseles Solar · Sellado · Anker) están listas en el Studio;
-  este cronograma cubre la <b>grabación de video / B-roll / feature</b> que las acompaña.
+  Cronograma de producción de WindMar Puerto Rico · borrador tentativo · marca bilingüe (ES/EN) · @windmarhome<br>
+  8 temas (Canvaceo): 4 de producto (Anker PYMES · Solar · Roofing · Water instalación) · estacional (Back to School) ·
+  media tour BTS · colaboración WAPA (Marie Lee, mujer accionista) · Canvaceo (por definir).
+  Para asignar fechas, talent o afinar el tema Canvaceo, pídemelo en el chat.
 </div>
 
 </body>

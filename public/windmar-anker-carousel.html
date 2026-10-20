@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anker SOLIX E10 · Carrusel — estilo de vida (Puerto Rico)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --a-blue:#00A9E0;   /* Anker Blue */
+  --a-green:#00DB84;  /* Anker SOLIX Green */
+  --grad:linear-gradient(90deg,var(--a-green),var(--a-blue));
+  --disp:'Barlow',system-ui,sans-serif;
+  --body:'Barlow',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#141414;color:#fff;font-family:var(--body);padding:26px}
+.wrap{max-width:1000px;margin:0 auto}
+header.top{border-bottom:4px solid transparent;border-image:var(--grad) 1;padding-bottom:14px;margin-bottom:8px}
+h1{font-family:var(--disp);font-size:24px;letter-spacing:-.2px;font-weight:800}
+h1 .o{color:var(--a-blue)}
+.sub{color:#9aa;font-size:13px;margin-top:4px}
+.note{background:#1c1c1c;border:1px solid rgba(0,169,224,.3);border-radius:10px;padding:12px 14px;font-size:13px;color:#cfe;margin:16px 0;line-height:1.5}
+.note b{color:var(--a-green)}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:10px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--body);font-size:11px;color:#9aa;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(0,169,224,.5);background:transparent;color:var(--a-blue);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--a-blue);background:var(--a-blue);color:#000}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== TARJETA 4:5 ===== */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:380px;aspect-ratio:4/5;border-radius:14px;background:#000;color:#fff;
+  box-shadow:0 18px 48px rgba(0,0,0,.5);border:1px solid #262626}
+
+/* foto de estilo de vida a pantalla completa */
+.ph{position:absolute;inset:0;z-index:0}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block}
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#0a0a0a,#0a0a0a 14px,#111 14px,#111 28px);
+  border:.5cqw dashed rgba(0,169,224,.45);cursor:pointer;text-align:center;padding:8cqw}
+.ph .vdrop.drag{border-color:var(--a-green)}
+.ph .vdrop-ic{font-size:10cqw;line-height:1}
+.ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:3.4cqw;color:#fff}
+.ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:2.5cqw;color:rgba(255,255,255,.55)}
+
+/* fondo negro con brillo (tarjeta de specs) */
+.bgfx{position:absolute;inset:0;z-index:0;background:
+  radial-gradient(120% 80% at 50% 18%, rgba(0,169,224,.18) 0%, rgba(0,219,132,.07) 30%, rgba(0,0,0,0) 60%), #000}
+
+/* velo para legibilidad sobre la foto */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.12) 26%,rgba(0,0,0,.5) 60%,rgba(0,0,0,.93) 100%)}
+.piece.specs .scrim{display:none}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:7cqw 6.5cqw 0;pointer-events:none}
+.content [contenteditable]{pointer-events:auto;outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(0,169,224,.55);border-radius:4px}
+.piece.specs .content{align-items:center;text-align:center}
+
+/* wordmark ANKER */
+.brandtop{font-family:var(--disp);font-weight:800;font-size:6cqw;letter-spacing:1.5cqw;color:#fff;text-indent:1.5cqw;text-shadow:0 .3cqw 2cqw rgba(0,0,0,.7)}
+.piece.specs .brandtop{margin-bottom:5cqw}
+.spacer{flex:1}
+
+/* subtítulo + título */
+.kicker{font-family:var(--body);font-weight:700;font-size:3.2cqw;line-height:1.25;color:var(--a-green);margin-bottom:1.8cqw;max-width:94%;text-shadow:0 .2cqw 1.4cqw rgba(0,0,0,.85)}
+.piece.specs .kicker{color:#c9d3d2}
+.headline{font-family:var(--disp);font-weight:800;font-size:10cqw;line-height:.96;letter-spacing:-.2cqw;color:#fff;text-shadow:0 .3cqw 2.2cqw rgba(0,0,0,.7)}
+.headline .hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.descr{font-family:var(--body);font-weight:500;font-size:3cqw;line-height:1.4;color:rgba(255,255,255,.94);margin-top:2.6cqw;max-width:90%;text-shadow:0 .2cqw 1.2cqw rgba(0,0,0,.85)}
+
+/* rejilla de specs */
+.specgrid{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:2.6cqw;margin:5cqw 0 2cqw}
+.spec{border:1px solid #2a2a2a;border-radius:2.4cqw;padding:3.6cqw 3cqw;text-align:left;background:#0a0a0a}
+.spec .v{font-family:var(--disp);font-weight:800;font-size:6.4cqw;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.spec .l{font-family:var(--body);font-weight:600;font-size:2.7cqw;line-height:1.2;color:#c9d3d2;margin-top:1.4cqw}
+
+/* pie: línea gradiente + contacto */
+.foot{width:100%;margin-top:auto;padding:5cqw 0 5.5cqw}
+.gline{height:1cqw;width:100%;background:var(--grad);border-radius:100px;margin-bottom:3cqw}
+.contact{display:flex;align-items:center;justify-content:center;gap:2.4cqw;flex-wrap:wrap;font-family:var(--body);font-weight:600;font-size:2.5cqw;letter-spacing:.05cqw;color:#e6eeee;text-shadow:0 .2cqw 1.2cqw rgba(0,0,0,.8)}
+.contact .d{width:1.2cqw;height:1.2cqw;border-radius:50%;background:var(--a-green);flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Carrusel <span class="o">·</span> Anker SOLIX E10 — estilo de vida (Puerto Rico)</h1>
+    <div class="sub">Feed 4:5 (1080×1350) · escenas del E10 en contexto boricua + tarjeta de specs negra estilo catálogo · wordmark ANKER · línea gradiente · pie WindMar · PNG.</div>
+  </header>
+  <div class="note"><b>Ángulo:</b> adaptada a nuestro clima (calor, humedad, cortes frecuentes). Fotos generadas con el E10 real como referencia. <b>Verifica las specs</b> (tarjeta 2) contra tu Figma. Puedes reemplazar cualquier foto arrastrando la tuya 🖼️. Textos editables al hacer clic. Export PNG.</div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const CARDS=[
+  { id:'clima', mode:'life', bg:'img/anker-e10-life-clima.png',
+    kicker:'Diseñada para el clima de Puerto Rico',
+    headline:'ANKER SOLIX <span class="hl">E10</span>',
+    descr:'Aquí el calor aprieta, la humedad no perdona y la luz se va sin avisar. Una batería pensada para esa realidad.' },
+
+  { id:'specs', mode:'specs',
+    kicker:'Respaldo infinito para tu hogar',
+    headline:'HECHA PARA<br><span class="hl">NUESTRO CLIMA</span>',
+    specs:[
+      { v:'4–160', l:'kWh de respaldo escalable' },
+      { v:'9–27', l:'kW Turbo Output' },
+      { v:'5s', l:'tiempo de respaldo' },
+      { v:'-80%', l:'en tu factura de electricidad' },
+    ] },
+
+  { id:'durar', mode:'life', bg:'img/anker-e10-life-durar.png',
+    kicker:'Resistente, confiable, probada',
+    headline:'HECHA PARA <span class="hl">DURAR</span>',
+    descr:'Certificada NEMA 4 y probada de -20°C a 55°C: responde año tras año, incluso en las condiciones más duras del Caribe.' },
+
+  { id:'cta', mode:'life', bg:'img/anker-e10-life-cta.png',
+    kicker:'Evaluación gratis y sin compromiso',
+    headline:'¿ES ANKER<br>PARA <span class="hl">TU HOGAR?</span>',
+    descr:'Evaluamos tu consumo y te mostramos qué puede hacer una batería Anker SOLIX por ti.' },
+];
+
+const CONTACT='windmar.com · info@windmarhome.com · 787.395.7766';
+
+const gallery=document.getElementById('gallery');
+CARDS.forEach((c,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  const life = c.mode==='life';
+
+  const bgEl = life
+    ? `<div class="ph">${c.bg
+        ? `<img src="${c.bg}" alt="Anker SOLIX E10" crossorigin="anonymous"><input type="file" accept="image/*,video/*" class="vin" hidden>`
+        : `<div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Foto del E10 aquí</div><div class="vdrop-sub">arrastra o haz clic</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`}</div>`
+    : `<div class="bgfx"></div>`;
+
+  const specsEl = c.specs
+    ? `<div class="specgrid">${c.specs.map(s=>`<div class="spec"><div class="v" contenteditable="true">${s.v}</div><div class="l" contenteditable="true">${s.l}</div></div>`).join('')}</div>`
+    : '';
+
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.id} · ${i+1}/${CARDS.length}</span>
+      <button class="dl" data-i="${i}">⬇︎ PNG</button>
+    </div>
+    <div class="piece ${c.mode} v-${c.id}" id="pc-${i}">
+      ${bgEl}
+      <div class="scrim"></div>
+      <div class="content">
+        <div class="brandtop">ANKER</div>
+        <div class="spacer"></div>
+        <div class="kicker" contenteditable="true">${c.kicker}</div>
+        <div class="headline" contenteditable="true">${c.headline}</div>
+        ${c.descr?`<div class="descr" contenteditable="true">${c.descr}</div>`:''}
+        ${specsEl}
+        <div class="foot">
+          <div class="gline"></div>
+          <div class="contact"><span class="d"></span><span contenteditable="true">${CONTACT}</span></div>
+        </div>
+      </div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* colocar / reemplazar foto o video */
+gallery.querySelectorAll('.ph').forEach(ph=>{
+  const inp=ph.querySelector('.vin'); if(!inp) return;
+  const drop=ph.querySelector('.vdrop');
+  const setMedia=file=>{
+    if(!file) return;
+    const url=URL.createObjectURL(file);
+    const vin='<input type="file" accept="image/*,video/*" class="vin" hidden>';
+    if(file.type.startsWith('video/')) ph.innerHTML=`<video src="${url}" autoplay muted loop playsinline preload="auto"></video>${vin}`;
+    else if(file.type.startsWith('image/')) ph.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">${vin}`;
+    else return;
+    rewire(ph);
+  };
+  const rewire=el=>{ const ni=el.querySelector('.vin'); if(ni) ni.addEventListener('change',e=>setMedia(e.target.files[0])); };
+  ph.addEventListener('click',()=>{const v=ph.querySelector('.vin'); if(v) v.click();});
+  inp.addEventListener('change',e=>setMedia(e.target.files[0]));
+  ph.addEventListener('dragover',e=>{e.preventDefault();drop&&drop.classList.add('drag');});
+  ph.addEventListener('dragleave',()=>drop&&drop.classList.remove('drag'));
+  ph.addEventListener('drop',e=>{e.preventDefault();drop&&drop.classList.remove('drag');setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+/* exportar PNG 1080×1350 */
+gallery.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const i=btn.dataset.i; const node=document.getElementById('pc-'+i);
+    btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    try{
+      const css=await fontEmbedCSS();
+      const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#000'};
+      let blob=null;
+      try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+      if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+      if(!blob) throw new Error('el navegador devolvió una imagen vacía');
+      const a=document.createElement('a');
+      a.download=`anker-solix-${CARDS[i].id}.png`;
+      a.href=URL.createObjectURL(blob); a.click();
+    }catch(e){ alert('No se pudo exportar: '+e.message); }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+</script>
+</body>
+</html>

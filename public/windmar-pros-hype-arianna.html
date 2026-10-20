@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Pros · Arianna Jaramillo — Hype (video)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@600;700;800;900&family=DM+Mono:wght@500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy1:#0a2a6f; --navy2:#061c50; --navy3:#04102e;
+    --orange:#f7941e; --orange2:#ffb347;
+    --disp:'Anton',Impact,sans-serif;
+    --cond:'Bebas Neue',Impact,sans-serif;
+    --body:'Montserrat',system-ui,sans-serif;
+    --hand:'Caveat',cursive;
+    --mono:'DM Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#05070d;color:#fff;font-family:var(--body)}
+  .app{min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 16px 60px}
+  .fit{width:100%;max-width:460px;display:flex;justify-content:center}
+  .scaler{transform-origin:top center}
+
+  .stage{
+    position:relative;width:1080px;height:1920px;overflow:hidden;
+    container-type:inline-size;
+    background:#04102e;
+    color:#fff;
+  }
+  /* video de fondo (halftone en movimiento) */
+  .bgvid{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+  /* overlay AZUL semi-transparente ENCIMA del video */
+  .navy{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 78% 8%, rgba(20,69,156,.92) 0%, rgba(20,69,156,.32) 55%),
+      radial-gradient(90% 60% at 12% 96%, rgba(13,53,127,.92) 0%, rgba(13,53,127,.32) 60%),
+      linear-gradient(160deg, rgba(10,42,111,.82) 0%, rgba(6,28,80,.86) 46%, rgba(4,16,46,.90) 100%);
+  }
+  .stage::before{
+    content:"";position:absolute;inset:0;z-index:2;opacity:.13;pointer-events:none;
+    background-image:linear-gradient(rgba(120,170,255,.35) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(120,170,255,.35) 1px,transparent 1px);
+    background-size:5.2cqw 5.2cqw;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 82%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 82%,transparent 100%);
+  }
+  .dots{position:absolute;z-index:2;width:60cqw;height:44cqw;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.15) 22%,transparent 24%);background-size:3.2cqw 3.2cqw;}
+  .dots.bl{left:-6cqw;bottom:2cqw;-webkit-mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%);mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%)}
+  .dots.tr{right:-8cqw;top:26cqw;-webkit-mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%);mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%)}
+  .glow{position:absolute;z-index:2;width:66cqw;height:66cqw;left:-16cqw;top:38cqw;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(247,148,30,.30) 0%,rgba(247,148,30,0) 62%);filter:blur(6px)}
+
+  .topbar{position:absolute;z-index:6;top:5cqw;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 6cqw}
+  .topbar .month{font-family:var(--body);font-weight:800;font-size:2.5cqw;letter-spacing:.2em;color:rgba(255,255,255,.82);text-transform:uppercase;border-bottom:.32cqw solid var(--orange);padding-bottom:.7cqw;line-height:1}
+  .topbar .wlogo{height:8.5cqw;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+  .topbar .home{height:7.5cqw;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+  .prowm{position:absolute;z-index:2;left:4cqw;top:30cqw;font-family:var(--disp);font-size:44cqw;line-height:.8;color:rgba(255,255,255,.05);letter-spacing:-.02em;pointer-events:none;user-select:none}
+
+  /* FOTO */
+  .hero-photo{position:absolute;z-index:3;right:-12cqw;bottom:0;width:124cqw;height:188cqw;
+    display:flex;align-items:flex-end;justify-content:center;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,#000 88%,transparent 100%);}
+  .hero-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom right;filter:grayscale(1) contrast(1.05);display:none}
+  .hero-photo.has img{display:block}
+  .hero-photo .ph{align-self:center;font-family:var(--body);font-weight:800;font-size:3cqw;color:rgba(255,255,255,.25);text-align:center;border:.4cqw dashed rgba(255,255,255,.2);border-radius:2cqw;padding:6cqw 4cqw;line-height:1.4}
+  .hero-photo.has .ph{display:none}
+  .hero-photo.sil img{filter:grayscale(1) brightness(.03)}
+  .hero-photo.full img{filter:grayscale(0) brightness(1.06) contrast(1.06) saturate(1.08)}
+  @keyframes revealPhoto{0%{filter:grayscale(1) brightness(.03) contrast(1);transform:scale(1.1)}45%{filter:grayscale(0) brightness(1.35) contrast(1.12) saturate(1.15);transform:scale(1.02)}100%{filter:grayscale(0) brightness(1.06) contrast(1.06) saturate(1.08);transform:scale(1)}}
+  .hero-photo.reveal img{filter:grayscale(0) brightness(1.06) contrast(1.06) saturate(1.08);animation:revealPhoto .85s .05s both}
+  .hero-photo.dim img{filter:grayscale(0) brightness(.62) contrast(1.05) saturate(1)}
+  .hero-photo.hide{opacity:0}
+
+  /* ESCENAS — centradas y grandes */
+  .scene{position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 7cqw;text-align:center}
+  .scene.left{align-items:flex-start;text-align:left;padding-left:7cqw;justify-content:flex-end;padding-bottom:14cqw}
+  @keyframes sceneIn{from{opacity:0}to{opacity:1}}
+  @keyframes sceneOut{from{opacity:1}to{opacity:0}}
+  .scene.active{opacity:1;animation:sceneIn .38s ease forwards}
+  .scene.leaving{opacity:0;animation:sceneOut .38s ease forwards}
+  .wrap{transform-origin:center}
+  @keyframes beatPulse{0%{transform:scale(1)}28%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .wrap.hit{animation:beatPulse .17s ease}
+
+  .kick{font-family:var(--body);font-weight:800;font-size:4cqw;letter-spacing:.28em;color:var(--orange);text-transform:uppercase;margin-bottom:2.4cqw}
+  .mega{font-family:var(--disp);font-size:22cqw;line-height:.86;color:#fff;text-transform:uppercase;filter:drop-shadow(0 6px 16px rgba(0,0,0,.55))}
+  .mega em{font-style:normal;color:var(--orange)}
+  .mega.huge{font-size:27cqw}
+  .mega .num{font-size:38cqw;display:inline-block;vertical-align:-.02em}
+  .name{font-family:var(--disp);font-size:20cqw;line-height:.86;color:#fff;text-transform:uppercase}
+  .name em{font-style:normal;color:var(--orange);display:block}
+
+  /* LÍRICAS — centradas y grandes */
+  .ln{font-family:var(--disp);font-size:13cqw;line-height:1.02;color:#fff;text-transform:uppercase;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7));letter-spacing:.01em}
+  .ln.big{font-size:18cqw}
+  .ln.small{font-size:8cqw}
+  .lyricgap{margin-top:4cqw}
+  .w{display:inline-block;transform-origin:center bottom;opacity:0}
+  .hl{color:#0a1740;background:var(--orange);padding:.05em .24em;border-radius:.12em}
+  .ln.oneline{white-space:nowrap;font-size:15cqw}
+  .ln.oneline .hl,.ln.oneline .w{white-space:nowrap}
+  @keyframes wordIn{0%{opacity:0;transform:translateY(1.6cqw) scale(.92)}60%{opacity:1;transform:translateY(0) scale(1.03)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+  /* CHEQUE */
+  .check{width:88cqw;background:#fbfdff;color:#0a2a6f;border-radius:2.4cqw;box-shadow:0 3cqw 6cqw rgba(0,0,0,.55), 0 0 0 .4cqw rgba(247,148,30,.6) inset;padding:3.4cqw 4.4cqw;position:relative;overflow:hidden}
+  .check::after{content:"";position:absolute;inset:1.4cqw;border:.28cqw solid rgba(10,42,111,.16);border-radius:1.4cqw;pointer-events:none}
+  .chk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:3cqw}
+  .chk-brand{display:flex;flex-direction:column;gap:.6cqw;text-align:left}
+  .chk-brand .lg{height:8cqw;width:auto}
+  .chk-loc{font-family:var(--body);font-weight:700;font-size:2.4cqw;color:#3a5a99}
+  .chk-date{font-family:var(--body);font-weight:700;font-size:2.5cqw;color:#0a2a6f;text-align:right}
+  .chk-date .v{font-family:var(--hand);font-weight:700;font-size:4cqw;color:#12408f;border-bottom:.28cqw solid #9fb6dd;padding:0 1.4cqw .2cqw;display:inline-block;min-width:20cqw;text-align:center}
+  .chk-lines{margin-top:3cqw;display:flex;flex-direction:column;gap:3cqw;text-align:left}
+  .row-pay{display:flex;align-items:flex-end;gap:2cqw}
+  .lbl{flex:none;font-family:var(--body);font-weight:700;font-size:2.2cqw;letter-spacing:.03em;color:#3a5a99;text-transform:uppercase;line-height:1.05}
+  .cname{flex:1;font-family:var(--hand);font-weight:700;font-size:5.2cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;white-space:nowrap}
+  .row-words{display:flex;align-items:flex-end;gap:1.5cqw}
+  .words{flex:1;font-family:var(--hand);font-weight:600;font-size:2.9cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dollars{flex:none;font-family:var(--body);font-weight:700;font-size:2cqw;letter-spacing:.03em;color:#3a5a99;text-transform:uppercase}
+  .amt-box{flex:none;display:flex;align-items:center;gap:1cqw}
+  .amt-box .dollar{font-family:var(--body);font-weight:800;font-size:4.6cqw;color:#0a2a6f}
+  .amt{flex:none;font-family:var(--hand);font-weight:700;font-size:4.6cqw;color:#12408f;border:.3cqw solid #9fb6dd;border-radius:1cqw;padding:.4cqw 1.6cqw;min-width:16cqw;text-align:center;background:#fff;transform-origin:center}
+  .chk-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:3cqw;gap:4cqw}
+  .memo{display:flex;align-items:flex-end;gap:1.5cqw}
+  .memo .v{font-family:var(--hand);font-weight:600;font-size:3.2cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;min-width:24cqw}
+  .sign{text-align:center}
+  .sign .s{font-family:var(--hand);font-weight:700;font-size:5cqw;color:#12408f;line-height:.9}
+  .sign .cap{font-family:var(--body);font-weight:700;font-size:1.8cqw;letter-spacing:.04em;color:#3a5a99;text-transform:uppercase;border-top:.28cqw solid #9fb6dd;padding-top:.7cqw;margin-top:.4cqw}
+  .micr{margin-top:2cqw;font-family:var(--mono);font-weight:500;font-size:2.6cqw;letter-spacing:.14em;color:#1c3d7a;text-align:left}
+  @keyframes flyIn{0%{opacity:0;transform:translateY(60cqw) rotate(-8deg) scale(.8)}70%{opacity:1;transform:translateY(-2cqw) rotate(2deg) scale(1.02)}100%{opacity:1;transform:translateY(0) rotate(0) scale(1)}}
+  @keyframes shakeAmt{0%,100%{transform:rotate(-2deg) scale(1.14)}25%{transform:rotate(2deg) scale(1.18)}50%{transform:rotate(-1.5deg) scale(1.14)}75%{transform:rotate(1.5deg) scale(1.18)}}
+  .scene.active .check{animation:flyIn .8s .05s both}
+  .scene.active .amt{animation:shakeAmt .5s .9s 2 ease-in-out}
+
+  .wl{height:9cqw;width:auto;margin-top:5cqw}
+  .tag{font-family:var(--cond);font-size:4cqw;letter-spacing:.4em;color:rgba(255,255,255,.85);margin-top:3cqw}
+
+  .flash{position:absolute;inset:0;z-index:9;background:#fff;opacity:0;pointer-events:none}
+  @keyframes flashK{0%{opacity:.85}100%{opacity:0}}
+  .flash.go{animation:flashK .5s ease-out}
+  .confetti{position:absolute;inset:0;z-index:7;pointer-events:none;overflow:hidden;opacity:0}
+  .confetti.go{opacity:1}
+  .confetti i{position:absolute;top:-6cqw;width:1.6cqw;height:3cqw;border-radius:.3cqw;opacity:.95}
+  @keyframes fall{0%{transform:translateY(-10cqw) rotate(0)}100%{transform:translateY(150cqw) rotate(720deg)}}
+  .prog{position:absolute;z-index:10;left:0;bottom:0;height:1cqw;width:0;background:var(--orange)}
+
+  .panel{width:100%;max-width:460px;background:#0d1730;border:1px solid #21335f;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+  .panel h2{margin:0;font-size:15px;font-weight:800}
+  .panel p{margin:0;font-size:12.5px;line-height:1.5;color:#a9b8d8}
+  .panel button{font-family:var(--body);font-weight:700;font-size:13px;border:none;border-radius:10px;padding:11px 16px;cursor:pointer;background:var(--orange);color:#20140a}
+  .hint{font-size:11.5px;color:#8296bf}
+
+  /* ===== MODO RENDER (captura overlay transparente) ===== */
+  body.render{background:transparent!important}
+  body.render .app{padding:0!important;gap:0!important;min-height:0!important;align-items:flex-start!important}
+  body.render .fit{max-width:none!important;width:1080px!important;justify-content:flex-start!important}
+  body.render .scaler{transform:none!important;width:1080px!important;height:1920px!important}
+  body.render .stage{background:transparent!important}
+  body.render #bgvid{display:none!important}
+  body.render .panel{display:none!important}
+  body.render .prog{display:none!important}
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="fit"><div class="scaler" id="scaler">
+      <div class="stage" id="stage">
+        <video class="bgvid" id="bgvid" src="wme/hype-bg-web.mp4" muted playsinline preload="auto" loop></video>
+        <div class="navy"></div>
+        <div class="dots bl"></div>
+        <div class="dots tr"></div>
+        <div class="glow"></div>
+        <div class="prowm">PRO</div>
+
+        <div class="topbar">
+          <div class="month">SEPTIEMBRE 2026</div>
+          <img class="wlogo" src="wme/logos/windmar-pros.png" alt="WindMar">
+        </div>
+
+        <div class="hero-photo sil" id="heroPhoto">
+          <img id="carlosImg" src="wme/arianna-nueva.png" alt="Arianna Jaramillo">
+          <div class="ph">FOTO<br>ARIANNA<br>JARAMILLO</div>
+        </div>
+
+        <!-- S0 HOOK -->
+        <div class="scene" data-i="0">
+          <div class="wrap">
+            <div class="ln big sync">THE NUMBERS<br><span class="hl">DON'T LIE</span></div>
+          </div>
+        </div>
+
+        <!-- S1 HINT · $28,130 -->
+        <div class="scene" data-i="1">
+          <div class="wrap">
+            <div class="mega huge sync">$28,130</div>
+            <div class="ln big sync lyricgap"><span class="hl">IN A WEEK</span></div>
+          </div>
+        </div>
+
+        <!-- S2 HINT · #1 CLOSER -->
+        <div class="scene" data-i="2">
+          <div class="wrap">
+            <div class="mega huge sync">#1 <em>CLOSER</em></div>
+            <div class="ln big oneline sync lyricgap"><span class="hl">LETSS GOOO</span></div>
+          </div>
+        </div>
+
+        <!-- S3 REVEAL · ARIANNA JARAMILLO -->
+        <div class="scene left" data-i="3">
+          <div class="wrap">
+            <div class="kick">TOP CLOSER OF THE WEEK</div>
+            <div class="name sync">ARIANNA<em>JARAMILLO</em></div>
+          </div>
+        </div>
+
+        <!-- S4 PAYOUT · CHEQUE -->
+        <div class="scene" data-i="4">
+          <div class="wrap">
+            <div class="kick">PAYOUT</div>
+            <div class="check">
+              <div class="chk-head">
+                <div class="chk-brand">
+                  <img class="lg" src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+                  <div class="chk-loc">Orlando, Florida</div>
+                </div>
+                <div class="chk-date">FECHA:<br><span class="v">Sept. 25. 26</span></div>
+              </div>
+              <div class="chk-lines">
+                <div class="row-pay"><div class="lbl">Páguese<br>a:</div><div class="cname">Arianna Jaramillo</div></div>
+                <div class="row-words">
+                  <div class="words">Veintiocho mil ciento treinta dólares</div>
+                  <div class="dollars">Dólares</div>
+                  <div class="amt-box"><span class="dollar">$</span><div class="amt">28,130</div></div>
+                </div>
+              </div>
+              <div class="chk-foot">
+                <div class="memo"><span class="lbl">Memo:</span><span class="v">We don't play</span></div>
+                <div class="sign"><div class="s">WindMar</div><div class="cap">Firma autorizada</div></div>
+              </div>
+              <div class="micr">⑆123456789⑆ ⑉000123456789⑉ 1001</div>
+            </div>
+            <div class="ln sync lyricgap"><span class="hl">$28,130</span> PAYOUT</div>
+          </div>
+        </div>
+
+        <!-- S5 CLÍMAX -->
+        <div class="scene" data-i="5">
+          <div class="wrap">
+            <div class="mega sync">WINDMAR<br>IN THE <em>BUILDING</em></div>
+            <div class="tag">WE DON'T PLAY</div>
+          </div>
+        </div>
+
+        <div class="confetti" id="confetti"></div>
+        <div class="flash" id="flash"></div>
+        <div class="prog" id="prog"></div>
+      </div>
+    </div></div>
+
+    <div class="panel">
+      <h2>Arianna Jaramillo — Video Hype (1080×1920 · beat sync)</h2>
+      <p>Letras centradas, grandes y on-beat (148 BPM). Orden: hook → $28,130 IN A WEEK → #1 CLOSER → <b>REVEAL Arianna</b> → PAYOUT $28,130 → WINDMAR IN THE BUILDING.</p>
+      <button id="playBtn">▶ Reproducir con audio</button>
+      <div class="hint">El MP4 final lo renderiza Eco y te lo deja en Descargas.</div>
+    </div>
+  </div>
+
+  <audio id="audio" preload="auto">
+    <source src="wme/hype-carlos-audio.mp3" type="audio/mpeg">
+    <source src="wme/hype-carlos-audio.m4a" type="audio/mp4">
+  </audio>
+
+<script>
+  const stage=document.getElementById('stage'), scaler=document.getElementById('scaler'), fit=document.querySelector('.fit');
+  const scenes=[...document.querySelectorAll('.scene')];
+  const prog=document.getElementById('prog'), flash=document.getElementById('flash'), confetti=document.getElementById('confetti');
+  const heroPhoto=document.getElementById('heroPhoto'), carlosImg=document.getElementById('carlosImg');
+  const audio=document.getElementById('audio');
+
+  function rescale(){const w=fit.clientWidth,s=Math.min(1,w/1080);scaler.style.transform='scale('+s+')';scaler.style.height=(1920*s)+'px';scaler.style.width='1080px';}
+  window.addEventListener('resize',rescale);rescale();
+  carlosImg.addEventListener('load',()=>heroPhoto.classList.add('has'));
+  carlosImg.addEventListener('error',()=>heroPhoto.classList.remove('has'));
+
+  // ==== BEAT GRID (148 BPM) ====
+  const BEAT=0.4054, FIRST=0.325, TOTAL=16.38;
+  const BEATS=[]; for(let t=FIRST;t<TOTAL;t+=BEAT) BEATS.push(t);
+
+  // cortes cuadrados a la rejilla de beats (405ms) → starts: 0, 2352, 5595, 8027, 10460, 13298
+  // $7.8M (S1) más largo · LETSS GOOO (S2) más corto → el reveal cae justo con el "lets go"
+  const DUR=[2352,3243,2432,2433,2838,3082];               // ms, suma 16380
+  const START=[]; {let a=0; for(const d of DUR){START.push(a); a+=d;}} // ms acumulado
+  // Carlos en silueta al inicio → su CARA aparece a color al REVELAR EL NOMBRE (S3) y se mantiene hasta el clímax
+  const PHOTO=['sil','sil','sil','reveal','dim','full'];
+  let timers=[];
+
+  function clearAll(){timers.forEach(t=>clearTimeout(t));timers=[];}
+
+  function startProg(ms){prog.style.width='0';let t0=performance.now();
+    (function step(now){let p=Math.min(1,(now-t0)/ms);prog.style.width=(p*100)+'%';if(p<1)requestAnimationFrame(step);})(performance.now());}
+
+  // parte una línea en palabras (una sola vez)
+  function splitWords(el){
+    if(el.dataset.split) return;
+    const kids=[...el.childNodes]; el.innerHTML='';
+    kids.forEach(node=>{
+      if(node.nodeType===3){
+        node.textContent.split(/(\s+)/).forEach(tok=>{
+          if(tok==='')return;
+          if(/^\s+$/.test(tok)){el.appendChild(document.createTextNode(' '));return;}
+          const s=document.createElement('span');s.className='w';s.textContent=tok;el.appendChild(s);
+        });
+      }else if(node.nodeType===1){
+        if(node.tagName==='BR'){el.appendChild(node);return;}
+        node.classList.add('w');el.appendChild(node);
+      }
+    });
+    el.dataset.split='1';
+  }
+
+  // reparte las palabras de una escena en beats (a partir del inicio absoluto de la escena)
+  function beatWords(scene,sceneStartSec){
+    const syncEls=[...scene.querySelectorAll('.sync')];
+    let words=[];
+    syncEls.forEach(el=>{splitWords(el);words=words.concat([...el.querySelectorAll('.w')]);});
+    // primer beat >= inicio de escena
+    let bi=BEATS.findIndex(b=>b>=sceneStartSec-0.02); if(bi<0)bi=BEATS.length-1;
+    words.forEach((w,k)=>{
+      const bt=BEATS[Math.min(bi+k,BEATS.length-1)];
+      const delay=Math.max(0,(bt-sceneStartSec)).toFixed(3);
+      w.style.animation='none';void w.offsetWidth;
+      w.style.animation=`wordIn .46s ${delay}s both`;
+    });
+  }
+
+  function setPhoto(state){heroPhoto.classList.remove('sil','full','reveal','hide','dim');if(state)heroPhoto.classList.add(state);}
+
+  function showScene(n){
+    scenes.forEach((s,k)=>{
+      if(k===n){s.classList.remove('leaving');s.classList.add('active');}
+      else if(s.classList.contains('active')){s.classList.remove('active');s.classList.add('leaving');}
+      else s.classList.remove('leaving');
+    });
+    setPhoto(PHOTO[n]);
+    beatWords(scenes[n],START[n]/1000);
+    if(n===scenes.length-1) triggerClimax();
+    startProg(DUR[n]);
+  }
+
+  function triggerClimax(){flash.classList.remove('go');void flash.offsetWidth;flash.classList.add('go');buildConfetti();confetti.classList.add('go');}
+  function buildConfetti(){confetti.innerHTML='';const cols=['#f7941e','#ffb347','#ffffff','#8fb4ff'];
+    for(let i=0;i<46;i++){const s=document.createElement('i');s.style.left=(Math.random()*100)+'%';s.style.background=cols[i%cols.length];
+      const d=(1.2+Math.random()*1.4).toFixed(2),delay=(Math.random()*0.5).toFixed(2);
+      s.style.animation=`fall ${d}s ${delay}s linear forwards`;s.style.width=(1.2+Math.random()*1.4)+'cqw';s.style.height=(2.4+Math.random()*2)+'cqw';confetti.appendChild(s);}}
+
+  function pulse(){const sc=scenes.find(s=>s.classList.contains('active'));if(!sc)return;const w=sc.querySelector('.wrap');if(!w)return;w.classList.remove('hit');void w.offsetWidth;w.classList.add('hit');}
+
+  const bgvid=document.getElementById('bgvid');
+  function play(){
+    clearAll();confetti.classList.remove('go');
+    // video de fondo desde el inicio
+    try{bgvid.currentTime=0;bgvid.play();}catch(e){}
+    // programa escenas
+    scenes.forEach((s,i)=>{ timers.push(setTimeout(()=>showScene(i),START[i])); });
+    // pulso en cada beat
+    BEATS.forEach(b=>{ timers.push(setTimeout(pulse,b*1000)); });
+    showScene(0);
+  }
+  window.play=play;
+
+  document.getElementById('playBtn').addEventListener('click',()=>{
+    try{audio.load();audio.currentTime=0;const p=audio.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}
+    play();
+  });
+  // primer frame
+  scenes.forEach((s,i)=>{[...s.querySelectorAll('.sync')].forEach(splitWords);});
+  showScene(0);clearAll();
+
+  // ===== MODO RENDER =====
+  const RENDER = new URLSearchParams(location.search).has('render');
+  if(RENDER){
+    document.body.classList.add('render');
+    // no auto-play: el capturador llama window.play() bajo virtual-time
+  }
+  window.__ready = true;
+</script>
+</body>
+</html>

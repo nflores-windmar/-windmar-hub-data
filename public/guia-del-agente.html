@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía del Agente de IA · Content Hub WindMar Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#f57c0a;--orange-soft:rgba(245,124,10,.10);--navy:#0a2882;--ink:#1a52c7;--bg:#f6f5f2;--paper:#fff;--line:#e2e8f0;--text:#0f172a;--sec:#475569;--ter:#94a3b8;--title:'Anek Latin','Inter',sans-serif;--body:'DM Sans','Inter',sans-serif;--mono:'DM Mono',ui-monospace,monospace;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.65;padding:40px 20px 80px;}
+  .wrap{max-width:900px;margin:0 auto;}
+  .mast{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:34px 38px;box-shadow:0 6px 30px rgba(10,22,40,.05);margin-bottom:26px;}
+  .kick{font-family:var(--title);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:8px;}
+  h1{font-family:var(--title);font-size:34px;font-weight:900;line-height:1.08;letter-spacing:-.5px;margin-bottom:10px;}
+  .lede{font-size:14px;color:var(--sec);max-width:640px;}
+  .toc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 26px;margin-bottom:26px;}
+  .toc h2{font-family:var(--title);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:12px;}
+  .toc ol{list-style:none;counter-reset:t;columns:2;column-gap:32px;}
+  .toc li{counter-increment:t;font-size:13px;margin-bottom:7px;break-inside:avoid;}
+  .toc li::before{content:counter(t)". ";color:var(--orange);font-weight:800;font-family:var(--mono);}
+  .toc a{color:var(--text);text-decoration:none;}
+  .toc a:hover{color:var(--orange);}
+  section.doc{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 34px;margin-bottom:18px;scroll-margin-top:20px;}
+  h2.sec{font-family:var(--title);font-size:19px;font-weight:900;color:var(--navy);letter-spacing:-.3px;margin-bottom:14px;display:flex;align-items:baseline;gap:10px;}
+  h2.sec .n{font-family:var(--mono);font-size:14px;color:var(--orange);}
+  h3{font-family:var(--title);font-size:14px;font-weight:800;color:var(--text);margin:18px 0 6px;}
+  p{margin:8px 0;font-size:13.5px;color:var(--text);}
+  ul{margin:8px 0 8px 22px;}
+  li{font-size:13.5px;margin:4px 0;}
+  strong{font-weight:700;}
+  code{font-family:var(--mono);font-size:12px;background:var(--orange-soft);color:#b45309;padding:1px 6px;border-radius:5px;}
+  pre{background:#0a1626;color:#e2e8f0;border-radius:10px;padding:14px 16px;overflow-x:auto;margin:10px 0;font-family:var(--mono);font-size:11.5px;line-height:1.55;}
+  pre code{background:none;color:inherit;padding:0;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px;}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-family:var(--title);font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--navy);background:var(--orange-soft);}
+  tr:hover td{background:#faf9f6;}
+  .note{background:#fef9c3;border:1px solid #fcd34d;border-radius:10px;padding:11px 15px;font-size:12.5px;color:#713f12;margin:12px 0;}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;background:var(--navy);color:#fff;padding:2px 9px;border-radius:20px;}
+  a.mail{color:var(--ink);text-decoration:none;} a.mail:hover{text-decoration:underline;}
+  .foot{text-align:center;font-size:11px;color:var(--ter);margin-top:30px;}
+  .updated{font-size:11px;color:var(--ter);margin-top:14px;font-family:var(--mono);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mast">
+    <div class="kick">WindMar Home · Content Hub</div>
+    <h1>Guía del Agente de IA</h1>
+    <p class="lede">Documento de referencia para entrenar a un agente que ayude a <strong>diseñar contenido</strong> y <strong>manejar el cronograma</strong>. Todo lo aquí descrito —nombres, correos, horarios, IDs, funciones y tokens de diseño— se extrajo directamente del código real del portal.</p>
+    <div class="updated">Actualizado: agosto 2026</div>
+  </div>
+
+  <div class="toc">
+    <h2>Índice</h2>
+    <ol>
+      <li><a href="#s1">Qué es y dónde vive</a></li>
+      <li><a href="#s2">Cómo desplegar</a></li>
+      <li><a href="#s3">Mapa de páginas (IDs)</a></li>
+      <li><a href="#s4">Detalle de cada sección</a></li>
+      <li><a href="#s5">Artefactos independientes</a></li>
+      <li><a href="#s6">Funciones JavaScript</a></li>
+      <li><a href="#s7">Contactos de medios</a></li>
+      <li><a href="#s8">Cronograma / confirmaciones</a></li>
+      <li><a href="#s9">Sistema de diseño</a></li>
+      <li><a href="#s10">Export a PNG y fuentes</a></li>
+      <li><a href="#s11">Backend, backup, Teams</a></li>
+      <li><a href="#s12">Tono y reglas de marca</a></li>
+      <li><a href="#s13">Tabla: pide → dónde</a></li>
+    </ol>
+  </div>
+
+  <section class="doc" id="s1">
+    <h2 class="sec"><span class="n">01</span> Qué es y dónde vive</h2>
+    <p>El <strong>Content Hub</strong> es el centro de operaciones de contenido de WindMar Home (PR y Florida; líneas: Solar, Roofing/Sellado, Water/filtración, Anker/baterías, WindMar Pros/reclutamiento).</p>
+    <ul>
+      <li><strong>App:</strong> proyecto Next.js que sirve HTML estático desde <code>studio/public/</code>.</li>
+      <li><strong>Portal principal:</strong> <code>windmar_content_hub.html</code> (~9,029 líneas) → en vivo en <code>studio-windmar-home.vercel.app/windmar_content_hub.html</code></li>
+      <li><strong>Raíz del estudio:</strong> <code>studio-windmar-home.vercel.app/</code></li>
+      <li>Es una <strong>SPA</strong>: <code>showPage('id')</code> intercambia divs <code>.page</code> sin recargar.</li>
+      <li><strong>Repo local:</strong> <code>…/Content Hub/studio/</code></li>
+    </ul>
+    <p class="note"><strong>Nota técnica:</strong> <code>AGENTS.md</code> advierte "This is NOT the Next.js you know", pero eso aplica a código de framework. El trabajo real es editar HTML/CSS/JS estático en <code>studio/public/</code>.</p>
+  </section>
+
+  <section class="doc" id="s2">
+    <h2 class="sec"><span class="n">02</span> Cómo desplegar (tras cada cambio)</h2>
+    <p>No hay preview local; el usuario revisa en vivo, así que se despliega a Vercel tras cada edición. Comando con reintentos (maneja fallos transitorios del build por Google Fonts), timeout ~300s:</p>
+    <pre><code>cd "…/Content Hub/studio" &amp;&amp; for i in 1 2 3; do \
+  npx vercel deploy --prod --yes > /tmp/deploy.log 2>&amp;1; \
+  URL=$(grep -oE "https://studio-[a-z0-9]+-windmar-home.vercel.app" /tmp/deploy.log | head -1); \
+  if grep -q '"readyState": "READY"' /tmp/deploy.log; then \
+    npx vercel alias set "$URL" studio-windmar-home.vercel.app; break; \
+  else echo "retry $i"; fi; \
+done</code></pre>
+    <p>El alias público <strong>siempre</strong> apunta a <code>studio-windmar-home.vercel.app</code>. Verificar: <code>curl -s &lt;url&gt; | grep -F "texto"</code>.</p>
+  </section>
+
+  <section class="doc" id="s3">
+    <h2 class="sec"><span class="n">03</span> Mapa de páginas del portal (IDs reales)</h2>
+    <p><code>showPage(id)</code> activa <code>#page-&lt;id&gt;</code>, pone el título desde <code>PAGE_NAMES[id]</code> y dispara el render de esa vista.</p>
+    <table>
+      <tr><th>id</th><th>Título</th><th>Render al abrir</th></tr>
+      <tr><td><code>dashboard</code></td><td>Dashboard</td><td>updateStats(), renderNotifications()</td></tr>
+      <tr><td><code>frameworks</code></td><td><strong>Producción</strong></td><td>— (schedule estático)</td></tr>
+      <tr><td><code>ideas</code></td><td>Ideas</td><td>renderIdeas()</td></tr>
+      <tr><td><code>florida-plan</code></td><td>Plan de Contenido — Florida</td><td>—</td></tr>
+      <tr><td><code>contactos</code></td><td>Contactos de Medios</td><td>initCmCopy()</td></tr>
+      <tr><td><code>almacen</code></td><td>Almacén de Contenido</td><td>renderPieces()</td></tr>
+      <tr><td><code>calendarios</code></td><td>(índice)</td><td>renderJulySummary()</td></tr>
+      <tr><td><code>cal-pr</code></td><td>Calendario PR</td><td>renderCalFor('pr',…)</td></tr>
+      <tr><td><code>cal-fl</code></td><td>Calendario FL</td><td>renderCalFor('fl',…)</td></tr>
+      <tr><td><code>media</code></td><td>Media Relations</td><td>renderMrCalendar()</td></tr>
+      <tr><td><code>tasks</code></td><td>Daily Tasks</td><td>—</td></tr>
+      <tr><td><code>aprobar</code></td><td>Aprobación de Contenido</td><td>renderApprovalCombined()</td></tr>
+      <tr><td><code>aprobar-fl</code></td><td>Aprobación · Florida</td><td>renderApprovalPage('home_fl')</td></tr>
+      <tr><td><code>aprobar-pros</code></td><td>Aprobación · Pros</td><td>renderApprovalPage('pros')</td></tr>
+      <tr><td><code>permisos</code></td><td>Permisos de Grabación</td><td>—</td></tr>
+      <tr><td><code>datos</code></td><td>Datos &amp; Backup</td><td>refreshStorageStats()</td></tr>
+    </table>
+    <p><strong>Enlaces externos</strong> (no son showPage): Hub Creativo → <code>/</code>; Editor de Carruseles → <code>/carruseles</code>; Lienzo → <code>/lienzo</code>; Social Hub → <code>/windmar-social-hub.html</code>.</p>
+  </section>
+
+  <section class="doc" id="s4">
+    <h2 class="sec"><span class="n">04</span> Detalle de cada sección</h2>
+    <p><strong>Dashboard</strong> — masthead editorial "solarpunk" (video <code>/video/hub_solarpunk.mp4</code>), badge de notificaciones, stats y widgets locales: prioridades (<code>prAdd/prToggle/prDel/prMove</code>, key <code>PR_KEY</code>), reuniones/temas (<code>rmAddCat/rmAdd</code>, key <code>RM_KEY</code>), recordatorios de Manuel vía Supabase (tabla <code>manuel_reminders</code>).</p>
+    <p><strong>Producción</strong> (<code>frameworks</code>) — el cronograma. Por día: tarjeta (<code>90px 1fr auto</code>: Hora / detalle / badge) + <code>&lt;details class="guion"&gt;</code> con el guion. El borde izquierdo de color codifica el tipo. <code>downloadSchedulePDF()</code> exporta.</p>
+    <p><strong>Ideas</strong> — 9 series por defecto (<code>IDEAS_DEFAULT</code>): Serie Solar, Roofing/Sellado, Water, ANKER, Casos Solares, Florida, Puerto Rico, Mi Energía con WindMar Home, Platea. <code>ideaAdd/ideaEdit/ideaToggle/ideaDelete/ideasReset</code>.</p>
+    <p><strong>Plan Florida</strong> — principios y plan de contenido FL.</p>
+    <p><strong>Contactos Medios</strong> — directorio (§7). <code>initCmCopy()</code> añade botón "Copiar" a cada email.</p>
+    <p><strong>Almacén</strong> — piezas: <code>openNewPieceModal()</code>, <code>openPieceEditor(idx)</code>, <code>renderPieces()</code>.</p>
+    <p><strong>Calendarios</strong> — PR/FL; <code>switchCalMonth(market,month)</code> (default <code>'jun'</code>).</p>
+    <p><strong>Aprobación</strong> — vistas blueprint para el cliente; enlaces de revisión <code>?review=&lt;pageId&gt;</code> y por pieza <code>&amp;piece=&lt;id&gt;</code> vía <code>bpCopyReviewLink</code>/<code>bpCopyPieceLink</code>.</p>
+    <p><strong>Permisos de Grabación</strong> — formulario de autorización imprimible: <code>pgCollect/pgLoad/pgSave/pgClear/pgDownload</code>.</p>
+    <p><strong>Datos &amp; Backup</strong> — <code>refreshStorageStats()</code>, <code>exportBackup()</code>, <code>importBackup(event)</code>.</p>
+  </section>
+
+  <section class="doc" id="s5">
+    <h2 class="sec"><span class="n">05</span> Artefactos independientes</h2>
+    <h3>Guiones</h3>
+    <p><code>guion-windmar-ponce-tour-servicio.html</code>, <code>guion-francheska-frances-entrevista.html</code>, <code>guion-jaime-pereles-entrevista.html</code>, <code>guion-whf-entrevista.html</code>, <code>guion-marie-lee-entrevista.html</code>, <code>guion-alicea-solar.html</code>, <code>guion-anker-pymes.html</code>, <code>guion-elliot-plaza.html</code>, <code>guion-water-david-fonseca.html</code>, <code>Windmar_Guiones_Portal.html</code>, <code>guiones-florida.html</code>.</p>
+    <h3>Stories / Fun Facts</h3>
+    <p><code>windmar-pr-stories.html</code> (flyers + fun facts PR), <code>windmar-fl-stories.html</code> / <code>windmar-fl-funfacts.html</code>, <code>windmar-pros-stories.html</code>, <code>rwb-stories.html</code>, <code>windmar-datos-del-dia.html</code>, <code>palabra-sobre-casa.html</code>.</p>
+    <h3>Guías de diseño (contenido orgánico)</h3>
+    <p><code>guia-estilo.html</code>, <code>windmar-home-brandguide.html</code>, <code>windmar-energy-brandguide.html</code>, <code>letthemtalk-brandguide.html</code>, <code>guia-carrusel-remocion.html</code>.</p>
+    <h3>Carruseles</h3>
+    <p><code>anker_carousel.html</code>, <code>sellado_carousel.html</code>, <code>Water_Carousel_v2.html</code>, <code>windmar-carrusel-remocion-canva.html</code>, <code>windmar-carrusel-solar-fl-canva.html</code>.</p>
+    <h3>Cronogramas / Pros</h3>
+    <p><code>cronograma_pr.html</code>, <code>cronograma_fl.html</code>, <code>windmar-fl-calendario.html</code>, <code>windmar-agosto-2026.html</code>, <code>produccion.html</code>, <code>windmar-pros-ranking.html</code>, <code>aprobaciones-pros.html</code>, <code>aprobaciones-florida.html</code>.</p>
+    <h3>Estructura de un guion (portal)</h3>
+    <pre><code>&lt;div style="…border-left:4px solid #COLOR;…90px 1fr auto"&gt;Hora / Título / badge&lt;/div&gt;
+&lt;details class="guion" style="…border-left:4px solid #COLOR"&gt;
+  &lt;summary&gt;&lt;span&gt;Guion · Título&lt;/span&gt;&lt;/summary&gt;
+  &lt;div&gt;
+    &lt;button onclick="copyConfirm(this)"&gt;Copiar confirmación&lt;/button&gt;
+    &lt;button onclick="downloadGuionCard(this)"&gt;Descargar guion&lt;/button&gt;
+    &lt;!-- título + meta + Pregunta 1..N + Clips/Stories --&gt;
+  &lt;/div&gt;
+&lt;/details&gt;</code></pre>
+    <p>El color se toma del <code>border-left</code>. Convención: Post venta/admin <code>#0891b2</code>, Servicio <code>#0d9488</code>, WHF <code>#be123c</code>.</p>
+  </section>
+
+  <section class="doc" id="s6">
+    <h2 class="sec"><span class="n">06</span> Referencia de funciones JS</h2>
+    <ul>
+      <li><strong>Navegación:</strong> <code>showPage(id)</code>, <code>toggleSidebar(force)</code>, <code>switchCalMonth(market,month)</code></li>
+      <li><strong>Dashboard:</strong> <code>prAdd/prToggle/prDel/prMove</code>, <code>rmAddCat/rmAdd/rmToggle/rmDel</code></li>
+      <li><strong>Ideas:</strong> <code>renderIdeas/ideaAdd/ideaEdit/ideaToggle/ideaDelete/ideasReset</code></li>
+      <li><strong>Piezas:</strong> <code>openNewPieceModal/openPieceEditor/renderPieces</code></li>
+      <li><strong>Aprobación:</strong> <code>renderApprovalCombined/renderApprovalPage/bpCopyReviewLink/bpCopyPieceLink</code></li>
+      <li><strong>Guiones:</strong> <code>copyConfirm/downloadGuionCard/confirmMessageFor/downloadSchedulePDF</code></li>
+      <li><strong>Permisos:</strong> <code>pgCollect/pgLoad/pgSave/pgClear/pgDownload</code></li>
+      <li><strong>Datos:</strong> <code>refreshStorageStats/exportBackup/importBackup</code></li>
+      <li><strong>Notificaciones:</strong> <code>notifyTeams()</code> es <strong>no-op</strong> (lo maneja Supabase, §11)</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="s7">
+    <h2 class="sec"><span class="n">07</span> Contactos de Medios</h2>
+    <p>Compilado del calendario de entrevistas (junio 2026): <strong>11 contactos — 5 TV + 6 radio</strong>.</p>
+    <h3>Televisión</h3>
+    <ul>
+      <li><strong>WAPA TV</strong> — Julian Cruz · <a class="mail" href="mailto:julian.cruz@wapa-tv.com">julian.cruz@wapa-tv.com</a> · <a class="mail" href="mailto:tesy.medrano@wapa-tv.com">tesy.medrano@wapa-tv.com</a></li>
+      <li><strong>Telemundo</strong> — Maricarmen Santiago · <a class="mail" href="mailto:maricarmen.santiago@telemundo.com">maricarmen.santiago@telemundo.com</a></li>
+      <li><strong>ABC</strong> — Rebecca Ufret · <a class="mail" href="mailto:rufret@abc.pr">rufret@abc.pr</a></li>
+      <li><strong>Tele 11 (Producción)</strong> — <a class="mail" href="mailto:dbusigo@teleonce.com">dbusigo@teleonce.com</a> · <a class="mail" href="mailto:snazario@teleonce.com">snazario@teleonce.com</a> · cc: n.flores@windmarhome.com</li>
+      <li><strong>Tele 11</strong> — Sandra Ramos · <a class="mail" href="mailto:sramos@teleonce.com">sramos@teleonce.com</a></li>
+    </ul>
+    <h3>Radio</h3>
+    <ul>
+      <li><strong>WKAQ</strong> — Wanda T. Ortiz · <a class="mail" href="mailto:wanda.ortiz@wkaqpr.com">wanda.ortiz@wkaqpr.com</a></li>
+      <li><strong>Magic 97.3</strong> — Jose Manuel · <a class="mail" href="mailto:jmtorres@magic973.com">jmtorres@magic973.com</a></li>
+      <li><strong>UNO RG</strong> — Wanda Martínez · <a class="mail" href="mailto:wanda.martinez@unoradio.com">wanda.martinez@unoradio.com</a> · 939-640-6271</li>
+      <li><strong>Nueva Vida</strong> — Edgardo Aubray JR · <a class="mail" href="mailto:eaubrayjr@nuevavida.fm">eaubrayjr@nuevavida.fm</a> · 787-562-9359</li>
+      <li><strong>SBS</strong> — Yadira Martínez Otero · <a class="mail" href="mailto:ymartinez@sbspuertorico.com">ymartinez@sbspuertorico.com</a> · 787-321-0106</li>
+      <li><strong>La X (lax.fm)</strong> — Mariana Vivoni · <a class="mail" href="mailto:vivonimariana@gmail.com">vivonimariana@gmail.com</a>. <em>Copiar siempre a su equipo:</em> Annie Avilés (ventas) <a class="mail" href="mailto:annieaviles@lax.fm">annieaviles@lax.fm</a> · 787-531-6933; Jessica García (tráfico) <a class="mail" href="mailto:laxjgarcia@gmail.com">laxjgarcia@gmail.com</a></li>
+    </ul>
+    <p class="note"><strong>Regla:</strong> solicitudes de WAPA para <em>Viva la Tarde</em> van al equipo de PRODUCCIÓN — Fabiana Delpin y Jose Del Valle (@wapa.tv).</p>
+  </section>
+
+  <section class="doc" id="s8">
+    <h2 class="sec"><span class="n">08</span> Cronograma / confirmaciones</h2>
+    <p><code>CONFIRM_MAP</code> (array <code>{ k, msg }</code>) provee el texto de confirmación por grabación. <code>confirmMessageFor(title)</code> hace match por <code>title.includes(k)</code> (claves específicas primero). A todo mensaje se le añade <code>CONFIRM_FOOT</code>: <em>"Formato: reel vertical (9:16), ~30–45 seg. La grabación toma cerca de 45 min…"</em></p>
+    <table>
+      <tr><th>Día</th><th>Hora</th><th>Grabación</th><th>Talento / Lugar</th></tr>
+      <tr><td>Lun 10</td><td>AM (pc)</td><td>David Fonseca — Proceso (Water + problema del agua)</td><td>—</td></tr>
+      <tr><td>Lun 10</td><td>9:00 AM</td><td>David Fonseca — instalación Water</td><td>Calle Consuelo Matos 1203, Urb. Comandante</td></tr>
+      <tr><td>Lun 10</td><td>pc</td><td>Solar — exteriores</td><td>—</td></tr>
+      <tr><td>Mar 11</td><td>10:00 AM</td><td>Anker × PYMES — batería de respaldo</td><td>Jesús Medina · Miramar food trucks</td></tr>
+      <tr><td>Mar 11</td><td>pc</td><td>Water — instalación paso a paso</td><td>—</td></tr>
+      <tr><td>Mié 12</td><td>10:00 AM</td><td>Elliot — Roofing: inspección y sellado</td><td>—</td></tr>
+      <tr><td>Mié 12</td><td>pc</td><td>Marie Lee — perfil mujer líder (ES/EN, WAPA)</td><td>—</td></tr>
+      <tr><td>Mié 12</td><td>12:00 PM</td><td>Media Tour (BTS) — Stories + reel</td><td>Set de medios (WAPA)</td></tr>
+      <tr><td>Jue 13</td><td>9:00 AM</td><td>Tour Showroom Ponce</td><td>Gretche Colón y Marie Santini · Ponce</td></tr>
+      <tr><td>Jue 13</td><td>10:00 AM</td><td>Entrevista Equipo de Servicio</td><td>Oficina de Ponce</td></tr>
+      <tr><td>Jue 13</td><td>pc</td><td>Canvaceo (enfoque pc)</td><td>—</td></tr>
+      <tr><td>Vie 14</td><td>8:00 AM</td><td>Francheska y Frances — post venta/admin</td><td>—</td></tr>
+      <tr><td>Vie 14</td><td>11:30 AM</td><td>Jaime Pereles — servicio</td><td>—</td></tr>
+      <tr><td>Vie 14</td><td>2:00–2:30 PM</td><td>WHF (enfoque pc)</td><td>—</td></tr>
+    </table>
+    <p><em>pc = por confirmar.</em> Para agregar una grabación: (1) tarjeta + <code>&lt;details class="guion"&gt;</code> en <code>#page-frameworks</code>; (2) entrada en <code>CONFIRM_MAP</code> cuya <code>k</code> coincida con el título del <code>&lt;summary&gt;</code>.</p>
+  </section>
+
+  <section class="doc" id="s9">
+    <h2 class="sec"><span class="n">09</span> Sistema de diseño (tokens reales)</h2>
+    <h3>Portal</h3>
+    <p>Acento <code>--wm-orange:#f57c0a</code>. Fuentes <code>--font-title:'Anek Latin'</code>, <code>--font-body:'DM Sans'</code>; masthead usa Archivo Black. Temas: claro, <code>body.dark</code>, <code>body.solar</code>.</p>
+    <h3>Blueprint (guía de estilo / brandguides)</h3>
+    <p>Fondo <code>#e9eef7</code>, papel <code>#fff</code>. Azules: navy <code>#0a2882</code> / <code>#071e55</code>, ink <code>#1a52c7</code> / <code>#0f3a96</code>. Naranja <code>#f57c0a</code>. <strong>Neones por producto:</strong> Solar <code>#ffd24a</code>, Home <code>#ff8a3d</code>, Water/Roof <code>#9fd4ff</code>, Anker <code>#54e0a6</code>, Power <code>#ff4d4d</code>. Fuentes: Bebas Neue, Anek Latin, DM Sans, Martian Mono.</p>
+    <h3>Stories / Flyers</h3>
+    <p><code>--disp:'Bebas Neue'</code> (titulares), <code>--poster:'Montserrat'</code> (kicker/sub/CTA), <code>--body:'Anek Latin'</code>, <code>--mono:'DM Mono'</code>. Export: flyers 4:5 → <strong>1080×1350</strong>; fun facts 9:16 → <strong>1080×1920</strong>. Flyer solar: logo <code>18cqw</code>, copy centrado vertical.</p>
+    <h3>Objeto de un fun fact (bilingüe)</h3>
+    <pre><code>{ id:"w1", brand:"water", tema:{es,en}, kick:{es,en},
+  es:{ word:"CADA\n**GOTA**\nCUENTA", sub:"…", gancho:"…", tag:"WindMar Water · PR" },
+  en:{ word:"…", sub:"…", gancho:"…", tag:"…" } }</code></pre>
+    <p><code>\n</code> = salto de línea; <code>**texto**</code> = línea de acento. Marcas: water, solar, roofing, anker.</p>
+  </section>
+
+  <section class="doc" id="s10">
+    <h2 class="sec"><span class="n">10</span> Export a PNG y embebido de fuentes</h2>
+    <p>Stories/flyers usan <code>html-to-image@1.11.11</code>. Puntos críticos:</p>
+    <ul>
+      <li>Imágenes cross-origin necesitan <code>crossorigin="anonymous"</code> y estar cargadas antes de exportar (<code>imgsReady(el)</code>), o se caen del PNG.</li>
+      <li>Las fuentes de Google no se embeben solas (hoja cross-origin → <code>getFontEmbedCSS</code> vacío → PNG cae a fuente del sistema). Solución: <code>getEmbedCSS()</code> hace fetch de la hoja, baja cada <code>.woff2</code>, lo pasa a data URI (base64 por chunks), cachea y lo pasa como <code>fontEmbedCSS</code> a <code>toBlob</code>. Aplica a <code>toPng</code> (1080×1920) y <code>toPngFlyer</code> (1080×1350).</li>
+      <li>No sobreescribir <code>URL.createObjectURL</code> (cuelga el export).</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="s11">
+    <h2 class="sec"><span class="n">11</span> Backend, backup y notificaciones</h2>
+    <ul>
+      <li><strong>Supabase (Content Hub / VIRA'O):</strong> proyecto <code>mywxxipguoaqknoczgav</code>. Tablas: <code>pieces</code>, <code>piece_links</code>, <code>client_pieces</code>, <code>client_scripts</code> (brand <code>home_fl</code>), <code>client_comments</code>, <code>manuel_reminders</code>, <code>app_settings</code>. Los guiones estáticos viven en el HTML, no en Supabase.</li>
+      <li><strong>Teams (server-side):</strong> al insertar en <code>client_comments</code> con mención, el trigger <code>trg_notify_teams_on_mention</code> hace POST (pg_net) a Power Automate. Message = <code>triggerBody()?['text']</code>. El <code>notifyTeams()</code> del portal es no-op (CORS).</li>
+      <li><strong>Backup:</strong> localStorage (<code>PR_KEY</code>, <code>RM_KEY</code>, ideas, permisos) + IndexedDB (assets). <code>exportBackup()/importBackup()</code>. Si sale "object store not found", subir <code>DB_VERSION</code> en <code>assetStore.ts</code>.</li>
+      <li><strong>Blockers:</strong> fuente Timun es de uso personal; <code>ANTHROPIC_API_KEY</code> lo añade IT en Vercel.</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="s12">
+    <h2 class="sec"><span class="n">12</span> Tono y reglas de marca</h2>
+    <ul>
+      <li>Copy simple, cercano, humano — no corporativo; reconfortante y con impacto.</li>
+      <li>No frases de miedo/pérdida que preocupen al cliente.</li>
+      <li>No prometer "gratis total". Usar "evaluación gratis, sin compromiso" / ahorro.</li>
+      <li>Estilo blueprint: azul arquitectónico sobre blanco, brillante; naranja <code>#f57c0a</code> solo como acento; nada oscuro/moody.</li>
+      <li>Sin rebus/pictogramas que reemplacen palabras en titulares; tipografía limpia.</li>
+      <li>Video: vertical 9:16, IG/FB Reels, máx. 45 s (ideal 30 s), subtítulos en español; entrevistador fuera de cuadro; el talento reformula la pregunta dentro de la respuesta.</li>
+      <li>Dress code: camisa pescador WindMar (se provee), pantalón kaki/azul/negro (NO denim), zapatos negros, medias largas, sin accesorios.</li>
+      <li>El asistente se llama <strong>"Eco"</strong> al referirse a sí mismo.</li>
+    </ul>
+  </section>
+
+  <section class="doc" id="s13">
+    <h2 class="sec"><span class="n">13</span> Tabla: el usuario pide → dónde se hace</h2>
+    <table>
+      <tr><th>Pide…</th><th>Acción</th><th>Ubicación / función</th></tr>
+      <tr><td>"Actualiza mis tareas"</td><td>Editar prioridades/tareas</td><td>Dashboard (prAdd…) / #page-tasks</td></tr>
+      <tr><td>"Cronograma de producción"</td><td>Agregar/editar tarjetas + guion</td><td>#page-frameworks; downloadSchedulePDF()</td></tr>
+      <tr><td>"Guiones de los videos"</td><td>Escribir guion + añadir a CONFIRM_MAP</td><td>Producción + §5/§8</td></tr>
+      <tr><td>"Contactos de los medios"</td><td>Consultar/editar directorio</td><td>#page-contactos (§7)</td></tr>
+      <tr><td>"Guía de diseño orgánico"</td><td>Consultar/editar</td><td>guia-estilo.html, *-brandguide.html</td></tr>
+      <tr><td>"Stories de fun facts"</td><td>Crear/editar objeto + export PNG</td><td>windmar-pr-stories.html (§9–10)</td></tr>
+      <tr><td>"Un carrusel"</td><td>Armar carrusel</td><td>Editor de Carruseles / *_carousel.html</td></tr>
+      <tr><td>"Permiso de grabación"</td><td>Llenar formulario y generar PDF</td><td>#page-permisos (pgDownload())</td></tr>
+      <tr><td>"Prepara para aprobación"</td><td>Vista + enlace de revisión</td><td>#page-aprobar*; bpCopyReviewLink()</td></tr>
+      <tr><td>"Confírmale a X la grabación"</td><td>Copiar mensaje de confirmación</td><td>copyConfirm() / CONFIRM_MAP (§8)</td></tr>
+      <tr><td>"Respalda / restaura datos"</td><td>Exportar/importar backup</td><td>#page-datos</td></tr>
+    </table>
+  </section>
+
+  <div class="foot">WindMar Home · Content Hub · Guía del Agente de IA · Documento interno</div>
+</div>
+</body>
+</html>

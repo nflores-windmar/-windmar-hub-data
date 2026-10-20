@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Permisología — Carrusel (blueprint PR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--disp);padding:26px}
+.wrap{max-width:1120px;margin:0 auto}
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px;margin-bottom:8px}
+h1.pt{font-family:var(--disp);font-size:23px;letter-spacing:-.2px;font-weight:800}
+h1.pt .o{color:var(--orange)}
+.subt{color:#8fa0c6;font-size:13px;margin-top:4px;font-family:var(--mono)}
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:12px 14px;font-size:13px;color:#c9d6f5;margin:16px 0;line-height:1.5;font-family:var(--mono)}
+.note b{color:var(--orange)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.bar .allbtn{font-family:var(--mono);font-size:12px;font-weight:600;padding:9px 16px;border-radius:9px;border:none;cursor:pointer;background:var(--orange);color:#1a1206}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:12px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:#8fa0c6;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.dl{font-family:var(--mono);font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(28,123,255,.5);background:transparent;color:#7fb0ff;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--blue);background:var(--blue);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== TARJETA 4:5 (1080×1350) ===== */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:392px;aspect-ratio:4/5;border-radius:14px;background:var(--paper);color:var(--ink);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);border:1px solid #26375f}
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 42%),
+            radial-gradient(130% 80% at 50% 106%, rgba(10,40,130,.08) 0%, rgba(10,40,130,0) 52%)}
+.reg{position:absolute;z-index:2;width:4cqw;height:4cqw;border:.42cqw solid rgba(10,40,130,.3)}
+.reg.tl{top:3.4cqw;left:3.4cqw;border-right:0;border-bottom:0}
+.reg.tr{top:3.4cqw;right:3.4cqw;border-left:0;border-bottom:0}
+.reg.bl{bottom:3.4cqw;left:3.4cqw;border-right:0;border-top:0}
+.reg.br{bottom:3.4cqw;right:3.4cqw;border-left:0;border-top:0}
+.plate{position:absolute;z-index:3;bottom:3.4cqw;right:6cqw;font-family:var(--mono);font-size:1.9cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.5);text-transform:uppercase}
+
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:7.5cqw 7cqw 6.5cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+
+.kick{font-family:var(--mono);font-weight:500;font-size:2.35cqw;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--orange);display:flex;align-items:center;gap:2cqw}
+.kick::before{content:"";width:6cqw;height:.34cqw;background:var(--orange);flex:none}
+.h1{font-family:var(--disp);font-weight:900;font-size:9.4cqw;line-height:.95;letter-spacing:-.02em;color:var(--navy);margin-top:3cqw}
+.h1 .o{color:var(--orange)}
+.h1.big{font-size:11cqw}
+.rule{width:15cqw;height:.65cqw;background:var(--orange);border-radius:1cqw;margin:3cqw 0 0}
+.coverart{align-self:center;width:56cqw;margin-top:5cqw}
+.coverart svg{width:100%;height:auto;overflow:visible;display:block}
+
+/* ---- portada: marco de foto ---- */
+.photoframe{position:relative;flex:1;margin-top:5cqw;border:.5cqw solid var(--navy);border-radius:3cqw;overflow:hidden;background:#eef3ff}
+.ph{position:absolute;inset:0}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block}
+.ph .drop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#eef3ff,#eef3ff 16px,#e2ebff 16px,#e2ebff 32px);cursor:pointer;text-align:center;padding:8cqw}
+.ph .drop.drag{background:#dbe7ff}
+.ph .drop-ic{font-size:11cqw;line-height:1}
+.ph .drop-tx{font-family:var(--disp);font-weight:800;font-size:3.6cqw;color:var(--navy)}
+.ph .drop-sub{font-family:var(--mono);font-weight:500;font-size:2.5cqw;color:var(--navy2);opacity:.7}
+.nametag{position:absolute;left:0;bottom:0;z-index:2;background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:2.5cqw;letter-spacing:.06em;padding:1.8cqw 3.2cqw;border-top-right-radius:2.4cqw}
+.nametag b{font-family:var(--disp);font-weight:800}
+
+/* ---- checklist (documentos) ---- */
+.sub{font-family:var(--mono);font-weight:400;font-size:2.6cqw;line-height:1.5;color:var(--navy2);margin-top:2.6cqw;max-width:82cqw}
+.checklist{list-style:none;margin-top:5cqw;display:flex;flex-direction:column;gap:3cqw;flex:1}
+.checklist li{display:flex;align-items:center;gap:3.4cqw;font-family:var(--disp);font-weight:700;font-size:4.6cqw;color:var(--navy);
+  border:.28cqw solid rgba(10,40,130,.18);border-radius:2.2cqw;padding:2.8cqw 3.4cqw;background:rgba(28,123,255,.03)}
+.checklist li .ck{flex:0 0 auto;width:7cqw;height:7cqw;border:.5cqw solid var(--orange);border-radius:1.4cqw;display:flex;align-items:center;justify-content:center}
+.checklist li .ck svg{width:70%;height:70%}
+.reassure{font-family:var(--mono);font-size:2.7cqw;line-height:1.5;color:var(--navy2);margin-top:4cqw;
+  border-left:.5cqw solid var(--orange);padding-left:3cqw}
+.reassure b{color:var(--navy);font-family:var(--disp);font-weight:800}
+
+/* ---- timeline (proceso y tiempos) ---- */
+.timeline{list-style:none;margin-top:4.4cqw;display:flex;flex-direction:column;gap:2.4cqw;flex:1}
+.timeline li{display:flex;align-items:center;gap:3.4cqw}
+.timeline .tnum{flex:0 0 auto;width:8.5cqw;height:8.5cqw;border-radius:50%;background:var(--navy);color:#fff;
+  font-family:var(--mono);font-weight:500;font-size:3cqw;display:flex;align-items:center;justify-content:center}
+.timeline .trow{flex:1;display:flex;align-items:center;justify-content:space-between;gap:2cqw;
+  border-bottom:.28cqw dashed rgba(10,40,130,.25);padding-bottom:2cqw}
+.timeline .tt{font-family:var(--disp);font-weight:800;font-size:4cqw;color:var(--navy);line-height:1.05}
+.timeline .chip{font-family:var(--mono);font-weight:500;font-size:2.5cqw;color:var(--orange);
+  border:.3cqw solid var(--orange);border-radius:100px;padding:1cqw 2.4cqw;white-space:nowrap}
+.tnote{font-family:var(--mono);font-size:2.3cqw;color:var(--navy2);opacity:.85;margin-top:3.4cqw}
+
+/* ---- cta ---- */
+.piece.v-cta .content{align-items:flex-start}
+.descr{font-family:var(--mono);font-weight:400;font-size:3cqw;line-height:1.5;color:var(--navy2);margin-top:3.4cqw;max-width:82cqw}
+.ctacontact{font-family:var(--disp);font-weight:800;font-size:4.4cqw;color:var(--navy);margin-top:5cqw;
+  display:flex;align-items:center;gap:2.2cqw}
+.ctacontact .d{width:2cqw;height:2cqw;border-radius:50%;background:var(--orange);flex:none}
+.ctaphone{font-family:var(--mono);font-size:3.4cqw;color:var(--navy2);margin-top:1.6cqw;letter-spacing:.04em}
+
+/* pie con logo (todas menos portada) */
+.foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw;padding-top:4cqw}
+.foot .site{font-family:var(--mono);font-size:2.4cqw;letter-spacing:.06em;color:var(--navy2);display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:12cqw;width:auto;display:block}
+
+.spacer{flex:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Carrusel <span class="o">·</span> Permisología — WindMar Solar (PR)</h1>
+    <div class="subt">Feed 4:5 (1080×1350) · estilo blueprint azul · 4 tarjetas · textos editables (clic) · foto arrastrable en la portada · export PNG.</div>
+  </header>
+  <div class="note"><b>Tarjeta 3:</b> los tiempos son editables — ajústalos a los reales antes de publicar. Todo el texto se edita haciendo clic.</div>
+  <div class="bar"><button class="allbtn" id="allbtn">⬇︎ Descargar las 4 PNG</button></div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SITE='windmar.com';
+const PHONE='787-395-7716';
+const CHK=`<svg viewBox="0 0 24 24" fill="none"><path d="M4 12 l5 6 L20 5" stroke="#f57c0a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const COVERART=`<svg viewBox="0 0 220 160" aria-hidden="true">
+  <rect class="fillwash" x="34" y="22" width="104" height="128" rx="7"/>
+  <path class="ln thin" d="M46 15 h89 a7 7 0 0 1 7 7 v112"/>
+  <rect class="fillwash" x="26" y="30" width="104" height="122" rx="7"/>
+  <path class="ln" d="M26 37 a7 7 0 0 1 7 -7 h90 a7 7 0 0 1 7 7 v108 a7 7 0 0 1 -7 7 H33 a7 7 0 0 1 -7 -7 Z"/>
+  <path class="ln thin" d="M40 50 H116 M40 64 H116 M40 78 H116 M40 92 H92"/>
+  <path class="ln thin" d="M40 128 H84"/>
+  <circle class="ln acc" cx="152" cy="118" r="40" style="fill:none"/>
+  <circle class="ln acc" cx="152" cy="118" r="31" style="fill:none;stroke-width:1.6;stroke-dasharray:4 3"/>
+  <path class="ln acc" d="M135 118 l11 12 l23 -27"/>
+</svg>`;
+const LOGO='wme/logos/wme-fc-stacked.png';
+
+const CARDS=[
+  { id:'portada', mode:'cover',
+    kick:'WindMar · Solar Puerto Rico',
+    h1:'Nosotros nos <span class="o">encargamos</span> de los permisos',
+    name:'Anissa Ortega · WindMar' },
+
+  { id:'documentos', mode:'checklist',
+    kick:'Lo que necesitamos de ti',
+    h1:'Documentos necesarios',
+    sub:'Con esto arrancamos tu proyecto. Es todo lo que te pedimos:',
+    items:[
+      'Factura de LUMA reciente',
+      'Identificación con foto',
+      'Evidencia de propiedad (escritura o CRIM)',
+      'Acceso para la evaluación técnica' ],
+    reassure:'<b>Nosotros preparamos y sometemos todo lo demás.</b> Tú no corres detrás de ningún papel.' },
+
+  { id:'proceso', mode:'timeline',
+    kick:'Cómo avanza tu proyecto',
+    h1:'Proceso y tiempos',
+    steps:[
+      { t:'Evaluación y diseño',            chip:'1–2 semanas' },
+      { t:'Permisos (OGPe / municipio)',    chip:'4–8 semanas' },
+      { t:'Interconexión con LUMA',         chip:'en paralelo' },
+      { t:'Instalación e inspección',       chip:'1–3 días' },
+      { t:'Activación de tu sistema',       chip:'al aprobar LUMA' } ],
+    note:'*Tiempos estimados; te mantenemos informado en cada etapa.' },
+
+  { id:'cta', mode:'cta',
+    kick:'Evaluación gratis y sin compromiso',
+    h1:'Estamos contigo, <span class="o">paso a paso</span>',
+    descr:'Tú te relajas, nosotros manejamos todo el papeleo y te acompañamos antes, durante y después de la instalación de tu sistema.' },
+];
+
+function footHTML(){
+  return `<div class="foot">
+    <div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+  </div>`;
+}
+
+function bodyHTML(c){
+  if(c.mode==='cover'){
+    return `
+      <div class="spacer"></div>
+      <div class="kick">${c.kick}</div>
+      <h2 class="h1" contenteditable="true">${c.h1}</h2>
+      <div class="rule"></div>
+      <div class="spacer"></div>
+      ${footHTML()}`;
+  }
+  if(c.mode==='checklist'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <h2 class="h1" contenteditable="true">${c.h1}</h2>
+      <p class="sub" contenteditable="true">${c.sub}</p>
+      <ul class="checklist">
+        ${c.items.map(t=>`<li><span class="ck">${CHK}</span><span contenteditable="true">${t}</span></li>`).join('')}
+      </ul>
+      <div class="reassure" contenteditable="true">${c.reassure}</div>
+      ${footHTML()}`;
+  }
+  if(c.mode==='timeline'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <h2 class="h1" contenteditable="true">${c.h1}</h2>
+      <ol class="timeline">
+        ${c.steps.map((s,k)=>`<li><span class="tnum">${String(k+1).padStart(2,'0')}</span>
+          <div class="trow"><span class="tt" contenteditable="true">${s.t}</span><span class="chip" contenteditable="true">${s.chip}</span></div></li>`).join('')}
+      </ol>
+      <div class="tnote" contenteditable="true">${c.note}</div>
+      ${footHTML()}`;
+  }
+  if(c.mode==='cta'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <div class="spacer"></div>
+      <h2 class="h1 big" contenteditable="true">${c.h1}</h2>
+      <p class="descr" contenteditable="true">${c.descr}</p>
+      <div class="ctacontact"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+      <div class="ctaphone" contenteditable="true">${PHONE}</div>
+      <div class="spacer"></div>
+      ${footHTML()}`;
+  }
+  return '';
+}
+
+const gallery=document.getElementById('gallery');
+CARDS.forEach((c,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.id} · ${i+1}/${CARDS.length}</span>
+      <button class="dl" data-i="${i}">⬇︎ PNG</button>
+    </div>
+    <div class="piece v-${c.id}" id="pc-${i}">
+      <div class="grid"></div><div class="vign"></div>
+      <div class="plate">WM-PERMIT · ${i+1}/${CARDS.length}</div>
+      <div class="content">${bodyHTML(c)}</div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* colocar / reemplazar foto en la portada */
+gallery.querySelectorAll('.ph').forEach(ph=>{
+  const setMedia=file=>{
+    if(!file || !file.type.startsWith('image/')) return;
+    const url=URL.createObjectURL(file);
+    ph.innerHTML=`<img src="${url}" alt="Anissa Ortega" crossorigin="anonymous"><input type="file" accept="image/*" class="vin" hidden>`;
+    rewire(ph);
+  };
+  const rewire=el=>{
+    const ni=el.querySelector('.vin');
+    if(ni) ni.addEventListener('change',e=>setMedia(e.target.files[0]));
+    el.addEventListener('click',()=>{const v=el.querySelector('.vin'); if(v) v.click();});
+  };
+  rewire(ph);
+  ph.addEventListener('dragover',e=>{e.preventDefault();const d=ph.querySelector('.drop');d&&d.classList.add('drag');});
+  ph.addEventListener('dragleave',()=>{const d=ph.querySelector('.drop');d&&d.classList.remove('drag');});
+  ph.addEventListener('drop',e=>{e.preventDefault();setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+async function exportOne(i){
+  const node=document.getElementById('pc-'+i);
+  const css=await fontEmbedCSS();
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#ffffff'};
+  let blob=null;
+  try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+  if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+  if(!blob) throw new Error('imagen vacía');
+  const a=document.createElement('a');
+  a.download=`windmar-permisologia-${CARDS[i].id}.png`;
+  a.href=URL.createObjectURL(blob); a.click();
+}
+
+gallery.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const i=btn.dataset.i; btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    try{ await exportOne(i); }catch(e){ alert('No se pudo exportar: '+e.message); }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+document.getElementById('allbtn').addEventListener('click',async()=>{
+  const btn=document.getElementById('allbtn'); btn.disabled=true; const old=btn.textContent;
+  for(let i=0;i<CARDS.length;i++){ btn.textContent=`Exportando ${i+1}/${CARDS.length}…`; try{ await exportOne(i); await new Promise(r=>setTimeout(r,350)); }catch(e){} }
+  btn.textContent=old; btn.disabled=false;
+});
+</script>
+</body>
+</html>

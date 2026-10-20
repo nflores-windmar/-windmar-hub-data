@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Pros · Miguel Torres — Hype Typewriter</title>
+<!-- Mismo motor que las piezas de Arianna Jaramillo y Anthony Fratto: __seek(t)
+     dibuja cada cuadro a partir del tiempo, sin @keyframes, para que el preview
+     y el render cuadro a cuadro sean exactamente el mismo dibujo.
+     Dos notas propias de esta version:
+     1) Esta hoja ASUME que el cutout de Miguel es 4:5 (1080x1350), igual que
+        asi que .hero-photo vuelve a la caja original — NO lleva el re-encuadre
+        cuadrado que hizo falta para el busto de Anthony.
+     2) Del cheque falta la FECHA porque no la tengo, y tampoco se dice el
+        periodo del bono: de Miguel esta confirmado nombre y $16,500 de payout.
+        El resto del libreto queda igual que el de Carlos, mismo criterio que
+        se uso entonces: swap directo de nombre, foto y monto. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@600;700;800;900&family=DM+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy1:#0a2a6f; --navy2:#061c50; --navy3:#04102e;
+    --orange:#f7941e; --orange2:#ffb347;
+    --disp:'Anton',Impact,sans-serif;
+    --cond:'Bebas Neue',Impact,sans-serif;
+    --body:'Montserrat',system-ui,sans-serif;
+    --hand:'Caveat',cursive;
+    --mono:'DM Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#05070d;color:#fff;font-family:var(--body)}
+  .app{min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 16px 60px}
+  .fit{width:100%;max-width:460px;display:flex;justify-content:center}
+  .scaler{transform-origin:top center}
+
+  .stage{position:relative;width:1080px;height:1920px;overflow:hidden;container-type:inline-size;background:#04102e;color:#fff}
+  .bgvid{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+  .navy{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 78% 8%, rgba(20,69,156,.92) 0%, rgba(20,69,156,.32) 55%),
+      radial-gradient(90% 60% at 12% 96%, rgba(13,53,127,.92) 0%, rgba(13,53,127,.32) 60%),
+      linear-gradient(160deg, rgba(10,42,111,.82) 0%, rgba(6,28,80,.86) 46%, rgba(4,16,46,.90) 100%);}
+  .stage::before{content:"";position:absolute;inset:0;z-index:2;opacity:.13;pointer-events:none;
+    background-image:linear-gradient(rgba(120,170,255,.35) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(120,170,255,.35) 1px,transparent 1px);
+    background-size:5.2cqw 5.2cqw;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 82%,transparent 100%);
+            mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 82%,transparent 100%);}
+  .dots{position:absolute;z-index:2;width:60cqw;height:44cqw;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.15) 22%,transparent 24%);background-size:3.2cqw 3.2cqw;}
+  .dots.bl{left:-6cqw;bottom:2cqw;-webkit-mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%);mask-image:radial-gradient(60% 70% at 20% 80%,#000,transparent 72%)}
+  .dots.tr{right:-8cqw;top:26cqw;-webkit-mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%);mask-image:radial-gradient(60% 60% at 80% 30%,#000,transparent 70%)}
+  .glow{position:absolute;z-index:2;width:66cqw;height:66cqw;left:-16cqw;top:38cqw;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(247,148,30,.30) 0%,rgba(247,148,30,0) 62%);filter:blur(6px)}
+
+  .topbar{position:absolute;z-index:6;top:5cqw;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 6cqw}
+  .topbar .month{font-family:var(--body);font-weight:800;font-size:2.5cqw;letter-spacing:.2em;color:rgba(255,255,255,.82);text-transform:uppercase;border-bottom:.32cqw solid var(--orange);padding-bottom:.7cqw;line-height:1}
+  .topbar .wlogo{height:8.5cqw;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+  .prowm{position:absolute;z-index:2;left:4cqw;top:30cqw;font-family:var(--disp);font-size:44cqw;line-height:.8;color:rgba(255,255,255,.05);letter-spacing:-.02em;pointer-events:none;user-select:none}
+
+  /* ====== BARRA DE ESTADO MONO (identidad typewriter) ====== */
+  .statusbar{position:absolute;z-index:6;top:14.2cqw;left:6cqw;right:6cqw;
+    font-family:var(--mono);font-weight:500;font-size:2.35cqw;letter-spacing:.14em;
+    color:rgba(180,208,255,.9);text-transform:uppercase;
+    border-top:.22cqw solid rgba(140,180,255,.3);border-bottom:.22cqw solid rgba(140,180,255,.3);
+    padding:1.5cqw 0;display:flex;align-items:center;gap:1.4cqw;white-space:nowrap}
+  .statusbar .prompt{color:var(--orange);flex:none}
+
+  /* marcas de encuadre tipo hoja mecanografiada */
+  .tick{position:absolute;z-index:6;width:5cqw;height:5cqw;pointer-events:none;border:.42cqw solid rgba(247,148,30,.75)}
+  .tick.tl{top:20.4cqw;left:6cqw;border-right:0;border-bottom:0}
+  .tick.tr{top:20.4cqw;right:6cqw;border-left:0;border-bottom:0}
+  .tick.bl{bottom:9cqw;left:6cqw;border-right:0;border-top:0}
+  .tick.br{bottom:9cqw;right:6cqw;border-left:0;border-top:0}
+
+  /* FOTO
+     Vuelve la caja original de Arianna (124x188cqw) porque el cutout de
+     Miguel se asume 4:5 (1080x1350) igual que el de ella. El re-encuadre
+     cuadrado de la pieza de Anthony NO aplica aqui: aquel era un busto 974x944.
+     Lo unico que cambia frente a Arianna es el `right`: medido sobre este PNG,
+     la cabeza de Miguel se asume en el 48% de su propio ancho. Con right:-12cqw
+     (el de Arianna) la cara quedaba clavada en el centro del cuadro, y el
+     nombre de la escena 3 va abajo a la IZQUIERDA — se montaban. Con -24cqw
+     la cabeza se corre a 59.5cqw y la mitad izquierda queda libre para el texto.
+     Si se cambia el ancho hay que recalcular este numero o la cara se desplaza.
+     El difuminado se queda en 88% como el de Arianna: aqui el borde inferior
+     del recorte son las piernas, no los hombros, asi que el fade largo no deja
+     la cabeza flotando (ese problema era exclusivo del busto de Anthony). */
+  .hero-photo{position:absolute;z-index:3;right:-24cqw;bottom:0;width:124cqw;height:188cqw;
+    display:flex;align-items:flex-end;justify-content:center;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,#000 88%,transparent 100%);}
+  .hero-photo img{width:100%;height:100%;object-fit:contain;object-position:bottom right;filter:grayscale(1) contrast(1.05);display:none}
+  .hero-photo.has img{display:block}
+  .hero-photo .ph{align-self:center;font-family:var(--body);font-weight:800;font-size:3cqw;color:rgba(255,255,255,.25);text-align:center;border:.4cqw dashed rgba(255,255,255,.2);border-radius:2cqw;padding:6cqw 4cqw;line-height:1.4}
+  .hero-photo.has .ph{display:none}
+  /* el filtro y la escala de la foto los escribe __seek(t) cuadro a cuadro */
+
+  /* ESCENAS */
+  .scene{position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 9cqw;text-align:center}
+  .scene.left{align-items:flex-start;text-align:left;padding-left:9cqw;justify-content:flex-end;padding-bottom:16cqw}
+  /* la opacidad de cada escena y el latido del .wrap tambien salen de __seek(t) */
+  .wrap{transform-origin:center;width:100%}
+
+  /* kicker mono con prompt */
+  .kick{font-family:var(--mono);font-weight:500;font-size:3.1cqw;letter-spacing:.24em;color:var(--orange);
+    text-transform:uppercase;margin-bottom:3cqw;display:block}
+  .scene.left .kick{margin-bottom:2.4cqw}
+
+  .mega{font-family:var(--disp);font-size:22cqw;line-height:.88;color:#fff;text-transform:uppercase;filter:drop-shadow(0 6px 16px rgba(0,0,0,.55))}
+  .mega em{font-style:normal;color:var(--orange)}
+  .mega.huge{font-size:26cqw}
+  .name{font-family:var(--disp);font-size:19cqw;line-height:.88;color:#fff;text-transform:uppercase}
+  .name em{font-style:normal;color:var(--orange);display:block}
+  .ln{font-family:var(--disp);font-size:13cqw;line-height:1.04;color:#fff;text-transform:uppercase;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+  .ln.big{font-size:17cqw}
+  .lyricgap{margin-top:4.2cqw}
+  .tag{font-family:var(--mono);font-weight:500;font-size:3cqw;letter-spacing:.42em;color:rgba(255,255,255,.88);margin-top:4cqw;text-transform:uppercase}
+
+  /* ====== MOTOR TYPEWRITER ======
+     Sin @keyframes a proposito: TODO el estado se calcula desde t en __seek(t).
+     Asi el preview y el render cuadro-a-cuadro son exactamente el mismo dibujo. */
+  .tw{position:relative}
+  .tw .c{opacity:0;position:relative;z-index:1;white-space:pre}
+  /* cursor de ancho cero: no mueve el layout, solo viaja */
+  /* el cursor va en un inline VACIO, nunca inline-block: un inline-block seria una
+     oportunidad de corte de linea y la palabra se partiria por la mitad */
+  .tw .cr{position:relative;display:inline;visibility:hidden;z-index:2}
+  .tw .cr i{position:absolute;left:.03em;bottom:-.08em;width:.12em;height:.94em;background:var(--orange);display:block}
+  .statusbar .cr i{width:.56em;left:.1em;bottom:-.16em;height:1.06em}
+  .tw.ink .cr i{background:#12408f;width:.09em;bottom:-.06em;height:1em}
+
+  /* resaltado naranja que barre a la par del tecleo */
+  .hl{position:relative;display:inline-block;padding:.04em .22em;border-radius:.1em;color:#0a1740;isolation:isolate}
+  .hl::before{content:"";position:absolute;inset:0;background:var(--orange);border-radius:.1em;
+    transform:scaleX(var(--sw,0));transform-origin:left center;z-index:0}
+  .hl .c,.hl .cr{z-index:1}
+  .hl .cr i{background:#0a1740}
+
+  /* CHEQUE */
+  .check{width:84cqw;background:#fbfdff;color:#0a2a6f;border-radius:2.4cqw;box-shadow:0 3cqw 6cqw rgba(0,0,0,.55), 0 0 0 .4cqw rgba(247,148,30,.6) inset;padding:3.4cqw 4.4cqw;position:relative;overflow:hidden;margin:0 auto}
+  .check::after{content:"";position:absolute;inset:1.4cqw;border:.28cqw solid rgba(10,42,111,.16);border-radius:1.4cqw;pointer-events:none}
+  .chk-head{display:flex;justify-content:space-between;align-items:flex-start;gap:3cqw}
+  .chk-brand{display:flex;flex-direction:column;gap:.6cqw;text-align:left}
+  .chk-brand .lg{height:8cqw;width:auto}
+  .chk-loc{font-family:var(--body);font-weight:700;font-size:2.4cqw;color:#3a5a99}
+  .chk-date{font-family:var(--body);font-weight:700;font-size:2.5cqw;color:#0a2a6f;text-align:right}
+  .chk-date .v{font-family:var(--hand);font-weight:700;font-size:4cqw;color:#12408f;border-bottom:.28cqw solid #9fb6dd;padding:0 1.4cqw .2cqw;display:inline-block;min-width:20cqw;text-align:center}
+  .chk-lines{margin-top:3cqw;display:flex;flex-direction:column;gap:3cqw;text-align:left}
+  .row-pay{display:flex;align-items:flex-end;gap:2cqw}
+  .lbl{flex:none;font-family:var(--body);font-weight:700;font-size:2.2cqw;letter-spacing:.03em;color:#3a5a99;text-transform:uppercase;line-height:1.05}
+  .cname{flex:1;font-family:var(--hand);font-weight:700;font-size:5.2cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;white-space:nowrap}
+  .row-words{display:flex;align-items:flex-end;gap:1.5cqw}
+  /* 2.65 y no 2.9 como en las otras piezas: "Sixty-six thousand one hundred
+     five dollars" tiene 42 caracteres contra los 30 de Sebastian, y a 2.9cqw
+     el overflow:hidden de esta misma regla se comia el final de "dollars". */
+  .words{flex:1;font-family:var(--hand);font-weight:600;font-size:2.65cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;white-space:nowrap;overflow:hidden}
+  .dollars{flex:none;font-family:var(--body);font-weight:700;font-size:2cqw;letter-spacing:.03em;color:#3a5a99;text-transform:uppercase}
+  .amt-box{flex:none;display:flex;align-items:center;gap:1cqw}
+  .amt-box .dollar{font-family:var(--body);font-weight:800;font-size:4.6cqw;color:#0a2a6f}
+  .amt{flex:none;font-family:var(--hand);font-weight:700;font-size:4.6cqw;color:#12408f;border:.3cqw solid #9fb6dd;border-radius:1cqw;padding:.4cqw 1.6cqw;min-width:16cqw;text-align:center;background:#fff;transform-origin:center}
+  .chk-foot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:3cqw;gap:4cqw}
+  .memo{display:flex;align-items:flex-end;gap:1.5cqw}
+  .memo .v{font-family:var(--hand);font-weight:600;font-size:3.2cqw;color:#12408f;border-bottom:.3cqw solid #9fb6dd;padding:0 1cqw .2cqw;min-width:24cqw;white-space:nowrap}
+  .sign{text-align:center}
+  .sign .s{font-family:var(--hand);font-weight:700;font-size:5cqw;color:#12408f;line-height:.9}
+  .sign .cap{font-family:var(--body);font-weight:700;font-size:1.8cqw;letter-spacing:.04em;color:#3a5a99;text-transform:uppercase;border-top:.28cqw solid #9fb6dd;padding-top:.7cqw;margin-top:.4cqw}
+  .micr{margin-top:2cqw;font-family:var(--mono);font-weight:500;font-size:2.6cqw;letter-spacing:.14em;color:#1c3d7a;text-align:left}
+  .flash{position:absolute;inset:0;z-index:9;background:#fff;opacity:0;pointer-events:none}
+  .confetti{position:absolute;inset:0;z-index:7;pointer-events:none;overflow:hidden;opacity:0}
+  .confetti i{position:absolute;top:-6cqw;width:1.6cqw;height:3cqw;border-radius:.3cqw;opacity:.95}
+  .prog{position:absolute;z-index:10;left:0;bottom:0;height:1cqw;width:0;background:var(--orange)}
+
+  .panel{width:100%;max-width:460px;background:#0d1730;border:1px solid #21335f;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .panel h2{margin:0;font-size:17px;font-weight:800}
+  .panel p{margin:0;font-size:14px;line-height:1.55;color:#b6c4e2}
+  .panel button{font-family:var(--body);font-weight:700;font-size:15px;border:none;border-radius:10px;padding:13px 16px;cursor:pointer;background:var(--orange);color:#20140a}
+  .hint{font-size:14px;color:#93a7cd}
+
+  /* ===== MODO RENDER ===== */
+  body.render{background:transparent!important}
+  body.render .app{padding:0!important;gap:0!important;min-height:0!important;align-items:flex-start!important}
+  body.render .fit{max-width:none!important;width:1080px!important;justify-content:flex-start!important}
+  body.render .scaler{transform:none!important;width:1080px!important;height:1920px!important}
+  body.render .stage{background:transparent!important}
+  body.render #bgvid{display:none!important}
+  body.render .panel{display:none!important}
+  body.render .prog{display:none!important}
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="fit"><div class="scaler" id="scaler">
+      <div class="stage" id="stage">
+        <video class="bgvid" id="bgvid" src="wme/hype-bg-web.mp4" muted playsinline preload="auto" loop></video>
+        <div class="navy"></div>
+        <div class="dots bl"></div>
+        <div class="dots tr"></div>
+        <div class="glow"></div>
+        <div class="prowm">PRO</div>
+
+        <!-- OCTOBER 2026 esta puesto solo porque es el mes de hoy. Nadie me ha
+             dicho de que mes es la entrega: si fue otro, se cambia aqui. -->
+        <div class="topbar">
+          <div class="month">OCTOBER 2026</div>
+          <img class="wlogo" src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+        </div>
+
+        <!-- Orlando esta confirmado y va. El periodo NO: de Anthony me dijeron
+             "bono de semana", de Sebastian solo "igual top closer". No asumo que
+             el periodo tambien sea el mismo, asi que la barra no lo menciona. -->
+        <div class="statusbar"><span class="prompt">&gt;</span><span class="tw" id="statusline" data-tw="flow" data-at="0.10" data-cps="24">WINDMAR PROS // ORLANDO FL</span></div>
+        <div class="tick tl"></div><div class="tick tr"></div>
+        <div class="tick bl"></div><div class="tick br"></div>
+
+        <div class="hero-photo sil" id="heroPhoto">
+          <img id="heroImg" src="wme/miguel-torres.png" alt="Miguel Torres">
+          <div class="ph">FOTO<br>MIGUEL<br>TORRES</div>
+        </div>
+
+        <!-- S0 HOOK -->
+        <div class="scene" data-i="0">
+          <div class="wrap">
+            <div class="ln big tw" data-tw="beat">THE NUMBERS<br><span class="hl">DON'T LIE</span></div>
+          </div>
+        </div>
+
+        <!-- S1 · $16,500
+             La de Arianna remata "IN A WEEK". De Sebastian NO se el periodo
+             (me dijeron "igual top closer", no "igual bono de semana"), asi que
+             el remate es PAID OUT: eso es lo unico que el cheque prueba. -->
+        <div class="scene" data-i="1">
+          <div class="wrap">
+            <div class="mega huge tw" data-tw="beat">$16,500</div>
+            <div class="ln big lyricgap tw" data-tw="beat"><span class="hl">PAID OUT</span></div>
+          </div>
+        </div>
+
+        <!-- S2 · igual que Arianna: top closer esta confirmado. -->
+        <div class="scene" data-i="2">
+          <div class="wrap">
+            <div class="mega huge tw" data-tw="beat">#1 <em>CLOSER</em></div>
+            <div class="ln big lyricgap tw" data-tw="beat"><span class="hl">LETSS GOOO</span></div>
+          </div>
+        </div>
+
+        <!-- S3 REVEAL
+             El kicker de Arianna dice "TOP CLOSER OF THE WEEK". Aqui se queda en
+             "TOP CLOSER" a secas: lo confirmado es el titulo, no el periodo. -->
+        <div class="scene left" data-i="3">
+          <div class="wrap">
+            <div class="kick tw" data-tw="flow" data-at="0.06" data-cps="30">TOP CLOSER</div>
+            <div class="name tw" data-tw="beat">MIGUEL<em>TORRES</em></div>
+          </div>
+        </div>
+
+        <!-- S4 PAYOUT -->
+        <div class="scene" data-i="4">
+          <div class="wrap">
+            <div class="kick tw" data-tw="flow" data-at="0.05" data-cps="30">PAYOUT AUTHORIZED</div>
+            <!-- La de Arianna llevaba ciudad ("Orlando, Florida") y fecha
+                 ("Sept. 25. 26"). Orlando esta confirmado y va.
+                 La FECHA no, asi que ese campo se queda fuera: de todo lo que
+                 dice la pieza, la fecha es el unico dato que cualquiera puede
+                 poner lado a lado con el cheque real. Cuando me den el dia, el
+                 bloque .chk-date vuelve aqui a la derecha — el CSS ya esta
+                 puesto, es solo pegar el div. -->
+            <div class="check">
+              <div class="chk-head">
+                <div class="chk-brand">
+                  <img class="lg" src="wme/logos/windmar-pros.png" alt="WindMar Pros">
+                  <div class="chk-loc">Orlando, Florida</div>
+                </div>
+              </div>
+              <div class="chk-lines">
+                <div class="row-pay"><div class="lbl">Pay to the<br>order of:</div><div class="cname tw ink" data-tw="flow" data-at="0.95" data-cps="15">Miguel Torres</div></div>
+                <div class="row-words">
+                  <div class="words tw ink" data-tw="flow" data-at="1.35" data-cps="40">Sixteen thousand five hundred dollars</div>
+                  <div class="dollars">Dollars</div>
+                  <div class="amt-box"><span class="dollar">$</span><div class="amt tw ink" data-tw="flow" data-at="1.95" data-cps="12">16,500</div></div>
+                </div>
+              </div>
+              <div class="chk-foot">
+                <div class="memo"><span class="lbl">Memo:</span><span class="v tw ink" data-tw="flow" data-at="1.60" data-cps="18">We don't play</span></div>
+                <div class="sign"><div class="s">WindMar</div><div class="cap">Authorized signature</div></div>
+              </div>
+              <div class="micr">⑆123456789⑆ ⑉000123456789⑉ 1001</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- S5 CLÍMAX -->
+        <div class="scene" data-i="5">
+          <div class="wrap">
+            <div class="mega tw" data-tw="beat">WINDMAR<br>IN THE <em>BUILDING</em></div>
+            <div class="tag tw" data-tw="flow" data-at="1.72" data-cps="16">WE DON'T PLAY</div>
+          </div>
+        </div>
+
+        <div class="confetti" id="confetti"></div>
+        <div class="flash" id="flash"></div>
+        <div class="prog" id="prog"></div>
+      </div>
+    </div></div>
+
+    <div class="panel">
+      <h2>Miguel Torres — Hype typewriter (1080×1920)</h2>
+      <p>Mismo motor que la pieza de Arianna: 148 BPM, el texto se <b>teclea</b> — cada palabra arranca en el golpe y las letras caen una por una con cursor. El cheque se escribe a mano en vivo. El contenido en pantalla va en inglés, como el de Arianna.</p>
+      <button id="playBtn">▶ Reproducir con audio</button>
+      <div class="hint">Confirmado: <b>Miguel Torres</b> y <b>$16,500</b> de payout. Falta la <b>fecha</b> del cheque (por eso el campo FECHA no está) y el <b>periodo</b> del bono — por eso dice PAID OUT y no “IN A WEEK” como la de Arianna.</div>
+    </div>
+  </div>
+
+  <audio id="audio" preload="auto">
+    <!-- Misma cama que las otras piezas typewriter. El nombre del archivo dice
+         "carlos" porque se corto para aquella, pero es la cama compartida y
+         suena solo en el preview: los cuadros se renderizan mudos y el audio
+         se monta despues con ffmpeg. -->
+    <source src="wme/hype-carlos-audio.mp3" type="audio/mpeg">
+    <source src="wme/hype-carlos-audio.m4a" type="audio/mp4">
+  </audio>
+
+<script>
+  const scaler=document.getElementById('scaler'), fit=document.querySelector('.fit');
+  const scenes=[...document.querySelectorAll('.scene')];
+  const prog=document.getElementById('prog'), flash=document.getElementById('flash'), confetti=document.getElementById('confetti');
+  const heroPhoto=document.getElementById('heroPhoto'), heroImg=document.getElementById('heroImg');
+  const audio=document.getElementById('audio'), bgvid=document.getElementById('bgvid');
+
+  function rescale(){const w=fit.clientWidth,s=Math.min(1,w/1080);scaler.style.transform='scale('+s+')';scaler.style.height=(1920*s)+'px';scaler.style.width='1080px';}
+  window.addEventListener('resize',rescale);rescale();
+  // ojo: si la imagen ya venia de cache el evento 'load' nunca dispara
+  function markPhoto(){ heroPhoto.classList.toggle('has', heroImg.complete && heroImg.naturalWidth>0); }
+  heroImg.addEventListener('load',markPhoto); heroImg.addEventListener('error',markPhoto); markPhoto();
+
+  // ==== REJILLA DE BEATS (148 BPM) ====
+  const BEAT=0.4054, FIRST=0.325, TOTAL=16.38;
+  const BEATS=[]; for(let t=FIRST;t<TOTAL;t+=BEAT) BEATS.push(t);
+  const DUR=[2352,3243,2432,2433,2838,3082];               // ms, suma 16380
+  const START=[]; {let a=0; for(const d of DUR){START.push(a/1000); a+=d;}}
+  const END=START.map((s,i)=>s+DUR[i]/1000);
+  const CLIMAX=START[5];
+  const CHAR=0.052;          // segundos por caracter dentro de una palabra (~19 c/s)
+  const FADE=0.18;           // cruce entre escenas
+
+  const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+  const lerp=(a,b,p)=>a+(b-a)*p;
+  const eOutCubic=p=>1-Math.pow(1-p,3);
+  const CQ=1080/100;         // 1cqw en px (el stage siempre mide 1080 de ancho)
+
+  /* ---------- 1. PARTIR EN CARACTERES ----------
+     Cada caracter queda en un <span class="c"> seguido de un cursor de ancho cero.
+     Los caracteres NO cambian el layout al aparecer (van con opacity), asi que el
+     texto centrado nunca salta: solo el cursor viaja.
+     Reconstruye el elemento en sitio conservando la estructura (em, hl, br). */
+  function splitInPlace(el){
+    if(el.dataset.split) return el.__chars;
+    const chars=[];
+    function rebuild(src,dst){
+      [...src.childNodes].forEach(n=>{
+        if(n.nodeType===3){
+          [...n.textContent].forEach(ch=>{
+            const c=document.createElement('span'); c.className='c'; c.textContent=ch;
+            const cr=document.createElement('span'); cr.className='cr'; cr.appendChild(document.createElement('i'));
+            dst.appendChild(c); dst.appendChild(cr);
+            chars.push({c,cr,space:/\s/.test(ch)});
+          });
+        } else if(n.nodeType===1){
+          if(n.tagName==='BR'){ dst.appendChild(document.createElement('br')); return; }
+          const clone=n.cloneNode(false);
+          const from=chars.length;
+          dst.appendChild(clone);
+          rebuild(n,clone);
+          if(clone.classList.contains('hl')) clone.__range=[from,chars.length];
+        }
+      });
+    }
+    const holder=document.createElement('div');
+    rebuild(el,holder);
+    el.innerHTML=''; while(holder.firstChild) el.appendChild(holder.firstChild);
+    el.dataset.split='1'; el.__chars=chars;
+    return chars;
+  }
+
+  /* Una palabra termina en un espacio O en un cambio de linea. El cambio de linea
+     se detecta midiendo, no leyendo el marcado: asi cubre <br>, los <em> que van
+     en display:block y tambien los cortes naturales cuando el texto no cabe.
+     Sin esto "NUMBERS" y "DON'T" se tecleaban corridos como una sola palabra. */
+  function wordsOf(chars){
+    const ws=[]; let cur=null, prevTop=null;
+    chars.forEach((o,i)=>{
+      if(o.space){ cur=null; return; }
+      const top=o.c.getBoundingClientRect().top;
+      const salto = prevTop!==null && top > prevTop+1;
+      prevTop=top;
+      if(!cur || salto){ cur={start:i,end:i}; ws.push(cur); }
+      cur.end=i;
+    });
+    return ws;
+  }
+
+  /* ---------- 2. CALENDARIO (una sola vez) ----------
+     Produce, para cada caracter, el segundo exacto en que se teclea. */
+  const CHARS=[];   // {c, cr, at, off}  off = cuando el cursor deja de estar ahi
+  const HLS=[];     // {el, a, b}
+  function buildSchedule(){
+    CHARS.length=0; HLS.length=0;
+
+    addEl(document.getElementById('statusline'), 0, TOTAL);
+
+    scenes.forEach((sc,i)=>{
+      const t0=START[i], t1=END[i];
+      let bi=BEATS.findIndex(b=>b>=t0-0.02); if(bi<0) bi=BEATS.length-1;
+      let wordCount=0;
+      sc.querySelectorAll('.tw').forEach(el=>{
+        const chars=splitInPlace(el);
+        const at=new Array(chars.length);
+        if((el.dataset.tw||'beat')==='flow'){
+          const off=parseFloat(el.dataset.at||'0'), cps=parseFloat(el.dataset.cps||'34');
+          chars.forEach((o,k)=>{ at[k]=t0+off+k/cps; });
+        } else {
+          wordsOf(chars).forEach(w=>{
+            const bt=BEATS[Math.min(bi+wordCount,BEATS.length-1)];
+            for(let k=w.start;k<=w.end;k++) at[k]=bt+(k-w.start)*CHAR;
+            wordCount++;
+          });
+          // los espacios heredan el tiempo del caracter que viene despues
+          for(let k=chars.length-1;k>=0;k--)
+            if(at[k]===undefined) at[k]=(k+1<chars.length?at[k+1]:t1);
+        }
+        push(el, chars, at, t1);
+      });
+    });
+
+    function addEl(el,t0,t1){
+      const chars=splitInPlace(el);
+      const off=parseFloat(el.dataset.at||'0'), cps=parseFloat(el.dataset.cps||'34');
+      push(el, chars, chars.map((o,k)=>t0+off+k/cps), t1);
+    }
+    function push(el, chars, at, endAt){
+      chars.forEach((o,k)=>{
+        CHARS.push({c:o.c, cr:o.cr, at:at[k], off:(k+1<chars.length?at[k+1]:endAt)});
+      });
+      el.querySelectorAll('.hl').forEach(h=>{
+        const r=h.__range; if(!r) return;
+        // el barrido se guarda por CARACTER, no como un rango de tiempo: entre
+        // palabra y palabra hay 350 ms de silencio y un barrido lineal se
+        // adelantaria a las letras.
+        HLS.push({el:h, cs:chars.slice(r[0],r[1]).map(o=>o.c), at:at.slice(r[0],r[1]), fr:null});
+      });
+    }
+  }
+
+  /* ---------- 2b. MEDIR DONDE CAE CADA LETRA DENTRO DEL RESALTADO ----------
+     Hay que hacerlo DESPUES de que carguen las fuentes: con la fuente de
+     respaldo las letras miden otra cosa y el barrido quedaria corrido. */
+  function measureHLs(){
+    for(const h of HLS){
+      const box=h.el.getBoundingClientRect();
+      if(!box.width){ h.fr=h.cs.map((c,k)=>(k+1)/h.cs.length); continue; }
+      h.fr=h.cs.map(c=>clamp((c.getBoundingClientRect().right-box.left)/box.width,0,1));
+      h.fr[h.fr.length-1]=1;   // la ultima letra tapa tambien el relleno derecho
+    }
+  }
+
+  /* ---------- 3. CONFETI DETERMINISTA ---------- */
+  const CONF=[];
+  function buildConfetti(){
+    confetti.innerHTML=''; CONF.length=0;
+    const cols=['#f7941e','#ffb347','#ffffff','#8fb4ff'];
+    for(let i=0;i<46;i++){
+      const s=document.createElement('i');
+      s.style.left=((i*37)%100)+'%';
+      s.style.background=cols[i%cols.length];
+      s.style.width=(1.2+((i*11)%14)/10)+'cqw';
+      s.style.height=(2.4+((i*17)%20)/10)+'cqw';
+      confetti.appendChild(s);
+      CONF.push({el:s, dur:1.2+((i*13)%14)/10, delay:((i*7)%10)/20});
+    }
+  }
+
+  /* ---------- 4. EL DIBUJO DE UN INSTANTE ----------
+     Todo lo que se ve en pantalla sale de aqui. No hay @keyframes ni timers:
+     __seek(t) con la misma t siempre produce exactamente el mismo cuadro. */
+  function seek(t){
+    // --- escenas: cruce corto entre la que sale y la que entra
+    scenes.forEach((s,i)=>{
+      const inP  = clamp((t-START[i])/FADE, 0, 1);
+      const outP = (i===scenes.length-1) ? 1 : clamp((END[i]-t)/FADE, 0, 1);
+      s.style.opacity = (t<START[i]-0.001) ? 0 : (inP*outP).toFixed(3);
+    });
+
+    // --- caracteres y cursor
+    for(const o of CHARS){
+      o.c.style.opacity = (t>=o.at) ? '1' : '0';
+      const on = (t>=o.at && t<o.off);
+      o.cr.style.visibility = on ? 'visible' : 'hidden';
+      // parpadeo de 0.46s, en fase con el momento en que se tecleo
+      o.cr.style.opacity = (on && Math.floor((t-o.at)/0.26)%2===0) ? '1' : '0';
+    }
+    // --- resaltado naranja: llega a cada letra justo cuando la letra se teclea
+    for(const h of HLS){
+      if(!h.fr) continue;
+      let sw=0;
+      for(let k=0;k<h.at.length;k++){
+        if(t>=h.at[k]){ sw=h.fr[k]; continue; }
+        const pf = k>0 ? h.fr[k-1] : 0;
+        sw = lerp(pf, h.fr[k], clamp((t-(h.at[k]-CHAR))/CHAR, 0, 1));
+        break;
+      }
+      h.el.style.setProperty('--sw', sw.toFixed(4));
+    }
+
+    // --- indice de escena actual
+    let cur=0; for(let i=0;i<START.length;i++) if(t>=START[i]) cur=i;
+
+    // --- latido en el golpe
+    let lastBeat=-9; for(const b of BEATS) if(t>=b) lastBeat=b;
+    const ph=(t-lastBeat)/0.17;
+    const k = ph<0 || ph>1 ? 1 : (ph<0.28 ? lerp(1,1.035,ph/0.28) : lerp(1.035,1,(ph-0.28)/0.72));
+    scenes.forEach((s,i)=>{ const w=s.querySelector('.wrap'); if(w) w.style.transform = (i===cur)?`scale(${k.toFixed(4)})`:'none'; });
+
+    // --- foto: silueta -> revelado en el nombre -> atenuada -> a color
+    const rp = clamp((t-START[3])/0.85, 0, 1);
+    let fil, sc;
+    if(t < START[3]){ fil='grayscale(1) brightness(.03) contrast(1)'; sc=1; }
+    else if(t < START[4]){
+      if(rp<0.45){ const p=rp/0.45;
+        fil=`grayscale(${(1-p).toFixed(3)}) brightness(${lerp(.03,1.35,p).toFixed(3)}) contrast(${lerp(1,1.12,p).toFixed(3)}) saturate(${lerp(1,1.15,p).toFixed(3)})`;
+        sc=lerp(1.1,1.02,p);
+      } else { const p=(rp-0.45)/0.55;
+        fil=`grayscale(0) brightness(${lerp(1.35,1.06,p).toFixed(3)}) contrast(${lerp(1.12,1.06,p).toFixed(3)}) saturate(${lerp(1.15,1.08,p).toFixed(3)})`;
+        sc=lerp(1.02,1,p);
+      }
+    }
+    else if(t < START[5]){ fil='grayscale(0) brightness(.62) contrast(1.05) saturate(1)'; sc=1; }
+    else { fil='grayscale(0) brightness(1.06) contrast(1.06) saturate(1.08)'; sc=1; }
+    if(heroImg){ heroImg.style.filter=fil; heroImg.style.transform=`scale(${sc.toFixed(4)})`; }
+
+    // --- cheque: entra volando y el monto tiembla
+    const chk=scenes[4].querySelector('.check');
+    if(chk){
+      const p=clamp((t-START[4]-0.02)/0.7,0,1), e=eOutCubic(p);
+      let y,rot,s2;
+      if(e<0.7){ const q=e/0.7; y=lerp(60,-2,q)*CQ; rot=lerp(-8,2,q); s2=lerp(.8,1.02,q); }
+      else { const q=(e-0.7)/0.3; y=lerp(-2,0,q)*CQ; rot=lerp(2,0,q); s2=lerp(1.02,1,q); }
+      chk.style.opacity=clamp(e/0.5,0,1).toFixed(3);
+      chk.style.transform=`translateY(${y.toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${s2.toFixed(3)})`;
+    }
+    const amt=scenes[4].querySelector('.amt-box');
+    if(amt){
+      const l=t-(START[4]+2.45);
+      if(l>=0 && l<1.0){
+        amt.style.transform=`rotate(${(2*Math.sin(l*Math.PI*8)).toFixed(2)}deg) scale(${(1.14+.02*Math.sin(l*Math.PI*4)).toFixed(3)})`;
+      } else amt.style.transform='none';
+    }
+
+    // --- fogonazo y confeti del climax
+    const fp=(t-CLIMAX)/0.5;
+    flash.style.opacity = (fp>=0 && fp<=1) ? (0.85*(1-fp)).toFixed(3) : '0';
+    confetti.style.opacity = (t>=CLIMAX) ? '1' : '0';
+    for(const c of CONF){
+      const p=clamp((t-CLIMAX-c.delay)/c.dur,0,1);
+      c.el.style.transform=`translateY(${lerp(-10,150,p)*CQ}px) rotate(${(720*p).toFixed(1)}deg)`;
+      c.el.style.opacity = (t>=CLIMAX+c.delay && p<1) ? '.95' : '0';
+    }
+
+    prog.style.width=(clamp(t/TOTAL,0,1)*100).toFixed(2)+'%';
+  }
+  window.__seek = seek;
+
+  /* ---------- 5. PREVIEW: el reloj lo manda el audio ---------- */
+  let raf=0;
+  function loop(){
+    const t = audio.duration ? audio.currentTime : 0;
+    seek(Math.min(t, TOTAL));
+    if(!audio.paused && t < TOTAL) raf=requestAnimationFrame(loop);
+    else if(t>=TOTAL){ audio.pause(); }
+  }
+  function play(){
+    cancelAnimationFrame(raf);
+    try{ bgvid.currentTime=0; bgvid.play(); }catch(e){}
+    try{ audio.currentTime=0; const p=audio.play(); if(p&&p.catch)p.catch(()=>{}); }catch(e){}
+    raf=requestAnimationFrame(loop);
+  }
+  window.play=play;
+  document.getElementById('playBtn').addEventListener('click',play);
+
+  // ---------- arranque ----------
+  document.querySelectorAll('.tw').forEach(splitInPlace);
+  buildSchedule();
+  measureHLs();
+  buildConfetti();
+  seek(0);
+
+  if(new URLSearchParams(location.search).has('render')) document.body.classList.add('render');
+
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
+    .then(()=>{ buildSchedule(); measureHLs(); seek(0); window.__ready=true; });
+</script>
+</body>
+</html>

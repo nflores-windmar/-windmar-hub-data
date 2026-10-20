@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WindMar Home Florida — Let Them Talk · Brand &amp; Art Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700;800&family=Anton&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55;
+  --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a;
+  --bp-grid:rgba(26,82,199,.07);
+  --bp-grid2:rgba(26,82,199,.12);
+  --bp-line:rgba(26,82,199,.32);
+  --bp-paper:#ffffff;
+  --bp-bg:#e9eef7;
+  --bp-mono:'DM Mono',ui-monospace,monospace;
+  --bp-disp:'Anek Latin',sans-serif;
+  --bp-body:'DM Sans',system-ui,sans-serif;
+  --maxw:1160px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bp-bg);font-family:var(--bp-body);color:var(--bp-navy);min-height:100%;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:34px 34px;}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:60;background:rgba(233,238,247,.86);backdrop-filter:blur(10px);border-bottom:1.5px solid var(--bp-line)}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.nav .brand{font-family:var(--bp-disp);font-weight:800;letter-spacing:-.5px;text-transform:uppercase;font-size:16px}
+.nav .brand .o{color:var(--bp-orange)}
+.nav nav{margin-left:auto;display:flex;gap:18px;flex-wrap:wrap}
+.nav nav a{font-family:var(--bp-mono);font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--bp-ink-dark);text-decoration:none}
+.nav nav a:hover{color:var(--bp-orange)}
+@media(max-width:860px){.nav nav{display:none}}
+
+/* generic blueprint panel */
+.panel{position:relative;background:var(--bp-paper);border:2px solid var(--bp-ink);border-radius:16px;padding:clamp(26px,4vw,46px);margin:22px 0;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:32px 32px}
+.panel > *{position:relative;z-index:1}
+.tick{position:absolute;width:14px;height:14px;border:2px solid var(--bp-ink);background:var(--bp-paper);z-index:2}
+.tick.tl{top:-2px;left:-2px}.tick.tr{top:-2px;right:-2px}.tick.bl{bottom:-2px;left:-2px}.tick.br{bottom:-2px;right:-2px}
+
+.eyebrow{font-family:var(--bp-mono);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--bp-orange);font-weight:500;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.eyebrow::before{content:"";width:30px;height:2px;background:var(--bp-orange)}
+.sec-num{font-family:var(--bp-mono);font-size:11px;letter-spacing:2px;color:var(--bp-ink-dark)}
+h2.big{font-family:var(--bp-disp);font-weight:800;font-size:clamp(28px,4.4vw,50px);line-height:.98;letter-spacing:-1px;text-transform:uppercase;margin:8px 0 0}
+h2.big .o{color:var(--bp-orange)}
+.lead{font-size:15.5px;line-height:1.65;color:var(--bp-ink-dark);margin-top:14px;max-width:64ch}
+
+/* hero */
+.hero{padding-top:26px}
+.hero .mast{padding:clamp(34px,5vw,60px) clamp(28px,4vw,52px)}
+.hero .kick{font-family:var(--bp-mono);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--bp-orange);display:flex;align-items:center;gap:12px}
+.hero .kick::before{content:"";width:34px;height:2px;background:var(--bp-orange)}
+.hero h1{font-family:var(--bp-disp);font-weight:800;font-size:clamp(52px,11vw,132px);line-height:.86;letter-spacing:-3px;text-transform:uppercase;margin:20px 0 0}
+.hero h1 .o{color:var(--bp-orange)}
+.hero .sub{font-size:clamp(15px,2vw,19px);line-height:1.6;color:var(--bp-ink-dark);margin-top:20px;max-width:52ch}
+.hero .toprule{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--bp-mono);font-size:10.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--bp-ink-dark);padding-bottom:14px;border-bottom:1.5px solid var(--bp-ink);margin-bottom:22px}
+.hero .toprule .r{color:var(--bp-orange)}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.pill{font-family:var(--bp-mono);font-size:11px;letter-spacing:1.2px;text-transform:uppercase;padding:8px 15px;border-radius:99px;border:1.5px solid var(--bp-line);color:var(--bp-ink-dark)}
+.pill.solid{background:var(--bp-orange);color:#fff;border-color:var(--bp-orange)}
+.pill.navy{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+
+/* assumption note */
+.assume{background:rgba(245,124,10,.08);border:1.5px dashed var(--bp-orange);border-radius:12px;padding:14px 18px;margin-top:22px;font-size:13.5px;line-height:1.55;color:var(--bp-ink-dark)}
+.assume b{color:var(--bp-orange)}
+
+/* grids */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+/* cards */
+.card{position:relative;background:var(--bp-paper);border:1.5px solid var(--bp-line);border-radius:12px;padding:20px}
+.card .cn{font-family:var(--bp-mono);font-size:11px;letter-spacing:1.5px;color:var(--bp-orange)}
+.card h3{font-family:var(--bp-disp);font-weight:700;font-size:19px;margin:8px 0 8px;text-transform:uppercase;letter-spacing:-.3px}
+.card p{font-size:14px;line-height:1.55;color:var(--bp-ink-dark)}
+.card svg{margin-bottom:6px}
+
+/* color swatches */
+.sw{border:1.5px solid var(--bp-line);border-radius:12px;overflow:hidden;background:#fff}
+.sw .chip{height:96px;display:flex;align-items:flex-end;padding:10px}
+.sw .chip .r{font-family:var(--bp-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,.85);color:#111;padding:3px 7px;border-radius:5px}
+.sw .info{padding:12px 14px}
+.sw .info .nm{font-family:var(--bp-disp);font-weight:700;font-size:15px}
+.sw .info .hx{font-family:var(--bp-mono);font-size:12px;color:var(--bp-ink-dark);text-transform:uppercase;margin-top:2px}
+.sw .info .u{font-size:12px;color:var(--bp-ink-dark);opacity:.8;margin-top:6px;line-height:1.4}
+
+/* type specimens */
+.type-row{border-top:1.5px solid var(--bp-line);padding:18px 0;display:grid;grid-template-columns:160px 1fr;gap:20px;align-items:baseline}
+@media(max-width:640px){.type-row{grid-template-columns:1fr;gap:6px}}
+.type-row .meta{font-family:var(--bp-mono);font-size:11.5px;color:var(--bp-ink-dark);line-height:1.5}
+.type-row .meta b{display:block;color:var(--bp-navy);font-size:13px;letter-spacing:.4px}
+.smp-disp{font-family:var(--bp-disp);font-weight:800;text-transform:uppercase;letter-spacing:-1px;line-height:1;color:var(--bp-navy)}
+.smp-body{font-family:var(--bp-body)}
+.smp-mono{font-family:var(--bp-mono);letter-spacing:2px;text-transform:uppercase;color:var(--bp-orange)}
+
+/* motif gallery */
+.motifs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.motif{border:1.5px solid var(--bp-line);border-radius:12px;padding:18px;text-align:center;background:#fff}
+.motif svg{margin:0 auto 10px}
+.motif .lbl{font-family:var(--bp-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--bp-ink-dark)}
+
+/* do / dont */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:560px){.dd{grid-template-columns:1fr}}
+.dd .box{border-radius:12px;padding:20px;border:1.5px solid var(--bp-line)}
+.dd .box.do{border-color:#16a34a;background:rgba(22,163,74,.05)}
+.dd .box.dont{border-color:#dc2626;background:rgba(220,38,38,.05)}
+.dd h4{font-family:var(--bp-disp);font-weight:700;text-transform:uppercase;font-size:16px;margin-bottom:10px}
+.dd .do h4{color:#16a34a}.dd .dont h4{color:#dc2626}
+.dd ul{list-style:none;font-size:13.5px;line-height:1.5;color:var(--bp-ink-dark)}
+.dd li{padding:5px 0 5px 18px;position:relative}
+.dd li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:7px;border-radius:2px}
+.dd .do li::before{background:#16a34a}.dd .dont li::before{background:#dc2626}
+
+/* voice examples */
+.voice{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:640px){.voice{grid-template-columns:1fr}}
+.qq{border-left:3px solid var(--bp-orange);padding:4px 0 4px 16px;margin:0 0 14px}
+.qq .en{font-family:var(--bp-disp);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.3px}
+.qq .es{font-size:14px;color:var(--bp-ink-dark);margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chips span{font-family:var(--bp-mono);font-size:12px;padding:6px 12px;border-radius:99px;border:1.5px solid var(--bp-line);color:var(--bp-navy)}
+.chips span.o{border-color:var(--bp-orange);color:var(--bp-orange)}
+
+/* stories 9:16 blueprint */
+.stories{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px}
+.st{}
+.st .frame{position:relative;width:100%;aspect-ratio:9/16;border:2px solid var(--bp-ink);border-radius:18px;overflow:hidden;background:var(--bp-paper)}
+.st .frame::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);background-size:26px 26px;z-index:0}
+.st .ph{position:absolute;left:9%;right:9%;top:12%;bottom:40%;border:1.5px dashed var(--bp-line);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;z-index:1}
+.st .ph .l1{font-family:var(--bp-mono);font-size:10px;letter-spacing:.5px;color:var(--bp-ink-dark)}
+.st .ph .l2{font-family:var(--bp-mono);font-size:9px;color:#9aa8c4}
+.st .bar{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:4px;z-index:3}
+.st .bar i{flex:1;height:3px;border-radius:2px;background:var(--bp-line)}
+.st .bar i.on{background:var(--bp-orange)}
+.st .hd{position:absolute;top:22px;left:12px;right:12px;display:flex;align-items:center;gap:7px;z-index:3;font-family:var(--bp-mono);font-size:10px;letter-spacing:.5px;color:var(--bp-ink-dark)}
+.st .hd .a{width:20px;height:20px;border-radius:50%;background:var(--bp-navy);color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700}
+.st .body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:16px 14px 20px;background:linear-gradient(180deg,transparent,#fff 32%)}
+.st .k{font-family:var(--bp-mono);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--bp-orange)}
+.st .gh{width:28px;height:2px;background:var(--bp-orange);margin:8px 0}
+.st .h{font-family:var(--bp-disp);font-weight:800;text-transform:uppercase;font-size:17px;line-height:1.05;letter-spacing:-.4px}
+.st .h.sm{font-size:14px}
+.st .quote{font-family:var(--bp-disp);font-weight:700;font-size:16px;line-height:1.18}
+.st .num{font-family:var(--bp-disp);font-weight:800;font-size:44px;line-height:.9;color:var(--bp-orange)}
+.st .num small{display:block;font-family:var(--bp-mono);font-size:10px;letter-spacing:.5px;color:var(--bp-ink-dark);margin-top:6px;text-transform:none;font-weight:400}
+.st .sub{font-size:11.5px;color:var(--bp-ink-dark);margin-top:6px;line-height:1.35}
+.st .cta{display:inline-block;margin-top:10px;font-family:var(--bp-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:7px 13px;border-radius:99px;background:var(--bp-orange);color:#fff}
+.st .poll{position:absolute;left:14px;right:14px;bottom:22px;z-index:3;background:#fff;border:1.5px solid var(--bp-line);border-radius:10px;padding:10px}
+.st .poll .q{font-size:11px;font-weight:700;text-align:center;margin-bottom:8px}
+.st .poll .o{display:flex;gap:6px}
+.st .poll .o b{flex:1;text-align:center;font-family:var(--bp-mono);font-size:10px;padding:6px;border-radius:7px;border:1.5px solid var(--bp-line)}
+.st .poll .o b.hit{background:var(--bp-orange);color:#fff;border-color:var(--bp-orange)}
+.st .cap{font-family:var(--bp-mono);font-size:11.5px;color:var(--bp-ink-dark);margin-top:12px;line-height:1.45}
+.st .cap b{color:var(--bp-navy)}
+
+/* formats table */
+.fmt{width:100%;border-collapse:collapse;font-size:14px}
+.fmt th,.fmt td{padding:13px 14px;border-bottom:1.5px solid var(--bp-line);text-align:left;vertical-align:top}
+.fmt thead th{font-family:var(--bp-mono);font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--bp-ink-dark)}
+.fmt td:first-child{font-family:var(--bp-disp);font-weight:700;text-transform:uppercase;letter-spacing:-.2px;white-space:nowrap}
+.fmt td .sz{font-family:var(--bp-mono);font-size:12.5px;color:var(--bp-orange)}
+.fmt td:last-child{color:var(--bp-ink-dark)}
+
+footer{text-align:center;padding:48px 18px 70px;color:var(--bp-ink-dark)}
+footer .fb{font-family:var(--bp-disp);font-weight:800;text-transform:uppercase;letter-spacing:-.5px;font-size:20px}
+footer .fb .o{color:var(--bp-orange)}
+footer p{font-family:var(--bp-mono);font-size:11px;letter-spacing:1px;margin-top:8px}
+
+/* ===== SAVED STORIES (WindMar FL — Fun Facts, amarillo/azul) ===== */
+.saved-hd{margin:34px 0 6px;font-family:var(--bp-disp);font-weight:800;text-transform:uppercase;letter-spacing:-.3px;font-size:18px;color:var(--bp-navy)}
+.saved-sub{font-family:var(--bp-mono);font-size:11.5px;letter-spacing:.4px;color:var(--bp-ink-dark);margin-bottom:6px}
+.saved-sub .y{color:#d99a06;font-weight:600}.saved-sub .b{color:#1466c4;font-weight:600}
+.saved-link{display:inline-flex;align-items:center;gap:6px;margin:8px 0 4px;font-family:var(--bp-mono);font-size:11.5px;font-weight:500;letter-spacing:.4px;color:#fff;background:var(--bp-navy);border:1.5px solid var(--bp-navy);padding:7px 13px;border-radius:8px;text-decoration:none;transition:.15s}
+.saved-link:hover{background:var(--bp-orange);border-color:var(--bp-orange)}
+.saved-gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;margin:16px 0 8px}
+.sv{--yellow:#F2C33C;--yellow2:#F7D15E;--navy:#0a2882;--navy2:#071e55;--blue:#1466c4;
+  aspect-ratio:9/16;border-radius:12px;overflow:hidden;position:relative;container-type:inline-size;
+  box-shadow:0 8px 22px rgba(13,34,64,.14);border:1px solid var(--bp-line);
+  display:flex;flex-direction:column;justify-content:space-between;background:#fff;color:var(--navy);
+  font-family:'Anek Latin','DM Sans',sans-serif}
+.sv::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:linear-gradient(rgba(10,40,130,.9) 1px,transparent 1px),linear-gradient(90deg,rgba(10,40,130,.9) 1px,transparent 1px);
+  background-size:9cqw 9cqw}
+.sv.y::after{content:"";position:absolute;top:0;left:0;right:0;height:2.2cqw;background:var(--yellow);z-index:2}
+.sv.b::after{content:"";position:absolute;top:0;left:0;right:0;height:2.2cqw;background:var(--navy);z-index:2}
+.sv>*{position:relative;z-index:1}
+.sv .brow{display:flex;align-items:center;gap:2.4cqw;padding:7.5cqw 6.5cqw 0}
+.sv .sun{width:8cqw;height:8cqw;border-radius:50%;flex:none;background:radial-gradient(circle at 50% 40%,#fff,var(--yellow2) 55%,var(--yellow) 100%);box-shadow:0 0 0 .7cqw rgba(242,195,60,.4)}
+.sv .brand{font-weight:800;font-size:3.4cqw;letter-spacing:.4cqw;line-height:1;text-transform:uppercase;color:var(--navy)}
+.sv .brand small{display:block;font-weight:600;font-size:2.4cqw;opacity:.7;letter-spacing:.2cqw}
+.sv .kick{align-self:flex-start;margin:5cqw 0 0 6.5cqw;font-weight:800;font-size:3cqw;letter-spacing:.5cqw;text-transform:uppercase;padding:1.6cqw 3.2cqw;border-radius:99px}
+.sv.y .kick{background:var(--yellow);color:var(--navy)}.sv.b .kick{background:var(--navy);color:#fff}
+.sv .hero{padding:0 6cqw;flex:1;display:flex;flex-direction:column;justify-content:center;gap:2cqw}
+.sv .big{font-family:'Anton',Impact,sans-serif;font-size:14.5cqw;line-height:1.1;text-transform:uppercase;letter-spacing:.2cqw;color:var(--navy)}
+.sv .big .hl{padding:.3cqw 1cqw;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.sv.y .big .hl{background:var(--yellow);color:var(--navy)}.sv.b .big .hl{color:var(--blue)}
+.sv .es{font-weight:700;font-size:4cqw;line-height:1.18;margin-top:1cqw;color:var(--navy)}
+.sv .foot{padding:0 6cqw 7.5cqw;display:flex;flex-direction:column;gap:2.2cqw}
+.sv .gancho{font-weight:800;font-size:3.8cqw;line-height:1.2;padding:0 0 0 3.4cqw;border-left:1.3cqw solid var(--yellow);display:block;color:var(--navy)}
+.sv.b .gancho{border-color:var(--blue)}
+.sv .tag{font-weight:700;font-size:2.8cqw;letter-spacing:.3cqw;text-transform:uppercase;color:var(--navy);opacity:.85}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="wrap">
+    <span class="brand">WindMar Home <span class="o">FL</span></span>
+    <nav>
+      <a href="#concepto">Concepto</a>
+      <a href="#principios">Principios</a>
+      <a href="#voz">Voz</a>
+      <a href="#arte">Arte Blueprint</a>
+      <a href="#stories">Stories</a>
+      <a href="#formatos">Formatos</a>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero"><div class="wrap">
+  <div class="panel mast">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="toprule"><span>WindMar Home · Florida</span><span class="r">Brand &amp; Art Guide · Blueprint</span></div>
+    <div class="kick">Concepto de Campaña</div>
+    <h1>Let Them <span class="o">Talk.</span></h1>
+    <p class="sub">Nos hacemos a un lado y dejamos que hablen los que ya viven el ahorro: vecinos reales de Florida, sus resultados y sus voces. Menos promesa, más prueba.</p>
+    <div class="pills">
+      <span class="pill navy">Residential Solar · Florida</span>
+      <span class="pill">Bilingüe EN / ES</span>
+      <span class="pill solid">Estilo Blueprint</span>
+    </div>
+    <div class="assume"><b>Nota de concepto:</b> este guide asume que "Let Them Talk" es una campaña de <b>testimonios / boca a boca</b> — que hablen los clientes y su ahorro. Si el concepto va por otro lado (ej. un tono, un claim específico), dímelo y realineo todo el documento.</div>
+  </div>
+</div></div>
+
+<!-- 01 CONCEPTO -->
+<section id="concepto"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">01 — El concepto</span>
+    <div class="eyebrow">Que hablen ellos</div>
+    <h2 class="big">La mejor voz de la marca <span class="o">no es la marca.</span></h2>
+    <p class="lead">En solar, la gente no confía en anuncios: confía en su vecino. "Let Them Talk" invierte el foco —
+    en vez de que WindMar diga lo bueno que es, dejamos que lo digan las familias que ya bajaron su factura.
+    Testimonios reales, números reales, caras reales de Florida. La marca aporta la claridad; la comunidad aporta la prueba.</p>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card"><div class="cn">01</div><h3>Prueba, no promesa</h3><p>Cada pieza muestra un resultado real — una factura que bajó, una casa con paneles, una familia tranquila.</p></div>
+      <div class="card"><div class="cn">02</div><h3>El vecino habla</h3><p>Voces auténticas de Florida, en inglés y español. Nada de actores: gente que suena como quien nos ve.</p></div>
+      <div class="card"><div class="cn">03</div><h3>La marca da claridad</h3><p>WindMar enmarca, ordena y explica sin miedo. El blueprint pone estructura a las historias humanas.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 02 PRINCIPIOS -->
+<section id="principios"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">02 — Principios de marca</span>
+    <div class="eyebrow">Cómo se siente WindMar</div>
+    <h2 class="big">Cercano, claro y <span class="o">sin miedo.</span></h2>
+    <div class="grid g3" style="margin-top:26px">
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><circle cx="17" cy="17" r="6"/><path d="M17 2v5M17 27v5M2 17h5M27 17h5M6 6l3.5 3.5M24.5 24.5L28 28M28 6l-3.5 3.5M9.5 24.5L6 28" stroke="#f57c0a"/></svg>
+        <h3>Confianza</h3><p>Todo empuja hacia la tranquilidad. Reassurance, no presión. La gente decide con calma.</p></div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M4 16L17 5l13 11" /><path d="M7 14v14h20V14" /><rect x="14" y="20" width="6" height="8" stroke="#f57c0a"/></svg>
+        <h3>Vecinos reales</h3><p>Familias de Florida, casas reales, historias verificables. La comunidad es la protagonista.</p></div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><rect x="6" y="5" width="22" height="24" rx="2"/><path d="M11 12h12M11 17h12M11 22h7" /><path d="M20 22h4" stroke="#f57c0a"/></svg>
+        <h3>Ahorro claro</h3><p>Números simples y honestos. Mostramos el ahorro, nunca prometemos "gratis total".</p></div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M5 8h24v14H14l-6 5v-5H5z"/><circle cx="13" cy="15" r="1.4" fill="#f57c0a" stroke="none"/><circle cx="19" cy="15" r="1.4" fill="#f57c0a" stroke="none"/><circle cx="25" cy="15" r="1.4" fill="#f57c0a" stroke="none"/></svg>
+        <h3>Bilingüe natural</h3><p>Inglés y español conviven sin traducción forzada. Hablamos como habla Florida.</p></div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M3 20c4-6 8-6 12 0s8 6 12 0M3 26c4-6 8-6 12 0s8 6 12 0" stroke="#f57c0a"/><path d="M3 14c4-6 8-6 12 0s8 6 12 0"/></svg>
+        <h3>Optimista</h3><p>Brillante, soleado, hacia adelante. La energía limpia se siente como buenas noticias.</p></div>
+      <div class="card">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#1a52c7" stroke-width="2"><rect x="4" y="9" width="26" height="16" rx="1"/><path d="M9 9v16M15 9v16M21 9v16M27 9v16M4 15h26M4 19h26" stroke-width="1.4"/><path d="M4 9l3-4h20l3 4" stroke="#f57c0a"/></svg>
+        <h3>Estructurado</h3><p>El blueprint da orden: grid, ticks y anotaciones. Lo humano, presentado con precisión de ingeniería.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 03 VOZ -->
+<section id="voz"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">03 — Voz &amp; Copy</span>
+    <div class="eyebrow">Cómo suena</div>
+    <h2 class="big">Simple, humano <span class="o">y tranquilo.</span></h2>
+    <p class="lead">Frases cortas y claras. Cero letra chiquita emocional. El ahorro se muestra con números, no con miedo.
+    El cliente es el héroe; WindMar solo abre la puerta.</p>
+
+    <div class="voice" style="margin-top:26px">
+      <div class="card">
+        <div class="cn">Ejemplos de tono · EN / ES</div>
+        <div style="margin-top:14px">
+          <div class="qq"><div class="en">"Don't take our word. Take theirs."</div><div class="es">No nos creas a nosotros. Créeles a ellos.</div></div>
+          <div class="qq"><div class="en">"Real neighbors. Real savings."</div><div class="es">Vecinos reales. Ahorro real.</div></div>
+          <div class="qq"><div class="en">"See what your bill could look like — free, no strings."</div><div class="es">Mira cómo podría quedar tu factura — evaluación gratis, sin compromiso.</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="cn">Reglas de copy</div>
+        <div class="dd" style="grid-template-columns:1fr;margin-top:12px">
+          <div class="box do"><h4>Sí</h4><ul>
+            <li>Frames de ahorro y tranquilidad</li>
+            <li>Números reales y verificables</li>
+            <li>"Evaluación gratis, sin compromiso"</li>
+            <li>Voz del cliente en primera persona</li>
+          </ul></div>
+          <div class="box dont"><h4>No</h4><ul>
+            <li>Prometer "gratis total" o absolutos</li>
+            <li>Miedo / pérdida ("te están robando")</li>
+            <li>Jerga técnica innecesaria</li>
+            <li>Presión o urgencia falsa</li>
+          </ul></div>
+        </div>
+        <div class="cn" style="margin-top:16px">CTAs</div>
+        <div class="chips"><span class="o">Evaluación gratis</span><span>Free Estimate</span><span>Habla con un vecino</span><span>Mira el ahorro</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 ARTE BLUEPRINT -->
+<section id="arte"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">04 — La guía del arte</span>
+    <div class="eyebrow">El sistema Blueprint</div>
+    <h2 class="big">Un plano de ingeniería, <span class="o">soleado.</span></h2>
+    <p class="lead">El mundo visual es un blueprint arquitectónico: líneas azules sobre papel blanco, grid técnico,
+    ticks en las esquinas, anotaciones en mono y una sola energía naranja de acento. Bright, nunca oscuro ni dramático —
+    la casa boceteada bajo el sol de Florida.</p>
+
+    <!-- color -->
+    <h3 style="font-family:var(--bp-disp);text-transform:uppercase;letter-spacing:-.3px;margin:30px 0 14px;font-size:18px">Paleta</h3>
+    <div class="grid g4">
+      <div class="sw"><div class="chip" style="background:#0a2882"><span class="r">Navy · texto</span></div><div class="info"><div class="nm">Blueprint Navy</div><div class="hx">#0A2882</div><div class="u">Titulares, texto, líneas base.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#1a52c7"><span class="r">Ink · líneas</span></div><div class="info"><div class="nm">Blueprint Ink</div><div class="hx">#1A52C7</div><div class="u">Bordes, grid, ilustración de línea.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#f57c0a"><span class="r">Acento único</span></div><div class="info"><div class="nm">Sun Orange</div><div class="hx">#F57C0A</div><div class="u">Solo acento: energía, CTA, highlights.</div></div></div>
+      <div class="sw"><div class="chip" style="background:#ffffff;border-bottom:1.5px solid var(--bp-line)"><span class="r">Papel</span></div><div class="info"><div class="nm">Paper White</div><div class="hx">#FFFFFF</div><div class="u">El lienzo. Todo respira sobre blanco.</div></div></div>
+    </div>
+
+    <!-- type -->
+    <h3 style="font-family:var(--bp-disp);text-transform:uppercase;letter-spacing:-.3px;margin:34px 0 6px;font-size:18px">Tipografía</h3>
+    <div class="type-row"><div class="meta"><b>Anek Latin</b>Display · 700–800<br>MAYÚSCULAS · tracking negativo</div><div class="smp-disp" style="font-size:40px">Let Them Talk</div></div>
+    <div class="type-row"><div class="meta"><b>DM Sans</b>Body · 400–600<br>Texto y captions</div><div class="smp-body" style="font-size:19px">Vecinos reales de Florida que ya viven el ahorro — en inglés y en español.</div></div>
+    <div class="type-row"><div class="meta"><b>DM Mono</b>Labels · 400–500<br>Anotaciones técnicas</div><div class="smp-mono" style="font-size:14px">FIG. 01 · TESTIMONIO — MIAMI, FL · AHORRO ANUAL</div></div>
+
+    <!-- blueprint system -->
+    <h3 style="font-family:var(--bp-disp);text-transform:uppercase;letter-spacing:-.3px;margin:34px 0 14px;font-size:18px">El sistema</h3>
+    <div class="grid g4">
+      <div class="card"><div class="cn">Grid</div><p style="margin-top:6px">Retícula técnica de 32px siempre presente, sutil, azul al 7%.</p></div>
+      <div class="card"><div class="cn">Ticks</div><p style="margin-top:6px">Cuadros de registro en las 4 esquinas de cada panel.</p></div>
+      <div class="card"><div class="cn">Hairline naranja</div><p style="margin-top:6px">Una línea de acento sobre titulares y kickers.</p></div>
+      <div class="card"><div class="cn">Anotaciones mono</div><p style="margin-top:6px">Etiquetas tipo plano: FIG., dimensiones, ubicación.</p></div>
+    </div>
+
+    <!-- motifs -->
+    <h3 style="font-family:var(--bp-disp);text-transform:uppercase;letter-spacing:-.3px;margin:34px 0 14px;font-size:18px">Iconografía de línea</h3>
+    <div class="motifs">
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><circle cx="26" cy="26" r="9"/><path d="M26 3v8M26 41v8M3 26h8M41 26h8M9 9l5.5 5.5M37.5 37.5L43 43M43 9l-5.5 5.5M14.5 37.5L9 43" stroke="#f57c0a"/></svg><div class="lbl">Sol</div></div>
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><rect x="6" y="12" width="40" height="24" rx="1"/><path d="M14 12v24M22 12v24M30 12v24M38 12v24M6 20h40M6 28h40" stroke-width="1.4"/><path d="M26 36v10M18 46h16" stroke="#f57c0a"/></svg><div class="lbl">Panel solar</div></div>
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M6 26L26 8l20 18"/><path d="M11 22v22h30V22"/><rect x="21" y="32" width="10" height="12" stroke="#f57c0a"/></svg><div class="lbl">Casa</div></div>
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M6 10h40v22H20l-9 8v-8H6z"/><path d="M14 18h24M14 24h16" stroke="#f57c0a"/></svg><div class="lbl">Testimonio</div></div>
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><rect x="10" y="6" width="32" height="40" rx="2"/><path d="M16 15h20M16 22h20M16 29h14"/><path d="M30 29h6M16 38h20" stroke="#f57c0a"/></svg><div class="lbl">Factura</div></div>
+      <div class="motif"><svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="#1a52c7" stroke-width="2"><path d="M4 30c6-9 12-9 18 0s12 9 18 0" stroke="#f57c0a"/><path d="M4 40c6-9 12-9 18 0s12 9 18 0"/></svg><div class="lbl">WindMar wave</div></div>
+    </div>
+
+    <!-- photography do/dont -->
+    <h3 style="font-family:var(--bp-disp);text-transform:uppercase;letter-spacing:-.3px;margin:34px 0 14px;font-size:18px">Fotografía &amp; uso</h3>
+    <div class="dd">
+      <div class="box do"><h4>Do</h4><ul>
+        <li>Casas y familias reales de Florida, luz de día brillante</li>
+        <li>Azul + blanco dominan; naranja solo como chispa de acento</li>
+        <li>Foto tratada como "lámina" sobre el blueprint, con ticks y etiqueta mono</li>
+        <li>Rostros felices, tranquilos, cotidianos</li>
+      </ul></div>
+      <div class="box dont"><h4>Don't</h4><ul>
+        <li>Fondos oscuros, dramáticos o "moody"</li>
+        <li>Naranja como color de fondo o dominante</li>
+        <li>Stock genérico corporativo o actores obvios</li>
+        <li>Saturar el grid — el blanco debe respirar</li>
+      </ul></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 STORIES -->
+<section id="stories"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">05 — Concepto de Stories</span>
+    <div class="eyebrow">El día a día · 9:16</div>
+    <h2 class="big">Que el vecino <span class="o">cuente.</span></h2>
+    <p class="lead">Las stories son testimonios en formato ligero: la voz del cliente, su número de ahorro y una invitación
+    suave. Mismo blueprint — grid, ticks, acento naranja — sobre papel blanco. Las áreas de imagen van en blanco:
+    tú colocas la foto o el clip del cliente desde la galería.</p>
+
+    <div class="stories" style="margin-top:26px">
+      <!-- La voz del vecino -->
+      <div class="st">
+        <div class="frame">
+          <div class="ph"><span class="l1">Foto / clip del cliente</span><span class="l2">9:16 · 1080×1920</span></div>
+          <div class="bar"><i class="on"></i><i></i><i></i><i></i></div>
+          <div class="hd"><span class="a">W</span><span>windmarhome.fl</span></div>
+          <div class="body"><div class="k">La voz del vecino</div><div class="gh"></div><p class="quote">"My bill went from $310 to almost nothing."</p><p class="sub">— Familia real · Orlando, FL</p></div>
+        </div>
+        <p class="cap"><b>La voz del vecino</b> · testimonio en primera persona, EN/ES</p>
+      </div>
+
+      <!-- El número -->
+      <div class="st">
+        <div class="frame">
+          <div class="ph"><span class="l1">Foto de la casa / paneles</span><span class="l2">9:16 · 1080×1920</span></div>
+          <div class="bar"><i></i><i class="on"></i><i></i><i></i></div>
+          <div class="hd"><span class="a">W</span><span>windmarhome.fl</span></div>
+          <div class="body"><div class="k">El número</div><div class="gh"></div><div class="num">$0<small>de factura este mes · caso real (a validar)</small></div></div>
+        </div>
+        <p class="cap"><b>El número</b> · un dato de ahorro grande y claro</p>
+      </div>
+
+      <!-- Antes / Después -->
+      <div class="st">
+        <div class="frame">
+          <div class="ph"><span class="l1">Antes / Después · factura</span><span class="l2">9:16 · 1080×1920</span></div>
+          <div class="bar"><i></i><i></i><i class="on"></i><i></i></div>
+          <div class="hd"><span class="a">W</span><span>windmarhome.fl</span></div>
+          <div class="body"><div class="k">Antes / Después</div><div class="gh"></div><h3 class="h sm">Mira cómo cambió su factura</h3><p class="sub">Desliza · toca para ver</p></div>
+        </div>
+        <p class="cap"><b>Antes / Después</b> · comparación honesta de la factura</p>
+      </div>
+
+      <!-- Pregunta / poll -->
+      <div class="st">
+        <div class="frame">
+          <div class="ph"><span class="l1">Foto de vecindario</span><span class="l2">9:16 · 1080×1920</span></div>
+          <div class="bar"><i></i><i></i><i></i><i class="on"></i></div>
+          <div class="hd"><span class="a">W</span><span>windmarhome.fl</span></div>
+          <div class="body"><div class="k">Tú decides</div><div class="gh"></div><h3 class="h sm">¿Cuánto pagas de luz al mes?</h3></div>
+          <div class="poll"><div class="q">Vota — y mira tu ahorro</div><div class="o"><b>+$200</b><b class="hit">+$300</b></div></div>
+        </div>
+        <p class="cap"><b>Pregunta</b> · encuesta que abre la conversación</p>
+      </div>
+
+      <!-- Evaluación gratis / CTA -->
+      <div class="st">
+        <div class="frame">
+          <div class="ph"><span class="l1">Foto WindMar / equipo</span><span class="l2">9:16 · 1080×1920</span></div>
+          <div class="bar"><i class="on"></i><i></i></div>
+          <div class="hd"><span class="a">W</span><span>windmarhome.fl</span></div>
+          <div class="body"><div class="k">Tu turno</div><div class="gh"></div><h3 class="h sm">Evaluación gratis, sin compromiso</h3><span class="cta">Desliza para agendar</span></div>
+        </div>
+        <p class="cap"><b>Evaluación gratis</b> · CTA suave, sin presión</p>
+      </div>
+    </div>
+
+    <!-- ===== STORIES GUARDADOS ===== -->
+    <div class="saved-hd">Stories guardados — listos para publicar</div>
+    <div class="saved-sub">9:16 · 1080×1920 · bilingüe alternado día por día · <span class="y">Español = amarillo</span> / <span class="b">English = azul</span></div>
+    <a class="saved-link" href="windmar-fl-stories.html">Abrir el set completo · descargar PNG →</a>
+
+    <div class="saved-sub" style="margin-top:20px">Set 1 · Fun Facts — productos y confianza (7 historias)</div>
+    <div class="saved-gal">
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Día 1 · Español</div></div><div class="hero"><div class="big">TODO TU<br><span class="hl">HOGAR</span></div><div class="es">Una sola empresa para tu casa en Florida: solar, baterías Tesla y roofing.</div></div><div class="foot"><span class="gancho">WindMar ya está en Florida.</span><span class="tag">Todo el hogar</span></div></div>
+      <div class="sv b"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Day 2 · English</div></div><div class="hero"><div class="big">THE<br><span class="hl">SUNSHINE</span><br>STATE</div><div class="es">230+ sunny days a year. Put that Florida sun to work.</div></div><div class="foot"><span class="gancho">Solar that pays you back.</span><span class="tag">Solar · Q CELLS</span></div></div>
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Día 3 · Español</div></div><div class="hero"><div class="big">SIEMPRE CON<br><span class="hl">ENERGÍA</span></div><div class="es">Con Tesla Powerwall tu casa sigue encendida: nevera, luces e internet.</div></div><div class="foot"><span class="gancho">Tranquilidad en cada apagón.</span><span class="tag">Tesla Powerwall</span></div></div>
+      <div class="sv b"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Day 4 · English</div></div><div class="hero"><div class="big">A<br><span class="hl">STRONGER</span><br>ROOF</div><div class="es">Owens Corning roofing protects your home — and helps keep it insurable.</div></div><div class="foot"><span class="gancho">Built to last, done right.</span><span class="tag">Roofing</span></div></div>
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Día 5 · Español</div></div><div class="hero"><div class="big">BAJA TU<br><span class="hl">FACTURA</span></div><div class="es">El sol de Florida convierte tu techo en ahorro real, mes tras mes.</div></div><div class="foot"><span class="gancho">Paga menos, disfruta más.</span><span class="tag">Ahorro · Solar</span></div></div>
+      <div class="sv b"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Day 6 · English</div></div><div class="hero"><div class="big">WHY<br><span class="hl">WINDMAR</span></div><div class="es">Real installs, real Florida customers, warranties that stand behind the work.</div></div><div class="foot"><span class="gancho">One team, start to finish.</span><span class="tag">Por qué confiar</span></div></div>
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Día 7 · Español</div></div><div class="hero"><div class="big">MILES YA<br><span class="hl">CONFÍAN</span></div><div class="es">Familias en Florida ya eligieron a WindMar para su hogar. ¿Te unes?</div></div><div class="foot"><span class="gancho">Evaluación gratis, sin compromiso.</span><span class="tag">Cierre</span></div></div>
+    </div>
+
+    <div class="saved-sub" style="margin-top:24px">Set 2 · Por qué confiar en WindMar (secuencia de 5)</div>
+    <div class="saved-gal">
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Confiar · 1</div></div><div class="hero"><div class="big">DE PRINCIPIO<br><span class="hl">A FIN</span></div><div class="es">Un mismo equipo: evaluación, diseño, permisos e instalación. No subcontratamos.</div></div><div class="foot"><span class="gancho">Una sola empresa, cero enredos.</span><span class="tag">Por qué confiar · 1</span></div></div>
+      <div class="sv b"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Why · 2</div></div><div class="hero"><div class="big">ONLY THE<br><span class="hl">BEST</span><br>BRANDS</div><div class="es">Tesla Powerwall, Q CELLS solar and Owens Corning roofing — proven names.</div></div><div class="foot"><span class="gancho">Top brands, one install.</span><span class="tag">Why WindMar · 2</span></div></div>
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Confiar · 3</div></div><div class="hero"><div class="big">TODO CON<br><span class="hl">GARANTÍA</span></div><div class="es">Respaldamos cada instalación por escrito. Sabes a quién llamar.</div></div><div class="foot"><span class="gancho">Tranquilidad por escrito.</span><span class="tag">Por qué confiar · 3</span></div></div>
+      <div class="sv b"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Why · 4</div></div><div class="hero"><div class="big">REAL<br><span class="hl">FLORIDA</span><br>HOMES</div><div class="es">Real families, real installs, real reviews across Florida.</div></div><div class="foot"><span class="gancho">Neighbors already trust us.</span><span class="tag">Why WindMar · 4</span></div></div>
+      <div class="sv y"><div><div class="brow"><span class="sun"></span><span class="brand">WindMar Home<small>Florida</small></span></div><div class="kick">Confiar · 5</div></div><div class="hero"><div class="big">SIEMPRE<br><span class="hl">CONTIGO</span></div><div class="es">Antes, durante y después de la instalación seguimos disponibles.</div></div><div class="foot"><span class="gancho">Evaluación gratis, sin compromiso.</span><span class="tag">Por qué confiar · 5</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 06 FORMATOS -->
+<section id="formatos"><div class="wrap">
+  <div class="panel">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <span class="sec-num">06 — Formatos &amp; aplicaciones</span>
+    <div class="eyebrow">Dónde vive</div>
+    <h2 class="big">El mismo plano, <span class="o">en cada lugar.</span></h2>
+    <table class="fmt" style="margin-top:22px">
+      <thead><tr><th>Formato</th><th>Tamaño</th><th>Qué publicamos</th></tr></thead>
+      <tbody>
+        <tr><td>Feed post</td><td><span class="sz">1080×1350</span><br>4:5</td><td>Testimonio destacado, el número de ahorro, casa real como lámina blueprint.</td></tr>
+        <tr><td>Carrusel</td><td><span class="sz">1080×1350</span><br>4:5</td><td>La historia de un cliente paso a paso: antes, proceso, después.</td></tr>
+        <tr><td>Stories</td><td><span class="sz">1080×1920</span><br>9:16</td><td>La voz del vecino, encuestas, antes/después, evaluación gratis.</td></tr>
+        <tr><td>Reels</td><td><span class="sz">1080×1920</span><br>9:16</td><td>Clip del cliente hablando; el testimonio en video es el rey.</td></tr>
+        <tr><td>Volante / puerta</td><td><span class="sz">Print</span><br>Carta</td><td>Blueprint impreso para el vecindario: "Tus vecinos ya ahorran".</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div></section>
+
+<footer>
+  <div class="fb">WindMar Home <span class="o">Florida</span> · Let Them Talk</div>
+  <p>Brand &amp; Art Guide · Blueprint — Borrador para compartir</p>
+</footer>
+
+</body>
+</html>

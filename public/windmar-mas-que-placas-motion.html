@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Somos más que placas — motion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   SOMOS MÁS QUE PLACAS — reel 9:16 hecho 100 % en código (motion graphics)
+
+   IDEA: la placa se ABRE en capas (referencia 1 de Nicolle: vista explotada
+   isométrica) y lo que sale de ella es todo lo que WindMar hace además de
+   placas: ENERGÍA (batería), TECHO (casa), AGUA (cisterna). Cierra con el
+   estallido de luz (referencia 2) y el logo. Línea de la campaña vigente de
+   las cortinillas: «SOMOS MÁS QUE PLACAS. / AGUA. ENERGÍA. TECHO.»
+
+   TODO se dibuja en UNA proyección isométrica propia (función P), así la
+   placa, la casa, la batería y la cisterna comparten el mismo ángulo. Nada
+   es foto ni IA: son líneas que se dibujan, estilo blueprint, sobre azul.
+
+   TIEMPOS: salen de medir la voz de Desmond frase por frase (vo-desmond.mp3,
+   17.92 s), corrida VO s. Cada escena entra cuando la voz la dice.
+
+   DATOS (verificados, nada inventado):
+     +65,000 baterías Tesla instaladas ...... windmar.com (7 oct 2026)
+     962 cisternas en 2026 .................. story «Cisternas», sept 2026
+     Techo: SIN número a propósito — el de 80,353 pies² estaba marcado viejo.
+
+   CONTRATO: window.seek(t) pinta el cuadro t. Sin Math.random, sin timers,
+   sin transiciones CSS. Resortes de lib/motion.js.
+   ══════════════════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#0a2882; --navy-d:#071e55; --ink:#030b22; --orange:#fe9400;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#05070d}
+.stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-size:10.8px;margin:0 auto;
+  background:radial-gradient(120% 70% at 50% 52%, #0c2470 0%, #071a4e 38%, #040f30 70%, #020817 100%)}
+/* retícula de plano, casi invisible: amarra con el estilo blueprint de la marca */
+.grid{position:absolute;inset:0;opacity:.55;
+  background-image:linear-gradient(rgba(140,170,255,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(140,170,255,.05) 1px,transparent 1px);
+  background-size:6em 6em}
+svg#art{position:absolute;inset:0;width:1080px;height:1920px;overflow:visible}
+
+/* ── texto ── */
+.blk{position:absolute;left:8em;right:8em;top:23em}
+/* La ventana (overflow) se estira 3.4em hacia ARRIBA con padding y se devuelve
+   con margen negativo: así cabe la tilde de Í / Á (Bebas la dibuja por encima
+   de la caja) sin mover el diseño. Con la ventana justa se cortaban las tildes
+   («ENERGIA», «SOMOS MAS») y se asomaban como rayitas sueltas. */
+.ln{overflow:hidden;padding-top:3.4em;margin-top:-3.4em}
+.ln > span{display:block;transform:translateY(130%)}
+.kick{font-family:var(--body);font-weight:800;font-size:4em;letter-spacing:.2em;color:var(--orange)}   /* a 2.6em no se leía en el teléfono */
+.big{font-family:var(--disp);font-size:15em;line-height:.9;color:#fff;letter-spacing:.01em}
+.big em{font-style:normal;color:var(--orange)}
+.stat{position:absolute;left:8em;right:8em;top:139em}
+.num{font-family:var(--disp);font-size:14em;line-height:.9;color:var(--orange)}
+.lab{font-family:var(--body);font-weight:800;font-size:3.6em;letter-spacing:.1em;color:#fff}   /* a 2.5em no se leía en el teléfono */
+.stat .ln + .ln{margin-top:-2.2em}   /* -3.4em de la ventana + 1.2em de aire real */
+.rule{height:.5em;width:9em;background:var(--orange);transform-origin:left center;margin-top:2.2em}
+
+/* cierre AGUA. ENERGÍA. TECHO. — cada palabra es un sello */
+#t5 .big{font-size:13em}
+
+/* ── estallido (referencia 2) ── */
+.burst{position:absolute;inset:0;pointer-events:none;opacity:0}
+.burst .core{position:absolute;left:50%;top:50%;width:120em;height:120em;margin:-60em 0 0 -60em;border-radius:50%;
+  background:radial-gradient(circle, #ffffff 0%, #ffffff 16%, rgba(190,240,255,.95) 26%, rgba(60,190,255,.65) 42%, rgba(20,120,255,.25) 60%, rgba(10,60,200,0) 72%)}
+.burst .streak{position:absolute;left:-20%;right:-20%;top:50%;height:3em;margin-top:-1.5em;border-radius:50%;
+  background:radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(170,235,255,.85) 30%, rgba(80,190,255,0) 70%)}
+.flash{position:absolute;inset:0;background:#eaf7ff;opacity:0;pointer-events:none}
+
+/* ── cierre con logo ── */
+.end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0}
+.end img{width:52em;height:auto;display:block}
+.end .tag{font-family:var(--disp);font-size:7.4em;color:#fff;margin-top:.9em;letter-spacing:.02em}
+.end .tag em{font-style:normal;color:var(--orange)}
+.end .web{font-family:var(--body);font-weight:700;font-size:3em;letter-spacing:.2em;color:#fff;margin-top:1.4em;display:flex;align-items:center;gap:.6em}
+.end .web i{width:.7em;height:.7em;border-radius:50%;background:var(--orange);display:block}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="grid"></div>
+  <svg id="art" viewBox="0 0 1080 1920">
+    <defs>
+      <linearGradient id="gCell" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#3d63ff"/><stop offset="1" stop-color="#1230b8"/>
+      </linearGradient>
+      <linearGradient id="gBack" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#1b2f9e"/><stop offset="1" stop-color="#0a1a66"/>
+      </linearGradient>
+      <linearGradient id="gFrame" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#cfd8ff"/><stop offset="1" stop-color="#8f9fe0"/>
+      </linearGradient>
+      <filter id="fBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="28"/></filter>
+      <filter id="fGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter>
+    </defs>
+    <g id="world"></g>
+  </svg>
+
+  <div class="blk" id="t0"><div class="ln"><span class="big">ESTO ES</span></div><div class="ln"><span class="big">UNA PLACA.</span></div></div>
+  <div class="blk" id="t1"><div class="ln"><span class="big">SOMOS MÁS</span></div><div class="ln"><span class="big">QUE <em>PLACAS.</em></span></div></div>
+  <div class="blk" id="t2"><div class="ln"><span class="kick">SOMOS</span></div><div class="ln"><span class="big"><em>ENERGÍA</em></span></div></div>
+  <div class="blk" id="t3"><div class="ln"><span class="kick">SOMOS</span></div><div class="ln"><span class="big"><em>TECHO</em></span></div></div>
+  <div class="blk" id="t4"><div class="ln"><span class="kick">SOMOS</span></div><div class="ln"><span class="big"><em>AGUA</em></span></div></div>
+  <div class="blk" id="t5"><div class="ln"><span class="big">AGUA.</span></div><div class="ln"><span class="big">ENERGÍA.</span></div><div class="ln"><span class="big"><em>TECHO.</em></span></div></div>
+
+  <div class="stat" id="s2"><div class="ln"><span class="num" id="n2">+0</span></div><div class="ln"><span class="lab">BATERÍAS TESLA INSTALADAS</span></div></div>
+  <div class="stat" id="s3"><div class="ln"><span class="lab">PARA PROTEGER TU CASA</span></div></div>
+  <div class="stat" id="s4"><div class="ln"><span class="num" id="n4">0</span></div><div class="ln"><span class="lab">CISTERNAS EN 2026</span></div></div>
+
+  <div class="burst" id="burst"><div class="core"></div><div class="streak"></div></div>
+  <div class="flash" id="flash"></div>
+  <div class="end" id="end">
+    <img src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" />
+    <div class="tag">SOMOS MÁS QUE <em>PLACAS.</em></div>
+    <div class="web"><i></i>WINDMAR.COM</div>
+  </div>
+</div>
+
+<script src="lib/motion.js"></script>
+<script>
+const { spring, track, clamp, lerp } = Motion;
+const DUR = 20.0;
+window.__duration = DUR;
+
+/* ═══ LA VOZ manda el reloj (vo-desmond.mp3 entra en VO) ═══════════════════
+   Frases medidas por energía de la pista (s de la pista + VO = s del video). */
+const VO = 0.62;
+const T = {
+  placa:   0.08 + VO,   // «Esto es una placa solar.»
+  somos:   2.38 + VO,   // «…somos más que placas.»  → la placa se abre
+  energia: 3.76 + VO,   // «Somos energía:»
+  bat:     5.06 + VO,   // «más de sesenta y cinco mil baterías Tesla instaladas»
+  techo:   8.10 + VO,   // «Somos techo,»
+  casa:    9.06 + VO,   // «para proteger tu casa.»
+  agua:   10.62 + VO,   // «Y somos agua:»
+  cist:   11.82 + VO,   // «novecientas sesenta y dos cisternas este año.»
+  w1:     14.42 + VO,   // «Agua.»
+  w2:     15.16 + VO,   // «Energía.»
+  w3:     16.24 + VO,   // «Techo.»
+  logo:   17.20 + VO,   // «WindMar Home.»
+};
+const BURST = T.w3 + 0.32;      // el estallido cae al cerrar «Techo.»
+
+/* ═══ proyección isométrica ════════════════════════════════════════════════ */
+const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
+let CAM = { fx: 0, fy: 0, fz: 0, s: 2, cx: 540, cy: 1060 };
+function P(x, y, z){
+  const sx = (x - CAM.fx - (y - CAM.fy)) * C30;
+  const sy = ((x - CAM.fx) + (y - CAM.fy)) * S30 - (z - CAM.fz);
+  return [CAM.cx + sx * CAM.s, CAM.cy + sy * CAM.s];
+}
+const pts = arr => arr.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+const pathOf = (arr, close = true) => 'M' + arr.map(p => p.map(v => v.toFixed(1)).join(' ')).join(' L') + (close ? ' Z' : '');
+
+/* ═══ construir el SVG una vez ═════════════════════════════════════════════ */
+const NS = 'http://www.w3.org/2000/svg';
+const W = document.getElementById('world');
+function el(tag, attrs, parent = W){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e); return e;
+}
+function g(parent = W){ return el('g', {}, parent); }
+
+/* sombra del conjunto */
+const shadow = el('ellipse', { fill: '#01040e', opacity: .55, filter: 'url(#fBlur)' });
+
+/* ── la CASA (techo): caja de concreto moderna, techo plano ── */
+const HOUSE = { x0: -170, x1: 170, y0: -120, y1: 120, h: 150 };
+const house = g();
+const hWallX = el('path', { fill: '#0b2167', stroke: '#b9c9ff', 'stroke-width': 2.4, 'stroke-linejoin': 'round', pathLength: 1 }, house);
+const hWallY = el('path', { fill: '#0d2777', stroke: '#b9c9ff', 'stroke-width': 2.4, 'stroke-linejoin': 'round', pathLength: 1 }, house);
+const hRoof  = el('path', { fill: 'rgba(120,150,255,.08)', stroke: '#fe9400', 'stroke-width': 3.4, 'stroke-linejoin': 'round', pathLength: 1 }, house);
+const hWins  = [0,1,2,3].map(() => el('path', { fill: 'rgba(254,148,0,.18)', stroke: '#b9c9ff', 'stroke-width': 2, pathLength: 1 }, house));
+const hDoor  = el('path', { fill: 'none', stroke: '#b9c9ff', 'stroke-width': 2, pathLength: 1 }, house);
+
+/* ── la BATERÍA (energía): caja vertical blanca, genérica (no dibujamos un producto de memoria) ── */
+const BAT = { x0: 215, x1: 255, y0: -190, y1: -150, h: 118 };
+const bat = g();
+const bTop = el('path', { fill: '#dfe6ff', stroke: '#ffffff', 'stroke-width': 2, pathLength: 1 }, bat);
+const bX   = el('path', { fill: '#b9c4ee', stroke: '#ffffff', 'stroke-width': 2, pathLength: 1 }, bat);
+const bY   = el('path', { fill: '#eef2ff', stroke: '#ffffff', 'stroke-width': 2, pathLength: 1 }, bat);
+const bBars = [0,1,2,3,4].map(() => el('path', { fill: '#fe9400', opacity: 0 }, bat));
+const flow = el('path', { fill: 'none', stroke: '#fe9400', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-dasharray': '14 22', opacity: 0 });
+
+/* ── la CISTERNA (agua): cilindro ── */
+const TANK = { x: -150, y: 235, r: 56, h: 128 };
+const tank = g();
+const tBody  = el('path', { fill: '#0b2167', stroke: '#b9c9ff', 'stroke-width': 2.4, pathLength: 1 }, tank);
+const tWater = el('path', { fill: '#2fa8ff', opacity: .85 }, tank);
+const tWTop  = el('ellipse', { fill: '#7fd0ff', opacity: .9 }, tank);
+const tTop   = el('ellipse', { fill: 'none', stroke: '#ffffff', 'stroke-width': 2.4, pathLength: 1 }, tank);
+const tLid   = el('ellipse', { fill: '#dfe6ff', stroke: '#ffffff', 'stroke-width': 2 }, tank);
+
+/* ── la PLACA en capas (referencia 1) — de abajo hacia arriba ── */
+const PW = 150, PD = 92;          // medio ancho / medio fondo
+const COLS = 10, ROWS = 6;
+const plate = g();
+const LAYERS = [
+  { kind: 'frame' }, { kind: 'back' }, { kind: 'film' }, { kind: 'cells' }, { kind: 'film' }, { kind: 'glass' },
+];
+LAYERS.forEach((L, i) => {
+  L.g = g(plate);
+  if (L.kind === 'frame'){
+    L.sideX = el('path', { fill: '#7f8fd8' }, L.g);
+    L.sideY = el('path', { fill: '#aab6f0' }, L.g);
+    L.top   = el('path', { fill: 'url(#gFrame)', stroke: '#ffffff', 'stroke-width': 2, pathLength: 1 }, L.g);
+  } else if (L.kind === 'back'){
+    L.top = el('path', { fill: 'url(#gBack)', stroke: '#6f86ff', 'stroke-width': 1.6, pathLength: 1 }, L.g);
+  } else if (L.kind === 'cells'){
+    L.glow = el('path', { fill: '#fe9400', opacity: 0, filter: 'url(#fGlow)' }, L.g);
+    L.top = el('path', { fill: 'url(#gCell)', stroke: '#ffffff', 'stroke-width': 1.8, pathLength: 1 }, L.g);
+    L.lines = [];
+    for (let c = 1; c < COLS; c++) L.lines.push({ c, l: el('path', { stroke: 'rgba(255,255,255,.55)', 'stroke-width': 1.1, fill: 'none' }, L.g) });
+    for (let r = 1; r < ROWS; r++) L.lines.push({ r, l: el('path', { stroke: 'rgba(255,255,255,.55)', 'stroke-width': 1.1, fill: 'none' }, L.g) });
+    L.dots = [];
+    for (let c = 1; c < COLS; c++) for (let r = 1; r < ROWS; r++)
+      L.dots.push({ c, r, d: el('circle', { fill: '#ffffff', opacity: .9 }, L.g) });
+  } else {
+    L.top = el('path', { fill: L.kind === 'glass' ? 'rgba(210,225,255,.07)' : 'rgba(210,225,255,.04)',
+                         stroke: 'rgba(255,255,255,.8)', 'stroke-width': 1.6, pathLength: 1 }, L.g);
+  }
+});
+
+/* ═══ texto: cada línea sube detrás de su máscara (nada aparece por fade) ══ */
+const TXT = { k: 300, d: 35 };    // amortiguación crítica: llega con peso, sin rebote
+function lines(id, tIn, tOut, stagger = 0.06){
+  const box = document.getElementById(id);
+  const sp = [...box.querySelectorAll('.ln > span')];
+  return t => {
+    sp.forEach((s, i) => {
+      const a = t - tIn - i * stagger;
+      let y = 130 * (1 - spring(a, TXT.k, TXT.d)), px = 0;
+      if (tOut != null && t > tOut - 0.22){
+        const e = spring(t - (tOut - 0.22) - i * 0.03, 420, 41);
+        /* al salir sube su altura MÁS los 37 px de la ventana estirada: si no,
+           los textos chicos (kick, etiquetas) se quedaban a la vista arriba */
+        y -= 130 * e; px = -48 * e;
+      }
+      s.style.transform = `translateY(calc(${y.toFixed(2)}% + ${px.toFixed(1)}px))`;
+    });
+  };
+}
+/* sello: entra seco, apenas un 4 % más grande y se asienta (sin rebote) */
+function stamp(id, times, tOut){
+  const sp = [...document.getElementById(id).querySelectorAll('.ln > span')];
+  return t => sp.forEach((s, i) => {
+    const a = t - times[i];
+    const on = a >= 0 && (tOut == null || t < tOut);
+    const k = on ? 1 + 0.04 * (1 - spring(a, 500, 45)) : 1;
+    s.style.transform = on ? `translateY(0) scale(${k.toFixed(4)})` : 'translateY(130%)';
+    s.style.transformOrigin = 'left center';
+  });
+}
+
+const TL = [
+  lines('t0', 0.15, T.somos - 0.08),
+  lines('t1', T.somos - 0.05, T.energia - 0.04),
+  lines('t2', T.energia, T.techo - 0.04),
+  lines('s2', T.bat, T.techo - 0.04),
+  lines('t3', T.techo, T.agua - 0.04),
+  lines('s3', T.casa, T.agua - 0.04),
+  lines('t4', T.agua, T.w1 - 0.06),
+  lines('s4', T.cist, T.w1 - 0.06),
+  stamp('t5', [T.w1, T.w2, T.w3], BURST + 0.12),
+];
+const fmt = n => Math.round(n).toLocaleString('en-US');
+
+/* ═══ cámara por escena (un resorte por cambio → track) ═══════════════════ */
+const CK = [
+  [0,            { fx: 0,   fy: 0,   fz: 6,   s: 1.92 }],
+  [0.05,         { fx: 0,   fy: 0,   fz: 6,   s: 2.25 }],   /* se acerca lento: el gancho no puede estar quieto */
+  [T.somos,      { fx: 0,   fy: 0,   fz: 120, s: 1.75 }],
+  [T.energia,    { fx: 70,  fy: -70, fz: 120, s: 1.30 }],
+  [T.techo,      { fx: 40,  fy: -30, fz: 110, s: 1.34 }],
+  [T.agua,       { fx: -10, fy: 80,  fz: 80,  s: 1.00 }],   /* abre: entran cisterna, casa y batería completas */
+  [T.w1 - 0.1,   { fx: 30,  fy: 30,  fz: 85,  s: 1.12 }],   /* y en el cierre se acerca: el final empuja */
+];
+function camAt(t){
+  const k = (key) => track(t, CK.map(([tt, c]) => [tt, c[key]]), 46, 13.6);   // cámara: lenta y pesada, sin rebote
+  return { fx: k('fx'), fy: k('fy'), fz: k('fz'), s: k('s'), cx: 540, cy: 1090 };
+}
+
+/* line-draw: p 0→1 dibuja el trazo */
+const draw = (e, p) => { e.setAttribute('stroke-dasharray', '1 1'); e.setAttribute('stroke-dashoffset', (1 - clamp(p)).toFixed(4)); };
+const show = (e, o) => e.setAttribute('opacity', clamp(o).toFixed(3));
+
+function box(b, z0 = 0){
+  const { x0, x1, y0, y1, h } = b, z1 = z0 + h;
+  return {
+    top:  [P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)],
+    fX:   [P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)],   // cara +x
+    fY:   [P(x0, y1, z0), P(x1, y1, z0), P(x1, y1, z1), P(x0, y1, z1)],   // cara +y
+  };
+}
+
+/* ═══ seek(t): pinta el cuadro t ══════════════════════════════════════════ */
+function seek(t){
+  CAM = camAt(t);
+
+  /* ── placa: gap entre capas, altura base ── */
+  const open = spring(t - T.somos, 150, 17);                       // se abre con un pelito de pasada (es objeto, no texto)
+  const close = spring(t - (T.techo + 0.1), 120, 22);              // en TECHO se vuelve a cerrar…
+  const gap = lerp(lerp(5, 62, open), 6, close);
+  const lift = lerp(0, HOUSE.h + 4, spring(t - (T.techo + 0.2), 90, 19));   // …y se posa en el techo de la casa
+  const drawIn = clamp(t / 0.55);
+  const spin = 0;                                                    // sin giro: la isométrica no se mueve, se mueve la cámara
+  const cellsGlow = clamp((t - T.energia) / 0.4) * (0.55 + 0.25 * Math.sin((t - T.energia) * 6.0)) * (t < BURST ? 1 : 0);
+
+  LAYERS.forEach((L, i) => {
+    const z = lift + i * gap;
+    const corners = [P(-PW, -PD, z), P(PW, -PD, z), P(PW, PD, z), P(-PW, PD, z)];
+    L.top.setAttribute('d', pathOf(corners));
+    draw(L.top, drawIn * 1.15 - i * 0.04);
+    if (L.kind === 'frame'){
+      const zb = z - 9;
+      L.sideX.setAttribute('d', pathOf([P(PW, -PD, zb), P(PW, PD, zb), P(PW, PD, z), P(PW, -PD, z)]));
+      L.sideY.setAttribute('d', pathOf([P(-PW, PD, zb), P(PW, PD, zb), P(PW, PD, z), P(-PW, PD, z)]));
+      show(L.sideX, drawIn); show(L.sideY, drawIn);
+    }
+    if (L.kind === 'cells'){
+      L.glow.setAttribute('d', pathOf(corners)); show(L.glow, cellsGlow);
+      L.lines.forEach(o => {
+        let a, b;
+        if (o.c != null){ const x = -PW + 2 * PW * o.c / COLS; a = P(x, -PD, z); b = P(x, PD, z); }
+        else            { const y = -PD + 2 * PD * o.r / ROWS; a = P(-PW, y, z); b = P(PW, y, z); }
+        o.l.setAttribute('d', pathOf([a, b], false)); show(o.l, clamp(drawIn * 1.6 - 0.5));
+      });
+      L.dots.forEach(o => {
+        const [x, y] = P(-PW + 2 * PW * o.c / COLS, -PD + 2 * PD * o.r / ROWS, z);
+        o.d.setAttribute('cx', x.toFixed(1)); o.d.setAttribute('cy', y.toFixed(1));
+        o.d.setAttribute('r', (1.9 * CAM.s).toFixed(2)); show(o.d, clamp(drawIn * 1.6 - 0.6));
+      });
+    }
+  });
+
+  /* sombra bajo lo que esté en el piso */
+  const [shx, shy] = P(0, 0, 0);
+  shadow.setAttribute('cx', shx); shadow.setAttribute('cy', (shy + 40 * CAM.s).toFixed(1));
+  shadow.setAttribute('rx', (330 * CAM.s).toFixed(1)); shadow.setAttribute('ry', (120 * CAM.s).toFixed(1));
+
+  /* ── batería + flujo de energía ── */
+  const bIn = clamp((t - (T.energia + 0.15)) / 0.7);
+  const B = box(BAT);
+  bTop.setAttribute('d', pathOf(B.top)); bX.setAttribute('d', pathOf(B.fX)); bY.setAttribute('d', pathOf(B.fY));
+  [bTop, bX, bY].forEach(e => { draw(e, bIn * 1.2); e.setAttribute('fill-opacity', clamp(bIn * 1.6 - 0.6).toFixed(3)); });
+  const charge = clamp((t - T.bat) / 2.2);
+  bBars.forEach((e, i) => {
+    const z0 = 14 + i * 20, z1 = z0 + 13;
+    e.setAttribute('d', pathOf([P(BAT.x0 + 6, BAT.y1, z0), P(BAT.x1 - 6, BAT.y1, z0), P(BAT.x1 - 6, BAT.y1, z1), P(BAT.x0 + 6, BAT.y1, z1)]));
+    show(e, charge * 5 - i);
+  });
+  /* el flujo baja de la capa de celdas a la batería; el trazo «camina» con t */
+  const zc = lift + 3 * gap;
+  const f0 = P(PW * 0.6, -PD, zc), f1 = P(BAT.x0 + 20, BAT.y0 + 20, BAT.h + 30), f2 = P((BAT.x0 + BAT.x1) / 2, (BAT.y0 + BAT.y1) / 2, BAT.h);
+  flow.setAttribute('d', `M${f0[0].toFixed(1)} ${f0[1].toFixed(1)} Q${f1[0].toFixed(1)} ${(f1[1] - 120).toFixed(1)} ${f2[0].toFixed(1)} ${f2[1].toFixed(1)}`);
+  flow.setAttribute('stroke-dashoffset', (-(t * 90)).toFixed(1));
+  show(flow, clamp((t - T.bat + 0.3) / 0.4) * (1 - clamp((t - T.techo) / 0.3)));
+
+  /* ── casa ── */
+  const hIn = clamp((t - (T.techo - 0.05)) / 0.9);
+  const H = box(HOUSE);
+  hWallX.setAttribute('d', pathOf(H.fX)); hWallY.setAttribute('d', pathOf(H.fY)); hRoof.setAttribute('d', pathOf(H.top));
+  draw(hWallX, hIn * 1.3); draw(hWallY, hIn * 1.3 - 0.1); draw(hRoof, hIn * 1.4 - 0.25);
+  [hWallX, hWallY].forEach(e => e.setAttribute('fill-opacity', clamp(hIn * 1.5 - 0.5).toFixed(3)));
+  hRoof.setAttribute('fill-opacity', clamp(hIn * 1.5 - 0.6).toFixed(3));
+  const win = [[HOUSE.x1, -80, -20], [HOUSE.x1, 20, 80]];
+  hWins.forEach((e, i) => {
+    if (i < 2){ const [x, ya, yb] = win[i];
+      e.setAttribute('d', pathOf([P(x, ya, 60), P(x, yb, 60), P(x, yb, 115), P(x, ya, 115)])); }
+    else { const xa = i === 2 ? -130 : -40, xb = xa + 60;
+      e.setAttribute('d', pathOf([P(xa, HOUSE.y1, 60), P(xb, HOUSE.y1, 60), P(xb, HOUSE.y1, 115), P(xa, HOUSE.y1, 115)])); }
+    draw(e, hIn * 1.6 - 0.6); e.setAttribute('fill-opacity', clamp(hIn * 2 - 1.2).toFixed(3));
+  });
+  hDoor.setAttribute('d', pathOf([P(60, HOUSE.y1, 0), P(110, HOUSE.y1, 0), P(110, HOUSE.y1, 95), P(60, HOUSE.y1, 95)]));
+  draw(hDoor, hIn * 1.6 - 0.6);
+
+  /* ── cisterna + agua que sube ── */
+  const tIn = clamp((t - (T.agua + 0.05)) / 0.8);
+  const rx = TANK.r * 1.2247 * CAM.s, ry = TANK.r * 0.7071 * CAM.s;
+  const [tbx, tby] = P(TANK.x, TANK.y, 0), [ttx, tty] = P(TANK.x, TANK.y, TANK.h);
+  tBody.setAttribute('d', `M${(tbx - rx).toFixed(1)} ${tty.toFixed(1)} L${(tbx - rx).toFixed(1)} ${tby.toFixed(1)} A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 0 ${(tbx + rx).toFixed(1)} ${tby.toFixed(1)} L${(tbx + rx).toFixed(1)} ${tty.toFixed(1)}`);
+  draw(tBody, tIn * 1.2); tBody.setAttribute('fill-opacity', clamp(tIn * 1.5 - 0.5).toFixed(3));
+  tTop.setAttribute('cx', ttx); tTop.setAttribute('cy', tty); tTop.setAttribute('rx', rx); tTop.setAttribute('ry', ry);
+  draw(tTop, tIn * 1.3 - 0.3);
+  tLid.setAttribute('cx', ttx); tLid.setAttribute('cy', (tty - 6 * CAM.s).toFixed(1));
+  tLid.setAttribute('rx', (rx * 0.32).toFixed(1)); tLid.setAttribute('ry', (ry * 0.32).toFixed(1)); show(tLid, tIn * 2 - 1);
+  const lvl = clamp((t - T.cist) / 2.0) * 0.86 * TANK.h;
+  const [, wy] = P(TANK.x, TANK.y, lvl);
+  const wave = 4 * CAM.s * Math.sin(t * 7);
+  tWater.setAttribute('d', `M${(tbx - rx).toFixed(1)} ${(wy + wave).toFixed(1)} L${(tbx - rx).toFixed(1)} ${tby.toFixed(1)} A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 0 ${(tbx + rx).toFixed(1)} ${tby.toFixed(1)} L${(tbx + rx).toFixed(1)} ${(wy - wave).toFixed(1)} Z`);
+  tWTop.setAttribute('cx', tbx); tWTop.setAttribute('cy', wy.toFixed(1)); tWTop.setAttribute('rx', rx.toFixed(1)); tWTop.setAttribute('ry', ry.toFixed(1));
+  show(tWater, lvl > 1 ? 0.85 : 0); show(tWTop, lvl > 1 ? 0.9 : 0);
+
+  /* ── texto ── */
+  TL.forEach(f => f(t));
+  const tq = Math.floor(t * 30 + 1e-6) / 30;   // un número por cuadro: sin fantasma en el blur
+  document.getElementById('n2').textContent = '+' + fmt(65000 * spring(tq - T.bat - 0.1, 26, 10.2));
+  document.getElementById('n4').textContent = fmt(962 * spring(tq - T.cist - 0.1, 26, 10.2));
+
+  /* ── estallido + destello + logo ── */
+  const bu = t - BURST;
+  const burstEl = document.getElementById('burst');
+  const grow = spring(bu, 90, 12);
+  burstEl.style.opacity = (bu < 0 ? 0 : clamp(bu / 0.12) * (1 - clamp((bu - 0.55) / 0.35))).toFixed(3);
+  burstEl.querySelector('.core').style.transform = `scale(${(0.05 + 1.3 * grow).toFixed(3)})`;
+  burstEl.querySelector('.streak').style.transform = `scaleX(${(0.2 + 1.2 * grow).toFixed(3)}) scaleY(${(0.6 + 0.8 * grow).toFixed(3)})`;
+  const fl = bu < 0 ? 0 : clamp((bu - 0.22) / 0.12) * (1 - clamp((bu - 0.42) / 0.45));
+  document.getElementById('flash').style.opacity = fl.toFixed(3);
+  /* todo lo dibujado se va con el destello */
+  document.getElementById('art').style.opacity = (1 - clamp((bu - 0.3) / 0.12)).toFixed(3);
+  const end = document.getElementById('end');
+  const eo = clamp((t - (BURST + 0.36)) / 0.25);
+  end.style.opacity = eo.toFixed(3);
+  const es = spring(t - (BURST + 0.36), 120, 22);
+  end.querySelector('img').style.transform = `scale(${(0.92 + 0.08 * es).toFixed(4)})`;
+}
+window.seek = seek;
+
+/* ═══ modos: ?t= pinta un cuadro (render) · sin parámetro, reproduce ═══ */
+const q = new URLSearchParams(location.search);
+if (q.has('t')){
+  seek(parseFloat(q.get('t')));
+  document.fonts.ready.then(() => { window.__ready = true; });
+} else {
+  let t0 = null;
+  const loop = (now) => { if (t0 == null) t0 = now; seek(((now - t0) / 1000) % DUR); requestAnimationFrame(loop); };
+  document.fonts.ready.then(() => requestAnimationFrame(loop));
+}
+</script>
+</body>
+</html>

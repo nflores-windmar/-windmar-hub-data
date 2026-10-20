@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Captura semanal · Redes WindMar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wm-navy:#0a1628; --wm-orange:#f57c0a; --wm-green:#00843D; --wm-blue:#1a52c7;
+  --font-title:'Anek Latin',sans-serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+  --wm-bg:#f2f0eb; --surface:#fff; --surface-2:#f8f7f4;
+  --text-primary:#0f172a; --text-secondary:#475569; --text-tertiary:#64748b;
+  --border:#e2e8f0; --border-strong:#cbd5e1; --red:#a20c17;
+  --shadow-sm:0 2px 8px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.04);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--wm-bg);color:var(--text-primary);-webkit-font-smoothing:antialiased;padding:0 0 70px}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px}
+header{background:var(--wm-navy);color:#fff;padding:26px 0 22px;margin-bottom:24px}
+header .wrap{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+h1{font-family:var(--font-title);font-size:29px;font-weight:800;letter-spacing:-.02em;line-height:1.12}
+.sub{color:#9fb3d1;font-size:13px;margin-top:5px;max-width:62ch;line-height:1.5}
+header a{color:#ffd9ad;font-size:12.5px;font-family:var(--font-mono);text-decoration:none;border-bottom:1px solid rgba(255,217,173,.4)}
+
+.step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm);margin-bottom:15px}
+.step>.h{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;margin-bottom:13px}
+.step .n{width:30px;height:30px;border-radius:9px;background:var(--wm-navy);color:#fff;font-family:var(--font-mono);font-size:13px;display:flex;align-items:center;justify-content:center}
+.step h2{font-family:var(--font-title);font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.step .d{font-size:13.4px;line-height:1.6;color:var(--text-secondary);margin-top:4px}
+.step .body{padding-left:43px}
+@media(max-width:620px){.step .body{padding-left:0}}
+
+label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-secondary);font-weight:700;margin-bottom:5px}
+input[type=date],select,textarea{width:100%;font-family:var(--font-mono);font-size:13px;color:var(--text-primary);background:var(--surface-2);border:1px solid var(--border-strong);border-radius:8px;padding:9px 11px}
+textarea{min-height:80px;resize:vertical;line-height:1.5}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+@media(max-width:620px){.row{grid-template-columns:1fr}}
+
+.btn{background:var(--wm-orange);color:var(--wm-navy);border:none;border-radius:8px;padding:10px 17px;font-family:var(--font-body);font-size:13.2px;font-weight:700;cursor:pointer}
+.btn:hover{background:#e06d00}
+.btn.ghost{background:var(--surface);color:var(--text-primary);border:1px solid var(--border-strong);font-weight:600}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn+.btn{margin-left:8px}
+
+.slot{border:1px solid var(--border);border-radius:11px;padding:14px 15px;margin-bottom:11px;background:var(--surface-2)}
+.slot .t{display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:space-between;margin-bottom:9px}
+.slot .t b{font-family:var(--font-title);font-size:15.5px;font-weight:700}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:7px;vertical-align:1px}
+.dot.fb{background:#1877f2}.dot.ig{background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7)}
+.slot .pid{font-family:var(--font-mono);font-size:11.3px;color:var(--text-tertiary)}
+.res{margin-top:10px;font-family:var(--font-mono);font-size:12.2px;line-height:1.75}
+.ok{color:#0a6b38}.bad{color:var(--red);font-weight:500}
+.res .k{color:var(--text-secondary)}
+.res .v{color:var(--text-primary);font-weight:500}
+
+.alert{border-radius:10px;padding:13px 15px;font-size:13.3px;line-height:1.6;margin-bottom:13px}
+.alert.warn{background:#fff8f0;border:1px solid #f5d9b4;border-left:3px solid var(--wm-orange);color:#6b4a1d}
+.alert.stop{background:#fdecec;border:1px solid #f3c2c2;border-left:3px solid var(--red);color:#7a1118}
+.alert b{color:inherit}
+pre.out{font-family:var(--font-mono);font-size:12px;line-height:1.6;white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:14px;max-height:340px;overflow:auto;margin-top:12px}
+code{font-family:var(--font-mono);font-size:11.8px;background:#e9e7e2;padding:1.5px 5px;border-radius:4px}
+ol.guide{margin:9px 0 0 18px;font-size:13.4px;line-height:1.75;color:var(--text-secondary)}
+ol.guide b{color:var(--text-primary)}
+footer{margin-top:26px;font-size:12.2px;color:var(--text-tertiary);line-height:1.65}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <h1>Captura semanal</h1>
+      <div class="sub">Cada semana: corres el extractor en Business Suite, pegas lo que devuelve y esto arma el snapshot nuevo. No borra los viejos — los suma.</div>
+    </div>
+    <a href="/dashboard-redes.html">← volver al dashboard</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="step">
+    <div class="h"><div class="n">01</div><div>
+      <h2>La ventana que vas a capturar</h2>
+      <div class="d">Business Suite trabaja con 28 días. Deja la fecha final en ayer para que el día no esté a medias.</div>
+    </div></div>
+    <div class="body"><div class="row">
+      <div><label>Desde</label><input type="date" id="desde"></div>
+      <div><label>Hasta</label><input type="date" id="hasta"></div>
+      <div><label>Días</label><input type="date" id="_x" style="display:none"><div id="dias" style="font-family:var(--font-mono);font-size:22px;font-weight:600;padding-top:4px">28</div></div>
+    </div></div>
+  </div>
+
+  <div class="step">
+    <div class="h"><div class="n">02</div><div>
+      <h2>Copia el extractor</h2>
+      <div class="d">Lee las series diarias que Business Suite ya tiene en la página. Da los números exactos, no los redondeos de pantalla («1,9 mill.» en realidad son 1.861.126).</div>
+    </div></div>
+    <div class="body">
+      <button class="btn" onclick="copiarExtractor()" id="bx">Copiar el extractor</button>
+      <ol class="guide">
+        <li>Abre <b>Business Suite → Estadísticas → Resumen</b> y escoge la cuenta.</li>
+        <li>Pon el rango en <b>Últimos 28 días</b> y espera a que carguen todas las gráficas.</li>
+        <li>Abre la consola del navegador (<code>⌥⌘J</code> en Chrome), pega el extractor y dale Enter.</li>
+        <li>Copia todo lo que devuelva y pégalo abajo, en el espacio de esa cuenta y esa red.</li>
+      </ol>
+      <div class="alert warn" style="margin-top:14px"><b>Lo más importante:</b> para Instagram no basta con cambiar el URL — Meta lo ignora y te devuelve los datos de Facebook con otra etiqueta. Tienes que cambiar la plataforma con el <b>selector de la pantalla</b> y confirmar que dice Instagram antes de correr el extractor. Esta página revisa eso sola y te frena si detecta datos de Facebook en un espacio de Instagram.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="h"><div class="n">03</div><div>
+      <h2>Pega los resultados</h2>
+      <div class="d">Uno por cuenta y red. No hace falta llenarlos todos: lo que dejes vacío se queda fuera del snapshot y el dashboard lo dice.</div>
+    </div></div>
+    <div class="body" id="slots"></div>
+  </div>
+
+  <div class="step">
+    <div class="h"><div class="n">04</div><div>
+      <h2>Genera el archivo</h2>
+      <div class="d">Esto te devuelve el <code>redes-snapshot.json</code> completo, con el histórico viejo y la semana nueva al final. Reemplaza el archivo en <code>studio/public/data/</code> y publica.</div>
+    </div></div>
+    <div class="body">
+      <button class="btn" onclick="generar()">Generar snapshot</button>
+      <button class="btn ghost" onclick="bajar()">Descargar el JSON</button>
+      <button class="btn ghost" onclick="copiarJSON()">Copiar el JSON</button>
+      <div id="genmsg"></div>
+      <pre class="out" id="out" style="display:none"></pre>
+    </div>
+  </div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const MAPA={
+  visualizaciones:[/visualizacion/i,/^vistas/i],
+  espectadores:[/espectador/i],
+  alcance:[/alcance/i,/cuentas alcanzadas/i],
+  seguidores_nuevos:[/seguidor/i,/seguimiento/i],
+  visitas:[/visita/i],
+  interacciones:[/interaccion/i,/interacción/i],
+  reproducciones_3s:[/reproduccion/i,/reproducción/i,/3 segundos/i],
+  conversaciones:[/conversacion/i,/conversación/i,/mensaje/i]
+};
+const SOLO_FB=['espectadores','visitas','reproducciones_3s'];
+const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const F=n=>n==null?'—':String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+
+const EXTRACTOR = `(()=>{const L=(document.body.innerText||'').split('\\n'),S={};let T=null;
+for(let i=0;i<L.length;i++){const p=L[i].split('\\t');if(p.length<2)continue;
+const lb=p[0].trim(),n=p.slice(1).map(x=>x.trim()).filter(Boolean);
+if(!n.length||!n.every(x=>/^-?\\d+([.,]\\d+)?$/.test(x)))continue;
+const v=n.map(x=>parseFloat(x.replace(',','.')));
+if(!lb&&v[0]>1e9){T=v;continue}
+let t=lb;if(!t||t=='Primary'){for(let j=i-1;j>=0&&j>i-8;j--){
+const c=L[j].replace(/\\u200b/g,'').trim();
+if(c&&!c.includes('\\t')&&!/^\\d/.test(c)&&!/^Ver m/.test(c)){t=c;break}}}
+if(/ultima semana|última semana/i.test(t))continue;S[t in S?t+'_'+i:t]=v}
+const sum=a=>a.reduce((x,y)=>x+y,0),K=Object.keys(S);
+return JSON.stringify({guard_IG:K.some(k=>/Instagram/i.test(k)),
+guard_FBonly:K.some(k=>/Visitas de Facebook|Reproducciones de 3/i.test(k)),
+days:T?T.length:0,
+m:Object.fromEntries(Object.entries(S).map(([k,v])=>[k,{tot:sum(v),l7:sum(v.slice(-7)),p7:sum(v.slice(-14,-7)),serie:v}]))})})()`;
+
+function copiarExtractor(){
+  navigator.clipboard.writeText(EXTRACTOR).then(()=>{
+    const b=document.getElementById('bx');b.textContent='Copiado ✓';
+    setTimeout(()=>b.textContent='Copiar el extractor',1900);
+  });
+}
+
+let BASE=null, SLOTS=[], LEIDO={};
+
+function fechas(){
+  const h=new Date(); h.setDate(h.getDate()-1);
+  const d=new Date(h); d.setDate(d.getDate()-27);
+  const iso=x=>x.toISOString().slice(0,10);
+  document.getElementById('hasta').value=iso(h);
+  document.getElementById('desde').value=iso(d);
+  recalc();
+}
+function recalc(){
+  const a=document.getElementById('desde').value, b=document.getElementById('hasta').value;
+  if(!a||!b){document.getElementById('dias').textContent='—';return}
+  const n=Math.round((new Date(b)-new Date(a))/864e5)+1;
+  const el=document.getElementById('dias');
+  el.textContent=n; el.style.color = n===28 ? 'var(--text-primary)' : 'var(--red)';
+}
+
+function pintarSlots(){
+  const ult=BASE.snapshots[BASE.snapshots.length-1].datos;
+  SLOTS=[];
+  BASE.cuentas.forEach(c=>{
+    const prev=ult[c.id]||{};
+    ['facebook','instagram'].forEach(red=>{
+      const tuvo=!!prev[red];
+      const puedeIG = red==='instagram' && (c.ig_user||c.ig_id) && c.ig_disponible!==false;
+      if(red==='facebook' ? (tuvo||!c.sin_medir&&!c.sin_acceso) : (tuvo||puedeIG)) SLOTS.push({c,red});
+    });
+  });
+  document.getElementById('slots').innerHTML = SLOTS.map((s,i)=>
+    '<div class="slot"><div class="t"><b><span class="dot '+(s.red==='instagram'?'ig':'fb')+'"></span>'
+    +s.c.nombre+' · '+(s.red==='instagram'?'Instagram':'Facebook')+'</b>'
+    +'<span class="pid">'+(s.red==='instagram'?(s.c.ig_user||s.c.ig_id||''):('page '+s.c.page_id))+'</span></div>'
+    +'<textarea id="ta'+i+'" placeholder="Pega aquí lo que devolvió el extractor…" oninput="leer('+i+')"></textarea>'
+    +'<div class="res" id="res'+i+'"></div></div>').join('');
+}
+
+function leer(i){
+  const s=SLOTS[i], raw=document.getElementById('ta'+i).value.trim(), out=document.getElementById('res'+i);
+  delete LEIDO[s.c.id+'|'+s.red];
+  if(!raw){out.innerHTML='';return}
+  let j;
+  try{ j=JSON.parse(raw.replace(/^['"]|['"]$/g,'')); }
+  catch(e){ out.innerHTML='<span class="bad">No pude leer esto como JSON. Copia completo lo que devolvió la consola, desde la primera llave.</span>'; return; }
+  if(!j||!j.m){ out.innerHTML='<span class="bad">Falta el bloque de métricas. ¿Corriste el extractor completo?</span>'; return; }
+
+  if(s.red==='instagram' && j.guard_FBonly){
+    out.innerHTML='<span class="bad">ALTO. Esto trae métricas que solo existen en Facebook (visitas o reproducciones de 3 s). '
+      +'Business Suite te devolvió Facebook aunque el URL dijera Instagram. Cambia la plataforma con el selector de la pantalla, confirma que dice Instagram y vuelve a correr el extractor.</span>';
+    return;
+  }
+  if(s.red==='facebook' && j.guard_IG && !j.guard_FBonly){
+    out.innerHTML='<span class="bad">Esto parece venir de Instagram, no de Facebook. Revisa el selector de plataforma.</span>';
+    return;
+  }
+
+  const campos={}, usados=[];
+  Object.entries(j.m).forEach(([lb,v])=>{
+    const n=norm(lb);
+    for(const [k,pats] of Object.entries(MAPA)){
+      if(campos[k]) continue;
+      if(s.red==='instagram' && SOLO_FB.includes(k)) continue;
+      if(s.red==='facebook' && k==='alcance') continue;
+      if(pats.some(p=>p.test(n))){ campos[k]={v,lb}; usados.push(k); break; }
+    }
+  });
+  if(!campos.visualizaciones){
+    out.innerHTML='<span class="bad">No encontré visualizaciones. Asegúrate de estar en Estadísticas → Resumen con el rango en 28 días y las gráficas ya cargadas.</span>';
+    return;
+  }
+  const d={}, u={}, p={};
+  Object.entries(campos).forEach(([k,o])=>{ d[k]=o.v.tot; u[k]=o.v.l7; p[k]=o.v.p7; });
+  d.ultimos_7=u; d.previos_7=p;
+  if(campos.visualizaciones.v.serie) d.diario_visualizaciones=campos.visualizaciones.v.serie;
+  LEIDO[s.c.id+'|'+s.red]=d;
+
+  let h='<span class="ok">Leído ✓</span>  <span class="k">'+(j.days||(d.diario_visualizaciones||[]).length)+' días</span><br>';
+  h+=usados.map(k=>'<span class="k">'+k.replace(/_/g,' ')+':</span> <span class="v">'+F(d[k])+'</span>'
+     +' <span class="k">(7d '+F(u[k])+' vs '+F(p[k])+')</span>').join('<br>');
+  const faltan=Object.keys(MAPA).filter(k=>!(k in d) && !(s.red==='instagram'&&SOLO_FB.includes(k)) && !(s.red==='facebook'&&k==='alcance'));
+  if(faltan.length) h+='<br><span class="k">sin dato: '+faltan.join(', ')+'</span>';
+  out.innerHTML=h;
+}
+
+function construir(){
+  const desde=document.getElementById('desde').value, hasta=document.getElementById('hasta').value;
+  if(!desde||!hasta) return {err:'Faltan las fechas de la ventana.'};
+  const n=Object.keys(LEIDO).length;
+  if(!n) return {err:'Todavía no hay ninguna cuenta leída.'};
+  const datos={};
+  Object.entries(LEIDO).forEach(([k,v])=>{ const [id,red]=k.split('|'); (datos[id]=datos[id]||{})[red]=v; });
+  const dias=Math.round((new Date(hasta)-new Date(desde))/864e5)+1;
+  const snap={ capturado:new Date().toISOString().slice(0,10),
+    ventana:{desde,hasta,dias},
+    fuente:'Meta Business Suite · Estadísticas > Resumen (series diarias del DOM, no los redondeos de pantalla)',
+    datos };
+  const out=JSON.parse(JSON.stringify(BASE));
+  const iguales=out.snapshots.filter(s=>s.ventana.desde===desde&&s.ventana.hasta===hasta);
+  if(iguales.length) out.snapshots=out.snapshots.filter(s=>!(s.ventana.desde===desde&&s.ventana.hasta===hasta));
+  out.snapshots.push(snap);
+  out.snapshots.sort((a,b)=>a.ventana.hasta<b.ventana.hasta?-1:1);
+  return {json:JSON.stringify(out,null,2), n, dias, reemplazo:iguales.length>0, total:out.snapshots.length};
+}
+
+let ULTIMO=null;
+function generar(){
+  const r=construir(), m=document.getElementById('genmsg'), o=document.getElementById('out');
+  if(r.err){ m.innerHTML='<div class="alert stop" style="margin-top:13px">'+r.err+'</div>'; o.style.display='none'; return; }
+  ULTIMO=r.json;
+  let avisos='';
+  if(r.dias!==28) avisos+='<div class="alert warn" style="margin-top:13px">La ventana tiene '+r.dias+' días, no 28. Se guarda igual, pero no va a ser comparable con los snapshots viejos.</div>';
+  if(r.reemplazo) avisos+='<div class="alert warn" style="margin-top:13px">Ya había un snapshot con esta misma ventana. Este lo reemplaza.</div>';
+  m.innerHTML=avisos+'<div class="alert warn" style="margin-top:13px;background:#e9f6ef;border-color:#bfe3cf;border-left-color:#0a6b38;color:#134e2e">'
+    +'Listo: <b>'+r.n+'</b> cuenta(s) en esta semana, <b>'+r.total+'</b> snapshots en el histórico. '
+    +'Reemplaza <code>studio/public/data/redes-snapshot.json</code> con esto y publica.</div>';
+  o.textContent=r.json; o.style.display='block';
+}
+function bajar(){
+  if(!ULTIMO) generar();
+  if(!ULTIMO) return;
+  const b=new Blob([ULTIMO],{type:'application/json'}), a=document.createElement('a');
+  a.href=URL.createObjectURL(b); a.download='redes-snapshot.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+function copiarJSON(){
+  if(!ULTIMO) generar();
+  if(ULTIMO) navigator.clipboard.writeText(ULTIMO);
+}
+
+document.getElementById('desde').addEventListener('change',recalc);
+document.getElementById('hasta').addEventListener('change',recalc);
+
+fetch('data/redes-snapshot.json?v='+Date.now()).then(r=>r.json()).then(j=>{
+  BASE=j; fechas(); pintarSlots();
+  const u=j.snapshots[j.snapshots.length-1];
+  document.getElementById('foot').innerHTML=
+    'Último snapshot guardado: <b>'+u.ventana.desde+' → '+u.ventana.hasta+'</b> (capturado el '+u.capturado+'). '
+    +'Histórico: '+j.snapshots.length+' semana(s).<br>'
+    +'Esta página no guarda nada por su cuenta: genera el archivo y tú lo publicas. El histórico viejo nunca se borra — es lo que hace que las comparaciones sirvan.';
+}).catch(e=>{
+  document.getElementById('slots').innerHTML='<div class="alert stop">No se pudo cargar <code>data/redes-snapshot.json</code> — '+e.message+'</div>';
+});
+</script>
+</body>
+</html>

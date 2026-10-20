@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar PR · Explicadores — tipografía grande (3 direcciones)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  --disp:'Bebas Neue',Impact,sans-serif; --anton:'Anton',Impact,sans-serif;
+  --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--mono);padding:26px}
+.wrap{max-width:1600px;margin:0 auto}
+
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px}
+h1.pt{font-family:var(--disp);font-size:26px;letter-spacing:.4px}
+h1.pt .o{color:var(--orange)}
+.subt{color:#8fa0c6;font-size:13px;margin-top:5px;line-height:1.55}
+.subt b{color:#e7edfb}
+
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:13px 15px;
+  font-size:13px;color:#c9d6f5;margin:16px 0;line-height:1.6}
+.note b{color:var(--orange)}
+.note i{color:#9fb0d4}
+
+h2.sec{font-family:var(--disp);font-size:32px;letter-spacing:.5px;margin:44px 0 0;color:#fff;
+  display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+h2.sec .tag{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:#1a1206;background:var(--orange);border-radius:5px;padding:4px 9px}
+.secdesc{color:#9fb0d4;font-size:13px;line-height:1.65;margin:8px 0 4px;max-width:980px}
+.secdesc b{color:#e7edfb}
+.fontnote{display:inline-block;margin-top:8px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;color:#7fb0ff;border:1.5px solid rgba(28,123,255,.45);border-radius:6px;padding:4px 10px}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 2px}
+.allbtn{font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 15px;border-radius:9px;border:none;
+  cursor:pointer;background:var(--orange);color:#1a1206}
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:14px}
+.slot{display:flex;flex-direction:column;gap:9px;width:368px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-size:11px;color:#8fa0c6;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.cap .q{color:#1a1206;background:var(--orange);border-radius:4px;padding:2px 6px;margin-left:6px;
+  font-weight:700;letter-spacing:.08em}
+.dl{font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;border:1.5px solid rgba(28,123,255,.5);
+  background:transparent;color:#7fb0ff;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--blue);background:var(--blue);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ═══════════════ CAJA 4:5 (1080×1350) ═══════════════ */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:368px;aspect-ratio:4/5;border-radius:14px;background:var(--paper);color:var(--ink);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);border:1px solid #26375f}
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:7cqw 6.5cqw 6cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+.spacer{flex:1}
+
+/* dibujo: el mismo SVG de línea en las tres, cambia de tamaño y de papel */
+svg.art{width:100%;height:auto;display:block;overflow:visible;
+  stroke:var(--navy);stroke-width:2.1;fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+svg.art .wash{fill:var(--wash);stroke:none}
+svg.art .acc{stroke:var(--orange)}
+svg.art .thin{stroke-width:1.2;opacity:.55}
+svg.art .dash{stroke-dasharray:5 4;opacity:.7}
+
+.foot{display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw}
+.foot .site{font-family:var(--mono);font-weight:600;font-size:2.4cqw;letter-spacing:.06em;color:var(--navy2);
+  display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:11cqw;width:auto;display:block}
+
+/* ══════════════════════════════════════════════════════════════════
+   D1 · TITULAR QUE LLENA LA TARJETA
+   El blueprint se queda, pero el texto deja de ser un rótulo y pasa a
+   ser la imagen. Bebas a 17cqw con interlínea .84 — en Bebas hay que
+   apretar la interlínea o las mayúsculas abren un boquete entre renglones.
+   ══════════════════════════════════════════════════════════════════ */
+.d1 .kick{font-family:var(--mono);font-weight:700;font-size:2.3cqw;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--orange)}
+.d1 .big{font-family:var(--disp);font-size:17cqw;line-height:.84;letter-spacing:-.005em;color:var(--navy);
+  margin-top:2.6cqw;text-transform:uppercase}
+.d1 .big em{font-style:normal;color:var(--orange)}
+.d1 .rule{width:22cqw;height:1.1cqw;background:var(--orange);border-radius:1cqw;margin:4cqw 0 0}
+.d1 .artbox{margin-top:auto;display:flex;align-items:flex-end;gap:4cqw}
+.d1 .artbox svg{max-height:30cqw;flex:1}
+.d1 .sub{font-family:var(--mono);font-weight:500;font-size:2.7cqw;line-height:1.5;color:var(--navy2);
+  flex:0 0 38cqw;padding-bottom:1cqw}
+.d1 .stepno{position:absolute;z-index:3;top:6cqw;right:6.5cqw;font-family:var(--disp);font-size:11cqw;line-height:1;
+  color:transparent;-webkit-text-stroke:.4cqw rgba(10,40,130,.3)}
+.d1 .foot{margin-top:5cqw;padding-top:3.4cqw;border-top:.3cqw solid rgba(10,40,130,.16)}
+
+/* ══════════════════════════════════════════════════════════════════
+   D2 · CAMPO DE COLOR
+   Tarjetas de color plano que alternan navy / naranja / blanco. En el
+   feed cuadriculado la alternancia es lo que para el scroll, no el
+   tamaño. Anton: más ancha y pesada que Bebas, llena el renglón.
+   ══════════════════════════════════════════════════════════════════ */
+.d2{background:var(--navy)}
+.d2 .field{position:absolute;inset:0;z-index:0}
+.d2 .field::after{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:9cqw 9cqw}
+.d2 .numfield{position:absolute;z-index:1;right:-6cqw;bottom:-14cqw;font-family:var(--anton);font-size:68cqw;
+  line-height:.8;color:rgba(255,255,255,.1)}
+.d2 .kick{font-family:var(--mono);font-weight:800;font-size:2.3cqw;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--orange)}
+.d2 .big{font-family:var(--anton);font-size:13.4cqw;line-height:.92;letter-spacing:-.018em;color:#fff;
+  margin-top:3cqw;text-transform:uppercase}
+.d2 .big em{font-style:normal;color:var(--orange)}
+.d2 .artbox{margin-top:auto;display:flex;justify-content:center;padding:4cqw 0 2cqw}
+.d2 .artbox svg{max-height:34cqw;stroke:#fff;stroke-width:2.4}
+.d2 .artbox svg .wash{fill:rgba(255,255,255,.12)}
+.d2 .artbox svg .thin{stroke:rgba(255,255,255,.5)}
+.d2 .sub{font-family:var(--mono);font-weight:500;font-size:2.8cqw;line-height:1.5;color:#c3d2f3;max-width:80cqw}
+/* La portada es la única de cuatro renglones. A 13.4cqw los cuatro más el dibujo
+   suman más alto que la tarjeta y el logo se sale por abajo: esta baja de cuerpo. */
+.d2.lede .big{font-size:11.6cqw}
+.d2.lede .artbox svg{max-height:27cqw}
+.d2 .foot{margin-top:4.4cqw;padding-top:3.4cqw;border-top:.3cqw solid rgba(255,255,255,.22)}
+.d2 .foot .site{color:#fff}
+
+/* variante naranja */
+.d2.on-orange{background:var(--orange)}
+.d2.on-orange .field::after{background-image:linear-gradient(rgba(10,40,130,.1) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(10,40,130,.1) 1px,transparent 1px)}
+.d2.on-orange .numfield{color:rgba(10,40,130,.14)}
+.d2.on-orange .kick{color:var(--navy)}
+.d2.on-orange .big{color:var(--navy)}
+.d2.on-orange .big em{color:#fff}
+.d2.on-orange .artbox svg{stroke:var(--navy)}
+.d2.on-orange .artbox svg .wash{fill:rgba(10,40,130,.12)}
+.d2.on-orange .artbox svg .acc{stroke:#fff}
+.d2.on-orange .artbox svg .thin{stroke:rgba(10,40,130,.5)}
+.d2.on-orange .sub{color:#4a2c05}
+.d2.on-orange .foot{border-top-color:rgba(10,40,130,.28)}
+.d2.on-orange .foot .site{color:var(--navy)}
+.d2.on-orange .foot .site .d{background:var(--navy)}
+
+/* variante blanca */
+.d2.on-white{background:var(--paper)}
+.d2.on-white .field::after{background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px)}
+.d2.on-white .numfield{color:rgba(10,40,130,.08)}
+.d2.on-white .big{color:var(--navy)}
+.d2.on-white .artbox svg{stroke:var(--navy)}
+.d2.on-white .artbox svg .wash{fill:var(--wash)}
+.d2.on-white .artbox svg .thin{stroke:rgba(10,40,130,.5)}
+.d2.on-white .sub{color:var(--navy2)}
+.d2.on-white .foot{border-top-color:rgba(10,40,130,.16)}
+.d2.on-white .foot .site{color:var(--navy2)}
+
+/* ══════════════════════════════════════════════════════════════════
+   D3 · PALABRA GIGANTE
+   Una sola palabra, cortada por el borde, y el dibujo encima. El tamaño
+   va por tarjeta (--ws) porque una palabra de 3 letras y una de 5 no
+   pueden ir al mismo cuerpo o una se sale y la otra se queda chica.
+   ══════════════════════════════════════════════════════════════════ */
+.d3{background:var(--paper)}
+.d3 .word{position:absolute;z-index:1;left:-4cqw;top:40cqw;font-family:var(--anton);
+  font-size:var(--ws);line-height:.78;letter-spacing:-.03em;color:var(--wash);white-space:nowrap}
+.d3 .word.stroke{color:transparent;-webkit-text-stroke:.5cqw rgba(10,40,130,.22)}
+.d3 .artwrap{position:absolute;z-index:2;left:13cqw;right:13cqw;top:46cqw}
+.d3 .artwrap svg{max-height:36cqw}
+.d3 .kick{font-family:var(--mono);font-weight:800;font-size:2.3cqw;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--orange)}
+/* El titular tiene que competir con la palabra gigante o la tarjeta se lee como
+   una ilustración con pie de foto. A 13cqw dos renglones ocupan ~25cqw, así que
+   la palabra arranca en 40cqw y el dibujo en 46cqw: nada se pisa. */
+.d3 .ttl{font-family:var(--anton);font-size:13cqw;line-height:.92;letter-spacing:-.022em;color:var(--navy);
+  margin-top:2.6cqw;text-transform:uppercase;max-width:84cqw}
+.d3 .ttl em{font-style:normal;color:var(--orange)}
+.d3 .sub{font-family:var(--mono);font-weight:500;font-size:2.8cqw;line-height:1.5;color:var(--navy2);max-width:76cqw}
+.d3 .bottom{margin-top:auto;position:relative;z-index:5}
+.d3 .rule{width:22cqw;height:1.1cqw;background:var(--orange);border-radius:1cqw;margin:0 0 3.4cqw}
+.d3 .foot{margin-top:4cqw}
+.d3 .stepno{position:absolute;z-index:5;top:6.4cqw;right:6.5cqw;font-family:var(--anton);font-size:7cqw;
+  line-height:1;color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Explicadores <span class="o">·</span> tipografía grande — WindMar Puerto Rico</h1>
+    <div class="subt">Tres maneras de meterle <b>cuerpo tipográfico</b> al mismo explicador de la placa solar.
+      Mismo texto, mismo dibujo de línea, mismo 4:5 (1080×1350). Lo único que cambia es <b>cuánto pesa la letra y
+      sobre qué papel cae</b>.</div>
+  </header>
+
+  <div class="note">
+    <b>Por qué el blueprint anterior no paraba el scroll.</b> El titular iba a 9.4cqw — unos 100px en el export.
+    En el feed eso se lee como pie de foto, no como titular. Aquí el titular arranca en <b>13.4cqw</b> y llega a
+    <b>44cqw</b>. El dibujo no desaparece: baja de protagonista a acompañante, que es su sitio.
+    <br><br>
+    <i>El texto sigue saliendo literal de windmar-qcells-explainer.html. No reescribí nada — solo cambié el tamaño.</i>
+  </div>
+
+  <div id="out"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SITE='windmar.com';
+const LOGO_FC='wme/logos/wme-fc-stacked.png';
+const LOGO_W ='wme/logos/wme-white-orange-stacked.png';
+
+/* ═══════════ DIBUJOS · SVG a mano, viewBox 240×160 ═══════════ */
+const ART_CASA=`<svg class="art" viewBox="0 0 240 160">
+  <circle class="acc" cx="206" cy="32" r="13"/>
+  <path class="acc" d="M206 11 v-7 M206 60 v7 M185 32 h-7 M234 32 h-7 M191 17 l-5 -5 M226 52 l5 5 M221 17 l5 -5 M191 47 l-5 5"/>
+  <path class="wash" d="M40 92 L104 46 L168 92 L168 140 L40 140 Z"/>
+  <path d="M26 98 L104 42 L182 98"/>
+  <path d="M40 90 V140 H168 V90"/>
+  <path d="M92 140 V112 H118 V140"/>
+  <path class="thin" d="M54 106 h20 v16 h-20 Z"/>
+  <path class="wash" d="M112 54 L166 91 L157 104 L103 67 Z"/>
+  <path d="M112 54 L166 91 L157 104 L103 67 Z"/>
+  <path class="thin" d="M130 66 l-9 13 M148 78 l-9 13"/>
+  <path class="thin" d="M14 140 H226"/>
+</svg>`;
+
+const ART_SOL=`<svg class="art" viewBox="0 0 240 160">
+  <circle class="acc" cx="48" cy="38" r="17"/>
+  <path class="acc" d="M48 11 v-8 M48 73 v8 M21 38 h-8 M83 38 h-8 M29 19 l-6 -6 M67 57 l6 6 M67 19 l6 -6 M29 57 l-6 6"/>
+  <path class="wash" d="M92 128 L156 98 L222 112 L158 145 Z"/>
+  <path d="M92 128 L156 98 L222 112 L158 145 Z"/>
+  <path class="thin" d="M108 120 L174 137 M124 113 L190 128 M140 106 L206 120 M125 136 L189 105"/>
+  <path class="acc" d="M66 58 L108 96 M99 94 L108 96 L106 87"/>
+  <path class="acc" d="M86 48 L132 90 M123 88 L132 90 L130 81"/>
+  <path class="acc" d="M106 40 L152 84 M143 82 L152 84 L150 75"/>
+</svg>`;
+
+const ART_HOGAR=`<svg class="art" viewBox="0 0 240 160">
+  <rect class="wash" x="8" y="50" width="54" height="42" rx="4"/>
+  <rect x="8" y="50" width="54" height="42" rx="4"/>
+  <path class="thin" d="M26 50 V92 M44 50 V92 M8 71 H62"/>
+  <path d="M35 92 v16 M22 108 h26"/>
+  <path class="acc" d="M68 71 H90 M83 65 L90 71 L83 77"/>
+  <rect class="wash" x="94" y="44" width="36" height="54" rx="4"/>
+  <rect x="94" y="44" width="36" height="54" rx="4"/>
+  <path class="acc" d="M101 73 q6 -13 11 0 t11 0"/>
+  <path class="thin" d="M101 56 h22"/>
+  <path class="acc" d="M136 71 H158 M151 65 L158 71 L151 77"/>
+  <path class="wash" d="M170 82 L198 60 L226 82 L226 128 L170 128 Z"/>
+  <path d="M164 84 L198 56 L232 84"/>
+  <path d="M172 80 V128 H224 V80"/>
+  <path d="M190 128 V104 H206 V128"/>
+  <path class="thin" d="M158 140 H238"/>
+</svg>`;
+
+const ART_DURAR=`<svg class="art" viewBox="0 0 240 160">
+  <rect class="wash" x="24" y="16" width="86" height="56" rx="4"/>
+  <rect x="24" y="16" width="86" height="56" rx="4"/>
+  <path class="thin" d="M53 16 V72 M81 16 V72 M24 44 H110"/>
+  <path class="acc" d="M146 20 l30 12 v22 c0 18 -13 29 -30 36 c-17 -7 -30 -18 -30 -36 V32 Z"/>
+  <path class="acc" d="M134 50 l9 10 l20 -22"/>
+  <path d="M24 140 H216"/>
+  <path class="thin" d="M40 140 v7 M84 140 v7 M128 140 v7 M172 140 v7 M212 140 v7"/>
+  <path class="dash thin" d="M40 100 H212"/>
+  <path class="acc" d="M40 98 L212 110"/>
+  <circle class="acc" cx="40" cy="98" r="3.4"/><circle class="acc" cx="212" cy="110" r="3.4"/>
+</svg>`;
+
+/* ═══════════ CONTENIDO ═══════════
+   Los saltos de línea van escritos a mano. Si dejo que el navegador parta
+   solo, a 17cqw una palabra suelta se queda de viuda en el último renglón. */
+const CARDS=[
+  { id:'portada', step:0, word:'SOLAR', ws:'36cqw',
+    kick:'WindMar · Solar Puerto Rico',
+    big:'Cómo<br>funciona<br>una placa<br><em>solar</em>',
+    ttl:'Cómo funciona<br>una placa <em>solar</em>',
+    sub:'En 6 pasos, sin tecnicismos. Así pone el sol a trabajar por tu casa.',
+    art:ART_CASA, field:'navy' },
+
+  { id:'paso-01', step:1, word:'SOL', ws:'52cqw',
+    kick:'Paso 01 de 06',
+    big:'El sol<br>toca tu<br><em>placa</em>',
+    ttl:'El sol toca<br>tu <em>placa</em>',
+    sub:'La placa recibe la luz del sol durante todo el día.',
+    art:ART_SOL, field:'white' },
+
+  { id:'paso-03', step:3, word:'HOGAR', ws:'34cqw',
+    kick:'Paso 03 de 06',
+    big:'Lista para<br>mover tu<br><em>hogar</em>',
+    ttl:'Lista para<br>mover tu <em>hogar</em>',
+    sub:'Convierte la luz del sol en energía lista para tu casa.',
+    art:ART_HOGAR, field:'orange' },
+
+  { id:'paso-06', step:6, word:'AÑOS', ws:'42cqw',
+    kick:'Paso 06 de 06',
+    big:'Hecha<br>para durar<br><em>años</em>',
+    ttl:'Hecha para<br>durar <em>años</em>',
+    sub:'Rinde año tras año, casi sin perder fuerza con el tiempo.',
+    art:ART_DURAR, field:'navy' },
+];
+
+const DIRS=[
+  { key:'d1', cls:'d1', logo:LOGO_FC,
+    name:'D1 · Titular que llena la tarjeta',
+    tag:'el blueprint, pero gritando',
+    font:'Bebas Neue · 17cqw (≈184px en el export)',
+    desc:'El sistema que ya aprobaste —papel blanco, rejilla de plano, naranja de acento— pero el titular sube de 9.4cqw a <b>17cqw</b> y se come la mitad de arriba de la tarjeta. El dibujo se va abajo, en una franja junto al texto chico. <b>Es el cambio más seguro:</b> no rompe nada de lo publicado, solo deja de susurrar.' },
+
+  { key:'d2', cls:'d2', logo:LOGO_W,
+    name:'D2 · Campo de color',
+    tag:'la que para el scroll',
+    font:'Anton · 13.4cqw — más ancha y pesada que Bebas',
+    desc:'Color plano a sangre que <b>alterna navy, blanco y naranja</b> de tarjeta en tarjeta, con el número del paso gigantesco cortado por la esquina. En la cuadrícula del perfil lo que detiene el ojo no es el tamaño de la letra sino <b>el bloque de color</b> — esta es la única de las tres que se ve desde la vista de grilla. El dibujo pasa a línea blanca sobre el color.' },
+
+  { key:'d3', cls:'d3', logo:LOGO_FC,
+    name:'D3 · Palabra gigante',
+    tag:'la más de diseño',
+    font:'Anton · 34–52cqw (≈370 a 560px en el export)',
+    desc:'Una sola palabra —SOL, HOGAR, AÑOS— a <b>cuerpo enorme</b>, cortada por el borde izquierdo y en azul muy claro, con el dibujo montado encima. El titular de verdad va arriba en tamaño normal. La palabra no es decoración: es la que se lee a un metro de distancia en el feed. <b>Es la más de autor</b> y la que más se despega de lo que ya publicaste.' },
+];
+
+/* ═══════════ RENDER ═══════════ */
+/* El logo NO lo decide la dirección, lo decide el fondo de la tarjeta. D2 alterna
+   navy/blanco/naranja, así que si se fija por dirección el logo blanco cae sobre
+   la tarjeta blanca y desaparece. Blanco solo sobre navy y naranja. */
+function foot(dir,c){
+  const onLight = dir.key!=='d2' || c.field==='white';
+  const logo = onLight ? LOGO_FC : LOGO_W;
+  return `<div class="foot">
+    <div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+    <div class="logo"><img src="${logo}" alt="WindMar"></div>
+  </div>`;
+}
+
+function build(dir,c,i,n){
+  const no=String(c.step).padStart(2,'0');
+
+  if(dir.key==='d1'){
+    return `<div class="grid"></div>
+      ${c.step>0?`<div class="stepno">${no}</div>`:''}
+      <div class="content">
+        <div class="kick">${c.kick}</div>
+        <div class="big" contenteditable="true">${c.big}</div>
+        <div class="rule"></div>
+        <div class="artbox">
+          ${c.art}
+          <p class="sub" contenteditable="true">${c.sub}</p>
+        </div>
+        ${foot(dir,c)}
+      </div>`;
+  }
+
+  if(dir.key==='d2'){
+    return `<div class="field"></div>
+      ${c.step>0?`<div class="numfield">${no}</div>`:''}
+      <div class="content">
+        <div class="kick">${c.kick}</div>
+        <div class="big" contenteditable="true">${c.big}</div>
+        <div class="artbox">${c.art}</div>
+        <p class="sub" contenteditable="true">${c.sub}</p>
+        ${foot(dir,c)}
+      </div>`;
+  }
+
+  return `<div class="grid"></div>
+    <div class="word${c.step%2?' stroke':''}" style="--ws:${c.ws}">${c.word}</div>
+    <div class="artwrap">${c.art}</div>
+    ${c.step>0?`<div class="stepno">${no}</div>`:''}
+    <div class="content">
+      <div class="kick">${c.kick}</div>
+      <div class="ttl" contenteditable="true">${c.ttl}</div>
+      <div class="bottom">
+        <div class="rule"></div>
+        <p class="sub" contenteditable="true">${c.sub}</p>
+        ${foot(dir,c)}
+      </div>
+    </div>`;
+}
+
+const out=document.getElementById('out');
+const REG=[];
+
+DIRS.forEach(dir=>{
+  const h=document.createElement('h2'); h.className='sec';
+  h.innerHTML=`${dir.name} <span class="tag">${dir.tag}</span>`;
+  const d=document.createElement('div'); d.className='secdesc';
+  d.innerHTML=`${dir.desc}<br><span class="fontnote">${dir.font}</span>`;
+  const bar=document.createElement('div'); bar.className='bar';
+  bar.innerHTML=`<button class="allbtn" data-dir="${dir.key}">⬇︎ Descargar las 4 PNG</button>`;
+  const g=document.createElement('div'); g.className='gallery';
+  out.append(h,d,bar,g);
+
+  CARDS.forEach((c,i)=>{
+    const id=`pc-${dir.key}-${i}`;
+    const field = dir.key==='d2' ? ` on-${c.field}${c.step===0?' lede':''}` : '';
+    const slot=document.createElement('div'); slot.className='slot';
+    slot.innerHTML=`
+      <div class="caprow">
+        <span class="cap">${c.id} · ${i+1}/${CARDS.length}</span>
+        <button class="dl" data-id="${id}" data-name="windmar-solar-${dir.key}-${c.id}">⬇︎ PNG</button>
+      </div>
+      <div class="piece ${dir.cls}${field}" id="${id}">${build(dir,c,i,CARDS.length)}</div>`;
+    g.appendChild(slot);
+    REG.push({dir:dir.key,id,name:`windmar-solar-${dir.key}-${c.id}`});
+  });
+});
+
+/* ═══════════ EXPORT PNG 1080×1350 ═══════════ */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+async function exportNode(id,name){
+  const node=document.getElementById(id);
+  const css=await fontEmbedCSS();
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true};
+  let blob=null;
+  try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+  if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+  if(!blob) throw new Error('imagen vacía');
+  const a=document.createElement('a'); a.download=name+'.png';
+  a.href=URL.createObjectURL(blob); a.click();
+}
+
+document.body.addEventListener('click',async e=>{
+  const b=e.target.closest('.dl');
+  if(b){
+    b.disabled=true; const old=b.textContent; b.textContent='…';
+    try{ await exportNode(b.dataset.id,b.dataset.name); }catch(err){ alert('No se pudo exportar: '+err.message); }
+    b.disabled=false; b.textContent=old; return;
+  }
+  const all=e.target.closest('.allbtn');
+  if(all){
+    const list=REG.filter(r=>r.dir===all.dataset.dir);
+    all.disabled=true; const old=all.textContent;
+    for(let i=0;i<list.length;i++){
+      all.textContent=`Exportando ${i+1}/${list.length}…`;
+      try{ await exportNode(list[i].id,list[i].name); await new Promise(r=>setTimeout(r,350)); }catch(err){}
+    }
+    all.textContent=old; all.disabled=false;
+  }
+});
+</script>
+</body>
+</html>

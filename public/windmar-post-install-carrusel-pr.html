@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Post-instalación — Carrusel (blueprint PR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --wash:rgba(28,123,255,.14);
+  --orange:#f57c0a; --paper:#ffffff; --ink:#0a2882;
+  --grid:rgba(10,40,130,.08); --grid2:rgba(10,40,130,.045);
+  /* TIPOGRAFIA (decidido por Nicolle, 30-sep):
+       display / titulares .... Bebas Neue
+       head y cuerpo .......... Montserrat
+     Esto sustituye el "Anek Latin" que pide guia-estilo.html para el cuerpo.
+     Montserrat es ademas lo que ya usan los demas carruseles PR. */
+  --disp:'Bebas Neue',Impact,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--disp);padding:26px}
+.wrap{max-width:1120px;margin:0 auto}
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px;margin-bottom:8px}
+h1.pt{font-family:var(--disp);font-size:23px;letter-spacing:-.2px;font-weight:800}
+h1.pt .o{color:var(--orange)}
+.subt{color:#9db0d6;font-size:14px;margin-top:5px;font-family:var(--mono);line-height:1.5}
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:13px 15px;font-size:14px;color:#c9d6f5;margin:16px 0;line-height:1.55;font-family:var(--mono)}
+.note b{color:var(--orange)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.bar .allbtn{font-family:var(--mono);font-size:14px;font-weight:600;padding:10px 18px;border-radius:9px;border:none;cursor:pointer;background:var(--orange);color:#1a1206}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:12px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:14px;color:#9db0d6;text-transform:uppercase;letter-spacing:.05em;font-weight:500}
+.dl{font-family:var(--mono);font-size:14px;font-weight:600;padding:6px 13px;border-radius:7px;border:1.5px solid rgba(28,123,255,.5);background:transparent;color:#8fb8ff;cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--blue);background:var(--blue);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== TARJETA 4:5 (1080×1350) ===== */
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:392px;aspect-ratio:4/5;border-radius:14px;background:var(--paper);color:var(--ink);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);border:1px solid #26375f}
+.grid{position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size:9cqw 9cqw,9cqw 9cqw,2.25cqw 2.25cqw,2.25cqw 2.25cqw}
+.vign{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 42%),
+            radial-gradient(130% 80% at 50% 106%, rgba(10,40,130,.08) 0%, rgba(10,40,130,0) 52%)}
+/* las esquinas de registro (.reg) se quitaron por pedido de Nicolle */
+/* la placa sube al margen superior: abajo a la derecha chocaba con el logo del pie */
+.plate{position:absolute;z-index:3;top:3.4cqw;right:6cqw;font-family:var(--mono);font-size:1.9cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.5);text-transform:uppercase}
+
+/* numeral fantasma de fondo: da ritmo a las 4 laminas de paso sin usar pictogramas */
+/* a 62cqw el numeral se salia por la derecha y a .06 no se veia.
+   52cqw entra completo en la tarjeta y .12 ya se lee como marca de agua. */
+.ghost{position:absolute;z-index:2;right:5cqw;top:52cqw;font-family:var(--disp);font-weight:900;
+  font-size:52cqw;line-height:.8;color:rgba(10,40,130,.12);letter-spacing:-.04em;pointer-events:none}
+
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;padding:7.5cqw 7cqw 6.5cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+
+.kick{font-family:var(--mono);font-weight:500;font-size:2.35cqw;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--orange);display:flex;align-items:center;gap:2cqw}
+.kick::before{content:"";width:6cqw;height:.34cqw;background:var(--orange);flex:none}
+.h1{font-family:var(--disp);font-weight:900;font-size:9.4cqw;line-height:.95;letter-spacing:-.02em;
+  text-transform:uppercase;color:var(--navy);margin-top:3cqw}
+.h1 .o{color:var(--orange)}
+.h1.big{font-size:11cqw}
+.rule{width:15cqw;height:.65cqw;background:var(--orange);border-radius:1cqw;margin:3cqw 0 0}
+
+/* bajada de la portada y señal de deslizar (concepto 1 y 3) */
+.coversub{font-family:var(--mono);font-weight:500;font-size:2.9cqw;line-height:1.5;color:var(--navy2);margin-top:2.8cqw;max-width:78cqw}
+/* "Desliza" vive DENTRO del marco de foto, esquina inferior derecha — enfrente
+   del nametag. Fuera del marco chocaba con el logo del pie. */
+.swipe{position:absolute;right:2.6cqw;bottom:2.6cqw;z-index:3;font-family:var(--mono);font-weight:700;
+  font-size:2.3cqw;letter-spacing:.2em;text-transform:uppercase;color:#fff;
+  background:var(--orange);border-radius:100px;padding:1.4cqw 2.8cqw;
+  display:flex;align-items:center;gap:1.4cqw}
+.swipe::after{content:"";width:3.6cqw;height:.32cqw;background:#fff}
+
+/* ---- portada: marco de foto ---- */
+.photoframe{position:relative;flex:1;margin-top:5cqw;border:.5cqw solid var(--navy);border-radius:3cqw;overflow:hidden;background:#eef3ff}
+.ph{position:absolute;inset:0}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .drop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqw;
+  background:repeating-linear-gradient(45deg,#eef3ff,#eef3ff 16px,#e2ebff 16px,#e2ebff 32px);cursor:pointer;text-align:center;padding:8cqw}
+.ph .drop.drag{background:#dbe7ff}
+.ph .drop-ic{width:11cqw;height:11cqw;opacity:.55}
+.ph .drop-tx{font-family:var(--disp);font-weight:800;font-size:3.6cqw;color:var(--navy)}
+.ph .drop-sub{font-family:var(--mono);font-weight:500;font-size:2.5cqw;color:var(--navy2);opacity:.7;line-height:1.45}
+.nametag{position:absolute;left:0;bottom:0;z-index:2;background:var(--navy);color:#fff;font-family:var(--mono);
+  font-size:2.5cqw;letter-spacing:.06em;padding:1.8cqw 3.2cqw;border-top-right-radius:2.4cqw}
+.nametag b{font-family:var(--disp);font-weight:800}
+
+/* ---- lamina de paso ---- */
+.stepno{font-family:var(--mono);font-weight:600;font-size:2.6cqw;letter-spacing:.24em;color:var(--navy2);opacity:.7;margin-top:5cqw}
+.lead{font-family:var(--mono);font-weight:600;font-size:3cqw;line-height:1.45;color:var(--orange);margin-top:3cqw;max-width:74cqw}
+.stepcopy{font-family:var(--mono);font-weight:400;font-size:3.4cqw;line-height:1.55;color:var(--navy2);margin-top:3.6cqw;max-width:74cqw}
+/* ---- checklist (concepto 2: lo que revisamos) ---- */
+.checklist{list-style:none;margin-top:4cqw;display:flex;flex-direction:column;gap:2.6cqw}
+.checklist li{display:flex;align-items:center;gap:3.2cqw;font-family:var(--mono);font-weight:600;font-size:3.1cqw;
+  line-height:1.35;color:var(--navy);border:.28cqw solid rgba(10,40,130,.18);border-radius:2.2cqw;
+  padding:2.6cqw 3.2cqw;background:rgba(28,123,255,.03)}
+.checklist li .ck{flex:0 0 auto;width:6.4cqw;height:6.4cqw;border:.5cqw solid var(--orange);border-radius:1.4cqw;
+  display:flex;align-items:center;justify-content:center}
+.checklist li .ck svg{width:70%;height:70%}
+
+.rail{display:flex;gap:1.6cqw;margin-top:5cqw}
+.rail i{width:9cqw;height:.7cqw;border-radius:1cqw;background:rgba(10,40,130,.16)}
+.rail i.on{background:var(--orange)}
+
+/* ---- cierre ---- */
+.piece.v-cierre .content{align-items:flex-start}
+/* es la promesa de la campana, no un parrafo de relleno: va mas grande y con peso */
+/* .descr es la promesa de campana: grande y con peso.
+   .descr2 la sostiene, mas chica y en regular, para que no compitan. */
+.descr{font-family:var(--mono);font-weight:600;font-size:4cqw;line-height:1.45;color:var(--navy2);margin-top:4cqw;max-width:78cqw}
+.descr2{font-family:var(--mono);font-weight:400;font-size:3cqw;line-height:1.55;color:var(--navy2);opacity:.9;margin-top:2.6cqw;max-width:80cqw}
+.ctacontact{font-family:var(--disp);font-weight:800;font-size:4.4cqw;color:var(--navy);margin-top:5cqw;
+  display:flex;align-items:center;gap:2.2cqw}
+.ctacontact .d{width:2cqw;height:2cqw;border-radius:50%;background:var(--orange);flex:none}
+/* .ctaphone eliminado: el carrusel va sin numero de telefono */
+
+/* pie con logo */
+/* width:100% es obligatorio: el cierre pone align-items:flex-start en .content,
+   y sin esto el pie se encoge al ancho de su contenido y el logo se sale de sitio. */
+.foot{margin-top:auto;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw;padding-top:4cqw}
+.foot .site{font-family:var(--mono);font-size:2.4cqw;letter-spacing:.06em;color:var(--navy2);display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:12cqw;width:auto;display:block}
+/* cierre: logo solo, centrado y un poco mas grande */
+.foot.center{justify-content:center}
+.foot.center .logo img{height:16cqw}
+
+.spacer{flex:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Carrusel <span class="o">·</span> Post-instalación — WindMar Home (PR)</h1>
+    <div class="subt">Feed 4:5 (1080×1350) · estilo blueprint azul · 6 láminas · sin emojis · textos editables (clic) · foto arrastrable en la portada · export PNG.</div>
+  </header>
+  <div class="note"><b>Portada:</b> el marco de foto está vacío a propósito — arrastra ahí la foto de Anissa (o bórralo si la prefieres solo tipográfica). Todo el texto se edita haciendo clic.</div>
+  <div class="bar"><button class="allbtn" id="allbtn">Descargar las 6 PNG</button></div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SITE='windmar.com';
+/* sin telefono en esta pieza (decision de Nicolle): el cierre lleva solo windmar.com */
+/* WindMar HOME, no WindMar Energy: esta pieza es de la marca del hogar. */
+const LOGO='wme/logos/wmh-home-fc.png';
+const TOTALPASOS=4;
+
+const CARDS=[
+  { id:'portada', mode:'cover',
+    kick:'WindMar Home · Puerto Rico',
+    h1:'Ya instalamos.<br>¿Y ahora <span class="o">qué</span>?',
+    sub:'Después del último panel, empieza otra etapa.',
+    name:'Anissa Ortega · WindMar Home' },
+
+  { id:'revisamos', mode:'step', n:1,
+    kick:'Post-instalación',
+    h1:'Revisamos',
+    copy:'Un equipo de QA/QC revisa cada detalle de la instalación.',
+    /* Redaccion exacta de Nicolle. Solo se les pusieron los acentos a "codigo
+       electrico" (ella misma acentua "Instalacion" en el mismo mensaje).
+       No inventar items adicionales aqui. */
+    items:[
+      'Permiso de manufacturero',
+      'Instalación vaya acorde al código eléctrico' ] },
+
+  { id:'validamos', mode:'step', n:2,
+    kick:'Post-instalación',
+    h1:'Validamos',
+    copy:'Nada se somete a lo loco, todo se verifica antes del próximo paso.' },
+
+  { id:'sometemos', mode:'step', n:3,
+    kick:'Post-instalación',
+    h1:'Sometemos',
+    copy:'Se presenta el proyecto a LUMA con todo en orden.' },
+
+  { id:'permiso', mode:'step', n:4,
+    kick:'Post-instalación',
+    h1:'Permiso para <span class="o">operar</span>',
+    lead:'Instalado no es lo mismo que encendido.',
+    copy:'El momento en que el sistema empieza a producir.' },
+
+  { id:'cierre', mode:'cierre',
+    kick:'Evaluación gratis y sin compromiso',
+    h1:'Tu casa está ready,<br>solo <span class="o">faltas tú</span>',
+    /* Ambas lineas son de Nicolle, textuales. Solo se corrigio "comprometos".
+       La segunda va sin comas porque asi la escribio ella. */
+    descr:'Nos comprometemos a estar contigo paso a paso.',
+    descr2:'Nosotros nos encargamos de todo lo que viene antes durante y después de la instalación.' },
+];
+
+const CHK=`<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12 l5 6 L20 5" stroke="#f57c0a" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+const DROPIC=`<svg class="drop-ic" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <rect x="4" y="9" width="40" height="30" rx="4" stroke="#0a2882" stroke-width="2.4"/>
+  <circle cx="17" cy="20" r="4" stroke="#0a2882" stroke-width="2.4"/>
+  <path d="M6 33 l11-10 8 7 7-6 10 9" stroke="#0a2882" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+/* El logo va UNA sola vez en todo el carrusel, en la ultima lamina (decision de
+   Nicolle). Las demas laminas llevan solo windmar.com en el pie. En el cierre es
+   al reves: el logo solo y centrado, porque windmar.com ya sale grande en el CTA
+   y repetirlo imprimiria el mismo URL dos veces en la misma lamina. */
+function footHTML({site=true, logo=false, centered=false}={}){
+  return `<div class="foot${centered?' center':''}">
+    ${site ? `<div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>` : ''}
+    ${logo ? `<div class="logo"><img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous"></div>` : ''}
+  </div>`;
+}
+
+function railHTML(n){
+  let s='';
+  for(let k=1;k<=TOTALPASOS;k++) s+=`<i class="${k<=n?'on':''}"></i>`;
+  return `<div class="rail">${s}</div>`;
+}
+
+function bodyHTML(c){
+  if(c.mode==='cover'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <h2 class="h1 big" contenteditable="true">${c.h1}</h2>
+      <p class="coversub" contenteditable="true">${c.sub}</p>
+      <div class="rule"></div>
+      <div class="photoframe">
+        <div class="ph">
+          <div class="drop">
+            ${DROPIC}
+            <div class="drop-tx">Arrastra la foto aquí</div>
+            <div class="drop-sub">o haz clic para escoger</div>
+          </div>
+          <input type="file" accept="image/*" class="vin" hidden>
+        </div>
+        <div class="nametag"><b contenteditable="true">${c.name}</b></div>
+      </div>
+      ${footHTML()}`;
+  }
+  if(c.mode==='step'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <div class="stepno">PASO ${String(c.n).padStart(2,'0')} DE ${String(TOTALPASOS).padStart(2,'0')}</div>
+      <h2 class="h1 big" contenteditable="true">${c.h1}</h2>
+      <div class="rule"></div>
+      ${c.lead ? `<p class="lead" contenteditable="true">${c.lead}</p>` : ''}
+      <p class="stepcopy" contenteditable="true">${c.copy}</p>
+      ${c.items ? `<ul class="checklist">
+        ${c.items.map(t=>`<li><span class="ck">${CHK}</span><span contenteditable="true">${t}</span></li>`).join('')}
+      </ul>` : ''}
+      ${railHTML(c.n)}
+      <div class="spacer"></div>
+      ${footHTML()}`;
+  }
+  if(c.mode==='cierre'){
+    return `
+      <div class="kick">${c.kick}</div>
+      <div class="spacer"></div>
+      <h2 class="h1 big" contenteditable="true">${c.h1}</h2>
+      <p class="descr" contenteditable="true">${c.descr}</p>
+      <p class="descr2" contenteditable="true">${c.descr2}</p>
+      <div class="ctacontact"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+      <div class="spacer"></div>
+      ${footHTML({site:false, logo:true, centered:true})}`;
+  }
+  return '';
+}
+
+const gallery=document.getElementById('gallery');
+CARDS.forEach((c,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.id} · ${i+1}/${CARDS.length}</span>
+      <button class="dl" data-i="${i}">PNG</button>
+    </div>
+    <div class="piece v-${c.id}" id="pc-${i}">
+      <div class="grid"></div><div class="vign"></div>
+      ${c.mode==='step' ? `<div class="ghost">${String(c.n).padStart(2,'0')}</div>` : ''}
+      <div class="plate">WM-POST · ${i+1}/${CARDS.length}</div>
+      <div class="content">${bodyHTML(c)}</div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* colocar / reemplazar la foto de la portada */
+gallery.querySelectorAll('.ph').forEach(ph=>{
+  const setMedia=file=>{
+    if(!file || !file.type.startsWith('image/')) return;
+    const url=URL.createObjectURL(file);
+    ph.innerHTML=`<img src="${url}" alt="Anissa Ortega" crossorigin="anonymous"><input type="file" accept="image/*" class="vin" hidden>`;
+    rewire(ph);
+  };
+  const rewire=el=>{
+    const ni=el.querySelector('.vin');
+    if(ni) ni.addEventListener('change',e=>setMedia(e.target.files[0]));
+  };
+  rewire(ph);
+  ph.addEventListener('click',()=>{const v=ph.querySelector('.vin'); if(v) v.click();});
+  ph.addEventListener('dragover',e=>{e.preventDefault();const d=ph.querySelector('.drop');d&&d.classList.add('drag');});
+  ph.addEventListener('dragleave',()=>{const d=ph.querySelector('.drop');d&&d.classList.remove('drag');});
+  ph.addEventListener('drop',e=>{e.preventDefault();setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+async function exportOne(i){
+  const node=document.getElementById('pc-'+i);
+  const css=await fontEmbedCSS();
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#ffffff'};
+  let blob=null;
+  try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+  if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+  if(!blob) throw new Error('imagen vacía');
+  const a=document.createElement('a');
+  a.download=`windmar-post-install-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.png`;
+  a.href=URL.createObjectURL(blob); a.click();
+}
+
+gallery.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const i=btn.dataset.i; btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    try{ await exportOne(i); }catch(e){ alert('No se pudo exportar: '+e.message); }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+document.getElementById('allbtn').addEventListener('click',async()=>{
+  const btn=document.getElementById('allbtn'); btn.disabled=true; const old=btn.textContent;
+  for(let i=0;i<CARDS.length;i++){ btn.textContent=`Exportando ${i+1}/${CARDS.length}…`; try{ await exportOne(i); await new Promise(r=>setTimeout(r,350)); }catch(e){} }
+  btn.textContent=old; btn.disabled=false;
+});
+</script>
+</body>
+</html>

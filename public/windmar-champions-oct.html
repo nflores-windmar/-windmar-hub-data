@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Champions octubre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+/* ──────────────────────────────────────────────────────────────────────────
+   Artes de campeones, octubre 2026 — casa blueprint de WindMar: papel blanco
+   sobre cuadrícula azul, marcas de registro en las esquinas, Bebas gigante y
+   el naranja SOLO como acento. No es la tarjeta de septiembre rehecha: es el
+   mismo dato en el sistema visual de la marca.
+
+   Medido, no estimado: #FE9400 sobre papel blanco da 2.22:1, así que es
+   relleno, raya y plaquita — nunca letra. La letra naranja chica va en
+   #b85a00 (4.67:1) y la grande en #d86400 (3.66:1). La tinta oscura sobre
+   el naranja de marca da 7.71:1, por eso las plaquitas llevan texto oscuro.
+   ────────────────────────────────────────────────────────────────────────── */
+:root{
+  --navy:#0a2882; --navy2:#071e55; --ink:#1a52c7;
+  --naranja:#FE9400;        /* el sol del logo — relleno, nunca letra */
+  --naranja-tx:#b85a00;     /* letra naranja chica */
+  --naranja-hd:#d86400;     /* letra naranja grande */
+  --grid:rgba(26,82,199,.07); --line:rgba(26,82,199,.32); --line-soft:rgba(26,82,199,.16);
+  --papel:#fff; --fondo:#e9eef7; --muted:#5a6b8c;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1130;color:#e8eefc;font-family:var(--body);padding:28px 20px 80px}
+
+/* ── cromo de la página (nunca sale en el PNG) ──────────────────────────── */
+.page-hd{max-width:1180px;margin:0 auto 24px;text-align:center}
+.page-hd .k{font-size:11px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#ffa52b}
+.page-hd h1{font-family:var(--disp);font-weight:400;font-size:52px;line-height:1;margin-top:8px;color:#fff;letter-spacing:.01em}
+.page-hd p{font-size:14.5px;color:#9db0d6;margin-top:11px;line-height:1.65;max-width:740px;margin-inline:auto}
+.aviso{max-width:1180px;margin:0 auto 30px;background:#2a1c08;border:1px solid #6b4a12;
+  border-radius:8px;padding:16px 18px}
+/* la raya naranja va DEBAJO del título, no de barra lateral: el aviso se
+   distingue por lo que dice, no por un tabulador de color al costado */
+.aviso h2{font-size:15px;font-weight:800;color:#ffcf8a;padding-bottom:9px;
+  border-bottom:1px solid rgba(255,165,43,.4)}
+.aviso ul{margin:9px 0 0 18px;font-size:14px;line-height:1.75;color:#e4d6bd}
+.aviso b{color:#fff}
+
+.grid-cards{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:34px}
+@media(max-width:860px){.grid-cards{grid-template-columns:1fr}}
+.card-wrap.wide{grid-column:1/-1;max-width:560px;margin-inline:auto}
+.card-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.card-hd .num{font-family:var(--disp);font-size:25px;color:#ffa52b;line-height:1}
+.card-hd .who{font-weight:800;font-size:15.5px;color:#fff}
+.card-hd .sp{flex:1}
+.card-hd button{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;padding:7px 11px;border:1px solid #39508f;border-radius:4px;
+  background:#16204a;color:#cdd9f3;cursor:pointer}
+.card-hd button:hover{border-color:#ffa52b;color:#ffd9a3}
+.card-hd button.prim{background:#ffa52b;border-color:#ffa52b;color:#2b1700}
+
+.shell{width:100%;aspect-ratio:1080/1350;position:relative;overflow:hidden;border-radius:8px;
+  box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.scaler{position:absolute;top:0;left:0;transform-origin:top left}
+
+/* ── el arte ────────────────────────────────────────────────────────────── */
+.stage{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--fondo);
+  font-family:var(--body);color:var(--navy)}
+.stage::before{content:"";position:absolute;inset:0;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px}
+
+.paper{position:absolute;inset:34px;background:var(--papel);border:1px solid var(--line);
+  padding:44px 46px 40px;display:flex;flex-direction:column;overflow:hidden}
+/* marcas de registro: el guiño de plano técnico de la casa */
+.tick{position:absolute;width:20px;height:20px;border:2px solid var(--naranja)}
+.tick.tl{top:14px;left:14px;border-right:0;border-bottom:0}
+.tick.tr{top:14px;right:14px;border-left:0;border-bottom:0}
+.tick.bl{bottom:14px;left:14px;border-right:0;border-top:0}
+.tick.br{bottom:14px;right:14px;border-left:0;border-top:0}
+
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.logo{height:56px;width:auto;display:block;flex:0 0 auto}
+.fecha{font-family:var(--mono);font-size:15px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--naranja-tx);text-align:right;line-height:1.5;padding-top:4px}
+.hair{height:1px;background:var(--line-soft);margin:22px 0 0}
+
+.rol{font-family:var(--mono);font-size:15.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--naranja-tx);margin-top:26px}
+
+/* Bebas es de un solo peso: va en 400. Pedirle 800 solo dispara la negrita
+   sintética del navegador y la ensucia. Tracking positivo, nunca negativo. */
+.nombre{font-family:var(--disp);font-weight:400;line-height:.85;margin-top:12px;
+  letter-spacing:.015em;text-transform:uppercase}
+.nombre .n1{display:block;font-size:124px;color:var(--navy)}
+.nombre .n2{display:block;font-size:124px;color:var(--naranja-hd)}
+
+/* margin-top:auto empuja la cifra al pie del papel: el nombre manda arriba y
+   el número abajo, que es como se lee un plano — y de paso mata el hueco
+   muerto que quedaba en el medio. */
+.dato{display:flex;align-items:flex-end;gap:26px;margin-top:auto}
+.dato .cifra{font-family:var(--disp);font-weight:400;font-size:268px;line-height:.72;
+  color:var(--navy);letter-spacing:.005em}
+.dato .und{padding-bottom:16px}
+.dato .und b{display:block;font-family:var(--body);font-weight:800;font-size:34px;
+  letter-spacing:-.4px;color:var(--navy);text-transform:uppercase;line-height:1}
+.dato .und i{display:block;font-style:normal;font-family:var(--mono);font-size:14px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.raya{height:9px;background:var(--naranja);width:188px;margin-top:16px}
+
+/* el «solo» del tablero: va como anotación de plano, no como otro número
+   grande — sumarlo al principal es lo que lo convertiría en puntos */
+.nota{display:flex;align-items:center;gap:13px;margin-top:26px;flex-wrap:wrap}
+.nota .plq{font-family:var(--mono);font-size:13.5px;letter-spacing:.13em;text-transform:uppercase;
+  background:var(--naranja);color:#2b1700;padding:6px 12px;font-weight:500}
+.nota .tx{font-size:19px;font-weight:600;color:var(--navy)}
+
+.pie{margin-top:30px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+  border-top:1px solid var(--line-soft);padding-top:16px}
+.stage.juntos .pie{margin-top:auto}
+.pie .anno{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pie .cnt{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--muted)}
+
+/* ── foto ───────────────────────────────────────────────────────────────── */
+.foto{position:absolute;right:0;bottom:0;width:560px;height:760px;cursor:pointer;z-index:2}
+.foto img{position:absolute;right:0;bottom:0;width:100%;height:100%;object-fit:contain;
+  object-position:bottom right;display:none;filter:grayscale(1) contrast(1.06)}
+.foto.has img{display:block}
+.foto .ph{position:absolute;right:26px;bottom:26px;width:270px;border:2px dashed var(--line);
+  background:rgba(233,238,247,.75);padding:22px 20px;text-align:center}
+.foto .ph b{display:block;font-size:18px;font-weight:800;color:var(--navy)}
+.foto .ph i{display:block;font-style:normal;font-family:var(--mono);font-size:12.5px;
+  line-height:1.6;color:var(--muted);margin-top:7px}
+.foto.has .ph{display:none}
+/* el texto manda sobre la foto: la columna izquierda nunca queda tapada */
+.paper > *{position:relative;z-index:3}
+
+input[type=file]{display:none}
+
+/* ── tarjeta de los seis juntos ─────────────────────────────────────────── */
+.stage.juntos .nombre{margin-top:6px}
+.juntos .ttl{font-family:var(--disp);font-weight:400;font-size:96px;line-height:.88;
+  color:var(--navy);letter-spacing:.015em;text-transform:uppercase;margin-top:16px}
+.juntos .ttl em{font-style:normal;color:var(--naranja-hd)}
+.juntos .bloque{margin-top:30px}
+.juntos .bloque h3{font-family:var(--mono);font-size:15px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--naranja-tx);border-bottom:1px solid var(--line-soft);padding-bottom:10px}
+.juntos .row{display:flex;align-items:center;gap:18px;padding:17px 0;border-bottom:1px solid var(--line-soft)}
+.juntos .row:last-child{border-bottom:0}
+.juntos .pos{font-family:var(--mono);font-size:14px;color:var(--muted);width:26px;flex:0 0 auto}
+.juntos .av{width:74px;height:74px;flex:0 0 auto;overflow:hidden;border:2px solid var(--naranja);
+  background:var(--fondo);cursor:pointer;position:relative}
+.juntos .av img{width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:none;filter:grayscale(1) contrast(1.06)}
+.juntos .av.has img{display:block}
+.juntos .av span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);
+  font-size:32px;color:var(--muted)}
+.juntos .av.has span{display:none}
+.juntos .nm{flex:1;font-family:var(--disp);font-weight:400;font-size:44px;line-height:1;
+  color:var(--navy);letter-spacing:.015em;text-transform:uppercase}
+.juntos .vl{text-align:right;flex:0 0 auto}
+.juntos .vl b{display:block;font-family:var(--disp);font-weight:400;font-size:52px;line-height:.9;color:var(--navy)}
+.juntos .vl i{display:block;font-style:normal;font-family:var(--mono);font-size:12.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+</style>
+</head>
+<body>
+
+<div class="page-hd">
+  <div class="k">WindMar Solar + Roofing</div>
+  <h1>Champions · Octubre 2026</h1>
+  <p>Seis artes, una por persona, más una con los seis juntos. 1080×1350.
+     Haz clic en el recuadro punteado para subir el retrato — recorte sin fondo, PNG —
+     y «Descargar PNG» para bajar el arte. Todo el texto se edita haciendo clic encima.</p>
+</div>
+
+<div class="aviso">
+  <h2>Antes de publicar — tres cosas que no inventé</h2>
+  <ul>
+    <li><b>Tu tablero dice «GROSS · CANCELLED DEALS INCLUDED».</b> Las tarjetas de septiembre
+        hablaban de <b>Net Deals</b>. Si uno de estos se cancela, el arte queda mintiendo.
+        Dime si prefieres el número neto y lo cambio en un campo.</li>
+    <li><b>Puse cierres, no puntos</b>, como pidió Miguel — y eso cambia quién se ve más grande:
+        por puntos Aby va primera (13), por cierres Jorge va arriba (12 contra 7).
+        El «solo» va como anotación aparte, porque sumarlo es justo lo que lo vuelve puntos otra vez.</li>
+    <li><b>No hay revenue ni premio</b> en lo que me diste, así que no aparecen.
+        Las de septiembre decían «$272K revenue» y «$250 per deal» — eso no me lo invento.</li>
+  </ul>
+</div>
+
+<div class="grid-cards" id="cards"></div>
+<input type="file" id="file" accept="image/*">
+
+<script>
+/* Los datos salen TAL CUAL del tablero. Nombres completos tomados del Canva
+   que ya existe (JUAN G SEBASTIAN aparece así escrito allá). */
+const MES  = 'Octubre 2026';
+const CASA = 'WindMar Solar + Roofing';
+
+const CARDS = [
+  { id:'carlos',  n1:'CARLOS',  n2:'LUENGO',    rol:'Setter · Primer lugar',
+    cifra:'9',  und:'Citas', sub:'Sets · octubre', foto:'wme/carlos-luengo.png' },
+  { id:'miguel',  n1:'MIGUEL',  n2:'TORRES',    rol:'Setter · Segundo lugar',
+    cifra:'8',  und:'Citas', sub:'Sets · octubre', foto:null },
+  { id:'arianna', n1:'ARIANNA', n2:'JARAMILLO', rol:'Setter · Tercer lugar',
+    cifra:'4',  und:'Citas', sub:'Sets · octubre', foto:'wme/arianna-jaramillo.png' },
+  { id:'jorge',   n1:'JORGE',   n2:'BARRERA',   rol:'Closer · Más cierres del mes',
+    cifra:'12', und:'Cierres', sub:'Closed deals · octubre', foto:null },
+  { id:'aby',     n1:'ABY',     n2:'GONZALEZ',  rol:'Closer · Tablero de octubre',
+    cifra:'7',  und:'Cierres', sub:'Closed deals · octubre', solo:'6', foto:null },
+  { id:'juan',    n1:'JUAN G',  n2:'SEBASTIAN', rol:'Closer · Tablero de octubre',
+    cifra:'7',  und:'Cierres', sub:'Closed deals · octubre', solo:'4', foto:null }
+];
+
+const JUNTOS = {
+  setters:[ {nm:'Carlos Luengo',v:'9',u:'Citas',f:'wme/carlos-luengo.png'},
+            {nm:'Miguel Torres',v:'8',u:'Citas',f:null},
+            {nm:'Arianna Jaramillo',v:'4',u:'Citas',f:'wme/arianna-jaramillo.png'} ],
+  closers:[ {nm:'Jorge Barrera',v:'12',u:'Cierres',f:null},
+            {nm:'Aby Gonzalez',v:'7',u:'Cierres · 6 solo',f:null},
+            {nm:'Juan G Sebastian',v:'7',u:'Cierres · 4 solo',f:null} ]
+};
+
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ticks = `<span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>`;
+
+function stageHTML(c, i){
+  return `
+  <div class="stage">
+    <div class="paper">
+      ${ticks}
+      <div class="top">
+        <img class="logo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+        <div class="fecha" contenteditable>${esc(MES)}<br>${esc(CASA)}</div>
+      </div>
+      <div class="hair"></div>
+      <div class="rol" contenteditable>${esc(c.rol)}</div>
+      <div class="nombre">
+        <span class="n1" contenteditable>${esc(c.n1)}</span>
+        <span class="n2" contenteditable>${esc(c.n2)}</span>
+      </div>
+      <div class="dato">
+        <span class="cifra" contenteditable>${esc(c.cifra)}</span>
+        <span class="und"><b contenteditable>${esc(c.und)}</b><i contenteditable>${esc(c.sub)}</i></span>
+      </div>
+      <div class="raya"></div>
+      ${c.solo ? `<div class="nota">
+        <span class="plq">Además</span>
+        <span class="tx" contenteditable>${esc(c.solo)} cierres propios, sin cita previa</span>
+      </div>` : ''}
+      <div class="pie">
+        <span class="anno" contenteditable>Tablero de octubre · ${esc(CASA)}</span>
+        <span class="cnt">${String(i+1).padStart(2,'0')} / 06</span>
+      </div>
+    </div>
+    <div class="foto${c.foto?' has':''}" data-slot="${c.id}">
+      <img src="${c.foto||''}" alt="">
+      <div class="ph"><b>Clic para subir la foto</b><i>Recorte sin fondo, PNG.<br>Se acomoda sola abajo a la derecha.</i></div>
+    </div>
+  </div>`;
+}
+
+function juntosHTML(){
+  const row = (p,n) => `
+    <div class="row">
+      <span class="pos">${String(n+1).padStart(2,'0')}</span>
+      <div class="av${p.f?' has':''}" data-slot="j-${p.nm.replace(/\s/g,'-')}">
+        <img src="${p.f||''}" alt=""><span>${esc(p.nm[0])}</span>
+      </div>
+      <div class="nm" contenteditable>${esc(p.nm)}</div>
+      <div class="vl"><b contenteditable>${esc(p.v)}</b><i contenteditable>${esc(p.u)}</i></div>
+    </div>`;
+  return `
+  <div class="stage juntos">
+    <div class="paper">
+      ${ticks}
+      <div class="top">
+        <img class="logo" src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+        <div class="fecha" contenteditable>${esc(MES)}<br>${esc(CASA)}</div>
+      </div>
+      <div class="hair"></div>
+      <div class="ttl" contenteditable>LOS SEIS DE <em>OCTUBRE</em></div>
+      <div class="bloque">
+        <h3 contenteditable>Setters · citas puestas</h3>
+        ${JUNTOS.setters.map(row).join('')}
+      </div>
+      <div class="bloque">
+        <h3 contenteditable>Closers · cierres</h3>
+        ${JUNTOS.closers.map(row).join('')}
+      </div>
+      <div class="pie">
+        <span class="anno" contenteditable>Tablero de octubre · ${esc(CASA)}</span>
+        <span class="cnt">06 / 06</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ── montaje ─────────────────────────────────────────────────────────────── */
+const todos = [...CARDS.map((c,i) => ({id:c.id, who:`${c.n1} ${c.n2}`, html:stageHTML(c,i), wide:false})),
+               {id:'juntos', who:'Los seis juntos', html:juntosHTML(), wide:true}];
+
+document.getElementById('cards').innerHTML = todos.map((t,i) => `
+  <div class="card-wrap${t.wide?' wide':''}" data-card="${t.id}">
+    <div class="card-hd">
+      <span class="num">${String(i+1).padStart(2,'0')}</span>
+      <span class="who">${esc(t.who)}</span>
+      <span class="sp"></span>
+      <button data-act="dl" class="prim">Descargar PNG</button>
+    </div>
+    <div class="shell"><div class="scaler">${t.html}</div></div>
+  </div>`).join('');
+
+function rescale(){
+  document.querySelectorAll('.card-wrap').forEach(w => {
+    const shell = w.querySelector('.shell'), sc = w.querySelector('.scaler');
+    const k = shell.clientWidth / 1080;
+    sc.style.transform = `scale(${k})`;
+    sc.style.width = '1080px'; sc.style.height = '1350px';
+  });
+}
+window.addEventListener('resize', rescale); window.addEventListener('load', rescale); rescale();
+
+/* ── subir foto ──────────────────────────────────────────────────────────── */
+const file = document.getElementById('file');
+let destino = null;
+document.addEventListener('click', e => {
+  const slot = e.target.closest('[data-slot]');
+  if (slot){ destino = slot; file.value=''; file.click(); return; }
+  const b = e.target.closest('button[data-act="dl"]');
+  if (b) descargar(b.closest('.card-wrap'), b);
+});
+file.addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f || !destino) return;
+  const r = new FileReader();
+  r.onload = ev => { destino.querySelector('img').src = ev.target.result; destino.classList.add('has'); };
+  r.readAsDataURL(f);
+});
+
+/* ── descargar ───────────────────────────────────────────────────────────── */
+async function descargar(wrap, btn){
+  const t = btn.textContent; btn.textContent = 'Generando…'; btn.disabled = true;
+  const sc = wrap.querySelector('.scaler'), stage = wrap.querySelector('.stage');
+  // html2canvas no entiende el transform:scale del contenedor: hay que
+  // neutralizarlo para capturar el arte a tamaño real y que no salga borrosa.
+  const prev = sc.style.transform;
+  sc.style.transform = 'none';
+  stage.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable','false'));
+  try{
+    const canvas = await html2canvas(stage, {scale:1, backgroundColor:null, useCORS:true,
+      width:1080, height:1350, windowWidth:1080, windowHeight:1350, scrollX:0, scrollY:0});
+    const a = document.createElement('a');
+    a.download = 'windmar-champion-' + wrap.dataset.card + '-oct2026.png';
+    a.href = canvas.toDataURL('image/png'); a.click();
+  }catch(err){ alert('No se pudo generar el PNG: ' + err.message); }
+  sc.style.transform = prev;
+  stage.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable','true'));
+  btn.textContent = t; btn.disabled = false;
+}
+</script>
+
+</body>
+</html>

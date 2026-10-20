@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home — PROS Ranking (Canva import)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#050f2c; --navy2:#0a2882; --navy3:#071e55; --ink:#1a52c7;
+  --orange:#f57c0a; --gold:#ffb04d;
+  --grid:rgba(120,160,255,.10);
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050f2c;font-family:var(--body)}
+
+.piece{position:relative;overflow:hidden;container-type:inline-size;
+  width:1080px;height:1350px;background:var(--navy);color:#fff}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:5cqw 5cqw}
+.piece::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120cqw 70cqw at 82cqw -6cqw,rgba(245,124,10,.20),transparent 55%),
+             radial-gradient(120cqw 80cqw at 10cqw 108cqw,rgba(26,82,199,.34),transparent 60%)}
+.tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid rgba(120,160,255,.5);z-index:6}
+.tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+.ghost{position:absolute;z-index:1;font-family:var(--disp);color:rgba(120,160,255,.055);
+  letter-spacing:-.02em;line-height:.8;pointer-events:none;text-transform:uppercase;white-space:nowrap}
+.ghost.g1{top:2cqw;left:-3cqw;font-size:40cqw}
+.ghost.g2{bottom:1cqw;right:-4cqw;font-size:26cqw;color:rgba(245,124,10,.06)}
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:9cqw 7.5cqw}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:3cqw}
+.brand{display:flex;flex-direction:column;gap:1.4cqw}
+.wlogo{height:6.4cqw;width:auto;object-fit:contain}
+.eyebrow{font-family:var(--mono);font-size:2.5cqw;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.period{text-align:right;font-family:var(--mono);font-size:2.5cqw;letter-spacing:.14em;text-transform:uppercase;color:rgba(200,215,255,.72);line-height:1.5}
+.period b{display:block;color:#fff;font-family:var(--disp);font-size:5.2cqw;letter-spacing:.02em}
+.title{margin-top:5cqw}
+.title .k{font-family:var(--mono);font-size:2.8cqw;letter-spacing:.28em;text-transform:uppercase;color:var(--orange)}
+.title h2{font-family:var(--disp);text-transform:uppercase;line-height:.86;font-size:12.5cqw;letter-spacing:-.01em;margin-top:1.4cqw}
+.title h2 .o{color:var(--orange)}
+.metricline{margin-top:2.2cqw;display:inline-flex;align-items:center;gap:2cqw;
+  font-family:var(--mono);font-size:2.7cqw;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,215,255,.85)}
+.metricline .dot{width:1.6cqw;height:1.6cqw;border-radius:50%;background:var(--orange)}
+.list{margin-top:auto;display:flex;flex-direction:column;gap:2.6cqw}
+.row{position:relative;display:grid;grid-template-columns:15cqw 1fr auto;align-items:center;gap:3cqw;
+  padding:3.4cqw 4cqw;border-radius:3cqw;background:rgba(15,40,110,.42);border:1px solid rgba(120,160,255,.16)}
+.row .rank{font-family:var(--disp);font-size:12cqw;line-height:.8;color:rgba(150,185,255,.5);text-align:center}
+.row .who{display:flex;flex-direction:column;gap:.6cqw;min-width:0}
+.row .name{font-family:var(--disp);text-transform:uppercase;font-size:5.4cqw;line-height:.92;letter-spacing:.01em;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .tag{font-family:var(--mono);font-size:2.3cqw;letter-spacing:.16em;text-transform:uppercase;color:rgba(190,205,240,.7)}
+.row .num{font-family:var(--disp);font-size:9.5cqw;line-height:.8;color:#fff;text-align:right}
+.row .num small{display:block;font-family:var(--mono);font-size:2.1cqw;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(190,205,240,.72);margin-top:.4cqw}
+.row.top{background:linear-gradient(100deg,rgba(245,124,10,.22),rgba(245,124,10,.06) 60%,rgba(15,40,110,.42));
+  border-color:rgba(245,124,10,.6);box-shadow:0 6cqw 14cqw rgba(245,124,10,.14)}
+.row.top .rank{color:var(--orange)}
+.row.top .name{color:var(--gold)}
+.row.top .num{color:var(--orange)}
+.row.top .crown{position:absolute;top:-2.4cqw;left:2cqw;font-family:var(--mono);font-size:2.2cqw;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:#050f2c;background:var(--orange);padding:.9cqw 2.4cqw;border-radius:2cqw}
+.foot{margin-top:4cqw;display:flex;align-items:center;justify-content:space-between;gap:2cqw;
+  border-top:1px solid rgba(120,160,255,.2);padding-top:3cqw}
+.foot .fl{font-family:var(--mono);font-size:2.4cqw;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,215,255,.7)}
+.foot .hash{font-family:var(--disp);font-size:3.4cqw;letter-spacing:.04em;text-transform:uppercase;color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="piece" data-document-role="page" data-label="PROS Ranking · Florida">
+  <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+  <div class="ghost g1">PROS</div>
+  <div class="ghost g2">WINDMAR</div>
+  <div class="content">
+    <div class="head">
+      <div class="brand">
+        <img class="wlogo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+        <div class="eyebrow">Ranking del mes</div>
+      </div>
+      <div class="period">
+        Florida
+        <b>JULIO 2026</b>
+      </div>
+    </div>
+    <div class="title">
+      <div class="k">Reconocimiento PROS</div>
+      <h2>TOP <span class="o">INSTALADORES</span></h2>
+      <div class="metricline"><span class="dot"></span>Installed Deals · Florida</div>
+    </div>
+    <div class="list">
+      <div class="row top">
+        <div class="crown">Nº 1</div>
+        <div class="rank">1</div>
+        <div class="who"><div class="name">Juan S. Muñoz</div><div class="tag">Equipo Florida</div></div>
+        <div class="num">36<small>Installed</small></div>
+      </div>
+      <div class="row">
+        <div class="rank">2</div>
+        <div class="who"><div class="name">Nombre Apellido</div><div class="tag">Equipo Florida</div></div>
+        <div class="num">29<small>Installed</small></div>
+      </div>
+      <div class="row">
+        <div class="rank">3</div>
+        <div class="who"><div class="name">Nombre Apellido</div><div class="tag">Equipo Florida</div></div>
+        <div class="num">24<small>Installed</small></div>
+      </div>
+      <div class="row">
+        <div class="rank">4</div>
+        <div class="who"><div class="name">Nombre Apellido</div><div class="tag">Equipo Florida</div></div>
+        <div class="num">21<small>Installed</small></div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="fl">WindMar Home · Florida</div>
+      <div class="hash">#WindMarPROS</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

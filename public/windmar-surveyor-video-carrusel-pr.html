@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · El Site Survey — Carrusel dinámico (video blueprint, PR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --blue:#1c7bff; --orange:#f57c0a;
+  --paper:#ffffff; --ink:#0a2882;
+  --disp:'Bebas Neue',system-ui,sans-serif; --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0b1533;color:#e7edfb;font-family:var(--disp);padding:26px}
+.wrap{max-width:640px;margin:0 auto}
+header.top{border-bottom:2px solid rgba(255,255,255,.12);padding-bottom:14px;margin-bottom:8px}
+h1.pt{font-size:23px;letter-spacing:-.2px;font-weight:800}
+h1.pt .o{color:var(--orange)}
+.subt{color:#8fa0c6;font-size:13px;margin-top:4px;font-family:var(--mono)}
+.note{background:#111c3d;border:1px solid rgba(28,123,255,.3);border-radius:10px;padding:12px 14px;font-size:13px;color:#c9d6f5;margin:16px 0;line-height:1.5;font-family:var(--mono)}
+.note b{color:var(--orange)}
+
+/* ===== escenario ===== */
+.stage{position:relative;margin:14px auto 0;width:min(440px,92vw)}
+.deck{position:relative;width:100%;aspect-ratio:4/5;border-radius:16px;overflow:hidden;
+  background:var(--paper);box-shadow:0 22px 60px rgba(0,0,0,.5);border:1px solid #26375f}
+
+.piece{position:absolute;inset:0;container-type:inline-size;opacity:0;visibility:hidden;
+  transition:opacity .45s ease;color:var(--ink)}
+.piece.active{opacity:1;visibility:visible}
+
+.bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#eef2fb}
+
+/* marco blueprint sobre el video */
+.reg{position:absolute;z-index:2;width:4cqw;height:4cqw;border:.42cqw solid rgba(10,40,130,.4)}
+.reg.tl{top:3.4cqw;left:3.4cqw;border-right:0;border-bottom:0}
+.reg.tr{top:3.4cqw;right:3.4cqw;border-left:0;border-bottom:0}
+.reg.bl{bottom:3.4cqw;left:3.4cqw;border-right:0;border-top:0}
+.reg.br{bottom:3.4cqw;right:3.4cqw;border-left:0;border-top:0}
+.plate{position:absolute;z-index:3;top:4.6cqw;right:6cqw;font-family:var(--mono);font-size:2cqw;
+  letter-spacing:.14em;color:rgba(10,40,130,.6);text-transform:uppercase}
+
+/* scrim inferior para legibilidad */
+.scrim{position:absolute;left:0;right:0;bottom:0;height:64%;z-index:3;pointer-events:none;
+  background:linear-gradient(to top, rgba(255,255,255,.98) 34%, rgba(255,255,255,.9) 55%, rgba(255,255,255,.45) 78%, rgba(255,255,255,0) 100%)}
+
+.content{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:flex-end;padding:8cqw 7.5cqw}
+.content [contenteditable]{outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(28,123,255,.5);border-radius:4px}
+
+.kick{position:absolute;top:8cqw;left:7.5cqw;z-index:5;font-family:var(--mono);font-weight:500;font-size:2.6cqw;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--orange);display:flex;align-items:center;gap:1.8cqw;
+  background:rgba(255,255,255,.82);padding:1.6cqw 2.6cqw;border-radius:2cqw;backdrop-filter:blur(2px)}
+.kick .num{background:var(--orange);color:#fff;border-radius:1.2cqw;padding:.3cqw 1.8cqw;font-weight:500}
+
+.h1{font-family:var(--disp);font-weight:900;font-size:9.5cqw;line-height:.95;letter-spacing:-.02em;color:var(--navy)}
+.h1.title{font-size:15cqw;text-transform:uppercase;line-height:.86}
+.rule{width:15cqw;height:.7cqw;background:var(--orange);border-radius:1cqw;margin:3.2cqw 0}
+.sub{font-family:var(--mono);font-weight:400;font-size:3cqw;line-height:1.5;color:var(--navy2);max-width:84cqw}
+.step-t{font-family:var(--disp);font-weight:900;font-size:9cqw;line-height:.95;color:var(--navy)}
+.step-d{font-family:var(--mono);font-weight:400;font-size:3cqw;line-height:1.5;color:var(--navy2);margin-top:2.6cqw;max-width:86cqw}
+
+.benefits{list-style:none;margin:1cqw 0 0;display:flex;flex-direction:column;gap:2.8cqw}
+.benefits li{font-family:var(--disp);font-weight:800;font-size:5.6cqw;color:var(--navy);display:flex;align-items:center;gap:2.8cqw}
+.benefits li::before{content:"";width:3cqw;height:3cqw;background:var(--orange);border-radius:50%;flex:none}
+.extra{margin-top:3cqw;position:relative;padding-left:5.8cqw;display:flex;flex-direction:column;gap:.8cqw}
+.extra::before{content:"";position:absolute;left:0;top:1.2cqw;width:3cqw;height:3cqw;background:var(--orange);border-radius:50%}
+.extra .et{font-family:var(--disp);font-weight:800;font-size:5.6cqw;line-height:1;color:var(--navy)}
+.extra .esub{font-family:var(--mono);font-weight:400;font-size:2.7cqw;line-height:1.4;color:var(--navy2);max-width:80cqw}
+
+.foot{margin-top:4cqw;display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw}
+.foot .site{font-family:var(--mono);font-size:2.7cqw;letter-spacing:.06em;color:var(--navy2);display:flex;align-items:center;gap:1.4cqw}
+.foot .site .d{width:1.6cqw;height:1.6cqw;border-radius:50%;background:var(--orange)}
+.foot .logo img{height:12cqw;width:auto;display:block}
+
+/* ===== controles ===== */
+.arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border-radius:50%;
+  border:none;cursor:pointer;background:rgba(10,40,130,.55);color:#fff;font-size:20px;line-height:1;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);transition:background .15s}
+.arrow:hover{background:var(--orange)}
+.arrow.prev{left:-10px} .arrow.next{right:-10px}
+@media(max-width:520px){.arrow.prev{left:6px}.arrow.next{right:6px}}
+
+.dots{display:flex;gap:9px;justify-content:center;margin:16px 0 4px}
+.dots button{width:9px;height:9px;border-radius:50%;border:none;background:#33456e;cursor:pointer;padding:0;transition:all .2s}
+.dots button.on{background:var(--orange);width:24px;border-radius:6px}
+
+.bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.bar button,.bar label{font-family:var(--mono);font-size:12px;font-weight:600;padding:9px 16px;border-radius:9px;border:1.5px solid #2c3a5c;color:#cdd6ea;background:transparent;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.bar .dlclip{border-color:rgba(28,123,255,.5);color:#7fb0ff}
+.bar .dlclip:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.bar .dlpng{border-color:rgba(245,124,10,.5);color:#f7a94f}
+.bar .dlpng:hover{background:var(--orange);color:#1a1206;border-color:var(--orange)}
+.bar .dlpdf{border-color:rgba(245,124,10,.9);color:#1a1206;background:var(--orange)}
+.bar .dlpdf:hover{background:#ff9327;border-color:#ff9327}
+.bar input{accent-color:var(--orange)}
+.counter{font-family:var(--mono);font-size:12px;color:#8fa0c6;text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1 class="pt">Carrusel dinámico <span class="o">·</span> El Site Survey — WindMar Solar (PR)</h1>
+    <div class="subt">Feed 4:5 · blueprint en movimiento · 6 slides con video · navega con flechas/puntos/teclado/swipe · textos editables.</div>
+  </header>
+  <div class="note"><b>Cómo usarlo:</b> cada slide reproduce su clip (la casa dibujándose de verdad). Usa las flechas, los puntos o ← → . Activa <b>Auto</b> para que avance solo al terminar cada clip (ideal para grabar la pantalla). Textos editables al hacer clic. <b>⬇︎ Descargar este slide</b> graba el video con el texto encima; <b>⬇︎ Descargar todos</b> los baja uno a uno.</div>
+
+  <div class="stage">
+    <button class="arrow prev" id="prev" aria-label="Anterior">‹</button>
+    <button class="arrow next" id="next" aria-label="Siguiente">›</button>
+    <div class="deck" id="deck"></div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+  <div class="counter" id="counter"></div>
+
+  <div class="bar">
+    <label><input type="checkbox" id="auto"> Auto-avance</label>
+    <button class="dlclip" id="dlclip">⬇︎ Video de este slide</button>
+    <button class="dlclip" id="dlall">⬇︎ Video de todos</button>
+    <button class="dlpng" id="dlpng">⬇︎ Imagen de este slide</button>
+    <button class="dlpng" id="dlpngall">⬇︎ Imágenes de todos</button>
+    <button class="dlpdf" id="dlpdf">⬇︎ Documento completo (PDF)</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+const SITE='windmar.com';
+const PHONE='787-395-7716';
+const LOGO='wme/logos/wme-fc-stacked.png';
+const CLIPS='surveyor-clips/';
+
+const CARDS=[
+  { id:'portada', mode:'cover', clip:'casa.mp4',
+    kick:'Site Survey · Visita técnica',
+    title:'El Site Survey',
+    sub:'La visita técnica que convierte tu proyecto de la adivinanza a datos reales. Antes de diseñar, conocemos tu casa a fondo.' },
+
+  { id:'techo', mode:'step', n:'01', clip:'base.mp4',
+    kick:'Mide el techo', t:'Mide el techo',
+    d:'Dimensiones, orientación e inclinación: el área real disponible para tus placas.' },
+
+  { id:'sol', mode:'step', n:'02', clip:'sol.mp4',
+    kick:'Estudia el sol', t:'Estudia el sol',
+    d:'Sombras de árboles y estructuras para saber tu producción real.' },
+
+  { id:'electrico', mode:'step', n:'03', clip:'electrico.mp4',
+    kick:'Revisa la conexión', t:'Revisa la conexión',
+    d:'Panel, capacidad y punto de amarre: cómo y dónde se conecta tu sistema.' },
+
+  { id:'documenta', mode:'step', n:'04', clip:'dimensiones.mp4',
+    kick:'As-Built de tu propiedad', t:'As-Built de tu propiedad',
+    d:'Un reporte completo de la conexión eléctrica de tu propiedad.' },
+
+  { id:'cierre', mode:'close', clip:'base-de-todo.mp4',
+    kick:'Por qué importa',
+    h1:'Tu proyecto en datos reales',
+    extra:{t:'Equipo propio de site survey', sub:'Invertimos en un equipo que te acompaña paso a paso.'},
+    cta:'Comienza tu proyecto solar' },
+];
+
+function footHTML(){
+  return `<div class="foot">
+    <div class="site"><span class="d"></span><span contenteditable="true">${SITE}</span></div>
+  </div>`;
+}
+function kickHTML(c){
+  const num=c.n?`<span class="num">${c.n}</span> `:'';
+  return `<div class="kick">${num}${c.kick}</div>`;
+}
+function bodyHTML(c){
+  if(c.mode==='cover'){
+    return `${kickHTML(c)}
+      <div class="content">
+        <h2 class="h1 title" contenteditable="true">${c.title}</h2>
+        <p class="sub" contenteditable="true">${c.sub}</p>
+      </div>`;
+  }
+  if(c.mode==='step'){
+    return `${kickHTML(c)}
+      <div class="content">
+        <h2 class="step-t" contenteditable="true">${c.t}</h2>
+        <p class="step-d" contenteditable="true">${c.d}</p>
+      </div>`;
+  }
+  if(c.mode==='close'){
+    return `${kickHTML(c)}
+      <div class="content" style="justify-content:space-between;padding-top:19cqw">
+        <div class="close-top">
+          <h2 class="h1" contenteditable="true">${c.h1}</h2>
+          <div class="rule"></div>
+        </div>
+        <div class="close-bot">
+          ${c.benefits?`<ul class="benefits">${c.benefits.map(b=>`<li contenteditable="true">${b}</li>`).join('')}</ul>`:''}
+          ${c.extra?`<div class="extra"><span class="et" contenteditable="true">${c.extra.t}</span><span class="esub" contenteditable="true">${c.extra.sub}</span></div>`:''}
+          <h3 class="step-t" style="font-size:5.6cqw;margin-top:3.6cqw" contenteditable="true">${c.cta}</h3>
+          ${footHTML()}
+        </div>
+      </div>`;
+  }
+  return '';
+}
+
+const deck=document.getElementById('deck');
+CARDS.forEach((c,i)=>{
+  const p=document.createElement('div');
+  p.className='piece'+(i===0?' active':'');
+  p.dataset.i=i;
+  p.innerHTML=`
+    <video class="bg" src="${CLIPS+c.clip}" muted playsinline preload="auto" loop></video>
+    
+    <div class="plate">WM-SURVEY · ${i+1}/${CARDS.length}</div>
+    <div class="scrim"></div>
+    ${bodyHTML(c)}`;
+  deck.appendChild(p);
+});
+
+const pieces=[...deck.querySelectorAll('.piece')];
+const vids=pieces.map(p=>p.querySelector('video'));
+const dotsBox=document.getElementById('dots');
+CARDS.forEach((c,i)=>{
+  const b=document.createElement('button'); if(i===0)b.className='on'; b.dataset.i=i;
+  b.addEventListener('click',()=>go(i)); dotsBox.appendChild(b);
+});
+const dots=[...dotsBox.children];
+const counter=document.getElementById('counter');
+const autoChk=document.getElementById('auto');
+
+let cur=0;
+function playCur(){
+  vids.forEach((v,i)=>{ if(i!==cur){ v.pause(); } });
+  const v=vids[cur];
+  v.loop=!autoChk.checked;
+  try{ v.currentTime=0; }catch(e){}
+  const pr=v.play(); if(pr&&pr.catch)pr.catch(()=>{});
+}
+function go(i){
+  cur=(i+CARDS.length)%CARDS.length;
+  pieces.forEach((p,k)=>p.classList.toggle('active',k===cur));
+  dots.forEach((d,k)=>d.classList.toggle('on',k===cur));
+  counter.textContent=`${CARDS[cur].id} · ${cur+1} / ${CARDS.length}`;
+  playCur();
+}
+document.getElementById('next').addEventListener('click',()=>go(cur+1));
+document.getElementById('prev').addEventListener('click',()=>go(cur-1));
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight')go(cur+1); if(e.key==='ArrowLeft')go(cur-1); });
+
+// auto-avance al terminar el clip
+vids.forEach((v,i)=>v.addEventListener('ended',()=>{ if(autoChk.checked && i===cur) go(cur+1); }));
+autoChk.addEventListener('change',playCur);
+
+// swipe
+let x0=null;
+deck.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+deck.addEventListener('touchend',e=>{ if(x0==null)return; const dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>40){ dx<0?go(cur+1):go(cur-1); } x0=null; });
+
+// ===== descarga compuesta: video de fondo + texto =====
+const EXPORT_W=1080, EXPORT_H=1350; // 4:5 igual que el deck
+let recording=false;
+
+function pickMime(){
+  const opts=['video/mp4;codecs=h264','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'];
+  for(const m of opts){ if(window.MediaRecorder && MediaRecorder.isTypeSupported(m)) return m; }
+  return '';
+}
+function drawCover(ctx,media,W,H){
+  const mw=media.videoWidth||media.naturalWidth, mh=media.videoHeight||media.naturalHeight;
+  if(!mw||!mh) return;
+  const s=Math.max(W/mw,H/mh), dw=mw*s, dh=mh*s;
+  ctx.drawImage(media,(W-dw)/2,(H-dh)/2,dw,dh);
+}
+async function rasterOverlay(piece){
+  const v=piece.querySelector('video');
+  const prevVis=v.style.visibility, prevBg=piece.style.background;
+  v.style.visibility='hidden'; piece.style.background='transparent';
+  const dataUrl=await htmlToImage.toPng(piece,{
+    width:piece.clientWidth, height:piece.clientHeight,
+    backgroundColor:'transparent', pixelRatio:2, cacheBust:true,
+    filter:(n)=> n!==v
+  });
+  v.style.visibility=prevVis; piece.style.background=prevBg;
+  const img=new Image(); img.src=dataUrl; await img.decode();
+  return img;
+}
+async function recordSlide(i){
+  if(!window.MediaRecorder) throw new Error('Tu navegador no permite grabar video. Usa Chrome de escritorio.');
+  const piece=pieces[i], v=vids[i];
+  go(i);
+  await new Promise(res=>{ v.readyState>=2?res():v.addEventListener('loadeddata',res,{once:true}); });
+  const overlay=await rasterOverlay(piece);
+  const canvas=document.createElement('canvas');
+  canvas.width=EXPORT_W; canvas.height=EXPORT_H;
+  const ctx=canvas.getContext('2d');
+  // primer frame antes de capturar el stream
+  ctx.fillStyle='#eef2fb'; ctx.fillRect(0,0,EXPORT_W,EXPORT_H);
+  const mime=pickMime();
+  const stream=canvas.captureStream(30);
+  let rec;
+  try{ rec=new MediaRecorder(stream, mime?{mimeType:mime,videoBitsPerSecond:6000000}:{}); }
+  catch(e){ rec=new MediaRecorder(stream); }
+  const chunks=[]; rec.ondataavailable=e=>{ if(e.data&&e.data.size)chunks.push(e.data); };
+  const done=new Promise(res=>rec.onstop=res);
+  v.loop=false; v.muted=true; try{v.currentTime=0;}catch(e){}
+  // arrancar el video y esperar a que realmente reproduzca
+  await v.play().catch(()=>{});
+  await new Promise(res=>{ if(!v.paused&&v.currentTime>0)return res(); v.addEventListener('playing',res,{once:true}); setTimeout(res,600); });
+  let raf; const render=()=>{
+    ctx.fillStyle='#eef2fb'; ctx.fillRect(0,0,EXPORT_W,EXPORT_H);
+    drawCover(ctx,v,EXPORT_W,EXPORT_H);
+    ctx.drawImage(overlay,0,0,EXPORT_W,EXPORT_H);
+    raf=requestAnimationFrame(render);
+  }; render();
+  rec.start(200); // timeslice: acumula datos aunque el stop llegue raro
+  const dur=(isFinite(v.duration)&&v.duration>0)?v.duration:6;
+  await new Promise(res=>{ let done2=false; const stop=()=>{ if(done2)return; done2=true; res(); };
+    v.addEventListener('ended',stop,{once:true}); setTimeout(stop,(dur+0.4)*1000); });
+  try{ rec.requestData(); }catch(e){}
+  cancelAnimationFrame(raf);
+  await new Promise(r=>setTimeout(r,120));
+  rec.stop(); await done;
+  if(!chunks.length) throw new Error('No se generó video (el navegador no pudo grabar el lienzo). Prueba en Chrome de escritorio.');
+  const ext=(mime||'').includes('mp4')?'mp4':'webm';
+  return { blob:new Blob(chunks,{type:mime||'video/webm'}), ext };
+}
+function saveBlob(blob,name){
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),4000);
+}
+
+document.getElementById('dlclip').addEventListener('click',async()=>{
+  if(recording)return; recording=true;
+  const btn=document.getElementById('dlclip'), orig=btn.textContent; btn.textContent='⏺ Grabando…';
+  try{ const i=cur; const {blob,ext}=await recordSlide(i);
+    saveBlob(blob,`windmar-surveyor-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.${ext}`);
+  }catch(e){ alert('No se pudo grabar: '+e.message); }
+  finally{ btn.textContent=orig; recording=false; go(cur); }
+});
+document.getElementById('dlall').addEventListener('click',async()=>{
+  if(recording)return; recording=true;
+  const btn=document.getElementById('dlall'), orig=btn.textContent;
+  try{ for(let i=0;i<CARDS.length;i++){
+      btn.textContent=`⏺ ${i+1}/${CARDS.length}…`;
+      const {blob,ext}=await recordSlide(i);
+      saveBlob(blob,`windmar-surveyor-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.${ext}`);
+      await new Promise(r=>setTimeout(r,600));
+    }
+  }catch(e){ alert('No se pudo grabar: '+e.message); }
+  finally{ btn.textContent=orig; recording=false; go(0); }
+});
+
+// ===== descarga en imagen fija (funciona en cualquier navegador) =====
+async function snapshotSlideCanvas(i){
+  const piece=pieces[i], v=vids[i];
+  go(i);
+  await new Promise(res=>{ v.readyState>=2?res():v.addEventListener('loadeddata',res,{once:true}); });
+  try{ await v.play(); }catch(e){}
+  await new Promise(r=>setTimeout(r,250)); // deja que pinte un frame
+  const overlay=await rasterOverlay(piece);
+  const canvas=document.createElement('canvas');
+  canvas.width=EXPORT_W; canvas.height=EXPORT_H;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#eef2fb'; ctx.fillRect(0,0,EXPORT_W,EXPORT_H);
+  drawCover(ctx,v,EXPORT_W,EXPORT_H);
+  ctx.drawImage(overlay,0,0,EXPORT_W,EXPORT_H);
+  return canvas;
+}
+async function snapshotSlide(i){
+  const canvas=await snapshotSlideCanvas(i);
+  return await new Promise(res=>canvas.toBlob(res,'image/png'));
+}
+document.getElementById('dlpng').addEventListener('click',async()=>{
+  if(recording)return; recording=true;
+  const btn=document.getElementById('dlpng'), orig=btn.textContent; btn.textContent='⏳ Generando…';
+  try{ const i=cur; const blob=await snapshotSlide(i);
+    saveBlob(blob,`windmar-surveyor-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.png`);
+  }catch(e){ alert('No se pudo generar la imagen: '+e.message); }
+  finally{ btn.textContent=orig; recording=false; go(cur); }
+});
+document.getElementById('dlpngall').addEventListener('click',async()=>{
+  if(recording)return; recording=true;
+  const btn=document.getElementById('dlpngall'), orig=btn.textContent;
+  try{ for(let i=0;i<CARDS.length;i++){
+      btn.textContent=`⏳ ${i+1}/${CARDS.length}…`;
+      const blob=await snapshotSlide(i);
+      saveBlob(blob,`windmar-surveyor-${String(i+1).padStart(2,'0')}-${CARDS[i].id}.png`);
+      await new Promise(r=>setTimeout(r,400));
+    }
+  }catch(e){ alert('No se pudo generar las imágenes: '+e.message); }
+  finally{ btn.textContent=orig; recording=false; go(0); }
+});
+
+// ===== documento completo en un solo PDF =====
+document.getElementById('dlpdf').addEventListener('click',async()=>{
+  if(recording)return;
+  const JsPDF=window.jspdf&&window.jspdf.jsPDF;
+  if(!JsPDF){ alert('No se pudo cargar el generador de PDF. Revisa tu conexión e intenta de nuevo.'); return; }
+  recording=true;
+  const btn=document.getElementById('dlpdf'), orig=btn.textContent;
+  try{
+    const pdf=new JsPDF({orientation:'portrait',unit:'px',format:[EXPORT_W,EXPORT_H]});
+    for(let i=0;i<CARDS.length;i++){
+      btn.textContent=`⏳ ${i+1}/${CARDS.length}…`;
+      const canvas=await snapshotSlideCanvas(i);
+      const data=canvas.toDataURL('image/jpeg',0.92);
+      if(i>0) pdf.addPage([EXPORT_W,EXPORT_H],'portrait');
+      pdf.addImage(data,'JPEG',0,0,EXPORT_W,EXPORT_H);
+    }
+    pdf.save('windmar-surveyor-carrusel.pdf');
+  }catch(e){ alert('No se pudo crear el PDF: '+e.message); }
+  finally{ btn.textContent=orig; recording=false; go(0); }
+});
+
+go(0);
+</script>
+</body>
+</html>
