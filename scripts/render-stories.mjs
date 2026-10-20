@@ -90,6 +90,27 @@ const versionAnterior = iCambiadas >= 0 ? args[iCambiadas + 1] : null;
 const soloEsta = iCambiadas >= 0 ? null : args[0] || null;
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * Pone el PNG transparente sobre el azul de fondo del generador, para poder
+ * mirarlo. Se hace con Pillow porque es lo que hay en las dos máquinas donde
+ * corre esto; si faltara, el aplanado se salta y no se cae la corrida.
+ */
+async function aplanar(origen, destino, fondo = "#0a1626") {
+  const py = `
+from PIL import Image
+f = Image.open(${JSON.stringify(origen)}).convert("RGBA")
+base = Image.new("RGBA", f.size, ${JSON.stringify(fondo)})
+Image.alpha_composite(base, f).convert("RGB").save(${JSON.stringify(destino)}, "PNG")
+`;
+  const { spawn } = await import("node:child_process");
+  await new Promise((res, rej) => {
+    const p = spawn("python3", ["-c", py]);
+    let err = "";
+    p.stderr.on("data", (d) => (err += d));
+    p.on("close", (c) => (c === 0 ? res() : rej(new Error(err.trim().split("\n").pop()))));
+  });
+}
+
 /** Ids del arreglo CARDS, en orden — el índice es el que usa cada botón. */
 async function idsDelArchivo() {
   const txt = await readFile(PAGINA, "utf8");
@@ -263,9 +284,20 @@ const main = async () => {
       }
 
       const destino = join(SALIDA, r.nombre);
-      await writeFile(destino, Buffer.from(r.base64, "base64"));
+      const bytes = Buffer.from(r.base64, "base64");
+      await writeFile(destino, bytes);
       hechas.push([id, r.nombre]);
       console.log(`  ✓ ${r.nombre}`);
+
+      // El overlay es transparente y su texto es blanco: abierto suelto sobre
+      // un fondo claro no se ve nada. Eso lo vuelve inútil para aprobar la
+      // pieza. Se guarda además una copia con el fondo de marca detrás, solo
+      // para mirarla. La que se usa sigue siendo la transparente.
+      if (r.nombre.includes("-overlay")) {
+        const vista = destino.replace("-overlay.png", "-vista.png");
+        await aplanar(destino, vista);
+        console.log(`  ✓ ${vista.split("/").pop()}  (para mirar)`);
+      }
     } catch (err) {
       fallidas.push([id, err.message]);
       console.log(`  ✗ ${id} — ${err.message}`);
