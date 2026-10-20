@@ -58,3 +58,7 @@ zoom1/
 public/**/*.mp4
 public/**/*.mov
 public/**/*.mp3
+
+# Artes dibujadas por scripts/render-stories.mjs. Se regeneran cuando haga
+# falta; no tiene sentido guardar cada versión en el historial.
+public/artes/
