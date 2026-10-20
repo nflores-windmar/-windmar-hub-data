@@ -1,0 +1,19 @@
+# Carpetas de trabajo que NO se sirven y no tienen por qué subir al deploy.
+#
+# `_entregas/` guarda los másters de video que se le entregan al cliente.
+# Vercel corta los archivos en 100 MB y ahí hay piezas de 200 MB, así que
+# sin esta línea el deploy falla entero con «File size limit exceeded».
+_entregas/
+
+# Material archivado a la espera de que la usuaria decida si se borra.
+_para-borrar/
+
+# Renders intermedios y pruebas sueltas.
+_render/
+zoom1/
+
+# NO BORRES ESTE ARCHIVO.
+# Mientras exista, Vercel lo usa a él y no consulta `.gitignore`. Eso es lo que
+# permite que el video del sitio esté excluido de git pero SÍ suba al deploy.
+# Si este archivo desaparece, Vercel leerá `.gitignore` y el sitio se quedará
+# sin los 671 MB de video.

@@ -42,3 +42,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Carpetas de trabajo local. No se sirven en el sitio.
+_entregas/
+_para-borrar/
+_render/
+zoom1/
+.impeccable/
+
+# Video y audio del sitio: 671 MB que no caben con comodidad en el repo.
+# IMPORTANTE: el deploy SIGUE subiéndolos porque existe `.vercelignore`, y
+# cuando ese archivo existe Vercel lo usa a él y NO consulta este. Si alguien
+# borra `.vercelignore`, Vercel empezará a leer estas líneas y el sitio se
+# quedará sin videos. No lo borres.
+public/**/*.mp4
+public/**/*.mov
+public/**/*.mp3

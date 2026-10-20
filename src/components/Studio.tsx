@@ -6,6 +6,7 @@ import {
   Slide,
   ImageState,
   carousels,
+  highlightTitle,
   CAROUSEL_PRODUCTS,
   defaultColors,
   defaultFonts,
@@ -151,15 +152,15 @@ async function shrinkDocImages(d: CarouselDoc): Promise<CarouselDoc> {
 }
 
 function readProductFromUrl(): string {
-  if (typeof window === "undefined") return "aug_solar";
+  if (typeof window === "undefined") return "sig_solar";
   const c = new URLSearchParams(window.location.search).get("c");
-  return c && carousels[c] ? c : "aug_solar";
+  return c && carousels[c] ? c : "sig_solar";
 }
 
 // Bump a product's suffix when its bundled template design changes, so an old
 // autosave (e.g. Batería saved before it got the Anker design system) is
 // bypassed and the new template loads fresh — without touching other products.
-const STORAGE_VERSION: Record<string, string> = { anker: "ds6", roofing: "ds4", solar: "ds3", flsolar: "v4", flsolar_en: "v4", flhome: "v2", flhome_en: "v2", flroofing: "v2", flroofing_en: "v2", flbateria: "v4", flbateria_en: "v4" };
+const STORAGE_VERSION: Record<string, string> = { sig_solar: "art1", anker: "ds6", roofing: "ds4", roofing_jul: "grid3", solar: "ds3", flsolar: "v4", flsolar_en: "v4", flhome: "v2", flhome_en: "v2", flroofing: "v2", flroofing_en: "v2", flbateria: "v4", flbateria_en: "v4", ff_solar: "v2", ff_roofing: "v3", ff_water: "v2", ff_bateria: "v4", ff_home: "v3", ff_empresa: "v2", aug_water: "journey2", st_sem1: "grid1" };
 function carouselStorageKey(product: string): string {
   const v = STORAGE_VERSION[product];
   return v
@@ -176,9 +177,32 @@ function carouselStorageKey(product: string): string {
 // without discarding the user's edits.
 function withTemplateTheme(p: string, saved: CarouselDoc): CarouselDoc {
   const tmpl = carousels[p];
-  return saved.theme === undefined && tmpl?.theme
-    ? { ...saved, theme: tmpl.theme }
-    : saved;
+  if (!tmpl) return saved;
+  // Non-destructively bring a saved design up to date with the bundled template,
+  // WITHOUT discarding the user's placed photos or edited text:
+  //  1) Merge in any diagram/chart art the template now defines for a slide but
+  //     the saved copy lacks (art added after the user's autosave) — keyed by
+  //     slide id, so photos/text stay put and art the user set is respected.
+  //  2) Blueprint Oscuro rollout: a design saved under an older look adopts the
+  //     template's theme + brand colors + accent headline "pop". Once themes
+  //     match we leave colors alone so the in-studio color pickers keep working.
+  const tmplById = new Map(tmpl.slides.map((s) => [s.id, s]));
+  const themed = !!tmpl.theme && saved.theme !== tmpl.theme;
+  return {
+    ...saved,
+    ...(themed ? { theme: tmpl.theme, colors: tmpl.colors } : {}),
+    slides: saved.slides.map((s) => {
+      const t = tmplById.get(s.id);
+      // Sync the art fields from the template (diagrams/charts/process lines are
+      // a template-level design decision, not user-authored — there's no UI to
+      // edit them). This keeps the deck's graphics current without touching the
+      // user's placed photos or edited text.
+      const withArt = t ? { ...s, art: t.art, artIndex: t.artIndex, artValue: t.artValue, artCaption: t.artCaption } : s;
+      return themed
+        ? { ...withArt, title: highlightTitle(withArt.title, tmpl.colors.accent) }
+        : withArt;
+    }),
+  };
 }
 
 async function loadDocFor(p: string): Promise<CarouselDoc> {
@@ -208,9 +232,9 @@ async function loadDocFor(p: string): Promise<CarouselDoc> {
 }
 
 export default function Studio() {
-  const [product, setProduct] = useState<string>("aug_solar");
+  const [product, setProduct] = useState<string>("sig_solar");
   const [doc, setDoc] = useState<CarouselDoc>(() =>
-    structuredClone(carousels.aug_solar)
+    structuredClone(carousels.sig_solar)
   );
   const [cur, setCur] = useState(0);
   const [tab, setTab] = useState<Tab>("img");
@@ -227,6 +251,10 @@ export default function Studio() {
   const [hideBrand, setHideBrand] = useState(true);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
   const fileInput = useRef<HTMLInputElement | null>(null);
+
+  // Canvas size for the active doc: carousels are 4:5 (default), Story docs 9:16.
+  const CW = doc.size?.w ?? SLIDE_W;
+  const CH = doc.size?.h ?? SLIDE_H;
 
   const slide = doc.slides[cur];
   const selImage: ImageState | null =
@@ -558,8 +586,8 @@ export default function Studio() {
     const move = (ev: PointerEvent) => {
       const d = dragRef.current;
       if (!d) return;
-      const dxPct = ((ev.clientX - d.sx) / PREVIEW_SCALE / SLIDE_W) * 100;
-      const dyPct = ((ev.clientY - d.sy) / PREVIEW_SCALE / SLIDE_H) * 100;
+      const dxPct = ((ev.clientX - d.sx) / PREVIEW_SCALE / CW) * 100;
+      const dyPct = ((ev.clientY - d.sy) / PREVIEW_SCALE / CH) * 100;
       patchLayer({
         posX: Math.min(100, Math.max(0, d.px + dxPct)),
         posY: Math.min(100, Math.max(0, d.py + dyPct)),
@@ -663,10 +691,20 @@ export default function Studio() {
             className="bg-white/5 border border-white/15 rounded-lg px-2.5 py-2 text-sm text-white/85 outline-none focus:border-[#7eb8f7]/60 cursor-pointer"
             title="Cambiar de producto"
           >
-            {CAROUSEL_PRODUCTS.map((p) => (
-              <option key={p.id} value={p.id} style={{ color: "#111" }}>
-                {p.label}
-              </option>
+            {Array.from(
+              CAROUSEL_PRODUCTS.reduce((groups, p) => {
+                const g = p.group ?? "Otros";
+                (groups.get(g) ?? groups.set(g, []).get(g)!).push(p);
+                return groups;
+              }, new Map<string, typeof CAROUSEL_PRODUCTS>())
+            ).map(([group, items]) => (
+              <optgroup key={group} label={group} style={{ color: "#111" }}>
+                {items.map((p) => (
+                  <option key={p.id} value={p.id} style={{ color: "#111" }}>
+                    {p.label}
+                  </option>
+                ))}
+              </optgroup>
             ))}
           </select>
           <button
@@ -712,8 +750,8 @@ export default function Studio() {
         {/* scaled stage */}
         <div
           style={{
-            width: SLIDE_W * PREVIEW_SCALE,
-            height: SLIDE_H * PREVIEW_SCALE,
+            width: CW * PREVIEW_SCALE,
+            height: CH * PREVIEW_SCALE,
             position: "relative",
             boxShadow: "0 30px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.06)",
             borderRadius: 20,
@@ -728,8 +766,8 @@ export default function Studio() {
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: SLIDE_W,
-                height: SLIDE_H,
+                width: CW,
+                height: CH,
                 transform: `scale(${PREVIEW_SCALE})`,
                 transformOrigin: "top left",
                 opacity: i === cur ? 1 : 0,
@@ -744,6 +782,7 @@ export default function Studio() {
                   fonts={doc.fonts}
                   brand={doc.brand}
                   theme={doc.theme}
+                  size={doc.size}
                   editing={editing && i === cur}
                   onEdit={(field, value) => patchSlide(i, { [field]: value })}
                   showBadge={!hideBrand}
@@ -762,8 +801,8 @@ export default function Studio() {
               title={`Slide ${i + 1}`}
               className="relative rounded-lg overflow-hidden transition shrink-0"
               style={{
-                width: SLIDE_W * 0.06,
-                height: SLIDE_H * 0.06,
+                width: CW * 0.06,
+                height: CH * 0.06,
                 outline: i === cur ? `2px solid ${doc.colors.accent}` : "1px solid rgba(255,255,255,0.12)",
                 outlineOffset: i === cur ? 1 : 0,
                 opacity: i === cur ? 1 : 0.55,
@@ -774,14 +813,14 @@ export default function Studio() {
                   position: "absolute",
                   top: 0,
                   left: 0,
-                  width: SLIDE_W,
-                  height: SLIDE_H,
+                  width: CW,
+                  height: CH,
                   transform: `scale(0.06)`,
                   transformOrigin: "top left",
                   pointerEvents: "none",
                 }}
               >
-                <CarouselSlide slide={s} colors={doc.colors} fonts={doc.fonts} brand={doc.brand} theme={doc.theme} editing={false} onEdit={() => {}} showBadge={!hideBrand} />
+                <CarouselSlide slide={s} colors={doc.colors} fonts={doc.fonts} brand={doc.brand} theme={doc.theme} size={doc.size} editing={false} onEdit={() => {}} showBadge={!hideBrand} />
               </div>
               <span className="absolute bottom-0 right-0 bg-black/60 text-white text-[8px] px-1 leading-tight rounded-tl">
                 {i + 1}

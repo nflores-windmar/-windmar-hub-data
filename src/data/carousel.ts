@@ -1,4 +1,4 @@
-export type SlideKind = "cover" | "content" | "cta";
+export type SlideKind = "cover" | "content" | "cta" | "funfact";
 
 export interface ImageState {
   src: string;
@@ -18,6 +18,10 @@ export interface Bullet {
 export interface Slide {
   id: string;
   kind: SlideKind;
+  // Optional per-slide brand override for the header (e.g. a weekly deck that
+  // mixes products shows "WindMar Water" on one slide, "WindMar Solar" on the
+  // next). Falls back to the document brand when unset.
+  brand?: string;
   eyebrow?: string;
   title: string;
   subtitle?: string;
@@ -43,6 +47,28 @@ export interface Slide {
   // Per-field color overrides, keyed by element: eyebrow, title, subtitle, body,
   // tag, cta, url, highlight, bullets, checks. Most specific wins.
   textColors?: Record<string, string>;
+  // Line-art / data-viz drawn on the slide, in the Blueprint Oscuro visual
+  // language from the style guide (thin structural lines + one accent "energy"
+  // highlight). "water-journey" is the continuous panoramic pipeline (uses
+  // `artIndex` for its segment). The rest are self-contained diagrams/charts the
+  // guide defines: energy-flow (SOL→PANEL→INVERSOR→BATERÍA→CASA), coverage-route
+  // (dashed island route), roof-scheme (techo + paneles + sol), roof-process
+  // (3 etapas: gastado→removido→sellado, la última en acento), bar-chart
+  // (barras, la última en acento), line-chart (curva con punto pico) and donut
+  // (anillo con arco de acento). Optional artValue/artCaption drive the labels.
+  art?:
+    | "water-journey"
+    | "roof-removal"
+    | "energy-flow"
+    | "coverage-route"
+    | "roof-scheme"
+    | "roof-process"
+    | "bar-chart"
+    | "line-chart"
+    | "donut";
+  artIndex?: number;
+  artValue?: string; // big number for charts, e.g. "-92%", "75%"
+  artCaption?: string; // small mono caption, e.g. "CADA AÑO ↑", "SAN JUAN→PONCE"
 }
 
 export interface BrandColors {
@@ -64,7 +90,10 @@ export interface CarouselDoc {
   colors: BrandColors;
   fonts: BrandFonts;
   slides: Slide[];
-  theme?: "blueprint";
+  theme?: "blueprint" | "grid" | "signature";
+  // Canvas size in px. Defaults to 1080×1350 (Instagram 4:5 carousel). Story
+  // docs set 1080×1920 (9:16) so the same renderer produces vertical Stories.
+  size?: { w: number; h: number };
 }
 
 export const defaultColors: BrandColors = {
@@ -180,7 +209,7 @@ export const waterCarousel: CarouselDoc = {
         "Instalación profesional en Puerto Rico",
         "Financiamiento disponible",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: { src: "/img/s6_landscape.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
     },
   ],
@@ -274,7 +303,7 @@ function productTemplate(opts: {
           "Instalación profesional en Puerto Rico",
           "Financiamiento disponible",
         ],
-        url: "windmarhome.com",
+        url: "windmar.com",
         image: null,
       },
     ],
@@ -362,7 +391,7 @@ export const solarCarousel: CarouselDoc = {
         "Servicio en todo Puerto Rico",
         "Financiamiento disponible",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -448,7 +477,7 @@ export const ankerCarousel: CarouselDoc = {
         "Servicio en todo Puerto Rico",
         "Garantía incluida",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -456,84 +485,88 @@ export const ankerCarousel: CarouselDoc = {
 
 // Roofing follows its Claude Design system: Montserrat type, WindMar logo navy
 // #0B38A8 + logo orange #F6921E, soft blue #93B6D8 and near-black ink #1C1D20.
+// Julio · Roofing Inspección — hook de inspección + los 3 elementos técnicos de
+// un techo bien hecho + CTA "Cuéntanos sobre tu techo". Estilo blanco con azul
+// WindMar (igual que los demás carruseles, sin el fondo azul del tema blueprint).
 export const roofingCarousel: CarouselDoc = {
-  name: "WindMar Roofing — Techos",
+  name: "Julio · Roofing Inspección",
   brand: "WindMar Roofing",
+  theme: "grid",
   colors: { headerBg: "#0b38a8", accent: "#93b6d8", orange: "#f6921e", bodyText: "#1c1d20", bullet: "#0b38a8" },
   fonts: { heading: "Montserrat", body: "Montserrat" },
   slides: [
     {
       id: "s1",
       kind: "cover",
-      title: "Un sellado\nque sí dura",
-      subtitle: "Empieza por hacerlo bien desde la base.",
-      body: "El secreto no es lo que se aplica encima, sino cómo se prepara el techo antes de sellarlo.",
-      tag: "sellado de techo",
+      title: "¿Cuándo\nrevisaste\ntu techo?",
+      subtitle: "La mayoría no lo piensa hasta que el daño ya está hecho.",
+      body: "Conocer el estado de tu techo a tiempo puede ahorrarte miles de dólares.",
+      tag: "inspección de techo",
       image: null,
     },
     {
       id: "s2",
       kind: "content",
-      eyebrow: "Lo que nos hace diferentes",
-      title: "Somos los únicos\nque removemos",
+      eyebrow: "El clima de Puerto Rico",
+      title: "Lo que el clima\nle hace a tu techo",
       bullets: [
-        { text: "La mayoría sella por encima de lo que ya está gastado" },
-        { text: "Nosotros lo retiramos primero, hasta la base" },
-        { text: "Un servicio que solo encuentras aquí" },
+        { text: "El calor extremo degrada los materiales" },
+        { text: "La lluvia encuentra cualquier grieta" },
+        { text: "Los huracanes lo ponen todo a prueba" },
       ],
-      highlight: "Remoción incluida — solo con WindMar",
+      highlight: "Pocos materiales aguantan sin el mantenimiento correcto",
       image: null,
     },
     {
       id: "s3",
       kind: "content",
-      eyebrow: "El servicio",
-      title: "¿Qué es\nuna remoción?",
-      bullets: [
-        { text: "Retiramos el sellado viejo y desgastado" },
-        { text: "Dejamos una superficie limpia y firme" },
+      eyebrow: "No todo trabajo es igual",
+      title: "Los 3 elementos\nde un techo bien hecho",
+      checks: [
+        "Material y sellado",
+        "Instalación sin fallas",
+        "Drenaje que sí funciona",
       ],
-      highlight: "Lista para un sellado nuevo de verdad",
+      highlight: "3 factores deciden si tu techo protege a largo plazo",
       image: null,
     },
     {
       id: "s4",
       kind: "content",
-      eyebrow: "Por qué importa",
-      title: "La base\nlo cambia todo",
+      eyebrow: "Elemento 1",
+      title: "Material\ny sellado",
       bullets: [
-        { text: "El sellado nuevo se adhiere mejor" },
-        { text: "Protege de verdad, no solo por encima" },
-        { text: "Un trabajo que dura años, no meses" },
+        { text: "El material correcto para PR no es el mismo que en otros lugares" },
+        { text: "Un buen sellado es la primera defensa contra la humedad" },
+        { text: "Menos filtraciones, más tranquilidad" },
       ],
-      highlight: "Tu techo queda como nuevo",
       image: null,
     },
     {
       id: "s5",
       kind: "content",
-      eyebrow: "Nuestro proceso",
-      title: "Así lo\nhacemos bien",
-      checks: [
-        "Evaluamos tu techo sin costo",
-        "Removemos el sellado anterior",
-        "Preparamos la superficie",
-        "Aplicamos el sistema nuevo",
+      eyebrow: "Elementos 2 y 3",
+      title: "Instalación\ny drenaje",
+      bullets: [
+        { text: "Una instalación sin puntos débiles no deja entrar el agua" },
+        { text: "Un buen drenaje maneja nuestra lluvia de la isla" },
+        { text: "Sin comprometer la estructura de tu hogar" },
       ],
+      highlight: "Así tu techo protege de verdad, por años",
       image: null,
     },
     {
       id: "s6",
       kind: "cta",
-      title: "¿Tu techo\nnecesita más?",
-      subtitle: "Una evaluación gratis, sin compromiso.",
-      cta: "Comenta ROOFING",
+      title: "Cuéntanos\nsobre tu techo",
+      subtitle: "Sin costo, sin compromiso.",
+      cta: "Escribe Roofing",
       checks: [
-        "Evaluación 100% gratis",
-        "Remoción incluida — solo con nosotros",
-        "Financiamiento disponible",
+        "Material que aguanta el clima de PR",
+        "Instalación sin puntos débiles",
+        "Drenaje que sí funciona",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -621,7 +654,7 @@ export const homeCarousel: CarouselDoc = {
         "Soluciones integrales en Puerto Rico",
         "Financiamiento disponible",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -810,8 +843,8 @@ export const flSolarCarousel: CarouselDoc = {
     {
       id: "s1",
       kind: "cover",
-      title: "La energía solar\nsigue siendo\nuna buena inversión.",
-      subtitle: "Cambió quién te acompaña y cómo se financia.",
+      title: "La energía solar\nno dejó de\nser rentable.",
+      subtitle: "Hoy, más que nunca, importa con quién la instalas.",
       tag: "hablemos claro",
       image: null,
     },
@@ -1513,7 +1546,7 @@ export const augSolarCarousel: CarouselDoc = {
         "Servicio en todo Puerto Rico",
         "Financiamiento comercial disponible",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -1546,6 +1579,8 @@ export const augRoofingCarousel: CarouselDoc = {
         { text: "Nosotros lo retiramos primero, hasta la base" },
         { text: "Un servicio que pocos ofrecen" },
       ],
+      art: "roof-removal",
+      artIndex: 0,
       highlight: "Remoción incluida — pocos la hacen",
       image: null,
     },
@@ -1558,6 +1593,8 @@ export const augRoofingCarousel: CarouselDoc = {
         { text: "Retiramos el sellado viejo y desgastado" },
         { text: "Dejamos una superficie limpia y firme" },
       ],
+      art: "roof-removal",
+      artIndex: 1,
       highlight: "Lista para un sellado nuevo de verdad",
       image: null,
     },
@@ -1571,6 +1608,8 @@ export const augRoofingCarousel: CarouselDoc = {
         { text: "Protege de verdad, no solo por encima" },
         { text: "Un trabajo que dura años, no meses" },
       ],
+      art: "roof-removal",
+      artIndex: 2,
       highlight: "Tu techo queda como nuevo",
       image: null,
     },
@@ -1584,6 +1623,8 @@ export const augRoofingCarousel: CarouselDoc = {
         { text: "Acabado parejo y bien sellado" },
         { text: "Tranquilidad en cada lluvia" },
       ],
+      art: "roof-removal",
+      artIndex: 3,
       highlight: "La diferencia se nota desde el primer aguacero",
       image: null,
     },
@@ -1598,6 +1639,8 @@ export const augRoofingCarousel: CarouselDoc = {
         "Preparamos la superficie",
         "Aplicamos el sistema nuevo",
       ],
+      art: "roof-removal",
+      artIndex: 4,
       image: null,
     },
     {
@@ -1611,7 +1654,7 @@ export const augRoofingCarousel: CarouselDoc = {
         "Remoción incluida — pocos la hacen",
         "Financiamiento disponible",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -1709,7 +1752,7 @@ export const augAnkerCarousel: CarouselDoc = {
         "Servicio en todo Puerto Rico",
         "Garantía incluida",
       ],
-      url: "windmarhome.com",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -1717,98 +1760,383 @@ export const augAnkerCarousel: CarouselDoc = {
 
 // Agosto · Water Negocios — water quality + businesses running low on water.
 export const augWaterCarousel: CarouselDoc = {
-  name: "Agosto · Water Negocios",
+  name: "Agua · Cómo llega a tu hogar",
   brand: "WindMar Water",
   theme: "blueprint",
+  size: { w: 1080, h: 1920 },
   colors: { ...defaultColors },
   fonts: { ...defaultFonts },
   slides: [
     {
       id: "s1",
+      kind: "content",
+      veil: 0,
+      eyebrow: "Paso 1 · Cisterna",
+      title: "Tu agua,\nguardada en casa",
+      body: "La cisterna almacena tu propia reserva, siempre lista.",
+      image: { src: "/agua/paso-1.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+    {
+      id: "s2",
+      kind: "content",
+      veil: 0,
+      eyebrow: "Paso 2 · Bomba",
+      title: "Presión\nen toda la casa",
+      body: "La bomba empuja el agua con fuerza a cada tubería.",
+      image: { src: "/agua/paso-2.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+    {
+      id: "s3",
+      kind: "content",
+      veil: 0,
+      eyebrow: "Paso 3 · Control",
+      title: "Flujo\nbajo control",
+      body: "Válvulas y medidor mantienen todo estable y seguro.",
+      image: { src: "/agua/paso-3.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+    {
+      id: "s4",
+      kind: "content",
+      veil: 0,
+      eyebrow: "Paso 4 · Filtro",
+      title: "Se filtra\ny se purifica",
+      body: "El agua se limpia antes de llegar a tus llaves.",
+      image: { src: "/agua/paso-4.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+    {
+      id: "s5",
+      kind: "content",
+      veil: 0,
+      eyebrow: "Paso 5 · En tu hogar",
+      title: "Agua lista\nen tu hogar",
+      body: "Llega limpia a la cocina, el baño y el lavado.",
+      image: { src: "/agua/paso-5.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+    {
+      id: "s6",
+      kind: "cta",
+      veil: 0,
+      title: "¿Quieres agua\nsiempre lista?",
+      subtitle: "Te evaluamos gratis, sin compromiso.",
+      cta: "Comenta WATER",
+      checks: [
+        "Consulta gratis, sin compromiso",
+        "Instalación profesional en Puerto Rico",
+        "Financiamiento disponible",
+      ],
+      url: "windmar.com",
+      image: { src: "/agua/cta.png", scale: 1, posX: 50, posY: 50, opacity: 1 },
+    },
+  ],
+};
+
+// ── Instagram Stories · Fun Facts (9:16, 1080×1920) ──
+// Daily-story format, one fun fact per slide, blueprint-grid look (white bg +
+// faint blue grid + blue text). Reassuring, no-fear tone. Big optional stat in
+// `highlight`, the fact in `title`, a support line in `body`. 6 per product.
+const FF_FONTS = { heading: "Montserrat", body: "Montserrat" };
+const FF_SIZE = { w: 1080, h: 1920 };
+
+export const funfactSolar: CarouselDoc = {
+  name: "Stories · Solar Fun Facts",
+  brand: "WindMar Solar",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24", bodyText: "#1c1d20", bullet: "#1d429b" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "¿Sabías que?", highlight: "300+", title: "Días de sol al año en Puerto Rico", body: "Una de las islas con más potencial solar del Caribe.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "¿Sabías que?", highlight: "25", title: "Años de vida útil de un panel moderno", body: "Siguen produciendo energía por décadas.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "¿Sabías que?", title: "El sol sale gratis cada mañana", body: "Tu techo puede convertir esa luz en ahorro.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "¿Sabías que?", highlight: "0", title: "Ruido al producir tu energía", body: "El sol trabaja en silencio, todos los días.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "¿Sabías que?", highlight: "1h", title: "De sol alcanza para mucho", body: "La luz que llega a la Tierra en una hora es enorme.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "¿Sabías que?", highlight: "100%", title: "Energía limpia y renovable", body: "Sin humo, sin emisiones: solo sol.", url: "windmar.com", image: null },
+  ],
+};
+
+export const funfactRoofing: CarouselDoc = {
+  name: "Stories · Roofing Fun Facts",
+  brand: "WindMar Roofing",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#0b38a8", accent: "#93b6d8", orange: "#f6921e", bodyText: "#1c1d20", bullet: "#0b38a8" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "¿Sabías que?", title: "Tu techo es la primera defensa del hogar", body: "Cada día, contra sol, lluvia y viento.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "Servicio de remoción", title: "Ofrecemos remoción de techo", body: "Somos de las pocas compañías en la isla que lo hacen.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "Con garantía", title: "Diferentes tipos de garantía", body: "Escoges la cobertura que mejor te conviene.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "Todo en uno", title: "De la remoción a la instalación", body: "Un solo equipo se encarga de todo el proceso.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "¿Sabías que?", title: "Un techo bien hecho dura décadas", body: "El mantenimiento a tiempo alarga su vida.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "¿Sabías que?", title: "Conocer tu techo da tranquilidad", body: "Una inspección a tiempo evita sorpresas.", url: "windmar.com", image: null },
+  ],
+};
+
+export const funfactWater: CarouselDoc = {
+  name: "Stories · Water Fun Facts",
+  brand: "WindMar Water",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1a52c7", accent: "#7eb8f7", orange: "#f6921e", bodyText: "#1c1d20", bullet: "#1a52c7" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "¿Sabías que?", highlight: "60%", title: "De tu cuerpo es agua", body: "Beber agua limpia es cuidarte cada día.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "¿Sabías que?", title: "El agua limpia sabe mejor", body: "Sin sabores raros: solo agua fresca.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "¿Sabías que?", highlight: "0", title: "Botellas plásticas de más", body: "Filtrar en casa cuida tu bolsillo y la isla.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "¿Sabías que?", highlight: "24/7", title: "Agua lista cuando la necesitas", body: "Directo de tu llave, todo el día.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "¿Sabías que?", title: "Cocinar con agua filtrada se nota", body: "Café, sopas y todo sabe más limpio.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "¿Sabías que?", highlight: "PR", title: "Pensado para el agua de la isla", body: "Un sistema que se adapta a lo que necesitas.", url: "windmar.com", image: null },
+  ],
+};
+
+export const funfactBateria: CarouselDoc = {
+  name: "Stories · Batería Fun Facts",
+  brand: "WindMar Batería",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1d429b", accent: "#00a6e0", orange: "#48ba86", bodyText: "#21274e", bullet: "#1cadca" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "Lo esencial", title: "Mantén lo esencial encendido", body: "Nevera, luces y tus equipos clave, siempre con energía.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "Eventos y negocios", title: "Energía para tu evento o negocio", body: "Lleva corriente donde la necesites, sin ruido ni humo.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "Para apartamentos", title: "También hay opción para apartamentos", body: "Soluciones compactas que caben en tu espacio.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "Siempre contigo", highlight: "24/7", title: "Siempre lista y conectada", body: "Se recarga sola y está ahí cuando la necesitas.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "Va contigo", title: "Energía que te acompaña", body: "Adentro o afuera, tú decides dónde usarla.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "Conversemos", title: "Energía cuando y donde quieras", body: "Cuéntanos tu día a día y te ayudamos.", subtitle: "Escribe Batería", url: "windmar.com", image: null },
+  ],
+};
+
+export const funfactHome: CarouselDoc = {
+  name: "Stories · Energía / Home Fun Facts",
+  brand: "WindMar Home",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24", bodyText: "#1c1d20", bullet: "#1d429b" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "Nuestra misión", title: "Todos tus asuntos energéticos, resueltos con nosotros", body: "Techo, solar, batería y agua, con un solo equipo.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "Siempre contigo", highlight: "24/7", title: "Servicio cuando lo necesitas", body: "Estamos disponibles todos los días del año.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "Nuestra meta", title: "Estar para la comunidad", body: "Crecer junto a Puerto Rico, familia por familia.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "Visítanos", highlight: "4", title: "Showrooms en toda la isla", body: "San Juan, Mayagüez, Hatillo y Ponce.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "Todo en uno", highlight: "1", title: "Un solo lugar para tu energía", body: "Todas las soluciones bajo un mismo techo.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "Conversemos", title: "Todo empieza con una conversación", body: "Visítanos o escríbenos, sin compromiso.", subtitle: "Escribe Home", url: "windmar.com", image: null },
+  ],
+};
+
+// Empresa & Comunidad — historias de marca: trayectoria, alianzas (Cruz Roja),
+// Fundación WindMar / "Arte que Ilumina", financiamiento y redes. Datos
+// verificados vía windmar.com y prensa.
+export const funfactEmpresa: CarouselDoc = {
+  name: "Stories · Empresa & Comunidad",
+  brand: "WindMar Home",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24", bodyText: "#1c1d20", bullet: "#1d429b" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", tag: "Desde 2002", highlight: "+20", title: "Años impulsando la energía de PR", body: "Hicimos el primer parque solar del país.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", tag: "Confianza", highlight: "+50,000", title: "Baterías Tesla instaladas", body: "La primera compañía del mundo en lograrlo.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", tag: "Alianza", title: "Aliados con la Cruz Roja", body: "Baterías de respaldo para los servicios biomédicos de la isla.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", tag: "Trayectoria", highlight: "+1M", title: "Paneles solares instalados en PR", body: "Energía limpia para miles de familias.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", tag: "Financiamiento", highlight: "3", title: "Formas de financiar tu proyecto", body: "PPA, préstamo personal o Home Depot Credit Card.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", tag: "Síguenos", title: "Conéctate con WindMar", body: "Síguenos en @windmarhome y visita windmar.com.", subtitle: "@windmarhome", url: "windmar.com", image: null },
+  ],
+};
+
+// ── Stories · Datos del día, separados POR SEMANA (9:16, 1080×1920) ──
+// One designable story per day. Molde semanal fijo (7 datos):
+//   • 1 por producto → Water, Roofing, Solar, Anker
+//   • 1 de la compañía → booths en Home Depot / malls, variedad de
+//     financiamientos, servicios que ofrecemos, eficiencia, garantías, etc.
+//   • 1 de alianzas → Cruz Roja, PLATEA, vocero, fundación, etc.
+//   • 1 general
+// Estilo grid original (fondo blanco + cuadrícula azul tenue): marca del
+// producto arriba, píldora "¿Sabías que?", número grande naranja (highlight),
+// dato en azul (title) y línea de apoyo gris (body). Azul + naranja. Imagen
+// null para que el usuario coloque su foto. El molde se replica en Semanas 2–5.
+export const storiesSem1: CarouselDoc = {
+  name: "Stories · Semana 1 · 1–7 ago",
+  brand: "WindMar Home",
+  theme: "grid",
+  size: FF_SIZE,
+  colors: { headerBg: "#1a52c7", accent: "#7eb8f7", orange: "#f89b24", bodyText: "#1c1d20", bullet: "#1a52c7" },
+  fonts: FF_FONTS,
+  slides: [
+    { id: "s1", kind: "funfact", brand: "WindMar Water", tag: "¿Sabías que?", highlight: "24/7", title: "Agua lista cuando la necesitas", body: "Directo de tu llave o tu cisterna, todo el día.", url: "windmar.com", image: null },
+    { id: "s2", kind: "funfact", brand: "WindMar Roofing", tag: "¿Sabías que?", title: "Tu techo es la primera defensa del hogar", body: "Revisarlo y sellarlo a tiempo protege tu inversión.", url: "windmar.com", image: null },
+    { id: "s3", kind: "funfact", brand: "WindMar Solar", tag: "¿Sabías que?", highlight: "300+", title: "Días de sol al año en Puerto Rico", body: "Tu techo puede convertir esa luz en ahorro.", url: "windmar.com", image: null },
+    { id: "s4", kind: "funfact", brand: "WindMar Batería", tag: "¿Sabías que?", title: "Energía aunque se vaya la luz", body: "Una batería Anker mantiene nevera, luces e internet.", url: "windmar.com", image: null },
+    { id: "s5", kind: "funfact", brand: "WindMar Home", tag: "¿Sabías que?", title: "Estamos cerca de ti", body: "Nos encuentras en booths de Home Depot y en los malls de la isla.", url: "windmar.com", image: null },
+    { id: "s6", kind: "funfact", brand: "WindMar Home", tag: "¿Sabías que?", title: "Aliados con la Cruz Roja", body: "Instalamos baterías de respaldo para sus servicios biomédicos.", url: "windmar.com", image: null },
+    { id: "s7", kind: "funfact", brand: "WindMar Home", tag: "¿Sabías que?", highlight: "+20", title: "Años impulsando la energía de PR", body: "Hicimos el primer parque solar del país.", url: "windmar.com", image: null },
+  ],
+};
+
+// ── Facebook · Posts estáticos (1:1, 1080×1080) ──
+// Single-art pieces for the calendar's FB_Estatico_* slots. One clean square
+// slide each: brand eyebrow + punchy headline + one support line. Image left
+// null so the user drops their own photo from the gallery. Reassuring, no-fear
+// tone. Uses the grid (white + faint blue grid) theme so it reads clean even
+// before a photo is added.
+const FB_SIZE = { w: 1080, h: 1080 };
+function fbStatic(
+  brand: string,
+  colors: { headerBg: string; accent: string; orange: string },
+  eyebrow: string,
+  title: string,
+  body: string
+): CarouselDoc {
+  return {
+    name: eyebrow,
+    brand,
+    theme: "grid",
+    size: FB_SIZE,
+    colors: { ...defaultColors, ...colors, bullet: colors.headerBg },
+    fonts: { ...defaultFonts },
+    slides: [
+      { id: "s1", kind: "content", veil: 1, eyebrow: brand, title, body, url: "windmar.com", image: null },
+    ],
+  };
+}
+
+export const fbEstaticoSolar = fbStatic(
+  "WindMar Solar",
+  { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24" },
+  "FB Estático · Solar",
+  "Tu factura de luz,\nbajo control",
+  "Energía solar para tu hogar o negocio en Puerto Rico."
+);
+export const fbEstaticoWater = fbStatic(
+  "WindMar Water",
+  { headerBg: "#1a52c7", accent: "#7eb8f7", orange: "#f57c0a" },
+  "FB Estático · Agua",
+  "Agua limpia,\nsiempre lista",
+  "Directo de tu llave, todos los días."
+);
+export const fbEstaticoRoofing = fbStatic(
+  "WindMar Roofing",
+  { headerBg: "#0b38a8", accent: "#93b6d8", orange: "#f89b24" },
+  "FB Estático · Roofing",
+  "Un techo\nque protege",
+  "Sellado y techos que aguantan el clima de la isla."
+);
+export const fbEstaticoBateria = fbStatic(
+  "WindMar Batería",
+  { headerBg: "#0f7d8c", accent: "#48ba86", orange: "#00a6e0" },
+  "FB Estático · Batería",
+  "Energía\naunque se vaya la luz",
+  "Respaldo de batería confiable para tu hogar."
+);
+export const fbEstaticoHome = fbStatic(
+  "WindMar Home",
+  { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24" },
+  "FB Estático · Home",
+  "Tu hogar,\nmás eficiente",
+  "Soluciones de energía para vivir mejor."
+);
+export const fbEstaticoComunidad = fbStatic(
+  "WindMar Home",
+  { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24" },
+  "FB · Comunidad",
+  "Con Puerto Rico,\nsiempre",
+  "Comprometidos con nuestra gente y nuestra isla."
+);
+// Post general "Qué ofrecemos" (mapea al slot del calendario
+// FB_Foto_General_QueOfrecemos). Presenta los servicios de WindMar en una sola
+// arte, siguiendo la GUÍA BLUEPRINT: fondo azul dinámico, título blanco y lista
+// de servicios con checks (último en naranja). Imagen null para que el usuario
+// coloque su foto si quiere.
+export const fbEstaticoQueOfrecemos: CarouselDoc = {
+  name: "FB Estático · Qué ofrecemos",
+  brand: "WindMar Home",
+  theme: "blueprint",
+  size: FB_SIZE,
+  colors: { headerBg: "#1d429b", accent: "#7eb8f7", orange: "#f89b24", bodyText: "#1c1d20", bullet: "#1d429b" },
+  fonts: { ...defaultFonts },
+  slides: [
+    {
+      id: "s1",
+      kind: "content",
+      veil: 0,
+      eyebrow: "WindMar Home",
+      title: "Todo tu hogar,\nen un solo lugar",
+      checks: ["Energía solar", "Roofing y sellado", "Sistemas de agua", "Baterías de respaldo"],
+      url: "windmar.com",
+      image: null,
+    },
+  ],
+};
+
+// ── BLUEPRINT OSCURO · ESTILO FIRMA ─────────────────────────────────────────
+// El primer carrusel bajo el nuevo concepto de la guía de estilo: fondo oscuro
+// con grano de película, grilla de plano, esquinas de registro y UN acento neón
+// por producto (aquí Solar = amarillo). Titular en Anton, datos en mono. Las
+// imágenes van en null para que el usuario coloque sus propias fotos de PR/FL.
+export const sigSolarCarousel: CarouselDoc = {
+  name: "Blueprint Oscuro · Solar (PR & FL)",
+  brand: "WindMar Home",
+  theme: "signature",
+  colors: {
+    headerBg: "#0a0e18",
+    accent: "#ffd24a", // neón Solar
+    orange: "#f57c0a", // acento maestro de marca
+    bodyText: "#e9f4ff",
+    bullet: "#ffd24a",
+  },
+  fonts: { heading: "Anton", body: "Barlow" },
+  slides: [
+    {
+      id: "s1",
       kind: "cover",
-      title: "El agua\nde tu negocio",
-      subtitle: "Calidad y suministro constante, sin interrupciones.",
-      body: "Un sistema propio mantiene tu negocio con agua limpia y lista, todos los días.",
-      tag: "agua para negocios",
+      eyebrow: "SOLAR · PUERTO RICO & FLORIDA",
+      title: '¿POR QUÉ\n<span style="color:#ffd24a">SOLAR?</span>',
+      subtitle: "Tu techo puede trabajar para ti.",
+      tag: "DESLIZA →",
       image: null,
     },
     {
       id: "s2",
       kind: "content",
-      eyebrow: "Lo que está pasando",
-      title: "Muchos negocios\nse quedan sin agua",
-      bullets: [
-        { text: "Interrupciones que frenan el servicio" },
-        { text: "Agua turbia después de las lluvias" },
-        { text: "Depender de que hoy sí llegue" },
-      ],
-      highlight: "Con un buen sistema, tu negocio no se detiene",
+      eyebrow: "EL PROBLEMA",
+      title: 'TU FACTURA\nSOLO <span style="color:#ffd24a">SUBE</span>',
+      body: "El sol no cobra. Tu factura de luz sí — y cada año un poco más.",
+      art: "line-chart",
+      artCaption: "CADA AÑO ↑",
+      url: "18.4655° N · 66.1057° W",
       image: null,
     },
     {
       id: "s3",
       kind: "content",
-      eyebrow: "Por qué importa",
-      title: "El agua es parte\nde tu operación",
+      eyebrow: "CÓMO FUNCIONA",
+      title: "ASÍ TRABAJA\nTU TECHO",
       bullets: [
-        { text: "Restaurantes, salones y clínicas la usan a diario" },
-        { text: "Sin agua, el servicio se detiene" },
-        { text: "Tus clientes notan la diferencia" },
+        { text: "El panel capta el sol y genera energía." },
+        { text: "De día alimentas tu casa, gratis." },
+        { text: "El excedente carga tu batería." },
+        { text: "De noche usas lo que guardaste." },
       ],
-      highlight: "Mantener el agua es mantener tu negocio abierto",
+      art: "energy-flow",
       image: null,
     },
     {
       id: "s4",
       kind: "content",
-      eyebrow: "La solución",
-      title: "Reserva y calidad\nen un solo sistema",
-      checks: [
-        "Cisterna que almacena tu agua",
-        "Filtro UV — 99.9% de bacterias eliminadas",
-        "Agua limpia y lista cuando la necesitas",
-        "Instalación profesional incluida",
-      ],
+      eyebrow: "EL RESULTADO",
+      title: 'HASTA\n<span style="color:#ffd24a">-92%</span>',
+      subtitle: "EN TU FACTURA DE LUZ",
+      body: "Con el sistema correcto, tu factura casi desaparece.",
+      art: "bar-chart",
+      artValue: "-92%",
+      artCaption: "TU FACTURA",
       image: null,
     },
     {
       id: "s5",
-      kind: "content",
-      eyebrow: "Calidad de tu agua",
-      title: "¿Sabes qué\nhay en tu agua?",
-      bullets: [
-        { text: "Sedimentos y turbidez tras las lluvias" },
-        { text: "Sabor y olor que cambian" },
-        { text: "Filtración y purificación que sí se nota" },
-      ],
-      highlight: "Agua en la que puedes confiar",
-      image: null,
-    },
-    {
-      id: "s6",
-      kind: "content",
-      eyebrow: "Cómo te ayudamos",
-      title: "Así te damos\ncontrol del agua",
-      bullets: [
-        { text: "Evaluamos el consumo de tu negocio" },
-        { text: "Diseñamos tu sistema a la medida" },
-        { text: "Instalamos de principio a fin" },
-      ],
-      highlight: "Tu agua, bajo tu control 24/7",
-      image: null,
-    },
-    {
-      id: "s7",
       kind: "cta",
-      title: "¿Quieres\nagua segura?",
-      subtitle: "Te contactamos gratis, sin compromiso.",
-      cta: "Comenta WATER",
-      checks: [
-        "Consulta 100% gratis",
-        "Instalación profesional en Puerto Rico",
-        "Financiamiento disponible",
-      ],
-      url: "windmarhome.com",
+      title: 'EMPIEZA\n<span style="color:#ffd24a">HOY</span>',
+      subtitle: "Evaluación gratis, sin compromiso.",
+      cta: "EVALÚA GRATIS",
+      url: "windmar.com",
       image: null,
     },
   ],
@@ -1817,7 +2145,76 @@ export const augWaterCarousel: CarouselDoc = {
 // Registry of every product carousel. The studio loads one of these by id and
 // saves each independently, so Water keeps its own design + photos while Solar,
 // Batería and Roofing each get their own editable area.
-export const carousels: Record<string, CarouselDoc> = {
+// ── Blueprint Oscuro rollout ───────────────────────────────────────────────
+// The whole studio moves to the dark "signature" look from the style guide:
+// near-black canvas, ink blueprint grid, film grain, and ONE neon accent per
+// product (Martian Mono for data). Rather than rewrite every doc, we transform
+// the registry — forcing theme:"signature" and each product's neon accent while
+// keeping the slide content, fonts and images untouched. Accents come straight
+// from guia-estilo.html: Solar amarillo, Agua/Roofing azul pastel, Anker verde,
+// Powerwall rojo, Home naranja (also the master brand/CTA accent).
+const SIG_ACCENT: Record<string, string> = {
+  sig_solar: "#ffd24a",
+  roofing_jul: "#9fd4ff",
+  aug_solar: "#ffd24a",
+  aug_roofing: "#9fd4ff",
+  aug_anker: "#54e0a6",
+  aug_water: "#9fd4ff",
+  entonces: "#e0a23c", // Red White & Boricua conserva su dorado
+  flhome: "#ff8a3d",
+  flroofing: "#9fd4ff",
+  flsolar: "#ffd24a",
+  flbateria: "#ff4d4d", // Tesla Powerwall rojo energía
+  flhome_en: "#ff8a3d",
+  flroofing_en: "#9fd4ff",
+  flsolar_en: "#ffd24a",
+  flbateria_en: "#ff4d4d",
+  ff_solar: "#ffd24a",
+  ff_roofing: "#9fd4ff",
+  ff_water: "#9fd4ff",
+  ff_bateria: "#54e0a6",
+  ff_home: "#ff8a3d",
+  ff_empresa: "#ff8a3d",
+  st_sem1: "#ff8a3d",
+  fb_est_solar: "#ffd24a",
+  fb_est_water: "#9fd4ff",
+  fb_est_roofing: "#9fd4ff",
+  fb_est_bateria: "#54e0a6",
+  fb_est_home: "#ff8a3d",
+  fb_est_comunidad: "#ff8a3d",
+  fb_est_queofrecemos: "#ff8a3d",
+};
+
+// Give a headline its Blueprint Oscuro "pop": color the final word (the punch)
+// in the product's neon accent. No-ops if the title already carries a colored
+// span, so it's safe to re-run on templates and on previously-saved designs.
+export function highlightTitle(title: string, accent: string): string {
+  if (!title || /<span/i.test(title)) return title;
+  const m = title.match(/^([\s\S]*?)(\S+)(\s*)$/);
+  if (!m) return title;
+  return `${m[1]}<span style="color:${accent}">${m[2]}</span>${m[3]}`;
+}
+
+function toSignature(doc: CarouselDoc, accent: string): CarouselDoc {
+  return {
+    ...doc,
+    theme: "signature",
+    colors: {
+      ...doc.colors,
+      headerBg: "#0a0e18",
+      accent,
+      bullet: accent,
+      bodyText: "#e9f4ff",
+      orange: "#f57c0a", // acento maestro de marca / CTA
+    },
+    // Highlight a key word per headline so every deck gets the accent pop.
+    slides: doc.slides.map((s) => ({ ...s, title: highlightTitle(s.title, accent) })),
+  };
+}
+
+const baseCarousels: Record<string, CarouselDoc> = {
+  sig_solar: sigSolarCarousel,
+  roofing_jul: roofingCarousel,
   aug_solar: augSolarCarousel,
   aug_roofing: augRoofingCarousel,
   aug_anker: augAnkerCarousel,
@@ -1831,20 +2228,68 @@ export const carousels: Record<string, CarouselDoc> = {
   flroofing_en: flRoofingCarouselEn,
   flsolar_en: flSolarCarouselEn,
   flbateria_en: flBateriaCarouselEn,
+  ff_solar: funfactSolar,
+  ff_roofing: funfactRoofing,
+  ff_water: funfactWater,
+  ff_bateria: funfactBateria,
+  ff_home: funfactHome,
+  ff_empresa: funfactEmpresa,
+  st_sem1: storiesSem1,
+  fb_est_solar: fbEstaticoSolar,
+  fb_est_water: fbEstaticoWater,
+  fb_est_roofing: fbEstaticoRoofing,
+  fb_est_bateria: fbEstaticoBateria,
+  fb_est_home: fbEstaticoHome,
+  fb_est_comunidad: fbEstaticoComunidad,
+  fb_est_queofrecemos: fbEstaticoQueOfrecemos,
 };
 
-export const CAROUSEL_PRODUCTS: { id: string; label: string; brand: string; grad: string }[] = [
-  { id: "aug_solar", label: "Agosto · Solar Comercial", brand: "WindMar Solar", grad: "linear-gradient(135deg,#1d429b,#f89b24)" },
-  { id: "aug_roofing", label: "Agosto · Roofing Remoción", brand: "WindMar Roofing", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)" },
-  { id: "aug_anker", label: "Agosto · Anker", brand: "WindMar Batería", grad: "linear-gradient(135deg,#48ba86,#1cadca,#00a6e0)" },
-  { id: "aug_water", label: "Agosto · Water Negocios", brand: "WindMar Water", grad: "linear-gradient(135deg,#1a52c7,#7eb8f7)" },
-  { id: "entonces", label: "RWB · Entonces & Ahora", brand: "Red White & Boricua", grad: "linear-gradient(135deg,#0e1430,#1f2758,#e0a23c)" },
-  { id: "flhome", label: "FL · La casa (ES)", brand: "WindMar Home FL", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)" },
-  { id: "flhome_en", label: "FL · The Home (EN)", brand: "WindMar Home FL", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)" },
-  { id: "flroofing", label: "FL · Sellado y Techos (ES)", brand: "WindMar Roofing FL", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)" },
-  { id: "flroofing_en", label: "FL · Roofing & Sealing (EN)", brand: "WindMar Roofing FL", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)" },
-  { id: "flsolar", label: "FL · Solar (ES)", brand: "WindMar Solar FL", grad: "linear-gradient(135deg,#1d429b,#f89b24)" },
-  { id: "flsolar_en", label: "FL · Solar (EN)", brand: "WindMar Solar FL", grad: "linear-gradient(135deg,#1d429b,#f89b24)" },
-  { id: "flbateria", label: "FL · Tesla Powerwall (ES)", brand: "WindMar Batería FL", grad: "linear-gradient(135deg,#171a20,#e82127)" },
-  { id: "flbateria_en", label: "FL · Tesla Powerwall (EN)", brand: "WindMar Battery FL", grad: "linear-gradient(135deg,#171a20,#e82127)" },
+// Every product now renders in the dark Blueprint Oscuro look (signature theme)
+// with its own neon accent. Any id without a mapped accent keeps its original.
+export const carousels: Record<string, CarouselDoc> = Object.fromEntries(
+  Object.entries(baseCarousels).map(([id, doc]) => [
+    id,
+    SIG_ACCENT[id] ? toSignature(doc, SIG_ACCENT[id]) : doc,
+  ])
+);
+
+const _CAROUSEL_PRODUCTS: { id: string; label: string; brand: string; grad: string; group?: string }[] = [
+  { id: "sig_solar", label: "Solar · Blueprint Oscuro", brand: "WindMar Home", grad: "linear-gradient(135deg,#0a0e18,#1a52c7,#ffd24a)", group: "★ Blueprint Oscuro" },
+  { id: "roofing_jul", label: "Julio · Roofing Inspección", brand: "WindMar Roofing", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Carruseles · Puerto Rico" },
+  { id: "aug_solar", label: "Agosto · Solar Comercial", brand: "WindMar Solar", grad: "linear-gradient(135deg,#1d429b,#f89b24)", group: "Carruseles · Puerto Rico" },
+  { id: "aug_roofing", label: "Agosto · Roofing Remoción", brand: "WindMar Roofing", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Carruseles · Puerto Rico" },
+  { id: "aug_anker", label: "Agosto · Anker", brand: "WindMar Batería", grad: "linear-gradient(135deg,#48ba86,#1cadca,#00a6e0)", group: "Carruseles · Puerto Rico" },
+  { id: "aug_water", label: "Agosto · Agua (Cómo llega a tu hogar)", brand: "WindMar Water", grad: "linear-gradient(135deg,#1a52c7,#7eb8f7)", group: "Carruseles · Puerto Rico" },
+  { id: "entonces", label: "RWB · Entonces & Ahora", brand: "Red White & Boricua", grad: "linear-gradient(135deg,#0e1430,#1f2758,#e0a23c)", group: "Carruseles · Puerto Rico" },
+  { id: "ff_solar", label: "Solar Fun Facts", brand: "WindMar Solar", grad: "linear-gradient(135deg,#1d429b,#f89b24)", group: "Stories · Fun Facts (PR)" },
+  { id: "ff_roofing", label: "Roofing Fun Facts", brand: "WindMar Roofing", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Stories · Fun Facts (PR)" },
+  { id: "ff_water", label: "Water Fun Facts", brand: "WindMar Water", grad: "linear-gradient(135deg,#1a52c7,#7eb8f7)", group: "Stories · Fun Facts (PR)" },
+  { id: "ff_bateria", label: "Batería Fun Facts", brand: "WindMar Batería", grad: "linear-gradient(135deg,#48ba86,#1cadca,#00a6e0)", group: "Stories · Fun Facts (PR)" },
+  { id: "ff_home", label: "Energía / Home Fun Facts", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Stories · Fun Facts (PR)" },
+  { id: "ff_empresa", label: "Empresa & Comunidad", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Stories · Fun Facts (PR)" },
+  { id: "st_sem1", label: "Semana 1 · 1–7 ago", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#7eb8f7)", group: "Stories · Datos por semana (PR)" },
+  { id: "flhome", label: "La casa", brand: "WindMar Home FL", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Florida · Español" },
+  { id: "flroofing", label: "Sellado y Techos", brand: "WindMar Roofing FL", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Florida · Español" },
+  { id: "flsolar", label: "Solar", brand: "WindMar Solar FL", grad: "linear-gradient(135deg,#1d429b,#f89b24)", group: "Florida · Español" },
+  { id: "flbateria", label: "Tesla Powerwall", brand: "WindMar Batería FL", grad: "linear-gradient(135deg,#171a20,#e82127)", group: "Florida · Español" },
+  { id: "flhome_en", label: "The Home", brand: "WindMar Home FL", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Florida · English" },
+  { id: "flroofing_en", label: "Roofing & Sealing", brand: "WindMar Roofing FL", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Florida · English" },
+  { id: "flsolar_en", label: "Solar", brand: "WindMar Solar FL", grad: "linear-gradient(135deg,#1d429b,#f89b24)", group: "Florida · English" },
+  { id: "flbateria_en", label: "Tesla Powerwall", brand: "WindMar Battery FL", grad: "linear-gradient(135deg,#171a20,#e82127)", group: "Florida · English" },
+  { id: "fb_est_solar", label: "Solar", brand: "WindMar Solar", grad: "linear-gradient(135deg,#1d429b,#f89b24)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_water", label: "Agua", brand: "WindMar Water", grad: "linear-gradient(135deg,#1a52c7,#7eb8f7)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_roofing", label: "Roofing", brand: "WindMar Roofing", grad: "linear-gradient(135deg,#0b38a8,#93b6d8)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_bateria", label: "Batería", brand: "WindMar Batería", grad: "linear-gradient(135deg,#0f7d8c,#48ba86,#00a6e0)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_home", label: "Home / Energía", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_comunidad", label: "Comunidad", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#21274e,#f89b24)", group: "Facebook · Estáticos (PR)" },
+  { id: "fb_est_queofrecemos", label: "Qué ofrecemos (Blueprint)", brand: "WindMar Home", grad: "linear-gradient(135deg,#1d429b,#2f63c4,#f89b24)", group: "Facebook · Estáticos (PR)" },
 ];
+
+// Every picker chip now previews the dark Blueprint Oscuro look: near-black →
+// ink blue → the product's neon accent, matching the slides themselves.
+export const CAROUSEL_PRODUCTS = _CAROUSEL_PRODUCTS.map((p) => ({
+  ...p,
+  grad: SIG_ACCENT[p.id]
+    ? `linear-gradient(135deg,#0a0e18,#12213f,${SIG_ACCENT[p.id]})`
+    : p.grad,
+}));
