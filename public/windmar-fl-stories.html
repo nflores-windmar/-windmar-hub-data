@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Home FL — Stories · 12 Fun Facts (blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-grid:rgba(26,82,199,.08); --bp-line:rgba(26,82,199,.34);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-muted:#5a6b8c;
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7;
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bp-navy);font-family:var(--body);padding:22px}
+.wrap{max-width:1240px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:var(--bp-navy);color:var(--bp-navy)}
+header.top{border-bottom:3px solid var(--bp-orange);padding-bottom:14px;margin-bottom:6px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--bp-orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid var(--bp-line-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 20px}
+.btn{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--bp-navy)}
+.btn.on{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+.langtog{display:inline-flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden}
+.langtog button{font-family:var(--body);font-weight:800;font-size:12px;padding:8px 16px;border:none;background:#fff;color:var(--bp-navy);cursor:pointer;border-left:1px solid var(--line)}
+.langtog button:first-child{border-left:none}
+.langtog button.on{background:var(--bp-navy);color:#fff}
+
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:6px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--bp-navy);background:var(--bp-navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+.capbtns{display:flex;gap:6px;align-items:center;flex:none}
+.pub{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.pub:hover{border-color:#12a150;color:#12a150}
+.pub.on{background:#12a150;border-color:#12a150;color:#fff}
+.bchip{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:5px;margin-right:6px;color:#fff;vertical-align:middle;background:#0a2882}
+.bchip.c-home{background:#f57c0a}.bchip.c-solar{background:#d99a00}.bchip.c-powerwall{background:#2b8fd6}.bchip.c-roofing{background:#1f9d66}.bchip.c-close{background:#0a2882}
+.slot.published .piece{outline:3px solid #12a150;outline-offset:2px}
+.slot.published .cap{color:#12a150}
+.filterbar{margin-top:-6px}
+.flabel{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pubcount{font-family:var(--body);font-size:12px;font-weight:800;color:var(--bp-navy);margin-left:2px}
+.slot.hide{display:none}
+
+/* ===== BLUEPRINT STORY PIECE ===== */
+.piece{--acc:var(--bp-orange);position:relative;overflow:hidden;container-type:inline-size;background:#ffffff;color:var(--bp-navy);
+  width:300px;aspect-ratio:9/16;border-radius:14px;box-shadow:0 14px 40px rgba(13,34,64,.16);border:1px solid var(--line)}
+body.real .piece{width:1080px;border-radius:0}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:6cqw 6cqw}
+.piece > .tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid var(--bp-ink);z-index:6}
+.piece > .tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.piece > .tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.piece > .tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.piece > .tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+
+.content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:11cqw 8cqw;pointer-events:none}
+
+.brow{display:flex;align-items:center;gap:2.4cqw}
+.sun{width:6cqw;height:6cqw;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 50% 40%,#fff,#ffcf7a 48%,var(--acc) 100%)}
+.brand{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.34cqw;line-height:1;text-transform:uppercase;color:var(--bp-navy)}
+.brand small{display:block;font-weight:600;font-size:2.1cqw;opacity:.7;letter-spacing:.16cqw;color:var(--bp-ink-dark)}
+.wlogo{height:16cqw;width:auto;display:block}
+.wlogo.dark{display:none}
+body[data-theme="dark"] .wlogo.light{display:none}
+body[data-theme="dark"] .wlogo.dark{display:block}
+.kick{margin-top:auto;font-family:var(--mono);font-weight:500;font-size:2.7cqw;letter-spacing:.2cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.kick::before{content:"↳ ";color:var(--acc)}
+.hair{margin-top:2.4cqw;width:18cqw;height:.7cqw;background:var(--acc)}
+
+.wordwrap{position:relative;z-index:3;margin-top:7cqw}
+.word{font-family:var(--disp);font-weight:400;line-height:.9;text-transform:uppercase;letter-spacing:.1cqw;
+  font-size:var(--wsize,14cqw);color:var(--bp-navy);white-space:pre-wrap;word-break:break-word}
+.word .hl{color:var(--acc)}
+.subline{margin-top:4cqw;font-family:var(--body);font-weight:700;font-size:3.9cqw;line-height:1.22;max-width:96%;color:var(--bp-ink-dark)}
+
+/* ===== FOTO DE FONDO · aerial Florida solar a sangre ===== */
+.piece.has-bg .bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.piece.has-bg .bg img{width:100%;height:100%;object-fit:cover;display:block}
+.piece.has-bg .bg::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,20,60,.72) 0%,rgba(6,20,60,.46) 34%,rgba(4,12,36,.9) 100%)}
+/* grilla y esquinas encima de la foto */
+.piece.has-bg{--bp-grid:rgba(255,255,255,.07)}
+.piece.has-bg::before{z-index:1}
+/* acento por categoría en ambos temas */
+.piece.has-bg.cat-home{--acc:#ff8a3d}
+.piece.has-bg.cat-solar{--acc:#ffd24a}
+.piece.has-bg.cat-powerwall{--acc:#4ac8ff}
+.piece.has-bg.cat-roofing{--acc:#54e0a6}
+.piece.has-bg.cat-close{--acc:#ff8a3d}
+/* texto claro legible sobre foto (ambos temas) */
+.piece.has-bg .brand{color:#fff}
+.piece.has-bg .brand small{color:rgba(255,255,255,.72)}
+.piece.has-bg .kick{color:rgba(255,255,255,.82)}
+.piece.has-bg .word{color:#fff;text-shadow:0 .4cqw 2.6cqw rgba(0,0,0,.42)}
+.piece.has-bg .subline{color:rgba(255,255,255,.9)}
+.piece.has-bg .gancho{color:#fff}
+.piece.has-bg .tag{color:rgba(255,255,255,.72)}
+.piece.has-bg > .tick{border-color:var(--acc)}
+.piece.has-bg .wlogo.light{display:none}
+.piece.has-bg .wlogo.dark{display:block}
+
+.foot{position:relative;z-index:4;margin-top:auto;display:flex;flex-direction:column;gap:2.4cqw;padding-top:6cqw}
+.gancho{font-family:var(--body);font-weight:800;font-size:4cqw;line-height:1.18;padding-left:3cqw;
+  border-left:1.1cqw solid var(--acc);color:var(--bp-navy)}
+.tag{font-family:var(--mono);font-weight:500;font-size:2.5cqw;letter-spacing:.18cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+
+/* ===== DARK THEME · color por categoría de producto ===== */
+body[data-theme="dark"] .piece.cat-home{--acc:#ff8a3d}
+body[data-theme="dark"] .piece.cat-solar{--acc:#ffd24a}
+body[data-theme="dark"] .piece.cat-powerwall{--acc:#4ac8ff}
+body[data-theme="dark"] .piece.cat-roofing{--acc:#54e0a6}
+body[data-theme="dark"] .piece.cat-close{--acc:#ff8a3d}
+body[data-theme="dark"] .piece{--bp-grid:rgba(255,255,255,.055);
+  background:radial-gradient(120% 90% at 20% 0%,#123069 0%,#0a1e4d 40%,#050f2c 100%);
+  color:#fff;border-color:rgba(255,255,255,.12)}
+body[data-theme="dark"] .piece > .tick{border-color:var(--acc)}
+body[data-theme="dark"] .brand{color:#fff}
+body[data-theme="dark"] .brand small{color:rgba(255,255,255,.66)}
+body[data-theme="dark"] .kick{color:rgba(255,255,255,.72)}
+body[data-theme="dark"] .word{color:#fff}
+body[data-theme="dark"] .subline{color:rgba(255,255,255,.82)}
+body[data-theme="dark"] .gancho{color:#fff}
+body[data-theme="dark"] .tag{color:rgba(255,255,255,.6)}
+
+@media print{body{background:#fff;padding:0}.topnav,.controls,.note,header.top,.caprow{display:none}
+  .gallery{gap:0}.piece{box-shadow:none;border-radius:0;page-break-after:always}}
+</style>
+</head>
+<body data-lang="es" data-theme="dark">
+<div class="wrap">
+
+<div class="topnav">
+  <a href="windmar-fl-calendario.html">📅 Calendario FL</a>
+  <a href="windmar-pr-stories.html">💧 Stories PR · Sequía</a>
+  <a href="windmar-pros-stories.html">👷 Stories Pros</a>
+  <a href="palabra-sobre-casa.html">✏️ Plantilla estáticos</a>
+  <a href="windmar-home-brandguide.html">📐 Brand Guide</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a onclick="window.print()">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <h1>WindMar <span class="o">Home FL</span> — Stories · 12 Fun Facts</h1>
+  <div class="sub">Estética <b>blueprint</b> · palabra gigante navy sobre papel blanco con grilla · naranja solo de acento · 9:16 · bilingüe ES/EN · PNG 1080×1920 · <b>uno al día</b></div>
+</header>
+
+<div class="note"><b>Cómo se usa:</b> son <b>12 fun facts</b> para publicar de a uno al día como <b>Historias (Stories 9:16)</b>. <b>Marca los que ya publicaste</b> con el botón ✓ de cada arte (se guarda en este navegador) y filtra por <b>categoría</b> o por <b>estado</b>. Dos looks en un toggle: <b>🌙 Oscuro</b> (fondo navy con <b>color por categoría</b> — Home naranja, Solar amarillo, Powerwall azul, Roofing verde) o <b>☀️ Claro</b> (blueprint sobre papel, naranja de acento). Cambia también el <b>idioma</b>, usa <b>Tamaño real 1080</b> para screenshot, o baja cada arte con <b>⬇︎ PNG</b> en <b>1080×1920</b>. Los textos salen de tus carruseles de Florida.</div>
+
+<div class="controls">
+  <div class="langtog" id="langtog">
+    <button data-l="es" class="on">Español</button>
+    <button data-l="en">English</button>
+  </div>
+  <div class="langtog" id="themetog">
+    <button data-t="dark" class="on">🌙 Oscuro</button>
+    <button data-t="light">☀️ Claro</button>
+  </div>
+  <button class="btn" id="sizeBtn">🔍 Tamaño real 1080 · screenshot</button>
+  <button class="btn" id="dlAll">⬇︎ Descargar todas (PNG)</button>
+</div>
+
+<div class="controls filterbar">
+  <span class="flabel">Categoría:</span>
+  <div class="langtog" id="cattog">
+    <button data-c="all" class="on">Todas</button>
+    <button data-c="home">🏠 Home</button>
+    <button data-c="solar">☀️ Solar</button>
+    <button data-c="powerwall">🔋 Powerwall</button>
+    <button data-c="roofing">🛠️ Roofing</button>
+    <button data-c="close">📍 Cierre</button>
+  </div>
+  <span class="flabel">Estado:</span>
+  <div class="langtog" id="statustog">
+    <button data-s="all" class="on">Todas</button>
+    <button data-s="pending">◻︎ Pendientes</button>
+    <button data-s="done">✓ Publicadas</button>
+  </div>
+  <span class="pubcount" id="pubcount"></span>
+  <button class="btn" id="resetPub">↺ Reiniciar marcas</button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+</div>
+
+<script>
+/* ===== 12 FUN FACTS — distilled from the Florida carousels ===== */
+/* word: \n = line break, **text** = orange-accent line */
+const FACTS=[
+  { tema:{es:"Home · Todo el hogar",en:"Home · Whole home"}, kick:{es:"Fun Fact · Home",en:"Fun Fact · Home"},
+    es:{word:"TODA\n**LA CASA**",sub:"Solar, baterías y techos bajo un mismo techo — y un solo equipo.",gancho:"Todo conectado, cero enredos.",tag:"WindMar Home FL"},
+    en:{word:"THE WHOLE\n**HOME**",sub:"Solar, batteries and roofing under one roof — and one team.",gancho:"All connected, zero hassle.",tag:"WindMar Home FL"} },
+  { tema:{es:"Solar · El sol",en:"Solar · The sun"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"EL SOL\nTRABAJA\n**POR TI**",sub:"En Florida sobra el sol: tu techo puede convertirlo en ahorro.",gancho:"Energía limpia para tu hogar.",tag:"Solar · Home FL"},
+    en:{word:"THE SUN\nWORKS\n**FOR YOU**",sub:"Florida has sun to spare — your roof can turn it into savings.",gancho:"Clean energy for your home.",tag:"Solar · Home FL"} },
+  { tema:{es:"Solar · Reencuadre",en:"Solar · Reframe"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"NO FALLÓ\n**EL SOL**",sub:"Falló quién lo vendió mal. Hoy quedan las empresas serias.",gancho:"Con quién instalas, importa.",tag:"Solar · Home FL"},
+    en:{word:"THE SUN\n**DIDN'T FAIL**",sub:"Who sold it wrong did. The serious companies are the ones still here.",gancho:"Who installs it matters.",tag:"Solar · Home FL"} },
+  { tema:{es:"Solar · Bienes raíces",en:"Solar · Real estate"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"COMO LOS\nBIENES\n**RAÍCES**",sub:"En 2008 falló el préstamo, no el valor. Con el solar es igual: buena inversión, hoy mejor financiada.",gancho:"Hablemos claro.",tag:"Solar · Home FL"},
+    en:{word:"LIKE\nREAL\n**ESTATE**",sub:"In 2008 the loan failed, not the value. Solar is the same: a good investment, better financed today.",gancho:"Let's talk straight.",tag:"Solar · Home FL"} },
+  { tema:{es:"Solar · Cómo trabajamos",en:"Solar · How we work"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"PRIMERO\nENTIENDES,\n**DESPUÉS\nDECIDES**",sub:"Dimensionamos según tu consumo real, sin letras pequeñas ni presión.",gancho:"Sin prisa, con transparencia.",tag:"Solar · Home FL"},
+    en:{word:"FIRST YOU\nUNDERSTAND,\n**THEN YOU\nDECIDE**",sub:"We size to your real usage — no fine print, no pressure.",gancho:"No rush, full transparency.",tag:"Solar · Home FL"} },
+  { tema:{es:"Powerwall · El panel solo",en:"Powerwall · Panels alone"}, kick:{es:"Fun Fact · Powerwall",en:"Fun Fact · Powerwall"},
+    es:{word:"EL PANEL\nSOLO NO\n**GUARDA**",sub:"Generan de día; sin batería, esa energía se va con el sol.",gancho:"La batería cierra el círculo.",tag:"Tesla Powerwall · FL"},
+    en:{word:"PANELS\nALONE DON'T\n**STORE**",sub:"They make power by day — without a battery, it leaves with the sun.",gancho:"The battery closes the loop.",tag:"Tesla Powerwall · FL"} },
+  { tema:{es:"Powerwall · Apagón",en:"Powerwall · Outage"}, kick:{es:"Fun Fact · Powerwall",en:"Fun Fact · Powerwall"},
+    es:{word:"LUZ EN\nCADA\n**APAGÓN**",sub:"Tu batería entra sola, sin ruido ni gasolina — de noche y cuando la red cae.",gancho:"Tranquilidad cuando más importa.",tag:"Tesla Powerwall · FL"},
+    en:{word:"POWER\nTHROUGH ANY\n**OUTAGE**",sub:"Your battery kicks in on its own — no noise, no gas — at night and when the grid drops.",gancho:"Peace of mind when it counts.",tag:"Tesla Powerwall · FL"} },
+  { tema:{es:"Powerwall · App",en:"Powerwall · App"}, kick:{es:"Fun Fact · Powerwall",en:"Fun Fact · Powerwall"},
+    es:{word:"TU ENERGÍA\nEN EL\n**TELÉFONO**",sub:"Tesla Powerwall se controla desde tu celular: ves y manejas tu respaldo.",gancho:"Aprovecha tu solar al máximo.",tag:"Tesla Powerwall · FL"},
+    en:{word:"YOUR ENERGY\nIN YOUR\n**PHONE**",sub:"Tesla Powerwall runs from your phone — see and manage your backup.",gancho:"Get the most from your solar.",tag:"Tesla Powerwall · FL"} },
+  { tema:{es:"Roofing · Seguro",en:"Roofing · Insurance"}, kick:{es:"Fun Fact · Roofing",en:"Fun Fact · Roofing"},
+    es:{word:"TU TECHO\nY TU\n**SEGURO**",sub:"Las aseguradoras no te sueltan por la tormenta, sino por la edad de tus tejas. Un techo nuevo mantiene tu póliza al día.",gancho:"Un techo al día cuida tu cobertura.",tag:"Roofing · Home FL"},
+    en:{word:"YOUR ROOF\n& YOUR\n**INSURANCE**",sub:"Insurers don't drop you for the storm — they drop you for the age of your shingles. A new roof keeps your policy in good standing.",gancho:"An up-to-date roof cares for your coverage.",tag:"Roofing · Home FL"} },
+  { tema:{es:"Roofing · Tormenta",en:"Roofing · Storm"}, kick:{es:"Fun Fact · Roofing",en:"Fun Fact · Roofing"},
+    es:{word:"LISTO\nPARA LA\n**TORMENTA**",sub:"Un techo nuevo cumple el código actual de Florida y resiste sol, lluvia y viento.",gancho:"Tranquilidad todo el año.",tag:"Roofing · Home FL"},
+    en:{word:"READY\nFOR THE\n**STORM**",sub:"A new roof meets Florida's current code and stands up to sun, rain and wind.",gancho:"Peace of mind all year.",tag:"Roofing · Home FL"} },
+  { tema:{es:"Home · Experiencia",en:"Home · Experience"}, kick:{es:"Fun Fact · Home",en:"Fun Fact · Home"},
+    es:{word:"DESDE\n**2002**",sub:"Instalador certificado Tesla y contratista Owens Corning. Experiencia que respalda.",gancho:"Tu hogar, listo para lo que venga.",tag:"WindMar Home FL"},
+    en:{word:"SINCE\n**2002**",sub:"Tesla-certified installer and Owens Corning contractor. Experience that backs the work.",gancho:"Your home, ready for whatever comes.",tag:"WindMar Home FL"} },
+  { tema:{es:"Cierre · Florida",en:"Close · Florida"}, kick:{es:"WindMar Home · Florida",en:"WindMar Home · Florida"},
+    es:{word:"ORLANDO,\nTAMPA &\n**SOUTH FL**",sub:"WindMar Home ya está en Florida — solar, baterías y techos, un solo equipo.",gancho:"Evaluación gratis, sin compromiso.",tag:"Home FL"},
+    en:{word:"ORLANDO,\nTAMPA &\n**SOUTH FL**",sub:"WindMar Home is here in Florida — solar, batteries and roofing, one team.",gancho:"Free evaluation, no obligation.",tag:"Home FL"} },
+];
+
+/* ===== FOTOS aéreas de Florida (solar) por categoría ===== */
+const PHOTOS={
+  home:{src:'img/fl-solar-house-pool-palms.png',alt:{es:'Casa en Florida con paneles solares, piscina y palmas',en:'Florida home with solar panels, pool and palm trees'}},
+  solar:{src:'img/fl-solar-neighborhood-goldenhour.png',alt:{es:'Vecindario de Florida con techos solares al atardecer',en:'Florida neighborhood with solar roofs at golden hour'}},
+  powerwall:{src:'img/fl-solar-house-pool-palms.png',alt:{es:'Hogar en Florida con energía solar y respaldo de batería',en:'Florida home with solar energy and battery backup'}},
+  roofing:{src:'img/fl-aerial-neighborhood-clouds.png',alt:{es:'Vista aérea de techos en un vecindario de Florida',en:'Aerial view of rooftops in a Florida neighborhood'}},
+  close:{src:'img/fl-aerial-neighborhood-clouds.png',alt:{es:'Vecindario de Florida visto desde el aire con techos solares',en:'Aerial view of a Florida neighborhood with solar roofs'}},
+};
+
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+/* Mismo arreglo que en PR: el acento se busca antes de cortar los renglones, o uno
+   que cruce el salto —«**DESPUÉS\nDECIDES**»— imprime los asteriscos en el arte. */
+const fmtWord=raw=>esc(raw)
+  .replace(/\*\*([\s\S]+?)\*\*/g,'<span class="hl">$1</span>')
+  .split('\n').join('<br>');
+
+const gallery=document.getElementById('gallery');
+FACTS.forEach((f,i)=>{
+  const n=i+1;
+  const cat=f.tema.en.split(' · ')[0].toLowerCase();
+  const photo=PHOTOS[cat];
+  const key='fl-'+cat+'-'+i;
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.dataset.key=key; slot.dataset.cat=cat;
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap"><span class="bchip c-${cat}">${cat}</span>#${n} · <span class="es">${esc(f.tema.es)}</span><span class="en">${esc(f.tema.en)}</span></span>
+      <div class="capbtns">
+        <button class="pub" data-key="${key}" title="Marcar como publicado / pendiente">◻︎ Marcar</button>
+        <button class="dl" data-i="${i}">⬇︎ PNG</button>
+      </div>
+    </div>
+    <div class="piece story cat-${cat}${photo?' has-bg':''}" id="piece-${i}">
+      ${photo?`<div class="bg"><img src="${photo.src}" alt="${esc(photo.alt.es)}" crossorigin="anonymous"></div>`:''}
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div class="content">
+        <div class="brow"><img class="wlogo light" src="wme/logos/wmh-home-fc.png" alt="WindMar Home"><img class="wlogo dark" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home"></div>
+        <span class="kick"><span class="es">${esc(f.kick.es)}</span><span class="en">${esc(f.kick.en)}</span></span>
+        <div class="hair"></div>
+        <div class="wordwrap">
+          <div class="word"><span class="es">${fmtWord(f.es.word)}</span><span class="en">${fmtWord(f.en.word)}</span></div>
+          <div class="subline"><span class="es">${esc(f.es.sub)}</span><span class="en">${esc(f.en.sub)}</span></div>
+        </div>
+        <div class="foot">
+          <span class="gancho"><span class="es">${esc(f.es.gancho)}</span><span class="en">${esc(f.en.gancho)}</span></span>
+          <span class="tag"><span class="es">${esc(f.es.tag)}</span><span class="en">${esc(f.en.tag)}</span></span>
+        </div>
+      </div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+document.getElementById('langtog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-lang',b.dataset.l);
+  document.documentElement.lang=b.dataset.l;
+  document.getElementById('langtog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+
+document.getElementById('themetog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-theme',b.dataset.t);
+  document.getElementById('themetog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+
+/* ===== PUBLICADO / PENDIENTE + FILTROS (persistente en este navegador) ===== */
+const PUB_KEY='wmfl-pub-v1';
+const loadPub=()=>{try{return JSON.parse(localStorage.getItem(PUB_KEY))||{}}catch(e){return {}}};
+const savePub=o=>{try{localStorage.setItem(PUB_KEY,JSON.stringify(o))}catch(e){}};
+let pubState=loadPub();
+let catFilter='all', statusFilter='all';
+
+function applyPub(){
+  document.querySelectorAll('.slot').forEach(slot=>{
+    const key=slot.dataset.key, done=!!pubState[key];
+    slot.classList.toggle('published',done);
+    const btn=slot.querySelector('.pub');
+    if(btn){ btn.classList.toggle('on',done); btn.textContent=done?'✓ Publicado':'◻︎ Marcar'; }
+    const okCat=(catFilter==='all'||slot.dataset.cat===catFilter);
+    const okStatus=(statusFilter==='all'||(statusFilter==='done'&&done)||(statusFilter==='pending'&&!done));
+    slot.classList.toggle('hide',!(okCat&&okStatus));
+  });
+  const slots=[...document.querySelectorAll('.slot')];
+  const total=slots.length, done=slots.filter(s=>pubState[s.dataset.key]).length;
+  const cnt=document.getElementById('pubcount');
+  if(cnt) cnt.textContent=`${done}/${total} publicadas · ${total-done} pendientes`;
+}
+document.getElementById('gallery').addEventListener('click',e=>{
+  const b=e.target.closest('.pub'); if(!b) return;
+  const key=b.dataset.key;
+  if(pubState[key]) delete pubState[key]; else pubState[key]=Date.now();
+  savePub(pubState); applyPub();
+});
+document.getElementById('cattog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  catFilter=b.dataset.c;
+  document.getElementById('cattog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  applyPub();
+});
+document.getElementById('statustog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  statusFilter=b.dataset.s;
+  document.getElementById('statustog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  applyPub();
+});
+document.getElementById('resetPub').addEventListener('click',()=>{
+  if(!confirm('¿Borrar todas las marcas de publicado en este navegador?')) return;
+  pubState={}; savePub(pubState); applyPub();
+});
+applyPub();
+
+const sb=document.getElementById('sizeBtn');
+sb.addEventListener('click',()=>{document.body.classList.toggle('real');
+  const on=document.body.classList.contains('real');
+  sb.classList.toggle('on',on);
+  sb.textContent=on?'↩︎ Volver a vista previa':'🔍 Tamaño real 1080 · screenshot';
+  if(on)window.scrollTo({top:0,behavior:'smooth'});});
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const slug=s=>(s||'windmar').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50);
+async function toPng(piece){
+  const dark=document.body.getAttribute('data-theme')==='dark';
+  const bg=dark?'#050f2c':'#ffffff';
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1920px;z-index:-1;background:'+bg;
+  const clone=piece.cloneNode(true);
+  clone.style.width='1080px';clone.style.height='1920px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    await nextFrame();
+    return await toBlob(clone,{width:1080,height:1920,pixelRatio:1,cacheBust:false,backgroundColor:bg});
+  } finally { holder.remove(); }
+}
+async function download(i){
+  const piece=document.getElementById('piece-'+i);
+  const lang=document.body.getAttribute('data-lang');
+  const word=piece.querySelector('.word .'+lang)?.textContent||'';
+  const blob=await toPng(piece); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download='windmar-fl-funfact-'+(Number(i)+1)+'-'+lang+'-'+slug(word)+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{ await download(btn.dataset.i); }
+    catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+const all=document.getElementById('dlAll');
+all.addEventListener('click',async()=>{
+  const btns=[...document.querySelectorAll('.slot:not(.hide) .dl')];
+  const t=all.textContent;all.disabled=true;let n=0;
+  for(const btn of btns){
+    n++;all.textContent='Generando '+n+'/'+btns.length+'…';
+    try{ await download(btn.dataset.i); }catch(e){ console.error(e); }
+    await wait(600);
+  }
+  all.textContent=t;all.disabled=false;
+});
+</script>
+</body>
+</html>

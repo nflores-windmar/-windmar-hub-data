@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Pros — Stories · Reclutamiento (blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-grid:rgba(26,82,199,.08); --bp-line:rgba(26,82,199,.34);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-muted:#5a6b8c;
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7;
+  --disp:'Anton',Impact,sans-serif;
+  --body:'Anek Latin','DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bp-navy);font-family:var(--body);padding:22px}
+.wrap{max-width:1240px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:var(--bp-navy);color:var(--bp-navy)}
+header.top{border-bottom:3px solid var(--bp-orange);padding-bottom:14px;margin-bottom:6px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--bp-orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid var(--bp-line-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 20px}
+.btn{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--bp-navy)}
+.btn.on{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+.langtog{display:inline-flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden}
+.langtog button{font-family:var(--body);font-weight:800;font-size:12px;padding:8px 16px;border:none;background:#fff;color:var(--bp-navy);cursor:pointer;border-left:1px solid var(--line)}
+.langtog button:first-child{border-left:none}
+.langtog button.on{background:var(--bp-navy);color:#fff}
+
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:6px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--bp-navy);background:var(--bp-navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== STORY PIECE ===== */
+.piece{--acc:var(--bp-orange);position:relative;overflow:hidden;container-type:inline-size;background:#ffffff;color:var(--bp-navy);
+  width:300px;aspect-ratio:9/16;border-radius:14px;box-shadow:0 14px 40px rgba(13,34,64,.16);border:1px solid var(--line)}
+body.real .piece{width:1080px;border-radius:0}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:6cqw 6cqw}
+.piece > .tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid var(--bp-ink);z-index:6}
+.piece > .tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.piece > .tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.piece > .tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.piece > .tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+
+.content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:11cqw 8cqw;pointer-events:none}
+
+.brow{display:flex;align-items:center;gap:2.4cqw}
+.sun{width:6cqw;height:6cqw;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 50% 40%,#fff,#ffcf7a 48%,var(--acc) 100%)}
+.brand{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.34cqw;line-height:1;text-transform:uppercase;color:var(--bp-navy)}
+.brand small{display:block;font-weight:600;font-size:2.1cqw;opacity:.7;letter-spacing:.16cqw;color:var(--bp-ink-dark)}
+.kick{margin-top:4cqw;font-family:var(--mono);font-weight:500;font-size:2.7cqw;letter-spacing:.2cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.kick::before{content:"↳ ";color:var(--acc)}
+.hair{margin-top:2.4cqw;width:18cqw;height:.7cqw;background:var(--acc)}
+
+.wordwrap{position:relative;z-index:3;margin-top:7cqw}
+.word{font-family:var(--disp);font-weight:400;line-height:.9;text-transform:uppercase;letter-spacing:.1cqw;
+  font-size:var(--wsize,14cqw);color:var(--bp-navy);white-space:pre-wrap;word-break:break-word}
+.word .hl{color:var(--acc)}
+.subline{margin-top:4cqw;font-family:var(--body);font-weight:700;font-size:3.9cqw;line-height:1.22;max-width:96%;color:var(--bp-ink-dark)}
+
+.foot{position:relative;z-index:4;margin-top:auto;display:flex;flex-direction:column;gap:2.4cqw;padding-top:6cqw}
+.gancho{font-family:var(--body);font-weight:800;font-size:4cqw;line-height:1.18;padding-left:3cqw;
+  border-left:1.1cqw solid var(--acc);color:var(--bp-navy)}
+.tag{font-family:var(--mono);font-weight:500;font-size:2.5cqw;letter-spacing:.18cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+
+/* ===== DARK THEME · color por categoría de reclutamiento ===== */
+body[data-theme="dark"] .piece.cat-crece{--acc:#ff8a3d}
+body[data-theme="dark"] .piece.cat-ingreso{--acc:#ffd24a}
+body[data-theme="dark"] .piece.cat-equipo{--acc:#4ac8ff}
+body[data-theme="dark"] .piece.cat-formacion{--acc:#54e0a6}
+body[data-theme="dark"] .piece.cat-proposito{--acc:#b98cff}
+body[data-theme="dark"] .piece{--bp-grid:rgba(255,255,255,.055);
+  background:radial-gradient(120% 90% at 20% 0%,#123069 0%,#0a1e4d 40%,#050f2c 100%);
+  color:#fff;border-color:rgba(255,255,255,.12)}
+body[data-theme="dark"] .piece > .tick{border-color:var(--acc)}
+body[data-theme="dark"] .brand{color:#fff}
+body[data-theme="dark"] .brand small{color:rgba(255,255,255,.66)}
+body[data-theme="dark"] .kick{color:rgba(255,255,255,.72)}
+body[data-theme="dark"] .word{color:#fff}
+body[data-theme="dark"] .subline{color:rgba(255,255,255,.82)}
+body[data-theme="dark"] .gancho{color:#fff}
+body[data-theme="dark"] .tag{color:rgba(255,255,255,.6)}
+
+@media print{body{background:#fff;padding:0}.topnav,.controls,.note,header.top,.caprow{display:none}
+  .gallery{gap:0}.piece{box-shadow:none;border-radius:0;page-break-after:always}}
+</style>
+</head>
+<body data-lang="es" data-theme="dark">
+<div class="wrap">
+
+<div class="topnav">
+  <a href="windmar-fl-stories.html">☀️ Stories Home FL</a>
+  <a href="aprobaciones-pros.html">✅ Aprobación Pros</a>
+  <a href="windmar-home-brandguide.html">📐 Brand Guide</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a onclick="window.print()">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <h1>WindMar <span class="o">Pros</span> — Stories · Reclutamiento</h1>
+  <div class="sub">Mismo concepto que Home FL · palabra gigante 9:16 · bilingüe ES/EN · dos looks (🌙 oscuro con color por categoría / ☀️ claro blueprint) · PNG 1080×1920</div>
+</header>
+
+<div class="note"><b>Cómo se usa:</b> stories de <b>reclutamiento</b> para atraer talento a WindMar Pros (instaladores, roofers, técnicos solares y ventas). Mismo motor que las stories de Home FL. Dos looks en un toggle: <b>🌙 Oscuro</b> (fondo navy con <b>color por categoría</b> — Carrera naranja, Ingreso amarillo, Equipo azul, Formación verde, Propósito violeta) o <b>☀️ Claro</b> (blueprint, naranja de acento). Cambia el <b>idioma</b>, usa <b>Tamaño real 1080</b> o baja cada arte con <b>⬇︎ PNG</b> en <b>1080×1920</b>.</div>
+
+<div class="controls">
+  <div class="langtog" id="langtog">
+    <button data-l="es" class="on">Español</button>
+    <button data-l="en">English</button>
+  </div>
+  <div class="langtog" id="themetog">
+    <button data-t="dark" class="on">🌙 Oscuro</button>
+    <button data-t="light">☀️ Claro</button>
+  </div>
+  <button class="btn" id="sizeBtn">🔍 Tamaño real 1080 · screenshot</button>
+  <button class="btn" id="dlAll">⬇︎ Descargar todas (PNG)</button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+</div>
+
+<script>
+/* ===== STORIES DE RECLUTAMIENTO · WindMar Pros ===== */
+/* word: \n = salto de línea, **texto** = línea de acento; cat = categoría/color */
+const FACTS=[
+  { cat:"crece", tema:{es:"Carrera · Empieza aquí",en:"Career · Starts here"}, kick:{es:"WindMar Pros · Carrera",en:"WindMar Pros · Career"},
+    es:{word:"TU CARRERA\n**EMPIEZA AQUÍ**",sub:"Crece con la industria de energía que más se mueve en Florida y Puerto Rico.",gancho:"Un oficio con futuro.",tag:"WindMar Pros"},
+    en:{word:"YOUR CAREER\n**STARTS HERE**",sub:"Grow with the energy industry booming across Florida and Puerto Rico.",gancho:"A trade with a future.",tag:"WindMar Pros"} },
+  { cat:"formacion", tema:{es:"Formación · Sin experiencia",en:"Training · No experience"}, kick:{es:"WindMar Pros · Formación",en:"WindMar Pros · Training"},
+    es:{word:"¿SIN\n**EXPERIENCIA?**",sub:"Empiezas aprendiendo. Te damos herramientas, entrenamiento y un equipo que te guía.",gancho:"Empieza hoy, aprende con nosotros.",tag:"Formación · Pros"},
+    en:{word:"NO\n**EXPERIENCE?**",sub:"You start by learning. We bring the tools, the training and a team that guides you.",gancho:"Start today, learn with us.",tag:"Training · Pros"} },
+  { cat:"formacion", tema:{es:"Formación · Certificaciones",en:"Training · Certifications"}, kick:{es:"WindMar Pros · Formación",en:"WindMar Pros · Training"},
+    es:{word:"TE\n**ENTRENAMOS**",sub:"Trabajamos con Tesla y Owens Corning. Aprendes un oficio real, con marcas líderes.",gancho:"Aprende con los mejores.",tag:"Formación · Pros"},
+    en:{word:"WE\n**TRAIN YOU**",sub:"We work with Tesla and Owens Corning. Learn a real trade with leading brands.",gancho:"Learn from the best.",tag:"Training · Pros"} },
+  { cat:"equipo", tema:{es:"Equipo · Un solo equipo",en:"Team · One team"}, kick:{es:"WindMar Pros · Cultura",en:"WindMar Pros · Culture"},
+    es:{word:"UN SOLO\n**EQUIPO**",sub:"No subcontratamos: instalación, ventas y oficina trabajamos juntos, de principio a fin.",gancho:"Aquí no estás solo.",tag:"Cultura · Pros"},
+    en:{word:"ONE\n**TEAM**",sub:"We don't subcontract: install, sales and office work together, start to finish.",gancho:"You're never on your own.",tag:"Culture · Pros"} },
+  { cat:"equipo", tema:{es:"Equipo · Como familia",en:"Team · Like family"}, kick:{es:"WindMar Pros · Cultura",en:"WindMar Pros · Culture"},
+    es:{word:"ENTRAS COMO\n**FAMILIA**",sub:"Aquí te conocen por tu nombre. Equipo unido, metas claras y respaldo real.",gancho:"Bienvenido al equipo.",tag:"Cultura · Pros"},
+    en:{word:"YOU JOIN AS\n**FAMILY**",sub:"Here they know you by name. A tight team, clear goals and real backing.",gancho:"Welcome to the team.",tag:"Culture · Pros"} },
+  { cat:"ingreso", tema:{es:"Oportunidad · Tu esfuerzo",en:"Opportunity · Your effort"}, kick:{es:"WindMar Pros · Oportunidad",en:"WindMar Pros · Opportunity"},
+    es:{word:"TU ESFUERZO\n**SE PAGA**",sub:"Mientras más aportas, más avanzas. Sin techo para quien quiere crecer.",gancho:"Tu empeño manda.",tag:"Oportunidad · Pros"},
+    en:{word:"YOUR EFFORT\n**PAYS OFF**",sub:"The more you bring, the further you go. No ceiling for those who want to grow.",gancho:"Your drive leads.",tag:"Opportunity · Pros"} },
+  { cat:"ingreso", tema:{es:"Oportunidad · Demanda",en:"Opportunity · Demand"}, kick:{es:"WindMar Pros · Oportunidad",en:"WindMar Pros · Opportunity"},
+    es:{word:"OFICIO CON\n**DEMANDA**",sub:"Solar, baterías y techos no paran de crecer. Aprende una habilidad que se necesita.",gancho:"Habilidad que vale.",tag:"Oportunidad · Pros"},
+    en:{word:"A TRADE IN\n**DEMAND**",sub:"Solar, batteries and roofing keep growing. Learn a skill that's needed.",gancho:"A skill that lasts.",tag:"Opportunity · Pros"} },
+  { cat:"crece", tema:{es:"Estabilidad · Desde 2002",en:"Stability · Since 2002"}, kick:{es:"WindMar Pros · Trayectoria",en:"WindMar Pros · Track record"},
+    es:{word:"DESDE\n**2002**",sub:"Más de 20 años instalando en Puerto Rico y Florida. Una empresa estable donde construir tu futuro.",gancho:"Terreno firme para crecer.",tag:"WindMar Pros"},
+    en:{word:"SINCE\n**2002**",sub:"Over 20 years installing across Puerto Rico and Florida. A stable company to build your future.",gancho:"Solid ground to grow on.",tag:"WindMar Pros"} },
+  { cat:"proposito", tema:{es:"Propósito · Tu trabajo se ve",en:"Purpose · Work that shows"}, kick:{es:"WindMar Pros · Propósito",en:"WindMar Pros · Purpose"},
+    es:{word:"ENERGÍA QUE\n**IMPORTA**",sub:"Cada instalación deja una casa lista para el sol y las tormentas. Tu trabajo se ve.",gancho:"Deja huella real.",tag:"Impacto · Pros"},
+    en:{word:"ENERGY THAT\n**MATTERS**",sub:"Every install leaves a home ready for the sun and the storms. Your work shows.",gancho:"Leave a real mark.",tag:"Impact · Pros"} },
+  { cat:"proposito", tema:{es:"Cierre · Únete",en:"Close · Join us"}, kick:{es:"WindMar Pros · Reclutamiento",en:"WindMar Pros · Recruiting"},
+    es:{word:"ÚNETE A\n**WINDMAR**",sub:"Buscamos gente que quiera crecer con nosotros en Florida y Puerto Rico. ¿Te sumas?",gancho:"Aplica hoy, sin compromiso.",tag:"Reclutamiento · Pros"},
+    en:{word:"JOIN\n**WINDMAR**",sub:"We're looking for people who want to grow with us in Florida and Puerto Rico. In?",gancho:"Apply today, no strings.",tag:"Recruiting · Pros"} },
+];
+
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmtWord=raw=>esc(raw).split('\n').map(l=>l.replace(/\*\*(.+?)\*\*/g,'<span class="hl">$1</span>')).join('<br>');
+
+const gallery=document.getElementById('gallery');
+FACTS.forEach((f,i)=>{
+  const n=i+1;
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">Arte ${n} · <span class="es">${esc(f.tema.es)}</span><span class="en">${esc(f.tema.en)}</span></span>
+      <button class="dl" data-i="${i}">⬇︎ PNG</button>
+    </div>
+    <div class="piece story cat-${f.cat}" id="piece-${i}">
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div class="content">
+        <div class="brow"><span class="sun"></span><span class="brand">WindMar Pros<small><span class="es">Reclutamiento</span><span class="en">Careers</span></small></span></div>
+        <span class="kick"><span class="es">${esc(f.kick.es)}</span><span class="en">${esc(f.kick.en)}</span></span>
+        <div class="hair"></div>
+        <div class="wordwrap">
+          <div class="word"><span class="es">${fmtWord(f.es.word)}</span><span class="en">${fmtWord(f.en.word)}</span></div>
+          <div class="subline"><span class="es">${esc(f.es.sub)}</span><span class="en">${esc(f.en.sub)}</span></div>
+        </div>
+        <div class="foot">
+          <span class="gancho"><span class="es">${esc(f.es.gancho)}</span><span class="en">${esc(f.en.gancho)}</span></span>
+          <span class="tag"><span class="es">${esc(f.es.tag)}</span><span class="en">${esc(f.en.tag)}</span></span>
+        </div>
+      </div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+document.getElementById('langtog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-lang',b.dataset.l);
+  document.documentElement.lang=b.dataset.l;
+  document.getElementById('langtog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+document.getElementById('themetog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-theme',b.dataset.t);
+  document.getElementById('themetog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+
+const sb=document.getElementById('sizeBtn');
+sb.addEventListener('click',()=>{document.body.classList.toggle('real');
+  const on=document.body.classList.contains('real');
+  sb.classList.toggle('on',on);
+  sb.textContent=on?'↩︎ Volver a vista previa':'🔍 Tamaño real 1080 · screenshot';
+  if(on)window.scrollTo({top:0,behavior:'smooth'});});
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const slug=s=>(s||'windmar').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50);
+async function toPng(piece){
+  const dark=document.body.getAttribute('data-theme')==='dark';
+  const bg=dark?'#050f2c':'#ffffff';
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1920px;z-index:-1;background:'+bg;
+  const clone=piece.cloneNode(true);
+  clone.style.width='1080px';clone.style.height='1920px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    await nextFrame();
+    return await toBlob(clone,{width:1080,height:1920,pixelRatio:1,cacheBust:false,backgroundColor:bg});
+  } finally { holder.remove(); }
+}
+async function download(i){
+  const piece=document.getElementById('piece-'+i);
+  const lang=document.body.getAttribute('data-lang');
+  const word=piece.querySelector('.word .'+lang)?.textContent||'';
+  const blob=await toPng(piece); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download='windmar-pros-'+(Number(i)+1)+'-'+lang+'-'+slug(word)+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{ await download(btn.dataset.i); }
+    catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+const all=document.getElementById('dlAll');
+all.addEventListener('click',async()=>{
+  const btns=[...document.querySelectorAll('.dl')];
+  const t=all.textContent;all.disabled=true;let n=0;
+  for(const btn of btns){
+    n++;all.textContent='Generando '+n+'/'+btns.length+'…';
+    try{ await download(btn.dataset.i); }catch(e){ console.error(e); }
+    await wait(600);
+  }
+  all.textContent=t;all.disabled=false;
+});
+</script>
+</body>
+</html>

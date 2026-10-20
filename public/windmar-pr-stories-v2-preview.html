@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Stories v2 — Blueprint sobre foto (muestra)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --ink:#1a52c7; --orange:#f57c0a;
+  --bg:#e9eef7; --muted:#5a6b8c; --line:#e3e9f0;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--navy);font-family:var(--body);padding:26px}
+.wrap{max-width:900px;margin:0 auto}
+header.top{border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid rgba(26,82,199,.16);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:16px 0;line-height:1.5}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:10px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+
+/* ===== STORY v2 · blueprint sobre foto ===== */
+.piece{--acc:#ffd24a;position:relative;overflow:hidden;container-type:inline-size;
+  width:340px;aspect-ratio:9/16;border-radius:16px;background:#0a1626;color:#fff;
+  box-shadow:0 18px 48px rgba(13,34,64,.22);border:1px solid var(--line)}
+.piece.solar{--acc:#ffd24a}
+/* WH Financial: el acento iguala el naranja del logo oficial (#FF8E0C) */
+.piece.financial{--acc:#ff8e0c}
+.piece.roofing{--acc:#4aa0ff}
+.piece.water{--acc:#4ac8ff}
+.piece.anker{--acc:#4fe0a0}
+.piece.team{--acc:#ff9a2e}
+
+/* foto o video a color */
+.ph{position:absolute;inset:0;z-index:0}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;
+  filter:contrast(1.04) saturate(1.06)}
+/* hueco de video: arrastra o haz clic para colocar el clip */
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#0c1c40,#0c1c40 14px,#0a1836 14px,#0a1836 28px);
+  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;padding:8cqw}
+.ph .vdrop.drag{border-color:var(--acc);background:#13224e}
+.ph .vdrop-ic{font-size:13cqw;line-height:1}
+.ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:4.2cqw;color:#fff;letter-spacing:.1cqw}
+.ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:3cqw;color:rgba(255,255,255,.62)}
+/* velo inferior para legibilidad del dato */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,16,38,.30) 0%,rgba(8,16,38,.06) 26%,rgba(6,14,34,.52) 58%,rgba(4,10,26,.95) 100%)}
+
+/* boceto arquitectónico dibujado a mano (accent) */
+.sketch{position:absolute;inset:0;z-index:2;pointer-events:none}
+.sketch svg{width:100%;height:100%;display:block}
+
+/* chip arriba a la izquierda (tope); dato héroe + pie con aire abajo por la barra de mensaje de IG */
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:8.5cqw 7.5cqw 12cqw;pointer-events:none}
+
+/* barra superior */
+.tagrow{display:flex;align-items:center;justify-content:flex-end;gap:2cqw}
+.chip{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.28cqw;text-transform:uppercase;
+  color:var(--acc);line-height:1;text-shadow:0 .3cqw 2cqw rgba(0,0,0,.55)}
+.date{font-family:var(--body);font-weight:600;font-size:2.8cqw;letter-spacing:.12cqw;text-transform:uppercase;color:rgba(255,255,255,.82)}
+
+.spacer{flex:1}
+
+/* dato héroe */
+.stat{position:relative}
+.num{font-family:var(--disp);font-weight:400;font-size:34cqw;line-height:.82;letter-spacing:.2cqw;color:#fff;
+  text-shadow:0 .5cqw 3cqw rgba(0,0,0,.4)}
+.rule{width:22cqw;height:1cqw;background:var(--acc);margin:3.4cqw 0 3cqw;border-radius:2px}
+.label{font-family:var(--body);font-weight:800;font-size:6.4cqw;line-height:1.05;letter-spacing:.1cqw;text-transform:uppercase;color:#fff}
+.desc{font-family:var(--body);font-weight:600;font-size:3.5cqw;line-height:1.28;color:rgba(255,255,255,.86);margin-top:3cqw;max-width:94%}
+/* variante titular (sin número, para stories de gente/equipo) */
+.kicker{font-family:var(--body);font-weight:700;font-size:3.1cqw;letter-spacing:.12cqw;text-transform:uppercase;color:var(--acc);margin-bottom:2.6cqw}
+.headline{font-family:var(--disp);font-weight:400;font-size:15cqw;line-height:.9;letter-spacing:.2cqw;text-transform:uppercase;color:#fff;text-shadow:0 .5cqw 3cqw rgba(0,0,0,.4)}
+.headline .hl{color:var(--acc)}
+
+/* Tarjeta «Tu casa está ready»: lleva el texto íntegro —tres párrafos— porque
+   es copy escrito, no un dato. Con los tamaños normales empujaba la barra de
+   marca fuera del lienzo, así que aquí el titular y el cuerpo bajan un punto.
+   Los párrafos se separan con margen, no con <br><br>: así el espacio entre
+   ellos es siempre el mismo. */
+/* Esta tarjeta va en naranja de marca, no en el amarillo del resto de Solar.
+   Se cambia el acento y no cada texto: así el antetítulo, el «TÚ», la raya y
+   el punto del sitio cambian juntos y la pieza no queda a dos tonos. */
+.piece.v-casa-ready{--acc:#f57c0a}
+
+/* Aquí el antetítulo no es una etiqueta: es la frase de la campaña. Por eso
+   pesa casi el doble que en las demás tarjetas y el titular se queda con una
+   sola línea corta, que es lo que la deja golpear. */
+.piece.v-casa-ready .kicker{font-size:4.8cqw;letter-spacing:.14cqw;margin-bottom:1.8cqw}
+.piece.v-casa-ready .headline{font-size:16cqw}
+.piece.v-casa-ready .desc{font-size:3.4cqw;line-height:1.34;max-width:100%}
+.piece.v-casa-ready .desc p+p{margin-top:2.4cqw}
+
+/* ajuste card 44 entrevistas: frase larga + número gigante → dar aire */
+.piece.v-alianzas .kicker{font-size:2.9cqw;line-height:1.25;margin-bottom:3.6cqw;max-width:88%}
+.piece.v-alianzas .num{font-size:27cqw}
+
+/* barra de marca inferior */
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:3cqw;margin-top:6.5cqw;
+  padding-top:4.5cqw;border-top:.5cqw solid rgba(255,255,255,.22)}
+.brandbar img{height:8cqw;width:auto;display:block}
+.brandbar.anker img{height:5cqw}
+/* WH Financial es un lockup apilado (marca + bajada): necesita más alto para pesar igual */
+.brandbar.financial img{height:12cqw}
+.site{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:800;font-size:3.4cqw;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
+.site .dot{width:2.4cqw;height:2.4cqw;border-radius:50%;background:var(--acc);flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Stories <span class="o">v2</span> · Blueprint sobre foto <span style="font-size:13px;font-weight:600;color:var(--muted)">— muestra</span></h1>
+    <div class="sub">Foto real en blanco y negro + boceto arquitectónico a mano en color de marca + dato gigante. 9:16 (1080×1920).</div>
+  </header>
+  <div class="note"><b>Muestra de concepto.</b> Foto a color + boceto arquitectónico de línea limpia en color de marca: <b>Solar</b> en amarillo y <b>Roofing</b> en azul, igual que tus referencias. Si te gusta, lo aplico a los 7 stories de impacto. El boceto se dibuja en SVG y se puede afinar por tema.</div>
+
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+/* ===== boceto arquitectónico a mano — filtro de trazo irregular ===== */
+const ROUGH=`<defs><filter id="rgh" x="-20%" y="-20%" width="140%" height="140%">
+  <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="6" result="n"/>
+  <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="d"/>
+  <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#06132e" flood-opacity="0.55"/>
+</filter></defs>`;
+
+/* dibujo Solar: casa + techo con placas + sol + línea de cota */
+const SKETCH_SOLAR=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  ${ROUGH}
+  <g filter="url(#rgh)" fill="none" stroke="#ffd24a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- sol -->
+    <circle cx="812" cy="470" r="86"/>
+    <g stroke-width="6">
+      <path d="M812 320 v-70"/><path d="M812 690 v70"/><path d="M662 470 h-70"/><path d="M962 470 h70"/>
+      <path d="M705 363 l-48 -48"/><path d="M919 363 l48 -48"/><path d="M705 577 l-48 48"/><path d="M919 577 l48 48"/>
+    </g>
+    <!-- casa -->
+    <path d="M336 1146 V812 L560 636 L784 812 V1146"/>
+    <!-- techo (plano de placas) -->
+    <path d="M360 812 L560 660 L760 812 Z"/>
+    <path d="M430 812 L560 713"/><path d="M500 812 L560 763"/><path d="M620 812 L560 713"/><path d="M690 812 L560 763"/>
+    <path d="M400 762 L720 762"/>
+    <!-- puerta -->
+    <path d="M520 1146 V980 h80 V1146"/>
+    <!-- línea de cota -->
+    <g stroke-width="5">
+      <path d="M336 1226 H784"/>
+      <path d="M336 1206 V1246"/><path d="M784 1206 V1246"/>
+    </g>
+  </g>
+</svg>`;
+
+/* dibujo Roofing: edificio + techo sellado (brochazo) + gotas repelidas + cota */
+const SKETCH_ROOFING=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  ${ROUGH}
+  <g filter="url(#rgh)" fill="none" stroke="#4aa0ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- edificio -->
+    <path d="M320 1160 V740 H760 V1160"/>
+    <!-- plano de techo (perspectiva) -->
+    <path d="M320 740 L470 636 L910 636 L760 740"/>
+    <path d="M760 740 L910 636"/>
+    <!-- brochazo de sellado sobre el techo -->
+    <path d="M372 705 C 470 672, 610 672, 700 700" stroke-width="14"/>
+    <path d="M392 688 C 500 660, 620 660, 690 682" stroke-width="9" opacity=".8"/>
+    <!-- gotas repelidas -->
+    <g stroke-width="6">
+      <path d="M520 560 q18 26 0 44 q-18 -18 0 -44"/>
+      <path d="M600 588 q14 20 0 34 q-14 -14 0 -34"/>
+      <path d="M452 592 q14 20 0 34 q-14 -14 0 -34"/>
+    </g>
+    <!-- ventanas -->
+    <g stroke-width="5">
+      <path d="M400 830 h90 v90 h-90 Z"/><path d="M590 830 h90 v90 h-90 Z"/>
+      <path d="M400 980 h90 v90 h-90 Z"/><path d="M590 980 h90 v90 h-90 Z"/>
+    </g>
+    <!-- cota -->
+    <g stroke-width="5">
+      <path d="M320 1240 H760"/><path d="M320 1220 V1260"/><path d="M760 1220 V1260"/>
+    </g>
+  </g>
+</svg>`;
+
+/* dibujo Equipo/Apoyo: documento aprobado → financiamiento ($) → instalación (casa) */
+const SKETCH_TEAM=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  ${ROUGH}
+  <g filter="url(#rgh)" fill="none" stroke="#ff9a2e" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- documento con cotejo -->
+    <path d="M196 556 H356 V800 H196 Z"/>
+    <g stroke-width="5"><path d="M226 612 H326"/><path d="M226 652 H326"/><path d="M226 692 H296"/></g>
+    <path d="M232 742 l24 26 l50 -60" stroke-width="7"/>
+    <!-- flecha 1 -->
+    <path d="M392 682 H468"/><path d="M468 682 l-24 -17"/><path d="M468 682 l-24 17"/>
+    <!-- financiamiento ($) -->
+    <circle cx="560" cy="682" r="92"/>
+    <path d="M560 616 V748"/>
+    <path d="M592 642 c-10 -20 -60 -20 -60 8 c0 24 60 16 60 44 c0 28 -50 28 -60 8"/>
+    <!-- flecha 2 -->
+    <path d="M652 682 H728"/><path d="M728 682 l-24 -17"/><path d="M728 682 l-24 17"/>
+    <!-- casa (instalación) -->
+    <path d="M772 800 V664 L882 574 L992 664 V800 Z"/>
+    <path d="M852 800 V736 H912 V800"/>
+  </g>
+</svg>`;
+
+/* dibujo Anker/PYMES: estación de energía portátil → negocio local */
+const SKETCH_ANKER=`<svg viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  ${ROUGH}
+  <g filter="url(#rgh)" fill="none" stroke="#4fe0a0" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <!-- estación de energía portátil -->
+    <path d="M300 646 Q300 626 320 626 H520 Q540 626 540 646 V800 Q540 820 520 820 H320 Q300 820 300 800 Z"/>
+    <!-- asa -->
+    <path d="M356 626 V604 Q356 590 372 590 H468 Q484 590 484 604 V626" stroke-width="6"/>
+    <!-- pantalla -->
+    <path d="M322 668 H424 V706 H322 Z" stroke-width="5"/>
+    <!-- puertos -->
+    <circle cx="340" cy="762" r="13"/><circle cx="388" cy="762" r="13"/>
+    <!-- rayo -->
+    <path d="M486 664 L452 732 H486 L468 800 L522 718 H488 Z" stroke-width="6"/>
+    <!-- cable al negocio -->
+    <path d="M540 742 C 604 742, 636 720, 700 720" stroke-width="6"/>
+    <!-- negocio local (toldo + local) -->
+    <path d="M700 820 V704 H940 V820"/>
+    <path d="M686 704 H954 L932 662 H708 Z"/>
+    <g stroke-width="5"><path d="M746 662 L738 704"/><path d="M812 662 L810 704"/><path d="M878 662 L888 704"/></g>
+    <path d="M762 820 V744 H820 V820" stroke-width="5"/>
+    <path d="M858 744 H912 V786 H858 Z" stroke-width="5"/>
+  </g>
+</svg>`;
+
+const CARDS=[
+  { id:'financial', brand:'financial', cls:'financial', chip:'WH Financial · Desde 2024', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true, site:'whfinancialpr.com',
+    sketch:'', type:'headline',
+    kicker:'Invertimos para que todo este al tu alcance',
+    headline:'FINANCIAMIENTO<br><span class="hl">INTELIGENTE</span>',
+    desc:'Desde 2024, WH Financial Services es la financiera de la familia WindMar. Haz realidad tu sistema solar con un financiamiento hecho para ti, y consulta tu balance cuando quieras desde el portal de pagos.',
+    logo:'wme/logos/wh-financial-white-orange.svg' },
+  { id:'comercial', brand:'solar', cls:'solar', chip:'Comercial · Negocios', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', kicker:'Invertimos en la energía de los negocios', num:'2,353', label:'Negocios en Puerto Rico',
+    desc:'Comercios, oficinas y PYMES que dejaron de depender de los aumentos de luz y hoy operan con más control y respaldo.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'solar', brand:'solar', cls:'solar', chip:'Solar', date:'Dato · Sept 2026',
+    photo:'img/pr-solar-vecindario-placas.png',
+    sketch:'', num:'58,500', label:'Hogares con solar',
+    desc:'Más de 58,500 hogares boricuas ya generan su propia energía con WindMar Home.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'sistemas', brand:'solar', cls:'solar', chip:'Servicios · Variedad', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', kicker:'Invertimos en proveer múltiples soluciones', num:'____', label:'Sistemas instalados',
+    desc:'No solo instalamos placas: entre energía solar, baterías, roofing y más, invertimos en ofrecerte soluciones completas para tu hogar. Una sola compañía, todas las respuestas.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'alianzas', brand:'solar', cls:'solar', chip:'Alianzas · Presencia', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', kicker:'Invertimos en educar a los nuestros', num:'50+', label:'Intervenciones en medios',
+    desc:'Estar presentes en los medios es parte de nuestro compromiso: invertimos para educar a nuestra comunidad con información clara y confiable sobre su hogar.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'oficinas', brand:'solar', cls:'team', chip:'Equipo · Apoyo', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', kicker:'Invertimos en estar más cerca de ti', num:'5', label:'Oficinas y showrooms propios',
+    desc:'Roosevelt, Ponce, Mayagüez, Hatillo y Sabana Seca. Cinco oficinas propias para atenderte de cerca, cara a cara y en tu área.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  /* Overlay como el de Frances & Francheska: la foto entra solo de referencia para
+     ver la pieza compuesta, pero el PNG sale transparente para montarle el video
+     de techos debajo en el editor de Stories. */
+  { id:'roofing', brand:'roofing', cls:'roofing', chip:'Roofing', date:'Dato · Sept 2026',
+    photo:'img/pr-roofing-techos-blancos.png', overlay:true,
+    sketch:'', num:'80,353', label:'Pies² instalados',
+    desc:'80,353 pies cuadrados de techo instalados en Puerto Rico. Cuando se trata de proteger tu casa, la experiencia se nota.',
+    logo:'wme/logos/windmar-roofing-white-orange.png' },
+  /* «Tu casa está ready». No es una tarjeta de dato: no hay número, el copy es
+     el protagonista. El cierre de Nicolle —«Tu casa está ready, solo faltas
+     tú»— sube a titular y los tres párrafos quedan de cuerpo, íntegros y en su
+     orden. No se recortó ni se reescribió ninguna línea. */
+  { id:'casa-ready', brand:'solar', cls:'solar', chip:'Solar · Tu casa ready', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Tu casa está ready',
+    headline:'SOLO FALTAS <span class="hl">TÚ</span>',
+    /* Versión corta para story. Se recortó QUITANDO, no reescribiendo: cada
+       frase que queda es literal del texto de Nicolle. Fuera quedaron
+       «cuando suben los costos o se va la luz» (ya lo dice el primer párrafo)
+       y «Solo falta que des el primer paso» (lo dice el titular: solo faltas
+       tú). El texto completo vive en el pie de foto, no en la imagen. */
+    desc:'<p>Cada mes llega la factura y no sabes cuánto va a subir. Eso no es invertir: es pagar sin que nada se quede en tu casa.</p>'
+       + '<p>Con energía solar, tu techo produce tu propia energía. Tu casa gana valor y tú ganas tranquilidad.</p>'
+       + '<p>Una casa ready está preparada para los aumentos, para los apagones y para tu familia. Ya el techo trabaja por ti.</p>',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'cisternas', brand:'water', cls:'water', chip:'Water · Cisternas', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', kicker:'Agua asegurada para más familias', num:'962', label:'Cisternas instaladas',
+    desc:'962 cisternas instaladas asegurando el agua de nuestras familias en lo que va del 2026.',
+    logo:'wme/logos/windmar-water-white-orange.png' },
+  { id:'sequia-apoyo', brand:'water', cls:'water', chip:'Water · Sequía', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en un equipo de apoyo durante tiempos difíciles',
+    headline:'CUANDO EL AGUA<br><span class="hl">ES INCIERTA</span>',
+    desc:'Hoy nadie sabe cuándo llega o cuándo falta el agua. En medio de esa incertidumbre invertimos en un equipo de apoyo que te acompaña y te da respaldo para que tu familia nunca se quede sin agua.',
+    logo:'wme/logos/windmar-water-white-orange.png' },
+  { id:'pymes', brand:'anker', cls:'anker', chip:'Anker · PYMES', date:'Dato · Sept 2026',
+    video:'video/pr-anker-pymes-teaser.mp4', overlay:true,
+    sketch:'', kicker:'Invertimos en lo local', num:'2,353', label:'Negocios locales',
+    desc:'2,353 pequeños y medianos negocios locales echan hacia adelante y protegen su operación con la energía de WindMar.',
+    logo:'wme/logos/anker-white-orange.png' },
+  { id:'equipo', brand:'solar', cls:'team', chip:'Equipo · Apoyo', date:'Dato · Sept 2026 · 2PM',
+    video:'video/asist-admin.mp4', overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en un equipo de apoyo',
+    headline:'FRANCES &<br><span class="hl">FRANCHESKA</span>',
+    desc:'Nuestras asistentes administrativas y tu primer paso después de la venta: aseguran que tus documentos sean aprobados por el financiamiento y que tu proyecto pase a instalación.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  /* Misma serie que Frances & Francheska («Equipo · …», acento naranja, overlay
+     para montarle el video debajo). Diferencia: aquí todavía no hay NOMBRE, así
+     que el titular es el puesto. Cuando Nicolle confirme el nombre, el nombre
+     sube al titular (como en F&F) y el puesto pasa al antetítulo o a la línea.
+     La descripción es la función del puesto en general — confirmarla con la
+     persona antes de publicar; no se inventaron responsabilidades concretas. */
+  { id:'ops-roofing-water', brand:'roofing', cls:'team', chip:'Equipo · Operaciones', date:'Dato · Oct 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    /* mismo antetítulo que F&F: una sola línea y amarra la serie */
+    kicker:'Invertimos en un equipo de apoyo',
+    headline:'OPS MANAGER<br><span class="hl">ROOFING &amp; WATER</span>',
+    desc:'Nuestro gerente de operaciones de Roofing y Water coordina el material, las brigadas y el calendario para que tu techo o tu cisterna pase de la venta a la instalación.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  /* Misma serie «Equipo · …». Texto de Nicolle (14 oct): «Invertimos en
+     oficinas, tenemos office managers que nos ayudan a recibir los clientes en
+     los espacios más óptimos». Se le puso la «a» personal («recibir A los
+     clientes») y los acentos; lo demás es textual. Oficina: Roosevelt. */
+  { id:'office-roosevelt', brand:'solar', cls:'team', chip:'Equipo · Oficinas', date:'Dato · Oct 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    /* Nicolle prefirió el antetítulo de la serie (14 oct) */
+    kicker:'Invertimos en un equipo de apoyo',
+    headline:'OFFICE MANAGER<br><span class="hl">ROOSEVELT</span>',
+    desc:'Tenemos office managers que nos ayudan a recibir a los clientes en los espacios más óptimos.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  /* Misma serie «Equipo · …». Idea de Nicolle (16 oct); ella aprobó la versión
+     de estilo: «cerca DE ti» (la RAE no admite «cerca a»), «canvaseo» con s
+     (de canvassing) y el texto en tú, como el antetítulo. El chip dice la
+     función para no repetir el titular. */
+  { id:'canvaseo', brand:'solar', cls:'team', chip:'Equipo · Orientación', date:'Dato · Oct 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en estar más cerca de ti',
+    headline:'EQUIPO DE<br><span class="hl">CANVASEO</span>',
+    desc:'Entendemos que no todos los clientes tienen los recursos para buscar la ayuda que necesitan. Por eso, nuestro equipo de canvaseo te ayuda y te orienta.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  /* Misma serie «Equipo · …». Texto de Nicolle (16 oct). Correcciones de
+     gramática que ella pidió revisar antes de publicar: «se asegura DE que»
+     (asegurarse de algo; sin «de» es queísmo) y punto final. Nombre del
+     equipo: Nicolle confirmó «onboarding y debourding» (16 oct) y mandó el
+     perfil oficial de la supervisora (Yara Cabrera Aponte, «Onboarding and
+     Debording Supervisor · Ventas»): se escribe DEBORDING, como en el título
+     oficial. «Y» en español, como lo escribió ella. Lo demás es textual. */
+  { id:'onboarding', brand:'solar', cls:'team', chip:'Equipo · Ventas', date:'Dato · Oct 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en un equipo de apoyo',
+    headline:'ONBOARDING Y<br><span class="hl">DEBORDING</span>',
+    desc:'Este equipo se asegura de que el vendedor tenga todos los recursos para poder brindarle al cliente el mejor servicio.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'servicio-ponce', brand:'solar', cls:'team', chip:'Equipo · Servicio', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en estar más cerca de ti',
+    headline:'SERVICIO EN PONCE<br><span class="hl">POR LA COMUNIDAD</span>',
+    desc:'Nuestro equipo de servicio al cliente es parte de nuestra misión: estar ahí por ti y por tu comunidad. Ese es el compromiso que hemos hecho, estar cada día más cerca de ustedes.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'inventario', brand:'solar', cls:'team', chip:'Operaciones · Inventario', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en más espacios de inventario',
+    headline:'MATERIAL<br><span class="hl">SIEMPRE LISTO</span>',
+    desc:'Almacenes más grandes y un equipo de instaladores profesionales: invertimos en tenerlo todo disponible para que tu proyecto sea más accesible y avance sin esperas.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'almacen', brand:'solar', cls:'team', chip:'Operaciones · Almacén', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', type:'headline',
+    kicker:'Invertimos en un almacén lleno de productos',
+    headline:'PRODUCTOS<br><span class="hl">A TU ALCANCE</span>',
+    desc:'Un almacén surtido con todo lo que tu proyecto necesita. Así tenemos cada pieza disponible y tu instalación avanza sin esperas.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'agua-familias', brand:'water', cls:'water', chip:'Water · Cisternas', date:'Dato · Sept 2026',
+    videoSlot:true, overlay:true,
+    sketch:'', num:'300', label:'Galones de agua al día por familia',
+    kicker:'Invertimos en proveerle agua limpia y segura a muchas familias',
+    desc:'Una buena reserva en casa no es lujo: es estar ready cuando el servicio falla. Tu cisterna trabaja para que nunca te quedes sin agua.',
+    logo:'wme/logos/windmar-water-white-orange.png' },
+];
+
+const gallery=document.getElementById('gallery');
+CARDS.forEach((c,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.id='v-'+c.id; /* permite mandar un link directo a una tarjeta: …#v-roofing */
+  const bgEl = c.videoSlot
+    ? `<div class="vdrop"><div class="vdrop-ic">🎬</div><div class="vdrop-tx">Arrastra foto o video aquí</div><div class="vdrop-sub">o haz clic para elegirlo</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`
+    : c.video
+    ? `<video src="${c.video}" autoplay muted loop playsinline preload="auto"></video>`
+    : `<img src="${c.photo}" alt="${c.chip}" crossorigin="anonymous">`;
+  const hero = c.type==='headline'
+    ? `<div class="kicker">${c.kicker}</div>
+       <div class="headline">${c.headline}</div>
+       <div class="rule"></div>
+       <div class="desc">${c.desc}</div>`
+    : `${c.kicker?`<div class="kicker">${c.kicker}</div>`:''}
+       <div class="num">${c.num}</div>
+       <div class="rule"></div>
+       <div class="label">${c.label}</div>
+       <div class="desc">${c.desc}</div>`;
+  const dlLabel = c.overlay ? '⬇︎ PNG overlay' : '⬇︎ PNG';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">${c.chip} · impacto</span>
+      <button class="dl" data-i="${i}">${dlLabel}</button>
+    </div>
+    <div class="piece ${c.cls} v-${c.id}" id="pc-${i}">
+      <div class="ph">${bgEl}</div>
+      <div class="scrim"></div>
+      <div class="sketch">${c.sketch}</div>
+      <div class="content">
+        <div class="tagrow">
+          <span class="chip">${c.chip}</span>
+        </div>
+        <div class="spacer"></div>
+        <div class="stat">${hero}</div>
+        <div class="brandbar ${c.brand}">
+          <img src="${c.logo}" alt="WindMar" crossorigin="anonymous">
+          <span class="site"><span class="dot"></span>${c.site||'windmar.com'}</span>
+        </div>
+      </div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* link directo a una tarjeta: …#v-roofing — si no, hay que buscarla entre 15 */
+{ const h=location.hash.slice(1), el=h&&document.getElementById(h);
+  if(el) requestAnimationFrame(()=>el.scrollIntoView({block:'center'})); }
+
+/* ===== fondo intercambiable: arrastrar o clic en CUALQUIER tarjeta =====
+   Antes solo aceptaban media las tarjetas con el hueco vacío. Las que ya traían
+   foto quedaban fijas, así que para ver la pieza con un clip detrás había que
+   editar el archivo. Ahora todas aceptan drop; el PNG overlay no cambia porque
+   el fondo se descarta al exportar. */
+gallery.querySelectorAll('.ph').forEach(ph=>{
+  const inp=document.createElement('input');
+  inp.type='file'; inp.accept='image/*,video/*'; inp.hidden=true; inp.className='vin';
+  ph.appendChild(inp);
+  const flag=on=>{const d=ph.querySelector('.vdrop'); if(d) d.classList.toggle('drag',on);};
+  const setMedia=file=>{
+    if(!file) return;
+    const url=URL.createObjectURL(file);
+    if(file.type.startsWith('video/')) ph.innerHTML=`<video src="${url}" autoplay muted loop playsinline preload="auto"></video>`;
+    else if(file.type.startsWith('image/')) ph.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">`;
+    else return;
+    ph.appendChild(inp); /* innerHTML borra el input; se vuelve a colgar */
+  };
+  ph.addEventListener('click',()=>inp.click());
+  inp.addEventListener('change',e=>setMedia(e.target.files[0]));
+  ph.addEventListener('dragover',e=>{e.preventDefault();flag(true);});
+  ph.addEventListener('dragleave',()=>flag(false));
+  ph.addEventListener('drop',e=>{e.preventDefault();flag(false);setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ===== descarga PNG 1080×1920 ===== */
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const imgsReady=el=>Promise.all([...el.querySelectorAll('img')].map(im=>(im.complete&&im.naturalWidth)?Promise.resolve():new Promise(r=>{im.onload=im.onerror=r;})));
+let __embedCSS=null;
+function buf2b64(buf){const b=new Uint8Array(buf);let s='';const c=0x8000;for(let i=0;i<b.length;i+=c){s+=String.fromCharCode.apply(null,b.subarray(i,i+c));}return btoa(s);}
+async function getEmbedCSS(){
+  if(__embedCSS!=null) return __embedCSS;
+  try{
+    const links=[...document.querySelectorAll('link[href*="fonts.googleapis.com/css"]')].map(l=>l.href);
+    let out='';
+    for(const href of links){
+      let css=await (await fetch(href)).text();
+      const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){ try{ const b=await (await fetch(u)).arrayBuffer(); css=css.split(u).join('data:font/woff2;base64,'+buf2b64(b)); }catch(e){} }
+      out+=css+'\n';
+    }
+    __embedCSS=out;
+  }catch(e){ __embedCSS=''; }
+  return __embedCSS;
+}
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async e=>{
+    const i=+btn.dataset.i; const piece=document.getElementById('pc-'+i);
+    const overlay=!!CARDS[i].overlay;
+    const old=btn.textContent; btn.textContent='Generando…'; btn.disabled=true;
+    const holder=document.createElement('div');
+    holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1920px;z-index:-1;background:'+(overlay?'transparent':'#0a1626');
+    const clone=piece.cloneNode(true);
+    clone.style.width='1080px';clone.style.height='1920px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+    if(overlay){ clone.style.background='transparent';
+      const ph=clone.querySelector('.ph'); if(ph) ph.remove();
+      /* se conserva .scrim: gradiente transparente→oscuro, ideal para montar sobre el video */
+    }
+    holder.appendChild(clone);document.body.appendChild(holder);
+    try{
+      if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+      const fontEmbedCSS=await getEmbedCSS();
+      await imgsReady(clone); await nextFrame();
+      const blob=await toBlob(clone,{width:1080,height:1920,pixelRatio:1,cacheBust:false,backgroundColor:(overlay?undefined:'#0a1626'),fontEmbedCSS});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='windmar-story-v2-'+CARDS[i].id+(overlay?'-overlay':'')+'.png'; a.click();
+    }catch(err){ alert('Error al generar PNG: '+err); }
+    finally{ holder.remove(); btn.textContent=old; btn.disabled=false; }
+  });
+});
+</script>
+</body>
+</html>

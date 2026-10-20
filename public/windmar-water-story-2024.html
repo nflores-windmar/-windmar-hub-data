@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Water · Story 2024 — Agua limpia para Puerto Rico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --aqua:#5cc5e8; --aqua2:#2ea3d4; --blue:#1877b0; --deep:#0a3b63; --ink:#061f38;
+    --accent:#f57c0a; --accent-ink:#c9600a; --paper:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#dfeaf3;font-family:'Raleway',system-ui,sans-serif;color:#fff}
+  .bar{position:sticky;top:0;z-index:20;display:flex;gap:12px;align-items:center;justify-content:center;
+       padding:12px;background:#fff;border-bottom:1px solid #d9e6f3;flex-wrap:wrap}
+  .bar h1{font-weight:800;font-size:13px;letter-spacing:2px;margin:0;color:var(--deep);text-transform:uppercase}
+  .bar button{font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border:none;padding:10px 18px;border-radius:8px;background:var(--accent);color:#fff}
+  .bar button:active{transform:translateY(1px)}
+  .bar span{font-size:12px;color:#6f8aa3}
+  #stageWrap{display:flex;justify-content:center;padding:14px}
+  #stage{transform-origin:top center}
+
+  /* ===== STORY 1080×1920 ===== */
+  #story{width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 70% at 50% -8%, #7ad2ef 0%, rgba(122,210,239,0) 42%),
+      linear-gradient(180deg, #2ea3d4 0%, #1877b0 34%, #0a3b63 74%, #061f38 100%);
+  }
+  #story svg.waves{position:absolute;left:0;bottom:0;width:100%;height:auto;z-index:1;display:block}
+  #story .bubbles{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.55}
+  #story .content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:150px 96px}
+
+  .eyebrow{font-weight:800;font-size:30px;letter-spacing:9px;text-transform:uppercase;color:#bfeaff;
+    display:flex;align-items:center;gap:22px}
+  .eyebrow::after{content:"";flex:0 0 96px;height:3px;background:var(--accent);border-radius:3px}
+
+  .headwrap{margin-top:64px}
+  .kicker{font-weight:600;font-size:40px;color:#dff3ff;letter-spacing:.5px;line-height:1.25;margin:0 0 26px}
+  .head{font-weight:900;font-size:186px;line-height:.92;letter-spacing:-2px;color:#fff;margin:0;
+    text-shadow:0 6px 34px rgba(3,22,44,.4)}
+  .head .yr{color:#ffd9ad}
+  .sub{font-weight:600;font-size:52px;line-height:1.24;color:#eaf7ff;margin:40px 0 0;max-width:840px}
+  .sub b{color:#ffd9ad;font-weight:800}
+
+  .spacer{flex:1}
+  .cta{display:inline-flex;align-items:center;gap:18px;align-self:flex-start;
+    background:var(--accent);color:#fff;font-weight:800;font-size:40px;letter-spacing:3px;text-transform:uppercase;
+    padding:30px 52px;border-radius:16px;box-shadow:0 14px 40px rgba(245,124,10,.42)}
+  .cta .arrow{font-weight:900}
+
+  /* logo bottom-right, fixed size, full padding, never cropped */
+  #story .brand{position:absolute;right:74px;bottom:70px;z-index:4;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  #story .brand img{height:150px;width:auto;display:block;filter:drop-shadow(0 6px 18px rgba(3,22,44,.45))}
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>WindMar Water · Story 2024</h1>
+    <button id="dl">Descargar PNG</button>
+    <span>1080×1920 · 9:16</span>
+  </div>
+  <div id="stageWrap"><div id="stage">
+  <div id="story">
+    <!-- soft bubbles / caustics so background isn't flat -->
+    <svg class="bubbles" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g fill="#ffffff" opacity="0.08">
+        <circle cx="210" cy="470" r="9"/><circle cx="300" cy="620" r="5"/><circle cx="150" cy="760" r="6"/>
+        <circle cx="900" cy="380" r="7"/><circle cx="980" cy="560" r="5"/><circle cx="860" cy="700" r="9"/>
+        <circle cx="540" cy="1180" r="6"/><circle cx="700" cy="1000" r="5"/><circle cx="380" cy="1080" r="7"/>
+      </g>
+      <g stroke="#bfeaff" stroke-width="2" fill="none" opacity="0.12">
+        <path d="M0 300 C 220 250, 420 350, 640 300 S 1080 250, 1080 300"/>
+        <path d="M0 380 C 240 330, 470 430, 700 380 S 1080 330, 1080 380"/>
+      </g>
+    </svg>
+    <!-- layered waves at bottom -->
+    <svg class="waves" viewBox="0 0 1080 520" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 210 C 200 150, 380 260, 600 210 S 980 150, 1080 200 L1080 520 L0 520 Z" fill="#0d4a7a" opacity="0.55"/>
+      <path d="M0 300 C 220 240, 430 350, 650 300 S 1000 250, 1080 300 L1080 520 L0 520 Z" fill="#0a3b63" opacity="0.75"/>
+      <path d="M0 390 C 240 340, 470 440, 720 390 S 1010 350, 1080 390 L1080 520 L0 520 Z" fill="#061f38" opacity="0.9"/>
+    </svg>
+
+    <div class="content">
+      <div class="eyebrow">WindMar Water · Puerto Rico</div>
+      <div class="headwrap">
+        <p class="kicker">Comenzamos en</p>
+        <h2 class="head"><span class="yr">2024</span></h2>
+        <p class="sub">con el propósito de proveer <b>agua limpia</b> a Puerto Rico.</p>
+      </div>
+      <div class="spacer"></div>
+      <div class="cta">Visita windmar.com <span class="arrow">&rarr;</span></div>
+    </div>
+
+    <div class="brand">
+      <img src="wme/logos/windmar-water-white-orange.png" alt="WindMar Water" crossorigin="anonymous">
+    </div>
+  </div>
+  </div></div>
+
+<script type="module">
+  import { toPng } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+  function fit(){
+    const s=Math.min(1,(window.innerWidth-28)/1080);
+    document.getElementById('stage').style.transform='scale('+s+')';
+    document.getElementById('stageWrap').style.height=(1920*s+28)+'px';
+  }
+  window.addEventListener('resize',fit); fit();
+
+  let __embedCSS=null;
+  function buf2b64(buf){const b=new Uint8Array(buf);let s='';const c=0x8000;for(let i=0;i<b.length;i+=c){s+=String.fromCharCode.apply(null,b.subarray(i,i+c));}return btoa(s);}
+  async function getEmbedCSS(){
+    if(__embedCSS!=null) return __embedCSS;
+    try{
+      const links=[...document.querySelectorAll('link[href*="fonts.googleapis.com/css"]')].map(l=>l.href);
+      let out='';
+      for(const href of links){
+        let css=await (await fetch(href)).text();
+        const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com[^)]+)\)/g)].map(m=>m[1]))];
+        for(const u of urls){ try{ const b=await (await fetch(u)).arrayBuffer(); css=css.split(u).join('data:font/woff2;base64,'+buf2b64(b)); }catch(e){} }
+        out+=css+'\n';
+      }
+      __embedCSS=out;
+    }catch(e){ __embedCSS=''; }
+    return __embedCSS;
+  }
+
+  document.getElementById('dl').addEventListener('click',async(e)=>{
+    const btn=e.currentTarget; const old=btn.textContent; btn.textContent='Generando…'; btn.disabled=true;
+    try{
+      const node=document.getElementById('story');
+      const fontEmbedCSS=await getEmbedCSS();
+      await document.fonts.ready;
+      const dataUrl=await toPng(node,{width:1080,height:1920,pixelRatio:2,cacheBust:true,fontEmbedCSS});
+      const a=document.createElement('a'); a.href=dataUrl; a.download='windmar-water-story-2024-pr-9-16.png'; a.click();
+    }catch(err){ alert('Error al generar PNG: '+err); }
+    finally{ btn.textContent=old; btn.disabled=false; }
+  });
+</script>
+</body>
+</html>

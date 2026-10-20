@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Let them talk — 9:16 story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --orange:#f57c0a; --yellow:#ffc60b;
+  --bg:#0d1220; --panel:#141a2b; --muted:#8290ad; --line:#232c42;
+  --disp:'Anton','Bebas Neue',Impact,sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#e8edf7;font-family:var(--body);padding:26px 22px 60px}
+.wrap{max-width:1180px;margin:0 auto}
+h1{font-family:var(--disp);font-weight:400;font-size:34px;letter-spacing:.4px;text-transform:uppercase}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:14px;margin-top:6px;font-weight:500}
+.note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin:14px 0 4px;font-size:13.5px;color:#c4cee3;line-height:1.5}
+.note b{color:#fff}
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:18px}
+.slot{width:340px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}
+.cap{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--muted)}
+.tools{display:flex;gap:7px}
+.btn{font-family:var(--body);font-weight:700;font-size:11.5px;letter-spacing:.2px;border:1px solid var(--line);
+  background:#1b2338;color:#e8edf7;border-radius:8px;padding:6px 9px;cursor:pointer}
+.btn:hover{border-color:#3a4a6b}
+.btn.on{background:var(--orange);border-color:var(--orange);color:#111}
+
+/* ====== 9:16 PIECE ====== */
+.piece{--acc:var(--yellow);position:relative;overflow:hidden;container-type:inline-size;
+  width:340px;aspect-ratio:9/16;background:#0b1020;border-radius:10px;color:#fff}
+/* fondo (foto/video que suelta el usuario) */
+.bg{position:absolute;inset:0;z-index:0}
+.bg img,.bg video{width:100%;height:100%;object-fit:cover;display:block}
+.bg .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#101a33,#101a33 16px,#0d1730 16px,#0d1730 32px);cursor:pointer;text-align:center;padding:8cqw}
+.bg .vdrop.drag{background:#16234a}
+.bg .vdrop-ic{font-size:12cqw;line-height:1}
+.bg .vdrop-tx{font-family:var(--body);font-weight:800;font-size:3.8cqw}
+.bg .vdrop-sub{font-family:var(--body);font-weight:600;font-size:2.8cqw;color:rgba(255,255,255,.6)}
+/* velo para legibilidad */
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,10,26,.28) 0%,rgba(4,10,26,0) 26%,rgba(4,10,26,0) 60%,rgba(4,10,26,.42) 100%)}
+
+/* frase "Let them talk" en un solo lugar (arriba) */
+.tag{position:absolute;left:6cqw;right:6cqw;top:7cqw;z-index:2;text-align:center;
+  font-family:var(--disp);font-weight:400;font-size:13cqw;line-height:.9;letter-spacing:.4cqw;
+  text-transform:uppercase;color:var(--yellow);outline:none;
+  text-shadow:0 .5cqw 2.4cqw rgba(0,0,0,.5),0 0 1.2cqw rgba(0,0,0,.4)}
+
+/* tarjeta de reseña Google (la protagonista) */
+.review{position:absolute;left:6cqw;right:6cqw;top:32cqw;z-index:3;background:#fff;color:#1c1f26;
+  border-radius:3.4cqw;padding:5.2cqw 5.4cqw;box-shadow:0 3cqw 8cqw rgba(0,0,0,.32)}
+.review.hidden{display:none}
+.rv-head{display:flex;align-items:center;gap:3.2cqw}
+.rv-av{width:11cqw;height:11cqw;border-radius:50%;overflow:hidden;flex:0 0 auto;background:#e6e9f0;cursor:pointer;position:relative}
+.rv-av img{width:100%;height:100%;object-fit:cover;display:block}
+.rv-av .ph-ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:5cqw;color:#9aa3b5}
+.rv-name{font-family:var(--body);font-weight:700;font-size:4.2cqw;color:#1c1f26;line-height:1.1;outline:none}
+.rv-sub{font-family:var(--body);font-weight:500;font-size:3.1cqw;color:#5f6b7d;margin-top:.4cqw;outline:none}
+.rv-stars{display:flex;align-items:center;gap:2.6cqw;margin-top:3cqw}
+.rv-stars .stars{color:#fbbc04;font-size:4.4cqw;letter-spacing:.4cqw}
+.rv-time{background:#e6f4ea;color:#137333;font-family:var(--body);font-weight:600;font-size:2.9cqw;
+  padding:.9cqw 2.4cqw;border-radius:2cqw;outline:none}
+.rv-body{font-family:var(--body);font-weight:500;font-size:3.9cqw;line-height:1.35;color:#20242c;margin-top:3.2cqw;outline:none}
+.rv-foot{display:flex;align-items:center;gap:2.2cqw;margin-top:4cqw;color:#3c4150}
+.rv-foot .heart{font-size:4.6cqw}
+.rv-foot .cnt{display:flex;align-items:center;gap:1cqw;font-family:var(--body);font-weight:700;font-size:3.6cqw}
+
+/* frase de apoyo (copy que se puede editar) */
+.subline{position:absolute;left:6cqw;right:6cqw;bottom:11cqw;z-index:3;
+  font-family:var(--body);font-weight:800;font-size:4.4cqw;line-height:1.2;color:#fff;text-align:center;outline:none;
+  text-shadow:0 .4cqw 2cqw rgba(0,0,0,.7),0 0 1cqw rgba(0,0,0,.5)}
+
+/* pie */
+.foot{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;align-items:center;justify-content:center;gap:2cqw;
+  padding:5cqw;pointer-events:none}
+.foot .site{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.3cqw;text-transform:uppercase;color:#fff;
+  text-shadow:0 .3cqw 1.4cqw rgba(0,0,0,.6)}
+.foot .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--orange);display:inline-block;margin-right:1.6cqw;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Let them talk <span class="o">·</span> Story 9:16</h1>
+  <div class="sub">La reseña real es la protagonista y "Let them talk" va arriba en un solo lugar. Suelta tu foto/video de fondo, escribe la reseña, exporta PNG (1080×1920).</div>
+  <div class="note"><b>Cómo se usa:</b> arrastra tu foto o video al fondo de cada tarjeta 🖼️ · todos los textos son editables (la frase "Let them talk", la reseña, el nombre, la fecha) — haz clic y escribe · el avatar de la reseña también es un hueco para foto · con <b>Reseña</b> la muestras u ocultas · exporta cada una en <b>PNG</b>. Usa reseñas reales — no inventes texto.</div>
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const SLIDES=[
+  { sub:'We do not talk about it. We show you.' },
+  { sub:'Real installs. Real customers. Since 2002.' },
+  { sub:'See it for yourself, then decide.' },
+];
+
+const gallery=document.getElementById('gallery');
+
+SLIDES.forEach((s,i)=>{
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap">Slide ${i+1}/${SLIDES.length}</span>
+      <div class="tools">
+        <button class="btn dl" data-i="${i}">⬇︎ PNG</button>
+      </div>
+    </div>
+    <div class="piece" id="pc-${i}">
+      <div class="bg" data-drop>
+        <div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Drop your photo/video</div><div class="vdrop-sub">or click to choose</div>
+          <input type="file" accept="image/*,video/*" class="vin" hidden></div>
+      </div>
+      <div class="scrim"></div>
+      <div class="tag" contenteditable="true" spellcheck="false">Let them talk</div>
+      <div class="subline" contenteditable="true" spellcheck="false">${s.sub}</div>
+      <div class="foot"><span class="site"><span class="dot"></span>windmarcommand.com</span></div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* ---- soltar / reemplazar media en cualquier zona [data-drop] ---- */
+function wire(zone){
+  const inp=zone.querySelector('.vin'); if(!inp) return;
+  const isAvatar=zone.classList.contains('rv-av');
+  const setMedia=file=>{
+    if(!file) return;
+    const url=URL.createObjectURL(file);
+    const vin='<input type="file" accept="'+(isAvatar?'image/*':'image/*,video/*')+'" class="vin" hidden>';
+    if(!isAvatar && file.type.startsWith('video/')) zone.innerHTML=`<video src="${url}" autoplay muted loop playsinline></video>${vin}`;
+    else if(file.type.startsWith('image/')) zone.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">${vin}`;
+    else return;
+    wire(zone);
+  };
+  zone.addEventListener('click',e=>{ if(e.target.isContentEditable) return; zone.querySelector('.vin').click(); });
+  inp.addEventListener('change',e=>setMedia(e.target.files[0]));
+  zone.addEventListener('dragover',e=>{e.preventDefault();const d=zone.querySelector('.vdrop');d&&d.classList.add('drag');});
+  zone.addEventListener('dragleave',()=>{const d=zone.querySelector('.vdrop');d&&d.classList.remove('drag');});
+  zone.addEventListener('drop',e=>{e.preventDefault();const d=zone.querySelector('.vdrop');d&&d.classList.remove('drag');setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+}
+document.querySelectorAll('[data-drop]').forEach(wire);
+
+/* ---- toggles ---- */
+
+/* ---- fuentes embebidas (para que el PNG no falle) ---- */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+/* ---- exportar PNG 1080 de ancho ---- */
+document.querySelectorAll('.dl').forEach(btn=>btn.addEventListener('click',async()=>{
+  const i=btn.dataset.i; const node=document.getElementById('pc-'+i);
+  btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+  const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true};
+  try{
+    const css=await fontEmbedCSS();
+    let blob=null;
+    try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+    if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+    if(!blob) throw new Error('imagen vacía');
+    const a=document.createElement('a'); a.download=`windmar-lettemtalk-${(+i)+1}.png`;
+    a.href=URL.createObjectURL(blob); a.click();
+  }catch(e){ alert('No se pudo exportar: '+e.message); }
+  btn.disabled=false; btn.textContent=old;
+}));
+</script>
+</body>
+</html>

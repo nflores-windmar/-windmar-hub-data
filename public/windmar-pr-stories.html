@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WindMar Water PR — Stories · Fun Facts Sequía (blueprint)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800&family=Anek+Latin:wght@600;700;800&family=DM+Sans:wght@500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp-navy:#0a2882; --bp-navy2:#071e55; --bp-ink:#1a52c7; --bp-ink-dark:#0f3a96;
+  --bp-orange:#f57c0a; --bp-grid:rgba(26,82,199,.08); --bp-line:rgba(26,82,199,.34);
+  --bp-line-soft:rgba(26,82,199,.16); --bp-muted:#5a6b8c;
+  --muted:#5b6b7c; --line:#e3e9f0; --bg:#e9eef7;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --poster:'Montserrat','DM Sans',system-ui,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--bp-navy);font-family:var(--body);padding:22px}
+.wrap{max-width:1240px;margin:0 auto}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.topnav a{font-size:12px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:#fff;transition:.15s;cursor:pointer}
+.topnav a:hover{border-color:var(--bp-navy);color:var(--bp-navy)}
+header.top{border-bottom:3px solid var(--bp-orange);padding-bottom:14px;margin-bottom:6px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--bp-orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid var(--bp-line-soft);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:14px 0;line-height:1.5}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 20px}
+.btn{font-family:var(--body);font-size:12px;font-weight:800;padding:8px 14px;border-radius:9px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;transition:.15s}
+.btn:hover{border-color:var(--bp-navy)}
+.btn.on{background:var(--bp-navy);color:#fff;border-color:var(--bp-navy)}
+.langtog{display:inline-flex;border:1.5px solid var(--line);border-radius:9px;overflow:hidden}
+.langtog button{font-family:var(--body);font-weight:800;font-size:12px;padding:8px 16px;border:none;background:#fff;color:var(--bp-navy);cursor:pointer;border-left:1px solid var(--line)}
+.langtog button:first-child{border-left:none}
+.langtog button.on{background:var(--bp-navy);color:#fff}
+
+body[data-lang="es"] .en{display:none}
+body[data-lang="en"] .es{display:none}
+
+.gallery{display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;margin-top:6px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--bp-navy);background:var(--bp-navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+.capbtns{display:flex;gap:6px;align-items:center;flex:none}
+.pub{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.pub:hover{border-color:#12a150;color:#12a150}
+.pub.on{background:#12a150;border-color:#12a150;color:#fff}
+.bgup{font-family:var(--body);font-size:11px;font-weight:800;padding:4px 9px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--bp-navy);cursor:pointer;white-space:nowrap}
+.bgup:hover{border-color:#f57c0a;color:#c9600a}
+.bgin{display:none}
+/* chip de marca en la etiqueta */
+.bchip{font-family:var(--mono);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:5px;margin-right:6px;color:#fff;vertical-align:middle}
+.bchip.b-water{background:#2b8fd6}.bchip.b-solar{background:#d99a00}.bchip.b-roofing{background:#2b5fd6}.bchip.b-anker{background:#1f9d66}
+/* estado publicado: el arte se atenúa y muestra cinta */
+.slot.published .piece{outline:3px solid #12a150;outline-offset:2px}
+.slot.published .cap{color:#12a150}
+/* barra de filtros */
+.filterbar{margin-top:-6px}
+.flabel{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pubcount{font-family:var(--body);font-size:12px;font-weight:800;color:var(--bp-navy);margin-left:2px}
+.slot.hide{display:none}
+
+/* ===== BLUEPRINT STORY PIECE ===== */
+.piece{--acc:var(--bp-orange);position:relative;overflow:hidden;container-type:inline-size;background:#ffffff;color:var(--bp-navy);
+  width:300px;aspect-ratio:9/16;border-radius:14px;box-shadow:0 14px 40px rgba(13,34,64,.16);border:1px solid var(--line)}
+body.real .piece{width:1080px;border-radius:0}
+.piece::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--bp-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bp-grid) 1px,transparent 1px);
+  background-size:6cqw 6cqw}
+.piece > .tick{position:absolute;width:5cqw;height:5cqw;border:.5cqw solid var(--bp-ink);z-index:6}
+.piece > .tick.tl{top:4cqw;left:4cqw;border-right:none;border-bottom:none}
+.piece > .tick.tr{top:4cqw;right:4cqw;border-left:none;border-bottom:none}
+.piece > .tick.bl{bottom:4cqw;left:4cqw;border-right:none;border-top:none}
+.piece > .tick.br{bottom:4cqw;right:4cqw;border-left:none;border-top:none}
+
+.content{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:11cqw 8cqw;pointer-events:none}
+
+.brow{display:flex;align-items:center;gap:2.4cqw}
+.sun{width:6cqw;height:6cqw;border-radius:50%;flex:none;
+  background:radial-gradient(circle at 50% 40%,#eafaff,#7fd6f0 48%,var(--acc) 100%)}
+.brand{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.34cqw;line-height:1;text-transform:uppercase;color:var(--bp-navy)}
+.brand small{display:block;font-weight:600;font-size:2.1cqw;opacity:.7;letter-spacing:.16cqw;color:var(--bp-ink-dark)}
+.wlogo{height:16cqw;width:auto;display:block}
+/* balance por marca: Water/Roofing casi cuadrados; Anker es wordmark ancho */
+.brow.brand-anker .wlogo{height:8.5cqw}
+.wlogo.dark{display:none}
+body[data-theme="dark"] .wlogo.light{display:none}
+body[data-theme="dark"] .wlogo.dark{display:block}
+.kick{margin-top:auto;font-family:var(--mono);font-weight:500;font-size:2.7cqw;letter-spacing:.2cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.kick::before{content:"↳ ";color:var(--acc)}
+/* pequeñas etiquetas mono (kick/tag) ocultas: no son parte de la tipografía de marca */
+.kick,.tag{display:none}
+.hair{margin-top:auto;width:18cqw;height:.7cqw;background:var(--acc)}
+
+.wordwrap{position:relative;z-index:3;margin-top:7cqw}
+.word{font-family:var(--disp);font-weight:700;line-height:.9;text-transform:uppercase;letter-spacing:.1cqw;
+  font-size:var(--wsize,14cqw);color:var(--bp-navy);white-space:pre-wrap;word-break:break-word;
+  -webkit-text-stroke:.14cqw currentColor;text-stroke:.14cqw currentColor}
+.word .hl{color:var(--acc)}
+.subline{margin-top:4cqw;font-family:var(--body);font-weight:700;font-size:3.9cqw;line-height:1.22;max-width:96%;color:var(--bp-ink-dark)}
+
+/* ===== FOTO DE FONDO · blueprint del sistema de agua ===== */
+.piece.has-bg .bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+.piece.has-bg .bg img{width:100%;height:100%;object-fit:cover;display:block}
+.piece.has-bg .bg::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,20,60,.82) 0%,rgba(6,20,60,.6) 38%,rgba(4,12,36,.94) 100%)}
+/* grilla y esquinas encima de la foto */
+.piece.has-bg{--bp-grid:rgba(255,255,255,.07)}
+.piece.has-bg::before{z-index:1}
+/* acento por categoría en ambos temas */
+.piece.has-bg.cat-water{--acc:#5fc9e8}
+.piece.has-bg.cat-cistern{--acc:#4ac8ff}
+.piece.has-bg.cat-filter{--acc:#35d0b6}
+.piece.has-bg.cat-process{--acc:#5fc9e8}
+.piece.has-bg.cat-close{--acc:#ff8a3d}
+/* ===== color de marca establecido (Solar amarillo · Roofing azul · Anker verde) ===== */
+.piece.cat-solar{--acc:#d99a00}
+.piece.has-bg.cat-solar{--acc:#ffd24a}
+.piece.cat-roofing{--acc:#2b5fd6}
+.piece.has-bg.cat-roofing{--acc:#6aa8ff}
+.piece.cat-energy{--acc:#1f9d66}
+.piece.has-bg.cat-energy{--acc:#5fe0a6}
+.piece.cat-alliance{--acc:#e01a2b}
+.piece.has-bg.cat-alliance{--acc:#ff3b4c}
+/* texto claro legible sobre foto (ambos temas) */
+.piece.has-bg .brand{color:#fff}
+.piece.has-bg .brand small{color:rgba(255,255,255,.72)}
+.piece.has-bg .kick{color:rgba(255,255,255,.82)}
+.piece.has-bg .word{color:#fff;text-shadow:0 .4cqw 2.6cqw rgba(0,0,0,.42)}
+.piece.has-bg .subline{color:rgba(255,255,255,.9)}
+.piece.has-bg .gancho{color:#fff}
+.piece.has-bg .tag{color:rgba(255,255,255,.72)}
+.piece.has-bg > .tick{border-color:var(--acc)}
+.piece.has-bg .wlogo.light{display:none}
+.piece.has-bg .wlogo.dark{display:block}
+
+.foot{position:relative;z-index:4;margin-top:auto;display:flex;flex-direction:column;gap:2.4cqw;padding-top:6cqw}
+.gancho{font-family:var(--body);font-weight:800;font-size:4cqw;line-height:1.18;padding-left:3cqw;
+  border-left:1.1cqw solid var(--acc);color:var(--bp-navy)}
+.tag{font-family:var(--mono);font-weight:500;font-size:2.5cqw;letter-spacing:.18cqw;text-transform:uppercase;color:var(--bp-ink-dark)}
+.theme{align-self:flex-start;font-family:var(--body);font-weight:800;font-size:2.7cqw;letter-spacing:.22cqw;text-transform:uppercase;
+  color:var(--acc);border:.4cqw solid var(--acc);padding:1.1cqw 3cqw;border-radius:100px;line-height:1}
+.piece.has-bg .theme{color:#fff;background:rgba(4,12,28,.30)}
+body[data-theme="dark"] .theme{color:var(--acc)}
+
+/* ===== DARK THEME · color por categoría ===== */
+body[data-theme="dark"] .piece.cat-water{--acc:#5fc9e8}
+body[data-theme="dark"] .piece.cat-cistern{--acc:#4ac8ff}
+body[data-theme="dark"] .piece.cat-filter{--acc:#35d0b6}
+body[data-theme="dark"] .piece.cat-process{--acc:#5fc9e8}
+body[data-theme="dark"] .piece.cat-close{--acc:#ff8a3d}
+body[data-theme="dark"] .piece.cat-solar{--acc:#ffd24a}
+body[data-theme="dark"] .piece.cat-roofing{--acc:#6aa8ff}
+body[data-theme="dark"] .piece.cat-energy{--acc:#5fe0a6}
+body[data-theme="dark"] .piece.cat-alliance{--acc:#ff3b4c}
+body[data-theme="dark"] .piece{--bp-grid:rgba(255,255,255,.055);
+  background:radial-gradient(120% 90% at 20% 0%,#123069 0%,#0a1e4d 40%,#050f2c 100%);
+  color:#fff;border-color:rgba(255,255,255,.12)}
+body[data-theme="dark"] .piece > .tick{border-color:var(--acc)}
+body[data-theme="dark"] .brand{color:#fff}
+body[data-theme="dark"] .brand small{color:rgba(255,255,255,.66)}
+body[data-theme="dark"] .kick{color:rgba(255,255,255,.72)}
+body[data-theme="dark"] .word{color:#fff}
+body[data-theme="dark"] .subline{color:rgba(255,255,255,.82)}
+body[data-theme="dark"] .gancho{color:#fff}
+body[data-theme="dark"] .tag{color:rgba(255,255,255,.6)}
+
+@media print{body{background:#fff;padding:0}.topnav,.controls,.note,header.top,.caprow{display:none}
+  .gallery{gap:0}.piece{box-shadow:none;border-radius:0;page-break-after:always}}
+
+/* ===== SECCIÓN · FLYERS POR PRODUCTO (foto de instalación · 4:5) ===== */
+.secthead{margin:40px 0 4px;border-top:2px solid var(--bp-line-soft);padding-top:22px}
+.secthead h2{font-size:20px;letter-spacing:-.3px;color:var(--bp-navy)}
+.secthead h2 .o{color:var(--bp-orange)}
+.secthead .sub{color:var(--muted);font-size:13px;margin-top:4px}
+
+.flyer{position:relative;overflow:hidden;container-type:inline-size;background:#0a1626;color:#fff;
+  width:300px;aspect-ratio:4/5;border-radius:14px;box-shadow:0 14px 40px rgba(13,34,64,.16);border:1px solid var(--line)}
+body.real .flyer{width:1080px;border-radius:0}
+.flyer .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
+.flyer .grad{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,10,26,.66) 0%,rgba(4,10,26,.42) 22%,rgba(4,10,26,.34) 40%,rgba(4,10,26,.32) 58%,rgba(4,10,26,.68) 100%)}
+.flyer .copy{position:absolute;left:8.3cqw;right:8.3cqw;top:50%;transform:translateY(-50%);z-index:3;text-align:center;pointer-events:none}
+.flyer .flogo{position:absolute;left:0;right:0;top:8cqw;z-index:3;display:flex;justify-content:center;align-items:center;
+  filter:drop-shadow(0 .3cqw 1cqw rgba(0,0,0,.35))}
+.flyer .flogo .logo{position:static;top:auto;left:auto;height:16cqw;width:auto;display:block;filter:none}
+.flyer.fl-solar .flogo .logo{height:18cqw}
+.flyer .fkick{font-family:var(--poster);font-weight:700;font-size:2.4cqw;letter-spacing:.42em;text-transform:uppercase;color:rgba(255,255,255,.9);margin-bottom:2.4cqw}
+.flyer .fh{font-family:var(--disp);font-weight:400;font-size:9.6cqw;line-height:.92;letter-spacing:.14cqw;text-transform:uppercase;color:#fff;text-shadow:0 .3cqw 2cqw rgba(0,0,0,.45)}
+.flyer .fsub{font-family:var(--poster);font-weight:600;font-size:2.87cqw;line-height:1.28;color:rgba(255,255,255,.94);margin-top:2.4cqw;text-shadow:0 .2cqw 1.3cqw rgba(0,0,0,.5);max-width:88%;margin-left:auto;margin-right:auto;text-wrap:balance}
+.flyer .frule{width:10.2cqw;height:.46cqw;margin:3cqw auto 2.6cqw;border-radius:.3cqw}
+.flyer .fcta{font-family:var(--poster);font-weight:700;font-size:2.69cqw;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.95);text-shadow:0 .2cqw 1.3cqw rgba(0,0,0,.5)}
+.flyer.fl-anker .logo{height:7cqw;top:6.5cqw}
+.flyer .logorow{position:static;display:flex;align-items:center;justify-content:center;gap:3cqw}
+.flyer .logorow .logo{position:static;filter:none;top:auto;left:auto}
+.flyer.fl-anker .logorow .lg-wmh{height:7.6cqw}
+.flyer.fl-anker .logorow .lg-anker{height:5.6cqw}
+.flyer .logorow .logodiv{width:.28cqw;height:6.4cqw;background:rgba(255,255,255,.5);border-radius:2px}
+.flyer.fl-solar   .frule{background:#f5a623}
+.flyer.fl-roofing .frule{background:#2b5fd6}
+.flyer.fl-water   .frule{background:#2b8fd6}
+.flyer.fl-anker   .frule{background:#1f9d66}
+.flyer.fl-anker .bg{display:none}
+.flyer.fl-anker.has-bg .bg{display:block}
+.flyer.fl-anker.has-bg .grad{background:linear-gradient(180deg,rgba(6,15,31,.55) 0%,rgba(6,15,31,.45) 52%,rgba(6,15,31,.22) 100%)}
+.flyer.fl-anker.has-bg .copy{top:39%}
+.flyer.fl-anker{background:radial-gradient(120% 90% at 50% 18%,#12213f 0%,#0a1626 55%,#060f1f 100%)}
+.flyer.fl-anker::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(120,170,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(120,170,255,.06) 1px,transparent 1px);
+  background-size:6cqw 6cqw}
+.flyer.fl-anker .grad{background:linear-gradient(180deg,rgba(6,15,31,.2) 0%,rgba(6,15,31,0) 30%,rgba(6,15,31,.55) 100%)}
+.flyer .fproduct{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:96cqw;height:auto;z-index:2;
+  filter:drop-shadow(0 2cqw 3.5cqw rgba(0,0,0,.55));pointer-events:none}
+/* Sept Anker (photo bg): producto integrado en la escena, no hero */
+.flyer.fl-anker.has-bg .fproduct{left:7cqw;bottom:2cqw;transform:none;width:40cqw;
+  filter:drop-shadow(0 1.2cqw 2cqw rgba(0,0,0,.5))}
+</style>
+</head>
+<body data-lang="es" data-theme="dark">
+<div class="wrap">
+
+<div class="topnav">
+  <a href="windmar-fl-stories.html">☀️ Stories Florida</a>
+  <a href="cronograma_pr.html">📅 Cronograma PR</a>
+  <a href="editorial_agua.html">💧 Editorial Agua</a>
+  <a href="windmar-home-brandguide.html">📐 Brand Guide</a>
+  <a href="windmar_content_hub.html">🏠 Hub</a>
+  <a onclick="window.print()">🖨️ Imprimir / PDF</a>
+</div>
+
+<header class="top">
+  <h1>WindMar <span class="o">PR</span> — Stories · Fun Facts</h1>
+  <div class="sub">Estética <b>blueprint</b> · palabra gigante · 9:16 · bilingüe ES/EN · PNG 1080×1920 · <b>Water · Solar · Roofing · Anker</b></div>
+</header>
+
+<div class="note"><b>Cómo se usa:</b> son <b>48 stories</b> para Puerto Rico (26 fun facts + 12 frames de <b>“Origen y misión de los productos”</b> + 3 de <b>“Alianza · Cruz Roja”</b> + 7 <b>datos de impacto de septiembre</b>, series de 3: Water · Solar · Baterías · Roofing) — <b>WindMar Water</b> (sequía, cisterna, filtración), <b>WindMar Home Solar</b> (sol de PR, ahorro, respaldo), <b>WindMar Roofing</b> (sellado, huracanes, techo fresco) y <b>Anker</b> (energía de respaldo en apagones). Cada arte usa el <b>logo de su producto</b> automáticamente (Solar usa el logo <b>WindMar Home</b>). Colores de marca: <b>Water azul · Solar amarillo · Roofing azul · Anker verde</b>. Tono <b>tranquilo y práctico</b> — preparación, no miedo. Publica de a uno como <b>Historia (9:16)</b> y <b>marca los que ya publicaste</b> con el botón ✓ de cada arte (se guarda en este navegador). Filtra por <b>marca</b> y por <b>estado</b>, cambia idioma/tema, o baja el PNG en <b>1080×1920</b>.</div>
+
+<div class="controls">
+  <div class="langtog" id="langtog">
+    <button data-l="es" class="on">Español</button>
+    <button data-l="en">English</button>
+  </div>
+  <div class="langtog" id="themetog">
+    <button data-t="dark" class="on">🌙 Oscuro</button>
+    <button data-t="light">☀️ Claro</button>
+  </div>
+  <button class="btn" id="sizeBtn">🔍 Tamaño real 1080 · screenshot</button>
+  <button class="btn" id="dlAll">⬇︎ Descargar todas (PNG)</button>
+</div>
+
+<div class="controls filterbar">
+  <span class="flabel">Marca:</span>
+  <div class="langtog" id="brandtog">
+    <button data-b="all" class="on">Todas</button>
+    <button data-b="water">💧 Water</button>
+    <button data-b="solar">☀️ Solar</button>
+    <button data-b="roofing">🏠 Roofing</button>
+    <button data-b="anker">⚡ Anker</button>
+  </div>
+  <span class="flabel">Estado:</span>
+  <div class="langtog" id="statustog">
+    <button data-s="all" class="on">Todas</button>
+    <button data-s="pending">◻︎ Pendientes</button>
+    <button data-s="done">✓ Publicadas</button>
+  </div>
+  <span class="pubcount" id="pubcount"></span>
+  <button class="btn" id="delPub">🗑 Eliminar publicadas</button>
+  <button class="btn" id="resetPub">↺ Reiniciar marcas</button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="secthead">
+  <h2>Flyers por producto <span class="o">·</span> foto de instalación</h2>
+  <div class="sub">Formato feed <b>4:5 (1080×1350)</b> · foto de instalación a sangre + titular + CTA · uno por producto (Solar · Roofing · Water · Anker). Cambia la foto de fondo por tu propia imagen de instalación cuando quieras (misma capa <code>.bg</code>).</div>
+</div>
+
+<div class="gallery" id="flyerGallery"></div>
+
+<div class="secthead">
+  <h2>Flyers de Septiembre <span class="o">·</span> temporada · preparado, no preocupado</h2>
+  <div class="sub">Set estacional para <b>septiembre</b> (pico de temporada en PR). Formato feed <b>4:5 (1080×1350)</b> · mismo diseño, mensaje de temporada en tono calmado y positivo. Cambia la foto de fondo por tu propia imagen cuando quieras (capa <code>.bg</code>).</div>
+</div>
+
+<div class="gallery" id="flyerGalleryS"></div>
+</div>
+
+<script>
+/* ===== 8 FUN FACTS — sequía de Puerto Rico + soluciones WindMar Water ===== */
+/* word: \n = salto de línea, **texto** = línea de acento */
+const FACTS=[
+  /* ===== WINDMAR WATER · sequía PR ===== */
+  { id:"w1", brand:"water", tema:{es:"Agua · La sequía",en:"Water · The drought"}, kick:{es:"Fun Fact · Agua",en:"Fun Fact · Water"},
+    es:{word:"CADA\n**GOTA**\nCUENTA",sub:"En sequía el servicio se raciona por sectores y horas. Una reserva en casa te da margen.",gancho:"Preparado, no preocupado.",tag:"WindMar Water · PR"},
+    en:{word:"EVERY\n**DROP**\nCOUNTS",sub:"In a drought, water is rationed by area and hours. A reserve at home gives you room.",gancho:"Ready, not worried.",tag:"WindMar Water · PR"} },
+  { id:"w2", brand:"water", tema:{es:"Cisterna · Respaldo",en:"Cistern · Backup"}, kick:{es:"Fun Fact · Cisterna",en:"Fun Fact · Cistern"},
+    es:{word:"AGUA\nCUANDO LA\n**NECESITAS**",sub:"Una cisterna guarda agua para los días en que el servicio no llega.",gancho:"Tu casa sigue con agua.",tag:"Cisterna · Water PR"},
+    en:{word:"WATER\nWHEN YOU\n**NEED IT**",sub:"A cistern stores water for the days service doesn't reach you.",gancho:"Your home keeps flowing.",tag:"Cistern · Water PR"} },
+  { id:"w3", brand:"water", tema:{es:"Hoy · Interrupciones AAA",en:"Water · Scheduled cuts"}, kick:{es:"Dato del día · Interrupciones 48h",en:"Today · 48h scheduled cuts"},
+    es:{word:"TU ZONA\nDICE **NO**,\nTU CASA\nDICE **SÍ**",sub:"Se activaron interrupciones programadas de 48 horas por zonas. Con cisterna, tu casa no se entera.",gancho:"Reserva lista, rutina intacta.",tag:"WindMar Water · PR"},
+    en:{word:"YOUR ZONE\nSAYS **NO**,\nYOUR HOME\nSAYS **YES**",sub:"Scheduled 48-hour water cuts were activated by zone. With a cistern, your home doesn't notice.",gancho:"Reserve ready, routine intact.",tag:"WindMar Water · PR"} },
+  { id:"w4", brand:"water", tema:{es:"Filtración · Calidad",en:"Filter · Quality"}, kick:{es:"Fun Fact · Filtración",en:"Fun Fact · Filtration"},
+    es:{word:"AGUA\nLIMPIA\n**SIEMPRE**",sub:"Filtros y luz UV mantienen tu agua segura, venga de donde venga.",gancho:"Tranquilidad en cada vaso.",tag:"Filtración · Water PR"},
+    en:{word:"CLEAN\nWATER\n**ALWAYS**",sub:"Filters and UV light keep your water safe, wherever it comes from.",gancho:"Peace of mind in every glass.",tag:"Filtration · Water PR"} },
+  { id:"w5", brand:"water", tema:{es:"Presión · Sistema",en:"Cistern · Pressure"}, kick:{es:"Fun Fact · Sistema",en:"Fun Fact · System"},
+    es:{word:"PRESIÓN\nSIN\n**CORTES**",sub:"Con bomba y tanque, el agua llega con buena presión aunque el servicio falle.",gancho:"La ducha no se detiene.",tag:"Sistema · Water PR"},
+    en:{word:"PRESSURE\nWITHOUT\n**CUTS**",sub:"With a pump and tank, water arrives with good pressure even if service drops.",gancho:"The shower keeps going.",tag:"System · Water PR"} },
+  { id:"w6", brand:"water", tema:{es:"Ablandador · Sarro",en:"Filter · Hard water"}, kick:{es:"Fun Fact · Ablandador",en:"Fun Fact · Softener"},
+    es:{word:"ADIÓS\nSARRO Y\n**MANCHAS**",sub:"Un ablandador cuida tus tuberías, tu ropa y tus electrodomésticos.",gancho:"Tu casa dura más.",tag:"Ablandador · Water PR"},
+    en:{word:"NO MORE\nSCALE &\n**STAINS**",sub:"A softener protects your pipes, clothes and appliances.",gancho:"Your home lasts longer.",tag:"Softener · Water PR"} },
+  { id:"w7", brand:"water", tema:{es:"Proceso · Cómo trabajamos",en:"Process · How we work"}, kick:{es:"Fun Fact · Proceso",en:"Fun Fact · Process"},
+    es:{word:"PRIMERO\nMEDIMOS,\n**LUEGO\nRESOLVEMOS**",sub:"Evaluamos tu consumo y tu espacio antes de recomendar.",gancho:"Sin presión, con transparencia.",tag:"WindMar Water · PR"},
+    en:{word:"FIRST WE\nMEASURE,\n**THEN WE\nSOLVE**",sub:"We assess your usage and space before recommending.",gancho:"No pressure, full transparency.",tag:"WindMar Water · PR"} },
+  { id:"w9", brand:"water", tema:{es:"Filtración · Agua propia",en:"Filter · Your own water"}, kick:{es:"Fun Fact · Agua propia",en:"Fun Fact · Your own water"},
+    es:{word:"TU CASA,\nTU **FÁBRICA\nDE AGUA**",sub:"Con nuestro sistema, tu hogar produce y purifica su propia agua — sin depender de botellones.",gancho:"Agua hecha en tu propia casa.",tag:"WindMar Water · PR"},
+    en:{word:"YOUR HOME,\nYOUR **WATER\nFACTORY**",sub:"With our system, your home produces and purifies its own water — no more bottled jugs.",gancho:"Water made right at home.",tag:"WindMar Water · PR"} },
+  { id:"w10", brand:"water", tema:{es:"Crisis · Reserva",en:"Crisis · Reserve"}, kick:{es:"Fun Fact · Reserva en casa",en:"Fun Fact · Home reserve"},
+    es:{word:"DÍAS\nDE **AGUA**\nEN CASA",sub:"Con la crisis, los cortes se alargan. Una cisterna te da reserva para aguantar.",gancho:"Preparado antes del corte.",tag:"Cisterna · Water PR"},
+    en:{word:"DAYS\nOF **WATER**\nAT HOME",sub:"With the crisis, cuts get longer. A cistern gives you a reserve to hold on.",gancho:"Ready before the cut.",tag:"Cistern · Water PR"} },
+  { id:"w11", brand:"water", tema:{es:"Crisis · Independencia",en:"Crisis · Independence"}, kick:{es:"Fun Fact · Adiós a las filas",en:"Fun Fact · No more lines"},
+    es:{word:"ADIÓS A\nLAS **FILAS**",sub:"Con tu propia reserva y filtración no dependes de botellones ni camiones cisterna.",gancho:"Tu agua, en tu casa.",tag:"WindMar Water · PR"},
+    en:{word:"NO MORE\n**LINES**",sub:"With your own reserve and filtration you don't depend on bottled water or water trucks.",gancho:"Your water, at home.",tag:"WindMar Water · PR"} },
+  { id:"w12", brand:"water", tema:{es:"Crisis · Rutina familiar",en:"Crisis · Family routine"}, kick:{es:"Fun Fact · Tu día no para",en:"Fun Fact · Your day goes on"},
+    es:{word:"COCINA,\nBAÑO Y\n**LAVADO**\nSIN PAUSA",sub:"Aunque racionen el servicio por la sequía, tu familia sigue su rutina normal.",gancho:"La vida no se detiene.",tag:"WindMar Water · PR"},
+    en:{word:"COOK,\nBATHE &\n**WASH**\nNONSTOP",sub:"Even when service is rationed by the drought, your family keeps its normal routine.",gancho:"Life doesn't stop.",tag:"WindMar Water · PR"} },
+  { id:"w13", brand:"water", tema:{es:"Crisis · Embalses bajos",en:"Crisis · Low reservoirs"}, kick:{es:"Dato del día · Niveles bajos",en:"Today · Low levels"},
+    es:{word:"BAJA EL\n**EMBALSE**,\nNO TU AGUA",sub:"Cuando los niveles bajan y empiezan los cortes, tu reserva en casa te mantiene con agua.",gancho:"Tranquilidad en plena sequía.",tag:"WindMar Water · PR"},
+    en:{word:"RESERVOIRS\nDROP,\n**NOT YOUR\nWATER**",sub:"When levels drop and cuts begin, your home reserve keeps you flowing.",gancho:"Calm in the middle of the drought.",tag:"WindMar Water · PR"} },
+  { id:"w14", brand:"water", tema:{es:"Crisis · Prepárate hoy",en:"Crisis · Prepare today"}, kick:{es:"Fun Fact · Mejor listo",en:"Fun Fact · Better ready"},
+    es:{word:"PREPÁRATE\n**ANTES**\nDEL CORTE",sub:"Instalar tu sistema hoy te deja listo para el próximo racionamiento.",gancho:"Mejor listo que a las carreras.",tag:"WindMar Water · PR"},
+    en:{word:"GET READY\n**BEFORE**\nTHE CUT",sub:"Installing your system today leaves you ready for the next round of rationing.",gancho:"Better ready than rushing.",tag:"WindMar Water · PR"} },
+  { id:"w15", brand:"water", tema:{es:"Crisis · Agua segura",en:"Crisis · Safe water"}, kick:{es:"Fun Fact · Agua para beber",en:"Fun Fact · Water to drink"},
+    es:{word:"AGUA\nSEGURA\n**PARA\nBEBER**",sub:"Filtración y luz UV eliminan lo que no quieres, aunque el servicio venga turbio.",gancho:"Bebe con confianza.",tag:"Filtración · Water PR"},
+    en:{word:"SAFE\nWATER\n**TO DRINK**",sub:"Filtration and UV light remove what you don't want, even if service comes in cloudy.",gancho:"Drink with confidence.",tag:"Filtration · Water PR"} },
+  { id:"w8", brand:"water", tema:{es:"Cierre · Puerto Rico",en:"Close · Puerto Rico"}, kick:{es:"WindMar Water · Puerto Rico",en:"WindMar Water · Puerto Rico"},
+    es:{word:"AGUA\nTODO EL\n**AÑO**",sub:"WindMar Water te ayuda a tener agua todo el año en Puerto Rico.",gancho:"Evaluación gratis, sin compromiso.",tag:"Water · Puerto Rico"},
+    en:{word:"WATER\nALL YEAR\n**ROUND**",sub:"WindMar Water helps you keep water all year in Puerto Rico.",gancho:"Free evaluation, no obligation.",tag:"Water · Puerto Rico"} },
+
+  /* ===== WINDMAR HOME · solar PR (logo WindMar Home) ===== */
+  { id:"s1", brand:"solar", tema:{es:"Solar · El sol de PR",en:"Solar · PR sun"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"EL SOL\nDE PR\n**TRABAJA**\nPOR TI",sub:"Puerto Rico tiene sol de sobra: tu techo puede convertirlo en ahorro.",gancho:"Energía limpia para tu hogar.",tag:"WindMar Home · Solar PR"},
+    en:{word:"PR SUN\n**WORKS**\nFOR YOU",sub:"Puerto Rico has sun to spare — your roof can turn it into savings.",gancho:"Clean energy for your home.",tag:"WindMar Home · Solar PR"} },
+  { id:"s2", brand:"solar", tema:{es:"Solar · Ahorro",en:"Solar · Savings"}, kick:{es:"Fun Fact · Ahorro",en:"Fun Fact · Savings"},
+    es:{word:"MENOS\n**FACTURA**\nCADA MES",sub:"Con paneles produces tu propia energía y bajas lo que pagas de luz.",gancho:"Tu dinero se queda en casa.",tag:"WindMar Home · Solar PR"},
+    en:{word:"LOWER\n**BILL**\nEVERY MONTH",sub:"With panels you make your own power and cut what you pay for electricity.",gancho:"Your money stays home.",tag:"WindMar Home · Solar PR"} },
+  { id:"s3", brand:"solar", tema:{es:"Solar · Respaldo",en:"Solar · Backup"}, kick:{es:"Fun Fact · Respaldo",en:"Fun Fact · Backup"},
+    es:{word:"SOL DE DÍA,\n**LUZ**\nDE NOCHE",sub:"Con paneles y batería, tu casa sigue encendida aunque la red falle.",gancho:"Energía que no te deja a oscuras.",tag:"WindMar Home · Solar PR"},
+    en:{word:"SUN BY DAY,\n**POWER**\nBY NIGHT",sub:"With panels and a battery, your home stays on even if the grid fails.",gancho:"Power that won't leave you in the dark.",tag:"WindMar Home · Solar PR"} },
+  { id:"s4", brand:"solar", tema:{es:"Solar · Con quién instalas",en:"Solar · Who installs"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"NO FALLÓ\n**EL SOL**",sub:"Falló quién lo vendió mal. Hoy quedan las empresas serias.",gancho:"Con quién instalas, importa.",tag:"WindMar Home · Solar PR"},
+    en:{word:"THE SUN\n**DIDN'T FAIL**",sub:"Who sold it wrong did. The serious companies are the ones still here.",gancho:"Who installs it matters.",tag:"WindMar Home · Solar PR"} },
+  { id:"s5", brand:"solar", tema:{es:"Solar · Cómo trabajamos",en:"Solar · How we work"}, kick:{es:"Fun Fact · Proceso",en:"Fun Fact · Process"},
+    es:{word:"PRIMERO\nMEDIMOS,\n**LUEGO\nINSTALAMOS**",sub:"Dimensionamos según tu consumo real, sin letras pequeñas ni presión.",gancho:"Sin prisa, con transparencia.",tag:"WindMar Home · Solar PR"},
+    en:{word:"FIRST WE\nMEASURE,\n**THEN WE\nINSTALL**",sub:"We size to your real usage — no fine print, no pressure.",gancho:"No rush, full transparency.",tag:"WindMar Home · Solar PR"} },
+  { id:"s6", brand:"solar", tema:{es:"Solar · Puerto Rico",en:"Solar · Puerto Rico"}, kick:{es:"WindMar Home · Puerto Rico",en:"WindMar Home · Puerto Rico"},
+    es:{word:"SOL TODO\nEL **AÑO**\nEN PR",sub:"WindMar Home te ayuda a aprovechar el sol de Puerto Rico con solar y batería.",gancho:"Evaluación gratis, sin compromiso.",tag:"Solar · Puerto Rico"},
+    en:{word:"SUN ALL\n**YEAR**\nIN PR",sub:"WindMar Home helps you harness Puerto Rico's sun with solar and battery.",gancho:"Free evaluation, no obligation.",tag:"Solar · Puerto Rico"} },
+
+  /* ===== WINDMAR ROOFING · techo PR ===== */
+  { id:"r1", brand:"roofing", tema:{es:"Roofing · Sellado",en:"Roofing · Sealing"}, kick:{es:"Fun Fact · Sellado",en:"Fun Fact · Sealing"},
+    es:{word:"TECHO\nSIN\n**GOTERAS**",sub:"Un sellado profesional detiene las filtraciones antes de que dañen tu casa.",gancho:"Lluvia afuera, casa seca.",tag:"WindMar Roofing · PR"},
+    en:{word:"ROOF\nWITH NO\n**LEAKS**",sub:"A professional seal stops leaks before they damage your home.",gancho:"Rain outside, dry home.",tag:"WindMar Roofing · PR"} },
+  { id:"r2", brand:"roofing", tema:{es:"Roofing · Huracanes",en:"Roofing · Storm season"}, kick:{es:"Fun Fact · Temporada",en:"Fun Fact · Storm season"},
+    es:{word:"LISTO\nPARA LA\n**TORMENTA**",sub:"Un techo bien anclado y sellado resiste los vientos de la temporada.",gancho:"Tranquilidad cuando sopla fuerte.",tag:"WindMar Roofing · PR"},
+    en:{word:"READY\nFOR THE\n**STORM**",sub:"A well-anchored, sealed roof stands up to season winds.",gancho:"Calm when it blows hard.",tag:"WindMar Roofing · PR"} },
+  { id:"r3", brand:"roofing", tema:{es:"Roofing · Techo fresco",en:"Roofing · Cool roof"}, kick:{es:"Fun Fact · Techo fresco",en:"Fun Fact · Cool roof"},
+    es:{word:"MENOS\nCALOR,\n**MENOS\nFACTURA**",sub:"Un recubrimiento reflectivo baja la temperatura del hogar y el gasto de energía.",gancho:"Tu casa fresca todo el día.",tag:"Roofing · Water PR"},
+    en:{word:"LESS\nHEAT,\n**LOWER\nBILL**",sub:"A reflective coating lowers home temperature and energy use.",gancho:"A cool home all day.",tag:"Roofing · Water PR"} },
+  { id:"r4", brand:"roofing", tema:{es:"Roofing · Mantenimiento",en:"Roofing · Maintenance"}, kick:{es:"Fun Fact · Mantenimiento",en:"Fun Fact · Maintenance"},
+    es:{word:"REVISA\n**ANTES**\nQUE\nLLUEVA",sub:"Una inspección a tiempo evita reparaciones grandes más adelante.",gancho:"Prevenir cuesta menos.",tag:"Roofing · Water PR"},
+    en:{word:"CHECK\n**BEFORE**\nIT\nRAINS",sub:"A timely inspection prevents bigger repairs later.",gancho:"Prevention costs less.",tag:"Roofing · Water PR"} },
+  { id:"r5", brand:"roofing", tema:{es:"Roofing · Solar-ready",en:"Roofing · Solar-ready"}, kick:{es:"Fun Fact · Solar-ready",en:"Fun Fact · Solar-ready"},
+    es:{word:"UN TECHO\n**LISTO**\nPARA EL\nSOL",sub:"Un techo sano y sellado es la mejor base para tus placas solares.",gancho:"Preparado para tu próxima inversión.",tag:"Roofing · Water PR"},
+    en:{word:"A ROOF\n**READY**\nFOR THE\nSUN",sub:"A healthy, sealed roof is the best base for solar panels.",gancho:"Ready for your next upgrade.",tag:"Roofing · Water PR"} },
+  { id:"r6", brand:"roofing", tema:{es:"Roofing · Puerto Rico",en:"Roofing · Puerto Rico"}, kick:{es:"WindMar Roofing · Puerto Rico",en:"WindMar Roofing · Puerto Rico"},
+    es:{word:"PROTEGE\nTU MAYOR\n**INVERSIÓN**",sub:"WindMar Roofing cuida el techo que protege a tu familia en Puerto Rico.",gancho:"Evaluación gratis, sin compromiso.",tag:"Roofing · Puerto Rico"},
+    en:{word:"PROTECT\nYOUR BIGGEST\n**INVESTMENT**",sub:"WindMar Roofing cares for the roof that protects your family in Puerto Rico.",gancho:"Free evaluation, no obligation.",tag:"Roofing · Puerto Rico"} },
+
+  /* ===== ANKER · energía de respaldo PR ===== */
+  { id:"a1", brand:"anker", tema:{es:"Energy · Respaldo",en:"Energy · Backup power"}, kick:{es:"Fun Fact · Respaldo",en:"Fun Fact · Backup power"},
+    es:{word:"APAGÓN\nAFUERA,\n**LUZ**\nADENTRO",sub:"Una estación de energía mantiene tu casa encendida cuando se va el servicio.",gancho:"La rutina no se detiene.",tag:"Anker · Energía PR"},
+    en:{word:"BLACKOUT\nOUTSIDE,\n**LIGHTS**\nINSIDE",sub:"A power station keeps your home running when the grid goes down.",gancho:"Your routine keeps going.",tag:"Anker · Energy PR"} },
+  { id:"a2", brand:"anker", tema:{es:"Energy · Nevera fría",en:"Energy · Cold storage"}, kick:{es:"Fun Fact · Nevera fría",en:"Fun Fact · Cold storage"},
+    es:{word:"NEVERA\nY MEDICINAS\n**A SALVO**",sub:"Energía de respaldo mantiene fríos tus alimentos y tus medicamentos.",gancho:"Lo importante, protegido.",tag:"Anker · Energía PR"},
+    en:{word:"FOOD &\nMEDS\n**KEPT SAFE**",sub:"Backup power keeps your food and medicine cold.",gancho:"What matters, protected.",tag:"Anker · Energy PR"} },
+  { id:"a3", brand:"anker", tema:{es:"Energy · Solar",en:"Energy · Solar"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"RECARGA\nCON EL\n**SOL**",sub:"Con paneles Anker recargas tu energía sin gasolina ni ruido.",gancho:"El sol de PR trabaja para ti.",tag:"Anker · Energía PR"},
+    en:{word:"RECHARGE\nWITH THE\n**SUN**",sub:"With Anker panels you refill your power — no gas, no noise.",gancho:"PR sun works for you.",tag:"Anker · Energy PR"} },
+  { id:"a4", brand:"anker", tema:{es:"Energy · Silencioso",en:"Energy · Quiet"}, kick:{es:"Fun Fact · Silencioso",en:"Fun Fact · Quiet"},
+    es:{word:"ENERGÍA\nSIN RUIDO\n**NI HUMO**",sub:"A diferencia de una planta de gas, la estación es silenciosa y limpia.",gancho:"Poder tranquilo en casa.",tag:"Anker · Energía PR"},
+    en:{word:"POWER\nWITH NO\n**NOISE**",sub:"Unlike a gas generator, the station is quiet and clean.",gancho:"Calm power at home.",tag:"Anker · Energy PR"} },
+  { id:"a5", brand:"anker", tema:{es:"Energy · Conectado",en:"Energy · Connected"}, kick:{es:"Fun Fact · Conectado",en:"Fun Fact · Connected"},
+    es:{word:"SIEMPRE\n**CONECTADO**",sub:"Carga celulares, internet y equipos para seguir comunicado en cualquier momento.",gancho:"Nunca fuera de línea.",tag:"Anker · Energía PR"},
+    en:{word:"ALWAYS\n**CONNECTED**",sub:"Charge phones, internet and devices to stay in touch anytime.",gancho:"Never offline.",tag:"Anker · Energy PR"} },
+  { id:"a6", brand:"anker", tema:{es:"Energy · Puerto Rico",en:"Energy · Puerto Rico"}, kick:{es:"WindMar × Anker · Puerto Rico",en:"WindMar × Anker · Puerto Rico"},
+    es:{word:"ENERGÍA\nCUANDO LA\n**NECESITAS**",sub:"WindMar te trae Anker para tener respaldo confiable en Puerto Rico.",gancho:"Evaluación gratis, sin compromiso.",tag:"Anker · Puerto Rico"},
+    en:{word:"POWER\nWHEN YOU\n**NEED IT**",sub:"WindMar brings you Anker for reliable backup in Puerto Rico.",gancho:"Free evaluation, no obligation.",tag:"Anker · Puerto Rico"} },
+
+  /* ===== ORIGEN Y MISIÓN DE LOS PRODUCTOS · series de 3 frames (septiembre) ===== */
+  /* WATER · Origen y misión (real: nació en 2024) */
+  { id:"om-w1", brand:"water", tema:{es:"Water · Origen 1/3",en:"Water · Origin 1/3"}, kick:{es:"Origen y misión · Water · 1/3",en:"Origin & mission · Water · 1/3"},
+    es:{word:"TODO\nEMPEZÓ EN\n**2024**",sub:"WindMar Water nació en 2024 con un propósito claro: llevar agua de calidad a los hogares de Puerto Rico, respaldado por +20 años de WindMar Home.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"IT ALL\nSTARTED IN\n**2024**",sub:"WindMar Water was born in 2024 with a clear purpose: bring quality water to Puerto Rico's homes, backed by WindMar Home's 20+ years.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-w2", brand:"water", tema:{es:"Water · Origen 2/3",en:"Water · Origin 2/3"}, kick:{es:"Origen y misión · Water · 2/3",en:"Origin & mission · Water · 2/3"},
+    es:{word:"EL AGUA ES\nMÁS QUE\n**ESCASEZ**",sub:"Interrupciones, presión baja, sedimentos y cloro afectan la rutina del hogar. Por eso creamos soluciones permanentes, no parchos temporeros.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"WATER IS MORE\nTHAN **SHORTAGE**",sub:"Outages, low pressure, sediment and chlorine affect daily life. That's why we build permanent solutions, not temporary fixes.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-w3", brand:"water", tema:{es:"Water · Origen 3/3",en:"Water · Origin 3/3"}, kick:{es:"Origen y misión · Water · 3/3",en:"Origin & mission · Water · 3/3"},
+    es:{word:"LA MISIÓN:\nAGUA DE\n**CALIDAD**",sub:"Cisternas, calentadores solares y filtración avanzada, con especialistas certificados. Que cada familia confíe en el agua de su casa.",gancho:"Conoce Water para tu hogar.",tag:"WindMar Water · PR"},
+    en:{word:"THE MISSION:\n**QUALITY**\nWATER",sub:"Cisterns, solar heaters and advanced filtration, with certified specialists. So every family can trust the water in their home.",gancho:"Discover Water for your home.",tag:"WindMar Water · PR"} },
+
+  /* SOLAR · Origen y misión (real: WindMar Home nació con solar hace +20 años) */
+  { id:"om-s1", brand:"solar", tema:{es:"Solar · Origen 1/3",en:"Solar · Origin 1/3"}, kick:{es:"Origen y misión · Solar · 1/3",en:"Origin & mission · Solar · 1/3"},
+    es:{word:"DONDE TODO\n**EMPEZÓ**",sub:"WindMar Home nació hace +20 años con la energía solar, ayudando a las familias de Puerto Rico a tomar control de su energía.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"WHERE IT ALL\n**BEGAN**",sub:"WindMar Home began 20+ years ago with solar, helping Puerto Rico's families take control of their energy.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-s2", brand:"solar", tema:{es:"Solar · Origen 2/3",en:"Solar · Origin 2/3"}, kick:{es:"Origen y misión · Solar · 2/3",en:"Origin & mission · Solar · 2/3"},
+    es:{word:"MÁS QUE\n**PLACAS**",sub:"No se trata solo de placas en el techo: es ahorro, estabilidad y una forma distinta de pensar la energía del hogar.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"MORE THAN\n**PANELS**",sub:"It's not just panels on a roof: it's savings, stability and a new way to think about home energy.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-s3", brand:"solar", tema:{es:"Solar · Origen 3/3",en:"Solar · Origin 3/3"}, kick:{es:"Origen y misión · Solar · 3/3",en:"Origin & mission · Solar · 3/3"},
+    es:{word:"POR ESO\nEXISTE\n**SOLAR**",sub:"Solar existe para dar a más familias visión, estabilidad y valor real con el paso del tiempo.",gancho:"Descubre Solar para tu hogar.",tag:"WindMar Home · Solar PR"},
+    en:{word:"THAT'S WHY\n**SOLAR**\nEXISTS",sub:"Solar exists to give more families vision, stability and real value over time.",gancho:"Discover Solar for your home.",tag:"WindMar Home · Solar PR"} },
+
+  /* BATERÍAS · Origen y misión */
+  { id:"om-b1", brand:"anker", tema:{es:"Baterías · Origen 1/3",en:"Energy · Origin 1/3"}, kick:{es:"Origen y misión · Baterías · 1/3",en:"Origin & mission · Backup · 1/3"},
+    es:{word:"NACE DE UN\n**APAGÓN**",sub:"La línea de Baterías nace de algo que las familias conocen bien: la incertidumbre cuando se va la luz.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"BORN FROM A\n**BLACKOUT**",sub:"The Batteries line is born from something families know well: the uncertainty when the power goes out.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-b2", brand:"anker", tema:{es:"Baterías · Origen 2/3",en:"Energy · Origin 2/3"}, kick:{es:"Origen y misión · Baterías · 2/3",en:"Origin & mission · Backup · 2/3"},
+    es:{word:"MÁS QUE\nENERGÍA\n**GUARDADA**",sub:"No es solo guardar energía. Es proteger la rutina y sostener lo importante cuando más se necesita.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"MORE THAN\nSTORED\n**ENERGY**",sub:"It's not just storing energy. It's protecting the routine and sustaining what matters when it's needed most.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-b3", brand:"anker", tema:{es:"Baterías · Origen 3/3",en:"Energy · Origin 3/3"}, kick:{es:"Origen y misión · Baterías · 3/3",en:"Origin & mission · Backup · 3/3"},
+    es:{word:"LA MISIÓN:\n**RESPALDO**",sub:"Con Anker damos respaldo, continuidad y paz mental para cuando el sistema falla afuera.",gancho:"Mira opciones de respaldo.",tag:"Anker · Energía PR"},
+    en:{word:"THE MISSION:\n**BACKUP**",sub:"With Anker we bring backup, continuity and peace of mind for when the grid fails outside.",gancho:"See backup options.",tag:"Anker · Energy PR"} },
+
+  /* ROOFING · Origen y misión */
+  { id:"om-r1", brand:"roofing", tema:{es:"Roofing · Origen 1/3",en:"Roofing · Origin 1/3"}, kick:{es:"Origen y misión · Roofing · 1/3",en:"Origin & mission · Roofing · 1/3"},
+    es:{word:"TODO\nEMPIEZA\n**ARRIBA**",sub:"El techo no es un detalle: es una de las partes más importantes para proteger tu hogar.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"IT ALL\nSTARTS\n**UP TOP**",sub:"The roof isn't a detail: it's one of the most important parts protecting your home.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-r2", brand:"roofing", tema:{es:"Roofing · Origen 2/3",en:"Roofing · Origin 2/3"}, kick:{es:"Origen y misión · Roofing · 2/3",en:"Origin & mission · Roofing · 2/3"},
+    es:{word:"CUANDO FALLA,\nLO **SIENTES**",sub:"Filtraciones, humedad y desgaste no afectan solo la estructura: afectan la seguridad y la calma del hogar.",gancho:"Sigue la historia →",tag:"Origen y misión"},
+    en:{word:"WHEN IT FAILS,\nYOU **FEEL IT**",sub:"Leaks, moisture and wear don't just affect the structure: they affect the home's safety and calm.",gancho:"Follow the story →",tag:"Origin & mission"} },
+  { id:"om-r3", brand:"roofing", tema:{es:"Roofing · Origen 3/3",en:"Roofing · Origin 3/3"}, kick:{es:"Origen y misión · Roofing · 3/3",en:"Origin & mission · Roofing · 3/3"},
+    es:{word:"LA MISIÓN:\n**PROTEGER**",sub:"Con Roofing protegemos tu hogar con soluciones pensadas para durar y responder a las condiciones de aquí.",gancho:"Conoce soluciones para tu techo.",tag:"WindMar Roofing · PR"},
+    en:{word:"THE MISSION:\n**PROTECT**",sub:"With Roofing we protect your home with solutions built to last and to handle the conditions here.",gancho:"Explore solutions for your roof.",tag:"WindMar Roofing · PR"} },
+
+  /* ===== ALIANZA · CRUZ ROJA · serie de 3 (real: WindMar Home donó baterías de respaldo Tesla Powerwall a los Servicios Biomédicos de la Cruz Roja Americana en PR) ===== */
+  { id:"cr-1", brand:"solar", tema:{es:"Alianza · Cruz Roja 1/3",en:"Alliance · Cruz Roja 1/3"}, kick:{es:"Alianza · Cruz Roja · 1/3",en:"Alliance · Red Cross · 1/3"},
+    es:{word:"WINDMAR\n×\n**CRUZ ROJA**",sub:"Firmamos un acuerdo con la Cruz Roja Americana en Puerto Rico para donar baterías de respaldo a sus Servicios Biomédicos.",gancho:"Sigue la historia →",tag:"Alianza · Cruz Roja"},
+    en:{word:"WINDMAR\n×\n**RED CROSS**",sub:"We signed an agreement with the American Red Cross in Puerto Rico to donate backup batteries to its Biomedical Services.",gancho:"Follow the story →",tag:"Alliance · Red Cross"} },
+  { id:"cr-2", brand:"solar", tema:{es:"Alianza · Cruz Roja 2/3",en:"Alliance · Cruz Roja 2/3"}, kick:{es:"Alianza · Cruz Roja · 2/3",en:"Alliance · Red Cross · 2/3"},
+    es:{word:"ENERGÍA QUE\nPROTEGE\n**VIDAS**",sub:"Las baterías mantienen refrigerados los productos sanguíneos aunque se vaya la luz — listos antes de la temporada de huracanes.",gancho:"Sigue la historia →",tag:"Alianza · Cruz Roja"},
+    en:{word:"POWER THAT\nPROTECTS\n**LIVES**",sub:"The batteries keep blood products refrigerated even during outages — ready ahead of hurricane season.",gancho:"Follow the story →",tag:"Alliance · Red Cross"} },
+  { id:"cr-3", brand:"solar", tema:{es:"Alianza · Cruz Roja 3/3",en:"Alliance · Cruz Roja 3/3"}, kick:{es:"Alianza · Cruz Roja · 3/3",en:"Alliance · Red Cross · 3/3"},
+    es:{word:"PARA TODO\n**PUERTO RICO**",sub:"La Cruz Roja distribuye cerca del 40% de los productos sanguíneos a más de 45 hospitales de la isla. Un respaldo confiable es tranquilidad para todos.",gancho:"WindMar × Cruz Roja",tag:"WindMar Home · PR"},
+    en:{word:"FOR ALL OF\n**PUERTO RICO**",sub:"The Red Cross distributes about 40% of blood products to 45+ hospitals across the island. Reliable backup is peace of mind for everyone.",gancho:"WindMar × Red Cross",tag:"WindMar Home · PR"} },
+
+  /* ===== IMPACTO · SEPTIEMBRE 2026 · datos reales (solo PR) ===== */
+  { id:"im-solar", brand:"solar", cat:"solar", tema:{es:"Solar · Impacto",en:"Solar · Impact"}, kick:{es:"Fun Fact · Solar",en:"Fun Fact · Solar"},
+    es:{word:"**58,500**\nHOGARES\nCON SOLAR",sub:"Más de 58,500 hogares puertorriqueños ya tienen su sistema solar residencial de WindMar Home instalado y generando su propia energía.",gancho:"Energía propia, casa por casa.",tag:"WindMar Home · Solar PR"},
+    en:{word:"**58,500**\nHOMES\nGOING SOLAR",sub:"Over 58,500 Puerto Rican homes already have their WindMar Home residential solar system installed and generating their own power.",gancho:"Their own energy, home by home.",tag:"WindMar Home · Solar PR"} },
+  { id:"im-alianzas", brand:"solar", cat:"tvstudio", tema:{es:"Alianzas · Presencia",en:"Alliance · Presence"}, kick:{es:"Fun Fact · Presencia",en:"Fun Fact · Presence"},
+    es:{word:"**44**\nENTREVISTAS\nEN UN MES",sub:"44 entrevistas coordinadas solo en septiembre y presencia masiva en los principales canales de TV y radio del país. ¡WindMar está en todas partes!",gancho:"WindMar en todas partes.",tag:"WindMar Home · PR"},
+    en:{word:"**44**\nINTERVIEWS\nIN ONE MONTH",sub:"44 interviews coordinated in September alone, plus a massive presence on the country's main TV and radio channels. WindMar is everywhere!",gancho:"WindMar everywhere.",tag:"WindMar Home · PR"} },
+  { id:"im-agua", brand:"water", cat:"cistern", tema:{es:"Agua · Impacto",en:"Water · Impact"}, kick:{es:"Fun Fact · Agua",en:"Fun Fact · Water"},
+    es:{word:"**962**\nCISTERNAS\nINSTALADAS",sub:"962 cisternas instaladas asegurando el agua de nuestras familias en lo que va del 2026.",gancho:"Agua asegurada para más familias.",tag:"WindMar Water · PR"},
+    en:{word:"**962**\nCISTERNS\nINSTALLED",sub:"962 cisterns installed, securing water for our families so far in 2026.",gancho:"Secured water for more families.",tag:"WindMar Water · PR"} },
+  /* El dato es el ACUMULADO de pies² instalados, no un solo techo. La versión vieja
+     decía «sellados» y lo contaba como el techo comercial más grande — confirmado
+     con Nicolle que es total, así que cambia la palabra y se cae todo lo del récord. */
+  { id:"im-roofing", brand:"roofing", cat:"roofing", tema:{es:"Roofing · Impacto",en:"Roofing · Impact"}, kick:{es:"Fun Fact · Roofing",en:"Fun Fact · Roofing"},
+    es:{word:"**80,353**\nPIES²\nINSTALADOS",sub:"80,353 pies cuadrados de techo instalados en Puerto Rico. Cuando se trata de proteger tu casa, la experiencia se nota.",gancho:"La experiencia se nota.",tag:"WindMar Roofing · PR"},
+    en:{word:"**80,353**\nSQ FT\nINSTALLED",sub:"80,353 square feet of roofing installed across Puerto Rico. When it comes to protecting your home, experience shows.",gancho:"Experience that shows.",tag:"WindMar Roofing · PR"} },
+  { id:"im-mision", brand:"solar", cat:"municipios", tema:{es:"Misión · Cobertura",en:"Mission · Coverage"}, kick:{es:"Fun Fact · Misión",en:"Fun Fact · Mission"},
+    es:{word:"**78 DE 78**\nMUNICIPIOS",sub:"78 de 78. Tenemos clientes con sistemas operando en absolutamente todos los municipios de la isla.",gancho:"Toda la isla, sin excepción.",tag:"WindMar Home · PR"},
+    en:{word:"**78 OF 78**\nTOWNS",sub:"78 of 78. We have clients with systems running in absolutely every municipality on the island.",gancho:"The whole island, no exception.",tag:"WindMar Home · PR"} },
+  { id:"im-ecosistema", brand:"solar", cat:"solar", tema:{es:"Ecosistema · Productos",en:"Ecosystem · Products"}, kick:{es:"Fun Fact · Ecosistema",en:"Fun Fact · Ecosystem"},
+    es:{word:"LAS **4**\nLÍNEAS EN\nUN HOGAR",sub:"Cientos de familias ya cuentan con 2 o 3 de nuestros productos, ¡y tenemos a 1 cliente legendario que tiene las 4 líneas completas instaladas en su hogar!",gancho:"Un cliente legendario, las 4 líneas.",tag:"WindMar Home · PR"},
+    en:{word:"ALL **4**\nLINES IN\nONE HOME",sub:"Hundreds of families already have 2 or 3 of our products — and we have 1 legendary client with all 4 complete lines installed in their home!",gancho:"One legendary client, all 4 lines.",tag:"WindMar Home · PR"} },
+  { id:"im-pymes", brand:"anker", cat:"foodtruck", tema:{es:"Comercios · PYMES",en:"Business · SMBs"}, kick:{es:"Fun Fact · PYMES",en:"Fun Fact · SMBs"},
+    es:{word:"**2,353**\nNEGOCIOS\nLOCALES",sub:"2,353 pequeños y medianos negocios locales echan hacia adelante y protegen su operación con la energía de WindMar.",gancho:"Los negocios locales, hacia adelante.",tag:"WindMar Home · PR"},
+    en:{word:"**2,353**\nLOCAL\nBUSINESSES",sub:"2,353 small and medium local businesses move forward and protect their operations with WindMar energy.",gancho:"Local business, moving forward.",tag:"WindMar Home · PR"} },
+];
+
+/* ===== FONDO · foto real de cisterna en techo boricua (montañas + costa) ===== */
+const PR={src:'img/pr-cisterna-techo-coast.png',alt:{es:'Cisterna en el techo de una casa en Puerto Rico con montañas y costa al fondo',en:'Rooftop water cistern on a Puerto Rico home with mountains and coast behind'}};
+const SOLAR_PR={src:'img/pr-solar-vecindario-placas.png',alt:{es:'Vista aérea de un vecindario en Puerto Rico con placas solares en los techos, palmas y cielo azul',en:'Aerial view of a Puerto Rico neighborhood with rooftop solar panels, palm trees and blue sky'}};
+const ANKER_PR={src:'img/pr-anker-powerstation-playa.png',alt:{es:'Estación de energía Anker en un campamento en las montañas de Puerto Rico al atardecer',en:'Anker power station at a campsite in the Puerto Rico mountains at dusk'}};
+const ROOF_PR={src:'img/pr-roofing-techos-blancos.png',alt:{es:'Vista aérea de un vecindario en Puerto Rico con techos de concreto sellados en blanco',en:'Aerial view of a Puerto Rico neighborhood with white sealed concrete roofs'}};
+/* Alianza Cruz Roja: foto del edificio de la Cruz Roja Americana en PR. Guarda la imagen en img/cruz-roja-edificio.png.
+   Si aún no existe, cae automáticamente a la vista aérea del vecindario (fallback) para no romperse. */
+const CRUZROJA={src:'img/cruz-roja-edificio.png',fallback:'img/pr-solar-vecindario-placas.png',alt:{es:'Edificio de la Cruz Roja Americana en Puerto Rico con su tanque de agua',en:'American Red Cross building in Puerto Rico with its water tower'}};
+const FOODTRUCK={src:'img/pr-anker-foodtruck-park.jpg',alt:{es:'Food truck park en Puerto Rico al atardecer, pequeños negocios locales operando con energía WindMar',en:'Food truck park in Puerto Rico at dusk, local small businesses running on WindMar power'}};
+const TVSTUDIO={src:'img/pr-tv-studio-entrevistas.jpg',fallback:'img/pr-solar-vecindario-placas.png',alt:{es:'Set de estudio de televisión con luces y cámaras, listo para una entrevista',en:'TV studio set with lights and cameras, ready for an interview'}};
+const MUNICIPIOS={src:'img/pr-mision-bandera-valle.jpg',fallback:'img/pr-solar-vecindario-placas.png',alt:{es:'Vista aérea de un valle en la montaña de Puerto Rico con dos personas ondeando la bandera puertorriqueña',en:'Aerial view of a Puerto Rico mountain valley with two people waving the Puerto Rican flag'}};
+const PHOTOS={ water:PR, cistern:PR, filter:PR, process:PR, close:PR, solar:SOLAR_PR, energy:ANKER_PR, roofing:ROOF_PR, alliance:CRUZROJA, foodtruck:FOODTRUCK, tvstudio:TVSTUDIO, municipios:MUNICIPIOS };
+
+/* ===== LOGO por producto — el fun fact usa el logo según su marca =====
+   Añade  brand:'roofing'  o  brand:'anker'  a un FACT para cambiar el logo.
+   Sin brand => 'water'. Como el fondo es foto oscura, se usa la variante .dark (white+orange). */
+const LOGOS={
+  water:  { light:'wme/logos/windmar-water-fc.png',   dark:'wme/logos/windmar-water-white-orange.png',   alt:'WindMar Water'   },
+  solar:  { light:'wme/logos/wmh-home-fc.png',        dark:'wme/logos/wmh-home-white-orange.png',        alt:'WindMar Home'    },
+  roofing:{ light:'wme/logos/windmar-roofing-fc.png', dark:'wme/logos/windmar-roofing-white-orange.png', alt:'WindMar Roofing' },
+  anker:  { light:'wme/logos/anker-fc.png',           dark:'wme/logos/anker-white-orange.png',           alt:'Anker'           },
+};
+
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+/* El acento se busca ANTES de cortar los renglones. Cortando primero, un acento que
+   cruza el salto —«**MENOS\nFACTURA**»— nunca cerraba y salían los asteriscos
+   impresos en el arte. Diez titulares salían así. */
+const fmtWord=raw=>esc(raw)
+  .replace(/\*\*([\s\S]+?)\*\*/g,'<span class="hl">$1</span>')
+  .split('\n').join('<br>');
+
+/* tema mostrado abajo en cada story */
+const THEME_BRAND={water:{es:'Water',en:'Water'},solar:{es:'Solar',en:'Solar'},roofing:{es:'Roofing',en:'Roofing'},anker:{es:'Baterías Anker',en:'Anker Backup'}};
+function themeOf(f){
+  if(f.id.startsWith('im-')) return {es:'Impacto',en:'Impact'};
+  if(f.id.startsWith('cr-')) return {es:'Alianzas',en:'Alliances'};
+  if(f.id.startsWith('om-')) return {es:'Misión',en:'Mission'};
+  return THEME_BRAND[f.brand||'water']||THEME_BRAND.water;
+}
+
+const gallery=document.getElementById('gallery');
+FACTS.forEach((f,i)=>{
+  const n=i+1;
+  const cat=f.cat||f.tema.en.split(' · ')[0].toLowerCase();
+  const photo=PHOTOS[cat];
+  const lg=LOGOS[f.brand||'water']||LOGOS.water;
+  const brand=f.brand||'water';
+  const slot=document.createElement('div'); slot.className='slot';
+  slot.dataset.key=f.id; slot.dataset.brand=brand;
+  slot.id=f.id;  /* permite mandar un link directo a una story: …#im-roofing */
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap"><span class="bchip b-${brand}">${brand}</span>#${n} · <span class="es">${esc(f.tema.es)}</span><span class="en">${esc(f.tema.en)}</span></span>
+      <div class="capbtns">
+        <label class="bgup" for="bgin-${i}" title="Cargar foto de fondo">🖼 Fondo</label>
+        <input id="bgin-${i}" class="bgin" type="file" accept="image/*">
+        <button class="pub" data-key="${f.id}" title="Marcar como publicado / pendiente">◻︎ Marcar</button>
+        <button class="dl" data-i="${i}">⬇︎ PNG</button>
+      </div>
+    </div>
+    <div class="piece story cat-${cat}${photo?' has-bg':''}" id="piece-${i}">
+      ${photo?`<div class="bg"><img src="${photo.src}" alt="${esc(photo.alt.es)}" crossorigin="anonymous"${photo.fallback?` onerror="this.onerror=null;this.src='${photo.fallback}'"`:''}></div>`:''}
+      <div class="content">
+        <div class="brow brand-${f.brand||'water'}"><img class="wlogo light" src="${lg.light}" alt="${lg.alt}" crossorigin="anonymous"><img class="wlogo dark" src="${lg.dark}" alt="${lg.alt}" crossorigin="anonymous"></div>
+        <span class="kick"><span class="es">${esc(f.kick.es)}</span><span class="en">${esc(f.kick.en)}</span></span>
+        <div class="hair"></div>
+        <div class="wordwrap">
+          <div class="word"><span class="es">${fmtWord(f.es.word)}</span><span class="en">${fmtWord(f.en.word)}</span></div>
+          <div class="subline"><span class="es">${esc(f.es.sub)}</span><span class="en">${esc(f.en.sub)}</span></div>
+        </div>
+        <div class="foot">
+          <span class="theme"><span class="es">${esc(themeOf(f).es)}</span><span class="en">${esc(themeOf(f).en)}</span></span>
+        </div>
+      </div>
+    </div>`;
+  gallery.appendChild(slot);
+});
+
+/* ===== Carga de fondo por story (botón "Fondo" o arrastrar/soltar sobre el arte) ===== */
+gallery.querySelectorAll('.slot').forEach(slot=>{
+  const piece=slot.querySelector('.piece');
+  const inp=slot.querySelector('.bgin');
+  if(!piece) return;
+  const setBg=file=>{
+    if(!file || !file.type.startsWith('image/')) return;
+    const r=new FileReader();
+    r.onload=()=>{
+      let bg=piece.querySelector('.bg');
+      if(!bg){ bg=document.createElement('div'); bg.className='bg'; const im=document.createElement('img'); im.setAttribute('crossorigin','anonymous'); bg.appendChild(im); piece.insertBefore(bg,piece.firstChild); }
+      piece.classList.add('has-bg');
+      bg.querySelector('img').src=r.result;
+    };
+    r.readAsDataURL(file);
+  };
+  if(inp) inp.addEventListener('change',e=>setBg(e.target.files[0]));
+  piece.addEventListener('dragover',e=>e.preventDefault());
+  piece.addEventListener('drop',e=>{e.preventDefault(); setBg(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ===== FLYERS POR PRODUCTO (4:5) — foto de fondo + titular + CTA ===== */
+const FLYERS=[
+  { id:'flyer-solar',   cls:'fl-solar',   brand:'solar',   bg:SOLAR_PR.src, alt:SOLAR_PR.alt,
+    kick:{es:'Energía Solar',en:'Solar Energy'},
+    h:{es:'Tu casa con<br>energía propia.',en:'Your home,<br>your own power.'},
+    sub:{es:'Produce lo que consumes<br>y baja tu factura, mes tras mes.',en:'Make what you use and lower your bill, month after month.'} },
+  { id:'flyer-roofing', cls:'fl-roofing', brand:'roofing', bg:ROOF_PR.src, alt:ROOF_PR.alt,
+    kick:{es:'Roofing',en:'Roofing'},
+    h:{es:'Un techo<br>que protege.',en:'A roof<br>that protects.'},
+    sub:{es:'Inspección, sellado e instalación bien hecha para tu hogar.',en:'Inspection, sealing and a job well done for your home.'} },
+  { id:'flyer-water',   cls:'fl-water',   brand:'water',   bg:PR.src, alt:PR.alt,
+    kick:{es:'Filtración de Agua',en:'Water Filtration'},
+    h:{es:'Agua limpia<br>en cada llave.',en:'Clean water<br>at every tap.'},
+    sub:{es:'Almacenamiento, filtración<br>y purificación para toda la casa.',en:'Storage, filtration and purification for the whole home.'} },
+  { id:'flyer-anker',   cls:'fl-anker',   brand:'anker',   bg:'img/pr-anker-foodtruck-park.jpg', alt:{es:'Food truck park en Puerto Rico al atardecer con una estación de energía Anker SOLIX E10 en su carrito alimentando las luces',en:'Puerto Rico food truck park at dusk with an Anker SOLIX E10 power station on its cart running the lights'},
+    kick:{es:'Energía Portátil',en:'Portable Power'},
+    h:{es:'Energía que<br>te acompañe.',en:'Power that<br>goes with you.'},
+    sub:{es:'Energía portátil para que tu negocio siga hacia adelante.',en:'Portable power to keep your business moving forward.'} },
+];
+const flyerGallery=document.getElementById('flyerGallery');
+FLYERS.forEach((f,i)=>{
+  const lg=LOGOS[f.brand]||LOGOS.water;
+  const slot=document.createElement('div'); slot.className='slot'; slot.dataset.flyer=f.id;
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap"><span class="bchip b-${f.brand}">${f.brand}</span><span class="es">Flyer · ${esc(f.kick.es)}</span><span class="en">Flyer · ${esc(f.kick.en)}</span></span>
+      <div class="capbtns">
+        <button class="dl" data-flyer="${i}">⬇︎ PNG</button>
+      </div>
+    </div>
+    <div class="flyer ${f.cls}${f.brand==='anker'?' has-bg':''}" id="flyer-${i}">
+      <img class="bg" src="${f.bg}" alt="${esc(f.alt.es)}" crossorigin="anonymous">
+      <div class="grad"></div>
+      <div class="flogo">${f.brand==='anker'
+          ? `<div class="logorow"><img class="logo lg-wmh" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" crossorigin="anonymous"><span class="logodiv"></span><img class="logo lg-anker" src="${lg.dark}" alt="${lg.alt}" crossorigin="anonymous"></div>`
+          : `<img class="logo" src="${lg.dark}" alt="${lg.alt}" crossorigin="anonymous">`}</div>
+      <div class="copy">
+        <div class="fh"><span class="es">${f.h.es}</span><span class="en">${f.h.en}</span></div>
+        <div class="fsub"><span class="es">${f.sub.es}</span><span class="en">${f.sub.en}</span></div>
+        <div class="frule"></div>
+        <div class="fcta">Visita windmar.com</div>
+      </div>
+    </div>`;
+  flyerGallery.appendChild(slot);
+});
+
+/* ===== FLYERS DE SEPTIEMBRE (4:5) — set estacional, tono calmado y positivo ===== */
+const FLYERS_SEPT=[
+  { id:'flyerS-solar',   cls:'fl-solar',   brand:'solar',   bg:'img/pr-sept-solar.png', alt:{es:'Vecindario en Puerto Rico con placas solares en los techos, mañana soleada de septiembre',en:'Puerto Rico neighborhood with rooftop solar panels on a sunny September morning'},
+    kick:{es:'Energía Solar · Septiembre',en:'Solar Energy · September'},
+    h:{es:'Este septiembre,<br>tu casa no depende<br>de nadie.',en:'This September,<br>your home stands<br>on its own.'},
+    sub:{es:'Energía propia todo el mes,<br>pase lo que pase afuera.',en:'Your own power all month, no matter what.'} },
+  { id:'flyerS-roofing', cls:'fl-roofing', brand:'roofing', bg:'img/pr-sept-roofing.png', alt:{es:'Casa con techo sellado en blanco resaltando entre el vecindario en Puerto Rico',en:'Home with a freshly white-sealed roof standing out in a Puerto Rico neighborhood'},
+    kick:{es:'Roofing · Temporada',en:'Roofing · Season'},
+    h:{es:'Tu techo listo,<br>con tiempo.',en:'Your roof ready,<br>ahead of time.'},
+    sub:{es:'Inspección y sellado antes<br>de la temporada — con calma.',en:'Inspection and sealing before the season — calmly.'} },
+  { id:'flyerS-water',   cls:'fl-water',   brand:'water',   bg:'img/pr-sept-water.png', alt:{es:'Casa en Puerto Rico con cisterna y sistema de filtración de agua, día soleado',en:'Puerto Rico home with a water cistern and filtration system on a sunny day'},
+    kick:{es:'Agua · Septiembre',en:'Water · September'},
+    h:{es:'Agua guardada,<br>familia tranquila.',en:'Water stored,<br>family at ease.'},
+    sub:{es:'Almacena, filtra y purifica<br>para toda la casa, todo el mes.',en:'Store, filter and purify for the whole home, all month.'} },
+  { id:'flyerS-anker',   cls:'fl-anker',   brand:'anker',   bg:'img/pr-sept-anker-scene.png', alt:{es:'Balcón acogedor de una casa en Puerto Rico al atardecer con una estación de energía Anker en el piso',en:'Cozy Puerto Rico home porch at dusk with an Anker power station on the floor'},
+    kick:{es:'Energía Portátil · Respaldo',en:'Portable Power · Backup'},
+    h:{es:'Tu respaldo,<br>siempre listo.',en:'Your backup,<br>always ready.'},
+    sub:{es:'Energía portátil lista<br>para cualquier momento.',en:'Portable power ready for any moment.'} },
+];
+const flyerGalleryS=document.getElementById('flyerGalleryS');
+FLYERS_SEPT.forEach((f,i)=>{
+  const lg=LOGOS[f.brand]||LOGOS.water;
+  const slot=document.createElement('div'); slot.className='slot'; slot.dataset.flyer=f.id;
+  slot.innerHTML=`
+    <div class="caprow">
+      <span class="cap"><span class="bchip b-${f.brand}">${f.brand}</span><span class="es">Sept · ${esc(f.kick.es)}</span><span class="en">Sept · ${esc(f.kick.en)}</span></span>
+      <div class="capbtns">
+        <button class="dl" data-flyers="${i}">⬇︎ PNG</button>
+      </div>
+    </div>
+    <div class="flyer ${f.cls}${f.brand==='anker'?' has-bg':''}" id="flyerS-${i}">
+      <img class="bg" src="${f.bg}" alt="${esc(f.alt.es)}" crossorigin="anonymous">
+      <div class="grad"></div>
+      <div class="flogo">${f.brand==='anker'
+          ? `<div class="logorow"><img class="logo lg-wmh" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home" crossorigin="anonymous"><span class="logodiv"></span><img class="logo lg-anker" src="${lg.dark}" alt="${lg.alt}" crossorigin="anonymous"></div>`
+          : `<img class="logo" src="${lg.dark}" alt="${lg.alt}" crossorigin="anonymous">`}</div>
+      <div class="copy">
+        <div class="fh"><span class="es">${f.h.es}</span><span class="en">${f.h.en}</span></div>
+        <div class="fsub"><span class="es">${f.sub.es}</span><span class="en">${f.sub.en}</span></div>
+        <div class="frule"></div>
+        <div class="fcta">Visita windmar.com</div>
+      </div>
+    </div>`;
+  flyerGalleryS.appendChild(slot);
+});
+
+document.getElementById('langtog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-lang',b.dataset.l);
+  document.documentElement.lang=b.dataset.l;
+  document.getElementById('langtog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+
+document.getElementById('themetog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  document.body.setAttribute('data-theme',b.dataset.t);
+  document.getElementById('themetog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+});
+
+/* ===== PUBLICADO / PENDIENTE + FILTROS (persistente en este navegador) ===== */
+const PUB_KEY='wmpr-pub-v1';
+const REM_KEY='wmpr-removed-v1';
+const loadPub=()=>{try{return JSON.parse(localStorage.getItem(PUB_KEY))||{}}catch(e){return {}}};
+const savePub=o=>{try{localStorage.setItem(PUB_KEY,JSON.stringify(o))}catch(e){}};
+const loadRem=()=>{try{return JSON.parse(localStorage.getItem(REM_KEY))||{}}catch(e){return {}}};
+const saveRem=o=>{try{localStorage.setItem(REM_KEY,JSON.stringify(o))}catch(e){}};
+let pubState=loadPub(), remState=loadRem();
+let brandFilter='all', statusFilter='all';
+
+function applyPub(){
+  document.querySelectorAll('.slot').forEach(slot=>{
+    const key=slot.dataset.key, done=!!pubState[key], removed=!!remState[key];
+    slot.classList.toggle('published',done);
+    const btn=slot.querySelector('.pub');
+    if(btn){ btn.classList.toggle('on',done); btn.textContent=done?'✓ Publicado':'◻︎ Marcar'; }
+    const okBrand=(brandFilter==='all'||slot.dataset.brand===brandFilter);
+    const okStatus=(statusFilter==='all'||(statusFilter==='done'&&done)||(statusFilter==='pending'&&!done));
+    slot.classList.toggle('hide',removed||!(okBrand&&okStatus));
+  });
+  const slots=[...document.querySelectorAll('.slot')].filter(s=>!remState[s.dataset.key]);
+  const total=slots.length, done=slots.filter(s=>pubState[s.dataset.key]).length;
+  const removedN=Object.keys(remState).filter(k=>remState[k]).length;
+  const cnt=document.getElementById('pubcount');
+  if(cnt) cnt.textContent=`${done}/${total} publicadas · ${total-done} pendientes`+(removedN?` · ${removedN} eliminadas`:'');
+}
+document.getElementById('gallery').addEventListener('click',e=>{
+  const b=e.target.closest('.pub'); if(!b) return;
+  const key=b.dataset.key;
+  if(pubState[key]) delete pubState[key]; else pubState[key]=Date.now();
+  savePub(pubState); applyPub();
+});
+document.getElementById('brandtog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  brandFilter=b.dataset.b;
+  document.getElementById('brandtog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  applyPub();
+});
+document.getElementById('statustog').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  statusFilter=b.dataset.s;
+  document.getElementById('statustog').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  applyPub();
+});
+document.getElementById('delPub').addEventListener('click',()=>{
+  const ids=[...document.querySelectorAll('.slot')].filter(s=>pubState[s.dataset.key]).map(s=>s.dataset.key);
+  if(!ids.length){alert('No hay stories marcadas como publicadas.');return;}
+  if(!confirm('¿Eliminar de la vista las '+ids.length+' stories publicadas? (Reversible con "Reiniciar marcas")')) return;
+  ids.forEach(k=>remState[k]=1); saveRem(remState); applyPub();
+});
+document.getElementById('resetPub').addEventListener('click',()=>{
+  if(!confirm('¿Borrar todas las marcas de publicado en este navegador?')) return;
+  pubState={}; savePub(pubState); remState={}; saveRem(remState); applyPub();
+});
+applyPub();
+
+/* Link directo a una story: ?b=roofing#im-roofing — deja el filtro puesto y hace
+   scroll hasta la tarjeta. Sin esto hay que buscarla a mano entre 48. */
+(function deepLink(){
+  const b=new URLSearchParams(location.search).get('b');
+  const tog=document.getElementById('brandtog');
+  const btn=b && tog && tog.querySelector(`button[data-b="${b}"]`);
+  if(btn){
+    brandFilter=b;
+    tog.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===btn));
+    applyPub();
+  }
+  const h=location.hash.slice(1);
+  if(h){
+    const el=document.getElementById(h);
+    /* la tarjeta puede estar escondida por el filtro o por «ya publicada»:
+       si el link la pide por nombre, se muestra igual */
+    if(el){ el.classList.remove('hide');
+      requestAnimationFrame(()=>el.scrollIntoView({block:'center'})); }
+  }
+})();
+
+const sb=document.getElementById('sizeBtn');
+sb.addEventListener('click',()=>{document.body.classList.toggle('real');
+  const on=document.body.classList.contains('real');
+  sb.classList.toggle('on',on);
+  sb.textContent=on?'↩︎ Volver a vista previa':'🔍 Tamaño real 1080 · screenshot';
+  if(on)window.scrollTo({top:0,behavior:'smooth'});});
+</script>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+const nextFrame=()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+const imgsReady=el=>Promise.all([...el.querySelectorAll('img')].map(im=>(im.complete&&im.naturalWidth)?Promise.resolve():new Promise(r=>{im.onload=im.onerror=r;})));
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+let __embedCSS=null;
+function buf2b64(buf){const b=new Uint8Array(buf);let s='';const c=0x8000;for(let i=0;i<b.length;i+=c){s+=String.fromCharCode.apply(null,b.subarray(i,i+c));}return btoa(s);}
+async function getEmbedCSS(){
+  if(__embedCSS!=null) return __embedCSS;
+  try{
+    const links=[...document.querySelectorAll('link[href*="fonts.googleapis.com/css"]')].map(l=>l.href);
+    let out='';
+    for(const href of links){
+      let css=await (await fetch(href)).text();
+      const urls=[...new Set([...css.matchAll(/url\((https:\/\/fonts\.gstatic\.com[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){ try{ const b=await (await fetch(u)).arrayBuffer(); css=css.split(u).join('data:font/woff2;base64,'+buf2b64(b)); }catch(e){} }
+      out+=css+'\n';
+    }
+    __embedCSS=out;
+  }catch(e){ __embedCSS=''; }
+  return __embedCSS;
+}
+const slug=s=>(s||'windmar').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50);
+async function toPng(piece){
+  const dark=document.body.getAttribute('data-theme')==='dark';
+  const bg=dark?'#050f2c':'#ffffff';
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1920px;z-index:-1;background:'+bg;
+  const clone=piece.cloneNode(true);
+  clone.style.width='1080px';clone.style.height='1920px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    const fontEmbedCSS=await getEmbedCSS();
+    await imgsReady(clone);
+    await nextFrame();
+    return await toBlob(clone,{width:1080,height:1920,pixelRatio:1,cacheBust:false,backgroundColor:bg,fontEmbedCSS});
+  } finally { holder.remove(); }
+}
+async function download(i){
+  const piece=document.getElementById('piece-'+i);
+  const lang=document.body.getAttribute('data-lang');
+  const word=piece.querySelector('.word .'+lang)?.textContent||'';
+  const blob=await toPng(piece); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download='windmar-pr-funfact-'+(Number(i)+1)+'-'+lang+'-'+slug(word)+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+document.querySelectorAll('.dl[data-i]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{ await download(btn.dataset.i); }
+    catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+
+/* ===== FLYERS 4:5 — export 1080×1350 ===== */
+async function toPngFlyer(flyer){
+  const bg='#0a1626';
+  const holder=document.createElement('div');
+  holder.style.cssText='position:fixed;left:-99999px;top:0;width:1080px;height:1350px;z-index:-1;background:'+bg;
+  const clone=flyer.cloneNode(true);
+  clone.style.width='1080px';clone.style.height='1350px';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.border='none';
+  holder.appendChild(clone);document.body.appendChild(holder);
+  try{
+    if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+    const fontEmbedCSS=await getEmbedCSS();
+    await imgsReady(clone);
+    await nextFrame();
+    return await toBlob(clone,{width:1080,height:1350,pixelRatio:1,cacheBust:false,backgroundColor:bg,fontEmbedCSS});
+  } finally { holder.remove(); }
+}
+async function downloadFlyer(i){
+  const flyer=document.getElementById('flyer-'+i);
+  const lang=document.body.getAttribute('data-lang');
+  const blob=await toPngFlyer(flyer); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=(flyer.id)+'-'+lang+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+document.querySelectorAll('.dl[data-flyer]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{ await downloadFlyer(btn.dataset.flyer); }
+    catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+async function downloadFlyerS(i){
+  const flyer=document.getElementById('flyerS-'+i);
+  const lang=document.body.getAttribute('data-lang');
+  const blob=await toPngFlyer(flyer); if(!blob) throw new Error('render vacío');
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=(flyer.id)+'-'+lang+'.png';
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+document.querySelectorAll('.dl[data-flyers]').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const t=btn.textContent;btn.textContent='…';btn.disabled=true;
+    try{ await downloadFlyerS(btn.dataset.flyers); }
+    catch(e){ alert('No se pudo generar el PNG: '+e.message); }
+    finally{ btn.textContent=t;btn.disabled=false; }
+  });
+});
+const all=document.getElementById('dlAll');
+all.addEventListener('click',async()=>{
+  const btns=[...document.querySelectorAll('.slot:not(.hide) .dl[data-i]')];
+  const t=all.textContent;all.disabled=true;let n=0;
+  for(const btn of btns){
+    n++;all.textContent='Generando '+n+'/'+btns.length+'…';
+    try{ await download(btn.dataset.i); }catch(e){ console.error(e); }
+    await wait(600);
+  }
+  all.textContent=t;all.disabled=false;
+});
+</script>
+</body>
+</html>
