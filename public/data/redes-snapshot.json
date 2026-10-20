@@ -564,7 +564,7 @@
         "dias": 28
       },
       "fuente": "Meta Business Suite · Estadísticas > Resumen (series diarias del DOM)",
-      "nota": "ultimos_7 = dom 4 a sab 10 oct (semana cerrada). previos_7 = 27 sep a 3 oct. AVISO: desde el 7 de octubre las visualizaciones se duplican en FB y se cuadruplican en IG sin que el contenido publicado lo explique (la pieza mayor alcanzó 987). El panel de Anuncios no abre. Origen SIN CONFIRMAR: no atribuir a contenido orgánico.",
+      "nota": "ultimos_7 = dom 4 a sab 10 oct (semana cerrada). previos_7 = 27 sep a 3 oct. AVISO: desde el 7 de octubre las visualizaciones se duplican en FB y se cuadruplican en IG sin que el contenido publicado lo explique (la pieza mayor alcanzó 987). Origen CONFIRMADO: hay pauta pagada activa. El panel de Anuncios no abre, así que el reparto entre orgánico y pagado es una ESTIMACIÓN, no un dato medido: no atribuir el salto a contenido orgánico.",
       "datos": {
         "windmar-home": {
           "facebook": {
