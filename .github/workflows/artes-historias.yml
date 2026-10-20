@@ -46,25 +46,30 @@ jobs:
         run: |
           ARCHIVO=public/windmar-pr-stories-v2-preview.html
 
-          # Caso normal: el commit anterior de esta misma rama.
+          # En una rama se compara contra main, no contra el commit anterior de
+          # la propia rama. Lo que tiene que dibujarse es lo que la rama APORTA.
+          #
+          # Comparar contra el commit anterior parece lo natural, pero se rompe
+          # en cuanto una corrida falla o no llega a dispararse: el siguiente
+          # empujón ve que «nada cambió desde el commit de antes» y la pieza no
+          # se dibuja nunca. Contra main siempre se puede recuperar.
+          if [ "${{ github.ref_name }}" != "main" ]; then
+            git fetch -q --depth=1 origin main 2>/dev/null || true
+            if git cat-file -e "origin/main:$ARCHIVO" 2>/dev/null; then
+              git show "origin/main:$ARCHIVO" > /tmp/anterior.html
+              echo "hay=si" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+
+          # En main sí es el commit anterior: ahí no hay «aporte de rama».
           if git cat-file -e "${{ github.event.before }}:$ARCHIVO" 2>/dev/null; then
             git show "${{ github.event.before }}:$ARCHIVO" > /tmp/anterior.html
             echo "hay=si" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # Rama recién creada: `before` son ceros y no hay commit anterior. La
-          # comparación que tiene sentido es contra main — lo que trae de nuevo
-          # esta rama. Sin esto se redibujarían las 21 tarjetas, diez megas al
-          # repo cada vez que alguien abre una rama.
-          git fetch -q --depth=1 origin main 2>/dev/null || true
-          if git cat-file -e "origin/main:$ARCHIVO" 2>/dev/null; then
-            git show "origin/main:$ARCHIVO" > /tmp/anterior.html
-            echo "hay=si" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          # Ni una ni otra: solo entonces se dibuja todo.
+          # Sin nada con qué comparar: solo entonces se dibuja todo.
           echo "hay=no" >> "$GITHUB_OUTPUT"
 
       - name: Dibujar
