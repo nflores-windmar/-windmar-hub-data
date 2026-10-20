@@ -91,24 +91,32 @@ const soloEsta = iCambiadas >= 0 ? null : args[0] || null;
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * Pone el PNG transparente sobre el azul de fondo del generador, para poder
- * mirarlo. Se hace con Pillow porque es lo que hay en las dos máquinas donde
- * corre esto; si faltara, el aplanado se salta y no se cae la corrida.
+ * Pone el PNG transparente sobre el azul del generador, para poder mirarlo.
+ *
+ * Se hace en el propio navegador, con un canvas. La primera versión usaba
+ * Pillow de Python y funcionaba en la Mac, pero los runners de GitHub no lo
+ * traen: el PNG se dibujaba bien y la corrida se caía en el último paso, así
+ * que no se guardaba nada. El navegador ya está abierto y sabe componer
+ * imágenes — no hace falta nada más instalado.
  */
-async function aplanar(origen, destino, fondo = "#0a1626") {
-  const py = `
-from PIL import Image
-f = Image.open(${JSON.stringify(origen)}).convert("RGBA")
-base = Image.new("RGBA", f.size, ${JSON.stringify(fondo)})
-Image.alpha_composite(base, f).convert("RGB").save(${JSON.stringify(destino)}, "PNG")
-`;
-  const { spawn } = await import("node:child_process");
-  await new Promise((res, rej) => {
-    const p = spawn("python3", ["-c", py]);
-    let err = "";
-    p.stderr.on("data", (d) => (err += d));
-    p.on("close", (c) => (c === 0 ? res() : rej(new Error(err.trim().split("\n").pop()))));
-  });
+async function aplanarEnPagina(pagina, base64, fondo = "#0a1626") {
+  return await pagina.evaluate(
+    async (b64, color) => {
+      const img = new Image();
+      img.src = "data:image/png;base64," + b64;
+      await img.decode();
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const g = c.getContext("2d");
+      g.fillStyle = color;
+      g.fillRect(0, 0, c.width, c.height);
+      g.drawImage(img, 0, 0);
+      return c.toDataURL("image/png").split(",")[1];
+    },
+    base64,
+    fondo
+  );
 }
 
 /** Ids del arreglo CARDS, en orden — el índice es el que usa cada botón. */
@@ -295,7 +303,8 @@ const main = async () => {
       // para mirarla. La que se usa sigue siendo la transparente.
       if (r.nombre.includes("-overlay")) {
         const vista = destino.replace("-overlay.png", "-vista.png");
-        await aplanar(destino, vista);
+        const plano = await aplanarEnPagina(pagina, r.base64);
+        await writeFile(vista, Buffer.from(plano, "base64"));
         console.log(`  ✓ ${vista.split("/").pop()}  (para mirar)`);
       }
     } catch (err) {
