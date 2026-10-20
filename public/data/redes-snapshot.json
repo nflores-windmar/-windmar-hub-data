@@ -1,0 +1,684 @@
+{
+  "_lee_esto_primero": "Cada objeto de 'snapshots' es una foto de los ÚLTIMOS 28 DÍAS tomada en la fecha 'capturado'. Los números son ABSOLUTOS, no porcentajes de Meta. Las comparaciones semanales se calculan en el dashboard restando snapshots consecutivos, para no heredar el sesgo de ventana de Meta Business Suite. Para añadir una semana: duplica el último objeto de 'snapshots', cambia 'capturado' y 'ventana', y actualiza los números. No borres los snapshots viejos: el histórico es el valor.",
+  "negocio": {
+    "nombre": "WindMar Group",
+    "business_id": "657350121376794"
+  },
+  "cuentas": [
+    {
+      "id": "windmar-home",
+      "nombre": "WindMar Home",
+      "page_id": "574271879301344",
+      "ig_user": "@windmarhome",
+      "ig_id": "17841407326996717",
+      "principal": true,
+      "nota": "Página principal del negocio. Concentra prácticamente toda la actividad del portafolio."
+    },
+    {
+      "id": "windmar-home-fl",
+      "nombre": "WindMar Home FL",
+      "page_id": "107503519908792",
+      "ig_user": "@windmarhomefl",
+      "ig_id": "17841480436384912",
+      "ig_disponible": false,
+      "nota": "El perfil de Instagram existe en el portafolio pero NO aparece como fuente de estadísticas en esta página: el selector de plataforma solo ofrece Facebook."
+    },
+    {
+      "id": "anker",
+      "nombre": "Anker",
+      "page_id": "1306380132558878",
+      "ig_user": "@anker.solixpr",
+      "ig_id": "17841426389323511"
+    },
+    {
+      "id": "anker-pr",
+      "nombre": "Anker PR",
+      "page_id": "115114511689811",
+      "ig_user": "@anker.pr",
+      "ig_disponible": false,
+      "nota": "El perfil @anker.pr está marcado «Inicio de sesión necesario» en Business Suite."
+    },
+    {
+      "id": "solar-water",
+      "nombre": "Solar & Water Solutions",
+      "page_id": "894665703917595"
+    },
+    {
+      "id": "windmar-en-accion",
+      "nombre": "Windmar en Acción",
+      "page_id": "907696202438445",
+      "sin_acceso": true,
+      "nota": "Business Suite responde «Este contenido no está disponible en este momento» al abrir sus estadísticas. Hay que revisar permisos o el estado de la página."
+    },
+    {
+      "id": "chinas",
+      "nombre": "Chinas por Botellas",
+      "page_id": "1068765072996066",
+      "sin_medir": true
+    },
+    {
+      "id": "consultores-elite-fl",
+      "nombre": "Consultores Élite Florida by WindMar Home",
+      "page_id": "644604188726136",
+      "sin_medir": true
+    },
+    {
+      "id": "careers",
+      "nombre": "WindMar Home Careers",
+      "page_id": "228630768464738",
+      "ig_user": "@windmarcareers",
+      "sin_medir": true
+    }
+  ],
+  "snapshots": [
+    {
+      "capturado": "2026-09-30",
+      "ventana": {
+        "desde": "2026-09-02",
+        "hasta": "2026-09-29",
+        "dias": 28
+      },
+      "fuente": "Meta Business Suite · Estadísticas > Resumen (series diarias del DOM, no los redondeos de pantalla)",
+      "datos": {
+        "windmar-home": {
+          "facebook": {
+            "visualizaciones": 1861126,
+            "espectadores": 227291,
+            "seguidores_nuevos": 123,
+            "visitas": 7309,
+            "interacciones": 2928,
+            "reproducciones_3s": 10922,
+            "conversaciones": 395,
+            "ultimos_7": {
+              "visualizaciones": 404398,
+              "seguidores_nuevos": 53,
+              "visitas": 1721,
+              "interacciones": 582,
+              "conversaciones": 131
+            },
+            "previos_7": {
+              "visualizaciones": 483176,
+              "seguidores_nuevos": 20,
+              "visitas": 1952,
+              "interacciones": 706,
+              "conversaciones": 113
+            },
+            "diario_visualizaciones": [
+              69415,
+              67107,
+              68895,
+              61596,
+              74764,
+              69521,
+              70998,
+              59495,
+              75311,
+              63165,
+              72435,
+              75217,
+              73053,
+              72580,
+              63925,
+              61826,
+              57811,
+              67512,
+              83690,
+              77479,
+              70933,
+              69163,
+              61216,
+              53711,
+              48611,
+              67792,
+              54302,
+              49603
+            ]
+          },
+          "instagram": {
+            "visualizaciones": 73309,
+            "alcance": 30848,
+            "seguidores_nuevos": 131,
+            "interacciones": 1476,
+            "conversaciones": 38,
+            "ultimos_7": {
+              "visualizaciones": 16268,
+              "alcance": 6253,
+              "seguidores_nuevos": 31,
+              "interacciones": 252,
+              "conversaciones": 15
+            },
+            "previos_7": {
+              "visualizaciones": 16618,
+              "alcance": 6031,
+              "seguidores_nuevos": 33,
+              "interacciones": 405,
+              "conversaciones": 10
+            },
+            "diario_visualizaciones": [
+              5725,
+              3420,
+              3612,
+              2025,
+              4238,
+              3322,
+              1931,
+              2040,
+              2144,
+              1719,
+              2974,
+              2378,
+              1937,
+              2958,
+              2720,
+              1760,
+              3383,
+              1886,
+              1717,
+              1818,
+              3334,
+              2602,
+              1489,
+              4562,
+              1947,
+              1504,
+              1944,
+              2220
+            ]
+          }
+        },
+        "windmar-home-fl": {
+          "facebook": {
+            "visualizaciones": 3090,
+            "espectadores": 1112,
+            "seguidores_nuevos": 39,
+            "visitas": 332,
+            "interacciones": 82,
+            "reproducciones_3s": 223,
+            "conversaciones": 1,
+            "ultimos_7": {
+              "visualizaciones": 188,
+              "seguidores_nuevos": 0,
+              "visitas": 32,
+              "interacciones": 1,
+              "conversaciones": 0
+            },
+            "previos_7": {
+              "visualizaciones": 1758,
+              "seguidores_nuevos": 36,
+              "visitas": 195,
+              "interacciones": 58,
+              "conversaciones": 0
+            }
+          }
+        },
+        "anker": {
+          "facebook": {
+            "visualizaciones": 421,
+            "seguidores_nuevos": 30,
+            "visitas": 225,
+            "interacciones": 3,
+            "reproducciones_3s": 51,
+            "conversaciones": 0
+          },
+          "instagram": {
+            "visualizaciones": 2444,
+            "alcance": 596,
+            "interacciones": 153,
+            "conversaciones": 0,
+            "ultimos_7": {
+              "visualizaciones": 22,
+              "alcance": 1,
+              "interacciones": 0,
+              "conversaciones": 0
+            },
+            "previos_7": {
+              "visualizaciones": 57,
+              "alcance": 7,
+              "interacciones": 0,
+              "conversaciones": 0
+            }
+          }
+        },
+        "anker-pr": {
+          "facebook": {
+            "visualizaciones": 238,
+            "seguidores_nuevos": 0,
+            "visitas": 80,
+            "interacciones": 0,
+            "reproducciones_3s": 25,
+            "conversaciones": 0,
+            "ultimos_7": {
+              "visualizaciones": 41,
+              "visitas": 3,
+              "interacciones": 0,
+              "conversaciones": 0
+            },
+            "previos_7": {
+              "visualizaciones": 78,
+              "visitas": 41,
+              "interacciones": 0,
+              "conversaciones": 0
+            }
+          }
+        },
+        "solar-water": {
+          "facebook": {
+            "visualizaciones": 498,
+            "seguidores_nuevos": 1,
+            "visitas": 203,
+            "interacciones": 0,
+            "reproducciones_3s": 32,
+            "conversaciones": 0,
+            "ultimos_7": {
+              "visualizaciones": 113,
+              "visitas": 39,
+              "interacciones": 0,
+              "conversaciones": 0
+            },
+            "previos_7": {
+              "visualizaciones": 78,
+              "visitas": 48,
+              "interacciones": 0,
+              "conversaciones": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "capturado": "2026-10-07",
+      "ventana": {
+        "desde": "2026-09-09",
+        "hasta": "2026-10-06",
+        "dias": 28
+      },
+      "fuente": "Meta Business Suite · Estadísticas > Resumen (series diarias del DOM, no los redondeos de pantalla)",
+      "nota": "Instagram de WindMar Home FL y la cuenta PROS NO están aquí: no son fuente de estadísticas en Business Suite y sus datos solo existen en la app, con ventana de 30 días. Mezclarlos rompería la comparación. Están en informes/analisis-fl-pros-anker-oct2026.html. anker-pr y solar-water no se capturaron en esta ventana.",
+      "datos": {
+        "windmar-home": {
+          "facebook": {
+            "visualizaciones": 1805403,
+            "espectadores": 229505,
+            "seguidores_nuevos": 139,
+            "seguidores_perdidos": 43,
+            "seguidores_netos": 96,
+            "visitas": 7657,
+            "interacciones": 2719,
+            "reproducciones_3s": 12561,
+            "conversaciones": 493,
+            "contactos_nuevos": 457,
+            "indice_respuesta": 1.4,
+            "ultimos_7": {
+              "visualizaciones": 426300,
+              "seguidores_nuevos": 40,
+              "visitas": 2091,
+              "interacciones": 649,
+              "conversaciones": 141
+            },
+            "previos_7": {
+              "visualizaciones": 404671,
+              "seguidores_nuevos": 53,
+              "visitas": 1721,
+              "interacciones": 582,
+              "conversaciones": 131
+            },
+            "diario_visualizaciones": [
+              59495,
+              75311,
+              63165,
+              72435,
+              75217,
+              73053,
+              72580,
+              63925,
+              61826,
+              57811,
+              67512,
+              83690,
+              77479,
+              70933,
+              69165,
+              61217,
+              53711,
+              48611,
+              67793,
+              54313,
+              49861,
+              55141,
+              90722,
+              64959,
+              43307,
+              58839,
+              56214,
+              57118
+            ]
+          },
+          "instagram": {
+            "visualizaciones": 68552,
+            "alcance": 10927,
+            "seguidores_nuevos": 119,
+            "seguidores_perdidos": 110,
+            "visitas_perfil": 907,
+            "interacciones": 1417,
+            "conversaciones": 42,
+            "contactos_nuevos": 23,
+            "indice_respuesta": 34.0,
+            "ultimos_7": {
+              "visualizaciones": 19516,
+              "seguidores_nuevos": 29,
+              "visitas_perfil": 234,
+              "interacciones": 409,
+              "conversaciones": 11
+            },
+            "previos_7": {
+              "visualizaciones": 16268,
+              "seguidores_nuevos": 30,
+              "visitas_perfil": 202,
+              "interacciones": 252,
+              "conversaciones": 15
+            },
+            "diario_visualizaciones": [
+              2040,
+              2144,
+              1719,
+              2974,
+              2378,
+              1937,
+              2958,
+              2720,
+              1760,
+              3383,
+              1886,
+              1717,
+              1818,
+              3334,
+              2602,
+              1489,
+              4562,
+              1947,
+              1504,
+              1944,
+              2220,
+              2566,
+              3597,
+              3959,
+              1803,
+              2467,
+              2413,
+              2711
+            ]
+          }
+        },
+        "windmar-home-fl": {
+          "facebook": {
+            "visualizaciones": 2391,
+            "espectadores": 809,
+            "seguidores_nuevos": 38,
+            "seguidores_perdidos": 3,
+            "seguidores_netos": 35,
+            "visitas": 304,
+            "interacciones": 66,
+            "reproducciones_3s": 96,
+            "conversaciones": 0,
+            "publicaciones": 2,
+            "ultimos_7": {
+              "visualizaciones": 96,
+              "interacciones": 0,
+              "conversaciones": 0
+            },
+            "previos_7": {
+              "visualizaciones": 188
+            },
+            "diario_visualizaciones": [
+              101,
+              99,
+              27,
+              16,
+              19,
+              55,
+              32,
+              54,
+              514,
+              789,
+              144,
+              78,
+              41,
+              138,
+              26,
+              25,
+              52,
+              17,
+              28,
+              10,
+              30,
+              27,
+              9,
+              23,
+              14,
+              6,
+              10,
+              7
+            ]
+          }
+        },
+        "anker": {
+          "facebook": {
+            "visualizaciones": 284,
+            "espectadores": 219,
+            "seguidores_nuevos": 7,
+            "seguidores_perdidos": 0,
+            "visitas": 53,
+            "interacciones": 0,
+            "reproducciones_3s": 52,
+            "conversaciones": 0,
+            "publicaciones": 1,
+            "ultimos_7": {
+              "visualizaciones": 2
+            },
+            "previos_7": {
+              "visualizaciones": 13
+            },
+            "diario_visualizaciones": [
+              218,
+              26,
+              4,
+              0,
+              1,
+              9,
+              0,
+              0,
+              0,
+              6,
+              0,
+              0,
+              5,
+              0,
+              0,
+              13,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "instagram": {
+            "visualizaciones": 857,
+            "alcance": 430,
+            "visitas_perfil": 18,
+            "interacciones": 54,
+            "conversaciones": 0,
+            "publicaciones": 2,
+            "ultimos_7": {
+              "visualizaciones": 37
+            },
+            "previos_7": {
+              "visualizaciones": 22
+            },
+            "diario_visualizaciones": [
+              401,
+              177,
+              71,
+              32,
+              28,
+              14,
+              18,
+              10,
+              11,
+              9,
+              5,
+              6,
+              5,
+              11,
+              6,
+              3,
+              5,
+              0,
+              1,
+              1,
+              6,
+              3,
+              4,
+              7,
+              2,
+              8,
+              5,
+              8
+            ]
+          }
+        }
+      }
+    },
+    {
+      "capturado": "2026-10-12",
+      "ventana": {
+        "desde": "2026-09-14",
+        "hasta": "2026-10-11",
+        "dias": 28
+      },
+      "fuente": "Meta Business Suite · Estadísticas > Resumen (series diarias del DOM)",
+      "nota": "ultimos_7 = dom 4 a sab 10 oct (semana cerrada). previos_7 = 27 sep a 3 oct. AVISO: desde el 7 de octubre las visualizaciones se duplican en FB y se cuadruplican en IG sin que el contenido publicado lo explique (la pieza mayor alcanzó 987). El panel de Anuncios no abre. Origen SIN CONFIRMAR: no atribuir a contenido orgánico.",
+      "datos": {
+        "windmar-home": {
+          "facebook": {
+            "visualizaciones": 2029291,
+            "espectadores": 356928,
+            "seguidores_nuevos": 143,
+            "seguidores_perdidos": 44,
+            "seguidores_netos": 99,
+            "visitas": 7785,
+            "interacciones": 2596,
+            "reproducciones_3s": 12236,
+            "conversaciones": 598,
+            "contactos_nuevos": 583,
+            "indice_respuesta": 1.2,
+            "ultimos_7": {
+              "visualizaciones": 622020,
+              "seguidores_nuevos": 31,
+              "visitas": 1901,
+              "interacciones": 634,
+              "conversaciones": 188
+            },
+            "previos_7": {
+              "visualizaciones": 426096,
+              "seguidores_nuevos": 42,
+              "visitas": 2006,
+              "interacciones": 551,
+              "conversaciones": 139
+            },
+            "diario_visualizaciones": [
+              73053,
+              72580,
+              63925,
+              61826,
+              57811,
+              67512,
+              83690,
+              77479,
+              70933,
+              69165,
+              61217,
+              53711,
+              48611,
+              67793,
+              54313,
+              49861,
+              55141,
+              90722,
+              64959,
+              43307,
+              58839,
+              56216,
+              57220,
+              100560,
+              123571,
+              116419,
+              109195,
+              119662
+            ]
+          },
+          "instagram": {
+            "visualizaciones": 118209,
+            "alcance": 39675,
+            "seguidores_nuevos": 125,
+            "seguidores_perdidos": 102,
+            "visitas_perfil": 934,
+            "interacciones": 1375,
+            "conversaciones": 69,
+            "contactos_nuevos": 52,
+            "indice_respuesta": 52.6,
+            "ultimos_7": {
+              "visualizaciones": 50242,
+              "visitas_perfil": 206,
+              "interacciones": 330,
+              "conversaciones": 23
+            },
+            "previos_7": {
+              "visualizaciones": 17593,
+              "visitas_perfil": 217,
+              "interacciones": 317,
+              "conversaciones": 9
+            },
+            "diario_visualizaciones": [
+              1937,
+              2958,
+              2720,
+              1760,
+              3383,
+              1886,
+              1717,
+              1818,
+              3334,
+              2602,
+              1489,
+              4562,
+              1947,
+              1504,
+              1944,
+              2220,
+              2566,
+              3597,
+              3959,
+              1803,
+              2467,
+              2413,
+              2711,
+              5293,
+              11599,
+              11026,
+              14733,
+              18261
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "_lee_esto_primero": "Este archivo es el PLAN DEL PRÓXIMO MES y es lo que cierra el dashboard. Para cambiar de mes: actualiza 'mes', 'titular', 'resumen', la lista 'acciones' y las 'metas'; pasa las acciones que sobrevivan a 'arrastre' con su estado. El campo 'verifica' conecta cada acción con una métrica real del snapshot semanal: el dashboard la lee sola y muestra si se movió. Si 'verifica' es null, esa acción solo se comprueba en el informe mensual profundo (análisis pieza por pieza), no en el snapshot semanal. Estados válidos: pendiente | en_curso | hecha | descartada.",
+  "mes": "Noviembre 2026",
+  "origen": "Snapshot semanal 2–29 sep 2026 (series diarias de Business Suite) + informe mensual de septiembre",
+  "ventana_origen": "2 – 29 sep 2026 · 28 días",
+  "titular": "La semana que menos gente alcanzó fue la que más clientes trajo.",
+  "resumen": "Del 23 al 29 de septiembre las visualizaciones de Facebook cayeron 16,3% y las interacciones 17,6%. En esa misma semana las conversaciones subieron 15,9% y los seguidores nuevos se multiplicaron por 2,6 (53 contra 20). Instagram hizo lo mismo por su lado: las conversaciones subieron 50% mientras las interacciones bajaban 37,8%. El alcance y el negocio se movieron en direcciones opuestas dos semanas seguidas. Noviembre se planifica sobre conversaciones, no sobre alcance.",
+  "acciones": [
+    {
+      "n": 1,
+      "titulo": "Cambiar el número que manda: conversaciones, no alcance",
+      "dato": "La última semana del mes perdió 78.778 visualizaciones y ganó 18 conversaciones y 33 seguidores. La semana anterior había hecho lo contrario. Si el objetivo fuera alcance, la semana buena se habría reportado como la mala.",
+      "accion": "Poner conversaciones y seguidores nuevos como los dos números de arriba del reporte semanal, y dejar alcance como contexto. Después, buscar qué se publicó del 23 al 29 de septiembre y repetir ese tipo de pieza en noviembre — esa semana ya probó que funciona.",
+      "prioridad": "alta",
+      "verifica": { "cuenta": "windmar-home", "red": "facebook", "metrica": "conversaciones", "direccion": "sube" },
+      "estado": "pendiente"
+    },
+    {
+      "n": 2,
+      "titulo": "Atender el buzón por Facebook primero: trae el 91% de los clientes",
+      "dato": "433 conversaciones en 28 días. 395 llegaron por Facebook y 38 por Instagram. El informe de septiembre midió el índice de respuesta en 0%.",
+      "accion": "El buzón sigue siendo el hallazgo más caro y ahora sabemos por dónde entra. Asignar el buzón de Facebook a una persona con nombre y una ventana de respuesta diaria antes de sumar una sola pieza a la parrilla. Instagram puede esperar; Facebook no.",
+      "prioridad": "alta",
+      "verifica": { "cuenta": "windmar-home", "red": "facebook", "metrica": "conversaciones", "direccion": "sube" },
+      "estado": "pendiente"
+    },
+    {
+      "n": 3,
+      "titulo": "Subir el volumen en Instagram: rinde 3,7× más por persona alcanzada",
+      "dato": "Instagram llega a 30.848 personas, el 13,6% de las 227.291 de Facebook, y devuelve 1.476 interacciones — el 50,4% de las de Facebook. Su tasa de interacción es 4,79% contra 1,29%. En seguidores la diferencia es todavía mayor: 7,8× más seguidores por persona alcanzada.",
+      "accion": "Instagram tiene la audiencia que responde y le falta volumen: hoy recibe el 3,9% de las visualizaciones de Facebook. Subir la cadencia en Instagram es el crecimiento más barato disponible, porque no exige producción nueva — exige volver a publicar allí lo que ya se produce.",
+      "prioridad": "alta",
+      "verifica": { "cuenta": "windmar-home", "red": "instagram", "metrica": "visualizaciones", "direccion": "sube" },
+      "estado": "pendiente"
+    },
+    {
+      "n": 4,
+      "titulo": "Dejar de publicar lo mismo el mismo día: los picos son días opuestos",
+      "dato": "La audiencia de Facebook se activa el domingo (75.366 visualizaciones promedio, 23,8% sobre el viernes, que es su peor día). La de Instagram se activa el viernes (3.319 promedio, 50,6% sobre el jueves, su peor día). El informe de septiembre además encontró que lunes, martes y jueves quedaron sin una sola publicación propia.",
+      "accion": "Separar la parrilla por red en vez de publicar en paralelo: lo fuerte de Facebook al domingo, lo fuerte de Instagram al viernes, y tapar los tres días vacíos con el material que hoy se duplica. Es reordenar lo que ya existe, no producir más.",
+      "prioridad": "alta",
+      "verifica": null,
+      "estado": "pendiente"
+    },
+    {
+      "n": 5,
+      "titulo": "Instagram avisó de fatiga de formato: mismo alcance, 38% menos interacción",
+      "dato": "En la última semana Instagram alcanzó 6.253 personas contra 6.031 la semana anterior — 3,7% más — y las interacciones cayeron de 405 a 252. Llegó a la misma gente y esa gente reaccionó mucho menos.",
+      "accion": "No es un problema de distribución, es de formato. Septiembre se publicó 100% en reels y los compartidos venían cayendo. Los dos carruseles que ya recomendó el informe de septiembre dejan de ser una prueba y pasan a ser la respuesta a una señal medida.",
+      "prioridad": "media",
+      "verifica": { "cuenta": "windmar-home", "red": "instagram", "metrica": "interacciones", "direccion": "sube" },
+      "estado": "pendiente"
+    },
+    {
+      "n": 6,
+      "titulo": "Decidir qué pasa con las ocho páginas que no son WindMar Home",
+      "dato": "WindMar Home concentra el 99,7% de las visualizaciones del portafolio. WindMar Home FL cayó 89,3% en la última semana (188 contra 1.758). Anker en Instagram pasó de 57 a 22 visualizaciones. Solar & Water lleva 498 visualizaciones y cero interacciones en 28 días.",
+      "accion": "Tomar la decisión en noviembre, no dejarla correr: o cada página recibe una cadencia mínima asignada a alguien, o se consolida su contenido dentro de WindMar Home. Una página que publica sin que nadie reaccione cuesta tiempo y no devuelve nada.",
+      "prioridad": "media",
+      "verifica": null,
+      "estado": "pendiente"
+    },
+    {
+      "n": 7,
+      "titulo": "Arreglar los accesos: hoy no se puede medir la mitad del portafolio",
+      "dato": "Cuatro perfiles de Instagram están marcados «Inicio de sesión necesario», entre ellos @windmarhome. @windmarhomefl no aparece como fuente de estadísticas de su página. Windmar en Acción no abre sus estadísticas. Tres páginas nunca se han medido.",
+      "accion": "Es trabajo de una sesión, y sin él todos los informes van a seguir saliendo con huecos. Mientras siga así, cualquier comparación entre páginas es incompleta y el reporte semanal no puede automatizarse del todo.",
+      "prioridad": "alta",
+      "verifica": null,
+      "estado": "pendiente"
+    }
+  ],
+  "metas": [
+    { "lbl": "Conversaciones · Facebook", "de": "395", "a": "450", "nota": "El número que manda en noviembre." },
+    { "lbl": "Índice de respuesta del buzón", "de": "0%", "a": "60%", "nota": "Sigue siendo el hallazgo más caro." },
+    { "lbl": "Visualizaciones · Instagram", "de": "73.309", "a": "95.000", "nota": "Subir cadencia, no producción." },
+    { "lbl": "Interacciones · Instagram", "de": "1.476", "a": "1.700", "nota": "Revertir la caída de formato." },
+    { "lbl": "Seguidores nuevos · FB + IG", "de": "254", "a": "300", "nota": "Sostener el repunte de la última semana." },
+    { "lbl": "Cuentas que se pueden medir", "de": "5 de 9", "a": "9 de 9", "nota": "Arreglar accesos." }
+  ],
+  "arrastre": {
+    "mes": "Octubre 2026",
+    "origen": "Informe mensual de septiembre",
+    "items": [
+      { "n": 1, "titulo": "Asignar dueño al buzón antes de publicar la próxima pieza", "estado": "pendiente" },
+      { "n": 2, "titulo": "Meter dos colaboraciones: son el 59% del alcance orgánico", "estado": "pendiente" },
+      { "n": 3, "titulo": "Cambiar el ángulo del agua, no la pieza", "estado": "pendiente" },
+      { "n": 4, "titulo": "Subir cuatro piezas a la franja de 10:00–11:00", "estado": "pendiente" },
+      { "n": 5, "titulo": "Convertir dos entrevistas en carrusel, no en reel", "estado": "pendiente" },
+      { "n": 6, "titulo": "Bajar historias a la mitad y activar estadísticas de FB", "estado": "pendiente" },
+      { "n": 7, "titulo": "Cuatro huecos reactivos, uno por semana", "estado": "pendiente" },
+      { "n": 8, "titulo": "Cortar el capítulo de WindMar Woman a reel + link in bio", "estado": "pendiente" }
+    ]
+  }
+}

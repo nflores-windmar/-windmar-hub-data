@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redes · WindMar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e9e9e7;          /* gris de página */
+  --panel:#fff;
+  --ink:#111112;         /* negro de texto, sobre TODAS las bandas */
+  --ink-2:rgba(0,0,0,.62);
+  /* #686866 es el gris más claro que aguanta 4.5:1 sobre blanco (5,58) Y sobre
+     el gris de página (4,59); por encima de ahí las etiquetas pequeñas fallan */
+  --gris:#686866;
+  --line:#d6d6d3;
+  --f:'Inter Tight',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16px;
+  -webkit-font-smoothing:antialiased;padding-bottom:70px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+@media(max-width:640px){.wrap{padding:0 13px}}
+
+/* ---------- barra superior ---------- */
+.top{padding:22px 0 30px}
+.top .wrap{display:flex;gap:14px;align-items:baseline;justify-content:space-between}
+.mark{font-size:25px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.mark span{color:var(--gris)}
+.top .r{font-size:13px;font-weight:500;color:var(--gris);letter-spacing:-.01em;
+  display:flex;gap:16px;align-items:baseline}
+.top .r a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ink)}
+.top .r a:hover{color:var(--gris);border-color:var(--gris)}
+
+/* ---------- panel del periodo (regla + número gigante) ---------- */
+.period{background:var(--panel);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.ruler{height:44px;display:block;width:100%;border-bottom:1px solid var(--line)}
+.period .body{display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between;padding:22px 26px 24px}
+@media(max-width:640px){.period .body{padding:18px 15px 20px}}
+.bignum{display:flex;align-items:flex-start;gap:9px;line-height:.85}
+.bignum .n{font-size:clamp(52px,9vw,96px);font-weight:800;letter-spacing:-.05em}
+.bignum .s{font-size:15px;font-weight:600;color:var(--gris);letter-spacing:-.01em;padding-top:8px;white-space:nowrap}
+.pdesc{font-size:13.5px;font-weight:500;color:var(--ink-2);line-height:1.55;max-width:34ch}
+.pdesc b{color:var(--ink);font-weight:700}
+.jump{width:62px;height:62px;border-radius:50%;background:var(--ink);color:#fff;border:none;cursor:pointer;
+  font-size:22px;display:grid;place-items:center;flex:none;transition:transform .15s}
+.jump:hover{transform:scale(1.07)}
+
+/* ---------- la pila de bandas ---------- */
+.stack{margin-bottom:34px}
+.band{background:var(--c);cursor:pointer;position:relative;overflow:hidden;
+  transition:background .15s;border-bottom:1px solid rgba(0,0,0,.14)}
+.stack .band:first-child{border-radius:var(--r) var(--r) 0 0}
+.stack .band:last-child{border-radius:0 0 var(--r) var(--r);border-bottom:none}
+.band:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+/* cerrada: la altura recorta la segunda línea del título — el gesto de la referencia */
+.row{display:grid;grid-template-columns:54px minmax(0,1fr) 190px 78px;gap:14px;
+  align-items:start;padding:15px 24px 0;height:106px;overflow:hidden}
+@media(max-width:860px){.row{grid-template-columns:44px minmax(0,1fr) 150px;padding:14px 15px 0}
+  .row .ico{display:none}}
+@media(max-width:560px){.row{grid-template-columns:38px minmax(0,1fr);height:92px}
+  .row .mid{display:none}}
+.band.open .row{height:auto;padding-bottom:4px}
+
+.no{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;
+  font-size:14px;font-weight:700;margin-top:6px}
+.tt{min-width:0}
+.tt h2{font-size:clamp(30px,5.1vw,54px);font-weight:800;letter-spacing:-.045em;line-height:.96;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt .sub{display:flex;align-items:center;gap:11px;margin-top:5px}
+.arrow{width:33px;height:33px;border-radius:50%;background:var(--ink);color:var(--c);flex:none;
+  display:grid;place-items:center;font-size:16px;font-weight:700;transition:transform .2s}
+.band.open .arrow{transform:rotate(90deg)}
+.tt .sub b{font-size:clamp(20px,3.3vw,32px);font-weight:700;letter-spacing:-.04em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-2)}
+
+.mid{padding-top:7px;min-width:0}
+.mid .l{font-size:11px;font-weight:700;letter-spacing:.015em;line-height:1.28;text-transform:uppercase}
+.mid .v{font-size:23px;font-weight:700;letter-spacing:-.035em;margin-top:5px;line-height:1}
+.mid .d{font-size:11.5px;font-weight:600;color:var(--ink-2);margin-top:4px;letter-spacing:-.005em}
+.ico{padding-top:5px;justify-self:end}
+.ico svg{width:60px;height:60px;display:block}
+.tag{display:inline-block;background:var(--ink);color:var(--c);font-size:10.5px;font-weight:700;
+  letter-spacing:.11em;text-transform:uppercase;padding:4px 9px;border-radius:4px}
+
+/* ---------- interior de la banda abierta ---------- */
+.inner{display:none;padding:4px 24px 26px}
+.band.open .inner{display:block}
+@media(max-width:860px){.inner{padding:4px 15px 22px}}
+.nota{font-size:13px;font-weight:500;line-height:1.6;color:var(--ink);background:rgba(255,255,255,.44);
+  border-left:3px solid var(--ink);border-radius:0 8px 8px 0;padding:11px 14px;margin:12px 0 4px;max-width:88ch}
+.plats{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:860px){.plats{grid-template-columns:1fr}}
+.plat{padding:20px 0 4px;border-top:2px solid var(--ink)}
+.plat:last-child{border-left:1px solid rgba(0,0,0,.17);padding-left:24px}
+@media(max-width:860px){.plat:last-child{border-left:none;padding-left:0}}
+.plat>.h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:16px}
+.plat .pn{font-size:21px;font-weight:800;letter-spacing:-.035em}
+.plat .ph{font-size:11.5px;font-weight:600;color:var(--ink-2);letter-spacing:-.005em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:24ch}
+.hero{border-bottom:1px solid rgba(0,0,0,.17);padding-bottom:13px;margin-bottom:14px}
+.lbl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2)}
+.hero .val{font-size:44px;font-weight:800;letter-spacing:-.05em;line-height:1;margin:5px 0 3px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.cell .val{font-size:25px;font-weight:700;letter-spacing:-.035em;line-height:1.05;margin-top:2px}
+.wow{font-size:11px;font-weight:600;margin-top:3px;letter-spacing:-.005em}
+/* verde y rojo van oscuros a propósito: tienen que pasar 4.5:1 sobre las nueve
+   bandas, y la más exigente es el periwinkle de Anker PR */
+.up{color:#08471c}.down{color:#7d0910}.flat{color:var(--ink-2)}
+.wow em{font-style:normal;font-weight:500;color:var(--ink-2)}
+.er{margin-top:14px;padding-top:12px;border-top:1px solid rgba(0,0,0,.17)}
+.vacio{font-size:13px;font-weight:500;line-height:1.65;color:var(--ink-2);padding:2px 0 14px;max-width:46ch}
+.tick{width:100%;height:46px;display:block;margin-top:15px}
+
+/* ---------- secciones ---------- */
+.sec{margin:0 0 14px;padding-top:6px}
+.sec .k{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gris);margin-bottom:8px}
+.sec h2{font-size:clamp(27px,4.3vw,44px);font-weight:800;letter-spacing:-.045em;line-height:1}
+.sec p.lede{font-size:16.5px;font-weight:500;line-height:1.5;color:var(--ink-2);max-width:66ch;margin-top:11px}
+
+.panel{background:var(--panel);border-radius:var(--r);padding:8px 24px 16px;margin-bottom:34px;overflow-x:auto}
+@media(max-width:640px){.panel{padding:6px 14px 12px}}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:right;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);
+  padding:14px 0 9px;border-bottom:2px solid var(--ink)}
+th:first-child{text-align:left}
+td{text-align:right;padding:12px 0;border-bottom:1px solid var(--line);font-weight:600;letter-spacing:-.015em;
+  font-variant-numeric:tabular-nums}
+td:first-child{text-align:left;font-weight:700}
+tr:last-child td{border-bottom:none}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:9px;vertical-align:-1px}
+.flag{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--gris);
+  border:1.5px solid var(--line);border-radius:4px;padding:2px 6px;margin-left:8px;vertical-align:1px}
+
+/* entradas numeradas (hallazgos y plan) */
+.entries{margin-bottom:34px}
+.entry{background:var(--panel);border-radius:var(--r);padding:20px 24px 22px;margin-bottom:8px;
+  display:grid;grid-template-columns:54px 1fr;gap:16px;align-items:start}
+@media(max-width:640px){.entry{padding:17px 15px 18px;grid-template-columns:40px 1fr;gap:12px}}
+.entry .num{width:40px;height:40px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;
+  font-size:15px;font-weight:800;letter-spacing:-.02em}
+@media(max-width:640px){.entry .num{width:34px;height:34px;font-size:13px}}
+.entry.alta .num{background:var(--ink);color:#fff}
+.entry h3{font-size:clamp(19px,2.9vw,27px);font-weight:800;letter-spacing:-.04em;line-height:1.12}
+.entry .top{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;justify-content:space-between}
+.entry .dato{font-size:14.5px;font-weight:500;line-height:1.58;color:var(--ink-2);margin-top:9px;max-width:74ch}
+.entry .dato b{color:var(--ink);font-weight:700}
+.entry .acc{font-size:14.5px;font-weight:500;line-height:1.58;margin-top:12px;background:#f4f4f1;
+  border-radius:10px;padding:13px 15px;max-width:74ch}
+.entry .acc .qh{display:block;font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gris);margin-bottom:5px}
+.entry .ev{font-size:12px;font-weight:500;line-height:1.5;color:var(--ink-2);margin-top:10px;max-width:74ch}
+.entry .ev b{color:var(--ink);font-weight:700}
+.pill{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--line);
+  border-radius:4px;padding:3px 8px;color:var(--gris);white-space:nowrap}
+.pill.hecha{border-color:#08471c;color:#08471c}
+.pill.curso{border-color:#8a4a00;color:#8a4a00}
+.pill.desc{text-decoration:line-through}
+
+/* metas */
+.metas{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:8px;margin-bottom:34px}
+.meta{background:var(--panel);border-radius:var(--r);padding:18px 19px 19px}
+.meta .lbl{color:var(--gris)}
+.meta .v{font-size:36px;font-weight:800;letter-spacing:-.05em;line-height:1;margin:8px 0 3px}
+.meta .de{font-size:11.5px;font-weight:600;color:var(--gris)}
+.meta .nt{font-size:12.5px;font-weight:500;line-height:1.5;color:var(--ink-2);margin-top:9px}
+
+/* reporte copiable */
+.report{background:var(--panel);border-radius:var(--r);padding:20px 22px 22px;margin-bottom:34px}
+.report pre{font-family:var(--m);font-size:12px;line-height:1.72;white-space:pre-wrap;color:#33333a;
+  max-height:380px;overflow:auto}
+.btn{margin-top:15px;background:var(--ink);color:#fff;border:none;border-radius:999px;cursor:pointer;
+  font-family:var(--f);font-size:13px;font-weight:700;letter-spacing:-.01em;padding:11px 22px}
+.btn:hover{background:#3a3a40}
+footer{font-size:12.5px;font-weight:500;line-height:1.75;color:var(--ink-2);border-top:2px solid var(--ink);
+  padding-top:18px;max-width:80ch}
+footer a{color:var(--ink);font-weight:700}
+code{font-family:var(--m);font-size:11.5px;background:#fff;padding:2px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap">
+  <div class="mark">WindMar <span>Redes</span></div>
+  <div class="r"><span id="cap">—</span><a href="/buzon-evidencia.html">el buzón</a><a href="/windmar_content_hub.html">portal</a><a href="/captura-semanal.html">captura semanal</a></div>
+</div></div>
+
+<div class="wrap">
+
+  <div class="period">
+    <svg class="ruler" id="ruler" viewBox="0 0 1000 44" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <div class="body">
+      <div class="bignum"><div class="n" id="big">—</div><div class="s" id="bigs"></div></div>
+      <div class="pdesc" id="pdesc"></div>
+      <button class="jump" onclick="document.getElementById('planwrap').scrollIntoView({behavior:'smooth'})"
+        title="Ir al plan del mes" aria-label="Ir al plan del mes">↓</button>
+    </div>
+  </div>
+
+  <div class="stack" id="stack"></div>
+
+  <div class="sec"><div class="k">Índice</div><h2>Todas las cuentas</h2></div>
+  <div class="panel"><table id="tbl"></table></div>
+
+  <div class="sec"><div class="k">Lectura</div><h2>Lo que ven estos números</h2>
+    <p class="lede">Sale solo del snapshot de arriba. Si la semana que viene cambia, esto cambia con ella.</p></div>
+  <div class="entries" id="hallazgos"></div>
+
+  <div class="sec"><div class="k">Para copiar</div><h2>Reporte semanal</h2></div>
+  <div class="report"><pre id="rep"></pre><button class="btn" onclick="copiar()">Copiar reporte</button></div>
+
+  <div id="planwrap"></div>
+
+  <footer id="foot"></footer>
+</div>
+
+<script>
+/* ---------- utilidades ---------- */
+const F  = n => n==null ? '—' : String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const P1 = x => x.toFixed(1).replace('.',',');
+const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DOW=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Campos de color de las bandas. Todos llevan texto NEGRO encima y pasan AA:
+   el más bajo es anker-pr a 9,07:1, y el secundario a .62 nunca baja de 4,6:1. */
+const COLOR={
+  'windmar-home':'#FFD24A', 'windmar-home-fl':'#C9BDB2', 'anker':'#FBA6E0',
+  'anker-pr':'#A3B2E8', 'solar-water':'#BFCE72', 'windmar-en-accion':'#D6D6D1',
+  'chinas':'#FFA97F', 'consultores-elite-fl':'#8FDAC0', 'careers':'#CDB6EC'
+};
+const PALETA=['#FFD24A','#C9BDB2','#FBA6E0','#A3B2E8','#BFCE72','#FFA97F','#8FDAC0','#CDB6EC','#D6D6D1'];
+const colorDe=(id,i)=>COLOR[id]||PALETA[i%PALETA.length];
+
+/* Iconos monolínea, uno por cuenta. Trazo negro sobre el campo de color. */
+const S='fill="none" stroke="#111112" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"';
+const ICONO={
+  'windmar-home':'<path '+S+' d="M8 26 24 12l16 14"/><path '+S+' d="M12 24v14h24V24"/><path '+S+' d="M20 38v-9h8v9"/>',
+  'windmar-home-fl':'<path '+S+' d="M24 42s12-11 12-20a12 12 0 1 0-24 0c0 9 12 20 12 20Z"/><circle '+S+' cx="24" cy="22" r="4.5"/>',
+  'anker':'<rect '+S+' x="7" y="16" width="30" height="16" rx="4"/><path '+S+' d="M41 22v4"/><path '+S+' d="M14 20v8"/><path '+S+' d="M21 20v8"/>',
+  'anker-pr':'<rect '+S+' x="10" y="16" width="27" height="16" rx="4"/><path '+S+' d="M41 22v4"/><path '+S+' d="M17 20v8"/>',
+  'solar-water':'<path '+S+' d="M24 7c7 9 11 14 11 20a11 11 0 0 1-22 0c0-6 4-11 11-20Z"/><path '+S+' d="M18 28a6 6 0 0 0 6 6"/>',
+  'windmar-en-accion':'<path '+S+' d="M11 20v8l18 8V12L11 20Z"/><path '+S+' d="M29 17a8 8 0 0 1 0 14"/><path '+S+' d="M15 28v7h5v-5"/>',
+  'chinas':'<path '+S+' d="M20 8h8v6l4 7v21a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V21l4-7V8Z"/><path '+S+' d="M16 27h16"/>',
+  'consultores-elite-fl':'<rect '+S+' x="7" y="16" width="34" height="23" rx="3"/><path '+S+' d="M18 16v-3a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v3"/><path '+S+' d="M7 26h34"/>',
+  'careers':'<circle '+S+' cx="24" cy="18" r="7"/><path '+S+' d="M11 40c0-7 6-11 13-11s13 4 13 11"/>'
+};
+const iconoDe=id=>'<svg viewBox="0 0 48 48" aria-hidden="true">'+(ICONO[id]||ICONO['careers'])+'</svg>';
+
+let DATA=null, SNAP=null;
+
+function wow(a,b){
+  if(a==null||b==null) return '';
+  if(b===0) return '<div class="wow '+(a===0?'flat':'up')+'">'+(a===0?'sin cambio':'▲ nuevo')+' <em>vs semana anterior</em></div>';
+  const p=(a-b)/b*100, c=p>1.5?'up':p<-1.5?'down':'flat', f=p>1.5?'▲':p<-1.5?'▼':'=';
+  return '<div class="wow '+c+'">'+f+' '+P1(Math.abs(p))+'% <em>vs semana anterior</em></div>';
+}
+/* la regla de ticks: cada día es una marca, la altura es el valor */
+function ticks(arr,cls,w,h){
+  if(!arr||!arr.length) return '';
+  const mx=Math.max(...arr), n=arr.length, paso=w/n;
+  let s='<svg class="'+cls+'" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true">';
+  arr.forEach((v,i)=>{
+    const x=(i*paso+paso/2).toFixed(1), alto=6+(v/mx)*(h-12);
+    s+='<line x1="'+x+'" y1="'+h+'" x2="'+x+'" y2="'+(h-alto).toFixed(1)+'" stroke="#111112" stroke-width="1.7"/>';
+  });
+  s+='</svg>'; return s;
+}
+const celda=(l,v,a,b)=>'<div class="cell"><div class="lbl">'+l+'</div><div class="val">'+F(v)+'</div>'+wow(a,b)+'</div>';
+
+/* ---------- una plataforma dentro de la banda ---------- */
+function plataforma(cta,red,d){
+  const ig = red==='instagram';
+  const asa = esc(ig ? (cta.ig_user||cta.ig_id||'sin perfil') : ('facebook · '+cta.page_id));
+  const cab='<div class="h"><div class="pn">'+(ig?'Instagram':'Facebook')+'</div><div class="ph">'+asa+'</div></div>';
+  if(!d){
+    let r, tag='';
+    if(cta.sin_acceso){ tag='<div class="tag">Sin acceso</div>';
+      r='Business Suite responde «Este contenido no está disponible en este momento» al abrir sus estadísticas. Hay que revisar permisos o el estado de la página.'; }
+    else if(cta.sin_medir){ tag='<div class="tag">Sin medir</div>';
+      r='Esta cuenta todavía no se ha capturado. Se puede añadir desde la captura semanal.'; }
+    else if(ig){ tag='<div class="tag">Sin Instagram</div>'; r = cta.ig_user
+      ? 'El perfil '+esc(cta.ig_user)+' existe en el portafolio pero no aparece como fuente de estadísticas de esta página: el selector de plataforma solo ofrece Facebook.'
+      : 'Esta página no tiene un perfil de Instagram vinculado.'; }
+    else { tag='<div class="tag">Sin datos</div>'; r='Sin datos de Facebook en este snapshot.'; }
+    return '<div class="plat">'+cab+tag+'<div class="vacio">'+r+'</div></div>';
+  }
+  const u=d.ultimos_7||{}, p=d.previos_7||{}, base=ig?d.alcance:d.espectadores;
+  let h=cab
+    +'<div class="hero"><div class="lbl">Visualizaciones · '+SNAP.ventana.dias+' días</div>'
+    +'<div class="val">'+F(d.visualizaciones)+'</div>'+wow(u.visualizaciones,p.visualizaciones)+'</div>'
+    +'<div class="g2">'
+    +celda(ig?'Alcance':'Espectadores', base, u.alcance, p.alcance)
+    +celda('Seguidores nuevos', d.seguidores_nuevos, u.seguidores_nuevos, p.seguidores_nuevos)
+    +celda('Interacciones', d.interacciones, u.interacciones, p.interacciones)
+    +celda('Conversaciones', d.conversaciones, u.conversaciones, p.conversaciones)
+    +'</div>';
+  if(base && d.interacciones!=null)
+    h+='<div class="cell er"><div class="lbl">Tasa de interacción · interacciones ÷ '+(ig?'alcance':'espectadores')+'</div>'
+      +'<div class="val">'+(d.interacciones/base*100).toFixed(2).replace('.',',')+'%</div></div>';
+  h+=ticks(d.diario_visualizaciones,'tick',300,46);
+  return '<div class="plat">'+h+'</div>';
+}
+
+/* ---------- la pila ---------- */
+function pila(){
+  document.getElementById('stack').innerHTML = DATA.cuentas.map((c,i)=>{
+    const col=colorDe(c.id,i), d=SNAP.datos[c.id]||{}, hay=!!(d.facebook||d.instagram);
+    const vis=(d.facebook?d.facebook.visualizaciones:0)+(d.instagram?d.instagram.visualizaciones:0);
+    const u=(d.facebook&&d.facebook.ultimos_7)||null, p=(d.facebook&&d.facebook.previos_7)||null;
+    const redes=[d.facebook?'Facebook':null, d.instagram?'Instagram':null].filter(Boolean).join(' + ')
+      || (c.sin_acceso?'sin acceso a estadísticas':c.sin_medir?'nunca se ha medido':'sin datos');
+    const mid = hay
+      ? '<div class="l">Visualizaciones<br>'+SNAP.ventana.dias+' días</div><div class="v">'+F(vis)+'</div>'
+        +(u&&p?'<div class="d">'+(u.visualizaciones>=p.visualizaciones?'▲ ':'▼ ')
+          +P1(Math.abs((u.visualizaciones-p.visualizaciones)/(p.visualizaciones||1)*100))+'% última semana</div>':'')
+      : '<div class="l">Sin datos<br>en este snapshot</div><div class="d" style="margin-top:8px">'
+        +(c.sin_acceso?'Business Suite no abre sus estadísticas.':'Nunca se ha capturado.')+'</div>';
+    return '<div class="band" id="b'+i+'" style="--c:'+col+'" tabindex="0" role="button" aria-expanded="false"'
+      +' onclick="abrir('+i+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();abrir('+i+')}">'
+      +'<div class="row">'
+        +'<div class="no">'+(i+1)+'</div>'
+        +'<div class="tt"><h2>'+esc(c.nombre)+'</h2>'
+          +'<div class="sub"><div class="arrow">→</div><b>'+esc(redes)+'</b></div></div>'
+        +'<div class="mid">'+mid+'</div>'
+        +'<div class="ico">'+iconoDe(c.id)+'</div>'
+      +'</div>'
+      +'<div class="inner">'
+        +(c.nota?'<div class="nota">'+esc(c.nota)+'</div>':'')
+        +'<div class="plats">'+plataforma(c,'facebook',d.facebook)+plataforma(c,'instagram',d.instagram)+'</div>'
+      +'</div></div>';
+  }).join('');
+}
+function abrir(i){
+  const b=document.getElementById('b'+i), ya=b.classList.contains('open');
+  document.querySelectorAll('.band').forEach(x=>{x.classList.remove('open');x.setAttribute('aria-expanded','false')});
+  if(!ya){ b.classList.add('open'); b.setAttribute('aria-expanded','true'); }
+}
+
+/* ---------- índice ---------- */
+function tabla(){
+  const filas=DATA.cuentas.map((c,i)=>{
+    const d=SNAP.datos[c.id]||{}, fb=d.facebook, ig=d.instagram;
+    return {c,i,fb,ig,vis:(fb?fb.visualizaciones:0)+(ig?ig.visualizaciones:0),medida:!!(fb||ig)};
+  }).sort((a,b)=>b.vis-a.vis);
+  const tot=filas.reduce((s,f)=>s+f.vis,0)||1;
+  document.getElementById('tbl').innerHTML=
+    '<tr><th>Cuenta</th><th>Facebook</th><th>Instagram</th><th>Total</th><th>Del portafolio</th></tr>'
+    +filas.map(f=>'<tr><td><span class="sw" style="background:'+colorDe(f.c.id,f.i)+'"></span>'
+      +esc(f.c.nombre)
+      +(f.c.sin_acceso?'<span class="flag">sin acceso</span>':'')
+      +(f.c.sin_medir?'<span class="flag">sin medir</span>':'')
+      +(f.c.ig_disponible===false?'<span class="flag">sin IG</span>':'')+'</td>'
+      +'<td>'+(f.fb?F(f.fb.visualizaciones):'—')+'</td>'
+      +'<td>'+(f.ig?F(f.ig.visualizaciones):'—')+'</td>'
+      +'<td>'+(f.medida?F(f.vis):'—')+'</td>'
+      +'<td>'+(f.medida?P1(f.vis/tot*100)+'%':'—')+'</td></tr>').join('');
+  return {filas,tot};
+}
+
+/* ---------- hallazgos calculados ---------- */
+function porDia(arr,desde){
+  if(!arr||arr.length<14) return null;
+  const d0=new Date(desde+'T12:00:00'), acc=Array.from({length:7},()=>[]);
+  arr.forEach((v,i)=>acc[new Date(d0.getTime()+i*864e5).getDay()].push(v));
+  const p=acc.map((a,i)=>({dia:DOW[i],n:a.length,avg:a.length?a.reduce((x,y)=>x+y,0)/a.length:0}))
+             .filter(x=>x.n>=2).sort((a,b)=>b.avg-a.avg);
+  return p.length>=5?{mejor:p[0],peor:p[p.length-1]}:null;
+}
+function hallazgos(filas,tot){
+  const wh=SNAP.datos['windmar-home']||{}, fb=wh.facebook, ig=wh.instagram, R=[];
+  if(fb&&ig&&fb.espectadores&&ig.alcance){
+    const erF=fb.interacciones/fb.espectadores, erI=ig.interacciones/ig.alcance;
+    if(erI>erF*1.4) R.push({t:'Instagram rinde '+P1(erI/erF)+'× más por persona alcanzada',
+      d:'Instagram llega a <b>'+F(ig.alcance)+'</b> personas, el '+P1(ig.alcance/fb.espectadores*100)+'% de las de Facebook, y devuelve <b>'+F(ig.interacciones)+'</b> interacciones — el '+P1(ig.interacciones/fb.interacciones*100)+'% de las de Facebook. Hoy recibe apenas el '+P1(ig.visualizaciones/fb.visualizaciones*100)+'% de las visualizaciones.'});
+  }
+  if(fb&&fb.ultimos_7&&fb.previos_7){
+    const u=fb.ultimos_7,p=fb.previos_7;
+    if(u.visualizaciones<p.visualizaciones&&u.conversaciones>p.conversaciones)
+      R.push({t:'La semana de menos alcance fue la de más clientes',
+        d:'Las visualizaciones cayeron <b>'+P1(Math.abs((u.visualizaciones-p.visualizaciones)/p.visualizaciones*100))+'%</b> y las conversaciones subieron <b>'+P1((u.conversaciones-p.conversaciones)/p.conversaciones*100)+'%</b> en la misma semana'+(p.seguidores_nuevos?', con los seguidores nuevos pasando de '+F(p.seguidores_nuevos)+' a <b>'+F(u.seguidores_nuevos)+'</b>':'')+'. El alcance y el negocio se movieron en direcciones opuestas.'});
+  }
+  if(ig&&ig.ultimos_7&&ig.previos_7){
+    const u=ig.ultimos_7,p=ig.previos_7;
+    if(p.interacciones&&u.interacciones<p.interacciones*0.8&&u.alcance>=p.alcance*0.95)
+      R.push({t:'Instagram: mismo alcance, '+P1(Math.abs((u.interacciones-p.interacciones)/p.interacciones*100))+'% menos interacción',
+        d:'Alcanzó <b>'+F(u.alcance)+'</b> personas contra '+F(p.alcance)+' la semana anterior. Llegó a la misma gente y esa gente reaccionó mucho menos: es señal de formato, no de distribución.'});
+  }
+  const dF=fb?porDia(fb.diario_visualizaciones,SNAP.ventana.desde):null,
+        dI=ig?porDia(ig.diario_visualizaciones,SNAP.ventana.desde):null;
+  if(dF&&dI&&dF.mejor.dia!==dI.mejor.dia)
+    R.push({t:'Facebook e Instagram tienen el pico en días opuestos',
+      d:'Facebook se activa el <b>'+dF.mejor.dia+'</b> ('+F(dF.mejor.avg)+' de promedio, '+P1((dF.mejor.avg/dF.peor.avg-1)*100)+'% sobre el '+dF.peor.dia+', su peor día). Instagram se activa el <b>'+dI.mejor.dia+'</b> ('+F(dI.mejor.avg)+', '+P1((dI.mejor.avg/dI.peor.avg-1)*100)+'% sobre el '+dI.peor.dia+'). Publicar lo mismo el mismo día desaprovecha las dos curvas.'});
+  if(filas.length&&tot) R.push({t:'El portafolio es una sola página',
+    d:'<b>'+esc(filas[0].c.nombre)+'</b> concentra el '+P1(filas[0].vis/tot*100)+'% de las visualizaciones. Las otras '+(DATA.cuentas.length-1)+' páginas suman '+F(tot-filas[0].vis)+' entre todas.'});
+  const ciegas=DATA.cuentas.filter(c=>!SNAP.datos[c.id]).length,
+        sinIG =DATA.cuentas.filter(c=>c.ig_disponible===false).length, p=[];
+  if(ciegas) p.push('<b>'+ciegas+'</b> no devuelven ningún dato');
+  if(sinIG)  p.push('<b>'+sinIG+'</b> miden Facebook pero no tienen Instagram como fuente de estadísticas');
+  if(p.length) R.push({t:'De '+DATA.cuentas.length+' cuentas, solo '+(DATA.cuentas.length-ciegas)+' devuelven datos',
+    d:'En el portafolio, '+p.join(' y ')+'. Hay perfiles con la sesión caída, páginas que no abren sus estadísticas y cuentas que nunca se han capturado. Mientras siga así, toda comparación entre páginas queda incompleta.'});
+  document.getElementById('hallazgos').innerHTML=R.map((r,i)=>
+    '<div class="entry"><div class="num">'+(i+1)+'</div>'
+    +'<div><h3>'+r.t+'</h3><div class="dato">'+r.d+'</div></div></div>').join('');
+}
+
+/* ---------- el plan que cierra ---------- */
+const EST={pendiente:['','Pendiente'],en_curso:['curso','En curso'],hecha:['hecha','Hecha'],descartada:['desc','Descartada']};
+function evidencia(v){
+  if(!v) return 'Se comprueba en el informe mensual profundo, no en el snapshot semanal.';
+  const d=(SNAP.datos[v.cuenta]||{})[v.red];
+  if(!d||!d.ultimos_7||!d.previos_7) return 'Mide <b>'+v.metrica+' · '+v.red+'</b>. Sin comparación semanal todavía.';
+  const a=d.ultimos_7[v.metrica], b=d.previos_7[v.metrica];
+  if(a==null||b==null) return 'Mide <b>'+v.metrica+' · '+v.red+'</b>.';
+  const sube=a>b, ok=(v.direccion==='sube')===sube;
+  const pc=b?(sube?'+':'−')+P1(Math.abs((a-b)/b*100))+'%':'n/d';
+  return 'Mide <b>'+v.metrica+' · '+v.red+'</b> — última semana <b>'+F(a)+'</b> contra '+F(b)+' ('+pc+'). '
+    +(a===b?'Sin cambio.':ok?'Va en la dirección correcta.':'Todavía va al revés.');
+}
+function plan(P){
+  if(!P) return;
+  let h='<div class="sec"><div class="k">Cierre · plan</div><h2>'+esc(P.titular)+'</h2>'
+   +'<p class="lede">'+esc(P.resumen)+'</p>'
+   +'<p class="lede" style="font-size:12.5px;color:var(--gris);margin-top:12px">'
+   +'Recomendaciones para '+esc(P.mes)+' · base: '+esc(P.ventana_origen)+' · '+esc(P.origen)+'</p></div>'
+   +'<div class="entries">';
+  P.acciones.forEach(a=>{
+    const e=EST[a.estado]||EST.pendiente;
+    h+='<div class="entry'+(a.prioridad==='alta'?' alta':'')+'"><div class="num">'+a.n+'</div><div>'
+     +'<div class="top"><h3>'+esc(a.titulo)+'</h3><span class="pill '+e[0]+'">'+e[1]+'</span></div>'
+     +'<div class="dato">'+esc(a.dato)+'</div>'
+     +'<div class="acc"><span class="qh">Qué hacer</span>'+esc(a.accion)+'</div>'
+     +'<div class="ev">'+evidencia(a.verifica)+'</div></div></div>';
+  });
+  h+='</div><div class="sec"><div class="k">Metas</div><h2>De dónde sale y a dónde debe llegar</h2></div><div class="metas">'
+   +P.metas.map(m=>'<div class="meta"><div class="lbl">'+esc(m.lbl)+'</div><div class="v">'+esc(m.a)+'</div>'
+     +'<div class="de">desde '+esc(m.de)+'</div><div class="nt">'+esc(m.nota)+'</div></div>').join('')+'</div>';
+  if(P.arrastre&&P.arrastre.items&&P.arrastre.items.length){
+    h+='<div class="sec"><div class="k">Sin cerrar</div><h2>Viene de '+esc(P.arrastre.mes)+'</h2></div>'
+     +'<div class="panel"><table><tr><th>Acción</th><th>Estado</th></tr>'
+     +P.arrastre.items.map(i=>{const e=EST[i.estado]||EST.pendiente;
+       return '<tr><td>'+i.n+'. '+esc(i.titulo)+'</td><td><span class="pill '+e[0]+'">'+e[1]+'</span></td></tr>';}).join('')
+     +'</table></div>';
+  }
+  document.getElementById('planwrap').innerHTML=h;
+}
+
+/* ---------- reporte copiable ---------- */
+function reporte(filas,tot){
+  const v=SNAP.ventana, wh=SNAP.datos['windmar-home']||{};
+  const pct=(a,b)=>b?P1(Math.abs((a-b)/b*100))+'%':'n/d', sig=(a,b)=>b?(a>=b?'+':'−'):'';
+  let t='REDES · WindMar\n'
+   +'Ventana: '+v.desde+' a '+v.hasta+' ('+v.dias+' días)\nCapturado: '+SNAP.capturado+'\n'
+   +'\n— RESUMEN —\nEl portafolio tiene '+DATA.cuentas.length+' páginas. '+filas[0].c.nombre
+   +' concentra el '+P1(filas[0].vis/tot*100)+'% de todas las visualizaciones.\n';
+  [['facebook','FACEBOOK','espectadores','Espectadores únicos'],['instagram','INSTAGRAM','alcance','Alcance']].forEach(([k,T,bk,bl])=>{
+    const d=wh[k]; if(!d) return;
+    t+='\n— WINDMAR HOME · '+T+' —\n'
+     +'Visualizaciones ('+v.dias+'d): '+F(d.visualizaciones)+'\n'
+     +bl.padEnd(22)+': '+F(d[bk])+'\n'
+     +'Interacciones'.padEnd(22)+': '+F(d.interacciones)+'\n'
+     +'Conversaciones'.padEnd(22)+': '+F(d.conversaciones)+'\n'
+     +'Seguidores nuevos'.padEnd(22)+': '+F(d.seguidores_nuevos)+'\n';
+    if(d.ultimos_7&&d.previos_7) t+='Última semana vs anterior: '+F(d.ultimos_7.visualizaciones)+' vs '+F(d.previos_7.visualizaciones)
+      +' ('+sig(d.ultimos_7.visualizaciones,d.previos_7.visualizaciones)+pct(d.ultimos_7.visualizaciones,d.previos_7.visualizaciones)+')\n';
+  });
+  t+='\n— RESTO DEL PORTAFOLIO —\n';
+  filas.slice(1).forEach(f=>{ t+=f.c.nombre+': '+(f.medida?F(f.vis)+' visualizaciones':(f.c.sin_acceso?'sin acceso a estadísticas':'sin medir'))+'\n'; });
+  t+='\n— NOTA DE MÉTODO —\nLos números son absolutos, leídos de las series diarias de Business Suite,\n'
+   +'no de los porcentajes de comparación de Meta, que dependen de la ventana\n'
+   +'elegida y pueden exagerar subidas o bajadas.\n';
+  document.getElementById('rep').textContent=t;
+}
+function copiar(){
+  navigator.clipboard.writeText(document.getElementById('rep').textContent).then(()=>{
+    const b=document.querySelector('.btn'); b.textContent='Copiado ✓';
+    setTimeout(()=>b.textContent='Copiar reporte',1800);
+  });
+}
+
+/* ---------- arranque ---------- */
+fetch('data/redes-snapshot.json?v='+Date.now()).then(r=>r.json()).then(j=>{
+  DATA=j; SNAP=j.snapshots[j.snapshots.length-1];
+  const h=new Date(SNAP.ventana.hasta+'T12:00:00'), d=new Date(SNAP.ventana.desde+'T12:00:00');
+  const mes=(d.getMonth()===h.getMonth()? MESES[h.getMonth()] : MESES[d.getMonth()]+'–'+MESES[h.getMonth()])+' '+h.getFullYear();
+  document.getElementById('cap').textContent='capturado '+SNAP.capturado;
+
+  const {filas,tot}=tabla();
+  const wh=SNAP.datos['windmar-home']||{}, fb=wh.facebook;
+  document.getElementById('big').textContent=F(tot);
+  document.getElementById('bigs').innerHTML='visualizaciones<br>'+SNAP.ventana.dias+' días';
+  document.getElementById('pdesc').innerHTML=
+    '<b>'+mes.charAt(0).toUpperCase()+mes.slice(1)+'</b> · '+SNAP.ventana.desde+' → '+SNAP.ventana.hasta+'<br>'
+    +'<b>'+j.cuentas.length+'</b> páginas en el portafolio · <b>'+(j.cuentas.length-DATA.cuentas.filter(c=>!SNAP.datos[c.id]).length)+'</b> devuelven datos<br>'
+    +'<b>'+j.snapshots.length+'</b> semana(s) en el histórico';
+  if(fb&&fb.diario_visualizaciones)
+    document.getElementById('ruler').outerHTML=ticks(fb.diario_visualizaciones,'ruler',1000,44);
+
+  pila();
+  hallazgos(filas,tot);
+  reporte(filas,tot);
+  const i0=j.cuentas.findIndex(c=>c.id==='windmar-home');
+  abrir(i0>=0?i0:0);
+  document.getElementById('foot').innerHTML=
+    'Fuente: '+esc(SNAP.fuente)+'.<br>'
+    +'Para añadir la semana nueva usa la <a href="/captura-semanal.html">captura semanal</a>: '
+    +'corre el extractor en Business Suite, pega lo que devuelva y reemplaza <code>public/data/redes-snapshot.json</code>. '
+    +'Los snapshots viejos no se borran — el histórico es lo que hace que las comparaciones sirvan.';
+  fetch('data/recomendaciones.json?v='+Date.now()).then(r=>r.json()).then(plan).catch(e=>{
+    document.getElementById('planwrap').innerHTML='<div class="sec"><div class="k">Cierre · plan</div>'
+      +'<h2>Falta el plan del mes</h2><p class="lede">No se pudo cargar <code>data/recomendaciones.json</code> — '+esc(e.message)+'</p></div>';
+  });
+}).catch(e=>{
+  document.getElementById('pdesc').textContent='No se pudo cargar data/redes-snapshot.json — '+e.message;
+});
+</script>
+</body>
+</html>

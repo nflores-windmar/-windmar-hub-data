@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Análisis de redes — WindMar Home FL · PROS · Anker SOLIX PR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#1D429B;
+    --azul-claro:#E8EDF9;
+    --azul-linea:#C3D0EC;
+    --naranja:#F07D22;
+    --naranja-texto:#A84B06;
+    --tinta:#14213D;
+    --gris:#45506B;
+    --gris-claro:#F6F8FC;
+    --rojo:#C0392B;
+    --verde:#1E7A4E;
+  }
+
+  @page{ size:Letter; margin:14mm 13mm 16mm 13mm; }
+
+  *{ box-sizing:border-box; }
+
+  html,body{ margin:0; padding:0; }
+
+  body{
+    font-family:'Montserrat',-apple-system,'Helvetica Neue',Arial,sans-serif;
+    font-size:9.2pt;
+    line-height:1.5;
+    color:var(--tinta);
+    background:#fff;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  .pagina{ page-break-after:always; }
+  .pagina:last-child{ page-break-after:auto; }
+  .no-romper{ page-break-inside:avoid; }
+
+  /* nada de tablas, tarjetas ni hallazgos partidos a la mitad */
+  table, .metricas, .hallazgo, .nota, .accion, .barra-fila{ page-break-inside:avoid; }
+  thead{ display:table-header-group; }
+  h3{ page-break-after:avoid; }
+
+  /* ---------- portada ---------- */
+  .portada{
+    height:247mm;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-top:7px solid var(--azul);
+    padding-top:16mm;
+  }
+  .portada .marca{
+    font-family:'Montserrat';
+    font-weight:600;
+    font-size:8pt;
+    letter-spacing:.26em;
+    text-transform:uppercase;
+    color:var(--azul);
+  }
+  .portada h1{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:58pt;
+    line-height:.93;
+    letter-spacing:.005em;
+    margin:7mm 0 0;
+    color:var(--tinta);
+    max-width:150mm;
+  }
+  .portada .sub{
+    font-size:12pt;
+    font-weight:300;
+    color:var(--gris);
+    margin-top:5mm;
+    max-width:140mm;
+    line-height:1.45;
+  }
+  .cuentas{
+    display:flex;
+    gap:4mm;
+    margin-top:10mm;
+    flex-wrap:wrap;
+  }
+  .cuenta-chip{
+    border:1px solid var(--azul-linea);
+    background:var(--azul-claro);
+    border-radius:2mm;
+    padding:3.5mm 5mm;
+  }
+  .cuenta-chip .n{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:20pt;
+    line-height:1;
+    color:var(--azul);
+  }
+  .cuenta-chip .l{
+    font-size:7.6pt;
+    font-weight:500;
+    color:var(--gris);
+    letter-spacing:.04em;
+    margin-top:1mm;
+  }
+  .ficha{
+    border-top:1px solid var(--azul-linea);
+    padding-top:5mm;
+    display:flex;
+    gap:12mm;
+    font-size:8.2pt;
+    color:var(--gris);
+  }
+  .ficha b{ display:block; color:var(--tinta); font-weight:600; font-size:8.6pt; margin-bottom:.8mm; }
+
+  /* ---------- estructura ---------- */
+  .seccion-titulo{
+    display:flex;
+    align-items:baseline;
+    gap:4mm;
+    border-bottom:3px solid var(--azul);
+    padding-bottom:2.5mm;
+    margin:0 0 5mm;
+  }
+  .seccion-titulo .num{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:30pt;
+    line-height:.8;
+    color:var(--azul);
+  }
+  .seccion-titulo h2{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:23pt;
+    line-height:.9;
+    letter-spacing:.01em;
+    margin:0;
+    flex:1;
+  }
+  .seccion-titulo .meta{
+    font-size:7.6pt;
+    font-weight:500;
+    color:var(--gris);
+    letter-spacing:.03em;
+    text-align:right;
+  }
+
+  h3{
+    font-family:'Montserrat';
+    font-size:8pt;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--azul);
+    margin:5mm 0 2mm;
+  }
+
+  p{ margin:0 0 2.5mm; }
+  .gris{ color:var(--gris); }
+  .mini{ font-size:7.8pt; line-height:1.45; }
+
+  /* ---------- tarjetas de métrica ---------- */
+  .metricas{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2.5mm;
+    margin:3mm 0 4mm;
+  }
+  .metricas.tres{ grid-template-columns:repeat(3,1fr); }
+  .m{
+    border:1px solid var(--azul-linea);
+    border-radius:1.6mm;
+    padding:3mm 3.2mm;
+    background:#fff;
+  }
+  .m .etq{
+    font-size:6.9pt;
+    font-weight:600;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--gris);
+    line-height:1.3;
+    min-height:7mm;
+  }
+  .m .val{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:24pt;
+    line-height:.95;
+    color:var(--tinta);
+    margin-top:1mm;
+  }
+  .m .delta{ font-size:7.4pt; font-weight:600; margin-top:.8mm; }
+  .sube{ color:var(--verde); }
+  .baja{ color:var(--rojo); }
+  .plano{ color:var(--gris); }
+  .m.alerta{ border-color:var(--rojo); background:#FDF3F2; }
+  .m.alerta .val{ color:var(--rojo); }
+
+  /* ---------- tablas ---------- */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:8.2pt;
+    margin:2.5mm 0 4mm;
+  }
+  thead th{
+    background:var(--azul);
+    color:#fff;
+    font-weight:600;
+    font-size:7.3pt;
+    letter-spacing:.07em;
+    text-transform:uppercase;
+    text-align:left;
+    padding:2.2mm 2.5mm;
+  }
+  tbody td{
+    border-bottom:1px solid var(--azul-linea);
+    padding:2.2mm 2.5mm;
+    vertical-align:top;
+  }
+  tbody tr:nth-child(even) td{ background:var(--gris-claro); }
+  td.num,th.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tbody tr.destacada td{ background:#FFF6EC; font-weight:600; }
+  tbody tr.mala td{ color:var(--rojo); }
+
+  /* ---------- hallazgo ---------- */
+  .hallazgo{
+    border-left:4px solid var(--naranja);
+    background:var(--gris-claro);
+    padding:3.5mm 4mm;
+    margin:3.5mm 0;
+    border-radius:0 1.6mm 1.6mm 0;
+  }
+  .hallazgo .t{
+    font-weight:700;
+    font-size:9.6pt;
+    margin-bottom:1.5mm;
+    line-height:1.35;
+  }
+  .hallazgo p:last-child{ margin-bottom:0; }
+
+  .nota{
+    border:1px dashed var(--azul-linea);
+    background:#fff;
+    padding:3mm 3.5mm;
+    margin:3.5mm 0;
+    font-size:7.9pt;
+    color:var(--gris);
+    border-radius:1.6mm;
+    line-height:1.5;
+  }
+  .nota b{ color:var(--tinta); }
+
+  ul{ margin:0 0 3mm; padding-left:5mm; }
+  li{ margin-bottom:1.6mm; }
+
+  /* ---------- barras ---------- */
+  .barra-fila{
+    display:grid;
+    grid-template-columns:30mm 1fr 18mm;
+    align-items:center;
+    gap:2.5mm;
+    margin-bottom:1.8mm;
+    font-size:8pt;
+  }
+  .barra-pista{ background:var(--azul-claro); height:4.2mm; border-radius:2.1mm; overflow:hidden; }
+  .barra-val{ background:var(--azul); height:100%; border-radius:2.1mm; }
+  .barra-val.naranja{ background:var(--naranja); }
+  .barra-fila .cifra{ text-align:right; font-weight:600; font-variant-numeric:tabular-nums; }
+
+  /* ---------- acciones ---------- */
+  .accion{
+    display:grid;
+    grid-template-columns:9mm 1fr;
+    gap:3.5mm;
+    border-top:1px solid var(--azul-linea);
+    padding:3.5mm 0;
+  }
+  .accion:last-child{ border-bottom:1px solid var(--azul-linea); }
+  .accion .n{
+    font-family:'Bebas Neue',Impact,sans-serif;
+    font-size:21pt;
+    line-height:.85;
+    color:var(--azul);
+  }
+  .accion .t{ font-weight:700; font-size:9.4pt; margin-bottom:1.2mm; }
+  .accion .q{
+    font-size:7.8pt;
+    font-weight:600;
+    letter-spacing:.01em;
+    color:var(--naranja-texto);
+    margin-top:1.8mm;
+    line-height:1.45;
+  }
+  .accion .q::before{
+    content:'Verifica — ';
+    font-weight:700;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    font-size:6.8pt;
+  }
+
+  .pie{
+    margin-top:7mm;
+    border-top:1px solid var(--azul-linea);
+    padding-top:3mm;
+    font-size:7.3pt;
+    color:var(--gris);
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PORTADA ============ -->
+<section class="pagina portada">
+  <div>
+    <div class="marca">WindMar Home · Análisis de redes</div>
+    <h1>Tres cuentas<br>fuera del radar</h1>
+    <div class="sub">Qué está pasando en WindMar Home FL, PROS y Anker SOLIX PR — y por qué las tres tienen el mismo problema, que no es el contenido.</div>
+
+    <div class="cuentas">
+      <div class="cuenta-chip">
+        <div class="n">2</div>
+        <div class="l">publicaciones de FL<br>en 28 días</div>
+      </div>
+      <div class="cuenta-chip">
+        <div class="n">1</div>
+        <div class="l">publicación de Anker<br>en Facebook</div>
+      </div>
+      <div class="cuenta-chip">
+        <div class="n">0</div>
+        <div class="l">conversaciones<br>en las tres cuentas</div>
+      </div>
+      <div class="cuenta-chip">
+        <div class="n">1</div>
+        <div class="l">toque de enlace<br>en 437 visitas al perfil</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ficha">
+    <div><b>Ventana</b>9 sep – 6 oct 2026<br>28 días</div>
+    <div><b>Fuentes</b>Meta Business Suite<br>Instagram Insights (app)</div>
+    <div><b>Cuentas</b>WindMar Home FL · PROS<br>Anker SOLIX PR</div>
+    <div><b>Emitido</b>7 de octubre de 2026<br>Mercadeo WindMar Home</div>
+  </div>
+</section>
+
+<!-- ============ RESUMEN ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">00</div>
+    <h2>Lo que hay que saber</h2>
+    <div class="meta">9 sep – 6 oct 2026</div>
+  </div>
+
+  <div class="hallazgo">
+    <div class="t">Ninguna de las tres cuentas tiene un problema de contenido. Las tres tienen un problema de presencia.</div>
+    <p>WindMar Home FL publicó <b>dos veces en 28 días</b>, los días 17 y 18 de septiembre, y después estuvo <b>19 días en silencio</b>. Anker SOLIX publicó <b>una vez en Facebook y dos en Instagram</b>, todas entre el 9 y el 10 de septiembre, y no ha vuelto. Cuando sí publicaron, los números respondieron. El mes entero de cada cuenta se decidió en dos días.</p>
+  </div>
+
+  <h3>Las tres cuentas, lado a lado</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Cuenta</th>
+        <th class="num">Vistas</th>
+        <th class="num">Espectadores</th>
+        <th class="num">Interacciones</th>
+        <th class="num">Publicaciones</th>
+        <th class="num">Conversaciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><b>WindMar Home FL</b> · Facebook</td><td class="num">2.400</td><td class="num">809</td><td class="num">66</td><td class="num">2</td><td class="num">0</td></tr>
+      <tr><td><b>WindMar Home FL</b> · Instagram</td><td class="num">3.564</td><td class="num">354</td><td class="num">127</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td><b>PROS</b> · Instagram</td><td class="num">8.477</td><td class="num">1.436</td><td class="num">333</td><td class="num">8</td><td class="num">—</td></tr>
+      <tr><td><b>Anker SOLIX PR</b> · Facebook</td><td class="num">284</td><td class="num">219</td><td class="num">0</td><td class="num">1</td><td class="num">0</td></tr>
+      <tr><td><b>Anker SOLIX PR</b> · Instagram</td><td class="num">857</td><td class="num">430</td><td class="num">54</td><td class="num">2</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p class="mini gris">Vistas de Instagram FL = suma de publicaciones (2.100), reels (1.200) y historias (264). Las publicaciones de Instagram FL y PROS se cuentan sobre el contenido listado en la app; Business Suite no mide esas cuentas.</p>
+
+  <h3>Los cuatro hallazgos</h3>
+
+  <div class="accion">
+    <div class="n">1</div>
+    <div>
+      <div class="t">Una sola publicación trajo 30 de los 38 seguidores nuevos de FL</div>
+      <p class="mini">El post del 17 de septiembre sobre los uniformes del equipo de Orlando hizo <b>871 de alcance, 16 interacciones, 3 comentarios y 1 compartido</b> — el mejor contenido del mes por un margen enorme. Al día siguiente la página sumó 30 seguidores. El resto del mes sumó 8.</p>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">2</div>
+    <div>
+      <div class="t">Las artes de ventas en PROS están muertas: 33 y 20 vistas</div>
+      <p class="mini">«September Sales 1,095» hizo <b>33 vistas</b>. «Two Days Left» hizo <b>20</b>. En la misma cuenta y el mismo mes, el contenido con gente hizo <b>376, 360 y 316</b>. Es una diferencia de 10 a 18 veces, y no es casualidad: son ocho piezas seguidas con el mismo patrón.</p>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">3</div>
+    <div>
+      <div class="t">Anker gastó su lanzamiento y no lo siguió</div>
+      <p class="mini">El teaser del 9 de septiembre funcionó: <b>637 vistas y 25 interacciones</b> en Instagram, <b>88,7% público nuevo</b> en Facebook. Meta lo distribuyó. Después no hubo nada durante 27 días. Un «muy pronto» sin el «pronto» es la forma más cara de gastar atención.</p>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">4</div>
+    <div>
+      <div class="t">437 visitas al perfil, 1 toque de enlace</div>
+      <p class="mini">FL tuvo 114 visitas al perfil y <b>1</b> toque al enlace de la bio. PROS tuvo 323 visitas y <b>0</b>. Las tres cuentas cerraron el mes con <b>0 conversaciones iniciadas</b>. La gente llega, mira y no tiene a dónde ir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 · WINDMAR HOME FL ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">01</div>
+    <h2>WindMar Home FL</h2>
+    <div class="meta">Facebook + Instagram<br>9 sep – 6 oct 2026</div>
+  </div>
+
+  <h3>Facebook · página WindMar Home FL</h3>
+  <div class="metricas">
+    <div class="m"><div class="etq">Visualizaciones</div><div class="val">2.400</div><div class="delta sube">▲ 98,1%</div></div>
+    <div class="m"><div class="etq">Espectadores</div><div class="val">809</div><div class="delta sube">▲ 99,0%</div></div>
+    <div class="m"><div class="etq">Seguidores netos</div><div class="val">35</div><div class="delta sube">▲ 775%</div></div>
+    <div class="m"><div class="etq">Interacciones</div><div class="val">66</div><div class="delta sube">▲ 60,9%</div></div>
+    <div class="m"><div class="etq">Visitas a la página</div><div class="val">304</div><div class="delta baja">▼ 3,2%</div></div>
+    <div class="m"><div class="etq">Interacciones de no seguidores</div><div class="val">8</div><div class="delta baja">▼ 92,7%</div></div>
+    <div class="m"><div class="etq">Tiempo de reproducción</div><div class="val">22<span style="font-size:13pt"> min</span></div><div class="delta baja">▼ 69,5%</div></div>
+    <div class="m alerta"><div class="etq">Conversaciones iniciadas</div><div class="val">0</div><div class="delta baja">▼ 100%</div></div>
+  </div>
+
+  <h3>Todo lo que se publicó en 28 días</h3>
+  <table>
+    <thead>
+      <tr><th>Pieza</th><th class="num">Fecha</th><th class="num">Hora</th><th class="num">Alcance</th><th class="num">Inter.</th><th class="num">Com.</th><th class="num">Comp.</th></tr>
+    </thead>
+    <tbody>
+      <tr class="destacada"><td>Uniformes del equipo de Orlando</td><td class="num">17 sep</td><td class="num">18:30</td><td class="num">871</td><td class="num">16</td><td class="num">3</td><td class="num">1</td></tr>
+      <tr><td>«Antes de firmar, compare»</td><td class="num">18 sep</td><td class="num">18:30</td><td class="num">137</td><td class="num">2</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>Historia</td><td class="num">9 sep</td><td class="num">18:02</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p class="mini gris">Del 19 de septiembre al 6 de octubre no se publicó nada. En la semana del 27 de septiembre al 3 de octubre la página hizo 69 de alcance total y 0 publicaciones.</p>
+
+  <div class="hallazgo">
+    <div class="t">El post de los uniformes no fue suerte. Tiene la estructura exacta que funciona.</div>
+    <p>Habla del equipo con nombre y lugar («4 piezas de uniforme al equipo de Orlando»), le da al cliente una razón concreta de seguridad («si alguien llega sin uniforme, llámenos antes de dejarlo entrar») y <b>cierra con una pregunta directa</b>. Trajo 3 comentarios — el único contenido del mes que generó conversación. Al día siguiente la página ganó 30 seguidores de los 38 del mes entero.</p>
+  </div>
+
+  <div class="nota">
+    <b>Lo que costó el día siguiente.</b> «Antes de firmar, compare» salió el 18 de septiembre a las 18:30, exactamente 24 horas después del post de uniformes y a la misma hora. Hizo <b>137 de alcance en Facebook</b>. La misma pieza en Instagram hizo <b>209 vistas</b> — más alcance en la cuenta más pequeña. El texto es bueno; el problema es que salió encima del post que todavía estaba distribuyéndose.
+  </div>
+
+  <h3>Instagram · @windmarhomefl</h3>
+  <div class="metricas">
+    <div class="m"><div class="etq">Seguidores</div><div class="val">116</div><div class="delta sube">▲ 23,4% desde 6 sep</div></div>
+    <div class="m"><div class="etq">Espectadores</div><div class="val">354</div><div class="delta plano">30 días</div></div>
+    <div class="m"><div class="etq">Visitas al perfil</div><div class="val">114</div><div class="delta plano">30 días</div></div>
+    <div class="m alerta"><div class="etq">Toques al enlace de la bio</div><div class="val">1</div><div class="delta baja">de 114 visitas</div></div>
+  </div>
+
+  <h3>Vistas contra interacciones, por formato</h3>
+  <div class="barra-fila"><div>Publicaciones</div><div class="barra-pista"><div class="barra-val" style="width:100%"></div></div><div class="cifra">2.100</div></div>
+  <div class="barra-fila"><div>Reels</div><div class="barra-pista"><div class="barra-val" style="width:57%"></div></div><div class="cifra">1.200</div></div>
+  <div class="barra-fila"><div>Historias</div><div class="barra-pista"><div class="barra-val" style="width:12.6%"></div></div><div class="cifra">264</div></div>
+  <div style="height:3mm"></div>
+  <div class="barra-fila"><div>Reels · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:100%"></div></div><div class="cifra">68</div></div>
+  <div class="barra-fila"><div>Publicac. · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:69%"></div></div><div class="cifra">47</div></div>
+  <div class="barra-fila"><div>Historias · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:17.6%"></div></div><div class="cifra">12</div></div>
+
+  <p class="mini"><b>Lo estático llega más lejos; el video hace reaccionar más.</b> Las publicaciones estáticas alcanzan 75% más gente que los reels (2.100 contra 1.200), pero los reels generan 45% más interacciones (68 contra 47). No compiten: hacen trabajos distintos. Estático para llegar, video para que respondan.</p>
+</section>
+
+<!-- ============ 01b · PÚBLICO FL ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">01</div>
+    <h2>WindMar Home FL · el público</h2>
+    <div class="meta">Instagram Insights<br>30 días</div>
+  </div>
+
+  <div class="hallazgo">
+    <div class="t">Casi la mitad del público de la cuenta de Florida está en Puerto Rico.</div>
+    <p><b>45,0% Puerto Rico contra 43,1% Estados Unidos.</b> Es una cuenta creada para vender en Florida cuyo público está dividido casi en partes iguales con la isla equivocada. Si se le suma Colombia (7,3%) y Venezuela (1,8%), más de la mitad de quien ve esta cuenta no puede comprarle.</p>
+  </div>
+
+  <h3>Dónde está el público</h3>
+  <div class="barra-fila"><div>Puerto Rico</div><div class="barra-pista"><div class="barra-val naranja" style="width:45%"></div></div><div class="cifra">45,0%</div></div>
+  <div class="barra-fila"><div>Estados Unidos</div><div class="barra-pista"><div class="barra-val" style="width:43.1%"></div></div><div class="cifra">43,1%</div></div>
+  <div class="barra-fila"><div>Colombia</div><div class="barra-pista"><div class="barra-val naranja" style="width:7.3%"></div></div><div class="cifra">7,3%</div></div>
+  <div class="barra-fila"><div>Venezuela</div><div class="barra-pista"><div class="barra-val naranja" style="width:1.8%"></div></div><div class="cifra">1,8%</div></div>
+  <div class="barra-fila"><div>República Dominicana</div><div class="barra-pista"><div class="barra-val naranja" style="width:0.9%"></div></div><div class="cifra">0,9%</div></div>
+
+  <h3>Edad</h3>
+  <div class="barra-fila"><div>35 – 44</div><div class="barra-pista"><div class="barra-val" style="width:100%"></div></div><div class="cifra">35,8%</div></div>
+  <div class="barra-fila"><div>45 – 54</div><div class="barra-pista"><div class="barra-val" style="width:96.9%"></div></div><div class="cifra">34,7%</div></div>
+  <div class="barra-fila"><div>25 – 34</div><div class="barra-pista"><div class="barra-val" style="width:35.2%"></div></div><div class="cifra">12,6%</div></div>
+  <div class="barra-fila"><div>55 – 64</div><div class="barra-pista"><div class="barra-val" style="width:26.5%"></div></div><div class="cifra">9,5%</div></div>
+  <div class="barra-fila"><div>18 – 24</div><div class="barra-pista"><div class="barra-val" style="width:17.6%"></div></div><div class="cifra">6,3%</div></div>
+  <div class="barra-fila"><div>65 +</div><div class="barra-pista"><div class="barra-val" style="width:3.1%"></div></div><div class="cifra">1,1%</div></div>
+
+  <p class="mini"><b>70,5% del público tiene entre 35 y 54 años.</b> Eso es exactamente el dueño de casa que compra un sistema solar o un techo. La audiencia que sí está en Estados Unidos es la correcta — el problema es cuánta de ella hay, no quién es.</p>
+
+  <h3>Cuándo está conectada esa gente</h3>
+  <table>
+    <thead><tr><th>Día</th><th>Franja</th><th>Qué significa</th></tr></thead>
+    <tbody>
+      <tr><td><b>Martes</b></td><td>6:00 – 9:00 PM</td><td>El pico más alto de la semana</td></tr>
+      <tr><td><b>Jueves</b></td><td>12:00 – 3:00 PM</td><td>Segunda franja, hora de almuerzo</td></tr>
+      <tr><td><b>Jueves</b></td><td>6:00 – 9:00 PM</td><td>Tercera franja</td></tr>
+    </tbody>
+  </table>
+
+  <div class="nota">
+    <b>Esto ya se estaba haciendo bien.</b> Las dos publicaciones de Facebook salieron a las <b>18:30</b> — dentro de la mejor franja que reporta Instagram para esta cuenta. La hora no es el problema de Florida. La frecuencia sí.
+  </div>
+
+  <h3>Top contenido por vistas</h3>
+  <table>
+    <thead><tr><th>Pieza</th><th>Formato</th><th class="num">Vistas</th></tr></thead>
+    <tbody>
+      <tr class="destacada"><td>Entrega de camisa al equipo</td><td>Foto</td><td class="num">569</td></tr>
+      <tr class="destacada"><td>Elliot · Powur Premier Installer</td><td>Reel</td><td class="num">560</td></tr>
+      <tr><td>WindMar Solar + Roofing · Challenge</td><td>Reel</td><td class="num">239</td></tr>
+      <tr><td>«Before you sign, compare»</td><td>Foto</td><td class="num">209</td></tr>
+    </tbody>
+  </table>
+  <p class="mini gris">Las dos piezas que trajeron seguidores nuevos fueron el reel de Elliot y la foto de la camisa — las dos con gente del equipo, cara visible y contexto real. Ninguna arte de producto aparece en el top.</p>
+</section>
+
+<!-- ============ 02 · PROS ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">02</div>
+    <h2>PROS</h2>
+    <div class="meta">Instagram · 30 días<br>cierra 6 oct 2026</div>
+  </div>
+
+  <div class="metricas">
+    <div class="m"><div class="etq">Vistas</div><div class="val">8.477</div><div class="delta plano">76,7% público nuevo</div></div>
+    <div class="m"><div class="etq">Espectadores</div><div class="val">1.436</div><div class="delta plano">30 días</div></div>
+    <div class="m"><div class="etq">Interacciones</div><div class="val">333</div><div class="delta plano">30 días</div></div>
+    <div class="m alerta"><div class="etq">Toques al enlace de la bio</div><div class="val">0</div><div class="delta baja">de 323 visitas</div></div>
+  </div>
+
+  <p>PROS es, por volumen, la cuenta más grande de las tres: <b>8.477 vistas y 1.436 espectadores</b>, con <b>76,7% de público nuevo</b>. Meta la está distribuyendo bien. El problema no es cuánta gente llega — es qué encuentra cuando llega.</p>
+
+  <h3>Todo lo publicado en 30 días, en orden</h3>
+  <table>
+    <thead>
+      <tr><th>Pieza</th><th>Tipo</th><th class="num">Vistas</th><th class="num">Me gusta</th><th class="num">Repost</th><th class="num">Comp.</th></tr>
+    </thead>
+    <tbody>
+      <tr class="destacada"><td>«Educating is work too…»</td><td>Gente</td><td class="num">376</td><td class="num">19</td><td class="num">5</td><td class="num">1</td></tr>
+      <tr class="destacada"><td>@ariannajaramillo.j</td><td>Gente</td><td class="num">360</td><td class="num">2</td><td class="num">0</td><td class="num">6</td></tr>
+      <tr class="destacada"><td>@sebastianjuanm1</td><td>Gente</td><td class="num">316</td><td class="num">2</td><td class="num">0</td><td class="num">1</td></tr>
+      <tr><td>Captura de métricas</td><td>Pantalla</td><td class="num">168</td><td class="num">0</td><td class="num">0</td><td class="num">1</td></tr>
+      <tr><td>Equipo (sin texto)</td><td>Gente</td><td class="num">105</td><td class="num">0</td><td class="num">0</td><td class="num">1</td></tr>
+      <tr><td>Equipo (sin texto)</td><td>Gente</td><td class="num">40</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr class="mala"><td>«WindMar September Sales 1,095»</td><td><b>Arte de ventas</b></td><td class="num">33</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr class="mala"><td>«Two Days Left»</td><td><b>Arte de ventas</b></td><td class="num">20</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hallazgo">
+    <div class="t">Las dos piezas de arte gráfico de ventas son las dos peores del mes. No por poco: por 10 a 18 veces.</div>
+    <p>El contenido con personas promedió <b>239 vistas</b>. Las dos artes de ventas promediaron <b>26,5</b>. Y no es solo alcance — las artes hicieron <b>cero me gusta, cero repost y cero compartidos entre las dos</b>. Nadie interactuó con ellas de ninguna forma. Son piezas que cuestan diseño, ocupan un espacio en la parrilla y no las ve nadie.</p>
+  </div>
+
+  <div class="nota">
+    <b>Qué hace distinto a «Educating is work too…».</b> Es la única pieza del mes con <b>5 reposts</b>. Un repost es la señal más fuerte que da Instagram: alguien la puso en su propia historia. Tiene gente del equipo, una frase con punto de vista y contexto. Las artes de ventas tienen un número grande y nada más — no hay nada que compartir.
+  </div>
+
+  <h3>Formato: vistas contra interacciones</h3>
+  <div class="barra-fila"><div>Publicaciones</div><div class="barra-pista"><div class="barra-val" style="width:100%"></div></div><div class="cifra">4.400</div></div>
+  <div class="barra-fila"><div>Historias</div><div class="barra-pista"><div class="barra-val" style="width:47.7%"></div></div><div class="cifra">2.100</div></div>
+  <div class="barra-fila"><div>Reels</div><div class="barra-pista"><div class="barra-val" style="width:45.5%"></div></div><div class="cifra">2.000</div></div>
+  <div style="height:3mm"></div>
+  <div class="barra-fila"><div>Reels · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:100%"></div></div><div class="cifra">152</div></div>
+  <div class="barra-fila"><div>Publicac. · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:90%"></div></div><div class="cifra">137</div></div>
+  <div class="barra-fila"><div>Historias · interacc.</div><div class="barra-pista"><div class="barra-val naranja" style="width:29%"></div></div><div class="cifra">44</div></div>
+
+  <p class="mini">El mismo patrón que en Florida: <b>lo estático lleva el alcance (4.400 contra 2.000) y el reel lleva la interacción (152 contra 137)</b>. Las historias hacen 2.100 vistas y solo 44 interacciones — llegan pero no mueven a nadie.</p>
+</section>
+
+<!-- ============ 03 · ANKER ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">03</div>
+    <h2>Anker SOLIX PR</h2>
+    <div class="meta">Facebook + Instagram<br>9 sep – 6 oct 2026</div>
+  </div>
+
+  <div class="hallazgo">
+    <div class="t">La cuenta se lanzó el 9 de septiembre y se detuvo el 10.</div>
+    <p>Un teaser en Facebook, dos en Instagram, todo en 24 horas. <b>Después, 27 días sin publicar nada.</b> No es una cuenta con bajo rendimiento: es una cuenta que arrancó y se apagó.</p>
+  </div>
+
+  <h3>Facebook · anker.solixpr</h3>
+  <div class="metricas">
+    <div class="m"><div class="etq">Visualizaciones</div><div class="val">284</div><div class="delta sube">▲ 104,3%</div></div>
+    <div class="m"><div class="etq">Espectadores</div><div class="val">219</div><div class="delta sube">▲ 525,7%</div></div>
+    <div class="m"><div class="etq">Público nuevo</div><div class="val">88,7<span style="font-size:14pt">%</span></div><div class="delta plano">no seguidores</div></div>
+    <div class="m alerta"><div class="etq">Interacciones</div><div class="val">0</div><div class="delta baja">▼ 100%</div></div>
+    <div class="m"><div class="etq">Seguidores netos</div><div class="val">7</div><div class="delta sube">▲ 70,8% · 0 bajas</div></div>
+    <div class="m"><div class="etq">Visitas a la página</div><div class="val">53</div><div class="delta baja">▼ 70,1%</div></div>
+    <div class="m"><div class="etq">Tiempo de reproducción</div><div class="val">12<span style="font-size:13pt"> min</span></div><div class="delta plano">52 reproducciones de 3 s</div></div>
+    <div class="m alerta"><div class="etq">Conversaciones</div><div class="val">0</div><div class="delta baja">0 contactos nuevos</div></div>
+  </div>
+
+  <h3>Instagram · @anker.solixpr</h3>
+  <div class="metricas">
+    <div class="m"><div class="etq">Visualizaciones</div><div class="val">857</div><div class="delta baja">▼ 47,2%</div></div>
+    <div class="m"><div class="etq">Espectadores</div><div class="val">430</div><div class="delta sube">▲ 388,6%</div></div>
+    <div class="m"><div class="etq">Interacciones</div><div class="val">54</div><div class="delta baja">▼ 46,5%</div></div>
+    <div class="m alerta"><div class="etq">Visitas al perfil</div><div class="val">18</div><div class="delta baja">▼ 87,8%</div></div>
+  </div>
+
+  <h3>Las tres publicaciones que existen</h3>
+  <table>
+    <thead><tr><th>Pieza</th><th>Red</th><th class="num">Fecha</th><th class="num">Hora</th><th class="num">Vistas</th><th class="num">Inter.</th><th class="num">Comp.</th></tr></thead>
+    <tbody>
+      <tr class="destacada"><td>Teaser «Algo grande viene…»</td><td>Instagram</td><td class="num">9 sep</td><td class="num">19:01</td><td class="num">637</td><td class="num">25</td><td class="num">3</td></tr>
+      <tr><td>Teaser «Se acerca algo…»</td><td>Facebook</td><td class="num">9 sep</td><td class="num">19:00</td><td class="num">253</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr class="mala"><td>Segunda pieza</td><td>Instagram</td><td class="num">10 sep</td><td class="num">11:59</td><td class="num">33</td><td class="num">0</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hallazgo">
+    <div class="t">El lanzamiento sí funcionó. Lo que falló fue todo lo que venía después, que no vino.</div>
+    <p>El teaser de Instagram hizo <b>637 vistas y 25 interacciones con 3 compartidos</b> en una cuenta recién abierta. En Facebook, <b>88,7% del alcance fue público nuevo</b> y los espectadores subieron 525,7%. Meta hizo su trabajo: puso la cuenta delante de gente que no la conocía. Las visualizaciones del día 1 fueron <b>401 en Instagram y 218 en Facebook</b>, y de ahí la curva cayó a un dígito en menos de dos semanas.</p>
+  </div>
+
+  <div class="nota">
+    <b>Lo que cuesta un «muy pronto» que no llega.</b> El texto del teaser promete: «Prepárate. Muy pronto lo vas a ver todo» y «Dale seguir para ser de los primeros en verlo». Hubo gente que le dio seguir —7 seguidores netos en Facebook, 0 bajas— y 27 días después todavía no ha visto nada. Esa atención no se guarda: se gasta. Volver a conseguirla cuesta más que la primera vez, porque ahora la cuenta ya tiene un historial de no cumplir.<br><br>
+    <b>Además, el segundo intento falló por la hora.</b> El teaser de las <b>19:01</b> hizo 637 vistas. La pieza del día siguiente a las <b>11:59</b> hizo <b>33</b>. Misma cuenta, mismo público, 36 horas de diferencia — y 19 veces menos alcance.
+  </div>
+
+  <div class="nota">
+    <b>Dato que hay que leer con cuidado.</b> Varios porcentajes de Anker (+525,7% de espectadores, +388,6%, +104,3%) se ven enormes porque el período anterior era casi cero: es una cuenta nueva. Lo que sí es sólido son los números absolutos — 284 y 857 visualizaciones, 0 y 54 interacciones, 0 conversaciones — y la forma de la curva.
+  </div>
+</section>
+
+<!-- ============ 04 · QUÉ HACER ============ -->
+<section class="pagina">
+  <div class="seccion-titulo">
+    <div class="num">04</div>
+    <h2>Qué hacer</h2>
+    <div class="meta">Noviembre 2026</div>
+  </div>
+
+  <div class="accion">
+    <div class="n">1</div>
+    <div>
+      <div class="t">Decidir si Anker SOLIX sigue o se cierra — y decidirlo este mes</div>
+      <p>La cuenta prometió algo públicamente y lleva 27 días sin cumplirlo. Hay dos salidas honestas: se le asigna una cadencia real con producto que ya exista, o se pausa y se retoma cuando haya producto que mostrar. Lo que no se puede sostener es dejarla abierta y vacía: cada día que pasa, los 7 que siguieron esperan algo que no llega.</p>
+      <div class="q">publicaciones por semana &gt; 0 · interacciones en Facebook &gt; 0</div>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">2</div>
+    <div>
+      <div class="t">Quitar las artes de ventas de PROS y poner gente</div>
+      <p>«September Sales» hizo 33 vistas y «Two Days Left» hizo 20, con cero interacción entre las dos. El contenido con personas del equipo promedió 239. No hace falta producir más: hace falta dejar de producir lo que no se ve. El número de ventas del mes puede ir en una historia, no en una publicación de parrilla.</p>
+      <div class="q">vistas promedio por pieza en PROS &gt; 150</div>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">3</div>
+    <div>
+      <div class="t">Darle a Florida una cadencia mínima: dos publicaciones por semana</div>
+      <p>FL publicó dos veces en 28 días y el mes entero dependió de un solo post. La semana del 27 de septiembre cerró con 69 de alcance y cero publicaciones. Dos piezas semanales, martes y jueves entre 6:00 y 9:00 PM —la franja que la propia cuenta reporta como pico— cambian el resultado sin cambiar la producción.</p>
+      <div class="q">publicaciones de FL por mes ≥ 8 · alcance semanal &gt; 300</div>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">4</div>
+    <div>
+      <div class="t">Repetir la fórmula del post de uniformes, no la del post de producto</div>
+      <p>Equipo con nombre y lugar, una razón concreta para el cliente, y una pregunta al final. Esa estructura hizo 871 de alcance, 3 comentarios y 30 seguidores en un día. Hay material para repetirla todas las semanas: una instalación, un técnico, una oficina, una entrega. No cuesta producción nueva — cuesta decidir contarlo así.</p>
+      <div class="q">comentarios por pieza en FL &gt; 0</div>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">5</div>
+    <div>
+      <div class="t">Arreglar la bio de las dos cuentas de Instagram</div>
+      <p>437 visitas al perfil entre FL y PROS produjeron <b>un</b> toque de enlace. La gente está llegando al perfil y no encontrando a dónde ir. Para FL el enlace es windmarcommand.com; para PROS hay que definir si el destino es reclutamiento o ventas, porque hoy la cuenta mezcla las dos cosas y la bio no resuelve ninguna.</p>
+      <div class="q">toques al enlace de bio &gt; 15 al mes</div>
+    </div>
+  </div>
+
+  <div class="accion">
+    <div class="n">6</div>
+    <div>
+      <div class="t">No publicar dos piezas en días seguidos a la misma hora</div>
+      <p>«Antes de firmar, compare» salió 24 horas exactas después del post de uniformes, a las 18:30 las dos, y se quedó en 137 de alcance contra 871. La segunda pieza compitió con la primera mientras todavía se estaba distribuyendo. Mínimo 48 horas entre publicaciones de la misma página.</p>
+      <div class="q">ninguna pieza de FL por debajo de 300 de alcance</div>
+    </div>
+  </div>
+
+  <div class="nota" style="margin-top:6mm">
+    <b>Lo que este informe no puede decir.</b> No hay datos de conversión ni de inversión publicitaria para estas tres cuentas: Business Suite reporta 0 anuncios activos en la ventana, así que todo lo anterior es orgánico. Tampoco hay datos de Instagram para WindMar Home FL ni para PROS dentro de Business Suite —esas cuentas no están conectadas como fuente de estadísticas de sus páginas—, por lo que sus cifras vienen de la aplicación de Instagram y usan una ventana de 30 días en vez de 28. Las dos ventanas cierran el 6 de octubre.
+  </div>
+
+  <div class="pie">
+    <b>Ventana de análisis:</b> 9 de septiembre – 6 de octubre de 2026 (28 días) para Facebook vía Meta Business Suite; 30 días cerrando el 6 de octubre de 2026 para Instagram vía la aplicación.<br>
+    <b>Advertencia de ventana:</b> Meta usa una ventana móvil que se desplaza cada día. Cualquier comparación futura tiene que repetir estas mismas fechas o las cifras no cuadran.<br>
+    <b>Preparado por:</b> Mercadeo WindMar Home · 7 de octubre de 2026.
+  </div>
+</section>
+
+</body>
+</html>
