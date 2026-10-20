@@ -1,0 +1,81 @@
+# Dibuja el PNG de cada tarjeta de historias que cambie, y lo deja en la rama.
+#
+# Para qué: un agente puede escribir una tarjeta y empujarla, pero no puede
+# abrir el generador y apretar el botón de exportar. Sin esto entrega código;
+# con esto entrega el arte, y puede dar un enlace que se abre y se baja.
+#
+# Solo dibuja lo que cambió en ese empujón, no las 21. Cada pieza pesa medio
+# mega y van al repo, así que redibujar todo cada vez lo engordaría sin razón.
+
+name: Artes de historias
+
+on:
+  push:
+    paths:
+      - "public/windmar-pr-stories-v2-preview.html"
+
+permissions:
+  contents: write
+
+# Si llegan dos empujones seguidos a la misma rama, que gane el último.
+concurrency:
+  group: artes-historias-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dibujar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Hacen falta dos commits para poder comparar con la versión anterior
+          # y saber qué tarjeta cambió.
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Instalar lo justo
+        # Solo puppeteer-core. Un `npm ci` traería Next y todo lo demás para
+        # nada: este script no construye la app, solo abre una página.
+        run: npm install --no-save --no-audit --no-fund puppeteer-core@^25.5.0
+
+      - name: Sacar la versión anterior del generador
+        id: anterior
+        run: |
+          ARCHIVO=public/windmar-pr-stories-v2-preview.html
+          if git cat-file -e "${{ github.event.before }}:$ARCHIVO" 2>/dev/null; then
+            git show "${{ github.event.before }}:$ARCHIVO" > /tmp/anterior.html
+            echo "hay=si" >> "$GITHUB_OUTPUT"
+          else
+            # Rama nueva o primer empujón: no hay con qué comparar, se dibuja todo.
+            echo "hay=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Dibujar
+        env:
+          # Los runners de GitHub traen Chrome instalado aquí.
+          CHROME_PATH: /usr/bin/google-chrome
+        run: |
+          if [ "${{ steps.anterior.outputs.hay }}" = "si" ]; then
+            node scripts/render-stories.mjs --cambiadas /tmp/anterior.html
+          else
+            node scripts/render-stories.mjs
+          fi
+
+      - name: Guardar los PNG en la rama
+        run: |
+          # `public/artes/` está en .gitignore para que las pruebas locales no
+          # ensucien el árbol. Aquí sí se guardan a propósito, de ahí el -f.
+          git add -f public/artes/stories-v2/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No cambió ningún PNG."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # [skip ci] no hace falta: este empujón solo toca public/artes/, y el
+          # disparador de arriba solo mira el generador. No se llama a sí mismo.
+          git commit -q -m "Artes: redibujar las tarjetas que cambiaron"
+          git push origin "HEAD:${{ github.ref_name }}"

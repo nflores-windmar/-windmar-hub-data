@@ -84,7 +84,10 @@ const CHROME =
   process.env.CHROME_PATH ||
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const soloEsta = process.argv[2] || null;
+const args = process.argv.slice(2);
+const iCambiadas = args.indexOf("--cambiadas");
+const versionAnterior = iCambiadas >= 0 ? args[iCambiadas + 1] : null;
+const soloEsta = iCambiadas >= 0 ? null : args[0] || null;
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /** Ids del arreglo CARDS, en orden — el índice es el que usa cada botón. */
@@ -92,6 +95,53 @@ async function idsDelArchivo() {
   const txt = await readFile(PAGINA, "utf8");
   const cuerpo = txt.slice(txt.indexOf("const CARDS=["));
   return [...cuerpo.matchAll(/\bid:'([a-z0-9-]+)'/g)].map((m) => m[1]);
+}
+
+/**
+ * Parte el arreglo CARDS en bloques, uno por id, para poder comparar dos
+ * versiones del archivo. Se compara el texto del bloque entero y no la línea
+ * del id, porque un cambio en `desc:` no toca esa línea y aun así hay que
+ * volver a dibujar la pieza.
+ */
+function bloquesPorId(texto) {
+  const i = texto.indexOf("const CARDS=[");
+  if (i < 0) return new Map();
+  // Hay que cortar donde cierra el arreglo. Si se deja correr hasta el final
+  // del archivo, el último bloque se lleva todo lo que viene después, y
+  // entonces añadir una tarjeta al final hace que la anterior parezca
+  // modificada — se redibujaría una pieza que nadie tocó.
+  let cuerpo = texto.slice(i);
+  const cierre = cuerpo.search(/\n\s*\];/);
+  if (cierre > 0) cuerpo = cuerpo.slice(0, cierre);
+  const bloques = new Map();
+  const re = /\{\s*id:'([a-z0-9-]+)'/g;
+  const marcas = [...cuerpo.matchAll(re)].map((m) => [m[1], m.index]);
+  for (let k = 0; k < marcas.length; k++) {
+    const [id, desde] = marcas[k];
+    const hasta = k + 1 < marcas.length ? marcas[k + 1][1] : cuerpo.length;
+    let bloque = cuerpo.slice(desde, hasta);
+    // Cortar donde cierra la llave de la tarjeta. Entre una tarjeta y la
+    // siguiente suele haber comentarios —Musa deja ahí lo que queda pendiente
+    // de confirmar— y si se incluyen, escribir un comentario haría que la
+    // tarjeta de arriba pareciera modificada y se redibujara sin motivo.
+    const fin = bloque.lastIndexOf("}");
+    if (fin > 0) bloque = bloque.slice(0, fin + 1);
+    bloques.set(id, bloque.replace(/\s+/g, " ").trim());
+  }
+  return bloques;
+}
+
+/** Ids nuevos o modificados respecto a una versión anterior del archivo. */
+async function idsCambiados(rutaAnterior) {
+  const ahora = bloquesPorId(await readFile(PAGINA, "utf8"));
+  let antes = new Map();
+  try {
+    antes = bloquesPorId(await readFile(rutaAnterior, "utf8"));
+  } catch {
+    // Rama nueva sin versión previa: se dibuja todo.
+    return [...ahora.keys()];
+  }
+  return [...ahora.keys()].filter((id) => antes.get(id) !== ahora.get(id));
 }
 
 // Chrome sin ventana no entrega las descargas de blob por la vía normal, así
@@ -144,16 +194,27 @@ async function recogerBlob(pagina, limiteMs = 60000) {
 
 const main = async () => {
   const ids = await idsDelArchivo();
-  const objetivo = soloEsta
-    ? ids.map((id, i) => [id, i]).filter(([id]) => id === soloEsta)
-    : ids.map((id, i) => [id, i]);
+  const indice = new Map(ids.map((id, i) => [id, i]));
 
-  if (!objetivo.length) {
-    console.error(
-      `No hay ninguna tarjeta con id '${soloEsta}'.\nLas que existen: ${ids.join(", ")}`
-    );
-    process.exit(1);
+  let aDibujar = ids;
+  if (soloEsta) {
+    aDibujar = ids.filter((id) => id === soloEsta);
+    if (!aDibujar.length) {
+      console.error(
+        `No hay ninguna tarjeta con id '${soloEsta}'.\nLas que existen: ${ids.join(", ")}`
+      );
+      process.exit(1);
+    }
+  } else if (versionAnterior) {
+    aDibujar = await idsCambiados(versionAnterior);
+    if (!aDibujar.length) {
+      console.log("Ninguna tarjeta cambió. No hay nada que dibujar.");
+      return;
+    }
+    console.log(`Cambiaron ${aDibujar.length}: ${aDibujar.join(", ")}\n`);
   }
+
+  const objetivo = aDibujar.map((id) => [id, indice.get(id)]);
 
   await mkdir(SALIDA, { recursive: true });
 
