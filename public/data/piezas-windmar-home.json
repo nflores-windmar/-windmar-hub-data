@@ -1,0 +1,284 @@
+{
+  "cuenta": "windmar-home",
+  "capturado": "2026-10-21",
+  "ventana": {
+    "desde": "2026-09-23",
+    "hasta": "2026-10-20",
+    "dias": 28
+  },
+  "nota_alcance": "Facebook NO trae alcance por pieza: Meta retiró post_impressions. Donde dice null es eso, no un cero.",
+  "piezas": [
+    {
+      "red": "Facebook",
+      "fecha": "2026-09-22",
+      "hora": "22:30",
+      "alcance": null,
+      "interacciones": 76,
+      "texto": "Cuando escoges WindMar Home, no estás comprando "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-09-23",
+      "hora": "14:31",
+      "alcance": 772,
+      "interacciones": 42,
+      "texto": "Te ofrecemos apoyo desde el Sur de Puerto Rico v"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-09-23",
+      "hora": "18:01",
+      "alcance": null,
+      "interacciones": 90,
+      "texto": "Te ofrecemos apoyo desde el Sur de Puerto Rico v"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-09-25",
+      "hora": "14:10",
+      "alcance": 778,
+      "interacciones": 39,
+      "texto": "El agua que llega a tu casa no siempre llega lis"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-09-25",
+      "hora": "14:11",
+      "alcance": null,
+      "interacciones": 27,
+      "texto": "¿Sabes qué tan limpia está el agua que usa tu fa"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-09-29",
+      "hora": "18:00",
+      "alcance": null,
+      "interacciones": 63,
+      "texto": "Tu negocio no puede darse el lujo de parar. Con "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-09-29",
+      "hora": "18:01",
+      "alcance": 611,
+      "interacciones": 52,
+      "texto": "Energía que trabaja tan duro como tu negocio.\nCo"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-09-30",
+      "hora": "15:01",
+      "alcance": 843,
+      "interacciones": 48,
+      "texto": "Desde el 2024 en WHF nos enfocamos en algo bien "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-09-30",
+      "hora": "15:01",
+      "alcance": null,
+      "interacciones": 51,
+      "texto": "Desde el 2024 en WHF nos enfocamos en algo bien "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-01",
+      "hora": "16:18",
+      "alcance": null,
+      "interacciones": 45,
+      "texto": "La luz subió a 33.8 centavos por kWh. Con WindMa"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-02",
+      "hora": "17:30",
+      "alcance": null,
+      "interacciones": 90,
+      "texto": "Agua limpia, directo del grifo. Así de simple.  "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-02",
+      "hora": "17:30",
+      "alcance": 950,
+      "interacciones": 65,
+      "texto": "Agua limpia, directo del grifo. Así de simple.\nC"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-04",
+      "hora": "14:31",
+      "alcance": null,
+      "interacciones": 30,
+      "texto": "Tu techo es la primera linea de defensa de tu ho"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-04",
+      "hora": "14:31",
+      "alcance": 543,
+      "interacciones": 31,
+      "texto": "Tu techo es la primera linea de defensa de tu ho"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-06",
+      "hora": "14:31",
+      "alcance": 951,
+      "interacciones": 52,
+      "texto": "Prepárate para ahorrar con nosotros. Tu casa est"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-06",
+      "hora": "19:30",
+      "alcance": null,
+      "interacciones": 214,
+      "texto": "Prepárate para ahorrar con nosotros. Tu casa est"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-08",
+      "hora": "16:01",
+      "alcance": 804,
+      "interacciones": 42,
+      "texto": "Lo que no se ve de una instalacion: el almacen. "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-09",
+      "hora": "15:20",
+      "alcance": 469,
+      "interacciones": 24,
+      "texto": "Antes de instalar una sola placa, visitamos tu h"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-09",
+      "hora": "16:30",
+      "alcance": null,
+      "interacciones": 19,
+      "texto": "Antes de instalar una sola placa, Francisco visi"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-11",
+      "hora": "17:30",
+      "alcance": null,
+      "interacciones": 15,
+      "texto": "¿Cómo funciona una cisterna?\nTu casa guarda su r"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-11",
+      "hora": "17:30",
+      "alcance": 349,
+      "interacciones": 19,
+      "texto": "¿Sabes cómo funciona una cisterna? Desliza y mir"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-12",
+      "hora": "14:55",
+      "alcance": 234,
+      "interacciones": 24,
+      "texto": "no firmes sin saber. Dejanos orientarte\n\n#Placas"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-12",
+      "hora": "19:30",
+      "alcance": null,
+      "interacciones": 66,
+      "texto": "Antes de firmar, compara. Y trae la otra cotizac"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-13",
+      "hora": "14:31",
+      "alcance": 857,
+      "interacciones": 91,
+      "texto": "Tranquilo, nosotros nos encargamos. Te explicamo"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-13",
+      "hora": "19:31",
+      "alcance": null,
+      "interacciones": 181,
+      "texto": "Tranquilo, nosotros nos encargamos. Te explicamo"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-14",
+      "hora": "14:00",
+      "alcance": null,
+      "interacciones": 29,
+      "texto": "Así funciona una placa solar, paso a paso. \n\nEl "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-14",
+      "hora": "14:00",
+      "alcance": 453,
+      "interacciones": 30,
+      "texto": "Así funciona una placa solar, paso a paso:\nEl so"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-14",
+      "hora": "14:36",
+      "alcance": 1264,
+      "interacciones": 93,
+      "texto": "Katiria nos da un tour por el showroom para que "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-14",
+      "hora": "14:36",
+      "alcance": null,
+      "interacciones": 355,
+      "texto": "Katiria nos da un tour por el showroom para que "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-15",
+      "hora": "15:09",
+      "alcance": 580,
+      "interacciones": 17,
+      "texto": "Cuando empieza a llover, tu techo no espera. Un "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-15",
+      "hora": "15:11",
+      "alcance": null,
+      "interacciones": 19,
+      "texto": "Cuando empieza a llover, tu techo no espera. Un "
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-16",
+      "hora": "14:31",
+      "alcance": 1262,
+      "interacciones": 96,
+      "texto": "Asi se ve WindMar en accion: Rafael y el equipo "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-16",
+      "hora": "19:30",
+      "alcance": null,
+      "interacciones": 215,
+      "texto": "Asi se ve WindMar en accion: Rafael y el equipo "
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-18",
+      "hora": "16:30",
+      "alcance": null,
+      "interacciones": 63,
+      "texto": "La luz subió. De 28.57¢ a 33.86¢ el kilovatio ho"
+    }
+  ]
+}

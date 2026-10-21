@@ -443,20 +443,31 @@ def posts(cuenta_id, dias=28):
 
     # --- Facebook
     if pid and pid in paginas:
+        # Meta retiró las tres métricas de impresiones por publicación
+        # (post_impressions, post_impressions_unique, post_engaged_users), así
+        # que NO HAY ALCANCE POR PIEZA en Facebook. Lo que sí devuelve son
+        # reacciones, clics y reproducciones — suficiente para comparar piezas
+        # entre sí, pero no para decir a cuánta gente llegó cada una.
         datos, err = pedir(f"{pid}/posts", {
             "fields": "id,created_time,message,"
-                      "insights.metric(post_impressions_unique,post_engaged_users)",
-            "since": str(desde), "until": str(hasta), "limit": 100}, ptok)
+                      "insights.metric(post_reactions_by_type_total,"
+                      "post_clicks,post_video_views)",
+            "since": str(since), "until": str(hasta), "limit": 100}, ptok)
         if err:
             print(f"  Facebook: {sin_token(err)[:80]}")
         else:
             for p in datos.get("data", []):
                 m = {i["name"]: i["values"][0]["value"]
                      for i in p.get("insights", {}).get("data", [])}
+                reac = m.get("post_reactions_by_type_total") or {}
+                if isinstance(reac, dict):
+                    reac = sum(v for v in reac.values() if isinstance(v, int))
+                inter = (reac or 0) + (m.get("post_clicks") or 0)
                 t = datetime.datetime.strptime(
                     p["created_time"][:19], "%Y-%m-%dT%H:%M:%S")
-                filas.append(("Facebook", t, m.get("post_impressions_unique", 0),
-                              m.get("post_engaged_users", 0),
+                # El alcance va a None, no a 0: no es que llegara a nadie, es
+                # que Meta ya no lo dice. Poner 0 sería inventar un dato.
+                filas.append(("Facebook", t, None, inter,
                               (p.get("message") or "")[:48]))
 
     # --- Instagram
@@ -487,9 +498,32 @@ def posts(cuenta_id, dias=28):
           f"{'Inter.':>7}  Pieza")
     print("  " + "─" * 86)
     for red, t, alc, inter, txt in filas:
-        print(f"  {red:<10} {t:%d %b}     {t:%H:%M}  {alc:>8} {inter:>7}  {txt}")
+        # Facebook ya no da alcance por pieza: se enseña "—", no un cero.
+        a = "—" if alc is None else f"{alc}"
+        print(f"  {red:<10} {t:%d %b}     {t:%H:%M}  {a:>8} {inter:>7}  {txt}")
 
     # el resumen que de verdad sirve: rendimiento por franja horaria
+    # Guardar las piezas donde Musa las pueda leer. Sin esto, el análisis solo
+    # tiene los totales de la cuenta y puede decir que una semana subió, pero
+    # no QUÉ la hizo subir — que es lo único que sirve para decidir.
+    destino = os.path.join(RAIZ, "public", "data", f"piezas-{cuenta_id}.json")
+    os.makedirs(os.path.dirname(destino), exist_ok=True)
+    with open(destino, "w", encoding="utf-8") as fh:
+        json.dump({
+            "cuenta": cuenta_id,
+            "capturado": str(datetime.date.today()),
+            "ventana": {"desde": str(desde), "hasta": str(hasta), "dias": dias},
+            "nota_alcance": ("Facebook NO trae alcance por pieza: Meta retiró "
+                             "post_impressions. Donde dice null es eso, no un cero."),
+            "piezas": [
+                {"red": r, "fecha": t.strftime("%Y-%m-%d"), "hora": t.strftime("%H:%M"),
+                 "alcance": a, "interacciones": i, "texto": txt}
+                for r, t, a, i, txt in sorted(filas, key=lambda f: f[1])
+            ],
+        }, fh, ensure_ascii=False, indent=2)
+    print(f"\n  Guardado en public/data/piezas-{cuenta_id}.json "
+          f"({len(filas)} piezas)")
+
     print("\n  POR FRANJA DE PUBLICACIÓN")
     print("  " + "─" * 86)
     for red in ("Facebook", "Instagram"):

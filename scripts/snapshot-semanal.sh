@@ -27,13 +27,21 @@ if ! python3 scripts/meta-datos.py snapshot >> "$REGISTRO" 2>&1; then
   exit 1
 fi
 
+# 1b. Las piezas una por una, para que el análisis pueda decir QUÉ movió la
+#     semana y no solo que subió. Si falla, no se corta: el snapshot de la
+#     cuenta ya está y vale por sí solo.
+for CUENTA in windmar-home windmar-home-fl anker; do
+  python3 scripts/meta-datos.py posts "$CUENTA" >> "$REGISTRO" 2>&1 \
+    || echo "no se pudieron sacar las piezas de $CUENTA" >> "$REGISTRO"
+done
+
 # 2. Subirlo, solo si cambió (ya estamos en el repo)
-if git diff --quiet -- public/data/redes-snapshot.json; then
+if git diff --quiet -- public/data/; then
   echo "sin cambios, no hay nada que subir" >> "$REGISTRO"
   exit 0
 fi
 
-git add public/data/redes-snapshot.json
+git add public/data/
 git commit -q -m "Snapshot de Meta — $(date '+%-d de %B de %Y')" >> "$REGISTRO" 2>&1
 
 # El push puede fallar si alguien empujó mientras tanto. Se reintenta una vez
