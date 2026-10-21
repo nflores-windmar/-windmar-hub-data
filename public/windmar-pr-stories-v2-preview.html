@@ -46,10 +46,23 @@ h1 .o{color:var(--orange)}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;
   filter:contrast(1.04) saturate(1.06)}
 /* hueco de video: arrastra o haz clic para colocar el clip */
-.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+/* El aviso se queda en el TERCIO DE ARRIBA, no centrado.
+   Centrado caía justo sobre el antetítulo y la cifra, y las dos cosas se leían
+   encima la una de la otra — parecía una pieza rota cuando solo era un hueco
+   sin llenar. Arriba no estorba: ahí nunca hay texto, porque el bloque de
+   contenido vive abajo. */
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;gap:1.6cqw;
   background:repeating-linear-gradient(45deg,#0c1c40,#0c1c40 14px,#0a1836 14px,#0a1836 28px);
-  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;padding:8cqw}
+  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;
+  padding:16cqw 8cqw 8cqw}
 .ph .vdrop.drag{border-color:var(--acc);background:#13224e}
+/* …y si el texto se fue arriba, el aviso se va abajo. Si no, el arreglo de
+   arriba movería el choque en vez de quitarlo. */
+.piece.v3[data-pos="arriba"] .ph .vdrop{justify-content:flex-end;padding:8cqw 8cqw 16cqw}
+/* Con el texto en el centro no queda sitio limpio: el aviso se atenúa para
+   que se note que es un hueco por llenar y no parte de la pieza. */
+.piece.v3[data-pos="centro"] .ph .vdrop{opacity:.45}
 .ph .vdrop-ic{font-size:13cqw;line-height:1}
 .ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:4.2cqw;color:#fff;letter-spacing:.1cqw}
 .ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:3cqw;color:rgba(255,255,255,.62)}
@@ -101,6 +114,83 @@ h1 .o{color:var(--orange)}
 .piece.v-casa-ready .headline{font-size:16cqw}
 .piece.v-casa-ready .desc{font-size:3.4cqw;line-height:1.34;max-width:100%}
 .piece.v-casa-ready .desc p+p{margin-top:2.4cqw}
+
+/* ===== estilo v3 — se activa con `v3:true` en la tarjeta =====
+   Sale de la tanda de pruebas del 20 oct 2026, contra diez referencias que
+   dio Nicolle. Lo que las diez tenían en común: la foto llena el cuadro y el
+   texto vive encima de ella, nunca en un bloque aparte.
+
+   Es opcional a propósito. Las tarjetas viejas no cambian solas — se van
+   pasando a mano conforme se revisan, para que nadie se encuentre su pieza
+   cambiada sin haberlo pedido. */
+
+/* 1. El degradado deja ver la foto hasta abajo.
+      El de siempre llega al 95% y la foto desaparece en la mitad inferior;
+      este se queda en 72%. */
+.piece.v3 .scrim{background:linear-gradient(180deg,
+  rgba(8,16,38,.22) 0%, rgba(8,16,38,.02) 30%,
+  rgba(6,14,34,.34) 62%, rgba(4,10,26,.72) 100%)}
+
+/* 2. El antetítulo se lee sobre cualquier foto.
+      El naranja sobre una foto clara y movida se perdía entre el follaje. La
+      sombra lo despega sin meter una caja de color que taparía la foto justo
+      donde queremos verla. */
+.piece.v3 .kicker{text-shadow:0 .25cqw .8cqw rgba(4,10,26,.85), 0 0 2cqw rgba(4,10,26,.6)}
+
+/* 3. Entrada en Montserrat + golpe en Bebas.
+      Dos familias en el mismo titular crean jerarquía: la línea de Montserrat
+      informa, la de Bebas impacta. Antes todo iba al mismo nivel. */
+.piece.v3 .entrada{display:block;font-family:var(--body);font-weight:900;
+  font-size:4.4cqw;letter-spacing:.35cqw;line-height:1;text-transform:uppercase;
+  color:rgba(255,255,255,.92);margin-bottom:2.6cqw;
+  text-shadow:0 .25cqw .8cqw rgba(4,10,26,.7)}
+
+/* 4. Las líneas de Bebas, juntas entre sí.
+      Bebas trae mucho aire bajo la línea base, así que dos líneas seguidas se
+      ven separadas aunque el interlineado ya esté por debajo de 1. El
+      renglón de Montserrat NO se aprieta: es de otra familia y otro tamaño, y
+      sin su aire las mayúsculas grandes se le vienen encima. */
+.piece.v3 .headline{line-height:.82}
+.piece.v3 .headline .l{display:block;white-space:nowrap}
+
+/* El tamaño lo pone ajustarTitulares(): un titular largo se saldría del
+   cuadro y uno corto se vería pequeño si fuera fijo. */
+
+/* 5. Dónde cae el bloque de texto.
+      La misma tarjeta se lee distinta según dónde tenga aire la foto: con un
+      cielo arriba el texto va arriba, con un dron picado va abajo. Por eso la
+      posición es un ajuste de la pieza y no algo fijo del diseño.
+
+      `.content` es flex en columna con un .spacer que empuja; cambiando a qué
+      lado empuja se mueve todo el bloque sin tocar nada más. */
+.piece.v3[data-pos="abajo"]  .content{justify-content:flex-end}
+.piece.v3[data-pos="arriba"] .content{justify-content:flex-start}
+.piece.v3[data-pos="centro"] .content{justify-content:center}
+/* Con el texto arriba, el degradado tiene que oscurecer arriba y no abajo, o
+   las letras caen sobre la parte clara del cielo y no se leen. */
+.piece.v3[data-pos="arriba"] .scrim{background:linear-gradient(180deg,
+  rgba(4,10,26,.72) 0%, rgba(6,14,34,.34) 38%,
+  rgba(8,16,38,.02) 70%, rgba(8,16,38,.22) 100%)}
+.piece.v3[data-pos="centro"] .scrim{background:linear-gradient(180deg,
+  rgba(8,16,38,.26) 0%, rgba(4,10,26,.58) 42%,
+  rgba(4,10,26,.58) 62%, rgba(8,16,38,.30) 100%)}
+/* Arriba el .spacer sobra: si queda, empuja el bloque de marca al fondo y el
+   texto se queda solo en medio del cuadro. */
+.piece.v3[data-pos="arriba"] .spacer,
+.piece.v3[data-pos="centro"] .spacer{display:none}
+/* …pero sin el spacer, el texto queda pegado al chip y los dos se leen como
+   un amasijo. Hace falta separarlos a mano. */
+.piece.v3[data-pos="arriba"] .tagrow{margin-bottom:5cqw}
+.piece.v3[data-pos="centro"] .tagrow{margin-bottom:5cqw}
+.piece.v3[data-pos="arriba"] .brandbar,
+.piece.v3[data-pos="centro"] .brandbar{position:absolute;left:7.5cqw;right:7.5cqw;bottom:12cqw;margin-top:0}
+
+/* El botón para ir cambiando de posición sin tocar código. */
+.poscontrol{display:flex;gap:4px;align-items:center}
+.posbtn{font-family:var(--body);font-size:10px;font-weight:800;padding:4px 8px;
+  border-radius:6px;border:1.5px solid var(--line);background:#fff;color:var(--navy);
+  cursor:pointer;text-transform:uppercase;letter-spacing:.03em}
+.posbtn[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
 
 /* ajuste card 44 entrevistas: frase larga + número gigante → dar aire */
 .piece.v-alianzas .kicker{font-size:2.9cqw;line-height:1.25;margin-bottom:3.6cqw;max-width:88%}
@@ -411,6 +501,7 @@ const CARDS=[
   { id:'contenido-interno', brand:'solar', cls:'team', chip:'Equipo · Contenido', date:'Dato · Oct 2026',
     videoSlot:true, overlay:true,
     sketch:'', type:'headline',
+    v3:true, entrada:'Nuestro contenido', lineas:['HECHO','EN CASA'],
     kicker:'Invertimos en contarlo bien',
     headline:'CONTENIDO<br><span class="hl">HECHO EN CASA</span>',
     desc:'Los videos, las fotos y los textos de nuestras redes salen de un equipo interno de WindMar. Gente que trabaja aquí y conoce el producto.',
@@ -426,10 +517,17 @@ CARDS.forEach((c,i)=>{
     : c.video
     ? `<video src="${c.video}" autoplay muted loop playsinline preload="auto"></video>`
     : `<img src="${c.photo}" alt="${c.chip}" crossorigin="anonymous">`;
+  /* En v3 el titular se parte en líneas sueltas para poder ajustar cada una
+     al ancho. `entrada` es el renglón de Montserrat que va delante, opcional. */
+  const titular = c.v3
+    ? `${c.entrada?`<span class="entrada">${c.entrada}</span>`:''}` +
+      (c.lineas||[]).map(t=>`<span class="l hl">${t}</span>`).join('')
+    : c.headline;
+
   const hero = c.type==='headline'
     ? `<div class="kicker">${c.kicker}</div>
-       <div class="headline">${c.headline}</div>
-       <div class="rule"></div>
+       <div class="headline">${titular}</div>
+       ${c.v3?'':'<div class="rule"></div>'}
        <div class="desc">${c.desc}</div>`
     : `${c.kicker?`<div class="kicker">${c.kicker}</div>`:''}
        <div class="num">${c.num}</div>
@@ -440,9 +538,14 @@ CARDS.forEach((c,i)=>{
   slot.innerHTML=`
     <div class="caprow">
       <span class="cap">${c.chip} · impacto</span>
+      ${c.v3?`<span class="poscontrol" data-for="${i}">
+        <button class="posbtn" data-pos="arriba">arriba</button>
+        <button class="posbtn" data-pos="centro">centro</button>
+        <button class="posbtn" data-pos="abajo">abajo</button>
+      </span>`:''}
       <button class="dl" data-i="${i}">${dlLabel}</button>
     </div>
-    <div class="piece ${c.cls} v-${c.id}" id="pc-${i}">
+    <div class="piece ${c.cls} v-${c.id}${c.v3?' v3':''}" id="pc-${i}" data-pos="${c.pos||'abajo'}">
       <div class="ph">${bgEl}</div>
       <div class="scrim"></div>
       <div class="sketch">${c.sketch}</div>
@@ -460,6 +563,141 @@ CARDS.forEach((c,i)=>{
     </div>`;
   gallery.appendChild(slot);
 });
+
+/* Ajusta cada línea del titular v3 para que llene el ancho disponible.
+   Se mide la línea al tamaño que trae y se escala por la proporción entre el
+   hueco que hay y el que ocupó: el ancho del texto crece de forma lineal con
+   el tamaño de fuente, así que es una regla de tres y no un bucle de tanteo.
+
+   Hace falta porque un titular corto y uno largo no pueden llevar el mismo
+   tamaño fijo — el largo se sale del cuadro y el corto se ve pequeño. */
+function ajustarPieza(pieza){
+  const caja = pieza.querySelector('.content');
+  if(!caja) return;
+  const e = getComputedStyle(caja);
+  const hueco = caja.clientWidth - parseFloat(e.paddingLeft) - parseFloat(e.paddingRight);
+  if(hueco <= 0) return;
+  pieza.querySelectorAll('.headline .l').forEach(linea=>{
+    linea.style.fontSize = '';           // volver al tamaño del CSS para medir
+    const base = parseFloat(getComputedStyle(linea).fontSize);
+    const ancho = linea.scrollWidth;
+    if(!ancho) return;
+    /* Llenar el ancho es el objetivo: es lo que hace que un titular se vea
+       grande de verdad y no «centrado con aire a los lados».
+       El tope de 3.2 es para que una palabra de tres letras no se coma la
+       tarjeta entera; con dos palabras nunca se llega a él. */
+    linea.style.fontSize = Math.min(base * (hueco / ancho), base * 3.2).toFixed(2) + 'px';
+  });
+}
+function ajustarTitulares(){
+  document.querySelectorAll('.piece.v3').forEach(ajustarPieza);
+}
+
+/* ===== dónde poner el texto según la foto =====
+   Una pieza se lee bien cuando el texto cae sobre la parte CALMADA de la
+   imagen: un cielo, una pared, el asfalto. Cae mal cuando aterriza sobre lo
+   movido — follaje, una multitud, un tejado lleno de detalle.
+
+   Así que se mide la imagen por bandas y se escoge la más tranquila. «Calma»
+   aquí es cuánto varía el brillo entre píxeles vecinos: mucha variación es
+   detalle, poca es superficie lisa. No es ciencia, pero acierta lo suficiente
+   para proponer — y la propuesta siempre se puede cambiar a mano. */
+const BANDAS = { arriba:[0,.36], centro:[.32,.68], abajo:[.62,1] };
+
+function medirCalma(fuente){
+  const N = 96;                        // suficiente para el patrón, barato de leer
+  const lienzo = document.createElement('canvas');
+  lienzo.width = N; lienzo.height = N;
+  const g = lienzo.getContext('2d', { willReadFrequently:true });
+  try{
+    g.drawImage(fuente, 0, 0, N, N);
+    var datos = g.getImageData(0, 0, N, N).data;
+  }catch(e){
+    return null;                       // imagen de otro origen: no se puede leer
+  }
+  const luz = new Float32Array(N*N);
+  for(let i=0;i<N*N;i++){
+    luz[i] = (datos[i*4]*.299 + datos[i*4+1]*.587 + datos[i*4+2]*.114) / 255;
+  }
+  const salida = {};
+  for(const [nombre,[a,b]] of Object.entries(BANDAS)){
+    const y0 = Math.floor(a*N), y1 = Math.ceil(b*N);
+    let suma = 0, n = 0, brillo = 0;
+    for(let y=y0; y<y1-1; y++){
+      for(let x=0; x<N-1; x++){
+        const i = y*N+x;
+        // diferencia con el vecino de la derecha y el de abajo
+        suma += Math.abs(luz[i]-luz[i+1]) + Math.abs(luz[i]-luz[i+N]);
+        brillo += luz[i];
+        n++;
+      }
+    }
+    salida[nombre] = { detalle: n? suma/n : 1, brillo: n? brillo/n : .5 };
+  }
+  return salida;
+}
+
+/** Propone una posición para el texto mirando la imagen ya colocada. */
+function proponerPosicion(pieza){
+  const medio = pieza.querySelector('.ph img, .ph video');
+  if(!medio) return null;
+  const lectura = medirCalma(medio);
+  if(!lectura) return null;
+  // Menos detalle es mejor. A igualdad, se prefiere abajo: es donde vive la
+  // barra de marca y donde la gente espera el texto en una historia.
+  const orden = ['abajo','arriba','centro'];
+  let mejor = orden[0];
+  for(const p of orden){
+    if(lectura[p].detalle < lectura[mejor].detalle * .88) mejor = p;
+  }
+  return mejor;
+}
+
+/** Coloca el texto donde la foto deja sitio, si no se fijó a mano. */
+function acomodarAFoto(pieza){
+  if(pieza.dataset.posManual === 'si') return;   // la decisión de la persona manda
+  const p = proponerPosicion(pieza);
+  if(!p){ pieza.dataset.auto = 'no'; return; }   // no se pudo leer la imagen
+  pieza.dataset.pos = p;
+  pieza.dataset.auto = 'si';                      // queda a la vista que se colocó solo
+  marcarBotones(pieza);
+  ajustarPieza(pieza);
+}
+
+function marcarBotones(pieza){
+  const fila = pieza.closest('.slot')?.querySelector('.poscontrol')
+            || pieza.parentElement?.querySelector('.poscontrol');
+  if(!fila) return;
+  fila.querySelectorAll('.posbtn').forEach(b=>{
+    b.setAttribute('aria-pressed', String(b.dataset.pos === pieza.dataset.pos));
+  });
+}
+
+/* Los botones de posición. Tocar uno fija la decisión: a partir de ahí la
+   propuesta automática no vuelve a moverla, porque nada molesta más que
+   colocar algo a mano y que se recoloque solo. */
+document.addEventListener('click', ev=>{
+  const btn = ev.target.closest('.posbtn');
+  if(!btn) return;
+  const i = btn.closest('.poscontrol').dataset.for;
+  const pieza = document.getElementById('pc-'+i);
+  if(!pieza) return;
+  pieza.dataset.pos = btn.dataset.pos;
+  pieza.dataset.posManual = 'si';
+  marcarBotones(pieza);
+  ajustarPieza(pieza);
+});
+/* Medir antes de que carguen las fuentes da un ancho que no es el real y el
+   ajuste sale mal. Por eso se espera a document.fonts. */
+(document.fonts?.ready ?? Promise.resolve()).then(()=>{
+  ajustarTitulares();
+  /* Las tarjetas que ya traen foto propia también se acomodan al cargar. */
+  document.querySelectorAll('.piece.v3').forEach(p=>{
+    marcarBotones(p);
+    if(p.querySelector('.ph img,.ph video')) acomodarAFoto(p);
+  });
+});
+window.addEventListener('resize', ajustarTitulares);
 
 /* link directo a una tarjeta: …#v-roofing — si no, hay que buscarla entre 15 */
 { const h=location.hash.slice(1), el=h&&document.getElementById(h);
@@ -482,6 +720,19 @@ gallery.querySelectorAll('.ph').forEach(ph=>{
     else if(file.type.startsWith('image/')) ph.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">`;
     else return;
     ph.appendChild(inp); /* innerHTML borra el input; se vuelve a colgar */
+
+    /* Con el material ya puesto, mirar dónde deja sitio y acomodar el texto.
+       Hay que esperar a que el medio tenga píxeles: una imagen recién creada
+       todavía no se puede leer, y un video no da cuadro hasta que arranca. */
+    const pieza = ph.closest('.piece');
+    if(pieza && pieza.classList.contains('v3')){
+      const medio = ph.querySelector('img,video');
+      if(medio){
+        const alLeer = ()=>acomodarAFoto(pieza);
+        if(medio.tagName==='IMG') medio.decode().then(alLeer).catch(()=>{});
+        else medio.addEventListener('loadeddata', alLeer, { once:true });
+      }
+    }
   };
   ph.addEventListener('click',()=>inp.click());
   inp.addEventListener('change',e=>setMedia(e.target.files[0]));
@@ -526,6 +777,11 @@ document.querySelectorAll('.dl').forEach(btn=>{
     holder.appendChild(clone);document.body.appendChild(holder);
     try{
       if(document.fonts&&document.fonts.ready) await document.fonts.ready;
+      /* El clon mide 1080 de ancho, no los ~540 de la pantalla. Los tamaños en
+         píxeles que calculó el ajuste para la tarjeta pequeña viajan en el
+         clon como estilo en línea, así que hay que recalcularlos aquí o el
+         titular saldría a la mitad en el PNG. */
+      if(clone.classList.contains('v3')) ajustarPieza(clone);
       const fontEmbedCSS=await getEmbedCSS();
       await imgsReady(clone); await nextFrame();
       const blob=await toBlob(clone,{width:1080,height:1920,pixelRatio:1,cacheBust:false,backgroundColor:(overlay?undefined:'#0a1626'),fontEmbedCSS});
