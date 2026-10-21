@@ -46,10 +46,23 @@ h1 .o{color:var(--orange)}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;
   filter:contrast(1.04) saturate(1.06)}
 /* hueco de video: arrastra o haz clic para colocar el clip */
-.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+/* El aviso se queda en el TERCIO DE ARRIBA, no centrado.
+   Centrado caía justo sobre el antetítulo y la cifra, y las dos cosas se leían
+   encima la una de la otra — parecía una pieza rota cuando solo era un hueco
+   sin llenar. Arriba no estorba: ahí nunca hay texto, porque el bloque de
+   contenido vive abajo. */
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;gap:1.6cqw;
   background:repeating-linear-gradient(45deg,#0c1c40,#0c1c40 14px,#0a1836 14px,#0a1836 28px);
-  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;padding:8cqw}
+  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;
+  padding:16cqw 8cqw 8cqw}
 .ph .vdrop.drag{border-color:var(--acc);background:#13224e}
+/* …y si el texto se fue arriba, el aviso se va abajo. Si no, el arreglo de
+   arriba movería el choque en vez de quitarlo. */
+.piece.v3[data-pos="arriba"] .ph .vdrop{justify-content:flex-end;padding:8cqw 8cqw 16cqw}
+/* Con el texto en el centro no queda sitio limpio: el aviso se atenúa para
+   que se note que es un hueco por llenar y no parte de la pieza. */
+.piece.v3[data-pos="centro"] .ph .vdrop{opacity:.45}
 .ph .vdrop-ic{font-size:13cqw;line-height:1}
 .ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:4.2cqw;color:#fff;letter-spacing:.1cqw}
 .ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:3cqw;color:rgba(255,255,255,.62)}
