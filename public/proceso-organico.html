@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>El proceso del contenido orgánico</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#f4f6fa; --tinta:#0a1626; --suave:#55606f;
+    --naranja:#FE9400; --linea:#dfe4ed; --blanco:#fff;
+    --anda:#15713c; --falta:#a8360a; --bloq:#6b4ea8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);color:var(--tinta);
+    font-family:'Montserrat',system-ui,sans-serif;line-height:1.55;padding:40px 24px 80px}
+  .hoja{max-width:980px;margin:0 auto}
+
+  header{border-bottom:3px solid var(--tinta);padding-bottom:18px;margin-bottom:26px}
+  .sello{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.13em;
+    text-transform:uppercase;background:var(--naranja);color:var(--tinta);
+    padding:3px 10px;border-radius:99px;margin-bottom:10px}
+  h1{font-size:29px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em}
+  .bajada{font-size:14px;color:var(--suave);margin:0;max-width:70ch}
+
+  h2{font-size:18px;font-weight:800;margin:36px 0 10px}
+  .nota{font-size:13.5px;color:var(--suave);margin:0 0 16px;max-width:74ch}
+
+  .paso{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;
+    padding:18px 20px;margin-bottom:12px;display:grid;
+    grid-template-columns:44px 1fr 112px;gap:16px;align-items:start}
+  /* El número va en tinta, no en naranja: el naranja de marca sobre blanco da
+     2,2:1 y este número es el que ordena la lectura, no un adorno. El naranja
+     se queda donde sí contrasta — el sello de arriba, sobre su propio fondo. */
+  .num{font-size:22px;font-weight:800;color:var(--tinta);line-height:1.1}
+  .paso h3{margin:0 0 4px;font-size:15.5px;font-weight:800}
+  .quien{font-size:12px;font-weight:700;color:var(--suave);text-transform:uppercase;
+    letter-spacing:.05em;margin-bottom:7px}
+  .detalle{font-size:13.5px;color:var(--suave);margin:0}
+  .detalle b{color:var(--tinta)}
+  .detalle + .detalle{margin-top:7px}
+
+  .et{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.04em;padding:4px 10px;border-radius:99px;text-align:center;width:100%}
+  .et.anda{background:#e6f4ec;color:var(--anda)}
+  .et.falta{background:#fdefe7;color:var(--falta)}
+  .et.bloq{background:#efeaf9;color:var(--bloq)}
+
+  /* La flecha dice que un paso lleva al siguiente. Si no se ve, no dice nada:
+     en el gris de las líneas daba 1,2:1. */
+  .flecha{text-align:center;color:var(--suave);font-size:15px;line-height:1;margin:-2px 0 8px}
+
+  .aviso{background:#fff5ed;border:1px solid #f3d9c4;padding:16px 18px;
+    border-radius:10px;margin:22px 0;font-size:13.5px}
+  .aviso b{color:var(--falta)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--blanco);
+    border:1px solid var(--linea);border-radius:10px;overflow:hidden;margin-top:10px}
+  th{text-align:left;font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.05em;color:var(--suave);padding:11px 14px;background:#eef1f7;
+    border-bottom:1px solid var(--linea)}
+  td{padding:11px 14px;border-bottom:1px solid #eef1f5;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);
+    font-size:12px;color:var(--suave)}
+  @media (max-width:640px){ .paso{grid-template-columns:34px 1fr;} .paso .et{grid-column:1/-1} }
+</style>
+</head>
+<body>
+<div class="hoja">
+
+<header>
+  <div class="sello">Orgánico · @windmarhome</div>
+  <h1>El proceso, de la grabación a la publicación</h1>
+  <p class="bajada">
+    Los siete pasos, qué anda y qué falta. Verificado en Studio el 21 de
+    octubre de 2026. Esto es solo orgánico: la pauta tiene su propio camino.
+  </p>
+</header>
+
+<div class="paso">
+  <div class="num">1</div>
+  <div>
+    <h3>Agenda de producción</h3>
+    <div class="quien">Nicolle · producción</div>
+    <p class="detalle">Qué se graba, con quién y cuándo. Hoy son <b>ocho videos</b>: una persona por área. Siete están grabados; falta la entrevista con Jose Alicea.</p>
+    <p class="detalle"><b>Aquí está el hueco más grande.</b> Esa agenda no vive en Studio — es una lista que se pasa a mano. Por eso siete videos estuvieron doce días sin que nadie supiera si existían.</p>
+  </div>
+  <span class="et falta">sin sitio fijo</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">2</div>
+  <div>
+    <h3>El análisis dice dónde va cada cosa</h3>
+    <div class="quien">Eco · medición</div>
+    <p class="detalle">Qué día, qué hora, qué red. Sale de la ventana limpia del 18 de septiembre al 6 de octubre, antes de que empezara la pauta.</p>
+    <p class="detalle">Viernes Instagram <b>+65%</b> · martes <b>+57,5%</b> · miércoles Facebook <b>+37%</b> · lunes Instagram <b>−57%</b>. Nunca las dos redes al mismo minuto.</p>
+  </div>
+  <span class="et anda">anda</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">3</div>
+  <div>
+    <h3>Se escriben las piezas</h3>
+    <div class="quien">Musa</div>
+    <p class="detalle">Con la agenda y el análisis, Musa redacta el brief de cada pieza: publicar, entrega, cuenta, línea, talento, <b>por qué aquí</b>, caption y hashtags.</p>
+    <p class="detalle">Los martes salen en las dos redes, así que son <b>dos piezas</b> con dos horas, no una.</p>
+  </div>
+  <span class="et anda">anda</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">4</div>
+  <div>
+    <h3>Entran al calendario</h3>
+    <div class="quien">Musa → Studio</div>
+    <p class="detalle">Cada pieza nace en estado <b>Idea</b> y marcada <b>Orgánica</b>. Nunca Aprobada: aprobar es decisión de una persona.</p>
+    <p class="detalle">Noviembre de Puerto Rico está en <b>cero piezas</b>. Las 22 que hay son de Florida y Anker.</p>
+  </div>
+  <span class="et anda">anda</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">5</div>
+  <div>
+    <h3>Se hace el arte</h3>
+    <div class="quien">Musa + el generador</div>
+    <p class="detalle">La pieza visual sale del generador del repo, con la tipografía y el logo de verdad. <b>Nunca de una IA de imágenes</b>: eso falsifica el logo.</p>
+    <p class="detalle">Al empujar la rama, un GitHub Action dibuja los dos PNG solos —uno transparente para montar sobre el video, otro con fondo para mirarlo.</p>
+  </div>
+  <span class="et anda">anda</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">6</div>
+  <div>
+    <h3>Va a revisión y se firma</h3>
+    <div class="quien">Manuel · Jaime · Bryan · Miguel · Elliot</div>
+    <p class="detalle">La pieza pasa por <b>Revisiones</b> en Studio y espera la firma de quien corresponda según la línea.</p>
+    <p class="detalle">Hoy hay dos esperando: <b>Testimonial Anissa Ortega</b> y <b>Water Sales Ops</b>.</p>
+  </div>
+  <span class="et anda">anda</span>
+</div>
+
+<div class="flecha">↓</div>
+
+<div class="paso">
+  <div class="num">7</div>
+  <div>
+    <h3>Se publica</h3>
+    <div class="quien">Nicolle, a mano</div>
+    <p class="detalle">Aprobada la pieza, se publica. <b>Esto no lo puede hacer Homie todavía.</b> Es el último eslabón y el único que sigue siendo manual de principio a fin.</p>
+  </div>
+  <span class="et bloq">manual</span>
+</div>
+
+<div class="aviso">
+  <b>Y el círculo se cierra volviendo al paso 2.</b> Lo que se publica alimenta
+  la medición, y la medición cambia dónde va lo siguiente. Si esa vuelta no se
+  da, el calendario del mes que viene se arma con los números del mes pasado y
+  nadie se entera de que envejecieron.
+</div>
+
+<h2>Lo que está parado, y de quién depende</h2>
+<table>
+  <tr><th>Qué</th><th>Por qué para</th><th>De quién depende</th></tr>
+  <tr>
+    <td><b>Insights de Meta orgánico</b></td>
+    <td>No hay conexión para lo orgánico. Las tres que existen —Meta Ads, Paid Insights, Performance Marketing— son todas de pauta.</td>
+    <td>Escalado</td>
+  </tr>
+  <tr>
+    <td><b>Los buckets de los PDF</b></td>
+    <td>Faltan en la base, y sin ellos el guión de la entrevista no se monta.</td>
+    <td>Nicolle · en curso</td>
+  </tr>
+  <tr>
+    <td><b>Que el cron registre los avisos</b></td>
+    <td>Musa no puede escribir en Supabase desde un cron sin una excepción.</td>
+    <td>Miguel</td>
+  </tr>
+  <tr>
+    <td><b>El enlace de los PNG</b></td>
+    <td>Vercel no reconstruye cuando quien empuja es el robot del Action.</td>
+    <td>Un token de GitHub</td>
+  </tr>
+  <tr>
+    <td><b>Publicar desde Homie</b></td>
+    <td>No existe esa conexión todavía.</td>
+    <td>Sin empezar</td>
+  </tr>
+</table>
+
+<h2>Dónde vive cada cosa</h2>
+<table>
+  <tr><th>Paso</th><th>Dónde</th></tr>
+  <tr><td>Agenda de producción</td><td><b>En ningún sitio fijo</b> — es el hueco</td></tr>
+  <tr><td>Análisis y reportes</td><td>studio-windmar-home.vercel.app/informes</td></tr>
+  <tr><td>Calendario de piezas</td><td>Studio · Programación</td></tr>
+  <tr><td>Agenda de entrevistas</td><td>Studio · Entrevistas</td></tr>
+  <tr><td>El generador de artes</td><td>repo <code>-windmar-hub-data</code></td></tr>
+  <tr><td>Revisión y firmas</td><td>Studio · Revisiones</td></tr>
+</table>
+
+<footer>
+  Verificado en Studio el 21 de octubre de 2026 · Solo cubre orgánico de
+  @windmarhome · Los porcentajes salen de la ventana del 18 sep al 6 oct, antes
+  de la pauta
+</footer>
+
+</div>
+</body>
+</html>
