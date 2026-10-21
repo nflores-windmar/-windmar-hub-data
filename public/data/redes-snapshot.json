@@ -721,12 +721,14 @@
               1651,
               1517
             ],
+            "ultimos_7": 12302,
+            "previos_7": 8191,
             "seguidores_nuevos": 164,
             "visitas": 8143,
             "reproducciones_3s": 61511,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 1918030
+            "seguidores_total": 71089
           },
           "instagram": {
             "alcance": 173530,
@@ -759,7 +761,9 @@
               1967,
               2066
             ],
-            "seguidores_total": 141,
+            "ultimos_7": 76202,
+            "previos_7": 82119,
+            "seguidores_nuevos": 141,
             "visualizaciones": 193996,
             "me_gusta": 885,
             "comentarios": 29,
@@ -800,15 +804,17 @@
               4,
               6
             ],
+            "ultimos_7": 11,
+            "previos_7": 0,
             "seguidores_nuevos": 2,
             "visitas": 154,
             "reproducciones_3s": 53,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 70425
+            "seguidores_total": 2608
           },
           "instagram": {
-            "seguidores_total": 14
+            "seguidores_nuevos": 14
           }
         },
         "anker": {
@@ -843,12 +849,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 2,
             "visitas": 11,
             "reproducciones_3s": 35,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 852
+            "seguidores_total": 32
           },
           "instagram": {
             "alcance": 493,
@@ -881,7 +889,9 @@
               1,
               0
             ],
-            "seguidores_total": null,
+            "ultimos_7": 23,
+            "previos_7": 469,
+            "seguidores_nuevos": null,
             "visualizaciones": 842,
             "me_gusta": 40,
             "comentarios": 0,
@@ -922,12 +932,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 1,
             "visitas": 27,
             "reproducciones_3s": 12,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 93492
+            "seguidores_total": 3462
           }
         },
         "solar-water": {
@@ -962,12 +974,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 2,
             "visitas": 184,
             "reproducciones_3s": 38,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 583545
+            "seguidores_total": 21611
           }
         },
         "windmar-en-accion": {
@@ -1002,12 +1016,14 @@
               15,
               12
             ],
+            "ultimos_7": 58,
+            "previos_7": 9,
             "seguidores_nuevos": 4,
             "visitas": 86,
             "reproducciones_3s": 555,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 1724
+            "seguidores_total": 67
           }
         },
         "chinas": {
@@ -1042,12 +1058,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 0,
             "visitas": 7,
             "reproducciones_3s": 0,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 27
+            "seguidores_total": 1
           }
         },
         "consultores-elite-fl": {
@@ -1082,12 +1100,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 0,
             "visitas": 0,
             "reproducciones_3s": 0,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 81
+            "seguidores_total": 3
           }
         },
         "careers": {
@@ -1122,12 +1142,14 @@
               0,
               0
             ],
+            "ultimos_7": 0,
+            "previos_7": 0,
             "seguidores_nuevos": 1,
             "visitas": 144,
             "reproducciones_3s": 87,
             "acciones_totales": 0,
             "reacciones": 0,
-            "seguidores_total": 207593
+            "seguidores_total": 7686
           }
         }
       }
