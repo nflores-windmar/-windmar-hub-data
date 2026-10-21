@@ -9,7 +9,10 @@
 # que llega con dos horas de margen.
 
 set -u
-PROYECTO="/Users/nicolleflores/Documents/Claude/Projects/Content Hub"
+# El repo ES studio/. Los scripts viven dentro para que la copia que
+# corre sea la misma que está versionada — tener dos copias y que la
+# programada no sea la del repo ya nos pasó con limpiar-arte.py.
+PROYECTO="/Users/nicolleflores/Documents/Claude/Projects/Content Hub/studio"
 REGISTRO="$HOME/.windmar/snapshot.log"
 mkdir -p "$(dirname "$REGISTRO")"
 
@@ -24,8 +27,7 @@ if ! python3 scripts/meta-datos.py snapshot >> "$REGISTRO" 2>&1; then
   exit 1
 fi
 
-# 2. Subirlo, solo si cambió
-cd "$PROYECTO/studio" || exit 1
+# 2. Subirlo, solo si cambió (ya estamos en el repo)
 if git diff --quiet -- public/data/redes-snapshot.json; then
   echo "sin cambios, no hay nada que subir" >> "$REGISTRO"
   exit 0

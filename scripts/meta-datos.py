@@ -35,7 +35,9 @@ VERSION = "v23.0"
 BASE = f"https://graph.facebook.com/{VERSION}"
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SNAPSHOT = os.path.join(RAIZ, "studio", "public", "data", "redes-snapshot.json")
+# El script vive en studio/scripts/, así que RAIZ ya es la del repo.
+# Dentro del repo la ruta es public/data/..., sin el "studio/" delante.
+SNAPSHOT = os.path.join(RAIZ, "public", "data", "redes-snapshot.json")
 ENV = os.path.expanduser("~/.windmar/meta.env")
 
 # Permisos que necesita el token para que todo esto funcione.
