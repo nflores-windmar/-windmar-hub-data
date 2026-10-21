@@ -145,10 +145,17 @@ def cuentas():
         return json.load(fh)
 
 def ventana(dias):
-    """Meta cierra el día anterior, así que la ventana termina ayer."""
+    """Devuelve (desde, hasta) de la ventana, y el `since` que hay que pedirle
+    a Meta para que salgan `dias` puntos de verdad.
+
+    Meta cierra el día anterior, así que la ventana termina ayer. Y NO incluye
+    el día de `since`: pidiendo desde el 23 de septiembre, la serie empieza el
+    24. Por eso una ventana de 28 días devolvía 27 puntos y la etiqueta mentía.
+    Se pide un día antes para que los 28 que dice sean 28."""
     hasta = datetime.date.today() - datetime.timedelta(days=1)
     desde = hasta - datetime.timedelta(days=dias - 1)
-    return desde, hasta
+    since = desde - datetime.timedelta(days=1)
+    return desde, hasta, since
 
 
 def tokens_de_paginas(tok):
@@ -220,7 +227,7 @@ def diagnostico():
     print("\n  CUENTA POR CUENTA")
     print("  " + "─" * 58)
     cfg = cuentas()
-    desde, hasta = ventana(7)
+    desde, hasta, since = ventana(7)
     ok_fb = ok_ig = 0
 
     for c in cfg["cuentas"]:
@@ -303,7 +310,7 @@ def serie(pid, ptok, metrica, desde, hasta, periodo="day", tipo=None):
 def snapshot(dias=28):
     tok = token()
     cfg = cuentas()
-    desde, hasta = ventana(dias)
+    desde, hasta, since = ventana(dias)
     print(f"\n  Capturando {desde} → {hasta} ({dias} días)\n")
 
     paginas, err = tokens_de_paginas(tok)
@@ -320,7 +327,7 @@ def snapshot(dias=28):
             ptok = paginas[pid]["token"]
             fb = {}
             for nombre, metrica in METRICAS_PAGINA:
-                total, diario, e = serie(pid, ptok, metrica, desde, hasta)
+                total, diario, e = serie(pid, ptok, metrica, since, hasta)
                 if e:
                     problemas.append(f"{c['nombre']} · fb · {metrica}: {sin_token(e)[:60]}")
                     continue
@@ -354,7 +361,7 @@ def snapshot(dias=28):
             ptok = paginas.get(pid, {}).get("token") or tok
             ig = {}
             for nombre, metrica in METRICAS_IG_DIA:
-                total, diario, e = serie(igid, ptok, metrica, desde, hasta)
+                total, diario, e = serie(igid, ptok, metrica, since, hasta)
                 if e:
                     problemas.append(f"{c['nombre']} · ig · {metrica}: {sin_token(e)[:60]}")
                     continue
@@ -366,7 +373,7 @@ def snapshot(dias=28):
                         ig["ultimos_7"], ig["previos_7"] = u7, p7
                 time.sleep(0.25)
             for nombre, metrica in METRICAS_IG_TOTAL:
-                total, _, e = serie(igid, ptok, metrica, desde, hasta, tipo="total_value")
+                total, _, e = serie(igid, ptok, metrica, since, hasta, tipo="total_value")
                 if e:
                     problemas.append(f"{c['nombre']} · ig · {metrica}: {sin_token(e)[:60]}")
                     continue
@@ -428,7 +435,7 @@ def posts(cuenta_id, dias=28):
         ids = ", ".join(x["id"] for x in cfg["cuentas"])
         sys.exit(f"No conozco la cuenta '{cuenta_id}'. Son: {ids}")
 
-    desde, hasta = ventana(dias)
+    desde, hasta, since = ventana(dias)
     paginas, _ = tokens_de_paginas(tok)
     pid = c.get("page_id")
     ptok = paginas.get(pid, {}).get("token") or tok
