@@ -72,10 +72,13 @@ METRICAS_PAGINA = [
 # Instagram: unas van por serie diaria y otras por valor total.
 METRICAS_IG_DIA = [
     ("alcance", "reach"),
-    ("visitas_perfil", "profile_views"),
     ("seguidores_nuevos", "follower_count"),
 ]
 METRICAS_IG_TOTAL = [
+    # `profile_views` estaba arriba, en la serie diaria, y Meta la rechazaba con
+    # «(#100) should be specified with parameter metric_type=total_value».
+    # Aquí abajo sí se pide con total_value. Movida el 26 oct 2026.
+    ("visitas_perfil", "profile_views"),
     ("visualizaciones", "views"),
     ("me_gusta", "likes"),
     ("comentarios", "comments"),

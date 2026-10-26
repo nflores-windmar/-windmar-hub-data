@@ -14,6 +14,17 @@ on:
     paths:
       - "public/windmar-pr-stories-v2-preview.html"
 
+  # A mano, desde la pestaña Actions. Hace falta para arrancar: el disparador
+  # de arriba solo mira el generador, así que arreglar el workflow no basta
+  # para que se dibuje nada. Con esto se pueden sacar las 22 de una vez sin
+  # tener que tocar el HTML a propósito para provocar una corrida.
+  workflow_dispatch:
+    inputs:
+      todas:
+        description: "Dibujar las 22, no solo las que cambiaron"
+        type: boolean
+        default: true
+
 permissions:
   contents: write
 
@@ -41,10 +52,42 @@ jobs:
         # nada: este script no construye la app, solo abre una página.
         run: npm install --no-save --no-audit --no-fund puppeteer-core@^25.5.0
 
+      - name: Pillow para el aplanado
+        # render-stories.mjs llama a python3 con `from PIL import Image` para
+        # hacer la copia «-vista» sobre el fondo de marca. En la Mac Pillow ya
+        # está, pero el runner no lo trae y el workflow nunca lo instalaba: la
+        # tarjeta se contaba como fallida y el paso entero moría.
+        run: python3 -m pip install --quiet --disable-pip-version-check pillow
+
+      - name: Comprobar el entorno antes de dibujar
+        # Las corridas fallan en el paso «Dibujar» sin dejar rastro de por qué,
+        # y los logs no se pueden leer sin permisos de admin. Esto imprime las
+        # dos dependencias que el script da por sentadas, para que el log diga
+        # cuál falta en vez de haber que adivinarlo.
+        run: |
+          echo "node        $(node -v)"
+          python3 -c 'import PIL; print("Pillow     ", PIL.__version__)'
+          if [ -x "${CHROME_PATH:-/usr/bin/google-chrome}" ]; then
+            echo "Chrome      ${CHROME_PATH:-/usr/bin/google-chrome}"
+          else
+            echo "Chrome      NO ESTÁ en ${CHROME_PATH:-/usr/bin/google-chrome}"
+            exit 1
+          fi
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+
       - name: Sacar la versión con qué comparar
         id: anterior
         run: |
           ARCHIVO=public/windmar-pr-stories-v2-preview.html
+
+          # Corrida a mano pidiendo todas: sin versión con qué comparar, que es
+          # como el script entiende «dibújalas todas».
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] \
+             && [ "${{ inputs.todas }}" = "true" ]; then
+            echo "hay=no" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
           # En una rama se compara contra main, no contra el commit anterior de
           # la propia rama. Lo que tiene que dibujarse es lo que la rama APORTA.
@@ -73,6 +116,7 @@ jobs:
           echo "hay=no" >> "$GITHUB_OUTPUT"
 
       - name: Dibujar
+        id: dibujar
         env:
           # Los runners de GitHub traen Chrome instalado aquí.
           CHROME_PATH: /usr/bin/google-chrome
@@ -84,6 +128,12 @@ jobs:
           fi
 
       - name: Guardar los PNG en la rama
+        # `always()` a propósito: render-stories.mjs sale con 1 si ALGUNA
+        # tarjeta falla, aunque las otras veinte se hayan dibujado bien. Sin
+        # esto el paso se saltaba y se tiraba todo el trabajo bueno — por eso
+        # main lleva desde el 21 de octubre sin un solo PNG. Ahora se guarda lo
+        # que salió y la corrida sigue marcada en rojo por lo que no salió.
+        if: always() && steps.dibujar.outcome != 'skipped'
         run: |
           # `public/artes/` está en .gitignore para que las pruebas locales no
           # ensucien el árbol. Aquí sí se guardan a propósito, de ahí el -f.
