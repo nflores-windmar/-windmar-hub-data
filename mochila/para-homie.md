@@ -56,6 +56,14 @@ en `public/guion-alicea-ventas-entrevista.html`: cinco preguntas y cierre textua
 **Water Técnico con David Fonseca** — se canceló. Si se regraba, entra el 24 de noviembre
 y Alicea se recoloca a diciembre.
 
+**A finales de noviembre: borrar las stories v1 y ordenar lo que quede.** El 27 de
+octubre se decidió consolidar todo en stories v2. Los tres archivos del v1 —
+`windmar-pr-stories.html` (55 entradas), `windmar-fl-stories.html` (12) y
+`windmar-pros-stories.html` (10)— llevan ya un aviso de retirado, pero siguen ahí porque
+están enlazados desde 13 sitios: la guía del agente, la guía de estilo, los brand guides
+de Pros y de Let Them Talk, el calendario de Florida y otros. Borrarlos exige arreglar
+esos enlaces primero. Florida y Pros no tienen equivalente en v2, que es de Puerto Rico.
+
 **Siete de los ocho carruseles de noviembre no tienen slides escritos.** El único hecho es
 «Antes de firmar, los 4 números», en `public/windmar-carruseles-pr.html`, arreglo `FIRMAR`.
 
