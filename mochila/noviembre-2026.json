@@ -1,0 +1,94 @@
+{
+  "_lee_esto_primero": [
+    "El plan de contenido orgánico de noviembre 2026 para @windmarhome (Puerto Rico).",
+    "Esto dice qué DEBERÍA existir en Studio. No dice que exista. Si no cuadra, manda Studio.",
+    "Antes de crear nada, busca duplicados con search_piezas.",
+    "LOS APROBADORES SE MATERIALIZAN AL CREAR LA PIEZA Y NO SE RE-EVALÚAN: una pieza que nace con el producto equivocado se queda pidiendo firma a quien no es, y cambiar el producto después no lo arregla. Hay que borrarla y rehacerla.",
+    "La fecha de cada pieza es la de PUBLICACIÓN. La entrega es siempre 7 días antes."
+  ],
+  "escrito": "2026-10-27",
+  "escrito_por": "Musa",
+  "origen": "calendario-noviembre-pr.html (21 oct), cargado a Asana el 26 oct (proyecto 1219913424037037), reacomodado el 27 oct porque Anker, Roofing y Solar no estaban entregados",
+
+  "campana": {
+    "nombre": "Contenido Orgánico",
+    "mercado": "PR",
+    "naturaleza": ["organica"],
+    "pauta_inversion": null,
+    "nota": "Si ya existe una campaña de contenido orgánico viva, úsala y dilo. No crees una segunda."
+  },
+
+  "defectos_de_todas": {
+    "naturaleza": "organica",
+    "cuenta": "WindMar Home",
+    "mercado": "PR",
+    "responsable": "Nicolle"
+  },
+
+  "reglas_de_publicacion": {
+    "ventana_medida": "18 sep a 6 oct 2026, antes de que empezara la pauta",
+    "dias": {
+      "viernes": "mejor de Instagram, +65% interaccion",
+      "martes": "dia de decidir, Instagram +57.5%",
+      "miercoles": "mejor de Facebook, +37% interaccion",
+      "jueves": "alcance en Facebook +20%, Instagram plano",
+      "lunes": "Instagram cae 57%, solo Facebook",
+      "sabado": "el peor en todo"
+    },
+    "horas": {
+      "instagram": "10:30",
+      "facebook_carrusel": "12:30",
+      "facebook_reel": "15:30"
+    },
+    "nunca": "Las dos redes al mismo minuto. Medido tres veces que Instagram se hunde cuando pasa."
+  },
+
+  "firmas": {
+    "siempre": ["Manuel Pales", "Pichu"],
+    "pm_por_producto": {
+      "Anker": "Jesús Medina",
+      "Roofing": "Elliot Rodríguez",
+      "Water": "David Fonseca",
+      "Solar": null,
+      "WindMar Financial": null
+    },
+    "nota_pm": "Que Solar y WindMar Financial no tengan PM no es un hueco: esas piezas firman solo Manuel y Pichu. No les inventes uno.",
+    "observadores_que_no_bloquean": ["Miguel Bethencourt", "Bryan López", "Nicolle"],
+    "por_encima_de_todos": "Marc Roumain",
+    "ojo": "Hay dos Miguel: Bethencourt es observador en todo; Miguel Torres firma Pros y solo en Florida."
+  },
+
+  "piezas": [
+    { "publica": "2026-11-03", "entrega": "2026-10-27", "titulo": "Diseño", "formato": "Reel", "producto": "Solar", "canales": ["Instagram", "Facebook"], "horas": { "Instagram": "10:30", "Facebook": "15:30" }, "talento": "Jesús Pelayo", "semana": 1, "nota": "Abre la serie. La parte invisible del servicio: lo que se decide antes de que llegue la brigada." },
+    { "publica": "2026-11-04", "entrega": "2026-10-28", "titulo": "Lo que se ve y lo que no se ve", "formato": "Carrusel", "producto": "Solar", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 1, "acompana_a": "Diseño", "nota": "Sin slides escritos todavía." },
+    { "publica": "2026-11-05", "entrega": "2026-10-29", "titulo": "De dónde salen los equipos", "formato": "Carrusel", "producto": "Solar", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 1, "prepara_a": "VP Procurement", "nota": "Sin slides escritos todavía." },
+    { "publica": "2026-11-06", "entrega": "2026-10-30", "titulo": "VP Procurement", "formato": "Reel", "producto": "Solar", "canales": ["Instagram"], "horas": { "Instagram": "10:30" }, "talento": "Andrés Billoch", "semana": 1, "nota": "Por qué se escoge cada equipo. Cierra el hilo del jueves." },
+
+    { "publica": "2026-11-10", "entrega": "2026-11-03", "titulo": "Anker Técnico", "formato": "Reel", "producto": "Anker", "canales": ["Instagram", "Facebook"], "horas": { "Instagram": "10:30", "Facebook": "15:30" }, "talento": "Jesús Medina", "semana": 2, "estado_material": "grabado, sin entregar", "nota": "La batería, con la temporada de huracanes cerrando." },
+    { "publica": "2026-11-11", "entrega": "2026-11-04", "titulo": "Batería: qué sigue encendido", "formato": "Carrusel", "producto": "Anker", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 2, "acompana_a": "Anker Técnico", "nota": "En octubre funcionó como reel; en carrusel se detalla aparato por aparato." },
+    { "publica": "2026-11-12", "entrega": "2026-11-05", "titulo": "Cómo se paga un sistema", "formato": "Carrusel", "producto": "WindMar Financial", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 2, "prepara_a": "WHF financiamiento", "nota": "Sin prometer gratis total: ahorro y evaluación sin compromiso." },
+    { "publica": "2026-11-13", "entrega": "2026-11-06", "titulo": "WHF financiamiento", "formato": "Reel", "producto": "WindMar Financial", "canales": ["Instagram"], "horas": { "Instagram": "10:30" }, "talento": "Julio Mangual y Andrés Cruz", "semana": 2, "nota": "El dinero es lo que más llega al buzón." },
+
+    { "publica": "2026-11-17", "entrega": "2026-11-10", "titulo": "Roofing Técnico", "formato": "Reel", "producto": "Roofing", "canales": ["Instagram", "Facebook"], "horas": { "Instagram": "10:30", "Facebook": "15:30" }, "talento": "Elliot Rodríguez", "semana": 3, "estado_material": "grabado, sin entregar", "nota": "La línea que menos se conoce de WindMar." },
+    { "publica": "2026-11-18", "entrega": "2026-11-11", "titulo": "El techo antes que las placas", "formato": "Carrusel", "producto": "Roofing", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 3, "acompana_a": "Roofing Técnico", "nota": "Enlaza roofing con solar." },
+    { "publica": "2026-11-19", "entrega": "2026-11-12", "titulo": "Antes de firmar, los 4 números", "formato": "Carrusel", "producto": "Solar", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 3, "prepara_a": "Solar Técnico", "estado_material": "ESCRITO: arreglo FIRMAR en public/windmar-carruseles-pr.html, 4 slides", "nota": "En octubre salió dos veces: es lo que más se comparte." },
+    { "publica": "2026-11-20", "entrega": "2026-11-13", "titulo": "Solar Técnico", "formato": "Reel", "producto": "Solar", "canales": ["Instagram"], "horas": { "Instagram": "10:30" }, "talento": "Carlos Alejandro", "semana": 3, "estado_material": "grabado, sin entregar", "nota": "El producto principal, en el mejor día del mes." },
+
+    { "publica": "2026-11-24", "entrega": "2026-11-17", "titulo": "Entrevista Jose Alicea", "formato": "Reel", "producto": null, "canales": ["Instagram", "Facebook"], "horas": { "Instagram": "10:30", "Facebook": "15:30" }, "talento": "José Alicea", "semana": 4, "bloqueada": true, "nota": "VP de Ventas. Guion escrito en public/guion-alicea-ventas-entrevista.html. SIN FECHA DE GRABACIÓN: hay que rodar a más tardar la semana del 10." },
+    { "publica": "2026-11-25", "entrega": "2026-11-18", "titulo": "Víspera de Thanksgiving", "formato": "Carrusel", "producto": null, "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": 4, "nota": "Tema de calendario, no acompaña a ningún video. La casa llena y la luz que no se va. Sin oferta, solo marca." },
+    { "publica": "2026-11-26", "entrega": "2026-11-19", "titulo": "VP HR", "formato": "Reel", "producto": null, "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": "Franco Alvarez", "semana": 4, "nota": "Thanksgiving es día de gente y el tema es la gente. Nadie está comprando ese día." },
+    { "publica": "2026-11-27", "entrega": "2026-11-20", "titulo": "Black Friday", "formato": null, "producto": null, "canales": ["Instagram"], "horas": { "Instagram": "10:30" }, "talento": null, "semana": 4, "bloqueada": true, "nota": "SIN PROMOCIÓN DEFINIDA. En blanco a propósito: inventar una oferta sería peor. Decisión antes del 20 de noviembre." },
+
+    { "publica": "2026-11-30", "entrega": "2026-11-23", "titulo": "Termina la temporada de huracanes", "formato": "Carrusel", "producto": "Anker", "canales": ["Facebook"], "horas": { "Facebook": "12:30" }, "talento": null, "semana": "cierre", "nota": "Lunes SOLO Facebook. Cierra el hilo que abrió la batería de Anker en la semana 2." }
+  ],
+
+  "huecos_conocidos": [
+    "Jose Alicea: confirmado que se graba, sin tema acordado con él ni fecha de grabación. Entrega el 17 de noviembre.",
+    "Black Friday: sin promoción definida. Decisión antes del 20 de noviembre.",
+    "Water Técnico con David Fonseca se canceló. Es el cuarto de la serie de los cuatro Técnico (uno por línea). La línea de agua se queda sin video este mes. Si se regraba, el martes 24 puede cederle el sitio y Alicea se recoloca a diciembre.",
+    "Video de brigada: sin fecha ni tema. Si se concreta, entra un miércoles o jueves y desplaza el carrusel de ese día.",
+    "Siete de los ocho carruseles no tienen slides escritos."
+  ],
+
+  "no_va_aqui": "Florida y Anker: esas 22 piezas ya están en Studio del 1 al 17 y no se tocan."
+}
