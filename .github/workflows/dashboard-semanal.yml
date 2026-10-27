@@ -1,0 +1,95 @@
+# Saca el snapshot de Meta los lunes y lo deja en el repo, para que el dashboard
+# lo lea ya actualizado.
+#
+# Por qué vive aquí y no en la laptop: la tarea de launchd de los lunes lleva dos
+# semanas fallando porque macOS no deja que un proceso programado lea ~/Documents.
+# Y aunque se arregle ese permiso, sigue dependiendo de que la laptop esté
+# encendida y despierta un lunes a las 7 de la mañana. Aquí no depende de nadie.
+#
+# Es el mismo patrón que `artes-historias.yml`: correr, commitear lo que cambió y
+# empujarlo. El dashboard en Vercel lee `public/data/redes-snapshot.json` y se
+# actualiza solo.
+
+name: Dashboard semanal
+
+on:
+  # Lunes a las 11:00 UTC = 7:00 AM en Puerto Rico (AST, sin horario de verano).
+  # La misma hora que tenía la tarea de launchd, para no cambiar la costumbre.
+  schedule:
+    - cron: "0 11 * * 1"
+
+  # A mano, para probarlo sin esperar al lunes.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dashboard-semanal
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # meta-datos.py usa solo librería estándar (urllib, json, datetime), así que
+      # no hay nada que instalar. Si algún día pide una dependencia, se añade aquí
+      # y no en un requirements suelto que nadie mire.
+      - name: Comprobar el entorno
+        run: |
+          python3 --version
+          if [ -z "${META_TOKEN}" ]; then
+            echo "Falta el secret META_TOKEN del repositorio."
+            echo "Se pone en Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          echo "META_TOKEN presente (longitud ${#META_TOKEN})"
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+
+      # El diagnóstico primero: dice si el token sirve, cuándo expira y qué cuentas
+      # alcanza. Si el token caducó, el log lo dice en una línea en vez de dejar un
+      # snapshot a medias que parece bueno.
+      - name: Diagnóstico del token
+        run: python3 scripts/meta-datos.py diagnostico
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+
+      - name: Sacar el snapshot
+        run: python3 scripts/meta-datos.py snapshot
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+
+      # Las piezas una por una, para que el análisis pueda decir QUÉ movió la semana
+      # y no solo que subió. Si falla, no se corta: el snapshot de la cuenta ya está
+      # y vale por sí solo. Es la misma decisión que tomaba snapshot-semanal.sh.
+      - name: Las piezas de cada cuenta
+        continue-on-error: true
+        run: |
+          for CUENTA in windmar-home windmar-home-fl anker; do
+            python3 scripts/meta-datos.py posts "$CUENTA" \
+              || echo "no se pudieron sacar las piezas de $CUENTA"
+          done
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+
+      - name: Guardar el snapshot en el repo
+        run: |
+          if git diff --quiet -- public/data/; then
+            echo "Sin cambios: Meta devolvió lo mismo que la semana pasada."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/
+          git commit -q -m "Snapshot de Meta — $(date -u '+%Y-%m-%d')"
+          # El push puede chocar si alguien empujó mientras tanto. Se reintenta una
+          # vez trayendo lo de arriba; si vuelve a fallar, que la corrida salga en
+          # rojo en vez de perder el dato en silencio.
+          git push origin HEAD:main || {
+            echo "El push chocó, reintento tras traer lo del remoto"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          }

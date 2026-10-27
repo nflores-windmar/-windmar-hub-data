@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carruseles · Noviembre 2026 · WindMar Home PR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a2882; --navy2:#071e55; --ink:#1a52c7; --orange:#f57c0a;
+  --bg:#e9eef7; --muted:#5a6b8c; --line:#e3e9f0; --card:#fff;
+  /* El ámbar iba en #b26a00 y sobre el fondo del badge daba 3.79:1 — por debajo del
+     4.5 que pide AA, y justo en el aviso de «entrega mañana», que es el que hay que
+     poder leer de reojo. Oscurecido a 5.7:1. */
+  --rojo:#c62828; --ambar:#8a5200; --verde:#1b7a3d;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--navy2);font-family:var(--body);
+     padding-block:32px;padding-left:20px;padding-right:20px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto}
+
+header h1{font-family:var(--disp);font-size:clamp(34px,6vw,58px);line-height:.95;margin:0;
+          letter-spacing:.5px;color:var(--navy)}
+header .sub{font-size:14px;color:var(--muted);margin-top:6px;max-width:62ch}
+
+/* Los cuatro números del mes. Lo primero que se mira al abrir. */
+.cifras{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 28px}
+.cifra{background:var(--card);border:1px solid var(--line);border-radius:12px;
+       padding:12px 16px;min-width:132px;flex:1 1 132px}
+.cifra b{display:block;font-family:var(--disp);font-size:34px;line-height:1;color:var(--navy)}
+.cifra span{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.cifra.alerta b{color:var(--rojo)}
+
+/* Sin barra de color en el costado: el fondo ámbar ya lo separa de las tarjetas.
+   El borde va parejo en los cuatro lados. */
+.aviso{background:#fff4e5;border:1px solid #e0ab6a;
+       border-radius:10px;padding:14px 16px;margin-bottom:28px;font-size:14px}
+.aviso b{color:#8a4b00}
+
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+   display:flex;flex-direction:column}
+.c .top{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;
+        align-items:flex-start;justify-content:space-between;gap:10px}
+.fecha{font-family:var(--disp);font-size:27px;line-height:1;color:var(--navy)}
+/* Nada funcional por debajo de 11px: estas etiquetas son las que se leen de reojo
+   para saber qué vence, y a 10px se caen en pantallas pequeñas. */
+.fecha small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+             color:var(--muted);margin-top:4px;text-transform:uppercase}
+.badge{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+       padding:5px 9px;border-radius:999px;white-space:nowrap}
+.badge.falta{background:#fdeaea;color:var(--rojo)}
+.badge.lista{background:#e6f4ec;color:var(--verde)}
+.badge.urge{background:#fff1d6;color:var(--ambar)}
+
+.c .body{padding:14px 16px;flex:1}
+.tema{font-weight:800;font-size:16.5px;line-height:1.3;margin:0 0 8px}
+.apoya{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+.apoya b{color:var(--ink)}
+
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-family:var(--mono);font-size:11px;background:#f2f5fa;border:1px solid var(--line);
+     border-radius:6px;padding:3px 7px;color:var(--muted)}
+.tag.prod{background:#eef3ff;color:var(--ink);border-color:#d3e0ff;font-weight:500}
+
+.c .pie{padding:11px 16px;border-top:1px solid var(--line);background:#fafbfe;
+        font-family:var(--mono);font-size:11px;color:var(--muted);
+        display:flex;justify-content:space-between;gap:8px;align-items:center}
+.pie .vence{color:var(--rojo);font-weight:500}
+.pie a{color:var(--ink);text-decoration:none;font-weight:500}
+.pie a:hover{text-decoration:underline}
+
+footer{margin-top:34px;padding-top:18px;border-top:1px solid #d7dfea;
+       font-size:12px;color:var(--muted);max-width:76ch}
+footer b{color:var(--navy2)}
+@media (max-width:420px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Carruseles · Noviembre 2026</h1>
+  <p class="sub">WindMar Home Puerto Rico · <b>@windmarhome</b> · todos orgánicos.
+  Los ocho van a <b>Facebook a las 12:30 PM</b>: el miércoles apoya al video del martes y
+  el jueves prepara el del viernes. Miércoles es el mejor día de Facebook (+37% en
+  interacción) y el jueves es el que más alcance da (+20%).</p>
+</header>
+
+<div class="cifras">
+  <div class="cifra"><b>8</b><span>carruseles</span></div>
+  <div class="cifra"><b>1</b><span>escrito</span></div>
+  <div class="cifra alerta"><b>7</b><span>sin escribir</span></div>
+  <div class="cifra alerta"><b>2</b><span>vencen esta semana</span></div>
+</div>
+
+<div class="aviso">
+  <b>Son propuestas de tema, no piezas escritas.</b> Ninguna lleva cifra todavía, y
+  <b>ninguna cifra entra sin fuente</b>. El reacomodo de fechas del 27 de octubre le dio aire
+  a los videos, no a los carruseles: los dos de la semana 1 se entregan igual esta semana.
+</div>
+
+<div class="grid">
+
+  <!-- Semana 1. Acompañan a Diseño y a Procurement, que subieron a esta semana
+       en el reacomodo del 27 de octubre porque ya estaban entregados. -->
+  <article class="c">
+    <div class="top">
+      <div class="fecha">MIÉ 4<small>Semana 1 · apoya</small></div>
+      <span class="badge urge">Entrega mañana</span>
+    </div>
+    <div class="body">
+      <p class="tema">Lo que se ve y lo que no se ve</p>
+      <p class="apoya">Apoya el video del martes: <b>Diseño · Jesús Pelayo</b>. Entra al
+      trabajo de diseño sin tecnicismos — lo que se decide antes de que llegue la brigada.</p>
+      <div class="meta"><span class="tag prod">Solar</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span class="vence">Entrega mié 28 oct</span></div>
+  </article>
+
+  <article class="c">
+    <div class="top">
+      <div class="fecha">JUE 5<small>Semana 1 · prepara</small></div>
+      <span class="badge urge">Entrega jueves</span>
+    </div>
+    <div class="body">
+      <p class="tema">De dónde salen los equipos</p>
+      <p class="apoya">Prepara el video del viernes: <b>VP Procurement · Andrés Billoch</b>.
+      Responde la duda de calidad sin tener que decir «somos buenos».</p>
+      <div class="meta"><span class="tag prod">Solar</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span class="vence">Entrega jue 29 oct</span></div>
+  </article>
+
+  <!-- Semana 2 -->
+  <article class="c">
+    <div class="top">
+      <div class="fecha">MIÉ 11<small>Semana 2 · apoya</small></div>
+      <span class="badge falta">Sin escribir</span>
+    </div>
+    <div class="body">
+      <p class="tema">Batería: qué sigue encendido</p>
+      <p class="apoya">Apoya el video del martes: <b>Anker Técnico · Jesús Medina</b>.
+      En octubre funcionó como reel; en carrusel se puede detallar aparato por aparato.</p>
+      <div class="meta"><span class="tag prod">Anker</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span>Entrega mié 4 nov</span></div>
+  </article>
+
+  <article class="c">
+    <div class="top">
+      <div class="fecha">JUE 12<small>Semana 2 · prepara</small></div>
+      <span class="badge falta">Sin escribir</span>
+    </div>
+    <div class="body">
+      <p class="tema">Cómo se paga un sistema</p>
+      <p class="apoya">Prepara el video del viernes: <b>WHF financiamiento · Julio Mangual
+      y Andrés Cruz</b>. Sin prometer «gratis total»: se habla de ahorro y de evaluación
+      sin compromiso.</p>
+      <div class="meta"><span class="tag prod">WindMar Financial</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span>Entrega jue 5 nov</span></div>
+  </article>
+
+  <!-- Semana 3 -->
+  <article class="c">
+    <div class="top">
+      <div class="fecha">MIÉ 18<small>Semana 3 · apoya</small></div>
+      <span class="badge falta">Sin escribir</span>
+    </div>
+    <div class="body">
+      <p class="tema">El techo antes que las placas</p>
+      <p class="apoya">Apoya el video del martes: <b>Roofing Técnico · Elliot Rodríguez</b>.
+      En octubre «Seguro: por qué pesa la edad del techo» entró bien. Enlaza roofing con solar.</p>
+      <div class="meta"><span class="tag prod">Roofing</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span>Entrega mié 11 nov</span></div>
+  </article>
+
+  <article class="c">
+    <div class="top">
+      <div class="fecha">JUE 19<small>Semana 3 · prepara</small></div>
+      <span class="badge lista">Ya escrito</span>
+    </div>
+    <div class="body">
+      <p class="tema">Antes de firmar, los 4 números</p>
+      <p class="apoya">Prepara el video del viernes: <b>Solar Técnico · Carlos Alejandro</b>.
+      En octubre «Antes de firmar, compare» salió dos veces: es lo que más se comparte.</p>
+      <div class="meta"><span class="tag prod">Solar</span><span class="tag">Facebook 12:30</span><span class="tag">4 slides</span></div>
+    </div>
+    <div class="pie">
+      <span>Entrega jue 12 nov</span>
+      <a href="windmar-carruseles-pr.html">ver el armado →</a>
+    </div>
+  </article>
+
+  <!-- Semana 4. Thanksgiving no acompaña a ningún video: es tema de calendario. -->
+  <article class="c">
+    <div class="top">
+      <div class="fecha">MIÉ 25<small>Semana 4 · calendario</small></div>
+      <span class="badge falta">Sin escribir</span>
+    </div>
+    <div class="body">
+      <p class="tema">Víspera de Thanksgiving</p>
+      <p class="apoya">No acompaña a ningún video. La casa llena y la luz que no se va.
+      <b>Sin oferta, solo marca.</b></p>
+      <div class="meta"><span class="tag">sin producto</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span>Entrega mié 18 nov</span></div>
+  </article>
+
+  <!-- Cierre. Recoge el hilo que abrió la batería de Anker en la semana 2. -->
+  <article class="c">
+    <div class="top">
+      <div class="fecha">LUN 30<small>Cierre del mes</small></div>
+      <span class="badge falta">Sin escribir</span>
+    </div>
+    <div class="body">
+      <p class="tema">Termina la temporada de huracanes</p>
+      <p class="apoya">Cierra el hilo que abrió la batería de Anker. <b>Lunes solo
+      Facebook</b>: Instagram cae −57% ese día, así que este no va a IG.</p>
+      <div class="meta"><span class="tag prod">Anker</span><span class="tag">Facebook 12:30</span></div>
+    </div>
+    <div class="pie"><span>Entrega lun 23 nov</span></div>
+  </article>
+
+</div>
+
+<footer>
+  <p><b>Qué falta para que esto deje de ser una lista.</b> Siete de los ocho no tienen
+  slides escritos. El que sí —«Antes de firmar»— vive en
+  <code>windmar-carruseles-pr.html</code> como el arreglo <code>FIRMAR</code>, con cuatro
+  slides. Ese es el molde: cuatro slides, el segundo con los datos.</p>
+  <p><b>Y no se renderizan solos.</b> El GitHub Action <code>artes-historias.yml</code>
+  solo vigila el generador de stories. Para que los carruseles salgan en PNG como las 22
+  tarjetas de historias, hay que añadir su archivo al disparador del workflow.</p>
+  <p>Fechas del calendario de noviembre, reacomodado el 27 de octubre de 2026. Días y horas
+  medidos sobre la ventana del 18 de septiembre al 6 de octubre, antes de que empezara la
+  pauta. El detalle de cada pieza está en Asana, proyecto «Calendario de contenido PR».</p>
+</footer>
+
+</div>
+</body>
+</html>
