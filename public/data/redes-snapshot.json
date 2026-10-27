@@ -1164,6 +1164,112 @@
           }
         }
       }
+    },
+    {
+      "capturado": "2026-10-27",
+      "ventana": {
+        "desde": "2026-09-29",
+        "hasta": "2026-10-26",
+        "dias": 28
+      },
+      "fuente": "Meta Graph API v23.0 · meta-datos.py",
+      "datos": {
+        "windmar-home": {
+          "instagram": {
+            "alcance": 180973,
+            "diario_alcance": [
+              809,
+              1054,
+              1091,
+              1725,
+              2243,
+              987,
+              1571,
+              1339,
+              1476,
+              6017,
+              13662,
+              12366,
+              15519,
+              17752,
+              15327,
+              14822,
+              17893,
+              15306,
+              14565,
+              9583,
+              1967,
+              2066,
+              2149,
+              2132,
+              1840,
+              2222,
+              1560,
+              1930
+            ],
+            "ultimos_7": 13899,
+            "previos_7": 89463,
+            "seguidores_nuevos": 151,
+            "visitas_perfil": 1039,
+            "visualizaciones": 207947,
+            "me_gusta": 1000,
+            "comentarios": 45,
+            "compartidos": 214,
+            "guardados": 68,
+            "interacciones": 1327
+          }
+        },
+        "windmar-home-fl": {
+          "instagram": {
+            "seguidores_nuevos": 14
+          }
+        },
+        "anker": {
+          "instagram": {
+            "alcance": 516,
+            "diario_alcance": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              240,
+              102,
+              35,
+              55,
+              26,
+              10,
+              10,
+              5,
+              2,
+              3,
+              2,
+              1,
+              0,
+              2,
+              17,
+              0,
+              2,
+              1,
+              2
+            ],
+            "ultimos_7": 24,
+            "previos_7": 33,
+            "seguidores_nuevos": null,
+            "visitas_perfil": 20,
+            "visualizaciones": 880,
+            "me_gusta": 42,
+            "comentarios": 0,
+            "compartidos": 5,
+            "guardados": 4,
+            "interacciones": 51
+          }
+        }
+      }
     }
   ]
 }

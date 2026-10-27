@@ -1,0 +1,20 @@
+{
+  "cuenta": "anker",
+  "capturado": "2026-10-27",
+  "ventana": {
+    "desde": "2026-09-29",
+    "hasta": "2026-10-26",
+    "dias": 28
+  },
+  "nota_alcance": "Facebook NO trae alcance por pieza: Meta retiró post_impressions. Donde dice null es eso, no un cero.",
+  "piezas": [
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-07",
+      "hora": "17:31",
+      "alcance": 444,
+      "interacciones": 42,
+      "texto": "Energía donde la necesites, cuando la necesites."
+    }
+  ]
+}
