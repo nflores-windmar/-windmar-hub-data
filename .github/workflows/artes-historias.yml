@@ -13,6 +13,10 @@ on:
   push:
     paths:
       - "public/windmar-pr-stories-v2-preview.html"
+      # Los carruseles entran por aquí desde el 27 de octubre. Si se añade otro
+      # generador, va en esta lista Y en GENERADORES de render-carruseles.mjs:
+      # en una sola se dibuja sin dispararse, o se dispara sin dibujarse.
+      - "public/windmar-carruseles-pr.html"
 
   # A mano, desde la pestaña Actions. Hace falta para arrancar: el disparador
   # de arriba solo mira el generador, así que arreglar el workflow no basta
@@ -127,6 +131,17 @@ jobs:
             node scripts/render-stories.mjs
           fi
 
+      # Los carruseles se dibujan enteros, sin comparar con la versión anterior:
+      # son doce láminas, no veintidós tarjetas de medio mega, y el diff por
+      # bloques del generador de historias no aplica a un archivo con tres
+      # arreglos distintos. Si crece, se le pone diff.
+      - name: Dibujar los carruseles
+        id: carruseles
+        continue-on-error: true
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node scripts/render-carruseles.mjs
+
       - name: Guardar los PNG en la rama
         # `always()` a propósito: render-stories.mjs sale con 1 si ALGUNA
         # tarjeta falla, aunque las otras veinte se hayan dibujado bien. Sin
@@ -137,7 +152,7 @@ jobs:
         run: |
           # `public/artes/` está en .gitignore para que las pruebas locales no
           # ensucien el árbol. Aquí sí se guardan a propósito, de ahí el -f.
-          git add -f public/artes/stories-v2/ 2>/dev/null || true
+          git add -f public/artes/stories-v2/ public/artes/carruseles/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No cambió ningún PNG."
             exit 0
