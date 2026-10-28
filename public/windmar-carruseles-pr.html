@@ -109,6 +109,11 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Acompaña al video del martes 3, «Diseño · Jesús Pelayo». Entrega: 28 de octubre.</div>
   <div class="gallery" id="g-nov-diseno"></div>
 
+  <div class="section-h"><h2>De dónde salen los equipos</h2><span class="badge">Noviembre · jue 5</span></div>
+  <div class="section-sub">Prepara el video del viernes 6, «VP Procurement · Andrés Billoch». Entrega: 29 de octubre.</div>
+  <div class="gallery" id="g-nov-equipos"></div>
+
+
 </div>
 
 <script type="module">
@@ -261,10 +266,40 @@ const DISENO=[
     desc:'Evaluación gratis, sin compromiso. Te enseñamos cómo queda tu sistema y por qué queda así.' },
 ];
 
+/* NOVIEMBRE · jueves 5. Prepara el video del viernes 6, «VP Procurement · Andrés
+   Billoch». Entrega: 29 de octubre. Escrito el 28 de octubre.
+   El encargo del calendario era «responder la duda de calidad sin tener que decir
+   somos buenos» — por eso ninguna lámina dice que el equipo es bueno: dicen qué se
+   mira antes de comprarlo y que el cliente puede preguntar. Sin cifras: no hay
+   ninguna con fuente sobre marcas, garantías ni años. */
+const EQUIPOS=[
+  { id:'nov-equipos-1', cls:'', chip:'Procurement · Equipos', imgSlot:true, type:'headline',
+    kicker:'La pregunta que casi nadie hace',
+    headline:'¿DE DÓNDE SALEN<br>LOS <span class="hl">EQUIPOS</span>?',
+    desc:'Dos sistemas pueden verse iguales desde la calle y no serlo. La diferencia está en lo que lleva dentro.' },
+  { id:'nov-equipos-2', cls:'data', chip:'Antes de comprar', blue:true, type:'list',
+    listhead:'LO QUE SE MIRA<br>ANTES DE <span class="hl">COMPRAR</span><br>UN EQUIPO',
+    items:[
+      { n:'1', tt:'Quién lo fabrica', ds:'Y si va a seguir existiendo dentro de diez años.' },
+      { n:'2', tt:'Qué garantía trae', ds:'Y sobre todo quién la responde cuando hace falta.' },
+      { n:'3', tt:'Cómo aguanta aquí', ds:'Calor, salitre y temporada de huracanes. No es lo mismo que en otro sitio.' },
+      { n:'4', tt:'Si hay repuestos', ds:'Un equipo sin repuesto disponible es un problema aplazado.' },
+    ] },
+  { id:'nov-equipos-3', cls:'', chip:'El criterio', imgSlot:true, type:'headline',
+    kicker:'Por eso lleva tiempo',
+    headline:'NO SE ESCOGE<br>POR <span class="hl">CATÁLOGO</span>',
+    desc:'Cada equipo que instalamos pasó por esa lista antes de llegar a un techo. Esa parte del trabajo no se ve.' },
+  { id:'nov-equipos-4', cls:'', chip:'Sin compromiso', imgSlot:true, type:'headline',
+    kicker:'Te decimos cuál y por qué',
+    headline:'PREGÚNTANOS<br>QUÉ <span class="hl">INSTALAMOS</span>',
+    desc:'Evaluación gratis, sin compromiso. Te explicamos qué equipo lleva tu sistema y la razón de cada pieza.' },
+];
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
 renderGallery(DISENO,'g-nov-diseno');
+renderGallery(EQUIPOS,'g-nov-equipos');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
