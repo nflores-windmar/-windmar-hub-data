@@ -47,9 +47,14 @@ revisa y los manda.
 pieza. **Juan no entra a Asana ni a Studio**: se le avisa por **Teams**, y la señal de
 que terminó es que le manda el video a Nicolle.
 
-**José Alicea** — entrevista que publica el 24 de noviembre, entrega el 17. Confirmado
-que se graba, **sin tema acordado con él y sin fecha de grabación**. El guion está escrito
-en `public/guion-alicea-ventas-entrevista.html`: cinco preguntas y cierre textual.
+**José Alicea** — entrevista que publica el 24 de noviembre, entrega el 17.
+**Se está grabando el 28 de octubre.** Ya no está bloqueada. El guion está en
+`public/guion-alicea-ventas-entrevista.html`: cinco preguntas y cierre textual
+«Nuestra misión es estar con el cliente paso a paso».
+
+Lo que sigue cuando salga el material: va a edición como los otros tres — enlace del
+bruto en la pieza, editor asignado, y aviso por Teams. Máximo 45 segundos, palabras de
+apoyo en texto grande.
 
 **Black Friday, 27 de noviembre** — sin promoción definida. Decisión antes del 20.
 
