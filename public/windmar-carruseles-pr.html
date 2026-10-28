@@ -104,6 +104,11 @@ h1 .o{color:var(--orange)}
   <div class="section-h"><h2>Vayan a la segura</h2><span class="badge">Campaña</span></div>
   <div class="section-sub">Luz y agua. WindMar llega a ti — presencia en la calle + evaluación gratis de tu factura.</div>
   <div class="gallery" id="g-vayan"></div>
+
+  <div class="section-h"><h2>Lo que se ve y lo que no se ve</h2><span class="badge">Noviembre · mié 4</span></div>
+  <div class="section-sub">Acompaña al video del martes 3, «Diseño · Jesús Pelayo». Entrega: 28 de octubre.</div>
+  <div class="gallery" id="g-nov-diseno"></div>
+
 </div>
 
 <script type="module">
@@ -228,9 +233,38 @@ function renderGallery(cards, containerId){
   });
 }
 
+/* NOVIEMBRE · miércoles 4. Acompaña al video del martes 3, «Diseño · Jesús Pelayo».
+   Entrega: 28 de octubre. Propuesta escrita el 27 de octubre — textos editables en la
+   página, sin cifras porque no hay ninguna con fuente para este tema. Si se le quiere
+   poner un número (cuántos diseños al mes, cuántas revisiones), hay que sacarlo de
+   algún sitio antes. */
+const DISENO=[
+  { id:'nov-diseno-1', cls:'', chip:'Diseño · Antes de instalar', imgSlot:true, type:'headline',
+    kicker:'Antes de que llegue la brigada',
+    headline:'LO QUE SE VE<br>Y LO QUE <span class="hl">NO SE VE</span>',
+    desc:'Cuando ves placas en un techo, ya pasó la parte más importante: alguien decidió dónde va cada una y por qué.' },
+  { id:'nov-diseno-2', cls:'data', chip:'Lo que se decide primero', blue:true, type:'list',
+    listhead:'CUATRO COSAS QUE<br>SE DECIDEN <span class="hl">ANTES</span><br>DE SUBIR AL TECHO',
+    items:[
+      { n:'1', tt:'Hacia dónde mira tu techo', ds:'La orientación cambia cuánto produce el sistema cada día.' },
+      { n:'2', tt:'Dónde da sombra, y a qué hora', ds:'Un árbol o un poste deciden dónde NO van placas.' },
+      { n:'3', tt:'Cuánto gasta tu casa de verdad', ds:'Del consumo real, no de un estimado general.' },
+      { n:'4', tt:'Cuántas placas y en qué parte', ds:'Para que el sistema cubra lo que tu hogar necesita.' },
+    ] },
+  { id:'nov-diseno-3', cls:'', chip:'El trabajo invisible', imgSlot:true, type:'headline',
+    kicker:'Lo que no se ve es la mitad del trabajo',
+    headline:'UN SISTEMA NO SE<br><span class="hl">INSTALA</span>.<br>SE DISEÑA PRIMERO.',
+    desc:'Antes de que alguien suba a tu techo, ya está decidido dónde va cada placa y la razón de cada decisión.' },
+  { id:'nov-diseno-4', cls:'', chip:'Sin compromiso', imgSlot:true, type:'headline',
+    kicker:'Te lo enseñamos',
+    headline:'TE <span class="hl">EXPLICAMOS</span><br>EL DISEÑO<br>ANTES DE EMPEZAR',
+    desc:'Evaluación gratis, sin compromiso. Te enseñamos cómo queda tu sistema y por qué queda así.' },
+];
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
+renderGallery(DISENO,'g-nov-diseno');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
