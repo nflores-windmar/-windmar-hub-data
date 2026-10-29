@@ -48,7 +48,7 @@ pieza. **Juan no entra a Asana ni a Studio**: se le avisa por **Teams**, y la se
 que terminó es que le manda el video a Nicolle.
 
 **José Alicea** — entrevista que publica el 24 de noviembre, entrega el 17.
-**Se está grabando el 28 de octubre.** Ya no está bloqueada. El guion está en
+**Se graba el 30 de octubre, con Luis Matos.** Ya no está bloqueada. El guion está en
 `public/guion-alicea-ventas-entrevista.html`: cinco preguntas y cierre textual
 «Nuestra misión es estar con el cliente paso a paso».
 
