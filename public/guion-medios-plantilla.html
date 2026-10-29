@@ -258,19 +258,50 @@
   }
 
   /* ---- 2. El teléfono no es un campo libre ----
-     WindMar solo tiene dos números para salir al aire, y los decide el MEDIO:
-     TV 787-489-1154, radio 787-489-1155. Cualquier otro número es un número
-     ajeno, y si sale al aire la gente llama a un desconocido.
+     Cada PROGRAMA tiene su propio DID, y es así como se atribuye la llamada:
+     quien llama entra con el Lead Source y el Channel Info de su programa sin
+     que nadie le pregunte de dónde nos vio. Un número de otro programa no es
+     una errata — es una llamada atribuida al programa equivocado, y eso no se
+     detecta nunca porque el documento se ve impecable.
+
+     Antes esto eran DOS números por medio, TV y radio. Cambió el 29 de octubre
+     de 2026. Los dos viejos siguen apareciendo en guiones y cierres guardados,
+     así que se detectan APARTE: decirle a alguien «ese teléfono no es de
+     WindMar» sobre un número que fue nuestro durante un año no explica nada.
 
      Esto existe por un caso real: el 27 de agosto un guión salió con
      787-333-3000 — un número de relleno puesto "para probar" — con el récord
-     del calendario diciendo 787-489-1154. El documento se veía impecable,
-     porque un número inventado se imprime igual de bonito que uno bueno.
-     Leyendo no se detecta: hay que compararlo, y comparar es justo lo que
-     nadie hace cuando el documento se ve terminado.
+     del calendario diciendo otro. El documento se veía impecable, porque un
+     número inventado se imprime igual de bonito que uno bueno. Leyendo no se
+     detecta: hay que compararlo, y comparar es justo lo que nadie hace cuando
+     el documento se ve terminado.
 
      Se mira la tabla Y el cierre, porque el número va en los dos sitios. */
-  var TEL_TV='787-489-1154', TEL_RADIO='787-489-1155';
+  var TEL_POR_PROGRAMA=[
+    ['Noticentro al Amanecer','787-592-3312'],
+    ['Alexandra a las 12','787-558-5124'],
+    ['El Poder del Pueblo','787-230-8509'],
+    ['PR en Vivo','787-558-5110'],
+    ['En Familia','787-482-3694'],
+    ['Pelota Dura','787-936-3173'],
+    ['Jay Fonseca','787-482-8988'],
+    ['Power Lunch','787-339-0261'],
+    ['El Relajo con Deddie y Red','787-476-5532'],
+    ['Pide que Hay','787-468-6143'],
+    ['Esterotempo','787-965-4835'],
+    ['Prof Angel Rosa','787-305-3582']
+  ];
+
+  /* Los dos de antes. No son "ajenos": son viejos, y se dicen con su nombre. */
+  var TEL_VIEJOS=['787-489-1154','787-489-1155'];
+
+  /* Sin tildes, sin signos y en minúsculas: el récord escribe «Prof. Ángel Rosa»
+     y la tabla «Prof Angel Rosa». Comparar en crudo fallaría por un punto. */
+  function llano(t){
+    return String(t||'').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9]+/g,' ').trim();
+  }
 
   function valorDe(etiqueta){
     var ks=document.querySelectorAll('table.info td.k');
@@ -283,21 +314,37 @@
     return '';
   }
 
-  function telefonoAjeno(){
-    var medio=valorDe('medio'), esperado=null;
-    if(/tele|(^|\W)tv(\W|$)/i.test(medio)) esperado=TEL_TV;
-    else if(/radio/i.test(medio)) esperado=TEL_RADIO;
+  /* El programa del récord, contra la tabla. Se busca en «Programa» y, si ahí no
+     aparece, en «Medio» y «Estación / Canal»: hay récords que escriben el programa
+     entero en el medio («UNO RG - Pelota Dura»). Devuelve null si no se reconoce,
+     y entonces NO se inventa un esperado: sin programa no hay número que exigir. */
+  function programaDelRecord(){
+    var donde=llano(valorDe('programa')+' '+valorDe('medio')+' '+valorDe('estación / canal')+' '+valorDe('estacion / canal'));
+    for(var i=0;i<TEL_POR_PROGRAMA.length;i++){
+      if(donde.indexOf(llano(TEL_POR_PROGRAMA[i][0]))>=0) return TEL_POR_PROGRAMA[i];
+    }
+    return null;
+  }
 
-    var buenos=[TEL_TV,TEL_RADIO];
+  function telefonoAjeno(){
+    var prog=programaDelRecord();
+    var esperado=prog?prog[1]:null;
+
+    var buenos=[];
+    for(var i=0;i<TEL_POR_PROGRAMA.length;i++) buenos.push(TEL_POR_PROGRAMA[i][1]);
+
     var re=/\d{3}[-\s.]?\d{3}[-\s.]?\d{4}/g;
-    var ajenos=[], cruzados=[];
+    var ajenos=[], cruzados=[], viejos=[];
     var z=document.querySelectorAll('table.info td.v, .body p, .body .q .t');
 
     for(var i=0;i<z.length;i++){
       var t=z[i].textContent, m; re.lastIndex=0;
       while(m=re.exec(t)){
         var num=m[0].replace(/[\s.]/g,'-');
-        if(buenos.indexOf(num)<0){
+        if(TEL_VIEJOS.indexOf(num)>=0){
+          if(viejos.indexOf(m[0])<0) viejos.push(m[0]);
+          z[i].classList.add('pegado');
+        } else if(buenos.indexOf(num)<0){
           if(ajenos.indexOf(m[0])<0) ajenos.push(m[0]);
           z[i].classList.add('pegado');
         } else if(esperado && num!==esperado){
@@ -308,19 +355,28 @@
     }
 
     var avisos=[];
+    if(viejos.length){
+      avisos.push('<b>Ese teléfono es el antiguo.</b>'+
+        'Aparece «'+viejos.join('», «')+'». Hasta el 29 de octubre de 2026 WindMar '+
+        'usaba dos números al aire, uno para televisión y otro para radio. Ahora '+
+        '<b>cada programa tiene el suyo</b>'+
+        (prog?', y a «'+prog[0]+'» le toca <b>'+esperado+'</b>.':'.')+
+        ' Que el récord del calendario traiga el viejo no lo vuelve bueno: ese récord '+
+        'está sin actualizar. No lo copies — repórtalo y pide el del programa.');
+    }
     if(ajenos.length){
       avisos.push('<b>Ese teléfono no es de WindMar.</b>'+
-        'Aparece «'+ajenos.join('», «')+'», y WindMar solo usa dos números al aire: '+
-        TEL_TV+' para televisión y '+TEL_RADIO+' para radio. Un número que no es '+
-        'ninguno de los dos manda a la audiencia a llamar a un desconocido. '+
+        'Aparece «'+ajenos.join('», «')+'», y no es el DID de ningún programa de la gira. '+
+        'Un número que no está en la lista manda a la audiencia a llamar a un desconocido. '+
         'Vuelve al récord del calendario y copia el que dice ahí. Si el récord también '+
         'trae ese número, no lo cambies por tu cuenta: repórtalo.');
     }
     if(cruzados.length){
-      avisos.push('<b>El teléfono no corresponde al medio.</b>'+
-        'El medio dice «'+medio+'», que lleva '+esperado+', pero el documento dice «'+
-        cruzados.join('», «')+'». Uno de los dos campos está mal. '+
-        'No adivines cuál — cotéjalo contra el original y reporta la discrepancia.');
+      avisos.push('<b>El teléfono es de otro programa.</b>'+
+        'El récord dice «'+prog[0]+'», que lleva '+esperado+', pero el documento dice «'+
+        cruzados.join('», «')+'» — que es el DID de otro programa. La llamada se atribuiría '+
+        'al programa equivocado. Uno de los dos campos está mal: no adivines cuál, '+
+        'cotéjalo contra el original y reporta la discrepancia.');
     }
     return avisos.length?avisos.join('<div style="height:10px"></div>'):null;
   }
