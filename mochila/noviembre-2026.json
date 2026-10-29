@@ -6,7 +6,7 @@
     "LOS APROBADORES SE MATERIALIZAN AL CREAR LA PIEZA Y NO SE RE-EVALÚAN: una pieza que nace con el producto equivocado se queda pidiendo firma a quien no es, y cambiar el producto después no lo arregla. Hay que borrarla y rehacerla.",
     "La fecha de cada pieza es la de PUBLICACIÓN. La entrega es siempre 7 días antes."
   ],
-  "escrito": "2026-10-28",
+  "escrito": "2026-10-29",
   "escrito_por": "Musa",
   "origen": "calendario-noviembre-pr.html (21 oct), cargado a Asana el 26 oct (proyecto 1219913424037037), reacomodado el 27 oct porque Anker, Roofing y Solar no estaban entregados",
   "campana": {
@@ -289,7 +289,7 @@
       "semana": 4,
       "bloqueada": false,
       "nota": "VP de Ventas. Guion en public/guion-alicea-ventas-entrevista.html, cinco preguntas. Se grabó el 28 de octubre, con tres semanas de margen sobre la entrega del 17.",
-      "estado_material": "grabando el 28 de octubre"
+      "estado_material": "grabado el 28 de octubre"
     },
     {
       "publica": "2026-11-25",
@@ -326,19 +326,20 @@
     {
       "publica": "2026-11-27",
       "entrega": "2026-11-20",
-      "titulo": "Black Friday",
-      "formato": null,
-      "producto": null,
+      "titulo": "Water Técnico",
+      "formato": "Reel",
+      "producto": "Water",
       "canales": [
         "Instagram"
       ],
       "horas": {
         "Instagram": "10:30"
       },
-      "talento": null,
+      "talento": "David Fonseca",
       "semana": 4,
-      "bloqueada": true,
-      "nota": "SIN PROMOCIÓN DEFINIDA. En blanco a propósito: inventar una oferta sería peor. Decisión antes del 20 de noviembre."
+      "bloqueada": false,
+      "nota": "Ocupa el espacio que tenía Black Friday, que seguía sin promoción definida. Water se habia dado por cancelado el 21 de octubre y se regrabó el 28, así que la serie Técnico queda completa: Anker, Solar, Roofing y Water, los cuatro de Juan Sánchez. Viernes IG +65%. Con esto el mes llega a nueve videos, que es el piso.",
+      "estado_material": "grabado el 28 de octubre por Juan Sánchez"
     },
     {
       "publica": "2026-11-30",
@@ -358,10 +359,10 @@
     }
   ],
   "huecos_conocidos": [
-    "Black Friday: sin promoción definida. Decisión antes del 20 de noviembre.",
-    "Water Técnico con David Fonseca se canceló. Es el cuarto de la serie de los cuatro Técnico (uno por línea). La línea de agua se queda sin video este mes. Si se regraba, el martes 24 puede cederle el sitio y Alicea se recoloca a diciembre.",
     "Video de brigada: sin fecha ni tema. Si se concreta, entra un miércoles o jueves y desplaza el carrusel de ese día.",
-    "Siete de los ocho carruseles no tienen slides escritos."
+    "Siete de los ocho carruseles no tienen slides escritos.",
+    "Black Friday (27 nov) se queda sin pieza propia: su espacio lo ocupa Water Técnico. Nunca hubo promoción definida y se decidió que inventar una oferta sería peor.",
+    "Luis Matos va retrasado con los videos de instalaciones. No faltan temas: faltan grabaciones. De los 12 del mes, 4 son de Juan Sánchez (la serie Técnico, completa) y 8 de Luis Matos."
   ],
   "no_va_aqui": "Florida y Anker: esas 22 piezas ya están en Studio del 1 al 17 y no se tocan."
 }

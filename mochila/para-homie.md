@@ -58,8 +58,16 @@ apoyo en texto grande.
 
 **Black Friday, 27 de noviembre** — sin promoción definida. Decisión antes del 20.
 
-**Water Técnico con David Fonseca** — se canceló. Si se regraba, entra el 24 de noviembre
-y Alicea se recoloca a diciembre.
+**Water Técnico se regrabó el 28 de octubre** y ocupa el viernes 27, el espacio que tenía
+Black Friday. Con eso la serie «Técnico» queda completa —Anker, Solar, Roofing y Water, los
+cuatro de Juan Sánchez— y el mes llega a **nueve videos**, que es el piso.
+
+**Black Friday se queda sin pieza propia.** Nunca hubo promoción definida y se decidió que
+inventar una oferta sería peor que dejarlo.
+
+**Los 12 videos del mes salen de dos fuentes:** 4 de Juan Sánchez (la serie Técnico, ya
+completa) y 8 de Luis Matos. **Luis Matos va retrasado** con los videos de instalaciones —
+no faltan temas, faltan grabaciones.
 
 **A finales de noviembre: borrar las stories v1 y ordenar lo que quede.** El 27 de
 octubre se decidió consolidar todo en stories v2. Los tres archivos del v1 —
