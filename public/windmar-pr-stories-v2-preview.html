@@ -523,6 +523,26 @@ const CARDS=[
     logo:'wme/logos/wmh-home-white-orange.png' },
 ];
 
+/* `publica` es la fecha en que sale la tarjeta, en ISO: '2026-11-04'.
+   Va en la caprow, FUERA de .piece, así que nunca se pinta en el PNG — es dato
+   de calendario, no parte del arte. Una tarjeta sin fecha lo dice en voz alta:
+   «SIN FECHA» es información, no un hueco que disimular. */
+const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto',
+             'septiembre','octubre','noviembre','diciembre'];
+function cuandoSale(iso){
+  if(!iso) return 'SIN FECHA';
+  const [a,m,d] = iso.split('-').map(Number);
+  if(!a||!m||!d) return 'FECHA INVÁLIDA: '+iso;
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  const f = new Date(a, m-1, d);
+  const dias = Math.round((f-hoy)/864e5);
+  const txt = `${d} ${MESES[m-1]}`;
+  if(dias < 0)  return `${txt} · ya pasó`;
+  if(dias === 0) return `${txt} · HOY`;
+  if(dias <= 7) return `${txt} · en ${dias} ${dias===1?'día':'días'}`;
+  return txt;
+}
+
 const gallery=document.getElementById('gallery');
 CARDS.forEach((c,i)=>{
   const slot=document.createElement('div'); slot.className='slot';
@@ -552,7 +572,7 @@ CARDS.forEach((c,i)=>{
   const dlLabel = c.overlay ? '⬇︎ PNG overlay' : '⬇︎ PNG';
   slot.innerHTML=`
     <div class="caprow">
-      <span class="cap">${c.chip} · impacto</span>
+      <span class="cap">${c.chip} · ${cuandoSale(c.publica)}</span>
       ${c.v3?`<span class="poscontrol" data-for="${i}">
         <button class="posbtn" data-pos="arriba">arriba</button>
         <button class="posbtn" data-pos="centro">centro</button>
