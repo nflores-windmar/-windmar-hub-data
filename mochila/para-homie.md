@@ -42,10 +42,21 @@ revisa y los manda.
 
 ## Lo que está esperando
 
-**Juan Sebastian** (`j.baca@windmarhome.com`) edita tres videos de noviembre: Anker
-(entrega 3 nov), Roofing (10 nov) y Solar (13 nov). Material bruto y brief están en la
-pieza. **Juan no entra a Asana ni a Studio**: se le avisa por **Teams**, y la señal de
-que terminó es que le manda el video a Nicolle.
+**Juan Sebastian** (`j.baca@windmarhome.com`) edita **solo cuatro piezas**: la serie
+«Técnico» que grabó Juan Sánchez — Anker, Solar, Roofing y **Water**. Los otros ocho
+videos del mes los graba y entrega ya editados **Luis Matos**.
+
+**Su entrega es 4 días antes de publicar**, no siete. Los siete días son de la pieza —
+cuándo tiene que estar lista para revisión y firmas—; los cuatro son el hito de edición.
+Son dos fechas distintas y no se pisan.
+
+**Juan no entra a Asana ni a Studio**: se le avisa por **Teams**, y la señal de que
+terminó es que le manda el video a Nicolle.
+
+⚠️ **Water Técnico todavía no tiene tarea de edición.** Las otras tres se montaron el 27
+de octubre, cuando Water estaba dado por cancelado. Se regrabó el 28 y publica el viernes
+27, así que su entrega a Juan es el **23 de noviembre**. Falta el enlace del material
+bruto.
 
 **José Alicea** — entrevista que publica el 24 de noviembre, entrega el 17.
 **Se graba el 30 de octubre, con Luis Matos.** Ya no está bloqueada. El guion está en
