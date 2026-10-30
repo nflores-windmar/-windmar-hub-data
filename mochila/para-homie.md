@@ -3,7 +3,7 @@
 Léelo al empezar cualquier conversación sobre contenido. **No recuerdas la conversación
 anterior** — nadie la recuerda. Esto es lo que había decidido hasta la última vez.
 
-Actualizado: **27 de octubre de 2026**, por Musa.
+Actualizado: **30 de octubre de 2026**.
 
 > Si la fecha de arriba tiene más de dos semanas, dilo antes de usarlo. Un estado viejo
 > leído como actual es peor que no tener ninguno.
@@ -59,15 +59,14 @@ de octubre, cuando Water estaba dado por cancelado. Se regrabó el 28 y publica 
 bruto.
 
 **José Alicea** — entrevista que publica el 24 de noviembre, entrega el 17.
-**Se graba el 30 de octubre, con Luis Matos.** Ya no está bloqueada. El guion está en
+**Se grababa el 30 de octubre con Luis Matos.** Si lees esto después de ese día,
+**no preguntes si se va a grabar: comprueba si llegó el material** y sigue desde ahí. El guion está en
 `public/guion-alicea-ventas-entrevista.html`: cinco preguntas y cierre textual
 «Nuestra misión es estar con el cliente paso a paso».
 
 Lo que sigue cuando salga el material: va a edición como los otros tres — enlace del
 bruto en la pieza, editor asignado, y aviso por Teams. Máximo 45 segundos, palabras de
 apoyo en texto grande.
-
-**Black Friday, 27 de noviembre** — sin promoción definida. Decisión antes del 20.
 
 **Water Técnico se regrabó el 28 de octubre** y ocupa el viernes 27, el espacio que tenía
 Black Friday. Con eso la serie «Técnico» queda completa —Anker, Solar, Roofing y Water, los
@@ -90,6 +89,31 @@ esos enlaces primero. Florida y Pros no tienen equivalente en v2, que es de Puer
 
 **Siete de los ocho carruseles de noviembre no tienen slides escritos.** El único hecho es
 «Antes de firmar, los 4 números», en `public/windmar-carruseles-pr.html`, arreglo `FIRMAR`.
+
+---
+
+## Lo que cambió el 29 y 30 de octubre
+
+**Los teléfonos de atribución del Media Tour son uno POR PROGRAMA.** Antes eran dos
+—787-489-1154 para TV y 787-489-1155 para radio— y esos dos **ya no se usan**. Ahora son
+doce DID, uno por programa, y están en el skill `guion-medios-plantilla`. Si un récord del
+calendario trae uno de los dos viejos, es un récord sin actualizar: pones el del programa,
+lo dices al entregar y reportas el récord. Eso está escrito en esa skill con su regla.
+
+⚠️ **Las cortinillas todavía llevan el número viejo impreso dentro de la imagen.** Es una
+decisión, no un descuido: se siguen usando las viejas mientras Diseño crea las nuevas. Así
+que durante la transición el guión dice el número del programa y el arte dice el antiguo.
+**No pares un envío por eso** — pero dilo cuando entregues.
+
+**Studio avisa solo de las firmas que se acercan a su fecha.** Desde el 30 de octubre corre
+un recordatorio de lunes a viernes a las 8:00 AM: mira las piezas en revisión que publican
+dentro de tres días o menos y le manda una campana a quien le falte firmar. **No dupliques
+eso.** Si alguien no ha firmado y la pieza publica pronto, ya se le avisó: no escribas tú
+también.
+
+Tres cosas que ese recordatorio NO hace, y que siguen siendo tuyas: no avisa de piezas sin
+fecha de publicación, no avisa si alguien pidió cambios —ahí la pieza espera a Diseño— y no
+avisa a quien ya firmó.
 
 ---
 
