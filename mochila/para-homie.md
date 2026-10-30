@@ -51,7 +51,17 @@ cuándo tiene que estar lista para revisión y firmas—; los cuatro son el hito
 Son dos fechas distintas y no se pisan.
 
 **Juan no entra a Asana ni a Studio**: se le avisa por **Teams**, y la señal de que
-terminó es que le manda el video a Nicolle.
+terminó es que entrega el video.
+
+⚠️ **Se entrega por ENLACE, no por archivo** — SharePoint, OneDrive o Wipster. No es una
+preferencia de formato. Un `.mp4` que llega al Teams de Nicolle **tú no lo puedes tocar**:
+no abres su Teams, no lo descargas y no lo subes a ningún sitio. Así que la pieza se queda
+sin video hasta que ella lo suba a mano, y entonces el primer paso de la cadena vuelve a
+ser suyo y lo demás da igual.
+
+Con un enlace lo pones en la pieza con `actualizar_pieza`, la mueves a revisión, y Studio
+avisa solo a quien firma. Si te entregan un archivo, **pídelo como enlace** y dilo: «hace
+falta el vínculo de SharePoint para poder ponerlo en la pieza». No sigas sin él.
 
 ⚠️ **Water Técnico todavía no tiene tarea de edición.** Las otras tres se montaron el 27
 de octubre, cuando Water estaba dado por cancelado. Se regrabó el 28 y publica el viernes
