@@ -37,6 +37,11 @@ h1 .o{color:var(--orange)}
 .piece{--acc:#f7a03a;position:relative;overflow:hidden;container-type:inline-size;
   width:360px;aspect-ratio:4/5;border-radius:16px;background:#0a1626;color:#fff;
   box-shadow:0 18px 48px rgba(13,34,64,.22);border:1px solid var(--line)}
+/* Acento por marca: los mismos de las stories v2. Se activa con una clase en `cls`
+   de la lámina (cls:'data anker'); sin ella la lámina lleva el naranja de siempre. */
+.piece.roofing{--acc:#4aa0ff}
+.piece.anker{--acc:#4fe0a0}
+.piece.financial{--acc:#ff8e0c}
 .ph{position:absolute;inset:0;z-index:0}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.04) saturate(1.06)}
 .ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
@@ -81,6 +86,10 @@ h1 .o{color:var(--orange)}
 .brandbar{display:flex;align-items:center;justify-content:space-between;gap:3cqw;margin-top:5.5cqw;
   padding-top:4cqw;border-top:.5cqw solid rgba(255,255,255,.22)}
 .brandbar img{height:7cqw;width:auto;display:block}
+/* Anker es un logo ancho y bajo; WH Financial es un lockup apilado que necesita más
+   alto para pesar igual. Son las proporciones de las stories v2 llevadas a 4:5. */
+.brandbar.anker img{height:4.4cqw}
+.brandbar.financial img{height:10.5cqw}
 .site{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
 .site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--acc);flex:none}
 </style>
@@ -113,6 +122,25 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Prepara el video del viernes 6, «VP Procurement · Andrés Billoch». Entrega: 29 de octubre.</div>
   <div class="gallery" id="g-nov-equipos"></div>
 
+  <div class="section-h"><h2>Batería: qué sigue encendido</h2><span class="badge">Noviembre · mié 11</span></div>
+  <div class="section-sub">Acompaña al video del martes 10, «Anker Técnico · Jesús Medina». Solo Facebook, 12:30. Entrega: 4 de noviembre.</div>
+  <div class="gallery" id="g-nov-bateria"></div>
+
+  <div class="section-h"><h2>Cómo se paga un sistema</h2><span class="badge">Noviembre · jue 12</span></div>
+  <div class="section-sub">Prepara el video del viernes 13, «WHF financiamiento · Julio Mangual y Andrés Cruz». Solo Facebook, 12:30. Entrega: 5 de noviembre.</div>
+  <div class="gallery" id="g-nov-pago"></div>
+
+  <div class="section-h"><h2>El techo antes que las placas</h2><span class="badge">Noviembre · mié 18</span></div>
+  <div class="section-sub">Acompaña al video del martes 17, «Roofing Técnico · Elliot Rodríguez». Solo Facebook, 12:30. Entrega: 11 de noviembre.</div>
+  <div class="gallery" id="g-nov-techo"></div>
+
+  <div class="section-h"><h2>Víspera de Thanksgiving</h2><span class="badge">Noviembre · mié 25</span></div>
+  <div class="section-sub">Tema de calendario, no acompaña a ningún video. Sin oferta, solo marca. Solo Facebook, 12:30. Entrega: 18 de noviembre.</div>
+  <div class="gallery" id="g-nov-thanks"></div>
+
+  <div class="section-h"><h2>Termina la temporada de huracanes</h2><span class="badge">Noviembre · lun 30</span></div>
+  <div class="section-sub">Cierra el hilo que abrió la batería de Anker. Lunes: solo Facebook, 12:30. Entrega: 23 de noviembre.</div>
+  <div class="gallery" id="g-nov-huracanes"></div>
 
 </div>
 
@@ -183,6 +211,22 @@ const VAYAN=[
     desc:'WindMar llega a ti. Soluciones de luz y agua para tu hogar. ¡Vayan a la segura!' },
 ];
 
+/* Campos opcionales de una lámina, además de los de siempre:
+     brand    'anker' | 'financial' | 'roofing': pone el tamaño del logo de la marca.
+              El acento va en `cls` (cls:'data anker'), igual que en las stories v2.
+     logo     ruta del logo, si no es el de WindMar Home.
+     logoAlt  texto alternativo de ese logo.
+     site     el sitio de la barra de abajo, si no es windmar.com.
+     publica  fecha de publicación en ISO ('2026-11-11'). Sale en la fila de arriba,
+              fuera de la pieza: nunca se pinta en el PNG. */
+function cuandoSale(iso){
+  if(!iso) return '';
+  const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const [a,m,d]=iso.split('-').map(Number);
+  if(!a||!m||!d) return 'FECHA INVÁLIDA: '+iso;
+  return `sale ${d} ${MESES[m-1]}`;
+}
+
 function renderGallery(cards, containerId){
   const gallery=document.getElementById(containerId);
   cards.forEach((c,i)=>{
@@ -191,6 +235,8 @@ function renderGallery(cards, containerId){
       ? `<img src="${c.bg}" alt="" crossorigin="anonymous"><input type="file" accept="image/*,video/*" class="vin" hidden>`
       : c.imgSlot
       ? `<div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Arrastra tu foto aquí</div><div class="vdrop-sub">o haz clic para elegirla</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`
+      : (c.blue && c.type!=='list')
+      ? `<input type="file" accept="image/*,video/*" class="vin" hidden>`
       : '';
 
     let hero='';
@@ -218,7 +264,7 @@ function renderGallery(cards, containerId){
     const pid=`${containerId}-${i}`;
     slot.innerHTML=`
       <div class="caprow">
-        <span class="cap">${c.chip} · ${i+1}/${cards.length}</span>
+        <span class="cap">${c.chip} · ${i+1}/${cards.length}${c.publica?' · '+cuandoSale(c.publica):''}</span>
         <button class="dl" data-pid="${pid}" data-name="${c.id}">⬇︎ PNG</button>
       </div>
       <div class="piece ${c.cls}" id="${pid}">
@@ -228,9 +274,9 @@ function renderGallery(cards, containerId){
           <div class="tagrow"><span class="chip" contenteditable="true">${c.chip}</span></div>
           <div class="spacer"></div>
           <div class="stat">${hero}</div>
-          <div class="brandbar">
-            <img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
-            <span class="site"><span class="dot"></span>${SITE}</span>
+          <div class="brandbar ${c.brand||''}">
+            <img src="${c.logo||LOGO}" alt="${c.logoAlt||'WindMar Home'}" crossorigin="anonymous">
+            <span class="site"><span class="dot"></span>${c.site||SITE}</span>
           </div>
         </div>
       </div>`;
@@ -295,11 +341,203 @@ const EQUIPOS=[
     desc:'Evaluación gratis, sin compromiso. Te explicamos qué equipo lleva tu sistema y la razón de cada pieza.' },
 ];
 
+/* NOVIEMBRE · miércoles 11. Acompaña al video del martes 10, «Anker Técnico · Jesús
+   Medina». Entrega: 4 de noviembre. Escrito el 30 de octubre por pedido de Nicolle
+   (crear las artes de los carruseles de noviembre).
+   El encargo del calendario: en octubre «qué sigue encendido» funcionó como reel; en
+   carrusel se detalla aparato por aparato. Por eso la lista nombra aparatos y no
+   promete cuánto dura cada uno: no hay ninguna cifra de consumo ni de horas con
+   fuente, así que no entra ninguna. Sin cifras.
+   Anker va sola, con el logo de Anker y sin el de WindMar Home, como la tarjeta
+   «Anker · PYMES» de las stories v2 y la regla de Nicolle de separar el producto de
+   la sombrilla. Queda sobre fondo azul porque en el repo no hay foto de Anker: si se
+   quiere foto, se arrastra encima de la lámina.
+   Falta: que Jesús Medina (PM de Anker) la revise contra su video del martes 10. */
+const BATERIA=[
+  { id:'nov-bateria-1', cls:'data anker', chip:'Anker · Apagones', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX', publica:'2026-11-11',
+    kicker:'Cuando se va la luz',
+    headline:'¿QUÉ SIGUE<br><span class="hl">ENCENDIDO</span>?',
+    desc:'Una batería no enciende todo igual. Depende de lo que conectes y de cuánta energía tenga guardada.' },
+  { id:'nov-bateria-2', cls:'data anker', chip:'Lo primero que conectas', blue:true, type:'list', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    listhead:'LO QUE SE CONECTA<br>PRIMERO EN UN<br><span class="hl">APAGÓN</span>',
+    items:[
+      { n:'1', tt:'La nevera', ds:'Para cuidar la comida de toda la familia.' },
+      { n:'2', tt:'Las luces', ds:'Unas pocas luces bastan para moverte con comodidad.' },
+      { n:'3', tt:'Internet y celulares', ds:'Para comunicarte, trabajar y estudiar desde casa.' },
+      { n:'4', tt:'Un abanico', ds:'Para dormir más fresco.' },
+    ] },
+  { id:'nov-bateria-3', cls:'data anker', chip:'La cuenta que importa', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    kicker:'Cada aparato es distinto',
+    headline:'CADA APARATO<br>GASTA <span class="hl">DIFERENTE</span>',
+    desc:'No es lo mismo un abanico que una nevera. Por eso la batería se escoge según lo que quieres mantener encendido.' },
+  { id:'nov-bateria-4', cls:'data anker', chip:'Sin compromiso', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    kicker:'Te ayudamos a hacer la cuenta',
+    headline:'DINOS QUÉ<br>QUIERES MANTENER<br><span class="hl">ENCENDIDO</span>',
+    desc:'Hacemos la cuenta contigo y te decimos cuál Anker SOLIX te sirve. Sin compromiso.' },
+];
+
+/* NOVIEMBRE · jueves 12. Prepara el video del viernes 13, «WHF financiamiento · Julio
+   Mangual y Andrés Cruz». Entrega: 5 de noviembre. Escrito el 30 de octubre por
+   pedido de Nicolle.
+   El encargo del calendario: sin prometer «gratis total»; se habla de ahorro y de
+   evaluación sin compromiso. Esta no promete ahorro ni aprobación ni ninguna cuota:
+   explica qué se mira al financiar. Sin cifras.
+   De dónde sale lo que afirma de WH Financial: el balance consultable desde el portal
+   de pagos es texto de la tarjeta «financial» de las stories v2; el cierre de la
+   lámina 3 adapta el texto de «Tu casa está ready» de Nicolle.
+   Logo y sitio (whfinancialpr.com) son los de esa misma tarjeta.
+   Falta: que Manuel Pales y Pichu la firmen, y que alguien de WHF confirme si el
+   financiamiento lleva un legal de aprobación de crédito al pie. */
+const PAGO=[
+  { id:'nov-pago-1', cls:'financial', chip:'Financiamiento · Cómo se paga', imgSlot:true, bg:'img/pr-sept-solar.png', type:'headline', brand:'financial',
+    logo:'wme/logos/wh-financial-white-orange.svg', logoAlt:'WH Financial', site:'whfinancialpr.com', publica:'2026-11-12',
+    kicker:'La pregunta que todos hacen',
+    headline:'¿CÓMO SE PAGA<br>UN <span class="hl">SISTEMA</span>?',
+    desc:'Antes de decidir, conviene entender cómo se paga. Te lo explicamos con calma, paso a paso.' },
+  { id:'nov-pago-2', cls:'data financial', chip:'Antes de financiar', blue:true, type:'list', brand:'financial',
+    logo:'wme/logos/wh-financial-white-orange.svg', logoAlt:'WH Financial', site:'whfinancialpr.com',
+    listhead:'LO QUE MIRAS<br>ANTES DE <span class="hl">FINANCIAR</span>',
+    items:[
+      { n:'1', tt:'La mensualidad', ds:'Cuánto pagas cada mes y cómo se compara con tu factura de luz.' },
+      { n:'2', tt:'La tasa', ds:'Cuánto cuesta el financiamiento a lo largo del tiempo.' },
+      { n:'3', tt:'El plazo', ds:'Cuántos años pagas. Más años baja la cuota, pero se paga más en total.' },
+      { n:'4', tt:'El balance', ds:'Poder ver cuánto llevas pagado, cuando quieras, desde el portal de pagos.' },
+    ] },
+  { id:'nov-pago-3', cls:'data financial', chip:'La idea de fondo', blue:true, type:'headline', brand:'financial',
+    logo:'wme/logos/wh-financial-white-orange.svg', logoAlt:'WH Financial', site:'whfinancialpr.com',
+    kicker:'Pagar para que algo se quede',
+    headline:'LA CUOTA SE<br>COMPARA CON<br>TU <span class="hl">FACTURA</span>',
+    desc:'Cada mes llega la factura y nada se queda en tu casa. Financiar es cambiar ese pago por un sistema que produce.' },
+  { id:'nov-pago-4', cls:'data financial', chip:'Sin compromiso', blue:true, type:'headline', brand:'financial',
+    logo:'wme/logos/wh-financial-white-orange.svg', logoAlt:'WH Financial', site:'whfinancialpr.com',
+    kicker:'Hablemos de tu caso',
+    headline:'PIDE TU<br><span class="hl">EVALUACIÓN</span>',
+    desc:'Evaluación gratis, sin compromiso. Te explicamos las opciones de financiamiento para tu caso.' },
+];
+
+/* NOVIEMBRE · miércoles 18. Acompaña al video del martes 17, «Roofing Técnico · Elliot
+   Rodríguez». Entrega: 11 de noviembre. Escrito el 30 de octubre por pedido de
+   Nicolle.
+   El encargo del calendario: enlazar roofing con solar. En octubre «Seguro: por qué
+   pesa la edad del techo» entró bien, por eso la primera cosa de la lista es la edad
+   del techo. Sin cifras: no hay ninguna con fuente sobre años de vida de un techo ni
+   de una placa.
+   Roofing es marca propia: lleva su logo y no el de WindMar Home. Las láminas con foto
+   reutilizan fotos que ya están en el repo (techos blancos e instaladores sobre un
+   techo con placas); la 2 y la 4 van sobre fondo azul.
+   Falta: que Elliot Rodríguez (PM de Roofing) confirme que lo que hace el técnico en
+   la lámina 2 es lo que de verdad pasa en una evaluación. */
+const TECHO=[
+  { id:'nov-techo-1', cls:'roofing', chip:'Roofing · Antes de las placas', imgSlot:true, bg:'img/pr-roofing-techos-blancos.png', type:'headline', brand:'roofing',
+    logo:'wme/logos/windmar-roofing-white-orange.png', logoAlt:'WindMar Roofing', publica:'2026-11-18',
+    kicker:'Antes de instalar placas',
+    headline:'EL TECHO VA<br><span class="hl">PRIMERO</span>',
+    desc:'Las placas se instalan sobre tu techo y trabajan por años. Conviene que el techo esté listo para acompañarlas.' },
+  { id:'nov-techo-2', cls:'data roofing', chip:'Lo que se revisa', blue:true, type:'list', brand:'roofing',
+    logo:'wme/logos/windmar-roofing-white-orange.png', logoAlt:'WindMar Roofing',
+    listhead:'CUATRO COSAS QUE<br>SE REVISAN <span class="hl">ANTES</span>',
+    items:[
+      { n:'1', tt:'La edad del techo', ds:'Un techo con muchos años puede necesitar atención antes de recibir placas.' },
+      { n:'2', tt:'Filtraciones', ds:'Cualquier gotera se arregla mejor antes de que haya placas encima.' },
+      { n:'3', tt:'El estado del sellado', ds:'Protege tu techo del sol y de la lluvia.' },
+      { n:'4', tt:'Lo que ve el técnico', ds:'Alguien sube, mira tu techo y te dice qué encontró.' },
+    ] },
+  { id:'nov-techo-3', cls:'roofing', chip:'Techo y solar', imgSlot:true, bg:'img/firmar-2-garantia.png', type:'headline', brand:'roofing',
+    logo:'wme/logos/windmar-roofing-white-orange.png', logoAlt:'WindMar Roofing',
+    kicker:'Un solo plan',
+    headline:'TECHO Y PLACAS,<br>UN SOLO <span class="hl">PLAN</span>',
+    desc:'Cuando el techo y las placas se piensan juntos, no hay que mover nada después.' },
+  { id:'nov-techo-4', cls:'data roofing', chip:'Sin compromiso', blue:true, type:'headline', brand:'roofing',
+    logo:'wme/logos/windmar-roofing-white-orange.png', logoAlt:'WindMar Roofing',
+    kicker:'Empieza por arriba',
+    headline:'DEJA QUE<br>REVISEMOS<br>TU <span class="hl">TECHO</span>',
+    desc:'Evaluación gratis, sin compromiso. Te decimos en qué estado está y qué conviene hacer primero.' },
+];
+
+/* NOVIEMBRE · miércoles 25. Víspera de Thanksgiving (el jueves 26). Entrega: 18 de
+   noviembre. Escrito el 30 de octubre por pedido de Nicolle.
+   El encargo del calendario: no acompaña a ningún video; la casa llena y la luz que
+   no se va. SIN OFERTA, SOLO MARCA: ninguna lámina lleva precio, descuento ni fecha
+   límite, y Black Friday no se menciona. Sin cifras.
+   La lámina 3 usa «casa ready» de la campaña «Tu casa está ready» de Nicolle.
+   Va con el logo de WindMar Home porque no tiene producto.
+   Falta: decidir si el cierre lleva una foto de familia o de casa; hoy va sobre fondo
+   azul porque en el repo no hay ninguna. */
+const THANKS=[
+  { id:'nov-thanks-1', cls:'', chip:'WindMar Home · Thanksgiving', imgSlot:true, bg:'img/pr-solar-vecindario-placas.png', type:'headline', publica:'2026-11-25',
+    kicker:'Mañana es Thanksgiving',
+    headline:'LA CASA<br><span class="hl">LLENA</span>',
+    desc:'Familia, cocina y mesa grande. Mañana la casa se llena de gente y de buena comida.' },
+  { id:'nov-thanks-2', cls:'data', chip:'Un día como mañana', blue:true, type:'list',
+    listhead:'LO QUE HACE FALTA<br>UN DÍA COMO<br><span class="hl">MAÑANA</span>',
+    items:[
+      { n:'1', tt:'Luz', ds:'Para la cocina, el horno y las luces.' },
+      { n:'2', tt:'Agua', ds:'Para cocinar, lavar y recibir a todos.' },
+      { n:'3', tt:'Un techo firme', ds:'Para reunirse adentro con tranquilidad.' },
+      { n:'4', tt:'Gente', ds:'Lo demás lo pone la familia.' },
+    ] },
+  { id:'nov-thanks-3', cls:'data', chip:'Tu casa ready', blue:true, type:'headline',
+    kicker:'Detrás de cada casa',
+    headline:'CASA READY,<br>MESA <span class="hl">LISTA</span>',
+    desc:'Una casa ready está preparada para el día a día y para los días que importan.' },
+  { id:'nov-thanks-4', cls:'data', chip:'WindMar Home', blue:true, type:'headline',
+    kicker:'De parte de todos en WindMar',
+    headline:'FELIZ<br><span class="hl">THANKSGIVING</span>',
+    desc:'Gracias por dejarnos ser parte de tu casa. Que lo disfruten juntos.' },
+];
+
+/* NOVIEMBRE · lunes 30. Cierra el hilo que abrió la batería de Anker en la semana 2.
+   Entrega: 23 de noviembre. Escrito el 30 de octubre por pedido de Nicolle.
+   Lunes: solo Facebook (Instagram cae 57% ese día, según el plan del mes).
+   El único dato fechado es que el 30 de noviembre es el último día oficial de la
+   temporada de huracanes del Atlántico (la temporada va del 1 de junio al 30 de
+   noviembre). Es una fecha de calendario, no una cifra de WindMar. La lámina 4 usa la
+   frase «Energía que te acompaña» del sistema de diseño de Anker; la 2 menciona las
+   baterías de expansión, que están en el catálogo de Anker SOLIX. Sin más cifras.
+   Tono: cierre de temporada y tranquilidad, sin miedo como gancho. Mismo tratamiento
+   que la de batería: logo de Anker solo, fondo azul sin foto.
+   Falta: que Jesús Medina la revise junto con la del 11. */
+const HURACANES=[
+  { id:'nov-huracanes-1', cls:'data anker', chip:'Anker · Fin de temporada', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX', publica:'2026-11-30',
+    kicker:'Hoy cierra la temporada',
+    headline:'TERMINA LA<br>TEMPORADA DE<br><span class="hl">HURACANES</span>',
+    desc:'Hoy, 30 de noviembre, es el último día oficial. Buen momento para ver cómo quedó tu casa en energía.' },
+  { id:'nov-huracanes-2', cls:'data anker', chip:'Para revisar hoy', blue:true, type:'list', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    listhead:'CUATRO COSAS PARA<br>REVISAR <span class="hl">HOY</span>',
+    items:[
+      { n:'1', tt:'Dónde la guardas', ds:'En un lugar seco y a la mano, para que la alcances rápido.' },
+      { n:'2', tt:'Cuánta carga tiene', ds:'Míralo de vez en cuando para que no te agarre a medias.' },
+      { n:'3', tt:'Qué conectarías primero', ds:'Haz tu lista: nevera, luces, internet y celulares.' },
+      { n:'4', tt:'Si tu lista creció', ds:'Hay baterías de expansión para sumar capacidad.' },
+    ] },
+  { id:'nov-huracanes-3', cls:'data anker', chip:'Se queda contigo', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    kicker:'Se queda contigo',
+    headline:'LA BATERÍA NO<br>TIENE <span class="hl">TEMPORADA</span>',
+    desc:'Sirve en un apagón de cualquier mes, en el patio o en un camping. Termina la temporada, la batería sigue.' },
+  { id:'nov-huracanes-4', cls:'data anker', chip:'Sin compromiso', blue:true, type:'headline', brand:'anker',
+    logo:'wme/logos/anker-white-orange.png', logoAlt:'Anker SOLIX',
+    kicker:'Energía que te acompaña',
+    headline:'ENERGÍA QUE<br><span class="hl">TE ACOMPAÑA</span>',
+    desc:'Cuéntanos qué quieres mantener encendido y te ayudamos a escoger tu Anker SOLIX. Sin compromiso.' },
+];
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
 renderGallery(DISENO,'g-nov-diseno');
 renderGallery(EQUIPOS,'g-nov-equipos');
+renderGallery(BATERIA,'g-nov-bateria');
+renderGallery(PAGO,'g-nov-pago');
+renderGallery(TECHO,'g-nov-techo');
+renderGallery(THANKS,'g-nov-thanks');
+renderGallery(HURACANES,'g-nov-huracanes');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
