@@ -452,7 +452,7 @@ def posts(cuenta_id, dias=28):
         # reacciones, clics y reproducciones — suficiente para comparar piezas
         # entre sí, pero no para decir a cuánta gente llegó cada una.
         datos, err = pedir(f"{pid}/posts", {
-            "fields": "id,created_time,message,"
+            "fields": "id,created_time,message,type,"
                       "insights.metric(post_reactions_by_type_total,"
                       "post_clicks,post_video_views)",
             "since": str(since), "until": str(hasta), "limit": 100}, ptok)
@@ -471,7 +471,7 @@ def posts(cuenta_id, dias=28):
                 # El alcance va a None, no a 0: no es que llegara a nadie, es
                 # que Meta ya no lo dice. Poner 0 sería inventar un dato.
                 filas.append(("Facebook", t, None, inter,
-                              (p.get("message") or "")[:48]))
+                              p.get("message") or "", p.get("type") or ""))
 
     # --- Instagram
     igid = c.get("ig_id")
@@ -490,7 +490,7 @@ def posts(cuenta_id, dias=28):
                     p["timestamp"][:19], "%Y-%m-%dT%H:%M:%S")
                 inter = sum(m.get(k, 0) for k in ("likes", "comments", "shares"))
                 filas.append(("Instagram", t, m.get("reach", 0), inter,
-                              (p.get("caption") or "")[:48]))
+                              p.get("caption") or "", p.get("media_type") or ""))
 
     if not filas:
         sys.exit("\n  No salió ninguna pieza. Corre el diagnóstico.\n")
@@ -500,10 +500,11 @@ def posts(cuenta_id, dias=28):
     print(f"  {'Red':<10} {'Fecha':<11} {'Hora':<6} {'Alcance':>8} "
           f"{'Inter.':>7}  Pieza")
     print("  " + "─" * 86)
-    for red, t, alc, inter, txt in filas:
+    for red, t, alc, inter, txt, tipo in filas:
         # Facebook ya no da alcance por pieza: se enseña "—", no un cero.
         a = "—" if alc is None else f"{alc}"
-        print(f"  {red:<10} {t:%d %b}     {t:%H:%M}  {a:>8} {inter:>7}  {txt}")
+        print(f"  {red:<10} {t:%d %b}     {t:%H:%M}  {a:>8} {inter:>7}  "
+              f"{tipo[:9]:<10} {txt[:48]}")
 
     # el resumen que de verdad sirve: rendimiento por franja horaria
     # Guardar las piezas donde Musa las pueda leer. Sin esto, el análisis solo
@@ -520,8 +521,8 @@ def posts(cuenta_id, dias=28):
                              "post_impressions. Donde dice null es eso, no un cero."),
             "piezas": [
                 {"red": r, "fecha": t.strftime("%Y-%m-%d"), "hora": t.strftime("%H:%M"),
-                 "alcance": a, "interacciones": i, "texto": txt}
-                for r, t, a, i, txt in sorted(filas, key=lambda f: f[1])
+                 "alcance": a, "interacciones": i, "tipo": tp, "texto": txt}
+                for r, t, a, i, txt, tp in sorted(filas, key=lambda f: f[1])
             ],
         }, fh, ensure_ascii=False, indent=2)
     print(f"\n  Guardado en public/data/piezas-{cuenta_id}.json "
