@@ -1,0 +1,767 @@
+{
+  "_lee_esto_primero": "La PAUTA, día a día y por cuenta de anuncios. Existe para poder restarla: las métricas de redes-snapshot.json son TOTALES de la cuenta e incluyen lo pagado, porque la API de Meta no devuelve las variantes orgánicas y Business Suite tampoco las separa. Sin este archivo, una subida de visualizaciones se lee como contenido que funcionó cuando puede ser gasto. La pauta empezó el 4 de octubre de 2026: todo lo anterior a esa fecha sí es orgánico puro.",
+  "fuente": "Exportación diaria de Meta Ads (account_name, date, spend, impressions, clicks).",
+  "actualizado": "2026-11-03",
+  "ventana": {
+    "desde": "2026-10-04",
+    "hasta": "2026-11-03"
+  },
+  "pauta_empezo": "2026-10-04",
+  "unidades": {
+    "gasto": "USD",
+    "impresiones": "impresiones de anuncio",
+    "clics": "clics en el anuncio"
+  },
+  "ojo": [
+    "Las impresiones de anuncio NO son las mismas unidades que las «visualizaciones» del snapshot: un anuncio puede impactar a alguien que no entra en el perfil. Sirven para saber CUÁNTO se empujó, no para restar uno a uno.",
+    "No hay desglose por red: una cuenta de anuncios puede repartir entre Facebook e Instagram. Si hace falta por red, hay que exportarlo con esa columna.",
+    "Florida corrió solo 7 días en esta ventana. Su CPC alto puede ser arranque."
+  ],
+  "dias": [
+    {
+      "fecha": "2026-10-04",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 110.49,
+          "impresiones": 7828,
+          "clics": 285
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 348.39,
+          "impresiones": 48272,
+          "clics": 702
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 73.4,
+          "impresiones": 2577,
+          "clics": 115
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-05",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 93.73,
+          "impresiones": 7025,
+          "clics": 240
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 344.95,
+          "impresiones": 46374,
+          "clics": 690
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 66.15,
+          "impresiones": 2892,
+          "clics": 100
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-06",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 99.29,
+          "impresiones": 7108,
+          "clics": 280
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 332.89,
+          "impresiones": 44556,
+          "clics": 697
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 71.7,
+          "impresiones": 3163,
+          "clics": 111
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-07",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 102.14,
+          "impresiones": 7076,
+          "clics": 270
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 378.2,
+          "impresiones": 91319,
+          "clics": 811
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 78.39,
+          "impresiones": 3402,
+          "clics": 119
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-08",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 92.46,
+          "impresiones": 6312,
+          "clics": 223
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 393.9,
+          "impresiones": 126633,
+          "clics": 908
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 69.32,
+          "impresiones": 3589,
+          "clics": 110
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-09",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 86.13,
+          "impresiones": 5415,
+          "clics": 202
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 379.7,
+          "impresiones": 112904,
+          "clics": 844
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 71.56,
+          "impresiones": 3446,
+          "clics": 108
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-10",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 80.67,
+          "impresiones": 5328,
+          "clics": 205
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 373.12,
+          "impresiones": 105769,
+          "clics": 832
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 59.16,
+          "impresiones": 3907,
+          "clics": 74
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-11",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 120.17,
+          "impresiones": 8339,
+          "clics": 312
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 444.79,
+          "impresiones": 116355,
+          "clics": 869
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 83.03,
+          "impresiones": 5358,
+          "clics": 111
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-12",
+      "cuentas": {
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 82.08,
+          "impresiones": 6771,
+          "clics": 191
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 386.25,
+          "impresiones": 101595,
+          "clics": 726
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 70.42,
+          "impresiones": 4739,
+          "clics": 78
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-13",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 27.85,
+          "impresiones": 5283,
+          "clics": 91
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 127.38,
+          "impresiones": 11698,
+          "clics": 323
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 423.65,
+          "impresiones": 104095,
+          "clics": 945
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 98.7,
+          "impresiones": 6819,
+          "clics": 173
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-14",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 17.37,
+          "impresiones": 2224,
+          "clics": 62
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 140.9,
+          "impresiones": 14080,
+          "clics": 372
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 432.0,
+          "impresiones": 118600,
+          "clics": 1110
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 116.26,
+          "impresiones": 8233,
+          "clics": 220
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-15",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 47.6,
+          "impresiones": 5310,
+          "clics": 107
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 144.57,
+          "impresiones": 12470,
+          "clics": 350
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 420.48,
+          "impresiones": 121147,
+          "clics": 971
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 114.65,
+          "impresiones": 7297,
+          "clics": 157
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-16",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 57.83,
+          "impresiones": 3822,
+          "clics": 72
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 134.03,
+          "impresiones": 10981,
+          "clics": 308
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 420.05,
+          "impresiones": 109596,
+          "clics": 1023
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 115.77,
+          "impresiones": 7744,
+          "clics": 187
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-17",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 67.8,
+          "impresiones": 4994,
+          "clics": 112
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 134.43,
+          "impresiones": 10835,
+          "clics": 332
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 410.08,
+          "impresiones": 90729,
+          "clics": 939
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 109.71,
+          "impresiones": 6752,
+          "clics": 158
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-18",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 59.3,
+          "impresiones": 5045,
+          "clics": 94
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 179.17,
+          "impresiones": 15816,
+          "clics": 439
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 404.76,
+          "impresiones": 60388,
+          "clics": 870
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 144.9,
+          "impresiones": 8742,
+          "clics": 216
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-19",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 55.7,
+          "impresiones": 4388,
+          "clics": 104
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 158.64,
+          "impresiones": 13040,
+          "clics": 397
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 424.11,
+          "impresiones": 57328,
+          "clics": 847
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 127.34,
+          "impresiones": 6446,
+          "clics": 193
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-20",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 50.27,
+          "impresiones": 4035,
+          "clics": 88
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 152.23,
+          "impresiones": 12070,
+          "clics": 415
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 407.9,
+          "impresiones": 54078,
+          "clics": 778
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 115.13,
+          "impresiones": 5987,
+          "clics": 185
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-21",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 48.7,
+          "impresiones": 4142,
+          "clics": 104
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 128.97,
+          "impresiones": 11461,
+          "clics": 317
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 418.26,
+          "impresiones": 53521,
+          "clics": 853
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 98.44,
+          "impresiones": 4570,
+          "clics": 134
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-22",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 47.09,
+          "impresiones": 3725,
+          "clics": 87
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 130.1,
+          "impresiones": 10940,
+          "clics": 322
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 391.86,
+          "impresiones": 51647,
+          "clics": 820
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 69.31,
+          "impresiones": 3983,
+          "clics": 125
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-23",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 42.27,
+          "impresiones": 3510,
+          "clics": 87
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 128.68,
+          "impresiones": 11547,
+          "clics": 340
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 377.59,
+          "impresiones": 61832,
+          "clics": 881
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 42.47,
+          "impresiones": 3296,
+          "clics": 69
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-24",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 46.61,
+          "impresiones": 3541,
+          "clics": 113
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 124.51,
+          "impresiones": 12511,
+          "clics": 331
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 350.22,
+          "impresiones": 58259,
+          "clics": 834
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 43.31,
+          "impresiones": 2933,
+          "clics": 86
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-25",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 60.45,
+          "impresiones": 5718,
+          "clics": 127
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 152.69,
+          "impresiones": 15863,
+          "clics": 435
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 428.03,
+          "impresiones": 77894,
+          "clics": 1077
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 59.07,
+          "impresiones": 4468,
+          "clics": 104
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-26",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 50.49,
+          "impresiones": 4399,
+          "clics": 92
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 140.03,
+          "impresiones": 12308,
+          "clics": 345
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 438.37,
+          "impresiones": 61213,
+          "clics": 958
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 50.6,
+          "impresiones": 3206,
+          "clics": 79
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-27",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 56.38,
+          "impresiones": 5465,
+          "clics": 133
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 137.1,
+          "impresiones": 12783,
+          "clics": 328
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 428.28,
+          "impresiones": 62790,
+          "clics": 990
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 52.11,
+          "impresiones": 3830,
+          "clics": 99
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-28",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 50.93,
+          "impresiones": 4304,
+          "clics": 125
+        },
+        "Windmar Florida by WindmarHome": {
+          "gasto": 55.68,
+          "impresiones": 2642,
+          "clics": 40
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 150.25,
+          "impresiones": 12396,
+          "clics": 351
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 421.36,
+          "impresiones": 58553,
+          "clics": 993
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 52.28,
+          "impresiones": 2783,
+          "clics": 78
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-29",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 49.18,
+          "impresiones": 4087,
+          "clics": 118
+        },
+        "Windmar Florida by WindmarHome": {
+          "gasto": 112.63,
+          "impresiones": 4378,
+          "clics": 69
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 135.58,
+          "impresiones": 9274,
+          "clics": 329
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 351.03,
+          "impresiones": 38513,
+          "clics": 758
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 47.92,
+          "impresiones": 3141,
+          "clics": 82
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-30",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 42.25,
+          "impresiones": 3518,
+          "clics": 86
+        },
+        "Windmar Florida by WindmarHome": {
+          "gasto": 162.66,
+          "impresiones": 5598,
+          "clics": 82
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 134.61,
+          "impresiones": 13128,
+          "clics": 430
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 315.82,
+          "impresiones": 31967,
+          "clics": 658
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 45.37,
+          "impresiones": 2511,
+          "clics": 105
+        }
+      }
+    },
+    {
+      "fecha": "2026-10-31",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 40.27,
+          "impresiones": 3497,
+          "clics": 105
+        },
+        "Windmar Florida by WindmarHome": {
+          "gasto": 146.08,
+          "impresiones": 5708,
+          "clics": 59
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 117.29,
+          "impresiones": 8214,
+          "clics": 276
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 334.99,
+          "impresiones": 35557,
+          "clics": 688
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 42.64,
+          "impresiones": 2988,
+          "clics": 109
+        }
+      }
+    },
+    {
+      "fecha": "2026-11-01",
+      "cuentas": {
+        "Windmar Anker by WindmarHome": {
+          "gasto": 5.17,
+          "impresiones": 600,
+          "clics": 15
+        },
+        "Windmar Florida by WindmarHome": {
+          "gasto": 186.15,
+          "impresiones": 8316,
+          "clics": 102
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 107.56,
+          "impresiones": 9357,
+          "clics": 342
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 357.37,
+          "impresiones": 49396,
+          "clics": 797
+        },
+        "Windmar Water by WindmarHome": {
+          "gasto": 4.31,
+          "impresiones": 303,
+          "clics": 5
+        }
+      }
+    },
+    {
+      "fecha": "2026-11-02",
+      "cuentas": {
+        "Windmar Florida by WindmarHome": {
+          "gasto": 161.51,
+          "impresiones": 9602,
+          "clics": 91
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 86.99,
+          "impresiones": 7660,
+          "clics": 251
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 333.9,
+          "impresiones": 51518,
+          "clics": 721
+        }
+      }
+    },
+    {
+      "fecha": "2026-11-03",
+      "cuentas": {
+        "Windmar Florida by WindmarHome": {
+          "gasto": 19.65,
+          "impresiones": 985,
+          "clics": 9
+        },
+        "Windmar Roofing by WindmarHome": {
+          "gasto": 3.5,
+          "impresiones": 254,
+          "clics": 5
+        },
+        "Windmar Solar by WindmarHome": {
+          "gasto": 11.12,
+          "impresiones": 1087,
+          "clics": 29
+        }
+      }
+    }
+  ]
+}
