@@ -77,6 +77,12 @@ h1 .o{color:var(--orange)}
 .item .tx{font-family:var(--body);color:#fff}
 .item .tt{font-weight:800;font-size:3.5cqw;letter-spacing:.06cqw;text-transform:uppercase;line-height:1.05}
 .item .ds{font-weight:600;font-size:2.9cqw;line-height:1.28;color:rgba(255,255,255,.82);margin-top:.6cqw}
+/* Lámina de lista con titular de tres líneas y un punto largo: la etiqueta de arriba
+   se pegaba al titular. «sep» deja aire bajo la etiqueta y lo recupera achicando un
+   poco el titular y el espacio entre puntos, para que la barra de marca no se salga. */
+.piece.sep .tagrow{margin-bottom:5cqw}
+.piece.sep .listhead{font-size:8.6cqw}
+.piece.sep .items{margin-top:3.5cqw;gap:2.6cqw}
 .vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
 .vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
 .vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
@@ -258,13 +264,15 @@ function renderGallery(cards, containerId){
    Studio. Lámina 2: «consume» (punto 3) y «necesitas y cómo ubicarlas» (punto 4).
    Lámina 3: titular «sin diseño», «una brigada» y «ya se sabe». Falta por aplicar la
    marca «esta repetido»: Studio no dice a qué lámina ni a qué texto apunta. El texto
-   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano. */
+   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano.
+   3 de noviembre, 3 PM: Nicolle pidió separar la etiqueta «Lo que se decide primero»
+   del titular en la lámina 2; por eso esa lámina lleva la clase «sep». */
 const DISENO=[
   { id:'nov-diseno-1', cls:'', chip:'Diseño · Antes de instalar', imgSlot:true, bg:'img/pr-solar-vecindario-placas.png', type:'headline', overlay:true,
     kicker:'Antes de que llegue la brigada',
     headline:'LO QUE SE VE<br>Y LO QUE <span class="hl">NO SE VE</span>',
     desc:'Cuando ves placas en un techo, ya pasó la parte más importante: alguien decidió dónde va cada una y por qué.' },
-  { id:'nov-diseno-2', cls:'data', chip:'Lo que se decide primero', blue:true, type:'list', overlay:true,
+  { id:'nov-diseno-2', cls:'data sep', chip:'Lo que se decide primero', blue:true, type:'list', overlay:true,
     listhead:'CUATRO COSAS QUE<br>SE DECIDEN <span class="hl">ANTES</span><br>DE SUBIR AL TECHO',
     items:[
       { n:'1', tt:'Hacia dónde mira tu techo', ds:'La orientación cambia cuánto produce el sistema cada día.' },
