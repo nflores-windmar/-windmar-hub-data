@@ -1,148 +1,283 @@
 {
   "cuenta": "windmar-home",
-  "capturado": "2026-10-27",
+  "capturado": "2026-11-03",
   "ventana": {
-    "desde": "2026-09-29",
-    "hasta": "2026-10-26",
+    "desde": "2026-10-06",
+    "hasta": "2026-11-02",
     "dias": 28
   },
   "nota_alcance": "Facebook NO trae alcance por pieza: Meta retiró post_impressions. Donde dice null es eso, no un cero.",
+  "nota_hora": "`fecha` y `hora` van en hora de PUERTO RICO (AST, UTC-4). Meta las da en UTC y aquí se convierten. OJO: los archivos capturados ANTES del 3 de noviembre de 2026 traen la hora en UTC, porque se cortaba el huso al guardarla — ahí hay que restar 4 horas para leerlas.",
   "piezas": [
     {
       "red": "Instagram",
-      "fecha": "2026-09-29",
-      "hora": "18:01",
-      "alcance": 621,
-      "interacciones": 52,
-      "texto": "Energía que trabaja tan duro como tu negocio.\nCo"
-    },
-    {
-      "red": "Instagram",
-      "fecha": "2026-09-30",
-      "hora": "15:01",
-      "alcance": 858,
-      "interacciones": 49,
-      "texto": "Desde el 2024 en WHF nos enfocamos en algo bien "
-    },
-    {
-      "red": "Instagram",
-      "fecha": "2026-10-02",
-      "hora": "17:30",
-      "alcance": 964,
-      "interacciones": 66,
-      "texto": "Agua limpia, directo del grifo. Así de simple.\nC"
-    },
-    {
-      "red": "Instagram",
-      "fecha": "2026-10-04",
-      "hora": "14:31",
-      "alcance": 556,
-      "interacciones": 31,
-      "texto": "Tu techo es la primera linea de defensa de tu ho"
-    },
-    {
-      "red": "Instagram",
       "fecha": "2026-10-06",
-      "hora": "14:31",
-      "alcance": 967,
+      "hora": "10:31",
+      "alcance": 996,
       "interacciones": 52,
-      "texto": "Prepárate para ahorrar con nosotros. Tu casa est"
+      "tipo": "VIDEO",
+      "texto": "Prepárate para ahorrar con nosotros. Tu casa está ready, solo faltas tú. Menos facturas, menos apagones, más control. windmar.com"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-06",
+      "hora": "15:30",
+      "alcance": null,
+      "interacciones": 232,
+      "tipo": "video",
+      "texto": "Prepárate para ahorrar con nosotros. Tu casa está ready, solo faltas tú. Cada mes la factura de luz sube y los apagones siguen llegando sin avisar. Con un sistema solar de WindMar Home tu hogar produce su propia energía durante el día y te da respaldo cuando la red falla, para que no dependas de lo que pase afuera. Menos gasto, más control y la tranquilidad de saber que tu familia está cubierta. Da el paso hoy: visítanos en windmar.com o llámanos y déjanos diseñar la solución para tu casa #WindMarHome #SomosMasQuePlacas #EquipoWM #CulturaDeEmpresa #TrabajoConProposito #PuertoRico"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-08",
-      "hora": "16:01",
-      "alcance": 819,
+      "hora": "12:01",
+      "alcance": 852,
       "interacciones": 44,
-      "texto": "Lo que no se ve de una instalacion: el almacen. "
+      "tipo": "VIDEO",
+      "texto": "Lo que no se ve de una instalacion: el almacen. Inventario propio para no dejarte esperando. #WindMarHome #PuertoRico #Almacen #TrasCamara"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-09",
-      "hora": "15:20",
-      "alcance": 503,
+      "hora": "11:20",
+      "alcance": 529,
       "interacciones": 25,
-      "texto": "Antes de instalar una sola placa, visitamos tu h"
+      "tipo": "CAROUSEL_ALBUM",
+      "texto": "Antes de instalar una sola placa, visitamos tu hogar y evalua todo: estructura, orientacion, sombra, consumo. Asi garantizamos que tu sistema sea perfecto para TU casa.\n Somos mas que placas.\n \n#WindMarHome #SomosMasQuePlacas #EnergiaSolar #SolarPR #SurveyTecnico #PlacasSolares #InstalacionSolar"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-09",
+      "hora": "12:30",
+      "alcance": null,
+      "interacciones": 20,
+      "tipo": "photo",
+      "texto": "Antes de instalar una sola placa, Francisco visita tu hogar y evalúa todo: estructura, orientación, sombra, consumo. Así garantizamos que tu sistema sea perfecto para tu casa. Desliza para ver cada paso del survey. Visitanos en windmar.com"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-11",
+      "hora": "13:30",
+      "alcance": null,
+      "interacciones": 17,
+      "tipo": "photo",
+      "texto": "¿Cómo funciona una cisterna?\nTu casa guarda su reserva de agua.\nLa bomba devuelve la presión.\nEl agua sale limpia.\nSigues con agua aunque falte el servicio.\nPide tu evaluación gratis para tu hogar. Llama al 787-395-7766 o visita windmar.com."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-11",
-      "hora": "17:30",
-      "alcance": 377,
+      "hora": "13:30",
+      "alcance": 400,
       "interacciones": 19,
-      "texto": "¿Sabes cómo funciona una cisterna? Desliza y mir"
+      "tipo": "CAROUSEL_ALBUM",
+      "texto": "¿Sabes cómo funciona una cisterna? Desliza y mira el paso a paso.\nTu casa guarda su reserva de agua. La bomba devuelve la presión. El agua sale limpia. Y sigues con agua aunque falte el servicio.\nCoordina tu evaluación gratis para tu hogar. Escríbenos o llama al 787-395-7766. windmar.com\n#WindMarWater #Cisterna #AguaParaTuHogar #PuertoRico #ComoFuncionaUnaCisterna"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-12",
-      "hora": "14:55",
-      "alcance": 263,
+      "hora": "10:55",
+      "alcance": 278,
       "interacciones": 24,
-      "texto": "no firmes sin saber. Dejanos orientarte\n\n#Placas"
+      "tipo": "CAROUSEL_ALBUM",
+      "texto": "no firmes sin saber. Dejanos orientarte\n\n#PlacasSolares #CotizacionSolar #EnergiaSolar #SolarPR #PuertoRico #PlacasSolaresPR #EnergiaRenovable #AhorroDeEnergia #WindMarHome #somosmasqueplacas"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-12",
+      "hora": "15:30",
+      "alcance": null,
+      "interacciones": 67,
+      "tipo": "album",
+      "texto": "Antes de firmar, compara. Y trae la otra cotización.\n\nCuatro números cambian de una cotización a otra: el precio por\nvatio, la marca del inversor, si el techo va incluido, y quién te\ncontesta el teléfono en el año tres.\n\nEse último es el que casi nadie mira.\n\nTráenos la cotización que tengas. La leemos contigo y te decimos\nqué le falta, aunque termines firmando con otro.\n\nEvaluación gratis, sin compromiso.\n787-395-7766 · windmar.com\n\n#WindMarHome #PuertoRico"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-13",
-      "hora": "14:31",
-      "alcance": 889,
+      "hora": "10:31",
+      "alcance": 920,
       "interacciones": 92,
-      "texto": "Tranquilo, nosotros nos encargamos. Te explicamo"
+      "tipo": "VIDEO",
+      "texto": "Tranquilo, nosotros nos encargamos. Te explicamos paso a paso como WindMar Home maneja todos lo pasos para que no tengas que preocuparte por nada. #WindMarHome #SomosMasQuePlacas #EnergiaSolar #SolarPR #SinComplicaciones #roofing"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-13",
+      "hora": "15:31",
+      "alcance": null,
+      "interacciones": 188,
+      "tipo": "video",
+      "texto": "Tranquilo, nosotros nos encargamos. Te explicamos paso a paso como WindMar Home maneja todos lo pasos para que no tengas que preocuparte por nada. #WindMarHome #SomosMasQuePlacas #EnergiaSolar #SolarPR #SinComplicaciones #roofing"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-14",
+      "hora": "10:00",
+      "alcance": null,
+      "interacciones": 30,
+      "tipo": "photo",
+      "texto": "Así funciona una placa solar, paso a paso. \n\nEl sol toca tu placa. Todo empieza cuando la luz del sol llega a la superficie de la placa.\nLa placa atrapa más luz del sol. Cada celda capta esa luz para aprovecharla.\nLa energía queda lista para mover tu hogar. La luz se convierte en electricidad que tu casa puede usar.\nSigue rindiendo hasta en días nublados. Un cielo gris no la detiene.\nEs mucho más que un vidrio. Por fuera, un vidrio templado y un marco de aluminio protegen las celdas del sol, la lluvia y el viento. Por dentro, las celdas convierten la luz en electricidad. Y los cables y las conexiones llevan esa energía hasta tu hogar.\nEstá hecha para durar años.\nPon el sol a trabajar por ti. Visítanos en windmar.com o llama al 787-395-7766."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-14",
-      "hora": "14:00",
-      "alcance": 513,
+      "hora": "10:00",
+      "alcance": 537,
       "interacciones": 31,
-      "texto": "Así funciona una placa solar, paso a paso:\nEl so"
+      "tipo": "CAROUSEL_ALBUM",
+      "texto": "Así funciona una placa solar, paso a paso:\nEl sol toca tu placa.\nLa placa atrapa la luz del sol.\nLa energía queda lista para mover tu hogar.\nSigue rindiendo hasta en días nublados.\nPor fuera, un vidrio templado, por dentro las celdas convierten la luz en electricidad. \nEstá hecha para durar 25 años.\nPon el sol a trabajar por ti. Visítanos en windmar.com o llama al 787-395-7766 .#WindMarHome #EnergiaSolar #PlacasSolares #PuertoRico #EnergiaRenovable #ComoFuncionaUnaPlacaSolar #SolarPR #AhorroDeEnergia"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-14",
-      "hora": "14:36",
-      "alcance": 1341,
+      "hora": "10:36",
+      "alcance": 1384,
       "interacciones": 93,
-      "texto": "Katiria nos da un tour por el showroom para que "
+      "tipo": "VIDEO",
+      "texto": "Katiria nos da un tour por el showroom para que conozcas de cerca lo que WindMar Home hace para tu hogar.\nVisítanos, la puerta siempre está abierta."
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-14",
+      "hora": "10:36",
+      "alcance": null,
+      "interacciones": 366,
+      "tipo": "video",
+      "texto": "Katiria nos da un tour por el showroom para que conozcas de cerca lo que WindMar Home hace para tu hogar.\nVisítanos, la puerta siempre está abierta."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-15",
-      "hora": "15:09",
-      "alcance": 630,
+      "hora": "11:09",
+      "alcance": 668,
       "interacciones": 18,
-      "texto": "Cuando empieza a llover, tu techo no espera. Un "
+      "tipo": "VIDEO",
+      "texto": "Cuando empieza a llover, tu techo no espera. Un sello a tiempo es lo que separa una gotera de un problema grande y costoso. En WindMar Home sellamos con precisión, para que la temporada de lluvia te tenga tranquilo y no buscando con cubos. Es hora de sellar, hazlo a la segura."
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-15",
+      "hora": "11:11",
+      "alcance": null,
+      "interacciones": 21,
+      "tipo": "video",
+      "texto": "Cuando empieza a llover, tu techo no espera. Un sello a tiempo es lo que separa una gotera de un problema grande y costoso. En WindMar Home sellamos con precisión, para que la temporada de lluvia te agarre tranquilo y no corriendo con cubetas. Es hora de sellar, hazlo a la segura."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-16",
-      "hora": "14:31",
-      "alcance": 1392,
-      "interacciones": 100,
-      "texto": "Asi se ve WindMar en accion: Rafael y el equipo "
+      "hora": "10:31",
+      "alcance": 1450,
+      "interacciones": 101,
+      "tipo": "VIDEO",
+      "texto": "Asi se ve WindMar en accion: Rafael y el equipo en la calle, tocando puertas y llevando soluciones solares a cada comunidad.\nDonde hay sol, hay oportunidad.\nwindmar.com | Nuestra misión es estar con el cliente paso a paso"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-16",
+      "hora": "15:30",
+      "alcance": null,
+      "interacciones": 247,
+      "tipo": "video",
+      "texto": "Asi se ve WindMar en accion: Rafael y el equipo en la calle, tocando puertas y llevando soluciones solares a cada comunidad.\nDonde hay sol, hay oportunidad.\nwindmar.com | Nuestra misión es estar con el cliente paso a paso"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-18",
+      "hora": "12:30",
+      "alcance": null,
+      "interacciones": 69,
+      "tipo": "album",
+      "texto": "La luz subió. De 28.57¢ a 33.86¢ el kilovatio hora, de octubre a diciembre.\n\nPara una casa de consumo promedio eso son unos $42 más al mes. Y va a\nseguir subiendo.\n\nEsa factura la vas a pagar igual. La única decisión que te queda es\na quién.\n\nSi quieres ver qué pasaría con ese mismo dinero puesto en un sistema\nsolar, corre tus números con tu factura en mano: ready.windmar.com\n\nEvaluación gratis, sin compromiso. 787-395-7766\n\nEl estimado de $42 es para un cliente residencial promedio sin subsidio,\n800 kWh, de octubre a diciembre de 2026.\n\n#WindMarHome #PuertoRico"
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-20",
-      "hora": "14:30",
-      "alcance": 686,
-      "interacciones": 34,
-      "texto": "Detrás de cada proyecto hay un equipo que instal"
+      "hora": "10:30",
+      "alcance": 764,
+      "interacciones": 35,
+      "tipo": "VIDEO",
+      "texto": "Detrás de cada proyecto hay un equipo que instala, revisa y da seguimiento hasta que todo queda bien. Esa es la diferencia: no te vendemos un producto, te acompañamos. Somos más que placas, somos tu equipo en casa."
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-20",
+      "hora": "15:30",
+      "alcance": null,
+      "interacciones": 25,
+      "tipo": "video",
+      "texto": "Detrás de cada proyecto hay un equipo que instala, revisa y da seguimiento hasta que todo queda bien. Esa es la diferencia: no te vendemos un producto, te acompañamos. Somos más que placas, somos tu equipo en casa. Conócenos en windmar.com."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-21",
-      "hora": "14:31",
-      "alcance": 826,
-      "interacciones": 50,
-      "texto": "Instalar es solo el comienzo. Jean nos explica c"
+      "hora": "10:31",
+      "alcance": 881,
+      "interacciones": 51,
+      "tipo": "VIDEO",
+      "texto": "Instalar es solo el comienzo. Jean nos explica como WindMar Home te acompaña ANTES, DURANTE y DESPUES de la instalación. Nuestro compromiso no termina cuando se prende el sistema, te acompañamos paso a paso."
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-21",
+      "hora": "15:31",
+      "alcance": null,
+      "interacciones": 125,
+      "tipo": "video",
+      "texto": "Instalar es solo el comienzo. Jean nos explica como WindMar Home te acompaña ANTES, DURANTE y DESPUES de la instalación. Nuestro compromiso no termina cuando se prende el sistema, te acompañamos paso a paso."
     },
     {
       "red": "Instagram",
       "fecha": "2026-10-23",
-      "hora": "14:31",
-      "alcance": 967,
-      "interacciones": 112,
-      "texto": "En WindMar Home el primer día importa. Yara te m"
+      "hora": "10:31",
+      "alcance": 1078,
+      "interacciones": 116,
+      "tipo": "VIDEO",
+      "texto": "En WindMar Home el primer día importa. Yara te muestra cómo recibimos a cada persona nueva del equipo: con propósito y con ganas.\nAquí no solo instalamos, formamos equipo.\nwindmar.com | Somos más que placas"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-23",
+      "hora": "15:30",
+      "alcance": null,
+      "interacciones": 241,
+      "tipo": "video",
+      "texto": "En WindMar Home el primer día importa. Yara te muestra cómo recibimos a cada persona nueva del equipo: con propósito y con ganas.\nAquí no solo instalamos, formamos equipo.\nwindmar.com |"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-27",
+      "hora": "10:32",
+      "alcance": 678,
+      "interacciones": 23,
+      "tipo": "VIDEO",
+      "texto": "La luz subió otra vez: de 28.57¢ a 33.86¢ el kWh, de octubre a diciembre.\n\nEsa factura la pagas igual. Con ese mismo dinero, tu sistema solar se salda\nen poco más de cinco años — y del año seis en adelante la energía es tuya.\n\nCorre tus números con tu factura en mano: ready.windmar.com\n\nEjemplo con una factura de $350 al mes. Tu número sale de tu factura real."
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-27",
+      "hora": "15:31",
+      "alcance": null,
+      "interacciones": 26,
+      "tipo": "video",
+      "texto": "La luz subió otra vez. De 28.57¢ a 33.86¢ el kilovatio hora, de octubre\na diciembre.\n\nEsa factura la vas a pagar igual. La pregunta es a quién.\n\nCon lo que hoy le pagas a la luz, un sistema solar se salda en poco más de\ncinco años. Del año seis en adelante, esa energía es tuya.\n\nNo es un gasto nuevo. Es el mismo dinero, puesto en algo que al final\nes tuyo.\n\nCorre tus números con tu factura en mano: ready.windmar.com\nO llámanos al 787-395-7766. Evaluación gratis, sin compromiso.\n\nEl ejemplo del video usa una factura de $350 al mes. Tu número sale de\ntu factura real."
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-28",
+      "hora": "10:31",
+      "alcance": 717,
+      "interacciones": 38,
+      "tipo": "VIDEO",
+      "texto": "Anissa Ortega, nuestra Roofing and Water Ops Manager, lo resume así: el trabajo se hace bien, pero contigo al lado.\n \nSu equipo te acompaña paso a paso — antes, durante y mucho después. Porque tu casa no es un proyecto más, es tu hogar.\n \nSomos más que placas. Estamos contigo.\n \nwindmar.com\n \n#WindMarHome #SomosMásQuePlacas #ContigoPasoAPaso #Roofing #AguaLimpia #PuertoRico #HogarProtegido"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-10-28",
+      "hora": "15:31",
+      "alcance": null,
+      "interacciones": 31,
+      "tipo": "video",
+      "texto": "Anissa Ortega, nuestra Roofing and Water Ops Manager, lo resume así: el trabajo se hace bien, pero contigo al lado.\n \nSu equipo te acompaña paso a paso — antes, durante y mucho después. Porque tu casa no es un proyecto más, es tu hogar.\n \nSomos más que placas. Estamos contigo. windmarOrganico_testimonioanissa_oct28\nBuenas tardes, hay un comentario aquí de anissa me gusto bastante cual pienso que seria bueno documentarlo\nme confirman que piensan Manuel Pales Jaime \"Pichu\" Diaz Caban\n \nCaption: Anissa Ortega, nuestra Roofing and Water Ops Manager, lo resume así: el trabajo se hace bien, pero contigo al lado.\n \nSu equipo te acompaña paso a paso — antes, durante y mucho después. Porque tu casa no es un proyecto más, es tu hogar.\n \nSomos más que placas. Estamos contigo.\n \nwindmar.com\n \n#WindMarHome #SomosMásQuePlacas #ContigoPasoAPaso #Roofing #AguaLimpia #PuertoRico #HogarProtegido\nanissa 2_1.mp4\n .com"
     }
   ]
 }

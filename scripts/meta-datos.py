@@ -471,8 +471,13 @@ def posts(cuenta_id, dias=28):
         # que NO HAY ALCANCE POR PIEZA en Facebook. Lo que sí devuelve son
         # reacciones, clics y reproducciones — suficiente para comparar piezas
         # entre sí, pero no para decir a cuánta gente llegó cada una.
+        # OJO con `type`: Meta lo deprecó («deprecate_post_aggregated_fields_
+        # _for_attachement») y pedirlo hace fallar la llamada ENTERA, no solo
+        # ese campo — por eso en noviembre de 2026 no salía ni una pieza de
+        # Facebook y parecía que no se publicaba nada. El formato ahora sale de
+        # attachments.media_type.
         datos, err = pedir(f"{pid}/posts", {
-            "fields": "id,created_time,message,type,"
+            "fields": "id,created_time,message,attachments{media_type},"
                       "insights.metric(post_reactions_by_type_total,"
                       "post_clicks,post_video_views)",
             "since": str(since), "until": str(hasta), "limit": 100}, ptok)
@@ -489,8 +494,10 @@ def posts(cuenta_id, dias=28):
                 t = enPuertoRico(p["created_time"])
                 # El alcance va a None, no a 0: no es que llegara a nadie, es
                 # que Meta ya no lo dice. Poner 0 sería inventar un dato.
+                adj = (p.get("attachments", {}).get("data") or [{}])[0]
+                tipo = adj.get("media_type") or ""
                 filas.append(("Facebook", t, None, inter,
-                              p.get("message") or "", p.get("type") or ""))
+                              p.get("message") or "", tipo))
 
     # --- Instagram
     igid = c.get("ig_id")
@@ -557,11 +564,19 @@ def posts(cuenta_id, dias=28):
         dela = [f for f in filas if f[0] == red]
         if not dela:
             continue
-        print(f"\n  {red}")
         franjas = {}
-        for _, t, alc, _, _ in dela:
+        # Las filas traen 6 campos (red, fecha, alcance, interacciones, texto,
+        # tipo). Y el alcance de Facebook viene None, porque Meta retiró
+        # post_impressions: esas piezas no entran en el promedio, no valen cero.
+        for _, t, alc, _, _, _ in dela:
+            if alc is None:
+                continue
             k = f"{t.hour // 2 * 2:02d}:00–{t.hour // 2 * 2 + 2:02d}:00"
             franjas.setdefault(k, []).append(alc)
+        if not franjas:
+            print(f"\n  {red} — sin alcance por pieza (Meta no lo da)")
+            continue
+        print(f"\n  {red}")
         for k in sorted(franjas):
             v = franjas[k]
             print(f"     {k}   {sum(v) // len(v):>7} de alcance promedio   "

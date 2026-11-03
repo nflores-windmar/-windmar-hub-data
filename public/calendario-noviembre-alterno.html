@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noviembre — calendario alterno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#0f2742; --azul:#1d4e89; --linea:#c9d8e8; --papel:#fbfdff;
+  --naranja:#FE9400; --suave:#eef4fa; --gris:#566b82;
+  --ok:#1b7a4b; --mal:#b4341f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:Montserrat,system-ui,sans-serif;font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 16px 80px}
+
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,6vw,62px);
+  line-height:.92;letter-spacing:.01em;margin:0 0 6px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.02em;
+  margin:52px 0 14px;padding-bottom:7px;border-bottom:2px solid var(--tinta)}
+h3{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--azul);margin:26px 0 10px}
+p{margin:0 0 14px;max-width:72ch}
+.sub{color:var(--gris);font-size:14px;margin-bottom:28px}
+.sub b{color:var(--tinta)}
+
+.aviso{border:2px solid var(--naranja);background:#fff8ef;border-radius:3px;
+  padding:16px 18px;margin:22px 0}
+.aviso p:last-child{margin-bottom:0}
+
+table{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--gris);font-weight:700;padding:0 10px 7px;border-bottom:2px solid var(--tinta);
+  white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--linea);vertical-align:top}
+tbody tr:hover{background:var(--suave)}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.dia{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.03em;
+  white-space:nowrap;color:var(--azul)}
+.gana{font-weight:700;color:var(--ok)}
+.pierde{color:var(--mal)}
+.nota{font-size:12.5px;color:var(--gris);max-width:70ch;margin:4px 0 0}
+
+.et{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;
+  padding:2px 7px;border-radius:2px;border:1px solid var(--linea);
+  background:#fff;white-space:nowrap}
+.ig{border-color:#c4a0c8;background:#faf2fb}
+.fb{border-color:#9fb8da;background:#f0f5fc}
+.falta{border-color:var(--naranja);background:#fff2e0;color:#8a4e00}
+.hora{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+
+.cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:18px 0}
+.caja{border:1px solid var(--linea);border-radius:3px;padding:14px 16px;background:#fff}
+.caja .k{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--azul)}
+.caja .k small{font-family:Montserrat,sans-serif;font-size:14px;font-weight:600;color:var(--gris)}
+.caja .d{font-size:12.5px;color:var(--gris);margin-top:5px}
+
+footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--linea);
+  font-size:12.5px;color:var(--gris)}
+@media (max-width:720px){
+  table{font-size:13px} th,td{padding:7px 6px}
+  .ocultable{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Noviembre — calendario alterno</h1>
+<p class="sub">19 piezas de <b>WindMar Home</b>. Propuesta de cambios, contra la evidencia
+del <b>6 de octubre al 2 de noviembre de 2026</b> (30 piezas medidas).
+Esto <b>no toca Studio</b>: es para decidir antes de mover nada.</p>
+
+<div class="aviso">
+  <p><b>Lo que hay hoy:</b> los 8 carruseles del mes van <b>solo a Facebook</b>
+  — Instagram no recibe ni uno. Y 5 reels van <b>solo a Instagram</b>.</p>
+  <p>Los datos no respaldan ese reparto, y en Facebook apuntan al revés.</p>
+</div>
+
+<h2>La evidencia</h2>
+
+<h3>Facebook — mediana de interacciones por formato</h3>
+<table>
+<thead><tr><th>Formato</th><th class="num">Piezas</th><th class="num">Interacciones</th><th class="ocultable">Lectura</th></tr></thead>
+<tbody>
+<tr><td><b>Reel / video</b></td><td class="num">10</td><td class="num gana">156</td><td class="ocultable">el mejor formato de Facebook</td></tr>
+<tr><td>Carrusel / álbum</td><td class="num">2</td><td class="num">68</td><td class="ocultable">menos de la mitad</td></tr>
+<tr><td>Foto</td><td class="num">3</td><td class="num">20</td><td class="ocultable">lo más flojo</td></tr>
+</tbody>
+</table>
+<p class="nota">Facebook <b>no da alcance por pieza</b> — Meta retiró <code>post_impressions</code>.
+Aquí solo se comparan interacciones, y un formato que llega a más gente muestra más
+interacciones por eso mismo. La muestra de carruseles son <b>dos piezas</b>: alcanza para
+dudar del reparto, no para cerrar el caso.</p>
+
+<h3>Instagram — mediana por formato</h3>
+<table>
+<thead><tr><th>Formato</th><th class="num">Piezas</th><th class="num">Alcance</th><th class="num">Interacciones</th></tr></thead>
+<tbody>
+<tr><td><b>Reel / video</b></td><td class="num">11</td><td class="num gana">881</td><td class="num gana">51</td></tr>
+<tr><td>Carrusel</td><td class="num">4</td><td class="num">464</td><td class="num">24</td></tr>
+</tbody>
+</table>
+
+<h3>La misma pieza, el mismo día, en las dos redes</h3>
+<table>
+<thead><tr><th>Fecha</th><th>Formato</th><th class="num">Instagram</th><th class="num">Facebook</th><th class="ocultable"></th></tr></thead>
+<tbody>
+<tr><td>6 oct</td><td>Reel</td><td class="num">52</td><td class="num gana">232</td><td class="ocultable">×4,5</td></tr>
+<tr><td>13 oct</td><td>Reel</td><td class="num">92</td><td class="num gana">188</td><td class="ocultable">×2,0</td></tr>
+<tr><td>16 oct</td><td>Reel</td><td class="num">101</td><td class="num gana">247</td><td class="ocultable">×2,4</td></tr>
+<tr><td>21 oct</td><td>Reel</td><td class="num">51</td><td class="num gana">125</td><td class="ocultable">×2,5</td></tr>
+<tr><td>23 oct</td><td>Reel</td><td class="num">116</td><td class="num gana">241</td><td class="ocultable">×2,1</td></tr>
+<tr><td>12 oct</td><td>Carrusel</td><td class="num">24</td><td class="num gana">67</td><td class="ocultable">×2,8</td></tr>
+<tr><td>9 oct</td><td>Carrusel</td><td class="num">25</td><td class="num">20</td><td class="ocultable">parejo</td></tr>
+<tr><td>14 oct</td><td>Carrusel</td><td class="num">31</td><td class="num">30</td><td class="ocultable">parejo</td></tr>
+</tbody>
+</table>
+<p class="nota">En <b>ningún</b> caso un carrusel superó a un reel en Facebook. Y en octubre
+<b>13 de 15 piezas salieron en las dos redes</b> — el reparto por formato es nuevo, no es
+lo que produjo estos números.</p>
+
+<h2>Las horas</h2>
+<div class="cajas">
+  <div class="caja"><div class="k">10:30 <small>AM</small></div>
+    <div class="d"><b>Instagram</b>, todo formato.<br>Mañana 836 de alcance contra 626 de mediodía.</div></div>
+  <div class="caja"><div class="k">2:30 <small>PM</small></div>
+    <div class="d"><b>Facebook</b>, carrusel o foto.<br>Movido desde las 12:30 — ver abajo.</div></div>
+  <div class="caja"><div class="k">3:30 <small>PM</small></div>
+    <div class="d"><b>Facebook</b>, reel.<br>Tarde 1.241 contra 631 de mañana.</div></div>
+</div>
+
+<div class="aviso">
+  <p><b>Por qué 2:30 PM y no 12:30.</b> La regla medida dice 12:30 para el carrusel de
+  Facebook, pero también dice <b>mínimo cuatro horas entre las dos redes</b>. Si Instagram
+  sale 10:30 y Facebook 12:30, son dos. Las 2:30 PM respetan la separación y siguen dentro
+  de la franja de mediodía-tarde, que es la que rinde.</p>
+  <p><b>Ese cambio es un razonamiento mío, no un dato medido.</b> Las otras dos horas sí
+  salen de la medición.</p>
+</div>
+
+<h2>Las 19 piezas</h2>
+<table>
+<thead><tr>
+  <th>Día</th><th>Pieza</th><th class="ocultable">Producto</th>
+  <th>Hoy</th><th>Propuesta</th><th>Horas</th>
+</tr></thead>
+<tbody>
+<tr><td class="dia">04</td><td>Diseño — Jesús Pelayo <span class="et">Reel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et ig">IG</span> <span class="et fb">FB</span></td><td>sin cambio</td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">04</td><td>Lo que se ve y lo que no se ve <span class="et">Carrusel</span></td><td class="ocultable">WindMar Home</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">05</td><td>De dónde salen los equipos <span class="et">Carrusel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">09</td><td>VP Procurement — Andrés Billoch <span class="et">Reel</span></td><td class="ocultable">WindMar Home</td>
+  <td><span class="et ig">IG</span></td><td><span class="et falta">+ FB</span></td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">10</td><td>Anker Técnico — Jesús Medina <span class="et">Reel</span></td><td class="ocultable">Anker SOLIX</td>
+  <td><span class="et ig">IG</span> <span class="et fb">FB</span></td><td>sin cambio</td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">10</td><td>Anker con Jesús Medina — FB <span class="et">Reel</span></td><td class="ocultable">Anker SOLIX</td>
+  <td><span class="et fb">FB</span></td><td>sin cambio — es el par de la de abajo</td>
+  <td class="hora">3:30</td></tr>
+<tr><td class="dia">10</td><td>Anker con Jesús Medina — IG <span class="et">Reel</span></td><td class="ocultable">Anker SOLIX</td>
+  <td><span class="et ig">IG</span></td><td>sin cambio</td>
+  <td class="hora">10:30</td></tr>
+<tr><td class="dia">11</td><td>Batería: qué sigue encendido <span class="et">Carrusel</span></td><td class="ocultable">Anker SOLIX</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">12</td><td>Cómo se paga un sistema <span class="et">Carrusel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">13</td><td>WHF financiamiento — Julio y Andrés <span class="et">Reel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et ig">IG</span></td><td><span class="et falta">+ FB</span></td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">17</td><td>Roofing Técnico — Elliot Rodríguez <span class="et">Reel</span></td><td class="ocultable">Roofing</td>
+  <td><span class="et ig">IG</span> <span class="et fb">FB</span></td><td>sin cambio</td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">18</td><td>El techo antes que las placas <span class="et">Carrusel</span></td><td class="ocultable">Roofing</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">19</td><td>Antes de firmar, los 4 números <span class="et">Carrusel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">20</td><td>Solar Técnico — Carlos Alejandro <span class="et">Reel</span></td><td class="ocultable">Solar</td>
+  <td><span class="et ig">IG</span></td><td><span class="et falta">+ FB</span></td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">23</td><td>VP HR — Franco Alvarez <span class="et">Reel</span></td><td class="ocultable">WindMar Home</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">24</td><td>Entrevista José Alicea <span class="et">Reel</span></td><td class="ocultable">—</td>
+  <td><span class="et ig">IG</span> <span class="et fb">FB</span></td><td>sin cambio</td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">25</td><td>Víspera de Thanksgiving <span class="et">Carrusel</span></td><td class="ocultable">—</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+<tr><td class="dia">27</td><td>Water Técnico — David Fonseca <span class="et">Reel</span></td><td class="ocultable">Water</td>
+  <td><span class="et ig">IG</span></td><td><span class="et falta">+ FB</span></td>
+  <td class="hora">10:30 · 3:30</td></tr>
+<tr><td class="dia">30</td><td>Termina la temporada de huracanes <span class="et">Carrusel</span></td><td class="ocultable">Anker SOLIX</td>
+  <td><span class="et fb">FB</span></td><td><span class="et falta">+ IG</span></td>
+  <td class="hora">10:30 · 2:30</td></tr>
+</tbody>
+</table>
+
+<h2>Qué cambia</h2>
+<div class="cajas">
+  <div class="caja"><div class="k">13</div>
+    <div class="d">piezas a las que se les <b>añade una red</b>. Ninguna se quita de donde está.</div></div>
+  <div class="caja"><div class="k">+8</div>
+    <div class="d">carruseles que <b>Instagram</b> hoy no recibe.</div></div>
+  <div class="caja"><div class="k">+5</div>
+    <div class="d">reels que <b>Facebook</b> hoy no recibe — y el reel es su mejor formato.</div></div>
+  <div class="caja"><div class="k">0</div>
+    <div class="d">piezas nuevas que hay que producir. Es el mismo material.</div></div>
+</div>
+
+<p><b>Nada se convierte de formato.</b> Un carrusel no se vuelve reel: son contenidos
+distintos y eso sería otro trabajo. Lo único que cambia es <b>dónde se publica cada pieza
+que ya existe</b>, y a qué hora.</p>
+
+<p><b>Si quieres probar algo de verdad</b>, el dato apunta a más reels en Facebook. Pero
+eso es decidir qué se produce, no dónde se publica — y es una conversación aparte.</p>
+
+<footer>
+  Evidencia: 30 piezas de WindMar Home entre el 6 de octubre y el 2 de noviembre de 2026,
+  leídas de la API de Meta el 3 de noviembre.<br>
+  Facebook no reporta alcance por pieza desde que Meta retiró <code>post_impressions</code>;
+  donde falta ese dato, no se rellena con cero.<br>
+  Documento de trabajo — no modifica nada en Studio.
+</footer>
+
+</div>
+</body>
+</html>
