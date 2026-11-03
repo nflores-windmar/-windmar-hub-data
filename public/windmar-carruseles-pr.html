@@ -295,13 +295,15 @@ const DISENO=[
    El encargo del calendario era «responder la duda de calidad sin tener que decir
    somos buenos» — por eso ninguna lámina dice que el equipo es bueno: dicen qué se
    mira antes de comprarlo y que el cliente puede preguntar. Sin cifras: no hay
-   ninguna con fuente sobre marcas, garantías ni años. */
+   ninguna con fuente sobre marcas, garantías ni años.
+   3 de noviembre: las 4 láminas llevan overlay:true — Nicolle pidió que todos los
+   carruseles de noviembre se entreguen como PNG overlay, no solo el de Diseño. */
 const EQUIPOS=[
-  { id:'nov-equipos-1', cls:'', chip:'Procurement · Equipos', imgSlot:true, bg:'img/firmar-2-garantia.png', type:'headline',
+  { id:'nov-equipos-1', cls:'', chip:'Procurement · Equipos', imgSlot:true, bg:'img/firmar-2-garantia.png', type:'headline', overlay:true,
     kicker:'La pregunta que casi nadie hace',
     headline:'¿DE DÓNDE SALEN<br>LOS <span class="hl">EQUIPOS</span>?',
     desc:'Dos sistemas pueden verse iguales desde la calle y no serlo. La diferencia está en lo que lleva dentro.' },
-  { id:'nov-equipos-2', cls:'data', chip:'Antes de comprar', blue:true, type:'list',
+  { id:'nov-equipos-2', cls:'data', chip:'Antes de comprar', blue:true, type:'list', overlay:true,
     listhead:'LO QUE SE MIRA<br>ANTES DE <span class="hl">COMPRAR</span><br>UN EQUIPO',
     items:[
       { n:'1', tt:'Quién lo fabrica', ds:'Y si va a seguir existiendo dentro de diez años.' },
@@ -309,11 +311,11 @@ const EQUIPOS=[
       { n:'3', tt:'Cómo aguanta aquí', ds:'Calor, salitre y temporada de huracanes. No es lo mismo que en otro sitio.' },
       { n:'4', tt:'Si hay repuestos', ds:'Un equipo sin repuesto disponible es un problema aplazado.' },
     ] },
-  { id:'nov-equipos-3', cls:'', chip:'El criterio', imgSlot:true, bg:'img/s6_landscape.png', type:'headline',
+  { id:'nov-equipos-3', cls:'', chip:'El criterio', imgSlot:true, bg:'img/s6_landscape.png', type:'headline', overlay:true,
     kicker:'Por eso lleva tiempo',
     headline:'NO SE ESCOGE<br>POR <span class="hl">CATÁLOGO</span>',
     desc:'Cada equipo que instalamos pasó por esa lista antes de llegar a un techo. Esa parte del trabajo no se ve.' },
-  { id:'nov-equipos-4', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/firmar-1-still.png', type:'headline',
+  { id:'nov-equipos-4', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/firmar-1-still.png', type:'headline', overlay:true,
     kicker:'Te decimos cuál y por qué',
     headline:'PREGÚNTANOS<br>QUÉ <span class="hl">INSTALAMOS</span>',
     desc:'Evaluación gratis, sin compromiso. Te explicamos qué equipo lleva tu sistema y la razón de cada pieza.' },
