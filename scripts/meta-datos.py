@@ -424,6 +424,26 @@ def snapshot(dias=28):
     print()
 
 
+
+# Puerto Rico es AST todo el año, sin horario de verano.
+#
+# Meta devuelve las fechas en UTC («…T18:01:23+0000») y antes se cortaba el huso
+# con [:19], así que la hora guardada era UTC y nadie lo decía. Una pieza que sale
+# a las 10:31 de la mañana figuraba como «14:31», y cualquier conclusión sobre
+# horarios salía corrida cuatro horas: «antes de las 15:00» era en realidad antes
+# de las 11:00. Lo encontró Musa leyendo el archivo, el 3 de noviembre de 2026.
+AST = datetime.timezone(datetime.timedelta(hours=-4))
+
+
+def enPuertoRico(iso):
+    """La fecha de Meta, en hora de Puerto Rico. Con su huso, no cortándolo."""
+    try:
+        return datetime.datetime.strptime(iso[:24], "%Y-%m-%dT%H:%M:%S%z").astimezone(AST)
+    except ValueError:
+        # Sin huso en el texto: se asume UTC, que es lo que manda Meta.
+        return datetime.datetime.strptime(iso[:19], "%Y-%m-%dT%H:%M:%S").replace(
+            tzinfo=datetime.timezone.utc).astimezone(AST)
+
 # ---------------------------------------------------------------- posts
 
 def posts(cuenta_id, dias=28):
@@ -466,8 +486,7 @@ def posts(cuenta_id, dias=28):
                 if isinstance(reac, dict):
                     reac = sum(v for v in reac.values() if isinstance(v, int))
                 inter = (reac or 0) + (m.get("post_clicks") or 0)
-                t = datetime.datetime.strptime(
-                    p["created_time"][:19], "%Y-%m-%dT%H:%M:%S")
+                t = enPuertoRico(p["created_time"])
                 # El alcance va a None, no a 0: no es que llegara a nadie, es
                 # que Meta ya no lo dice. Poner 0 sería inventar un dato.
                 filas.append(("Facebook", t, None, inter,
@@ -486,8 +505,7 @@ def posts(cuenta_id, dias=28):
             for p in datos.get("data", []):
                 m = {i["name"]: i["values"][0]["value"]
                      for i in p.get("insights", {}).get("data", [])}
-                t = datetime.datetime.strptime(
-                    p["timestamp"][:19], "%Y-%m-%dT%H:%M:%S")
+                t = enPuertoRico(p["timestamp"])
                 inter = sum(m.get(k, 0) for k in ("likes", "comments", "shares"))
                 filas.append(("Instagram", t, m.get("reach", 0), inter,
                               p.get("caption") or "", p.get("media_type") or ""))
@@ -519,6 +537,11 @@ def posts(cuenta_id, dias=28):
             "ventana": {"desde": str(desde), "hasta": str(hasta), "dias": dias},
             "nota_alcance": ("Facebook NO trae alcance por pieza: Meta retiró "
                              "post_impressions. Donde dice null es eso, no un cero."),
+            "nota_hora": ("`fecha` y `hora` van en hora de PUERTO RICO (AST, UTC-4). "
+                          "Meta las da en UTC y aquí se convierten. OJO: los archivos "
+                          "capturados ANTES del 3 de noviembre de 2026 traen la hora en "
+                          "UTC, porque se cortaba el huso al guardarla — ahí hay que "
+                          "restar 4 horas para leerlas."),
             "piezas": [
                 {"red": r, "fecha": t.strftime("%Y-%m-%d"), "hora": t.strftime("%H:%M"),
                  "alcance": a, "interacciones": i, "tipo": tp, "texto": txt}
