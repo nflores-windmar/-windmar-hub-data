@@ -29,14 +29,24 @@ h1 .o{color:var(--orange)}
 .slot{display:flex;flex-direction:column;gap:10px}
 .caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.btns{display:flex;align-items:center;gap:6px}
 .dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;white-space:nowrap}
 .dl:hover{border-color:var(--navy);background:var(--navy);color:#fff}
 .dl:disabled{opacity:.5;cursor:default}
+.dl.ov{border-color:var(--orange);color:var(--orange)}
+.dl.ov:hover{border-color:var(--orange);background:var(--orange);color:#fff}
 
 /* ===== CARRUSEL 4:5 · blueprint sobre foto ===== */
 .piece{--acc:#f7a03a;position:relative;overflow:hidden;container-type:inline-size;
   width:360px;aspect-ratio:4/5;border-radius:16px;background:#0a1626;color:#fff;
   box-shadow:0 18px 48px rgba(13,34,64,.22);border:1px solid var(--line)}
+/* Lámina solo-overlay (overlay:true): no lleva foto ni degradado azul de fondo.
+   En la página se ve un cuadriculado para que se note que el fondo es transparente;
+   al exportar, el botón «PNG overlay» lo pone en transparent y ese cuadriculado no sale. */
+.piece.ov{background-color:#34415d;
+  background-image:linear-gradient(45deg,#2a3650 25%,transparent 25%,transparent 75%,#2a3650 75%),
+                   linear-gradient(45deg,#2a3650 25%,transparent 25%,transparent 75%,#2a3650 75%);
+  background-size:24px 24px;background-position:0 0,12px 12px}
 .ph{position:absolute;inset:0;z-index:0}
 .ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.04) saturate(1.06)}
 .ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
@@ -74,6 +84,12 @@ h1 .o{color:var(--orange)}
 .item .tx{font-family:var(--body);color:#fff}
 .item .tt{font-weight:800;font-size:3.5cqw;letter-spacing:.06cqw;text-transform:uppercase;line-height:1.05}
 .item .ds{font-weight:600;font-size:2.9cqw;line-height:1.28;color:rgba(255,255,255,.82);margin-top:.6cqw}
+/* Lámina de lista con titular de tres líneas y un punto largo: la etiqueta de arriba
+   se pegaba al titular. «sep» deja aire bajo la etiqueta y lo recupera achicando un
+   poco el titular y el espacio entre puntos, para que la barra de marca no se salga. */
+.piece.sep .tagrow{margin-bottom:5cqw}
+.piece.sep .listhead{font-size:8.6cqw}
+.piece.sep .items{margin-top:3.5cqw;gap:2.6cqw}
 .vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
 .vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
 .vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
@@ -91,7 +107,7 @@ h1 .o{color:var(--orange)}
     <h1>Carruseles <span class="o">·</span> Puerto Rico</h1>
     <div class="sub">Feed 4:5 (1080×1350) · tres carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
   </header>
-  <div class="note"><b>Un solo link, tres campañas.</b> «Antes de firmar, compara» · «Permisología» · «Vayan a la segura». Cada tarjeta se exporta por separado en PNG 1080×1350.</div>
+  <div class="note"><b>Un solo link, tres campañas.</b> «Antes de firmar, compara» · «Permisología» · «Vayan a la segura». Cada tarjeta se exporta por separado en PNG 1080×1350. Las láminas de <b>noviembre</b> no llevan foto de fondo: su único PNG es el <b>PNG overlay</b> transparente (degradado, texto y barra de marca) para montarlo sobre una foto o un video. El cuadriculado que ves detrás es solo para que se note la transparencia y no sale en el PNG.</div>
 
   <div class="section-h"><h2>Antes de firmar, compara</h2><span class="badge">Educativo</span></div>
   <div class="section-sub">Ayuda al cliente a comparar cotizaciones con calma — sin venta agresiva.</div>
@@ -106,11 +122,11 @@ h1 .o{color:var(--orange)}
   <div class="gallery" id="g-vayan"></div>
 
   <div class="section-h"><h2>Lo que se ve y lo que no se ve</h2><span class="badge">Noviembre · mié 4</span></div>
-  <div class="section-sub">Acompaña al video del martes 3, «Diseño · Jesús Pelayo». Entrega: 28 de octubre.</div>
+  <div class="section-sub">Acompaña al video del martes 3, «Diseño · Jesús Pelayo». Entrega: 28 de octubre. Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-diseno"></div>
 
   <div class="section-h"><h2>De dónde salen los equipos</h2><span class="badge">Noviembre · jue 5</span></div>
-  <div class="section-sub">Prepara el video del viernes 6, «VP Procurement · Andrés Billoch». Entrega: 29 de octubre.</div>
+  <div class="section-sub">Prepara el video del viernes 6, «VP Procurement · Andrés Billoch». Entrega: 29 de octubre. Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-equipos"></div>
 
 
@@ -187,7 +203,12 @@ function renderGallery(cards, containerId){
   const gallery=document.getElementById(containerId);
   cards.forEach((c,i)=>{
     const slot=document.createElement('div'); slot.className='slot';
-    const bgEl = c.bg
+    /* overlay:true → lámina solo-overlay: sin foto, sin hueco para foto y sin degradado
+       azul de fondo. Su único botón es «PNG overlay» (transparente). */
+    const isOv = !!c.overlay;
+    const bgEl = isOv
+      ? ''
+      : c.bg
       ? `<img src="${c.bg}" alt="" crossorigin="anonymous"><input type="file" accept="image/*,video/*" class="vin" hidden>`
       : c.imgSlot
       ? `<div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Arrastra tu foto aquí</div><div class="vdrop-sub">o haz clic para elegirla</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`
@@ -216,13 +237,19 @@ function renderGallery(cards, containerId){
     }
 
     const pid=`${containerId}-${i}`;
+    /* Botón: en una lámina solo-overlay sale «PNG overlay» con data-name = «<id>-overlay»,
+       así el script que dibuja los PNG lo encuentra y el archivo queda
+       windmar-<id>-overlay.png. En las demás sigue el botón «PNG» con foto de siempre. */
+    const btnHtml = isOv
+      ? `<button class="dl ov" data-pid="${pid}" data-name="${c.id}-overlay" data-overlay="1">⬇︎ PNG overlay</button>`
+      : `<button class="dl" data-pid="${pid}" data-name="${c.id}">⬇︎ PNG</button>`;
     slot.innerHTML=`
       <div class="caprow">
         <span class="cap">${c.chip} · ${i+1}/${cards.length}</span>
-        <button class="dl" data-pid="${pid}" data-name="${c.id}">⬇︎ PNG</button>
+        <span class="btns">${btnHtml}</span>
       </div>
-      <div class="piece ${c.cls}" id="${pid}">
-        <div class="ph ${c.blue?'blue':''}">${bgEl}</div>
+      <div class="piece ${c.cls} ${isOv?'ov':''}" id="${pid}">
+        <div class="ph ${c.blue&&!isOv?'blue':''}">${bgEl}</div>
         <div class="scrim"></div>
         <div class="content">
           <div class="tagrow"><span class="chip" contenteditable="true">${c.chip}</span></div>
@@ -242,25 +269,37 @@ function renderGallery(cards, containerId){
    Entrega: 28 de octubre. Propuesta escrita el 27 de octubre — textos editables en la
    página, sin cifras porque no hay ninguna con fuente para este tema. Si se le quiere
    poner un número (cuántos diseños al mes, cuántas revisiones), hay que sacarlo de
-   algún sitio antes. */
+   algún sitio antes.
+   3 de noviembre: las 4 láminas llevan overlay:true — Nicolle las pidió como PNG
+   overlay (transparente, sin foto) además del PNG normal.
+   3 de noviembre, tarde: cambios que Manuel Pales marcó sobre el arte en la revisión de
+   Studio. Lámina 2: «consume» (punto 3) y «necesitas y cómo ubicarlas» (punto 4).
+   Lámina 3: titular «sin diseño», «una brigada» y «ya se sabe». Falta por aplicar la
+   marca «esta repetido»: Studio no dice a qué lámina ni a qué texto apunta. El texto
+   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano.
+   3 de noviembre, 3 PM: Nicolle pidió separar la etiqueta «Lo que se decide primero»
+   del titular en la lámina 2; por eso esa lámina lleva la clase «sep».
+   3 de noviembre, 4 PM: Nicolle pidió quitar la foto de fondo: las 4 láminas son solo
+   PNG overlay. Por eso ya no llevan imgSlot ni bg (el generador ignora la foto en toda
+   lámina con overlay:true) y su único botón es «PNG overlay». */
 const DISENO=[
-  { id:'nov-diseno-1', cls:'', chip:'Diseño · Antes de instalar', imgSlot:true, bg:'img/pr-solar-vecindario-placas.png', type:'headline',
+  { id:'nov-diseno-1', cls:'', chip:'Diseño · Antes de instalar', type:'headline', overlay:true,
     kicker:'Antes de que llegue la brigada',
     headline:'LO QUE SE VE<br>Y LO QUE <span class="hl">NO SE VE</span>',
     desc:'Cuando ves placas en un techo, ya pasó la parte más importante: alguien decidió dónde va cada una y por qué.' },
-  { id:'nov-diseno-2', cls:'data', chip:'Lo que se decide primero', blue:true, type:'list',
+  { id:'nov-diseno-2', cls:'data sep', chip:'Lo que se decide primero', blue:true, type:'list', overlay:true,
     listhead:'CUATRO COSAS QUE<br>SE DECIDEN <span class="hl">ANTES</span><br>DE SUBIR AL TECHO',
     items:[
       { n:'1', tt:'Hacia dónde mira tu techo', ds:'La orientación cambia cuánto produce el sistema cada día.' },
       { n:'2', tt:'Dónde da sombra, y a qué hora', ds:'Un árbol o un poste deciden dónde NO van placas.' },
-      { n:'3', tt:'Cuánto gasta tu casa de verdad', ds:'Del consumo real, no de un estimado general.' },
-      { n:'4', tt:'Cuántas placas y en qué parte', ds:'Para que el sistema cubra lo que tu hogar necesita.' },
+      { n:'3', tt:'Cuánto consume tu casa de verdad', ds:'Del consumo real, no de un estimado general.' },
+      { n:'4', tt:'Cuántas placas necesitas y cómo ubicarlas', ds:'Para que el sistema cubra lo que tu hogar necesita.' },
     ] },
-  { id:'nov-diseno-3', cls:'', chip:'El trabajo invisible', imgSlot:true, bg:'img/techo-drone.png', type:'headline',
+  { id:'nov-diseno-3', cls:'', chip:'El trabajo invisible', type:'headline', overlay:true,
     kicker:'Lo que no se ve es la mitad del trabajo',
-    headline:'UN SISTEMA NO SE<br><span class="hl">INSTALA</span>.<br>SE DISEÑA PRIMERO.',
-    desc:'Antes de que alguien suba a tu techo, ya está decidido dónde va cada placa y la razón de cada decisión.' },
-  { id:'nov-diseno-4', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/pr-sept-solar.png', type:'headline',
+    headline:'UN SISTEMA NO SE<br><span class="hl">INSTALA</span><br>SIN DISEÑO.',
+    desc:'Antes de que una brigada suba a tu techo, ya se sabe dónde va cada placa y la razón de cada decisión.' },
+  { id:'nov-diseno-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
     kicker:'Te lo enseñamos',
     headline:'TE <span class="hl">EXPLICAMOS</span><br>EL DISEÑO<br>ANTES DE EMPEZAR',
     desc:'Evaluación gratis, sin compromiso. Te enseñamos cómo queda tu sistema y por qué queda así.' },
@@ -271,13 +310,16 @@ const DISENO=[
    El encargo del calendario era «responder la duda de calidad sin tener que decir
    somos buenos» — por eso ninguna lámina dice que el equipo es bueno: dicen qué se
    mira antes de comprarlo y que el cliente puede preguntar. Sin cifras: no hay
-   ninguna con fuente sobre marcas, garantías ni años. */
+   ninguna con fuente sobre marcas, garantías ni años.
+   3 de noviembre: las 4 láminas llevan overlay:true — Nicolle pidió que todos los
+   carruseles de noviembre se entreguen como PNG overlay, no solo el de Diseño.
+   3 de noviembre, 4 PM: sin foto de fondo, igual que Diseño; solo PNG overlay. */
 const EQUIPOS=[
-  { id:'nov-equipos-1', cls:'', chip:'Procurement · Equipos', imgSlot:true, bg:'img/firmar-2-garantia.png', type:'headline',
+  { id:'nov-equipos-1', cls:'', chip:'Procurement · Equipos', type:'headline', overlay:true,
     kicker:'La pregunta que casi nadie hace',
     headline:'¿DE DÓNDE SALEN<br>LOS <span class="hl">EQUIPOS</span>?',
     desc:'Dos sistemas pueden verse iguales desde la calle y no serlo. La diferencia está en lo que lleva dentro.' },
-  { id:'nov-equipos-2', cls:'data', chip:'Antes de comprar', blue:true, type:'list',
+  { id:'nov-equipos-2', cls:'data', chip:'Antes de comprar', blue:true, type:'list', overlay:true,
     listhead:'LO QUE SE MIRA<br>ANTES DE <span class="hl">COMPRAR</span><br>UN EQUIPO',
     items:[
       { n:'1', tt:'Quién lo fabrica', ds:'Y si va a seguir existiendo dentro de diez años.' },
@@ -285,11 +327,11 @@ const EQUIPOS=[
       { n:'3', tt:'Cómo aguanta aquí', ds:'Calor, salitre y temporada de huracanes. No es lo mismo que en otro sitio.' },
       { n:'4', tt:'Si hay repuestos', ds:'Un equipo sin repuesto disponible es un problema aplazado.' },
     ] },
-  { id:'nov-equipos-3', cls:'', chip:'El criterio', imgSlot:true, bg:'img/s6_landscape.png', type:'headline',
+  { id:'nov-equipos-3', cls:'', chip:'El criterio', type:'headline', overlay:true,
     kicker:'Por eso lleva tiempo',
     headline:'NO SE ESCOGE<br>POR <span class="hl">CATÁLOGO</span>',
     desc:'Cada equipo que instalamos pasó por esa lista antes de llegar a un techo. Esa parte del trabajo no se ve.' },
-  { id:'nov-equipos-4', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/firmar-1-still.png', type:'headline',
+  { id:'nov-equipos-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
     kicker:'Te decimos cuál y por qué',
     headline:'PREGÚNTANOS<br>QUÉ <span class="hl">INSTALAMOS</span>',
     desc:'Evaluación gratis, sin compromiso. Te explicamos qué equipo lleva tu sistema y la razón de cada pieza.' },
@@ -344,25 +386,35 @@ async function fontEmbedCSS(){
   return _fontCSS;
 }
 
-/* exportar PNG 1080×1350 */
+/* exportar PNG 1080×1350.
+   Botón normal: la lámina completa, con foto y fondo.
+   Botón «PNG overlay» (data-overlay="1"): PNG transparente — sin foto ni fondo; queda
+   el degradado, el texto y la barra de marca, para montarla sobre foto o video. */
 document.querySelectorAll('.dl').forEach(btn=>{
   btn.addEventListener('click',async()=>{
     const node=document.getElementById(btn.dataset.pid);
+    const ov=btn.dataset.overlay==='1';
+    const ph=node.querySelector('.ph');
     btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    const rb=node.style.borderRadius, bd=node.style.border, sh=node.style.boxShadow, bgOld=node.style.background, phOld=ph?ph.style.display:'';
     try{
       const css=await fontEmbedCSS();
-      const rb=node.style.borderRadius, bd=node.style.border, sh=node.style.boxShadow;
       node.style.borderRadius='0'; node.style.border='none'; node.style.boxShadow='none';
-      const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,backgroundColor:'#0a1626',style:{borderRadius:'0',border:'none',boxShadow:'none'}};
+      if(ov){ node.style.background='transparent'; if(ph) ph.style.display='none'; }
+      const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,style:{borderRadius:'0',border:'none',boxShadow:'none'}};
+      if(ov) opts.style.background='transparent'; else opts.backgroundColor='#0a1626';
       let blob=null;
       try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
       if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
-      node.style.borderRadius=rb; node.style.border=bd; node.style.boxShadow=sh;
       if(!blob) throw new Error('el navegador devolvió una imagen vacía');
       const a=document.createElement('a');
       a.download=`windmar-${btn.dataset.name}.png`;
       a.href=URL.createObjectURL(blob); a.click();
     }catch(e){ alert('No se pudo exportar: '+e.message); }
+    finally{
+      node.style.borderRadius=rb; node.style.border=bd; node.style.boxShadow=sh; node.style.background=bgOld;
+      if(ph) ph.style.display=phOld;
+    }
     btn.disabled=false; btn.textContent=old;
   });
 });
