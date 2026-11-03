@@ -253,7 +253,12 @@ function renderGallery(cards, containerId){
    poner un número (cuántos diseños al mes, cuántas revisiones), hay que sacarlo de
    algún sitio antes.
    3 de noviembre: las 4 láminas llevan overlay:true — Nicolle las pidió como PNG
-   overlay (transparente, sin foto) además del PNG normal. */
+   overlay (transparente, sin foto) además del PNG normal.
+   3 de noviembre, tarde: cambios que Manuel Pales marcó sobre el arte en la revisión de
+   Studio. Lámina 2: «consume» (punto 3) y «necesitas y cómo ubicarlas» (punto 4).
+   Lámina 3: titular «sin diseño», «una brigada» y «ya se sabe». Falta por aplicar la
+   marca «esta repetido»: Studio no dice a qué lámina ni a qué texto apunta. El texto
+   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano. */
 const DISENO=[
   { id:'nov-diseno-1', cls:'', chip:'Diseño · Antes de instalar', imgSlot:true, bg:'img/pr-solar-vecindario-placas.png', type:'headline', overlay:true,
     kicker:'Antes de que llegue la brigada',
@@ -264,13 +269,13 @@ const DISENO=[
     items:[
       { n:'1', tt:'Hacia dónde mira tu techo', ds:'La orientación cambia cuánto produce el sistema cada día.' },
       { n:'2', tt:'Dónde da sombra, y a qué hora', ds:'Un árbol o un poste deciden dónde NO van placas.' },
-      { n:'3', tt:'Cuánto gasta tu casa de verdad', ds:'Del consumo real, no de un estimado general.' },
-      { n:'4', tt:'Cuántas placas y en qué parte', ds:'Para que el sistema cubra lo que tu hogar necesita.' },
+      { n:'3', tt:'Cuánto consume tu casa de verdad', ds:'Del consumo real, no de un estimado general.' },
+      { n:'4', tt:'Cuántas placas necesitas y cómo ubicarlas', ds:'Para que el sistema cubra lo que tu hogar necesita.' },
     ] },
   { id:'nov-diseno-3', cls:'', chip:'El trabajo invisible', imgSlot:true, bg:'img/techo-drone.png', type:'headline', overlay:true,
     kicker:'Lo que no se ve es la mitad del trabajo',
-    headline:'UN SISTEMA NO SE<br><span class="hl">INSTALA</span>.<br>SE DISEÑA PRIMERO.',
-    desc:'Antes de que alguien suba a tu techo, ya está decidido dónde va cada placa y la razón de cada decisión.' },
+    headline:'UN SISTEMA NO SE<br><span class="hl">INSTALA</span><br>SIN DISEÑO.',
+    desc:'Antes de que una brigada suba a tu techo, ya se sabe dónde va cada placa y la razón de cada decisión.' },
   { id:'nov-diseno-4', cls:'', chip:'Sin compromiso', imgSlot:true, bg:'img/pr-sept-solar.png', type:'headline', overlay:true,
     kicker:'Te lo enseñamos',
     headline:'TE <span class="hl">EXPLICAMOS</span><br>EL DISEÑO<br>ANTES DE EMPEZAR',
