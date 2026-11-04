@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar Pros · Top del mes</title>
+<!--
+  La pieza mensual de reconocimiento: TOP CLOSER y TOP SETTER.
+
+  Hasta ahora se hacía fuera, una por mes y por persona. Eso significa que el
+  mes que viene alguien abre la del mes pasado, cambia el nombre y el número, y
+  confía en no haberse dejado nada — que es como el vídeo de Miguel acabó
+  diciendo «#1 CLOSER» de alguien que en el tablero es setter.
+
+  Aquí los cinco datos están arriba y el arte se dibuja solo. Y el título no se
+  escribe a mano: se elige entre CLOSER y SETTER, y cada uno trae su métrica,
+  porque son lo que más fácil se cruza.
+
+  1080×1350, feed 4:5. Export PNG con el mismo mecanismo que los carruseles.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* WindMar Home: la misma marca que Puerto Rico y Florida. */
+  --navy:#0a1f4d; --navy2:#061430; --orange:#f57c0a; --bg:#e9eef7; --line:#27407e;
+  --body:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--body);padding:24px;color:#0a2882}
+.wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:330px 1fr;gap:22px;align-items:start}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}}
+
+/* ── panel ── */
+.panel{background:#fff;border:1px solid #d7e0ef;border-radius:12px;padding:16px;position:sticky;top:24px}
+.panel h1{font-size:17px;margin-bottom:3px}
+.panel .sub{font-size:12px;color:#5a6b8c;margin-bottom:14px;line-height:1.45}
+label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#5a6b8c;margin:0 0 9px}
+input,select{width:100%;margin-top:4px;padding:8px 10px;border:1px solid #d7e0ef;border-radius:8px;
+  font:14px/1.3 var(--body);color:#0a2882;background:#fff}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pie{border-top:1px solid #eef2f8;margin-top:6px;padding-top:12px}
+button{width:100%;padding:11px;border:0;border-radius:8px;background:var(--orange);color:#fff;
+  font:700 14px var(--body);cursor:pointer;margin-top:8px}
+button.sec{background:#0a2882}
+.nota{font-size:11.5px;color:#5a6b8c;line-height:1.5;margin-top:10px}
+.nota b{color:#0a2882}
+
+/* ── la pieza ── */
+.marco{background:#fff;border:1px solid #d7e0ef;border-radius:12px;padding:14px}
+.escala{width:100%;aspect-ratio:1080/1350;position:relative;overflow:hidden;border-radius:6px}
+.stage{width:1080px;height:1350px;position:absolute;top:0;left:0;transform-origin:top left;
+  background:radial-gradient(120% 90% at 78% 38%, #12306e 0%, var(--navy) 42%, var(--navy2) 100%);
+  overflow:hidden;font-family:var(--body);color:#fff}
+
+/* trama de puntos y destellos, como en la pieza de agosto */
+.stage .tram{position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(#ffffff26 1.6px, transparent 1.7px);
+  background-size:17px 17px;
+  -webkit-mask-image:linear-gradient(115deg,transparent 18%,#000 46%,#000 68%,transparent 92%);
+          mask-image:linear-gradient(115deg,transparent 18%,#000 46%,#000 68%,transparent 92%)}
+.stage .destello{position:absolute;inset:-10%;opacity:.5;
+  background:linear-gradient(112deg,transparent 40%,#f57c0a2e 48%,transparent 56%),
+             linear-gradient(112deg,transparent 56%,#ffffff1a 61%,transparent 66%)}
+.stage .rejilla{position:absolute;inset:0;opacity:.14;
+  background-image:linear-gradient(#ffffff40 1px,transparent 1px),linear-gradient(90deg,#ffffff40 1px,transparent 1px);
+  background-size:150px 150px}
+
+.top{position:absolute;top:56px;left:62px;right:62px;display:flex;align-items:center;justify-content:space-between;z-index:6}
+.mes{font-weight:800;font-size:27px;letter-spacing:.11em;text-transform:uppercase}
+.mes::after{content:'';display:block;height:5px;background:var(--orange);margin-top:9px;width:100%}
+.logos{display:flex;align-items:center;gap:26px}
+.logos img{height:58px;width:auto;object-fit:contain}
+
+.marca{position:absolute;top:255px;left:50%;transform:translateX(-50%);
+  font-weight:900;font-size:215px;letter-spacing:.07em;color:#ffffff14;line-height:.8;z-index:1;user-select:none}
+
+.nombre{position:absolute;top:218px;left:62px;right:62px;z-index:5;
+  color:var(--orange);font-weight:800;font-size:46px;letter-spacing:.21em;text-transform:uppercase;white-space:nowrap}
+.titulo{position:absolute;top:452px;left:46px;z-index:4;
+  font-weight:900;font-size:112px;line-height:.9;letter-spacing:-.015em;text-transform:uppercase}
+.cifra{position:absolute;left:46px;bottom:208px;z-index:5;font-weight:900;font-size:238px;line-height:.78;letter-spacing:-.04em}
+.metrica{position:absolute;left:52px;bottom:140px;z-index:5;
+  color:var(--orange);font-weight:900;font-size:62px;letter-spacing:-.01em;text-transform:uppercase}
+
+.foto{position:absolute;right:-10px;bottom:0;height:1010px;z-index:3;
+  filter:grayscale(1) contrast(1.12) brightness(1.04);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 11%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 11%)}
+.foto img{height:100%;width:auto;display:block}
+.foto.vacia{display:flex;align-items:flex-end;justify-content:center;width:460px;
+  border:3px dashed #ffffff3d;border-radius:14px;color:#ffffff6b;font-weight:700;font-size:21px;
+  padding-bottom:40px;filter:none;height:860px;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="panel">
+    <h1>Top del mes · WindMar Pros</h1>
+    <div class="sub">Rellena y descarga. 1080×1350.</div>
+
+    <label>Mes y año <input id="i-mes" value="AUGUST 2026"></label>
+    <label>Nombre <input id="i-nombre" value="Jorge Barrera"></label>
+
+    <label>Reconocimiento
+      <select id="i-tipo">
+        <option value="closer">TOP CLOSER · closed deals</option>
+        <option value="setter">TOP SETTER · appointments set</option>
+      </select>
+    </label>
+
+    <div class="fila">
+      <label>Cifra <input id="i-cifra" value="17" inputmode="numeric"></label>
+      <label>Métrica <input id="i-metrica" value="CLOSED DEALS"></label>
+    </div>
+
+    <div class="pie">
+      <label>Foto, recortada y en PNG <input type="file" id="i-foto" accept="image/*"></label>
+      <button id="b-png">Descargar PNG</button>
+      <button class="sec" id="b-reset">Quitar la foto</button>
+    </div>
+
+    <div class="nota">
+      <b>La métrica va atada al tipo.</b> Al cambiar entre closer y setter se cambia sola,
+      porque son lo que más fácil se cruza: el vídeo de Miguel salió llamándolo «#1 CLOSER»
+      cuando en el tablero es setter. Se puede corregir a mano si hace falta.
+    </div>
+  </div>
+
+  <div class="marco">
+    <div class="escala" id="escala">
+      <div class="stage" id="stage">
+        <div class="rejilla"></div>
+        <div class="tram"></div>
+        <div class="destello"></div>
+
+        <div class="top">
+          <div class="mes" id="f-mes">AUGUST 2026</div>
+          <div class="logos">
+            <img src="wme/logos/windmar-pros.png" alt="" crossorigin="anonymous">
+            <img src="wme/logos/wmh-home-white-orange.png" alt="" crossorigin="anonymous">
+          </div>
+        </div>
+
+        <div class="marca">PROS</div>
+        <div class="nombre" id="f-nombre">JORGE BARRERA</div>
+        <div class="titulo" id="f-titulo">TOP<br>CLOSER</div>
+        <div class="foto vacia" id="f-foto">arrastra la foto aquí</div>
+        <div class="cifra" id="f-cifra">17</div>
+        <div class="metrica" id="f-metrica">CLOSED DEALS</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const $ = (id) => document.getElementById(id);
+
+/* Cada reconocimiento trae su métrica. No se escriben por separado a propósito:
+   «top closer» con «appointments set» debajo es un error que no se ve al mirarlo,
+   solo al compararlo con el tablero — y nadie compara. */
+const TIPOS = {
+  closer: { titulo: 'TOP<br>CLOSER', metrica: 'CLOSED DEALS' },
+  setter: { titulo: 'TOP<br>SETTER', metrica: 'APPOINTMENTS SET' },
+};
+
+function pintar() {
+  $('f-mes').textContent = $('i-mes').value.toUpperCase();
+  $('f-nombre').textContent = $('i-nombre').value.toUpperCase();
+  $('f-titulo').innerHTML = TIPOS[$('i-tipo').value].titulo;
+  $('f-cifra').textContent = String($('i-cifra').value).replace(/[^0-9]/g, '') || '0';
+  $('f-metrica').textContent = $('i-metrica').value.toUpperCase();
+}
+
+/* Al cambiar de reconocimiento, la métrica le sigue. Si alguien la editó a mano,
+   el cambio de tipo la pisa: es lo correcto, porque el tipo es el dato duro. */
+$('i-tipo').addEventListener('change', () => {
+  $('i-metrica').value = TIPOS[$('i-tipo').value].metrica;
+  pintar();
+});
+for (const id of ['i-mes', 'i-nombre', 'i-cifra', 'i-metrica']) $(id).addEventListener('input', pintar);
+
+/* La foto: por el selector o arrastrándola encima de la pieza. */
+function ponerFoto(archivo) {
+  if (!archivo) return;
+  const url = URL.createObjectURL(archivo);
+  const caja = $('f-foto');
+  caja.classList.remove('vacia');
+  caja.innerHTML = '';
+  const img = new Image();
+  img.onload = () => caja.appendChild(img);
+  img.src = url;
+}
+$('i-foto').addEventListener('change', (e) => ponerFoto(e.target.files[0]));
+$('b-reset').addEventListener('click', () => {
+  const c = $('f-foto'); c.classList.add('vacia'); c.innerHTML = 'arrastra la foto aquí'; $('i-foto').value = '';
+});
+const stage = $('stage');
+stage.addEventListener('dragover', (e) => e.preventDefault());
+stage.addEventListener('drop', (e) => { e.preventDefault(); ponerFoto(e.dataTransfer.files[0]); });
+
+/* El PNG sale a tamaño real: la pieza está escalada en pantalla, pero se exporta
+   el nodo a 1080×1350, que es lo que pide el feed. */
+$('b-png').addEventListener('click', async () => {
+  const b = $('b-png'); const antes = b.textContent;
+  b.textContent = 'Dibujando…'; b.disabled = true;
+  try {
+    const blob = await toBlob(stage, { width: 1080, height: 1350, pixelRatio: 1, cacheBust: true });
+    const a = document.createElement('a');
+    a.download = `windmar-pros-${$('i-tipo').value}-${$('i-mes').value.toLowerCase().replace(/\s+/g, '-')}.png`;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+  } catch (e) {
+    alert('No se pudo dibujar: ' + e.message);
+  } finally {
+    b.textContent = antes; b.disabled = false;
+  }
+});
+
+/* La pieza mide 1080 de ancho; el marco, lo que haya. Se escala para que quepa. */
+function ajustar() {
+  const caja = $('escala');
+  stage.style.transform = `scale(${caja.clientWidth / 1080})`;
+}
+addEventListener('resize', ajustar);
+ajustar(); pintar();
+</script>
+</body>
+</html>
