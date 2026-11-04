@@ -92,6 +92,8 @@ h1 .o{color:var(--orange)}
 .piece.sep .tagrow{margin-bottom:5cqw}
 .piece.sep .listhead{font-size:8.6cqw}
 .piece.sep .items{margin-top:3.5cqw;gap:2.6cqw}
+/* Carrusel «Carta a mi yo del primer día»: la bajada va en itálica, como una carta. */
+.piece.carta .desc{font-style:italic}
 .vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
 .vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
 .vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
@@ -107,11 +109,11 @@ h1 .o{color:var(--orange)}
 <div class="wrap">
   <header class="top">
     <h1>Carruseles <span class="o">·</span> WindMar Pros</h1>
-    <div class="sub">Feed 4:5 (1080×1350) · tres carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
+    <div class="sub">Feed 4:5 (1080×1350) · diez carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
   </header>
   <div class="note"><b>Carruseles de WindMar Pros.</b> Feed 4:5, 1080×1350. Cada lámina se exporta por separado. Las que llevan <code>overlay:true</code> salen como <b>PNG overlay</b> transparente —degradado, texto y barra de marca— para montarlo sobre una foto o un video; el cuadriculado que se ve detrás es solo para notar la transparencia y no sale en el PNG.</div>
 
-  <div class="note" style="margin-top:10px"><b>Esta página todavía no tiene ningún carrusel.</b> Para añadir uno hacen falta tres cosas, y si falta una no aparece: el <b>arreglo</b> con sus láminas, el <b>contenedor</b> aquí abajo, y la <b>llamada a <code>renderGallery</code></b>. Hay un ejemplo comentado al final del script.</div>
+  <div class="note" style="margin-top:10px"><b>Noviembre y principio de diciembre, WindMar Pros.</b> Diez carruseles, 59 láminas, escritas desde el calendario <code>mochila/pros-noviembre-2026.json</code>. Firma Miguel Torres; Marc Roumain, Rafael Almonte, Manuel Pales y Pichu opinan. Los <b>huecos de foto</b> están vacíos: las fotos van arrastradas a mano (en cada bloque está dicho cuál). Lo que sale entre <b>[corchetes]</b> y dice PENDIENTE es un dato o una respuesta que todavía no tenemos y no se inventa. Los reels del calendario (5, 8, 15 y 24 de nov) no son carruseles y no están aquí.</div>
 
   <!-- Los carruseles van aquí. Uno por bloque:
 
@@ -120,6 +122,46 @@ h1 .o{color:var(--orange)}
   <div class="gallery" id="g-pros-ejemplo"></div>
 
   -->
+
+  <div class="section-h"><h2>5 señales de que naciste para esto</h2><span class="badge">Noviembre · mar 10</span></div>
+  <div class="section-sub">Carrusel de 7 láminas · publica el martes 10 de noviembre, 8:00 p.m. hora de Florida · Reclutamiento, sin experiencia previa.</div>
+  <div class="gallery" id="g-pros-senales"></div>
+
+  <div class="section-h"><h2>PRO de la semana: Miguel</h2><span class="badge">Noviembre · jue 12</span></div>
+  <div class="section-sub">Carrusel de 5 láminas · publica el jueves 12 de noviembre, 8:00 p.m. hora de Florida · Miguel, campeón de septiembre.</div>
+  <div class="gallery" id="g-pros-miguel"></div>
+
+  <div class="section-h"><h2>Mito: «Para vender hay que tener labia»</h2><span class="badge">Noviembre · mar 17</span></div>
+  <div class="section-sub">Carrusel de 5 láminas · publica el martes 17 de noviembre, 8:00 p.m. hora de Florida · Derriba «no tengo el don».</div>
+  <div class="gallery" id="g-pros-mito-labia"></div>
+
+  <div class="section-h"><h2>PRO de la semana: Juan Seba</h2><span class="badge">Noviembre · jue 19</span></div>
+  <div class="section-sub">Carrusel de 5 láminas · publica el jueves 19 de noviembre, 8:00 p.m. hora de Florida · Llegó sin saber vender solar.</div>
+  <div class="gallery" id="g-pros-juan"></div>
+
+  <div class="section-h"><h2>Carta a mi yo del primer día</h2><span class="badge">Noviembre · dom 22</span></div>
+  <div class="section-sub">Carrusel de 7 láminas · publica el domingo 22 de noviembre, 9:00 p.m. hora de Florida · La pieza que más se guarda.</div>
+  <div class="gallery" id="g-pros-carta"></div>
+
+  <div class="section-h"><h2>Acción de Gracias: ¿qué tipo de PRO eres?</h2><span class="badge">Noviembre · jue 26</span></div>
+  <div class="section-sub">Carrusel de 6 láminas · publica el jueves 26 de noviembre (Thanksgiving), 8:00 p.m. hora de Florida · Humor y gratitud.</div>
+  <div class="gallery" id="g-pros-gracias"></div>
+
+  <div class="section-h"><h2>¿Qué te hizo quedarte?</h2><span class="badge">Noviembre · dom 29</span></div>
+  <div class="section-sub">Carrusel de 7 láminas · publica el domingo 29 de noviembre, 9:00 p.m. hora de Florida · Cuatro voces del equipo.</div>
+  <div class="gallery" id="g-pros-quedarte"></div>
+
+  <div class="section-h"><h2>Tu primer mes, semana a semana</h2><span class="badge">Diciembre · mar 1</span></div>
+  <div class="section-sub">Carrusel de 7 láminas · publica el martes 1 de diciembre, 8:00 p.m. hora de Florida · Baja el miedo a empezar.</div>
+  <div class="gallery" id="g-pros-primer-mes"></div>
+
+  <div class="section-h"><h2>Mito: «En ventas no hay estabilidad»</h2><span class="badge">Diciembre · jue 3</span></div>
+  <div class="section-sub">Carrusel de 5 láminas · publica el jueves 3 de diciembre, 8:00 p.m. hora de Florida · El miedo a no tener ingreso seguro.</div>
+  <div class="gallery" id="g-pros-mito-estabilidad"></div>
+
+  <div class="section-h"><h2>Tu turno: cierre del mes</h2><span class="badge">Diciembre · dom 6</span></div>
+  <div class="section-sub">Carrusel de 5 láminas · publica el domingo 6 de diciembre, 9:00 p.m. hora de Florida · Cierre de la ventana.</div>
+  <div class="gallery" id="g-pros-cierre"></div>
 
 </div>
 
@@ -186,7 +228,7 @@ function renderGallery(cards, containerId){
           <div class="spacer"></div>
           <div class="stat">${hero}</div>
           <div class="brandbar">
-            <img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
+            <img src="${LOGO}" alt="WindMar Pros" crossorigin="anonymous">
             <span class="site"><span class="dot"></span>${SITE}</span>
           </div>
         </div>
@@ -239,6 +281,335 @@ const EJEMPLO=[
 renderGallery(EJEMPLO,'g-pros-ejemplo');
 
    ──────────────────────────────────────────────────────────────────────── */
+
+/* NOVIEMBRE · martes 10, 8:00 p.m. (Florida). «5 señales de que naciste para esto». Sale de
+   mochila/pros-noviembre-2026.json, pieza del 10 de nov. Firma Miguel Torres; los demás opinan.
+   Fotos que pide el calendario, por lámina: 1 G09›013 · 2 G12›Jorge Barreras2 · 3 G07›004 ·
+   4 G10›020 · 5 G09›012 · 6 G01›002. La 7 (cierre) va en azul liso con el logo.
+   Sin cifras: no hay ninguna con fuente para este tema. */
+const SENALES=[
+  { id:'pros-senales-1', cls:'', chip:'Reclutamiento · Pregunta', imgSlot:true, type:'headline',
+    kicker:'Si te pasan 3 de estas 5',
+    headline:'NACISTE PARA ALGO <span class="hl">MÁS GRANDE</span>',
+    desc:'Más grande que un horario de 8 a 5.' },
+  { id:'pros-senales-2', cls:'', chip:'Señal 1 de 5', imgSlot:true, type:'headline',
+    kicker:'Señal',
+    headline:'<span class="hl">1</span><br>TU ESFUERZO SE VE EN TU <span class="hl">CHEQUE</span>',
+    desc:'Quieres que tu esfuerzo se vea en tu cheque.' },
+  { id:'pros-senales-3', cls:'', chip:'Señal 2 de 5', imgSlot:true, type:'headline',
+    kicker:'Señal',
+    headline:'<span class="hl">2</span><br>TE GUSTA <span class="hl">COMPETIR</span>',
+    desc:'Aunque sea contigo.' },
+  { id:'pros-senales-4', cls:'', chip:'Señal 3 de 5', imgSlot:true, type:'headline',
+    kicker:'Señal',
+    headline:'<span class="hl">3</span><br>HABLAS CON CUALQUIERA',
+    desc:'En la fila del banco.' },
+  { id:'pros-senales-5', cls:'', chip:'Señal 4 de 5', imgSlot:true, type:'headline',
+    kicker:'Señal',
+    headline:'<span class="hl">4</span><br>QUIERES APRENDER DE QUIEN YA <span class="hl">LLEGÓ</span>',
+    desc:'Gente que ya recorrió el camino.' },
+  { id:'pros-senales-6', cls:'', chip:'Señal 5 de 5', imgSlot:true, type:'headline',
+    kicker:'Señal',
+    headline:'<span class="hl">5</span><br>QUIERES UN EQUIPO QUE <span class="hl">CELEBRE</span>',
+    desc:'Tus logros, celebrados como propios.' },
+  { id:'pros-senales-7', cls:'data', chip:'Escríbenos PRO', blue:true, type:'headline',
+    kicker:'¿Cuántas te pasan?',
+    headline:'ESCRÍBENOS <span class="hl">PRO</span>',
+    desc:'Y te contamos cómo es por dentro.' },
+];
+
+/* NOVIEMBRE · jueves 12, 8:00 p.m. (Florida). «PRO de la semana: Miguel, campeón de septiembre».
+   Las láminas 2, 3 y 4 llevan las respuestas de Miguel y NO están escritas: salen de las tres
+   preguntas por WhatsApp (qué hacía antes, lo más difícil, qué cambió). Hasta entonces dicen
+   [PENDIENTE] a propósito; no se rellenan con suposiciones. Plan B del calendario: si Miguel no
+   responde antes del lunes 9, su líder escribe dos líneas y se publican con su aprobación.
+   Fotos: 1 G13›Miguel Champ · 4 un fotograma suyo del video del cinturón. Miguel aprueba el
+   diseño antes de publicar. */
+const PRO_MIGUEL=[
+  { id:'pros-miguel-1', cls:'', chip:'PRO de la semana', imgSlot:true, type:'headline',
+    kicker:'PRO de la semana',
+    headline:'MIGUEL, <span class="hl">CAMPEÓN</span> DE SEPTIEMBRE',
+    desc:'Lo viste levantar el cinturón. Esto es lo que había antes.' },
+  { id:'pros-miguel-2', cls:'data', chip:'Antes de WindMar', blue:true, type:'headline',
+    kicker:'Antes de WindMar',
+    headline:'ANTES DE <span class="hl">WINDMAR</span>',
+    desc:'[PENDIENTE · respuesta de Miguel]' },
+  { id:'pros-miguel-3', cls:'data', chip:'Lo más difícil', blue:true, type:'headline',
+    kicker:'Lo más difícil al empezar',
+    headline:'AL EMPEZAR, LO MÁS <span class="hl">DIFÍCIL</span>',
+    desc:'[PENDIENTE · respuesta de Miguel]' },
+  { id:'pros-miguel-4', cls:'', chip:'Lo que cambió', imgSlot:true, type:'headline',
+    kicker:'Lo que cambió en mi vida',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · respuesta de Miguel, en comillas doradas]' },
+  { id:'pros-miguel-5', cls:'data', chip:'El próximo cinturón', blue:true, type:'headline',
+    kicker:'Cada mes',
+    headline:'EL CINTURÓN SE GANA <span class="hl">CADA MES</span>',
+    desc:'¿Quién lo levanta en noviembre?' },
+];
+
+/* NOVIEMBRE · martes 17, 8:00 p.m. (Florida). «Mito: Para vender hay que tener labia».
+   MITO va tachado en blanco y REALIDAD en naranja: sin rojo ni verde, como pide el calendario.
+   Fotos: 1 G07›3S4A0321 en duotono navy · 5 G07›3S4A0370. Láminas 2, 3 y 4 en azul liso.
+   El duotono no lo hace el generador: se aplica a la foto antes de arrastrarla. */
+const MITO_LABIA=[
+  { id:'pros-mito-labia-1', cls:'', chip:'Mito', imgSlot:true, type:'headline',
+    kicker:'<span style="color:#fff;text-decoration:line-through;text-decoration-thickness:.5cqw">MITO</span>',
+    headline:'“PARA VENDER HAY QUE TENER <span class="hl">LABIA</span>”',
+    desc:'' },
+  { id:'pros-mito-labia-2', cls:'data', chip:'Realidad', blue:true, type:'headline',
+    kicker:'REALIDAD · Los mejores closers',
+    headline:'NO SON LOS QUE MÁS HABLAN. SON LOS QUE MÁS <span class="hl">PREGUNTAN</span>',
+    desc:'' },
+  { id:'pros-mito-labia-3', cls:'data', chip:'El método', blue:true, type:'headline',
+    kicker:'Antes de la cita',
+    headline:'LLEGAN SABIENDO CUÁNTO PAGA ESA CASA DE <span class="hl">LUZ</span>',
+    desc:'' },
+  { id:'pros-mito-labia-4', cls:'data', chip:'El método', blue:true, type:'headline',
+    kicker:'Después de la cita',
+    headline:'VUELVEN A LLAMAR CUANDO DICEN “DÉJAME <span class="hl">PENSARLO</span>”',
+    desc:'' },
+  { id:'pros-mito-labia-5', cls:'', chip:'Método', imgSlot:true, type:'headline',
+    kicker:'La realidad',
+    headline:'ESO NO ES TALENTO. ES <span class="hl">MÉTODO</span>',
+    desc:'Y se entrena.' },
+];
+
+/* NOVIEMBRE · jueves 19, 8:00 p.m. (Florida). «PRO de la semana: Juan Seba».
+   Láminas 2, 3 y 4: respuestas de Juan, NO escritas (mismas 3 preguntas por WhatsApp que a
+   Miguel); dicen [PENDIENTE] hasta que lleguen. Lámina 5: Top Closer y Top Setter de la semana,
+   que ventas da el miércoles; si no hay dato, el calendario manda quitar esa lámina.
+   Plan B: si Juan no responde antes del lunes 16, su líder escribe dos líneas.
+   Fotos: 1 G12›Juan Seba · 4 G09›015. */
+const PRO_JUAN=[
+  { id:'pros-juan-1', cls:'', chip:'PRO de la semana', imgSlot:true, type:'headline',
+    kicker:'PRO de la semana',
+    headline:'JUAN SEBA, <span class="hl">PRO</span> DE LA SEMANA',
+    desc:'Llegó a WindMar sin saber vender solar.' },
+  { id:'pros-juan-2', cls:'data', chip:'Antes de WindMar', blue:true, type:'headline',
+    kicker:'Antes de WindMar',
+    headline:'ANTES DE <span class="hl">WINDMAR</span>',
+    desc:'[PENDIENTE · respuesta de Juan]' },
+  { id:'pros-juan-3', cls:'data', chip:'Lo más difícil', blue:true, type:'headline',
+    kicker:'Lo más difícil al empezar',
+    headline:'AL EMPEZAR, LO MÁS <span class="hl">DIFÍCIL</span>',
+    desc:'[PENDIENTE · respuesta de Juan]' },
+  { id:'pros-juan-4', cls:'', chip:'Lo que cambió', imgSlot:true, type:'headline',
+    kicker:'Lo que cambió en mi vida',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · respuesta de Juan, en comillas doradas]' },
+  { id:'pros-juan-5', cls:'data', chip:'La semana del equipo', blue:true, type:'headline',
+    kicker:'La semana del equipo',
+    headline:'TOP CLOSER <span class="hl">[NOMBRE]</span><br>TOP SETTER <span class="hl">[NOMBRE]</span>',
+    desc:'[PENDIENTE · lo da ventas el miércoles]' },
+];
+
+/* NOVIEMBRE · domingo 22, 9:00 p.m. (Florida). «Carta a mi yo del primer día».
+   Texto de la bajada en itálica, como una carta (clase «carta»). Fotos, por lámina: 1 G12›Graduandos 2 ·
+   2 G10›018 · 3 G03›3S4A0263 en blanco y negro · 4 G07›3S4A0370 · 5 G12›Jorge Barreras · 6 G10›022.
+   La 7 va en azul liso. El blanco y negro se aplica a la foto antes de arrastrarla. */
+const CARTA=[
+  { id:'pros-carta-1', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Una carta',
+    headline:'QUERIDO YO DEL <span class="hl">PRIMER DÍA</span>',
+    desc:'' },
+  { id:'pros-carta-2', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Lo que vas a sentir',
+    headline:'VAS A <span class="hl">DUDAR</span> LA PRIMERA SEMANA',
+    desc:'Es normal.' },
+  { id:'pros-carta-3', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Lo que vas a escuchar',
+    headline:'VAS A ESCUCHAR MÁS “NO” QUE “SÍ”',
+    desc:'No es personal.' },
+  { id:'pros-carta-4', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Lo que vas a tener',
+    headline:'VAS A TENER A ALGUIEN QUE TE <span class="hl">ACOMPAÑE</span>',
+    desc:'A tu primera cita.' },
+  { id:'pros-carta-5', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Lo que vas a ver',
+    headline:'UN DÍA VAS A VER TU NOMBRE EN EL <span class="hl">RANKING</span>',
+    desc:'' },
+  { id:'pros-carta-6', cls:'carta', chip:'La carta', imgSlot:true, type:'headline',
+    kicker:'Lo que vas a entender',
+    headline:'Y VAS A ENTENDER QUE NO FUE <span class="hl">SUERTE</span>',
+    desc:'Fue que no te fuiste.' },
+  { id:'pros-carta-7', cls:'carta data', chip:'La carta', blue:true, type:'headline',
+    kicker:'Firma',
+    headline:'TÚ, UNOS MESES <span class="hl">DESPUÉS</span>',
+    desc:'Nadie empieza sabiendo. Todos empiezan decidiendo.' },
+];
+
+/* NOVIEMBRE · jueves 26, 8:00 p.m. (Florida), Acción de Gracias. «¿Qué tipo de PRO eres?».
+   Fotos: 1 G01›001 · 4 El Mago, G07›3S4A0327 · 5 El Campeón, G11›Aby Gonzalez2 recortada en el
+   cinturón. «El que Prospecta» y «El Agradecido» van en azul liso, sin foto. */
+const GRACIAS=[
+  { id:'pros-gracias-1', cls:'', chip:'Acción de Gracias', imgSlot:true, type:'headline',
+    kicker:'Acción de Gracias',
+    headline:'¿QUÉ TIPO DE <span class="hl">PRO</span> ERES?',
+    desc:'En la mesa de Acción de Gracias.' },
+  { id:'pros-gracias-2', cls:'data', chip:'Personaje 1 de 4', blue:true, type:'headline',
+    kicker:'El que Prospecta en la Cena',
+    headline:'EL QUE <span class="hl">PROSPECTA</span> EN LA CENA',
+    desc:'Termina hablando de placas solares con el tío.' },
+  { id:'pros-gracias-3', cls:'data', chip:'Personaje 2 de 4', blue:true, type:'headline',
+    kicker:'El Agradecido',
+    headline:'EL <span class="hl">AGRADECIDO</span>',
+    desc:'Da las gracias por cada “no”, porque lo acerca al “sí”.' },
+  { id:'pros-gracias-4', cls:'', chip:'Personaje 3 de 4', imgSlot:true, type:'headline',
+    kicker:'El Mago',
+    headline:'EL <span class="hl">MAGO</span>',
+    desc:'Convierte un “déjame pensarlo” en contrato.' },
+  { id:'pros-gracias-5', cls:'', chip:'Personaje 4 de 4', imgSlot:true, type:'headline',
+    kicker:'El Campeón',
+    headline:'EL <span class="hl">CAMPEÓN</span>',
+    desc:'Da las gracias con el cinturón puesto.' },
+  { id:'pros-gracias-6', cls:'data', chip:'Feliz Acción de Gracias', blue:true, type:'headline',
+    kicker:'Desde WindMar Pros',
+    headline:'GRACIAS POR UN EQUIPO QUE <span class="hl">CELEBRA</span> CADA CIERRE COMO PROPIO',
+    desc:'¿Cuál eres tú?' },
+];
+
+/* NOVIEMBRE · domingo 29, 9:00 p.m. (Florida). «¿Qué te hizo quedarte?».
+   Láminas 2 a 5: una respuesta por lámina, de 4 personas a las que hay que preguntarles por
+   WhatsApp «¿Qué te hizo quedarte en WindMar?». NO están escritas: dicen [PENDIENTE] y llevan
+   nombre y puesto por poner. Fotos: 1 G12›Juan Seba · 2 a 5 G13›Karen, G11›Abdiel2, G09›013 y
+   la de la cuarta persona. Lámina 7: fotograma de Ariana. Plan B: con 2 respuestas el carrusel
+   queda de 5 láminas y se completa con la cita de Ariana. */
+const QUEDARTE=[
+  { id:'pros-quedarte-1', cls:'', chip:'Equipo', imgSlot:true, type:'headline',
+    kicker:'Le preguntamos al equipo',
+    headline:'¿QUÉ TE HIZO <span class="hl">QUEDARTE</span>?',
+    desc:'' },
+  { id:'pros-quedarte-2', cls:'', chip:'Respuesta 1 de 4', imgSlot:true, type:'headline',
+    kicker:'Respuesta 1 de 4',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · nombre y puesto]' },
+  { id:'pros-quedarte-3', cls:'', chip:'Respuesta 2 de 4', imgSlot:true, type:'headline',
+    kicker:'Respuesta 2 de 4',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · nombre y puesto]' },
+  { id:'pros-quedarte-4', cls:'', chip:'Respuesta 3 de 4', imgSlot:true, type:'headline',
+    kicker:'Respuesta 3 de 4',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · nombre y puesto]' },
+  { id:'pros-quedarte-5', cls:'', chip:'Respuesta 4 de 4', imgSlot:true, type:'headline',
+    kicker:'Respuesta 4 de 4',
+    headline:'<span class="hl">“</span>[RESPUESTA]<span class="hl">”</span>',
+    desc:'[PENDIENTE · nombre y puesto]' },
+  { id:'pros-quedarte-6', cls:'data', chip:'Lo que se queda', blue:true, type:'headline',
+    kicker:'Lo que dicen',
+    headline:'MUCHOS LLEGARON POR LA COMISIÓN. SE QUEDARON POR <span class="hl">ESTO</span>',
+    desc:'' },
+  { id:'pros-quedarte-7', cls:'', chip:'Ariana', imgSlot:true, type:'headline',
+    kicker:'En esta industria',
+    headline:'“NECESITAS UNA INSTALADORA QUE TE <span class="hl">RESPALDE</span>”',
+    desc:'— Ariana' },
+];
+
+/* DICIEMBRE · martes 1, 8:00 p.m. (Florida). «Tu primer mes, semana a semana».
+   El calendario pide una línea de tiempo naranja que cruce de lámina a lámina; el generador no la
+   dibuja, así que cada lámina lleva su semana en la etiqueta. Fotos: 1 G14›Tesla Room 4 ·
+   2 G02›3S4A0255 · 3 G10›019 · 4 G06›3S4A0307 · 5 G01›003 · 6 G01›3S4A0221. La 7 en azul liso.
+   POR CONFIRMAR con ventas: que las 4 semanas son así, y la fecha de la próxima clase (lámina 7).
+   Si no hay fecha, la 7 dice «Escríbenos PRO para la próxima fecha». */
+const PRIMER_MES=[
+  { id:'pros-primer-mes-1', cls:'', chip:'Tu primer mes', imgSlot:true, type:'headline',
+    kicker:'Esto es lo que pasa',
+    headline:'ESTO PASA EN TU <span class="hl">PRIMER MES</span>',
+    desc:'No te tiramos a la calle solo.' },
+  { id:'pros-primer-mes-2', cls:'', chip:'Semana 1 de 4', imgSlot:true, type:'headline',
+    kicker:'Semana 1',
+    headline:'ENTRENAMIENTO DE <span class="hl">PRODUCTO</span>',
+    desc:'Y lectura de facturas.' },
+  { id:'pros-primer-mes-3', cls:'', chip:'Semana 2 de 4', imgSlot:true, type:'headline',
+    kicker:'Semana 2',
+    headline:'ACOMPAÑAS A UN <span class="hl">LÍDER</span>',
+    desc:'A citas reales.' },
+  { id:'pros-primer-mes-4', cls:'', chip:'Semana 3 de 4', imgSlot:true, type:'headline',
+    kicker:'Semana 3',
+    headline:'TUS PRIMERAS <span class="hl">CITAS</span>',
+    desc:'Con apoyo.' },
+  { id:'pros-primer-mes-5', cls:'', chip:'Semana 4 de 4', imgSlot:true, type:'headline',
+    kicker:'Semana 4',
+    headline:'CERTIFICACIÓN Y <span class="hl">GRADUACIÓN</span>',
+    desc:'' },
+  { id:'pros-primer-mes-6', cls:'', chip:'Después', imgSlot:true, type:'headline',
+    kicker:'Después del primer mes',
+    headline:'RANKING, CONCURSOS Y <span class="hl">CRECIMIENTO</span>',
+    desc:'' },
+  { id:'pros-primer-mes-7', cls:'data', chip:'La próxima clase', blue:true, type:'headline',
+    kicker:'La próxima clase empieza el',
+    headline:'LA PRÓXIMA CLASE EMPIEZA EL <span class="hl">[FECHA]</span>',
+    desc:'Escríbenos PRO y te enviamos la fecha.' },
+];
+
+/* DICIEMBRE · jueves 3, 8:00 p.m. (Florida). «Mito: En ventas no hay estabilidad».
+   Fotos: 1 G08›007 en duotono navy · 4 G12›Jorge Barreras2 · 5 la gráfica del ranking
+   (windmar-pros-ranking.html) o, si no hay, un fotograma de los campeones del video.
+   Láminas 2 y 3 en azul liso. Ninguna cifra: el ranking se enseña, no se cita. */
+const MITO_ESTAB=[
+  { id:'pros-mito-estabilidad-1', cls:'', chip:'Mito', imgSlot:true, type:'headline',
+    kicker:'<span style="color:#fff;text-decoration:line-through;text-decoration-thickness:.5cqw">MITO</span>',
+    headline:'“EN VENTAS NO HAY <span class="hl">ESTABILIDAD</span>”',
+    desc:'' },
+  { id:'pros-mito-estabilidad-2', cls:'data', chip:'La realidad', blue:true, type:'headline',
+    kicker:'Lo inestable',
+    headline:'INESTABLE ES DEPENDER DE UN <span class="hl">AUMENTO</span> QUE NUNCA LLEGA',
+    desc:'' },
+  { id:'pros-mito-estabilidad-3', cls:'data', chip:'La realidad', blue:true, type:'headline',
+    kicker:'Lo que controlas',
+    headline:'AQUÍ TU INGRESO DEPENDE DE TU <span class="hl">ACTIVIDAD</span>',
+    desc:'Algo que tú controlas.' },
+  { id:'pros-mito-estabilidad-4', cls:'', chip:'El sistema', imgSlot:true, type:'headline',
+    kicker:'El sistema',
+    headline:'LLAMADAS, CITAS Y <span class="hl">MÉTODO</span>',
+    desc:'Todos los días.' },
+  { id:'pros-mito-estabilidad-5', cls:'', chip:'El ranking', imgSlot:true, type:'headline',
+    kicker:'El ranking',
+    headline:'LOS MISMOS NOMBRES SE REPITEN EN EL <span class="hl">RANKING</span>',
+    desc:'' },
+];
+
+/* DICIEMBRE · domingo 6, 9:00 p.m. (Florida). «Tu turno: cierre del mes».
+   Láminas 2, 3 y 4 llevan datos que NO tenemos: cuentas cerradas, graduados, estrenos en el ranking,
+   fecha de la próxima clase y cupos. Dicen [DATO] a propósito; los confirma ventas.
+   Si ventas no los confirma, el calendario manda cambiar las láminas 2 y 3 por
+   «3 campeones. 1 sala llena. Cero suerte.» Sello «Últimos cupos» en la lámina 4 (etiqueta de arriba).
+   El calendario pide un collage de fotos (G11›023, G12›Graduandos1, G09›014, G01›3S4A0221, G10›017,
+   G09›015 y fotogramas); el generador no hace collage, así que la 5 deja un solo hueco de foto. */
+const CIERRE_MES=[
+  { id:'pros-cierre-1', cls:'data', chip:'Un mes', blue:true, type:'headline',
+    kicker:'Un mes',
+    headline:'ESTO FUE LO QUE PASÓ EN <span class="hl">WINDMAR PROS</span>',
+    desc:'' },
+  { id:'pros-cierre-2', cls:'data', chip:'El equipo', blue:true, type:'headline',
+    kicker:'Por el equipo',
+    headline:'<span class="hl">[DATO]</span> CUENTAS CERRADAS',
+    desc:'[PENDIENTE · lo confirma ventas]' },
+  { id:'pros-cierre-3', cls:'data', chip:'El equipo', blue:true, type:'headline',
+    kicker:'Graduados y estrenos',
+    headline:'<span class="hl">[DATO]</span> SE GRADUARON<br><span class="hl">[DATO]</span> SE ESTRENARON EN EL RANKING',
+    desc:'[PENDIENTE · lo confirma ventas]' },
+  { id:'pros-cierre-4', cls:'data', chip:'Últimos cupos', blue:true, type:'headline',
+    kicker:'La próxima clase',
+    headline:'EMPIEZA EL <span class="hl">[FECHA]</span>',
+    desc:'Quedan [DATO] cupos. [PENDIENTE · lo confirma ventas]' },
+  { id:'pros-cierre-5', cls:'', chip:'Tu turno', imgSlot:true, type:'headline',
+    kicker:'El éxito no es suerte',
+    headline:'ES DECISIÓN. ¿<span class="hl">ENTRAS</span>?',
+    desc:'Escríbenos PRO hoy para reservar tu cupo.' },
+];
+
+renderGallery(SENALES,'g-pros-senales');
+renderGallery(PRO_MIGUEL,'g-pros-miguel');
+renderGallery(MITO_LABIA,'g-pros-mito-labia');
+renderGallery(PRO_JUAN,'g-pros-juan');
+renderGallery(CARTA,'g-pros-carta');
+renderGallery(GRACIAS,'g-pros-gracias');
+renderGallery(QUEDARTE,'g-pros-quedarte');
+renderGallery(PRIMER_MES,'g-pros-primer-mes');
+renderGallery(MITO_ESTAB,'g-pros-mito-estabilidad');
+renderGallery(CIERRE_MES,'g-pros-cierre');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
