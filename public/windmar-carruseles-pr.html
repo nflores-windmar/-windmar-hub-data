@@ -137,6 +137,22 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Prepara el video del viernes 13, «WHF financiamiento · Julio Mangual y Andrés Cruz». Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-pago"></div>
 
+  <div class="section-h"><h2>El techo antes que las placas</h2><span class="badge">Noviembre · 17</span></div>
+  <div class="section-sub">Acompaña al video «Roofing Técnico · Elliot Rodríguez». Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-techo"></div>
+
+  <div class="section-h"><h2>Antes de firmar, los 4 números</h2><span class="badge">Noviembre · jue 19</span></div>
+  <div class="section-sub">Prepara el video del viernes 20, «Solar Técnico · Carlos Alejandro». Versión nueva solo PNG overlay; la de arriba, «Antes de firmar, compara», ya se usó.</div>
+  <div class="gallery" id="g-nov-firmar"></div>
+
+  <div class="section-h"><h2>Víspera de Thanksgiving</h2><span class="badge">Noviembre · mié 25</span></div>
+  <div class="section-sub">Tema de calendario, no acompaña a ningún video. Sin oferta, solo marca. Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-gracias"></div>
+
+  <div class="section-h"><h2>Termina la temporada de huracanes</h2><span class="badge">Noviembre · lun 30</span></div>
+  <div class="section-sub">Cierra el hilo que abrió la batería de Anker. Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-temporada"></div>
+
 
 </div>
 
@@ -415,6 +431,130 @@ const PAGO=[
     desc:'Evaluación gratis, sin compromiso. Te asesoramos para encontrar la forma de pago que se ajusta a tu presupuesto. Sujeto a aprobación de crédito.' },
 ];
 
+/* NOVIEMBRE · 17. Acompaña al video «Roofing Técnico · Elliot Rodríguez» (producto
+   Roofing). Escrito el 4 de noviembre a pedido de Nicolle; solo PNG overlay, sin foto.
+   El plan pedía enlazar roofing con solar. Todo sale del artículo de windmar.com
+   «Sellado de techo: prepara tu hogar antes de instalar paneles solares»: sellar
+   antes evita remover las placas después, las cuatro señales de la lámina 2 y la
+   evaluación gratis (filtraciones, estado y área disponible). Sin cifras ni años.
+   POR CONFIRMAR: (1) fecha: Studio publica el carrusel el martes 17 y el video el
+   miércoles 18; el plan, al revés (video 17, carrusel 18); (2) marca: Roofing es
+   marca propia, sin logo WindMar Home y con naranja solo en el CTA, y la barra de
+   este generador pone WindMar Home y naranja en toda lámina; (3) la red: Studio
+   dice Facebook e Instagram y el plan dice solo Facebook. */
+const TECHO=[
+  { id:'nov-techo-1', cls:'', chip:'Roofing · Antes de instalar', type:'headline', overlay:true,
+    kicker:'Antes de instalar solar',
+    headline:'PRIMERO EL <span class="hl">TECHO</span>.<br>DESPUÉS LAS PLACAS.',
+    desc:'Las placas se instalan sobre tu techo. Si el techo necesita arreglo después, hay que mover las placas para llegar a él.' },
+  { id:'nov-techo-2', cls:'data', chip:'Lo que se revisa', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE SE MIRA EN<br>TU TECHO <span class="hl">ANTES</span>',
+    items:[
+      { n:'1', tt:'Manchas de humedad en el cielo raso', ds:'Muchas veces avisan de una filtración que no se ve desde arriba.' },
+      { n:'2', tt:'Pintura con burbujas en las paredes', ds:'La humedad también sube por la pared.' },
+      { n:'3', tt:'Agua estancada sobre el techo', ds:'Un techo que no drena bien se desgasta más rápido.' },
+      { n:'4', tt:'Más de 10 años sin mantenimiento', ds:'Ya vale la pena una revisión, aunque no se vea nada.' },
+    ] },
+  { id:'nov-techo-3', cls:'', chip:'Por qué ese orden', type:'headline', overlay:true,
+    kicker:'Sellar primero',
+    headline:'SELLAR ANTES<br>PROTEGE <span class="hl">TU INVERSIÓN</span>',
+    desc:'Así no hay que remover las placas después para reparar el techo, con el tiempo y el costo que eso trae.' },
+  { id:'nov-techo-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Te lo revisamos',
+    headline:'EVALUAMOS TU <span class="hl">TECHO</span><br>ANTES DE EMPEZAR',
+    desc:'Evaluación gratis, sin compromiso. Un técnico revisa filtraciones, estado y área disponible. Si lo necesitas, sellado y paneles se coordinan juntos.' },
+];
+
+/* NOVIEMBRE · jueves 19. «Antes de firmar, los 4 números» (Solar), prepara a «Solar
+   Técnico · Carlos Alejandro». Versión nueva a pedido de Nicolle el 4 de noviembre:
+   el arreglo FIRMAR ya se usó. Solo PNG overlay, sin foto. Los cuatro números salen
+   de FIRMAR (precio por vatio, tamaño, producción estimada, financiamiento). Sin
+   cifras: se quitó el «25+ años» de la versión vieja, que no tiene fuente.
+   POR CONFIRMAR: la red (Studio tiene dos piezas con este título: Facebook e
+   Instagram, e Instagram solo; el plan dice solo Facebook). */
+const FIRMAR_NOV=[
+  { id:'nov-firmar-1', cls:'', chip:'Solar · Antes de firmar', type:'headline', overlay:true,
+    kicker:'Antes de firmar',
+    headline:'LOS 4 NÚMEROS DE<br>UNA <span class="hl">COTIZACIÓN</span>',
+    desc:'No todas las cotizaciones solares dicen lo mismo. Estos cuatro números son los que de verdad se comparan.' },
+  { id:'nov-firmar-2', cls:'data', chip:'4 números clave', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE <span class="hl">CAMBIA</span><br>ENTRE COTIZACIONES',
+    items:[
+      { n:'1', tt:'Precio por vatio', ds:'$/W, no el precio total. Así comparas justo entre compañías.' },
+      { n:'2', tt:'Tamaño del sistema', ds:'kW y número de placas. Que cubra lo que tu hogar necesita.' },
+      { n:'3', tt:'Producción estimada', ds:'kWh al año. Lo que de verdad vas a generar.' },
+      { n:'4', tt:'Financiamiento', ds:'Tasa y plazo. Lo que pagas de más con el tiempo.' },
+    ] },
+  { id:'nov-firmar-3', cls:'', chip:'El primero', type:'headline', overlay:true,
+    kicker:'Empieza por el precio por vatio',
+    headline:'EL PRECIO TOTAL<br>NO <span class="hl">COMPARA</span>',
+    desc:'Dos sistemas de distinto tamaño no se comparan por el total. Se comparan por lo que cuesta cada vatio.' },
+  { id:'nov-firmar-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Estamos contigo',
+    headline:'TRAE TU <span class="hl">COTIZACIÓN</span>,<br>LA LEEMOS JUNTOS',
+    desc:'Te ayudamos a entender cada número para que compares con calma. Evaluación gratis, sin compromiso.' },
+];
+
+/* NOVIEMBRE · miércoles 25. «Víspera de Thanksgiving», tema de calendario (producto
+   WindMar Home). Escrito el 4 de noviembre a pedido de Nicolle; solo PNG overlay.
+   El plan dice «la casa llena y la luz que no se va. Sin oferta, solo marca»: por eso
+   la última lámina no lleva evaluación ni llamada a la acción. Sin cifras ni
+   promesas de cobertura: no dice que la luz no se vaya, dice qué no se quiere pensar.
+   POR CONFIRMAR: la red (Studio dice Facebook e Instagram, el plan solo Facebook). */
+const GRACIAS=[
+  { id:'nov-gracias-1', cls:'', chip:'WindMar Home · Thanksgiving', type:'headline', overlay:true,
+    kicker:'Víspera de Thanksgiving',
+    headline:'LA CASA LLENA.<br>LA LUZ <span class="hl">PRENDIDA</span>.',
+    desc:'Mañana la casa se llena de gente, de comida y de ruido bueno. Casi nadie piensa en la energía, y así debe ser.' },
+  { id:'nov-gracias-2', cls:'data', chip:'Lo que se junta en la mesa', blue:true, type:'list', overlay:true,
+    listhead:'TODO LO QUE<br>DEPENDE DE <span class="hl">LA LUZ</span><br>ESE DÍA',
+    items:[
+      { n:'1', tt:'La nevera', ds:'Llena de lo que se cocinó para varios días.' },
+      { n:'2', tt:'El horno y la estufa', ds:'Trabajando desde temprano.' },
+      { n:'3', tt:'El aire y los abanicos', ds:'Con la casa llena, se sienten más.' },
+      { n:'4', tt:'Los celulares y la tele', ds:'Para la foto, la llamada y el juego.' },
+    ] },
+  { id:'nov-gracias-3', cls:'', chip:'Lo que se agradece', type:'headline', overlay:true,
+    kicker:'Lo importante es la gente',
+    headline:'QUE NADIE TENGA<br>QUE PENSAR EN <span class="hl">LA LUZ</span>',
+    desc:'Para eso trabajamos: energía en casa, para que el día sea de quienes están en la mesa.' },
+  { id:'nov-gracias-4', cls:'', chip:'WindMar Home', type:'headline', overlay:true,
+    kicker:'De parte de todos en WindMar Home',
+    headline:'FELIZ<br><span class="hl">THANKSGIVING</span>',
+    desc:'Que sea un Día de Acción de Gracias con la mesa llena y la casa con buena energía.' },
+];
+
+/* NOVIEMBRE · lunes 30. «Termina la temporada de huracanes» (producto Anker). Escrito
+   el 4 de noviembre a pedido de Nicolle; solo PNG overlay. Cierra el hilo de la batería
+   de la semana 2. Lunes: solo Facebook según el plan (Studio dice Facebook e Instagram).
+   Sin cifras ni modelo: no se nombra ningún equipo. El 30 de noviembre es el cierre
+   oficial de la temporada del Atlántico; la afirmación de la lámina 3 (que la luz
+   se puede ir cualquier día del año) es de sentido común, no tiene fuente en el repo.
+   POR CONFIRMAR: (1) esa afirmación; (2) la marca: la regla de Anker pide que no salga
+   WindMar Home y la barra de este generador lo pone en toda lámina. */
+const TEMPORADA=[
+  { id:'nov-temporada-1', cls:'', chip:'Anker SOLIX · Cierre de temporada', type:'headline', overlay:true,
+    kicker:'30 de noviembre',
+    headline:'TERMINA LA<br><span class="hl">TEMPORADA</span>',
+    desc:'Hoy cierra oficialmente la temporada de huracanes. Es buen momento para ver cómo te fue con el respaldo.' },
+  { id:'nov-temporada-2', cls:'data', chip:'Al cerrar la temporada', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO COSAS<br>PARA <span class="hl">REVISAR</span> HOY',
+    items:[
+      { n:'1', tt:'Qué se quedó sin luz', ds:'Anota lo que de verdad hizo falta prender.' },
+      { n:'2', tt:'Cuánto aguantó tu respaldo', ds:'Si alcanzó, si faltó, y para qué.' },
+      { n:'3', tt:'Qué no puede apagarse', ds:'Nevera, equipos médicos, trabajo: la lista de tu casa.' },
+      { n:'4', tt:'Si tu equipo está listo', ds:'Cargado y guardado donde lo encuentres rápido.' },
+    ] },
+  { id:'nov-temporada-3', cls:'', chip:'Lo que no cambia', type:'headline', overlay:true,
+    kicker:'La luz no mira el calendario',
+    headline:'LOS APAGONES NO<br>SIGUEN <span class="hl">LA TEMPORADA</span>',
+    desc:'La luz se puede ir cualquier día del año. Que termine la temporada no quita la razón de tener respaldo.' },
+  { id:'nov-temporada-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Antes de la próxima',
+    headline:'PREPÁRATE <span class="hl">SIN PRISA</span>',
+    desc:'Cuéntanos qué no puede apagarse en tu casa y te ayudamos a calcular el respaldo. Sin compromiso.' },
+];
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
@@ -422,6 +562,10 @@ renderGallery(DISENO,'g-nov-diseno');
 renderGallery(EQUIPOS,'g-nov-equipos');
 renderGallery(BATERIA,'g-nov-bateria');
 renderGallery(PAGO,'g-nov-pago');
+renderGallery(TECHO,'g-nov-techo');
+renderGallery(FIRMAR_NOV,'g-nov-firmar');
+renderGallery(GRACIAS,'g-nov-gracias');
+renderGallery(TEMPORADA,'g-nov-temporada');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
