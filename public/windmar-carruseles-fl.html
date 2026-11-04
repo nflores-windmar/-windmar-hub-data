@@ -92,6 +92,10 @@ h1 .o{color:var(--orange)}
 .piece.sep .tagrow{margin-bottom:5cqw}
 .piece.sep .listhead{font-size:8.6cqw}
 .piece.sep .items{margin-top:3.5cqw;gap:2.6cqw}
+/* Lámina de lista con cinco puntos («five»): mismo recurso que «sep», más compacto. */
+.piece.five .tagrow{margin-bottom:3cqw}
+.piece.five .listhead{font-size:8.2cqw}
+.piece.five .items{margin-top:3cqw;gap:2.3cqw}
 .vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
 .vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
 .vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
@@ -101,19 +105,96 @@ h1 .o{color:var(--orange)}
 .brandbar img{height:7cqw;width:auto;display:block}
 .site{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
 .site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--acc);flex:none}
+
+/* ===== WINDMAR ROOFING (marca propia · theme:'roof') =====
+   Sistema de Roofing, no el de WindMar Home: azul #93b6d8, blanco y grises
+   (#575756 texto, #b1b1b1 secundario), Montserrat 500/700/800 sin Bebas, el naranja
+   #f6921e SOLO en el botón (un único elemento naranja por lámina), sin navy, sin
+   negro, sin foto de fondo. Máximo 4 tamaños de letra por lámina:
+   titular 9.4cqw · número 7cqw · texto 4cqw · apoyo 3.1cqw (más la cifra grande de «vs»).
+   Logo: el de Roofing, sin WindMar Home. Safe zone 50px = 4.6cqw → relleno de 6cqw. */
+.piece.roof{--acc:#575756;background:#fff;color:#575756;border:1px solid var(--line);box-shadow:0 18px 48px rgba(13,34,64,.14)}
+.piece.roof .ph{background:#fff}
+.piece.roof.hero .ph{background:linear-gradient(180deg,#93b6d8 0%,#93b6d8 46%,#ffffff 100%)}
+.piece.roof .scrim{display:none}
+.piece.roof .content{padding:6cqw}
+.piece.roof .spacer{display:none}
+.piece.roof .stat{flex:1;display:flex;flex-direction:column;justify-content:flex-start}
+.piece.roof .tagrow{justify-content:flex-start;margin-bottom:6cqw}
+.piece.roof .chip{font-family:var(--body);font-weight:700;font-size:3.1cqw;letter-spacing:.3cqw;color:#575756;text-shadow:none}
+.piece.roof .kicker{font-weight:700;font-size:3.1cqw;letter-spacing:.3cqw;color:#575756;text-shadow:none;margin-bottom:3cqw}
+.piece.roof .headline,.piece.roof .listhead{font-family:var(--body);font-weight:800;font-size:9.4cqw;line-height:1.06;letter-spacing:-.02em;text-transform:none;color:#575756;text-shadow:none}
+.piece.roof .rule{display:none}
+.piece.roof .desc{font-weight:500;font-size:4cqw;line-height:1.35;color:#575756;text-shadow:none;margin-top:4cqw;max-width:100%}
+.piece.roof .items{margin-top:5cqw;gap:3.6cqw}
+.piece.roof .item{gap:3.4cqw}
+.piece.roof .item .n{font-family:var(--body);font-weight:800;font-size:7cqw;line-height:1;color:#93b6d8;min-width:10cqw}
+.piece.roof .item .tx{color:#575756}
+.piece.roof .item .tt{font-weight:800;font-size:4cqw;letter-spacing:0;text-transform:none;line-height:1.15;color:#575756}
+.piece.roof .item .ds{font-weight:500;font-size:3.1cqw;line-height:1.35;color:#575756;margin-top:.8cqw}
+.piece.roof.five .tagrow{margin-bottom:4cqw}
+.piece.roof.five .listhead{font-size:8cqw}
+.piece.roof.five .items{margin-top:4cqw;gap:2.6cqw}
+.piece.roof .vsrow{background:linear-gradient(135deg,#93b6d8 0%,#ffffff 100%);border-radius:5cqw;padding:7cqw 6cqw;margin:5cqw 0 0;gap:0}
+.piece.roof .vsbig{font-family:var(--body);font-weight:800;font-size:17cqw;line-height:.9;letter-spacing:-.03em;color:#575756}
+.piece.roof .vsrow>div{min-width:0}
+.piece.roof .vslab{font-weight:700;font-size:4cqw;letter-spacing:0;text-transform:none;color:#575756;margin-top:2cqw}
+.piece.roof .cta{align-self:flex-start;margin-top:6cqw;background:#f6921e;color:#fff;font-family:var(--body);font-weight:700;font-size:4cqw;line-height:1;padding:3.2cqw 6cqw;border-radius:8cqw}
+.piece.roof .legal{font-family:var(--body);font-weight:500;font-size:3.1cqw;line-height:1.3;color:#575756;margin-top:4cqw}
+.piece.roof .brandbar{border-top:.4cqw solid #e3e9f0;margin-top:4cqw;padding-top:4cqw}
+.piece.roof .brandbar img{height:11cqw}
+.piece.roof .site{color:#575756;font-weight:700;font-size:3.1cqw;letter-spacing:.1cqw;text-transform:none}
+.piece.roof .site .dot{background:#93b6d8}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <h1>Carruseles <span class="o">·</span> Florida</h1>
-    <div class="sub">Feed 4:5 (1080×1350) · tres carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
+    <div class="sub">Feed 4:5 (1080×1350) · siete carruseles de noviembre en una sola página, en el orden del calendario · textos editables al hacer clic · PNG por tarjeta.</div>
   </header>
   <div class="note"><b>Carruseles de Florida.</b> Feed 4:5, 1080×1350. Cada lámina se exporta por separado. Las que llevan <code>overlay:true</code> salen como <b>PNG overlay</b> transparente —degradado, texto y barra de marca— para montarlo sobre una foto o un video; el cuadriculado que se ve detrás es solo para notar la transparencia y no sale en el PNG.</div>
 
   <div class="note" style="margin-top:10px"><b>Ojo con el idioma.</b> Florida no es toda igual: lo de <b>Roofing va en inglés</b> desde el 16 de octubre de 2026, y el resto en español. El idioma lo decide a qué grupo se pide la firma, no la página. Si el carrusel es de Roofing, escríbelo en inglés.</div>
 
-  <div class="note" style="margin-top:10px"><b>Esta página todavía no tiene ningún carrusel.</b> Para añadir uno hacen falta tres cosas, y si falta una no aparece: el <b>arreglo</b> con sus láminas, el <b>contenedor</b> aquí abajo, y la <b>llamada a <code>renderGallery</code></b>. Hay un ejemplo comentado al final del script.</div>
+  <div class="note" style="margin-top:10px"><b>Dos sistemas visuales, una página.</b> Los de <b>Solar</b> van con el estilo de láminas de WindMar Home (azul, Bebas Neue, logo WindMar Home). Los de <b>Roofing</b> van con el sistema de Roofing, que es marca propia: azul claro, blanco y grises, Montserrat, el naranja solo en el botón y el logo de Roofing, sin WindMar Home. Ninguna lámina lleva foto: el fondo es de color, así el PNG sale completo. Si se quiere una foto real, se añade <code>bg</code> a la lámina con una ruta ya elegida.</div>
+
+  <div class="note" style="margin-top:10px"><b>Los temas son una propuesta.</b> En el calendario de Florida v5 estas piezas dicen «tema por definir». Los temas y los textos salen de windmar.com/fl/solar y windmar.com/fl/roofing (leídas el 4 de noviembre de 2026); ninguna cifra viene de otro sitio. Faltan por definir: <b>Thanksgiving (jue 26)</b> y <b>Black Friday (vie 27)</b>, que en el calendario están «por confirmar» y no tienen oferta ni mensaje escrito; no se les inventó uno.</div>
+
+  <!-- 1 · mar 10 · Solar -->
+  <div class="section-h"><h2>Solar · Cómo funciona tu sistema</h2><span class="badge">Noviembre · mar 10</span></div>
+  <div class="section-sub">Español · Gráfica Solar 10-nov · Facebook 6:30 PM, Instagram 12:30 PM (hora del este, hora de prueba) · 3 láminas.</div>
+  <div class="gallery" id="g-fl-solar-sistema"></div>
+
+  <!-- 2 · mié 11 · Roofing -->
+  <div class="section-h"><h2>Roofing · Four materials</h2><span class="badge">Noviembre · mié 11</span></div>
+  <div class="section-sub">Inglés · Gráfica Roofing 11-nov · Facebook 12:30 PM, Instagram 6:30 PM (hora del este, hora de prueba) · 3 láminas.</div>
+  <div class="gallery" id="g-fl-roof-materials"></div>
+
+  <!-- 3 · mar 17 · Solar -->
+  <div class="section-h"><h2>Solar · Lo que produces de día</h2><span class="badge">Noviembre · mar 17</span></div>
+  <div class="section-sub">Español · Gráfica Solar 17-nov · Facebook 6:30 PM, Instagram 12:30 PM (hora del este, hora de prueba) · 4 láminas.</div>
+  <div class="gallery" id="g-fl-solar-medicion"></div>
+
+  <!-- 4 · mié 18 · Roofing -->
+  <div class="section-h"><h2>Roofing · Five steps</h2><span class="badge">Noviembre · mié 18</span></div>
+  <div class="section-sub">Inglés · Gráfica Roofing 18-nov · Facebook 12:30 PM, Instagram 6:30 PM (hora del este, hora de prueba) · 3 láminas.</div>
+  <div class="gallery" id="g-fl-roof-proceso"></div>
+
+  <!-- 5 · vie 20 · Roofing -->
+  <div class="section-h"><h2>Roofing · Who is on your roof</h2><span class="badge">Noviembre · vie 20</span></div>
+  <div class="section-sub">Inglés · Gráfica Roofing 20-nov · Facebook 12:30 PM, Instagram 6:30 PM (hora del este, hora de prueba) · 4 láminas.</div>
+  <div class="gallery" id="g-fl-roof-equipo"></div>
+
+  <!-- 6 · mar 24 · Solar -->
+  <div class="section-h"><h2>Solar · La batería</h2><span class="badge">Noviembre · mar 24</span></div>
+  <div class="section-sub">Español · Gráfica Solar 24-nov · Facebook 6:30 PM, Instagram 12:30 PM (hora del este, hora de prueba) · 3 láminas.</div>
+  <div class="gallery" id="g-fl-solar-bateria"></div>
+
+  <!-- 7 · mié 25 · Roofing -->
+  <div class="section-h"><h2>Roofing · Packages</h2><span class="badge">Noviembre · mié 25</span></div>
+  <div class="section-sub">Inglés · Gráfica Roofing 25-nov · Facebook 12:30 PM, Instagram 6:30 PM (hora del este, hora de prueba) · 3 láminas.</div>
+  <div class="gallery" id="g-fl-roof-paquetes"></div>
 
   <!-- Los carruseles van aquí. Uno por bloque:
 
@@ -128,12 +209,19 @@ h1 .o{color:var(--orange)}
 <script type="module">
 import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
 
-const LOGO='wme/logos/wmh-home-white-orange.png';
-const SITE='windmar.com';
+/* Florida usa dos logos, según la marca de la lámina:
+   theme omitido (WindMar Home) → logo blanco y naranja de WindMar Home, sobre fondo azul.
+   theme:'roof' (Roofing)       → logo de Roofing a todo color, sobre fondo claro.
+   Los dos viven en public/wme/logos/. Sitio de pie: el de Florida, no windmar.com a secas. */
+const THEMES={
+  home:{logo:'wme/logos/wmh-home-white-orange.png', alt:'WindMar Home', site:'windmar.com/fl'},
+  roof:{logo:'wme/logos/windmar-roofing-fc.png',    alt:'WindMar Roofing', site:'windmar.com/fl/roofing'}
+};
 
 function renderGallery(cards, containerId){
   const gallery=document.getElementById(containerId);
   cards.forEach((c,i)=>{
+    const th=THEMES[c.theme||'home'];
     const slot=document.createElement('div'); slot.className='slot';
     /* overlay:true → lámina solo-overlay: sin foto, sin hueco para foto y sin degradado
        azul de fondo. Su único botón es «PNG overlay» (transparente). */
@@ -148,7 +236,7 @@ function renderGallery(cards, containerId){
 
     let hero='';
     if(c.type==='headline'){
-      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+      hero=`${c.kicker?`<div class="kicker" contenteditable="true">${c.kicker}</div>`:''}
         <div class="headline" contenteditable="true">${c.headline}</div>
         <div class="rule"></div>
         <div class="desc" contenteditable="true">${c.desc}</div>`;
@@ -159,7 +247,8 @@ function renderGallery(cards, containerId){
             <div class="tx"><div class="tt" contenteditable="true">${it.tt}</div><div class="ds" contenteditable="true">${it.ds}</div></div>
           </div>`).join('')}</div>`;
     } else if(c.type==='vs'){
-      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+      hero=`${c.kicker?`<div class="kicker" contenteditable="true">${c.kicker}</div>`:''}
+        ${c.headline?`<div class="headline" contenteditable="true">${c.headline}</div>`:''}
         <div class="vsrow">
           <div><div class="vsbig" contenteditable="true">${c.big}</div><div class="vslab" contenteditable="true">${c.biglab}</div></div>
           ${c.sml?`<div><div class="vssm">${c.sml}</div><div class="vslab">${c.smllab}</div></div>`:''}
@@ -167,6 +256,10 @@ function renderGallery(cards, containerId){
         <div class="rule"></div>
         <div class="desc" contenteditable="true">${c.desc}</div>`;
     }
+    /* cta → botón (único naranja de una lámina de Roofing) · legal → línea de pie
+       (todo financiamiento lleva su aviso de aprobación de crédito) */
+    hero+=`${c.cta?`<div class="cta" contenteditable="true">${c.cta}</div>`:''}
+        ${c.legal?`<div class="legal" contenteditable="true">${c.legal}</div>`:''}`;
 
     const pid=`${containerId}-${i}`;
     /* Botón: en una lámina solo-overlay sale «PNG overlay» con data-name = «<id>-overlay»,
@@ -180,7 +273,7 @@ function renderGallery(cards, containerId){
         <span class="cap">${c.chip} · ${i+1}/${cards.length}</span>
         <span class="btns">${btnHtml}</span>
       </div>
-      <div class="piece ${c.cls} ${isOv?'ov':''}" id="${pid}">
+      <div class="piece ${c.cls||''} ${isOv?'ov':''} ${c.theme==='roof'?'roof':''}" id="${pid}">
         <div class="ph ${c.blue&&!isOv?'blue':''}">${bgEl}</div>
         <div class="scrim"></div>
         <div class="content">
@@ -188,8 +281,8 @@ function renderGallery(cards, containerId){
           <div class="spacer"></div>
           <div class="stat">${hero}</div>
           <div class="brandbar">
-            <img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
-            <span class="site"><span class="dot"></span>${SITE}</span>
+            <img src="${th.logo}" alt="${th.alt}" crossorigin="anonymous">
+            <span class="site"><span class="dot"></span>${c.site||th.site}</span>
           </div>
         </div>
       </div>`;
@@ -197,28 +290,223 @@ function renderGallery(cards, containerId){
   });
 }
 
-/* NOVIEMBRE · miércoles 4. Acompaña al video del martes 3, «Diseño · Jesús Pelayo».
-   Entrega: 28 de octubre. Propuesta escrita el 27 de octubre — textos editables en la
-   página, sin cifras porque no hay ninguna con fuente para este tema. Si se le quiere
-   poner un número (cuántos diseños al mes, cuántas revisiones), hay que sacarlo de
-   algún sitio antes.
-   3 de noviembre: las 4 láminas llevan overlay:true — Nicolle las pidió como PNG
-   overlay (transparente, sin foto) además del PNG normal.
-   3 de noviembre, tarde: cambios que Manuel Pales marcó sobre el arte en la revisión de
-   Studio. Lámina 2: «consume» (punto 3) y «necesitas y cómo ubicarlas» (punto 4).
-   Lámina 3: titular «sin diseño», «una brigada» y «ya se sabe». Falta por aplicar la
-   marca «esta repetido»: Studio no dice a qué lámina ni a qué texto apunta. El texto
-   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano.
-   3 de noviembre, 3 PM: Nicolle pidió separar la etiqueta «Lo que se decide primero»
-   del titular en la lámina 2; por eso esa lámina lleva la clase «sep».
-   3 de noviembre, 4 PM: Nicolle pidió quitar la foto de fondo: las 4 láminas son solo
-   PNG overlay. Por eso ya no llevan imgSlot ni bg (el generador ignora la foto en toda
-   lámina con overlay:true) y su único botón es «PNG overlay». */
+/* NOVIEMBRE · calendario de Florida v5 (campaña «WindMar FL — General», Studio).
+   Julieth Torres pidió el 4 de noviembre los carruseles del calendario. Las piezas de
+   «Gráfica» del calendario venían con el tema por definir; los temas de abajo son
+   PROPUESTA de Musa y salen de lo que dicen windmar.com/fl/solar y windmar.com/fl/roofing
+   (leídas el 4 de noviembre). No hay ninguna cifra de otro sitio. Como en todo carrusel,
+   no llevan talento ni fecha de entrega: terminan en su pieza de Studio con la fecha de
+   publicación. Falta, sin escribir: Thanksgiving (jue 26) y Black Friday (vie 27), «por confirmar».
+
+   Los textos de la publicación (caption) viven en Studio y no se tocaron: están vacíos. */
+
+/* ── 1 · SOLAR · mar 10 · «Gráfica Solar 10-nov» ───────────────────────────────
+   Tema propuesto: las cinco piezas de un sistema solar. Fuente: windmar.com/fl/solar,
+   bloque «Tesla Powerwall» (paneles, microinversores, batería opcional, medidor
+   inteligente, monitoreo). Sin cifras. */
+const SOLAR_SISTEMA=[
+  { id:'fl-solar-sistema-1', cls:'data', chip:'Solar · Cómo funciona', blue:true, type:'headline',
+    kicker:'Antes de decidir',
+    headline:'LO QUE HAY<br>DETRÁS DE<br><span class="hl">LAS PLACAS</span>',
+    desc:'Un sistema solar es más que paneles en el techo. Son cinco piezas que trabajan juntas.' },
+
+  { id:'fl-solar-sistema-2', cls:'data five', chip:'Las cinco piezas', blue:true, type:'list',
+    listhead:'CINCO PIEZAS,<br>UN SOLO <span class="hl">SISTEMA</span>',
+    items:[
+      { n:'1', tt:'Paneles solares', ds:'Convierten la luz del sol en corriente directa.' },
+      { n:'2', tt:'Microinversores', ds:'La convierten en la corriente que usa tu casa.' },
+      { n:'3', tt:'Batería (opcional)', ds:'Guarda lo que sobra de día para la noche.' },
+      { n:'4', tt:'Medidor inteligente', ds:'Lee la electricidad en ambas direcciones.' },
+      { n:'5', tt:'Monitoreo', ds:'Producción, consumo y batería, por internet.' },
+    ] },
+
+  { id:'fl-solar-sistema-3', cls:'data', chip:'El cierre', blue:true, type:'headline',
+    kicker:'Y ahora qué',
+    headline:'PIDE TU REPORTE<br>DE <span class="hl">AHORRO</span>',
+    desc:'Gratis. Déjanos tus datos y un especialista de WindMar Solar + Roofing te contacta.',
+    site:'windmar.com/fl/solar' },
+];
+renderGallery(SOLAR_SISTEMA,'g-fl-solar-sistema');
+
+/* ── 2 · ROOFING · mié 11 · «Gráfica Roofing 11-nov» ───────────────────────────
+   Inglés. Track Retail (el que elige invertir); CTA como en windmar.com/fl/roofing.
+   Tema propuesto: los cuatro materiales. Fuente: windmar.com/fl/roofing, bloque
+   «Materials we install» (casi verbatim). Sin cifras propias; los datos de cada material
+   son los de la página. Confirmar con los PM de Roofing FL antes de firmar. */
+const ROOF_MATERIALS=[
+  { id:'fl-roof-materials-1', cls:'hero', theme:'roof', chip:'Roofing · Materials', type:'headline',
+    headline:'Which roof is right for your Florida home?',
+    desc:'Choose on budget, on wind performance, or simply on how your home will look.' },
+
+  { id:'fl-roof-materials-2', cls:'five', theme:'roof', chip:'Four systems', type:'list',
+    listhead:'Four materials.<br>Pick yours.',
+    items:[
+      { n:'1', tt:'Asphalt shingles', ds:'Owens Corning. Lowest upfront cost, with a Class 4 option.' },
+      { n:'2', tt:'Standing seam metal', ds:'24 gauge, raised seam. Concealed fasteners.' },
+      { n:'3', tt:'Stone coated metal', ds:'Class 4 hail and a 50-year warranty.' },
+      { n:'4', tt:'Concrete tile', ds:'Up to 180 mph and 45–75 years of service.' },
+    ] },
+
+  { id:'fl-roof-materials-3', cls:'hero', theme:'roof', chip:'Your next step', type:'headline',
+    headline:'One material.<br>One crew trained<br>for it.',
+    desc:'No mix and matching crews. Every system is installed by factory-trained crews for that specific material.',
+    cta:'Get my free inspection' },
+];
+renderGallery(ROOF_MATERIALS,'g-fl-roof-materials');
+
+/* ── 3 · SOLAR · mar 17 · «Gráfica Solar 17-nov» ───────────────────────────────
+   Tema propuesto: lo que produces de día lo usas de noche (medidor inteligente).
+   Fuente: windmar.com/fl/solar, bloques «Smart Meter» y «Compare bills». Antes de
+   firmar, confirmar con quien lleve Solar FL que la descripción del programa de
+   medición neta coincide con lo que aplica en el servicio eléctrico de cada cliente.
+   Sin cifras. */
+const SOLAR_MEDICION=[
+  { id:'fl-solar-medicion-1', cls:'data', chip:'Solar · Medidor inteligente', blue:true, type:'headline',
+    kicker:'¿Y la energía que no usas?',
+    headline:'LO QUE PRODUCES<br>DE DÍA, <span class="hl">LO USAS</span><br>DE NOCHE',
+    desc:'Con el medidor inteligente, la energía que no consumes no se pierde.' },
+
+  { id:'fl-solar-medicion-2', cls:'data', chip:'Cómo funciona', blue:true, type:'list',
+    listhead:'TRES PASOS,<br>CADA <span class="hl">DÍA</span>',
+    items:[
+      { n:'1', tt:'De día, tus placas producen', ds:'La energía del sol cubre lo que necesita tu casa.' },
+      { n:'2', tt:'Lo que sobra se acredita', ds:'El medidor lee la electricidad en ambas direcciones y acredita el exceso con la compañía eléctrica.' },
+      { n:'3', tt:'De noche, usas ese crédito', ds:'La energía acreditada la puedes usar de noche o más adelante.' },
+    ] },
+
+  { id:'fl-solar-medicion-3', cls:'data', chip:'Un costo más estable', blue:true, type:'headline',
+    kicker:'El giro',
+    headline:'UN COSTO DE LUZ<br>SIN <span class="hl">SORPRESAS</span>',
+    desc:'Con un sistema WindMar Solar estableces un costo fijo de electricidad para evitar sorpresas en tu factura.' },
+
+  { id:'fl-solar-medicion-4', cls:'data', chip:'El cierre', blue:true, type:'headline',
+    kicker:'Y ahora qué',
+    headline:'COMPARA TU<br>FACTURA CON<br><span class="hl">TU REPORTE</span>',
+    desc:'Pide tu reporte de ahorro gratis y compáralo con lo que pagas hoy.',
+    site:'windmar.com/fl/solar' },
+];
+renderGallery(SOLAR_MEDICION,'g-fl-solar-medicion');
+
+/* ── 4 · ROOFING · mié 18 · «Gráfica Roofing 18-nov» ───────────────────────────
+   Inglés, Retail. Tema propuesto: el proceso en cinco pasos. Fuente:
+   windmar.com/fl/roofing, bloque «The process» (acortado para que quepa; mismo
+   contenido). Sin cifras propias. */
+const ROOF_PROCESO=[
+  { id:'fl-roof-proceso-1', cls:'hero', theme:'roof', chip:'Roofing · The process', type:'headline',
+    headline:'What happens after you call?',
+    desc:'From the first inspection to your registered warranty, this is how a WindMar roof goes.' },
+
+  { id:'fl-roof-proceso-2', cls:'five', theme:'roof', chip:'Five steps', type:'list',
+    listhead:'Five steps.<br>No surprises.',
+    items:[
+      { n:'1', tt:'Inspection', ds:'We document it with photos and explain it.' },
+      { n:'2', tt:'Quote', ds:'Written price, material by material.' },
+      { n:'3', tt:'Permits', ds:'We file and follow up with the municipality.' },
+      { n:'4', tt:'Install', ds:'Our own factory-trained W-2 crew.' },
+      { n:'5', tt:'Warranty', ds:'We register it and stay your one contact.' },
+    ] },
+
+  { id:'fl-roof-proceso-3', cls:'hero', theme:'roof', chip:'Your next step', type:'headline',
+    headline:'Start with an inspection.',
+    desc:'We get on the roof, document with photos, and give you the price in writing. No cost, no obligation.',
+    cta:'Get my free inspection' },
+];
+renderGallery(ROOF_PROCESO,'g-fl-roof-proceso');
+
+/* ── 5 · ROOFING · vie 20 · «Gráfica Roofing 20-nov» ───────────────────────────
+   Inglés, Retail. Tema propuesto: quién está en tu techo. Fuente:
+   windmar.com/fl/roofing, bloques «The WindMar difference», «Proven partners» y
+   «Why WindMar». La cifra de la lámina 3 (80,000+) es la que publica esa página:
+   «installs completed throughout Florida and Puerto Rico». Es una cifra de la empresa
+   y se pide confirmarla con los PM de Roofing FL antes de firmar; sin ella la lámina
+   se cae y quedan tres. No lleva cifras de años de experiencia (regla de Roofing). */
+const ROOF_EQUIPO=[
+  { id:'fl-roof-equipo-1', cls:'hero', theme:'roof', chip:'Roofing · Our crews', type:'headline',
+    headline:'Who is actually on your roof?',
+    desc:'Our own crews. No subcontractors. One company accountable from start to finish.' },
+
+  { id:'fl-roof-equipo-2', cls:'five', theme:'roof', chip:'What stands behind it', type:'list',
+    listhead:'Four things behind<br>every roof.',
+    items:[
+      { n:'1', tt:'W-2 employees', ds:'100% W-2 and factory-trained. No subcontractors.' },
+      { n:'2', tt:'One crew per material', ds:'Trained for that specific system.' },
+      { n:'3', tt:'Trusted partners', ds:'Owens Corning and Home Depot.' },
+      { n:'4', tt:'One point of contact', ds:'One company accountable start to finish.' },
+    ] },
+
+  { id:'fl-roof-equipo-3', cls:'', theme:'roof', chip:'The WindMar difference', type:'vs',
+    headline:'Proven results.',
+    big:'80,000+', biglab:'installs completed throughout Florida and Puerto Rico', sml:'', smllab:'',
+    desc:'Trusted, proven, built to last.' },
+
+  { id:'fl-roof-equipo-4', cls:'hero', theme:'roof', chip:'Your next step', type:'headline',
+    headline:'One crew.<br>One point<br>of contact.',
+    desc:'Start with an inspection and an estimate at no cost.',
+    cta:'Get my free inspection' },
+];
+renderGallery(ROOF_EQUIPO,'g-fl-roof-equipo');
+
+/* ── 6 · SOLAR · mar 24 · «Gráfica Solar 24-nov» ───────────────────────────────
+   Tema propuesto: la batería. Fuente: windmar.com/fl/solar, bloques «Tesla Powerwall»
+   y «Access all the benefits». Tono tranquilo: sin miedo a los apagones como gancho.
+   Sin cifras. La batería es opcional en el sistema, y la lámina lo dice. */
+const SOLAR_BATERIA=[
+  { id:'fl-solar-bateria-1', cls:'data', chip:'Solar · La batería', blue:true, type:'headline',
+    kicker:'Tu sistema, con respaldo',
+    headline:'LA ENERGÍA DE HOY,<br>PARA <span class="hl">ESTA NOCHE</span>',
+    desc:'Una batería guarda la energía solar que tu casa no usó durante el día.' },
+
+  { id:'fl-solar-bateria-2', cls:'data sep', chip:'Lo que hace', blue:true, type:'list',
+    listhead:'TRES COSAS QUE<br>HACE <span class="hl">LA BATERÍA</span>',
+    items:[
+      { n:'1', tt:'Guarda lo que sobra', ds:'Almacena la energía solar producida en exceso durante el día.' },
+      { n:'2', tt:'La tienes de noche', ds:'Esa energía está lista cuando se va el sol.' },
+      { n:'3', tt:'Respaldo si falla el servicio', ds:'También la puedes usar durante un apagón.' },
+    ] },
+
+  { id:'fl-solar-bateria-3', cls:'data', chip:'El cierre', blue:true, type:'headline',
+    kicker:'Y ahora qué',
+    headline:'ARMA TU SISTEMA<br>CON <span class="hl">BATERÍA</span>',
+    desc:'Pide tu reporte de ahorro gratis y pregunta por la Tesla Powerwall 3.',
+    site:'windmar.com/fl/solar' },
+];
+renderGallery(SOLAR_BATERIA,'g-fl-solar-bateria');
+
+/* ── 7 · ROOFING · mié 25 · «Gráfica Roofing 25-nov» ───────────────────────────
+   Inglés, Retail. Tema propuesto: paquetes, financiamiento y descuentos. Fuente:
+   windmar.com/fl/roofing, bloques «Financing» y «Discounts available». Lleva el aviso
+   de aprobación de crédito en la lámina que menciona financiamiento (regla de la
+   Biblioteca, bloqueante). Los descuentos no llevan monto porque la página no lo da.
+   Confirmar con los PM de Roofing FL que los descuentos siguen vigentes antes de firmar. */
+const ROOF_PAQUETES=[
+  { id:'fl-roof-paquetes-1', cls:'hero', theme:'roof', chip:'Roofing · Packages', type:'headline',
+    headline:'Packages to fit any budget.',
+    desc:'For the homeowner who wants the right solution, not the cheapest one.' },
+
+  { id:'fl-roof-paquetes-2', cls:'five', theme:'roof', chip:'What is available', type:'list',
+    listhead:'A plan that fits<br>your roof.',
+    items:[
+      { n:'1', tt:'Options by material', ds:'Shingles, metal, stone coated metal or tile.' },
+      { n:'2', tt:'Price and financing in one quote', ds:'Payment options for qualified homeowners.' },
+      { n:'3', tt:'No-cost inspection and estimate', ds:'No obligation.' },
+      { n:'4', tt:'Discounts available', ds:'Military and veterans, first responders, senior&nbsp;citizens.' },
+    ],
+    legal:'Financing subject to credit approval. Approval is up to the lender.' },
+
+  { id:'fl-roof-paquetes-3', cls:'hero', theme:'roof', chip:'Your next step', type:'headline',
+    headline:'See your price<br>in writing.',
+    desc:'Material by material, with no fine print. Start with an inspection at no cost.',
+    cta:'Get my free inspection' },
+];
+renderGallery(ROOF_PAQUETES,'g-fl-roof-paquetes');
+
 /* ── Cómo se añade un carrusel ─────────────────────────────────────────────
 
    Tres sitios, y si falta uno no aparece: el arreglo, el contenedor en el HTML
    de arriba, y la llamada de abajo. Los `id` dan el nombre del PNG
    (`windmar-<id>.png`) y el ancla para enlazarlo: …#g-fl-ejemplo
+   Una lámina de Roofing lleva `theme:'roof'` (y `cta` en la última); una de WindMar
+   Home no lleva `theme`.
 
 const EJEMPLO=[
   { id:'fl-ejemplo-1', cls:'', chip:'Solar · El gancho', overlay:true, type:'headline',
@@ -301,7 +589,7 @@ document.querySelectorAll('.dl').forEach(btn=>{
       node.style.borderRadius='0'; node.style.border='none'; node.style.boxShadow='none';
       if(ov){ node.style.background='transparent'; if(ph) ph.style.display='none'; }
       const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,style:{borderRadius:'0',border:'none',boxShadow:'none'}};
-      if(ov) opts.style.background='transparent'; else opts.backgroundColor='#0a1626';
+      if(ov) opts.style.background='transparent'; else opts.backgroundColor=node.classList.contains('roof')?'#ffffff':'#0a1626';
       let blob=null;
       try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
       if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
