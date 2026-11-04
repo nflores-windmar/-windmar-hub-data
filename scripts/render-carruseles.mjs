@@ -31,7 +31,11 @@ const SALIDA = join(PUBLICO, "artes", "carruseles");
 
 // Los generadores que entran por defecto. Para añadir uno, se añade aquí Y en
 // el `paths:` del workflow, o se dibujará sin que nadie lo dispare.
-const GENERADORES = ["windmar-carruseles-pr.html", "windmar-carruseles-pros.html"];
+const GENERADORES = [
+  "windmar-carruseles-pr.html",
+  "windmar-carruseles-pros.html",
+  "windmar-carruseles-fl.html",
+];
 
 const CHROME =
   process.env.CHROME_PATH ||

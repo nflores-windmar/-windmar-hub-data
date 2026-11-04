@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WindMar · Carruseles Florida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Florida es WindMar Home: la misma marca que Puerto Rico, otro mercado.
+     Por eso la paleta no cambia. La que SÍ cambia es la de Pros, que es otra cuenta. */
+  --navy:#0a2882; --navy2:#071e55; --ink:#1a52c7; --orange:#f57c0a;
+  --bg:#e9eef7; --muted:#5a6b8c; --line:#e3e9f0;
+  --disp:'Bebas Neue',Impact,sans-serif; --body:'Montserrat',system-ui,sans-serif; --mono:'DM Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--navy);font-family:var(--body);padding:26px}
+.wrap{max-width:900px;margin:0 auto}
+header.top{border-bottom:3px solid var(--orange);padding-bottom:14px;margin-bottom:8px}
+h1{font-size:24px;letter-spacing:-.3px}
+h1 .o{color:var(--orange)}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.note{background:#fff;border:1px solid rgba(26,82,199,.16);border-radius:10px;padding:12px 14px;font-size:13px;color:#33517f;margin:16px 0;line-height:1.5}
+.section-h{margin:34px 0 2px;display:flex;align-items:center;gap:12px}
+.section-h h2{font-family:var(--disp);font-weight:400;font-size:34px;letter-spacing:.5px;color:var(--navy);text-transform:uppercase;line-height:1}
+.section-h .badge{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:var(--orange);padding:4px 9px;border-radius:6px}
+.section-sub{color:var(--muted);font-size:12.5px;margin:2px 0 4px}
+.gallery{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start;margin-top:14px}
+.slot{display:flex;flex-direction:column;gap:10px}
+.caprow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cap{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.btns{display:flex;align-items:center;gap:6px}
+.dl{font-family:var(--body);font-size:11px;font-weight:800;padding:5px 11px;border-radius:7px;border:1.5px solid var(--line);background:#fff;color:var(--navy);cursor:pointer;white-space:nowrap}
+.dl:hover{border-color:var(--navy);background:var(--navy);color:#fff}
+.dl:disabled{opacity:.5;cursor:default}
+.dl.ov{border-color:var(--orange);color:var(--orange)}
+.dl.ov:hover{border-color:var(--orange);background:var(--orange);color:#fff}
+
+/* ===== CARRUSEL 4:5 · blueprint sobre foto ===== */
+.piece{--acc:#f7a03a;position:relative;overflow:hidden;container-type:inline-size;
+  width:360px;aspect-ratio:4/5;border-radius:16px;background:#0a1626;color:#fff;
+  box-shadow:0 18px 48px rgba(13,34,64,.22);border:1px solid var(--line)}
+/* Lámina solo-overlay (overlay:true): no lleva foto ni degradado azul de fondo.
+   En la página se ve un cuadriculado para que se note que el fondo es transparente;
+   al exportar, el botón «PNG overlay» lo pone en transparent y ese cuadriculado no sale. */
+.piece.ov{background-color:#34415d;
+  background-image:linear-gradient(45deg,#2a3650 25%,transparent 25%,transparent 75%,#2a3650 75%),
+                   linear-gradient(45deg,#2a3650 25%,transparent 25%,transparent 75%,#2a3650 75%);
+  background-size:24px 24px;background-position:0 0,12px 12px}
+.ph{position:absolute;inset:0;z-index:0}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.04) saturate(1.06)}
+.ph .vdrop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6cqw;
+  background:repeating-linear-gradient(45deg,#0c1c40,#0c1c40 14px,#0a1836 14px,#0a1836 28px);
+  border:.6cqw dashed rgba(255,255,255,.38);cursor:pointer;text-align:center;padding:8cqw}
+.ph .vdrop.drag{border-color:var(--acc);background:#13224e}
+.ph .vdrop-ic{font-size:11cqw;line-height:1}
+.ph .vdrop-tx{font-family:var(--body);font-weight:800;font-size:3.6cqw;color:#fff;letter-spacing:.1cqw}
+.ph .vdrop-sub{font-family:var(--body);font-weight:600;font-size:2.6cqw;color:rgba(255,255,255,.62)}
+.ph.blue{background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 13px),
+  repeating-linear-gradient(-45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 13px),
+  radial-gradient(120% 90% at 80% 0%, #14336e 0%, #0b1f4c 45%, #081736 100%)}
+.scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,14,34,.60) 0%,rgba(6,14,34,.30) 26%,rgba(6,14,34,.80) 56%,rgba(4,10,26,.99) 100%)}
+.piece.data .scrim{background:linear-gradient(180deg,rgba(6,14,34,.62) 0%,rgba(6,14,34,.50) 40%,rgba(4,10,26,.90) 100%)}
+
+.content{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;padding:8cqw 7cqw 9cqw;pointer-events:none}
+.content [contenteditable]{pointer-events:auto;outline:none}
+.content [contenteditable]:focus{box-shadow:0 0 0 1.5px rgba(247,160,58,.6);border-radius:4px}
+.tagrow{display:flex;align-items:center;justify-content:flex-end;gap:2cqw}
+.chip{font-family:var(--body);font-weight:800;font-size:2.9cqw;letter-spacing:.28cqw;text-transform:uppercase;
+  color:var(--acc);line-height:1;text-shadow:0 .2cqw 1.4cqw rgba(0,0,0,.9),0 0 .6cqw rgba(0,0,0,.8)}
+.spacer{flex:1}
+.kicker{font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.16cqw;text-transform:uppercase;color:var(--acc);margin-bottom:2.6cqw;text-shadow:0 .2cqw 1.4cqw rgba(0,0,0,.9),0 0 .6cqw rgba(0,0,0,.8)}
+.headline{font-family:var(--disp);font-weight:400;font-size:12.5cqw;line-height:.92;letter-spacing:.2cqw;text-transform:uppercase;color:#fff;text-shadow:0 .3cqw 2.4cqw rgba(0,0,0,.75),0 0 .8cqw rgba(0,0,0,.5)}
+.headline .hl{color:var(--acc)}
+.rule{width:20cqw;height:1cqw;background:var(--acc);margin:3.4cqw 0 3cqw;border-radius:2px}
+.desc{font-family:var(--body);font-weight:600;font-size:3.3cqw;line-height:1.32;color:rgba(255,255,255,.92);margin-top:3cqw;max-width:96%;text-shadow:0 .2cqw 1.2cqw rgba(0,0,0,.85)}
+.listhead{font-family:var(--disp);font-weight:400;font-size:9.5cqw;line-height:.94;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
+.listhead .hl{color:var(--acc)}
+.items{margin-top:5cqw;display:flex;flex-direction:column;gap:3.4cqw}
+.item{display:flex;gap:3.2cqw;align-items:flex-start}
+.item .n{font-family:var(--disp);font-weight:400;font-size:7.5cqw;line-height:.8;color:var(--acc);min-width:8cqw}
+.item .tx{font-family:var(--body);color:#fff}
+.item .tt{font-weight:800;font-size:3.5cqw;letter-spacing:.06cqw;text-transform:uppercase;line-height:1.05}
+.item .ds{font-weight:600;font-size:2.9cqw;line-height:1.28;color:rgba(255,255,255,.82);margin-top:.6cqw}
+/* Lámina de lista con titular de tres líneas y un punto largo: la etiqueta de arriba
+   se pegaba al titular. «sep» deja aire bajo la etiqueta y lo recupera achicando un
+   poco el titular y el espacio entre puntos, para que la barra de marca no se salga. */
+.piece.sep .tagrow{margin-bottom:5cqw}
+.piece.sep .listhead{font-size:8.6cqw}
+.piece.sep .items{margin-top:3.5cqw;gap:2.6cqw}
+.vsrow{display:flex;align-items:flex-end;gap:5cqw;margin-bottom:1cqw}
+.vsbig{font-family:var(--disp);font-weight:400;line-height:.8;color:var(--acc);font-size:30cqw}
+.vssm{font-family:var(--disp);font-weight:400;line-height:.8;color:rgba(255,255,255,.55);font-size:16cqw}
+.vslab{font-family:var(--body);font-weight:800;font-size:2.7cqw;text-transform:uppercase;letter-spacing:.1cqw;color:rgba(255,255,255,.8);margin-top:1.4cqw}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:3cqw;margin-top:5.5cqw;
+  padding-top:4cqw;border-top:.5cqw solid rgba(255,255,255,.22)}
+.brandbar img{height:7cqw;width:auto;display:block}
+.site{display:flex;align-items:center;gap:2cqw;font-family:var(--body);font-weight:800;font-size:3cqw;letter-spacing:.2cqw;text-transform:uppercase;color:#fff}
+.site .dot{width:2.2cqw;height:2.2cqw;border-radius:50%;background:var(--acc);flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>Carruseles <span class="o">·</span> Florida</h1>
+    <div class="sub">Feed 4:5 (1080×1350) · tres carruseles en una sola página · arrastra tus fotos a los huecos 🖼️ · textos editables al hacer clic · PNG por tarjeta.</div>
+  </header>
+  <div class="note"><b>Carruseles de Florida.</b> Feed 4:5, 1080×1350. Cada lámina se exporta por separado. Las que llevan <code>overlay:true</code> salen como <b>PNG overlay</b> transparente —degradado, texto y barra de marca— para montarlo sobre una foto o un video; el cuadriculado que se ve detrás es solo para notar la transparencia y no sale en el PNG.</div>
+
+  <div class="note" style="margin-top:10px"><b>Ojo con el idioma.</b> Florida no es toda igual: lo de <b>Roofing va en inglés</b> desde el 16 de octubre de 2026, y el resto en español. El idioma lo decide a qué grupo se pide la firma, no la página. Si el carrusel es de Roofing, escríbelo en inglés.</div>
+
+  <div class="note" style="margin-top:10px"><b>Esta página todavía no tiene ningún carrusel.</b> Para añadir uno hacen falta tres cosas, y si falta una no aparece: el <b>arreglo</b> con sus láminas, el <b>contenedor</b> aquí abajo, y la <b>llamada a <code>renderGallery</code></b>. Hay un ejemplo comentado al final del script.</div>
+
+  <!-- Los carruseles van aquí. Uno por bloque:
+
+  <div class="section-h"><h2>Título del carrusel</h2><span class="badge">Noviembre · mié 4</span></div>
+  <div class="section-sub">A qué pieza acompaña y cuándo entrega.</div>
+  <div class="gallery" id="g-fl-ejemplo"></div>
+
+  -->
+
+</div>
+
+<script type="module">
+import { toBlob } from 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+
+const LOGO='wme/logos/wmh-home-white-orange.png';
+const SITE='windmar.com';
+
+function renderGallery(cards, containerId){
+  const gallery=document.getElementById(containerId);
+  cards.forEach((c,i)=>{
+    const slot=document.createElement('div'); slot.className='slot';
+    /* overlay:true → lámina solo-overlay: sin foto, sin hueco para foto y sin degradado
+       azul de fondo. Su único botón es «PNG overlay» (transparente). */
+    const isOv = !!c.overlay;
+    const bgEl = isOv
+      ? ''
+      : c.bg
+      ? `<img src="${c.bg}" alt="" crossorigin="anonymous"><input type="file" accept="image/*,video/*" class="vin" hidden>`
+      : c.imgSlot
+      ? `<div class="vdrop"><div class="vdrop-ic">🖼️</div><div class="vdrop-tx">Arrastra tu foto aquí</div><div class="vdrop-sub">o haz clic para elegirla</div><input type="file" accept="image/*,video/*" class="vin" hidden></div>`
+      : '';
+
+    let hero='';
+    if(c.type==='headline'){
+      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+        <div class="headline" contenteditable="true">${c.headline}</div>
+        <div class="rule"></div>
+        <div class="desc" contenteditable="true">${c.desc}</div>`;
+    } else if(c.type==='list'){
+      hero=`<div class="listhead" contenteditable="true">${c.listhead}</div>
+        <div class="items">${c.items.map(it=>`
+          <div class="item"><div class="n">${it.n}</div>
+            <div class="tx"><div class="tt" contenteditable="true">${it.tt}</div><div class="ds" contenteditable="true">${it.ds}</div></div>
+          </div>`).join('')}</div>`;
+    } else if(c.type==='vs'){
+      hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
+        <div class="vsrow">
+          <div><div class="vsbig" contenteditable="true">${c.big}</div><div class="vslab" contenteditable="true">${c.biglab}</div></div>
+          ${c.sml?`<div><div class="vssm">${c.sml}</div><div class="vslab">${c.smllab}</div></div>`:''}
+        </div>
+        <div class="rule"></div>
+        <div class="desc" contenteditable="true">${c.desc}</div>`;
+    }
+
+    const pid=`${containerId}-${i}`;
+    /* Botón: en una lámina solo-overlay sale «PNG overlay» con data-name = «<id>-overlay»,
+       así el script que dibuja los PNG lo encuentra y el archivo queda
+       windmar-<id>-overlay.png. En las demás sigue el botón «PNG» con foto de siempre. */
+    const btnHtml = isOv
+      ? `<button class="dl ov" data-pid="${pid}" data-name="${c.id}-overlay" data-overlay="1">⬇︎ PNG overlay</button>`
+      : `<button class="dl" data-pid="${pid}" data-name="${c.id}">⬇︎ PNG</button>`;
+    slot.innerHTML=`
+      <div class="caprow">
+        <span class="cap">${c.chip} · ${i+1}/${cards.length}</span>
+        <span class="btns">${btnHtml}</span>
+      </div>
+      <div class="piece ${c.cls} ${isOv?'ov':''}" id="${pid}">
+        <div class="ph ${c.blue&&!isOv?'blue':''}">${bgEl}</div>
+        <div class="scrim"></div>
+        <div class="content">
+          <div class="tagrow"><span class="chip" contenteditable="true">${c.chip}</span></div>
+          <div class="spacer"></div>
+          <div class="stat">${hero}</div>
+          <div class="brandbar">
+            <img src="${LOGO}" alt="WindMar Home" crossorigin="anonymous">
+            <span class="site"><span class="dot"></span>${SITE}</span>
+          </div>
+        </div>
+      </div>`;
+    gallery.appendChild(slot);
+  });
+}
+
+/* NOVIEMBRE · miércoles 4. Acompaña al video del martes 3, «Diseño · Jesús Pelayo».
+   Entrega: 28 de octubre. Propuesta escrita el 27 de octubre — textos editables en la
+   página, sin cifras porque no hay ninguna con fuente para este tema. Si se le quiere
+   poner un número (cuántos diseños al mes, cuántas revisiones), hay que sacarlo de
+   algún sitio antes.
+   3 de noviembre: las 4 láminas llevan overlay:true — Nicolle las pidió como PNG
+   overlay (transparente, sin foto) además del PNG normal.
+   3 de noviembre, tarde: cambios que Manuel Pales marcó sobre el arte en la revisión de
+   Studio. Lámina 2: «consume» (punto 3) y «necesitas y cómo ubicarlas» (punto 4).
+   Lámina 3: titular «sin diseño», «una brigada» y «ya se sabe». Falta por aplicar la
+   marca «esta repetido»: Studio no dice a qué lámina ni a qué texto apunta. El texto
+   de la publicación (caption) vive en Studio y hay que cambiarlo allí a mano.
+   3 de noviembre, 3 PM: Nicolle pidió separar la etiqueta «Lo que se decide primero»
+   del titular en la lámina 2; por eso esa lámina lleva la clase «sep».
+   3 de noviembre, 4 PM: Nicolle pidió quitar la foto de fondo: las 4 láminas son solo
+   PNG overlay. Por eso ya no llevan imgSlot ni bg (el generador ignora la foto en toda
+   lámina con overlay:true) y su único botón es «PNG overlay». */
+/* ── Cómo se añade un carrusel ─────────────────────────────────────────────
+
+   Tres sitios, y si falta uno no aparece: el arreglo, el contenedor en el HTML
+   de arriba, y la llamada de abajo. Los `id` dan el nombre del PNG
+   (`windmar-<id>.png`) y el ancla para enlazarlo: …#g-fl-ejemplo
+
+const EJEMPLO=[
+  { id:'fl-ejemplo-1', cls:'', chip:'Solar · El gancho', overlay:true, type:'headline',
+    kicker:'Antes de que te lo pregunten',
+    headline:'LO QUE NADIE<br>TE <span class="hl">CUENTA</span>',
+    desc:'Una o dos líneas. Es lo único que se lee como frase.' },
+
+  { id:'fl-ejemplo-2', cls:'data', chip:'Lo que te llevas', blue:true, type:'list',
+    listhead:'TRES COSAS QUE<br>SE DECIDEN <span class="hl">ANTES</span>',
+    items:[
+      { n:'1', tt:'Lo primero', ds:'Por qué importa.' },
+      { n:'2', tt:'Lo segundo', ds:'Por qué importa.' },
+    ] },
+
+  { id:'fl-ejemplo-3', cls:'', chip:'El cierre', overlay:true, type:'headline',
+    kicker:'Y ahora qué',
+    headline:'ESCRÍBENOS<br><span class="hl">HOY</span>',
+    desc:'Qué hace la persona ahora.' },
+];
+renderGallery(EJEMPLO,'g-fl-ejemplo');
+
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* colocar / reemplazar foto o video */
+document.querySelectorAll('.ph').forEach(ph=>{
+  const inp=ph.querySelector('.vin'); if(!inp) return;
+  const drop=ph.querySelector('.vdrop');
+  const setMedia=file=>{
+    if(!file) return;
+    const url=URL.createObjectURL(file);
+    const vin='<input type="file" accept="image/*,video/*" class="vin" hidden>';
+    if(file.type.startsWith('video/')) ph.innerHTML=`<video src="${url}" autoplay muted loop playsinline preload="auto"></video>${vin}`;
+    else if(file.type.startsWith('image/')) ph.innerHTML=`<img src="${url}" alt="" crossorigin="anonymous">${vin}`;
+    else return;
+    rewire(ph);
+  };
+  const rewire=el=>{ const ni=el.querySelector('.vin'); if(ni) ni.addEventListener('change',e=>setMedia(e.target.files[0])); };
+  ph.addEventListener('click',()=>{const v=ph.querySelector('.vin'); if(v) v.click();});
+  inp.addEventListener('change',e=>setMedia(e.target.files[0]));
+  ph.addEventListener('dragover',e=>{e.preventDefault();drop&&drop.classList.add('drag');});
+  ph.addEventListener('dragleave',()=>drop&&drop.classList.remove('drag'));
+  ph.addEventListener('drop',e=>{e.preventDefault();drop&&drop.classList.remove('drag');setMedia(e.dataTransfer.files&&e.dataTransfer.files[0]);});
+});
+
+/* ==== embed de fuentes para exportar sin fallos ==== */
+let _fontCSS=null;
+async function fontEmbedCSS(){
+  if(_fontCSS!=null) return _fontCSS;
+  try{
+    const links=[...document.querySelectorAll('link[rel="stylesheet"][href*="fonts.googleapis.com"]')];
+    let css='';
+    for(const l of links){
+      let t=await (await fetch(l.href)).text();
+      const urls=[...new Set([...t.matchAll(/url\((https:\/\/[^)]+)\)/g)].map(m=>m[1]))];
+      for(const u of urls){
+        const b=await (await fetch(u)).blob();
+        const d=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);});
+        t=t.split(u).join(d);
+      }
+      css+=t+'\n';
+    }
+    _fontCSS=css;
+  }catch(e){ _fontCSS=''; }
+  return _fontCSS;
+}
+
+/* exportar PNG 1080×1350.
+   Botón normal: la lámina completa, con foto y fondo.
+   Botón «PNG overlay» (data-overlay="1"): PNG transparente — sin foto ni fondo; queda
+   el degradado, el texto y la barra de marca, para montarla sobre foto o video. */
+document.querySelectorAll('.dl').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    const node=document.getElementById(btn.dataset.pid);
+    const ov=btn.dataset.overlay==='1';
+    const ph=node.querySelector('.ph');
+    btn.disabled=true; const old=btn.textContent; btn.textContent='…';
+    const rb=node.style.borderRadius, bd=node.style.border, sh=node.style.boxShadow, bgOld=node.style.background, phOld=ph?ph.style.display:'';
+    try{
+      const css=await fontEmbedCSS();
+      node.style.borderRadius='0'; node.style.border='none'; node.style.boxShadow='none';
+      if(ov){ node.style.background='transparent'; if(ph) ph.style.display='none'; }
+      const opts={pixelRatio:1080/node.offsetWidth,cacheBust:true,style:{borderRadius:'0',border:'none',boxShadow:'none'}};
+      if(ov) opts.style.background='transparent'; else opts.backgroundColor='#0a1626';
+      let blob=null;
+      try{ blob=await toBlob(node,{...opts,fontEmbedCSS:css}); }catch(e){}
+      if(!blob){ try{ blob=await toBlob(node,{...opts,skipFonts:true}); }catch(e){} }
+      if(!blob) throw new Error('el navegador devolvió una imagen vacía');
+      const a=document.createElement('a');
+      a.download=`windmar-${btn.dataset.name}.png`;
+      a.href=URL.createObjectURL(blob); a.click();
+    }catch(e){ alert('No se pudo exportar: '+e.message); }
+    finally{
+      node.style.borderRadius=rb; node.style.border=bd; node.style.boxShadow=sh; node.style.background=bgOld;
+      if(ph) ph.style.display=phOld;
+    }
+    btn.disabled=false; btn.textContent=old;
+  });
+});
+</script>
+</body>
+</html>
