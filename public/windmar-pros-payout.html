@@ -628,6 +628,9 @@
     prog.style.width=(clamp(t/TOTAL,0,1)*100).toFixed(2)+'%';
   }
   window.__seek = seek;
+  /* La duración, para quien capture: el capturador NO la escribe, la pregunta.
+     Si alguien cambia una escena en DUR, el MP4 la sigue sin tocar el script. */
+  window.__duracion = DUR.reduce((a,b)=>a+b,0)/1000;
 
   /* ---------- 5. PREVIEW: el reloj lo manda el audio ---------- */
   let raf=0;
