@@ -129,6 +129,14 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Prepara el video del viernes 6, «VP Procurement · Andrés Billoch». Entrega: 29 de octubre. Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-equipos"></div>
 
+  <div class="section-h"><h2>Batería: qué sigue encendido</h2><span class="badge">Noviembre · mié 11</span></div>
+  <div class="section-sub">Acompaña al video del martes 10, «Anker Técnico · Jesús Medina». Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-bateria"></div>
+
+  <div class="section-h"><h2>Cómo se paga un sistema</h2><span class="badge">Noviembre · jue 12</span></div>
+  <div class="section-sub">Prepara el video del viernes 13, «WHF financiamiento · Julio Mangual y Andrés Cruz». Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-pago"></div>
+
 
 </div>
 
@@ -337,11 +345,83 @@ const EQUIPOS=[
     desc:'Evaluación gratis, sin compromiso. Te explicamos qué equipo lleva tu sistema y la razón de cada pieza.' },
 ];
 
+/* NOVIEMBRE · miércoles 11. Acompaña al video del martes 10, «Anker Técnico · Jesús
+   Medina». Pieza «Batería: qué sigue encendido» del plan de noviembre (producto Anker).
+   Escrito el 4 de noviembre a pedido de Nicolle; solo PNG overlay, sin foto, como el
+   resto de noviembre.
+   El calendario pedía detallar aparato por aparato. Los cuatro aparatos (nevera,
+   abanicos, equipos médicos, trabajo desde casa) salen del artículo de windmar.com
+   sobre la batería Anker SOLIX E10, donde figuran como lo que cubre una batería B6000.
+   Sin cifras en las láminas: ni kWh ni precios, porque no está confirmado de qué
+   modelo habla el video de Jesús Medina.
+   POR CONFIRMAR: (1) el modelo del video, para que los aparatos de la lámina 2 le
+   correspondan; (2) la marca: la regla de Anker pide que no salga WindMar Home, y la
+   barra de marca de este generador pone el logo WindMar Home y windmar.com en toda
+   lámina; (3) la red: Studio dice Facebook e Instagram y el plan dice solo Facebook. */
+const BATERIA=[
+  { id:'nov-bateria-1', cls:'', chip:'Anker SOLIX · Respaldo', type:'headline', overlay:true,
+    kicker:'Cuando se va la luz',
+    headline:'¿QUÉ SIGUE<br><span class="hl">ENCENDIDO</span>?',
+    desc:'Tener respaldo no es lo mismo que saber qué te cubre. Aparato por aparato, esto es lo que importa.' },
+  { id:'nov-bateria-2', cls:'data', chip:'Aparato por aparato', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE UNA BATERÍA<br>MANTIENE <span class="hl">PRENDIDO</span>',
+    items:[
+      { n:'1', tt:'La nevera', ds:'Lo que no se puede perder: la comida de la semana.' },
+      { n:'2', tt:'Los abanicos', ds:'El calor no espera a que vuelva la luz.' },
+      { n:'3', tt:'Los equipos médicos', ds:'Los que dependen de la corriente para funcionar.' },
+      { n:'4', tt:'El trabajo desde casa', ds:'Para no perder el día de trabajo.' },
+    ] },
+  { id:'nov-bateria-3', cls:'', chip:'Lo que hay que saber', type:'headline', overlay:true,
+    kicker:'Cada casa consume distinto',
+    headline:'NO TODAS LAS CASAS<br>PRENDEN <span class="hl">LO MISMO</span>',
+    desc:'Lo que puedes respaldar depende de lo que tengas conectado y de cuántas baterías sumes. Por eso se calcula con tu consumo, no con un promedio.' },
+  { id:'nov-bateria-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Te lo calculamos',
+    headline:'DINOS QUÉ NO<br>PUEDE <span class="hl">APAGARSE</span>',
+    desc:'Un especialista revisa tu consumo y te confirma qué respaldas y con qué configuración. Evaluación gratis, sin compromiso.' },
+];
+
+/* NOVIEMBRE · jueves 12. Prepara el video del viernes 13, «WHF financiamiento · Julio
+   Mangual y Andrés Cruz». Pieza «Cómo se paga un sistema» del plan de noviembre
+   (WindMar Financial, colocada bajo Solar por indicación de Nicolle). Escrito el 4 de
+   noviembre a pedido de Nicolle; solo PNG overlay, sin foto.
+   El calendario pedía no prometer «gratis total»: se habla de ahorro y de evaluación
+   sin compromiso. Las tres rutas salen de la página windmar.com/finance (préstamo con
+   Oriental Bank, WindMar Energy by Qcells y la red de otras alternativas). Sin cifras:
+   ni tasas, ni plazos, ni montos, porque la página no trae ninguno para solar.
+   POR CONFIRMAR: (1) que Financiamiento valide que lo que dicen las láminas 2 y 3
+   sigue vigente; (2) la frase «sujeto a aprobación de crédito» de la lámina 4: es un
+   descargo que añadí yo, no sale de la página; (3) la red: Studio tiene dos piezas con
+   este título (Facebook e Instagram, e Instagram solo) y el plan dice solo Facebook. */
+const PAGO=[
+  { id:'nov-pago-1', cls:'', chip:'Financiamiento · Solar', type:'headline', overlay:true,
+    kicker:'Antes de decidir',
+    headline:'¿CÓMO SE PAGA<br>UN <span class="hl">SISTEMA</span> SOLAR?',
+    desc:'Hay más de una forma de pagarlo, y cada una responde a una necesidad distinta.' },
+  { id:'nov-pago-2', cls:'data', chip:'Tres rutas', blue:true, type:'list', overlay:true,
+    listhead:'TRES FORMAS<br>DE <span class="hl">PAGARLO</span>',
+    items:[
+      { n:'1', tt:'Préstamo con Oriental Bank', ds:'Eres dueño de tu sistema, con servicio y mantenimiento incluidos.' },
+      { n:'2', tt:'WindMar Energy by Qcells', ds:'Pagos fijos o escalonados. Servicio, mantenimiento y seguro incluidos.' },
+      { n:'3', tt:'Otras alternativas', ds:'Pagos adaptados a tu presupuesto y proceso 100% digital.' },
+    ] },
+  { id:'nov-pago-3', cls:'', chip:'El criterio', type:'headline', overlay:true,
+    kicker:'Antes de escoger',
+    headline:'NO SE ESCOGE SOLO<br>POR LA <span class="hl">CUOTA</span>',
+    desc:'Mira también quién da el servicio y el mantenimiento, y qué incluye cada opción.' },
+  { id:'nov-pago-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Te ayudamos a escoger',
+    headline:'TE EXPLICAMOS<br>LAS <span class="hl">OPCIONES</span>',
+    desc:'Evaluación gratis, sin compromiso. Te asesoramos para encontrar la forma de pago que se ajusta a tu presupuesto. Sujeto a aprobación de crédito.' },
+];
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
 renderGallery(DISENO,'g-nov-diseno');
 renderGallery(EQUIPOS,'g-nov-equipos');
+renderGallery(BATERIA,'g-nov-bateria');
+renderGallery(PAGO,'g-nov-pago');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
