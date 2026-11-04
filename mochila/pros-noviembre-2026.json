@@ -1,0 +1,453 @@
+{
+  "_lee_esto_primero": "El calendario de WindMar Pros de noviembre de 2026, tal como lo entregó Nicolle. OJO: Pros NO es WindMar Home. Firma Miguel Torres —decisorio, «con esto se sube»— y Manuel Pales y Pichu solo OPINAN, al revés que en Puerto Rico. El aviso de firma va al grupo «Social Media Florida - Oficial», no al canal Contenido. Y el molde de temas-del-mes (9-12 videos, martes y viernes) es de WindMar Home PR y aquí no aplica: Pros son 3 posts por semana, martes y jueves a las 8:00 p.m. y domingo a las 9:00 p.m., hora de Florida.",
+  "cuenta": "WindMar Pros",
+  "red": "Instagram @windmar.pros",
+  "mercado": "FL",
+  "lema": "Así se vive siendo PRO",
+  "ventana": {
+    "desde": "2026-11-05",
+    "hasta": "2026-12-06"
+  },
+  "ritmo": {
+    "por_semana": 3,
+    "dias": [
+      "martes 8:00 p.m.",
+      "jueves 8:00 p.m.",
+      "domingo 9:00 p.m."
+    ],
+    "zona": "Hora de Florida",
+    "regla": "Siempre al menos un día libre entre posts, para que uno no le quite alcance al otro."
+  },
+  "firmas": {
+    "firma": "Miguel Torres",
+    "opinan": [
+      "Marc Roumain",
+      "Rafael Almonte",
+      "Manuel Pales",
+      "Jaime «Pichu» Díaz Cabán"
+    ],
+    "grupo_de_teams": "Social Media Florida - Oficial"
+  },
+  "generador_de_carruseles": "public/windmar-carruseles-pros.html",
+  "piezas": [
+    {
+      "d": "2026-11-05",
+      "h": "8:00 p.m.",
+      "p": "exito",
+      "f": "Reel (video)",
+      "video": true,
+      "flag": "Arranque",
+      "t": "Campeones de septiembre, en video",
+      "copy": "Campeones de septiembre: Aby Gonzalez, Miguel y Jorge Barreras. 🏆\n\nEn WindMar Pros el reconocimiento no es un correo: es una sala entera aplaudiendo tu nombre. El próximo cinturón puede ser el tuyo.",
+      "cta": "Etiqueta a quien debería levantarlo el próximo mes.",
+      "slides": [
+        "Video de 36 s: la sala aplaude mientras los tres campeones reciben el cinturón.",
+        "Cierra con el logo de WindMar Pros."
+      ],
+      "how": [
+        "Usa el video “WhatsApp Video 2026-10-27 at 11.26.16 AM” tal como está.",
+        "Opcional en CapCut: cambia el título “September Champion 2026” por “Campeones de septiembre 2026” (Bebas Neue, naranja).",
+        "Portada: un fotograma de Aby con el cinturón y el texto CAMPEONES DE SEPTIEMBRE.",
+        "Al subirlo, escucha el Reel: si Instagram silencia la música, elige un audio en tendencia de su biblioteca."
+      ],
+      "stories": "6:00 p.m. cuenta regresiva “Hoy, 8:00 p.m.” · el Reel compartido con encuesta “¿Qué te motiva más? Reconocimiento / Comisiones / Crecer” · slider “¿Cuánto quieres este cinturón?”",
+      "why": "Tres personas reales recibiendo el mismo premio, con emoción de verdad: es la imagen más fuerte que hay para abrir.",
+      "warn": "Confirma que Aby, Miguel y Jorge están de acuerdo con publicar el video."
+    },
+    {
+      "d": "2026-11-08",
+      "h": "9:00 p.m.",
+      "p": "test",
+      "f": "Reel (video)",
+      "video": true,
+      "t": "Ariana: “¿Por qué elegiste solar?”",
+      "copy": "“En esta industria necesitas una instaladora que te respalde.” — Ariana\n\nAriana probó otras compañías antes de llegar a WindMar. Hoy cuenta la diferencia. ¿Vendes solar o home improvement y quieres más estabilidad?",
+      "cta": "Escríbenos PRO por DM y te contamos cómo funciona.",
+      "slides": [
+        "Video completo de 47 s, sin editar.",
+        "La pregunta del video es el gancho de la portada."
+      ],
+      "how": [
+        "Usa el video “ariana final .mp4” (Entregas › MATERIAL) completo.",
+        "Si no tiene subtítulos: CapCut › Subtítulos automáticos, letra blanca sobre barra navy.",
+        "Portada: fotograma de Ariana mirando a cámara con ¿POR QUÉ ELEGISTE SOLAR? en Bebas Neue.",
+        "Fíjalo en el perfil junto al video de los campeones."
+      ],
+      "stories": "Cuenta regresiva “Hoy, 9:00 p.m.” · el Reel con encuesta “¿Has cambiado de compañía buscando estabilidad? Sí / No” · fotograma con su frase en comillas doradas · sticker de enlace a la aplicación",
+      "why": "Es la única voz real en video del mes y le habla a vendedores con experiencia que buscan respaldo."
+    },
+    {
+      "d": "2026-11-10",
+      "h": "8:00 p.m.",
+      "p": "lib",
+      "f": "Carrusel · 7 láminas",
+      "t": "5 señales de que naciste para esto",
+      "copy": "¿Cuántas te pasan? Si fueron 3 o más, aquí hay gente como tú. 👀\n\nEn WindMar Pros entrenamos a personas sin experiencia en solar y les damos un equipo, un método y un ranking donde su esfuerzo se ve.",
+      "cta": "Escríbenos PRO y te contamos cómo es por dentro.",
+      "slides": [
+        "Portada: “Si te pasan 3 de estas 5, naciste para algo más grande que un horario de 8 a 5.”",
+        "1. Quieres que tu esfuerzo se vea en tu cheque.",
+        "2. Te gusta competir, aunque sea contigo.",
+        "3. Hablas con cualquiera en la fila del banco.",
+        "4. Quieres aprender de gente que ya llegó.",
+        "5. Quieres un equipo que celebre tus logros.",
+        "Cierre: logo y “Escríbenos PRO”."
+      ],
+      "how": [
+        "Canva › 1080 × 1350 › fondo de foto con degradado navy encima.",
+        "Número grande en naranja en cada lámina; titular en Bebas Neue, máximo 7 palabras.",
+        "Fotos: G09 › 013 (portada), G12 › Jorge Barreras2, G07 › 004, G10 › 020, G09 › 012, G01 › 002."
+      ],
+      "stories": "Quiz “¿Cuántas señales tienes? 1–2 / 3–4 / 5” · el post compartido · slider “¿Cuánto quieres crecer en 2027?” · DM ese mismo día a quien responda 3 o más",
+      "why": "Cada señal es un beneficio contado como rasgo personal, así el visitante se evalúa solo."
+    },
+    {
+      "d": "2026-11-12",
+      "h": "8:00 p.m.",
+      "p": "exito",
+      "f": "Carrusel · 5 láminas",
+      "t": "PRO de la semana: Miguel, campeón de septiembre",
+      "copy": "El jueves pasado lo viste levantar el cinturón. Esto es lo que había antes, en palabras de Miguel. 💪",
+      "cta": "¿Qué le preguntarías a un campeón? Déjalo en los comentarios.",
+      "slides": [
+        "“Miguel, campeón de septiembre.”",
+        "Antes de WindMar: [su respuesta].",
+        "Lo más difícil al empezar: [su respuesta].",
+        "Lo que cambió en mi vida: [su respuesta], en comillas doradas.",
+        "“El cinturón se gana cada mes. ¿Quién lo levanta en noviembre?”"
+      ],
+      "how": [
+        "Escríbele a Miguel por WhatsApp hoy: “¿Qué hacías antes de WindMar? ¿Qué fue lo más difícil al empezar? ¿Qué ha cambiado en tu vida?” (1 o 2 líneas cada una).",
+        "Arma el carrusel con la plantilla “Pro de la semana” o en Canva.",
+        "Fotos: G13 › Miguel Champ (portada) y un fotograma suyo del video del cinturón.",
+        "Mándale el diseño para que lo apruebe antes de publicar."
+      ],
+      "stories": "Cuenta regresiva “PRO de la semana, 8 p.m.” · el post compartido · caja de preguntas “Pregúntale a Miguel”",
+      "why": "El visitante ya lo vio con el cinturón; ahora conoce su historia y ve que llegó desde abajo.",
+      "warn": "Plan B: si Miguel no responde antes del lunes 9, su líder escribe dos líneas sobre él y se publican con su aprobación."
+    },
+    {
+      "d": "2026-11-15",
+      "h": "9:00 p.m.",
+      "p": "estilo",
+      "f": "Reel (video)",
+      "video": true,
+      "t": "Un día en la Academia, en video",
+      "copy": "Así suena un día en la Academia WindMar Pros: se aprende, se compite y se celebra. ☀️\n\n¿Cuál es tu profesión?",
+      "cta": "Comenta SOLAR si te ves en esta sala.",
+      "slides": [
+        "Abre con el grito “What is your profession? Solar! Solar roofing!”.",
+        "Líder con el micrófono, quiz con los teléfonos, ruleta de premios.",
+        "Cierra con los graduados con birrete girando la ruleta y el logo."
+      ],
+      "how": [
+        "Usa el video “WhatsApp Video 2026-10-28 at 10.15.27 AM”.",
+        "Recomendado: recórtalo en CapCut a unos 45 s (grito, quiz, ruleta, graduados, logo). Un Reel más corto se ve completo más veces.",
+        "Portada: fotograma del grito en blanco y negro con ¿CUÁL ES TU PROFESIÓN? en Bebas Neue.",
+        "Revisa que Instagram no silencie la música."
+      ],
+      "stories": "Encuesta “¿Qué parte del día te gustaría más? El quiz / La ruleta / La graduación” · recorte del grito con caja de preguntas · el Reel compartido · “Pregúntale al equipo cómo es la Academia”",
+      "why": "Muestra la energía real del equipo, que ninguna foto transmite."
+    },
+    {
+      "d": "2026-11-17",
+      "h": "8:00 p.m.",
+      "p": "crec",
+      "f": "Carrusel · 5 láminas",
+      "t": "Mito: “Para vender hay que tener labia”",
+      "copy": "No necesitas ser la persona más extrovertida del cuarto. Necesitas un método, y ese te lo damos nosotros. 🎯",
+      "cta": "Envíaselo a alguien que dice que no sirve para vender.",
+      "slides": [
+        "“Para vender hay que tener labia.” con MITO tachado en blanco.",
+        "REALIDAD (naranja): “Los mejores closers no son los que más hablan. Son los que más preguntan.”",
+        "“Llegan a la cita sabiendo cuánto paga esa casa de luz.”",
+        "“Vuelven a llamar cuando el cliente dice ‘déjame pensarlo’.”",
+        "“Eso no es talento. Es método. Y se entrena.”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350.",
+        "Portada: G07 › 3S4A0321 (consultor levantando la mano) en duotono navy.",
+        "Láminas 3 y 4 en navy liso con texto; lámina 5 con G07 › 3S4A0370.",
+        "MITO en blanco tachado y REALIDAD en naranja: no uses rojo ni verde."
+      ],
+      "stories": "Quiz “¿Qué es más importante para cerrar? Hablar bien / Preguntar bien” · la respuesta con la lámina 2 · caja “¿Qué otro mito has escuchado de las ventas?”",
+      "why": "Derriba la barrera número uno de quien nunca ha vendido: “no tengo el don”."
+    },
+    {
+      "d": "2026-11-19",
+      "h": "8:00 p.m.",
+      "p": "exito",
+      "f": "Carrusel · 5 láminas",
+      "t": "PRO de la semana: Juan Seba",
+      "copy": "PRO de la semana. Juan llegó a WindMar sin saber vender solar. Esto es lo que cambió, en sus palabras. 🙌",
+      "cta": "¿Qué le preguntarías a Juan? Déjalo en los comentarios y él te responde.",
+      "slides": [
+        "Su foto: “PRO de la semana: Juan Seba.”",
+        "Antes de WindMar: [su respuesta].",
+        "Lo más difícil al empezar: [su respuesta].",
+        "Lo que cambió en mi vida: [su respuesta], en comillas doradas.",
+        "La semana del equipo: Top Closer [nombre] · Top Setter [nombre]."
+      ],
+      "how": [
+        "Mismas 3 preguntas por WhatsApp que a Miguel.",
+        "Plantilla “Pro de la semana” o Canva.",
+        "Fotos: G12 › Juan Seba (portada) y G09 › 015.",
+        "Pide a ventas el Top Closer y el Top Setter de la semana el miércoles."
+      ],
+      "stories": "Cuenta regresiva “PRO de la semana, 8 p.m.” · quiz “¿Qué hacía Juan antes de WindMar?” · el post compartido · felicitación al Top Closer con mención",
+      "why": "Una persona con nombre e historia es más fácil de imaginar que una tabla de números.",
+      "warn": "Plan B: si Juan no responde antes del lunes 16, su líder escribe dos líneas sobre él. Si no hay dato de ventas, quita la lámina 5."
+    },
+    {
+      "d": "2026-11-22",
+      "h": "9:00 p.m.",
+      "p": "crec",
+      "f": "Carrusel · 7 láminas",
+      "t": "Carta a mi yo del primer día",
+      "copy": "Nadie empieza sabiendo. Todos empiezan decidiendo. ✍️\n\nEsta carta la podría haber escrito cualquiera de nuestros consultores.",
+      "cta": "Si le escribieras una línea a tu yo de hace un año, ¿qué le dirías? Te leemos en los comentarios.",
+      "slides": [
+        "“Querido yo del primer día:”",
+        "“Vas a dudar la primera semana. Es normal.”",
+        "“Vas a escuchar más ‘no’ que ‘sí’. No es personal.”",
+        "“Vas a tener a alguien que te acompañe a tu primera cita.”",
+        "“Un día vas a ver tu nombre en el ranking.”",
+        "“Y vas a entender que no fue suerte. Fue que no te fuiste.”",
+        "“Firma: tú, unos meses después.”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350; texto en Montserrat itálica sobre la foto oscurecida, como una carta.",
+        "Fotos: G12 › Graduandos 2 (portada), G10 › 018, G03 › 3S4A0263 (blanco y negro), G07 › 3S4A0370, G12 › Jorge Barreras, G10 › 022.",
+        "Lámina 7 en navy liso."
+      ],
+      "stories": "Slider “¿Qué tanto te identificas con la carta?” · caja “¿Qué le dirías a tu yo de hace un año?” · respuestas en tarjetas navy · el post compartido",
+      "why": "Nombra los miedos del candidato y le muestra cómo termina la historia. Es la pieza que más se guarda."
+    },
+    {
+      "d": "2026-11-24",
+      "h": "8:00 p.m.",
+      "p": "crec",
+      "f": "Reel de fotos · 20–25 s",
+      "t": "Graduación: de cero a certificado",
+      "copy": "Nadie llega sabiendo vender solar. Se llega con disciplina y se sale certificado. 🎓\n\nFelicitaciones a [nombres de los graduados].",
+      "cta": "Escríbenos PRO y te avisamos cuándo empieza la próxima clase.",
+      "slides": [
+        "“Hace un mes no sabían qué era un inversor.”",
+        "“Hoy saben leer una factura,”",
+        "“explicar un sistema solar”",
+        "“y decirle a un cliente la verdad.”",
+        "Aplausos: “Sin experiencia previa. Con ganas.”"
+      ],
+      "how": [
+        "CapCut › 9:16 › 5 fotos de 4–5 s con zoom lento y música emotiva.",
+        "Fotos: G01 › 003 (portada), G12 › Graduandos1, G12 › Graduandos 2, G10 › 022 y G01 › 001 al cierre.",
+        "Truco: agrega 3 s del video de la Academia donde los graduados con birrete giran la ruleta.",
+        "Texto en Bebas Neue blanco; la palabra clave en naranja."
+      ],
+      "stories": "Republica las historias de los graduados · el Reel compartido · encuesta “¿Te gustaría estar en la próxima foto? Sí / Cuéntame más”",
+      "why": "Es la prueba de que empezar desde cero funciona."
+    },
+    {
+      "d": "2026-11-26",
+      "h": "8:00 p.m.",
+      "p": "estilo",
+      "f": "Carrusel · 6 láminas",
+      "flag": "Thanksgiving",
+      "t": "Acción de Gracias: ¿qué tipo de PRO eres?",
+      "copy": "Feliz Acción de Gracias desde WindMar Pros. 🦃\n\nHoy damos gracias por un equipo que celebra cada cierre como propio. Comenta tu personaje y etiqueta a quien le das las gracias este año.",
+      "cta": "Comenta tu personaje y etiqueta a alguien.",
+      "slides": [
+        "Portada: “¿Qué tipo de PRO eres en la mesa de Acción de Gracias?”",
+        "El que Prospecta en la Cena: termina hablando de placas solares con el tío.",
+        "El Agradecido: da las gracias por cada “no”, porque lo acerca al “sí”.",
+        "El Mago: convierte un “déjame pensarlo” en contrato.",
+        "El Campeón: da las gracias con el cinturón puesto (en dorado).",
+        "“Este año damos gracias por un equipo que celebra cada cierre como propio. ¿Cuál eres tú?”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350; nombre de cada personaje en Bebas Neue con un barrido naranja.",
+        "Fotos: G01 › 001 (portada), G07 › 3S4A0327 (El Mago), G11 › Aby Gonzalez2 recortada en el cinturón (El Campeón).",
+        "El que Prospecta y El Agradecido van en navy con texto, sin foto."
+      ],
+      "stories": "Quiz “¿Qué PRO eres en la mesa?” · sticker “Agrega el tuyo: ¿a quién le das las gracias?” · el post compartido",
+      "why": "El humor y la gratitud muestran un equipo que se divierte y se cuida."
+    },
+    {
+      "d": "2026-11-29",
+      "h": "9:00 p.m.",
+      "p": "estilo",
+      "f": "Carrusel · 7 láminas",
+      "t": "¿Qué te hizo quedarte?",
+      "copy": "Muchos llegaron por la comisión. Se quedaron por la gente, los líderes y la forma de crecer. 🤝",
+      "cta": "¿Qué te haría quedarte a ti en un trabajo? Te leemos.",
+      "slides": [
+        "“Le preguntamos al equipo: ¿qué te hizo quedarte?”",
+        "Láminas 2 a 5: una respuesta por lámina, sobre la foto de quien la dio, con nombre y puesto.",
+        "“Muchos llegaron por la comisión. Se quedaron por esto.”",
+        "Fotograma de Ariana: “Necesitas una instaladora que te respalde.”"
+      ],
+      "how": [
+        "Pregunta por WhatsApp a 4 personas: “¿Qué te hizo quedarte en WindMar?”",
+        "Fotos: G12 › Juan Seba (portada), G13 › Karen, G11 › Abdiel2, G09 › 013.",
+        "Canva › 1080 × 1350; la respuesta en comillas doradas."
+      ],
+      "stories": "Cada respuesta como historia, con mención a su autor · encuesta “¿Qué te haría quedarte? Equipo / Ingreso / Crecimiento / Líderes” · el post compartido",
+      "why": "Cuatro voces distintas valen más que una promesa de la marca.",
+      "warn": "Plan B: con 2 respuestas el carrusel queda de 5 láminas y se completa con la cita de Ariana."
+    },
+    {
+      "d": "2026-12-01",
+      "h": "8:00 p.m.",
+      "p": "crec",
+      "f": "Carrusel · 7 láminas",
+      "t": "Tu primer mes, semana a semana",
+      "copy": "No te tiramos a la calle solo. Este es el camino de tu primer mes en WindMar Pros. 🗓️",
+      "cta": "Escríbenos PRO y te enviamos la fecha de la próxima clase.",
+      "slides": [
+        "“Esto es lo que pasa en tu primer mes.”",
+        "Semana 1: entrenamiento de producto y lectura de facturas.",
+        "Semana 2: acompañas a un líder a citas reales.",
+        "Semana 3: tus primeras citas, con apoyo.",
+        "Semana 4: certificación y graduación.",
+        "Después: ranking, concursos y crecimiento.",
+        "“La próxima clase empieza el [fecha].”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350 con una línea de tiempo naranja que cruza de una lámina a otra.",
+        "Fotos: G14 › Tesla Room 4 (portada), G02 › 3S4A0255, G10 › 019, G06 › 3S4A0307, G01 › 003, G01 › 3S4A0221."
+      ],
+      "stories": "Quiz “¿En qué semana haces tu primera cita? 1 / 2 / 3” · el post compartido · sticker de enlace a la aplicación",
+      "why": "La claridad baja el miedo a empezar.",
+      "warn": "Confirma con ventas que las 4 semanas son así. Si no hay fecha de la próxima clase, la lámina 7 dice “Escríbenos PRO para la próxima fecha”."
+    },
+    {
+      "d": "2026-12-03",
+      "h": "8:00 p.m.",
+      "p": "crec",
+      "f": "Carrusel · 5 láminas",
+      "t": "Mito: “En ventas no hay estabilidad”",
+      "copy": "La estabilidad no es tener un sueldo fijo. Es tener un sistema que funciona. 📈",
+      "cta": "Envíaselo a alguien que tiene miedo de dar el paso.",
+      "slides": [
+        "“En ventas no hay estabilidad.” con MITO tachado.",
+        "“Inestable es depender de un aumento que nunca llega.”",
+        "“Aquí tu ingreso depende de algo que tú controlas: tu actividad.”",
+        "“Llamadas, citas y método. Todos los días.”",
+        "“Por eso los mismos nombres se repiten en el ranking.”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350.",
+        "Portada: G08 › 007 en duotono navy; lámina 4 con G12 › Jorge Barreras2.",
+        "Lámina 5 con la gráfica del ranking (windmar-pros-ranking.html) o, si no hay, con un fotograma de los campeones del video."
+      ],
+      "stories": "Quiz “¿Qué te da más estabilidad? Sueldo fijo / Un sistema que funciona” · los mitos que llegaron a la caja del 17 de noviembre · el post compartido",
+      "why": "Responde la segunda gran objeción: el miedo a no tener un ingreso seguro."
+    },
+    {
+      "d": "2026-12-06",
+      "h": "9:00 p.m.",
+      "p": "lib",
+      "f": "Carrusel · 5 láminas",
+      "flag": "Cierre",
+      "t": "Tu turno: cierre del mes",
+      "copy": "Cerramos el mes. Gracias a todos los que lo vivieron con nosotros. 🙏\n\nSi llevas un mes mirándonos, este es el momento.",
+      "cta": "Escríbenos PRO hoy para reservar tu cupo.",
+      "slides": [
+        "En navy: “Un mes. Esto es lo que pasó en WindMar Pros.”",
+        "“[Dato] cuentas cerradas por el equipo.”",
+        "“[Dato] se graduaron y [dato] se estrenaron en el ranking.”",
+        "“La próxima clase empieza el [fecha]. Quedan [dato] cupos.”",
+        "“El éxito no es suerte. Es decisión. ¿Entras?”"
+      ],
+      "how": [
+        "Canva › 1080 × 1350; collage con G11 › 023, G12 › Graduandos1, G09 › 014, G01 › 3S4A0221, G10 › 017 y G09 › 015, más fotogramas de los dos videos.",
+        "Sello “Últimos cupos” en naranja."
+      ],
+      "stories": "Contador de cupos durante el día · el post compartido · sticker de enlace a la aplicación · bienvenida a quienes se inscriban (con su permiso)",
+      "why": "Una fecha y un cupo reales convierten las ganas en decisión.",
+      "warn": "Si ventas no confirma los números, cambia las láminas 2 y 3 por “3 campeones. 1 sala llena. Cero suerte.”"
+    }
+  ],
+  "reserva": [
+    [
+      "exito",
+      "Nadie aquí tuvo suerte",
+      "Reel de 5 fotos: del esfuerzo en blanco y negro al logro a color."
+    ],
+    [
+      "exito",
+      "Ranking de octubre",
+      "Carrusel con el podio. Solo si ventas confirma los números."
+    ],
+    [
+      "exito",
+      "PRO de la semana: Karen",
+      "Misma plantilla; amplía a quién le habla la cuenta."
+    ],
+    [
+      "exito",
+      "PRO de la semana: Abdiel",
+      "Misma plantilla; muestra que se crece hasta liderar."
+    ],
+    [
+      "estilo",
+      "Lo que dice la pared",
+      "Los valores pintados en la Academia, uno por lámina."
+    ],
+    [
+      "estilo",
+      "POV: tu primer día en la Academia",
+      "Reel de 6 fotos en primera persona."
+    ],
+    [
+      "estilo",
+      "Antes / Hoy",
+      "Reel: 4 personas, su antes en blanco y negro y su hoy a color."
+    ],
+    [
+      "test",
+      "Cita de Ariana",
+      "Carrusel de 3 fotogramas que lleva al video."
+    ],
+    [
+      "test",
+      "En sus palabras: historia #2",
+      "Testimonio escrito de un campeón."
+    ],
+    [
+      "lib",
+      "Nadie te va a venir a buscar",
+      "Reel de fotos para un lunes."
+    ],
+    [
+      "lib",
+      "Preguntas frecuentes #1",
+      "Necesita el modelo de pago confirmado."
+    ],
+    [
+      "lib",
+      "Preguntas frecuentes #2: dinero",
+      "Necesita respuestas confirmadas por ventas."
+    ],
+    [
+      "lib",
+      "Qué hicieron con su mejor comisión",
+      "Necesita 3 respuestas del equipo."
+    ],
+    [
+      "crec",
+      "5 cosas que hace un líder WindMar",
+      "Carrusel de guardado; no necesita datos."
+    ],
+    [
+      "crec",
+      "Lo que aprendes aquí no te lo quita nadie",
+      "Carrusel de guardado; no necesita datos."
+    ],
+    [
+      "estilo",
+      "Esto pasó en el mes",
+      "Reel resumen con las mejores fotos."
+    ]
+  ]
+}
