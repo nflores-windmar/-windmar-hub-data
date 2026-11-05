@@ -17,8 +17,8 @@ on:
       # generador, va en esta lista Y en GENERADORES de render-carruseles.mjs:
       # en una sola se dibuja sin dispararse, o se dispara sin dibujarse.
       - "public/windmar-carruseles-pr.html"
-    - "public/windmar-carruseles-pros.html"
-    - "public/windmar-carruseles-fl.html"
+      - "public/windmar-carruseles-pros.html"
+      - "public/windmar-carruseles-fl.html"
 
   # A mano, desde la pestaña Actions. Hace falta para arrancar: el disparador
   # de arriba solo mira el generador, así que arreglar el workflow no basta
