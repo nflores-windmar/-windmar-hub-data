@@ -20,13 +20,21 @@
  * dice que se tiraron dos tercios del ancho: quien lo lea decide si mirar la pieza antes
  * de publicarla.
  *
- * ## Sin audio, a propósito
+ * ## La música: una por tarjeta, y siempre la misma
  *
- * Estas stories salen mudas. Lo pidió Nicolle y tiene su razón: se ven en el móvil sin
- * sonido, y el overlay ya lleva el mensaje escrito.
+ * Las stories llevan música. Las pistas viven en `public/wme/musica-stories/` y el script
+ * elige una **por el id de la tarjeta**, no al azar.
+ *
+ * Que no sea al azar es lo que importa: si hay que rehacer la pieza porque cambió un
+ * texto, el vídeo sale idéntico salvo en lo que cambió. Con azar, cada render traería otra
+ * canción y nadie sabría si eso fue a propósito o un accidente.
+ *
+ * Y tarjetas distintas suenan distinto, que es lo que se pedía: que alternen.
+ *
+ * Con `--sin-musica` sale muda; con `--musica <ruta>`, con la que se diga.
  */
 
-import { stat, mkdir } from "node:fs/promises";
+import { stat, mkdir, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join, basename } from "node:path";
 import { spawn } from "node:child_process";
@@ -40,6 +48,8 @@ const FFMPEG = process.env.FFMPEG_PATH || join(RAIZ, "node_modules", "ffmpeg-sta
 const FFPROBE = process.env.FFPROBE_PATH || join(RAIZ, "node_modules", "ffprobe-static", "bin", "darwin", "x64", "ffprobe");
 
 const DURACION = 10;   // segundos. Lo pidió así Nicolle.
+const MUSICA = join(PUBLICO, "wme", "musica-stories");
+const DESVANECE = 0.6; // segundos de salida. Un corte seco a los diez segundos se oye.
 const ANCHO = 1080, ALTO = 1920;
 
 const correr = (cmd, args, capturar = false) =>
@@ -67,6 +77,22 @@ async function medidas(ruta) {
     };
   }
   throw new Error("ffmpeg no devolvió las medidas.");
+}
+
+/**
+ * Qué pista le toca a esta tarjeta.
+ *
+ * Suma los códigos del id y reparte. Es un reparto tonto a propósito: lo único que tiene
+ * que cumplir es ser estable —la misma tarjeta, la misma pista— y repartir distinto entre
+ * ids distintos. No hace falta que sea uniforme.
+ */
+function pistaDe(archivos, tarjeta) {
+  if (!archivos.length) return null;
+  /* Mezcla al estilo FNV: multiplica y mezcla en vez de sumar. Sumar los códigos reparte
+     fatal — con tres pistas y los ids de hoy, una no salía NUNCA. Esto da 9/7/6. */
+  let x = 2166136261;
+  for (const c of tarjeta) { x ^= c.charCodeAt(0); x = Math.imul(x, 16777619) >>> 0; }
+  return archivos[x % archivos.length];
 }
 
 async function main() {
@@ -122,20 +148,57 @@ async function main() {
   await mkdir(SALIDA, { recursive: true });
   const salida = join(SALIDA, `windmar-story-v2-${tarjeta}.mp4`);
 
+  /* La música. Una de la carpeta, elegida por el id — o la que digan, o ninguna. */
+  const muda = args.includes("--sin-musica");
+  let pista = dame("musica");
+  let dePista = "";
+  if (!muda && !pista) {
+    let hay = [];
+    try {
+      hay = (await readdir(MUSICA)).filter((f) => /\.(mp3|m4a|aac|wav)$/i.test(f)).sort();
+    } catch { /* la carpeta puede no existir */ }
+    const elegida = pistaDe(hay, tarjeta);
+    if (elegida) {
+      pista = join(MUSICA, elegida);
+      dePista = `${elegida} (de ${hay.length} pistas, elegida por el id «${tarjeta}»)`;
+    } else {
+      dePista = "ninguna — no hay pistas en public/wme/musica-stories/";
+    }
+  } else if (pista) {
+    dePista = `${basename(pista)} (pedida a mano)`;
+  }
+
+  if (pista) {
+    try {
+      const m = await medidas(pista).catch(() => null);
+      if (m?.dur != null && m.dur < DURACION) {
+        console.log(`\n  ⚠️  ${basename(pista)} dura ${m.dur.toFixed(1)} s, menos de ${DURACION}: sale muda.`);
+        console.log(`      Una story con el audio cortado a la mitad se nota.`);
+        pista = null; dePista = "ninguna — la pista elegida era más corta que la pieza";
+      }
+    } catch { /* si no se puede medir, se intenta igual */ }
+  }
+
+  const filtro =
+    `[0:v]${recorte},setsar=1[v];[v][1:v]overlay=0:0:format=auto[out]` +
+    (pista ? `;[2:a]atrim=0:${DURACION},asetpts=PTS-STARTPTS,afade=t=out:st=${DURACION - DESVANECE}:d=${DESVANECE}[a]` : "");
+
   await correr(FFMPEG, [
     "-y",
     "-ss", String(desde), "-t", String(DURACION), "-i", video,
     "-i", overlay,
-    "-filter_complex", `[0:v]${recorte},setsar=1[v];[v][1:v]overlay=0:0:format=auto[out]`,
+    ...(pista ? ["-i", pista] : []),
+    "-filter_complex", filtro,
     "-map", "[out]",
-    "-an",                                   // mudas, a propósito
+    ...(pista ? ["-map", "[a]", "-c:a", "aac", "-b:a", "160k"] : ["-an"]),
     "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", "-preset", "medium",
     "-movflags", "+faststart",
     salida,
   ]);
 
   console.log(`\n  ✅ ${salida.replace(RAIZ + "/", "")}`);
-  console.log(`     ${DURACION} s desde el segundo ${desde}, sin audio, ${ANCHO}×${ALTO}`);
+  console.log(`     ${DURACION} s desde el segundo ${desde}, ${ANCHO}×${ALTO}`);
+  console.log(`     Música: ${dePista || "ninguna (--sin-musica)"}`);
   console.log(`     Recorte: ${dicho}.`);
   if (relacion > objetivo) {
     console.log(`     ⚠️  Mira la pieza antes de publicarla: el recorte es por el CENTRO, así que`);
