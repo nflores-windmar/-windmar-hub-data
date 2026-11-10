@@ -310,6 +310,33 @@ def serie(pid, ptok, metrica, desde, hasta, periodo="day", tipo=None):
     return sum(diario), diario, None
 
 
+def publico(igid, ptok):
+    """Edad, género y ciudad de los seguidores de Instagram.
+
+    Es lo único que queda para saber A QUIÉN se le está hablando. Facebook lo
+    retiró por completo (`page_fans_age_gender` devuelve «not a valid insights
+    metric»), así que de Facebook no hay forma de saberlo por API.
+
+    OJO: son los SEGUIDORES, no quien vio una pieza concreta, y es acumulado
+    —no de la ventana de 28 días—. Sirve para saber a quién le hablas en
+    general, no para medir una campaña.
+    """
+    out = {}
+    for clave, bd in (("edad", "age"), ("genero", "gender"), ("ciudad", "city")):
+        d, err = pedir(f"{igid}/insights", {
+            "metric": "follower_demographics", "period": "lifetime",
+            "metric_type": "total_value", "breakdown": bd}, ptok)
+        if err:
+            continue
+        try:
+            res = d["data"][0]["total_value"]["breakdowns"][0]["results"]
+            out[clave] = {x["dimension_values"][0]: x["value"] for x in res}
+        except (KeyError, IndexError):
+            continue
+        time.sleep(0.25)
+    return out or None
+
+
 def snapshot(dias=28):
     tok = token()
     cfg = cuentas()
@@ -390,6 +417,23 @@ def snapshot(dias=28):
                 bloque["instagram"] = ig
                 print(f"  Instagram {c['nombre']:<34} {ig.get('alcance','?'):>9}")
 
+        # Quién es la audiencia, no solo cuánta. Sin esto el análisis dice
+        # «llegamos a 1.450» y nadie sabe si eran dueños de casa o adolescentes.
+        # Facebook ya no lo da (page_fans_age_gender está retirada); Instagram sí.
+        if c.get("ig_id"):
+            # token propio: `ptok` solo existe dentro de las ramas de arriba y
+            # arrastraría el de la cuenta anterior si esta no entró en ninguna.
+            tok_pub = paginas.get(c.get("page_id"), {}).get("token") or tok
+            pub = publico(c["ig_id"], tok_pub)
+            if pub:
+                bloque["publico_ig"] = pub
+                reparto = pub.get("edad") or {}
+                maduro = sum(v for k, v in reparto.items()
+                             if k.split("-")[0].isdigit() and int(k.split("-")[0]) >= 35)
+                total = sum(reparto.values()) or 1
+                print(f"  Público   {c['nombre']:<34} "
+                      f"{100 * maduro / total:>8.0f}% de 35+")
+
         if bloque:
             datos[cid] = bloque
 
@@ -400,6 +444,9 @@ def snapshot(dias=28):
         "capturado": str(datetime.date.today()),
         "ventana": {"desde": str(desde), "hasta": str(hasta), "dias": dias},
         "fuente": f"Meta Graph API {VERSION} · meta-datos.py",
+        "nota_publico": ("`publico_ig` es de SEGUIDORES, no de quien vio una pieza. "
+                         "Es acumulado, no de la ventana. Facebook no lo da: Meta "
+                         "retiró page_fans_age_gender."),
         "datos": datos,
     }
 
