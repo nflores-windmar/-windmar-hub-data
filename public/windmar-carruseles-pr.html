@@ -137,6 +137,38 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Prepara el video del viernes 13, «WHF financiamiento · Julio Mangual y Andrés Cruz». Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-pago"></div>
 
+  <div class="section-h"><h2>Qué le quita un filtro al agua de tu casa</h2><span class="badge">Diciembre · mié 2</span></div>
+  <div class="section-sub">Búsqueda: «filtro de agua», 390/mes. IG 10:30 AM · FB 2:30 PM. Entrega: 25 de noviembre. Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-dic-filtro"></div>
+
+  <div class="section-h"><h2>Qué tamaño de cisterna necesita tu casa</h2><span class="badge">Diciembre · vie 4</span></div>
+  <div class="section-sub">Búsqueda: «cisternas de agua», 1.900/mes — la más buscada del mes. IG 10:30 AM · FB 2:30 PM. Entrega: 27 de noviembre. Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-dic-cisterna"></div>
+
+  <div class="section-h"><h2>Cuánto tarda, de la firma a la instalación</h2><span class="badge">Diciembre · mar 8</span></div>
+  <div class="section-sub">Queja #1 de las reseñas (27%). <b>Faltan los tiempos reales de Operaciones antes de publicar.</b> IG 10:30 AM · FB 2:30 PM. Entrega: 1 de diciembre.</div>
+  <div class="gallery" id="g-dic-tiempos"></div>
+
+  <div class="section-h"><h2>Cada cuánto se sella un techo en Puerto Rico</h2><span class="badge">Diciembre · vie 11</span></div>
+  <div class="section-sub">Búsqueda: «sellador de techo», 720/mes. <b>Falta el rango real de Roofing.</b> IG 10:30 AM · FB 2:30 PM. Entrega: 4 de diciembre.</div>
+  <div class="gallery" id="g-dic-sellado"></div>
+
+  <div class="section-h"><h2>Un calentador solar: qué calienta y qué no</h2><span class="badge">Diciembre · mar 15</span></div>
+  <div class="section-sub">Búsqueda: «calentador solar», 880/mes. IG 10:30 AM · FB 2:30 PM. Entrega: 8 de diciembre. Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-dic-calentador"></div>
+
+  <div class="section-h"><h2>Qué pasa después de que instalamos</h2><span class="badge">Diciembre · mié 16</span></div>
+  <div class="section-sub">Quejas #4 y garantía (19% + 8%). <b>Falta confirmar el canal de servicio.</b> IG 10:30 AM · FB 2:30 PM. Entrega: 9 de diciembre.</div>
+  <div class="gallery" id="g-dic-despues"></div>
+
+  <div class="section-h"><h2>La cisterna sola no sube el agua</h2><span class="badge">Diciembre · vie 18</span></div>
+  <div class="section-sub">Búsqueda: «bomba de agua para cisterna», 390/mes. Tres láminas. IG 10:30 AM · FB 2:30 PM. Entrega: 11 de diciembre.</div>
+  <div class="gallery" id="g-dic-bomba"></div>
+
+  <div class="section-h"><h2>Qué cubren los incentivos y qué no</h2><span class="badge">Diciembre · mar 29</span></div>
+  <div class="section-sub">Búsqueda: «placas solares gratis en puerto rico», 140/mes, + queja #3 (21%). <b>WHF tiene que revisarla.</b> IG 10:30 AM · FB 2:30 PM. Entrega: 22 de diciembre.</div>
+  <div class="gallery" id="g-dic-incentivos"></div>
+
 
 </div>
 
@@ -420,6 +452,274 @@ const PAGO=[
     desc:'Evaluación gratis, sin compromiso. Te asesoramos para encontrar la forma de pago que se ajusta a tu presupuesto. Sujeto a aprobación de crédito.' },
 ];
 
+
+/* ─────────────────────────────────────────────────────────────────────────
+   DICIEMBRE 2026 · ocho carruseles de WindMar Home.
+
+   Escritos el 11 de noviembre de 2026 a partir de `carruseles-diciembre.html`,
+   que los eligió con dos fuentes: lo que se busca en Google desde Puerto Rico
+   (Ranking de SEO en Studio, semana del 9 de noviembre) y las 347 reseñas de
+   Google de noviembre.
+
+   El hallazgo que manda en el tono de todos: de los 204 clientes contentos, el
+   23% elogia el TRATO y solo el 1% menciona el ahorro. Y de las 99 quejas, dos
+   de las cuatro grandes —«cuánto tarda» (27%) y «no contestan» (19%)— no tenían
+   ninguna pieza que las contestara. De ahí salen el del 8 y el del 16.
+
+   Todos con overlay:true y sin foto, como los de noviembre.
+
+   SIN CIFRAS, y es a propósito: ninguna lámina dice cuántos días tarda un
+   permiso, cada cuánto se sella un techo ni qué porcentaje cubre un incentivo.
+   No hay fuente para ninguna de las tres. Lo que falta por confirmar está
+   anotado encima de cada arreglo.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* DICIEMBRE · miércoles 2. Búsqueda: «filtro de agua», 390/mes.
+   La lámina 3 es el giro y existe para no dejar una expectativa falsa: un filtro
+   mejora el agua que llega, no guarda agua para cuando no llega. Las dos se
+   venden y se confunden. */
+const DIC_FILTRO=[
+  { id:'dic-filtro-1', cls:'', chip:'Water · Filtración', type:'headline', overlay:true,
+    kicker:'El agua llega. Lo que trae, no se ve.',
+    headline:'QUÉ LE QUITA<br>UN <span class="hl">FILTRO</span><br>AL AGUA DE TU CASA',
+    desc:'Casi todo lo que le cambia el sabor y el olor al agua no se ve a simple vista. Ahí es donde trabaja un filtro.' },
+  { id:'dic-filtro-2', cls:'data sep', chip:'Lo que sí hace', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO COSAS QUE<br>UN FILTRO <span class="hl">SÍ</span><br>SE LLEVA',
+    items:[
+      { n:'1', tt:'Sedimento', ds:'La arenilla que se asienta en el fondo de un vaso.' },
+      { n:'2', tt:'El sabor a cloro', ds:'Lo que hace que el agua de la pluma sepa distinta.' },
+      { n:'3', tt:'El olor', ds:'Lo que se nota antes siquiera de probarla.' },
+      { n:'4', tt:'El óxido de las tuberías', ds:'Lo que recoge el agua de camino a tu llave.' },
+    ] },
+  { id:'dic-filtro-3', cls:'', chip:'Lo que no hace', type:'headline', overlay:true,
+    kicker:'Para que nadie se lleve una sorpresa',
+    headline:'UN FILTRO NO<br><span class="hl">SUSTITUYE</span><br>UNA CISTERNA',
+    desc:'Filtrar mejora el agua que llega. No guarda agua para cuando deje de llegar. Son dos cosas distintas y hacen falta las dos.' },
+  { id:'dic-filtro-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Antes de recomendarte nada',
+    headline:'TE DECIMOS QUÉ<br>FILTRO <span class="hl">TE SIRVE</span>',
+    desc:'Evaluación gratis, sin compromiso. Miramos cómo llega el agua a tu casa y de ahí sale la respuesta.' },
+];
+
+/* DICIEMBRE · viernes 4. Búsqueda: «cisternas de agua», 1.900/mes — la más
+   buscada de todo el mes, y WindMar no aparece en el top 20.
+   El giro de la lámina 3 es el encargo entero: la gente pregunta por galones y
+   lo que necesita saber es días. */
+const DIC_CISTERNA=[
+  { id:'dic-cisterna-1', cls:'', chip:'Water · Cisternas', type:'headline', overlay:true,
+    kicker:'La primera pregunta, siempre',
+    headline:'¿QUÉ TAMAÑO DE<br><span class="hl">CISTERNA</span><br>NECESITA TU CASA?',
+    desc:'No se elige por lo que quepa en el patio. Se elige por cuántos días quieres tener agua cuando no llega.' },
+  { id:'dic-cisterna-2', cls:'data sep', chip:'Lo que decide el tamaño', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO COSAS QUE<br>DECIDEN EL <span class="hl">TAMAÑO</span>',
+    items:[
+      { n:'1', tt:'Cuántas personas viven ahí', ds:'El consumo de una casa de dos no es el de una de seis.' },
+      { n:'2', tt:'Cuántos días quieres cubrir', ds:'No es lo mismo aguantar un día que una semana sin servicio.' },
+      { n:'3', tt:'Dónde va a ir', ds:'El espacio, el acceso y la base mandan tanto como los galones.' },
+      { n:'4', tt:'Qué uso le vas a dar', ds:'Beber y cocinar no pide lo mismo que la casa entera.' },
+    ] },
+  { id:'dic-cisterna-3', cls:'', chip:'Lo que más se confunde', type:'headline', overlay:true,
+    kicker:'Por eso la pregunta de los galones se queda corta',
+    headline:'UNA CISTERNA NO<br>SE MIDE EN <span class="hl">GALONES</span>.<br>SE MIDE EN DÍAS.',
+    desc:'Los galones solo dicen cuánto cabe. Lo que importa es cuántos días te duran a ti, con tu consumo.' },
+  { id:'dic-cisterna-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Lo calculamos contigo',
+    headline:'TE DECIMOS<br>CUÁNTOS <span class="hl">DÍAS</span><br>TE DARÍA',
+    desc:'Evaluación gratis, sin compromiso. Con tu consumo real, no con un estimado general.' },
+];
+
+/* DICIEMBRE · martes 8. NO sale de una búsqueda: sale de las reseñas. «Demoras,
+   cuánto tarda» es el 27% de las 99 negativas, la queja número uno, y no había
+   ninguna pieza que la contestara.
+
+   ⚠️ FALTA POR CONFIRMAR, y hasta entonces esta pieza no debería publicarse tal
+   cual: los TIEMPOS REALES de cada paso. Operaciones tiene que decir cuánto
+   tarda de verdad el diseño, el permiso y la interconexión. Aquí van los pasos
+   en orden y sin un solo número, porque inventarlos en la pieza que contesta la
+   queja de las demoras sería crear la queja siguiente.
+
+   ⚠️ La lámina 4 PROMETE una respuesta. Servicio tiene que poder cumplirla: «no
+   contestan» es el 19% de las negativas, y una promesa sin respuesta alimenta
+   justo esa. Si no se puede sostener, se cambia por algo que no prometa. */
+const DIC_TIEMPOS=[
+  { id:'dic-tiempos-1', cls:'', chip:'Proceso · De la firma a la instalación', type:'headline', overlay:true,
+    kicker:'La pregunta que más se repite',
+    headline:'¿CUÁNTO TARDA,<br>DE LA <span class="hl">FIRMA</span><br>A LA INSTALACIÓN?',
+    desc:'No es un solo paso. Son cuatro, y no todos dependen de nosotros. Estos son, en orden.' },
+  { id:'dic-tiempos-2', cls:'data sep', chip:'Los cuatro pasos', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE PASA<br>ENTRE LA FIRMA Y<br>EL <span class="hl">ENCENDIDO</span>',
+    items:[
+      { n:'1', tt:'Diseño y documentos', ds:'Se levanta tu techo, tu consumo y se arma el expediente.' },
+      { n:'2', tt:'Permisos', ds:'Los emite el municipio y la agencia. No los emite WindMar.' },
+      { n:'3', tt:'Instalación', ds:'La parte que sí controlamos de principio a fin.' },
+      { n:'4', tt:'Inspección e interconexión', ds:'La última palabra aquí la tiene LUMA.' },
+    ] },
+  { id:'dic-tiempos-3', cls:'', chip:'Lo que hay que decir claro', type:'headline', overlay:true,
+    kicker:'Preferimos decirlo a que lo descubras esperando',
+    headline:'DOS DE LOS<br>CUATRO PASOS<br><span class="hl">NO DEPENDEN</span><br>DE NOSOTROS',
+    desc:'El permiso y la interconexión los decide otro. Lo que sí está en nuestra mano es que sepas en cuál estás.' },
+  { id:'dic-tiempos-4', cls:'', chip:'Si ya firmaste', type:'headline', overlay:true,
+    kicker:'No tienes que adivinar',
+    headline:'TE DECIMOS EN<br>QUÉ <span class="hl">PASO</span><br>ESTÁ TU CASO',
+    desc:'Si firmaste y no sabes por dónde va tu instalación, escríbenos y te lo decimos.' },
+];
+
+/* DICIEMBRE · viernes 11. Búsqueda: «sellador de techo», 720/mes. Es la vertical
+   donde WindMar YA rankea —4, 5 y 11—, así que esta pieza empuja algo que ya se
+   mueve en vez de abrir camino.
+
+   ⚠️ FALTA POR CONFIRMAR: cada cuánto se sella de verdad un techo en Puerto Rico.
+   El titular hace la pregunta y las láminas contestan DE QUÉ DEPENDE, no un
+   número. Roofing tiene que dar el rango antes de que esto diga «cada X años».
+
+   La lámina 3 se escribió dos veces: la primera decía que esperar sale más caro,
+   y eso es miedo como gancho, que `tono-windmar` prohíbe. Dice lo mismo sin
+   presionar — que el trabajo cambia de naturaleza. */
+const DIC_SELLADO=[
+  { id:'dic-sellado-1', cls:'', chip:'Roofing · Sellado', type:'headline', overlay:true,
+    kicker:'Un techo aquí trabaja los doce meses',
+    headline:'¿CADA CUÁNTO SE<br><span class="hl">SELLA</span> UN TECHO<br>EN PUERTO RICO?',
+    desc:'Sol fuerte, lluvia y humedad todo el año. No hay un número igual para todos: depende de cuatro cosas.' },
+  { id:'dic-sellado-2', cls:'data sep', chip:'De qué depende', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO COSAS QUE<br>ACORTAN UN <span class="hl">SELLADO</span>',
+    items:[
+      { n:'1', tt:'El sol directo, todo el año', ds:'Es lo que más desgasta la capa de arriba.' },
+      { n:'2', tt:'El agua que se empoza', ds:'Donde el agua no corre, se queda trabajando.' },
+      { n:'3', tt:'Las grietas que ya estaban', ds:'Sellar por encima de una grieta no la cierra.' },
+      { n:'4', tt:'Cómo se preparó el techo', ds:'Un techo mal limpiado se despega antes de tiempo.' },
+    ] },
+  { id:'dic-sellado-3', cls:'', chip:'Sellar no es reparar', type:'headline', overlay:true,
+    kicker:'Son dos trabajos distintos',
+    headline:'CUANDO EL AGUA<br>YA <span class="hl">ENTRÓ</span>,<br>EL TRABAJO ES OTRO',
+    desc:'Sellar es mantenimiento. Reparar una filtración empieza por secar lo que se mojó, y eso ya no es lo mismo.' },
+  { id:'dic-sellado-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Te decimos en qué estado está',
+    headline:'INSPECCIONAMOS<br>TU <span class="hl">TECHO</span>',
+    desc:'Evaluación gratis. Te decimos si toca sellar ahora o si aguanta, y por qué.' },
+];
+
+/* DICIEMBRE · martes 15. Búsqueda: «calentador solar», 880/mes.
+   El encargo del documento era aclarar la confusión «sin corregir a nadie». Por
+   eso la lámina 1 dice que la confusión es normal y la 3 dice que no hay que
+   elegir: ninguna de las cuatro le dice al lector que estaba equivocado. */
+const DIC_CALENTADOR=[
+  { id:'dic-calentador-1', cls:'', chip:'Water · Calentador solar', type:'headline', overlay:true,
+    kicker:'Se confunden todo el tiempo, y es normal',
+    headline:'UN CALENTADOR<br><span class="hl">SOLAR</span><br>NO ES UNA PLACA',
+    desc:'Los dos usan el sol y los dos van en el techo. Hacen cosas distintas, y una no sustituye a la otra.' },
+  { id:'dic-calentador-2', cls:'data sep', chip:'Qué hace cada uno', blue:true, type:'list', overlay:true,
+    listhead:'QUÉ HACE<br><span class="hl">CADA UNO</span>',
+    items:[
+      { n:'1', tt:'El calentador calienta agua', ds:'El sol calienta directamente el agua que usas en la casa.' },
+      { n:'2', tt:'Las placas producen electricidad', ds:'Convierten la luz en corriente para todo lo que enchufas.' },
+      { n:'3', tt:'El calentador no enciende nada', ds:'No alimenta la nevera, ni las luces, ni el aire.' },
+      { n:'4', tt:'Las placas no calientan agua solas', ds:'Alimentan al calentador eléctrico, si es el que tienes.' },
+    ] },
+  { id:'dic-calentador-3', cls:'', chip:'No es uno o el otro', type:'headline', overlay:true,
+    kicker:'La pregunta no es cuál',
+    headline:'NO HAY QUE<br><span class="hl">ELEGIR</span><br>ENTRE LOS DOS',
+    desc:'Muchas casas tienen los dos, porque resuelven gastos distintos de la misma factura.' },
+  { id:'dic-calentador-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Partiendo de lo que consumes',
+    headline:'EVALUAMOS QUÉ<br>NECESITA <span class="hl">TU CASA</span>',
+    desc:'Evaluación gratis, sin compromiso. De lo que gastas, no de lo que más se vende.' },
+];
+
+/* DICIEMBRE · miércoles 16. Tampoco sale de una búsqueda: sale de las reseñas.
+   «No contestan, sin seguimiento» es el 19% de las negativas y «garantía» otro
+   8%. Entre las dos, más de una cuarta parte de las quejas — y cero piezas.
+
+   ⚠️ Esta es la pieza más delicada del mes: habla de servicio ante gente que se
+   quejó del servicio. Por eso las cuatro láminas dicen qué PREGUNTAR, no qué
+   prometemos. Lo único que promete es la 4.
+
+   ⚠️ FALTA POR CONFIRMAR antes de publicar: que exista de verdad un canal de
+   servicio distinto al de ventas, y cuál es. La lámina 2 lo da por hecho. */
+const DIC_DESPUES=[
+  { id:'dic-despues-1', cls:'', chip:'Servicio · Después de instalar', type:'headline', overlay:true,
+    kicker:'La parte de la que menos se habla',
+    headline:'QUÉ PASA<br><span class="hl">DESPUÉS</span><br>DE QUE INSTALAMOS',
+    desc:'La instalación termina en un día. Lo que viene después dura años, y conviene saberlo desde el primero.' },
+  { id:'dic-despues-2', cls:'data sep', chip:'Pregúntalo el primer día', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO COSAS QUE<br>DEBES <span class="hl">SABER</span><br>ANTES DE QUE SE VAYAN',
+    items:[
+      { n:'1', tt:'Por dónde se reporta', ds:'Hay un canal de servicio, y no es el mismo que el de ventas.' },
+      { n:'2', tt:'Qué cubre la garantía', ds:'El equipo y la instalación tienen coberturas distintas.' },
+      { n:'3', tt:'Hasta cuándo dura cada una', ds:'Pregúntalo antes de firmar y que quede por escrito.' },
+      { n:'4', tt:'Qué papeles te quedan', ds:'Guarda el contrato y la garantía: los vas a necesitar.' },
+    ] },
+  { id:'dic-despues-3', cls:'', chip:'El día de la instalación', type:'headline', overlay:true,
+    kicker:'Cinco minutos que ahorran meses',
+    headline:'PREGUNTA ESTO<br><span class="hl">ANTES</span><br>DE QUE SE VAYA<br>LA BRIGADA',
+    desc:'Por dónde reportas, qué cubre tu garantía y hasta cuándo. Anotarlo ese día evita el problema entero después.' },
+  { id:'dic-despues-4', cls:'', chip:'Si ya eres cliente', type:'headline', overlay:true,
+    kicker:'No hace falta que busques el papel',
+    headline:'SI TIENES UNA<br><span class="hl">DUDA</span>,<br>ESCRÍBENOS',
+    desc:'Dinos qué instalaste y cuándo, y te decimos qué cobertura te corresponde.' },
+];
+
+/* DICIEMBRE · viernes 18. Búsqueda: «bomba de agua para cisterna», 390/mes — la
+   segunda de Water. Tres láminas y no cuatro: la idea es una sola y estirarla a
+   cuatro sería rellenar. */
+const DIC_BOMBA=[
+  { id:'dic-bomba-1', cls:'', chip:'Water · Cisternas', type:'headline', overlay:true,
+    kicker:'Pasa más de lo que parece',
+    headline:'LA CISTERNA SOLA<br>NO <span class="hl">SUBE</span><br>EL AGUA',
+    desc:'Se llena, está llena, y de la llave no sale nada. Casi siempre falta la misma pieza.' },
+  { id:'dic-bomba-2', cls:'data sep', chip:'Qué hace la bomba', blue:true, type:'list', overlay:true,
+    listhead:'LA CISTERNA GUARDA.<br>LA <span class="hl">BOMBA</span> EMPUJA.',
+    items:[
+      { n:'1', tt:'Le da presión al agua', ds:'Sin presión el agua está, pero no llega.' },
+      { n:'2', tt:'La sube al segundo piso', ds:'Por gravedad sola no llega arriba.' },
+      { n:'3', tt:'Mantiene la presión pareja', ds:'Para que la ducha no cambie cuando abren otra llave.' },
+      { n:'4', tt:'Se enciende sola', ds:'No hay que ir a prenderla cada vez que abres el agua.' },
+    ] },
+  { id:'dic-bomba-3', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Si ya tienes cisterna',
+    headline:'TE DECIMOS QUÉ<br><span class="hl">BOMBA</span><br>LE HACE FALTA',
+    desc:'Depende de cuántos pisos, cuántos baños y qué presión necesitas. Evaluación gratis, sin compromiso.' },
+];
+
+/* DICIEMBRE · martes 29. Búsqueda: «placas solares gratis en puerto rico»,
+   140/mes, y la página /pr/incentivos ya está en el puesto 17. Además contesta
+   la queja #3, «ventas prometió algo distinto», que es el 21% de las negativas.
+
+   Es el único caso del mes donde contestar con honestidad y posicionar mejor son
+   lo mismo: quien busca «gratis» llega con una expectativa equivocada, y la
+   pieza que de verdad le sirve es la que NO le dice «gratis».
+
+   ⚠️ FALTA POR CONFIRMAR: ningún porcentaje ni cantidad. La lámina 2 dice qué
+   hace y qué no hace un incentivo, sin una sola cifra, porque los números de
+   incentivos cambian y una pieza con el número viejo es exactamente la queja
+   que esta pieza intenta contestar. WHF tiene que revisarla antes de publicar.
+
+   La lámina 3 se reescribió: la primera versión invitaba a desconfiar de quien
+   diga «gratis», y eso es señalar al competidor. Ahora dice lo mismo en primera
+   persona, sobre lo que hacemos nosotros. */
+const DIC_INCENTIVOS=[
+  { id:'dic-incentivos-1', cls:'', chip:'Financiamiento · Incentivos', type:'headline', overlay:true,
+    kicker:'Es la pregunta que más se teclea',
+    headline:'QUÉ CUBREN LOS<br><span class="hl">INCENTIVOS</span><br>Y QUÉ NO',
+    desc:'Hay ayudas reales y vale la pena conocerlas. Lo que no hay es un sistema que no cueste nada.' },
+  { id:'dic-incentivos-2', cls:'data sep', chip:'Lo que sí y lo que no', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE UN INCENTIVO<br><span class="hl">SÍ</span> Y <span class="hl">NO</span> HACE',
+    items:[
+      { n:'1', tt:'Sí baja lo que pagas', ds:'Reduce el costo del sistema, y eso es dinero de verdad.' },
+      { n:'2', tt:'No lo elimina', ds:'Queda una parte que se paga o se financia.' },
+      { n:'3', tt:'No se aplica solo', ds:'Hay requisitos y papeles, y hay que cumplirlos.' },
+      { n:'4', tt:'No todos aplican a todo', ds:'Depende del equipo, de tu caso y de cuándo se instale.' },
+    ] },
+  { id:'dic-incentivos-3', cls:'', chip:'Por qué lo decimos así', type:'headline', overlay:true,
+    kicker:'El número completo, desde el principio',
+    headline:'PREFERIMOS<br>DECÍRTELO<br><span class="hl">ANTES</span>',
+    desc:'Es mejor conocer la cifra completa antes de decidir que descubrirla después de firmar.' },
+  { id:'dic-incentivos-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Con los que de verdad te tocan',
+    headline:'TE DECIMOS QUÉ<br>APLICA A <span class="hl">TU CASO</span>',
+    desc:'Evaluación gratis, sin compromiso. Con los incentivos que te corresponden y lo que quedaría por pagar.' },
+];
+
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
@@ -427,6 +727,14 @@ renderGallery(DISENO,'g-nov-diseno');
 renderGallery(EQUIPOS,'g-nov-equipos');
 renderGallery(BATERIA,'g-nov-bateria');
 renderGallery(PAGO,'g-nov-pago');
+renderGallery(DIC_FILTRO,'g-dic-filtro');
+renderGallery(DIC_CISTERNA,'g-dic-cisterna');
+renderGallery(DIC_TIEMPOS,'g-dic-tiempos');
+renderGallery(DIC_SELLADO,'g-dic-sellado');
+renderGallery(DIC_CALENTADOR,'g-dic-calentador');
+renderGallery(DIC_DESPUES,'g-dic-despues');
+renderGallery(DIC_BOMBA,'g-dic-bomba');
+renderGallery(DIC_INCENTIVOS,'g-dic-incentivos');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
