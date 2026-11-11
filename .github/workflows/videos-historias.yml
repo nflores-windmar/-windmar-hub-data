@@ -1,0 +1,147 @@
+# Monta la story lista para publicar: el overlay encima del vídeo, a diez segundos.
+#
+# Para qué: el PNG overlay no se publica solo. Una story es ese overlay encima de
+# un clip vertical, y hasta ahora eso lo hacía `render-historia.mjs` en la máquina
+# de alguien. O sea que había un paso de la cadena que solo podía dar una persona
+# con el repo delante — y por eso el arte quedaba lista y el vídeo no.
+#
+# Lo que lee: `mochila/stories-video.json`. Una entrada por story.
+#
+# EL VÍDEO NO VIAJA AL REPO, viaja su enlace. `public/**/*.mp4` está en
+# .gitignore porque el vídeo del sitio ya pesa 671 MB; meter aquí los clips de
+# origen lo engordaría sin arreglar nada. El Action baja el clip, lo usa y lo
+# tira; lo único que se guarda es el mp4 de diez segundos.
+
+name: Vídeos de historias
+
+on:
+  push:
+    paths:
+      - "mochila/stories-video.json"
+      # Si cambia el script, hay que poder rehacerlas sin tocar la cola.
+      - "scripts/render-historia.mjs"
+  workflow_dispatch:
+    inputs:
+      rehacer:
+        description: "Rehacer también las que ya existen"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: videos-historias-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  montar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Instalar ffmpeg
+        # `render-historia.mjs` lo busca en node_modules/ffmpeg-static salvo que
+        # FFMPEG_PATH diga otra cosa. El runner trae ffmpeg del sistema, así que
+        # se usa ese y nos ahorramos bajar un binario de 80 MB en cada corrida.
+        run: |
+          # `a || b && c` en bash se agrupa como `(a || b) && c`, así que la
+          # versión corta instalaba ffmpeg incluso cuando ya estaba. Un `if`.
+          if ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -version | head -1
+
+      - name: Traer los overlays dibujados
+        # `public/artes/` está en .gitignore, pero el Action de artes SÍ los
+        # guarda con `git add -f`, así que en main están. Si no estuvieran, el
+        # render falla diciendo cuál falta — que es lo que queremos que diga.
+        run: |
+          echo "Overlays disponibles:"
+          ls public/artes/stories-v2/*-overlay.png 2>/dev/null | wc -l
+
+      - name: Montar lo que falte
+        id: montar
+        env:
+          FFMPEG_PATH: /usr/bin/ffmpeg
+          REHACER: ${{ github.event_name == 'workflow_dispatch' && inputs.rehacer || 'false' }}
+        run: |
+          set -uo pipefail
+          COLA=mochila/stories-video.json
+          total=$(jq '.historias | length' "$COLA")
+          echo "En la cola: $total"
+          hechas=0; saltadas=0; fallos=0
+
+          # Se recorre con jq y no con `seq 0 $((total-1))`: con la cola vacía
+          # eso es `seq 0 -1`, que en Linux no devuelve nada pero en BSD cuenta
+          # hacia atrás y entra dos veces. Comprobado. Así no depende del sistema.
+          #
+          # Y con `< <(...)` y no con una tubería: una tubería abre un subshell
+          # y los contadores de abajo se perderían al salir del bucle.
+          while read -r fila; do
+            tarjeta=$(jq -r '.tarjeta' <<<"$fila")
+            url=$(jq -r '.video' <<<"$fila")
+            desde=$(jq -r '.desde // 0' <<<"$fila")
+            salida="public/artes/stories-v2/windmar-story-v2-${tarjeta}.mp4"
+
+            if [ -f "$salida" ] && [ "$REHACER" != "true" ]; then
+              echo "·  $tarjeta — ya está montada, se salta"
+              saltadas=$((saltadas + 1)); continue
+            fi
+
+            # Dropbox entrega la página de vista previa con dl=0 y el archivo
+            # con dl=1. Pegar el de «Compartir» es lo natural, así que se
+            # corrige aquí en vez de pedirle a nadie que lo edite a mano.
+            directo=$(echo "$url" | sed 's/dl=0/dl=1/')
+
+            echo "·  $tarjeta — bajando el clip"
+            if ! curl -fsSL --max-time 300 -o /tmp/clip.mp4 "$directo"; then
+              echo "   ✗ no se pudo bajar: $directo"
+              fallos=$((fallos + 1)); continue
+            fi
+
+            echo "·  $tarjeta — montando desde el segundo $desde"
+            if node scripts/render-historia.mjs --video /tmp/clip.mp4 --tarjeta "$tarjeta" --desde "$desde"; then
+              hechas=$((hechas + 1))
+            else
+              echo "   ✗ falló el montaje de $tarjeta"
+              fallos=$((fallos + 1))
+            fi
+            rm -f /tmp/clip.mp4
+          done < <(jq -c '.historias[]' "$COLA")
+
+          echo "montadas=$hechas" >> "$GITHUB_OUTPUT"
+          # El resumen va al log Y al resumen de la corrida: los logs no se
+          # pueden leer sin permisos de admin, y el resumen sí.
+          {
+            echo "### Vídeos de historias"
+            echo ""
+            echo "- montadas: **$hechas**"
+            echo "- ya estaban: $saltadas"
+            echo "- fallaron: $fallos"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # Falla la corrida si falló algo, PERO después de intentarlo todo:
+          # una URL rota no debe impedir que se monten las otras cuatro.
+          [ "$fallos" -eq 0 ]
+
+      - name: Guardar los vídeos en la rama
+        # `always()` por lo mismo que en el Action de artes: si una falló y tres
+        # salieron, se guardan las tres y la corrida queda en rojo por la una.
+        if: always() && steps.montar.outcome != 'skipped'
+        run: |
+          # `public/artes/` y `public/**/*.mp4` están los dos en .gitignore, de
+          # ahí el -f. Aquí se guardan a propósito: es la pieza que se publica.
+          git add -f public/artes/stories-v2/*.mp4 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No se montó ningún vídeo nuevo."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "Historias: montar los vídeos de la cola"
+          git push -q

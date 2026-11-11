@@ -1,0 +1,26 @@
+{
+  "_lee_esto_primero": [
+    "La cola de stories que hay que montar en vídeo.",
+    "",
+    "Añade una entrada y empuja: el Action «Vídeos de historias» monta el overlay",
+    "de esa tarjeta sobre ese clip, lo recorta a diez segundos y deja el mp4 en",
+    "public/artes/stories-v2/windmar-story-v2-<tarjeta>.mp4, que se abre con enlace.",
+    "",
+    "El VÍDEO NO VA EN EL REPO. Va su enlace, y el Action lo baja al montarlo.",
+    "public/**/*.mp4 está en .gitignore porque el vídeo del sitio ya pesa 671 MB.",
+    "",
+    "Una entrada:",
+    "  tarjeta  el id de la tarjeta en windmar-pr-stories-v2-preview.html.",
+    "           Tiene que tener su -overlay.png ya dibujado, o el Action lo dice.",
+    "  video    enlace directo de descarga. De Dropbox vale el de compartir: el",
+    "           Action le cambia dl=0 por dl=1 solo. De SharePoint NO sirve: pide",
+    "           sesión, y el Action no la tiene.",
+    "  desde    opcional, segundos. Dónde empieza el trozo bueno. Por defecto 0.",
+    "  nota     opcional, para quien lo lea dentro de un mes.",
+    "",
+    "Lo montado NO se borra de aquí. La lista es el registro de qué clip hizo qué",
+    "story — si se vacía, nadie puede saber de dónde salió un vídeo publicado.",
+    "El Action no rehace lo que ya existe salvo que se le pida con «rehacer: true»."
+  ],
+  "historias": []
+}
