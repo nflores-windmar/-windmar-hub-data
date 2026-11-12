@@ -421,55 +421,65 @@ const BATERIA=[
 /* NOVIEMBRE · jueves 12. Prepara el video del viernes 13, «WHF financiamiento · Julio
    Mangual y Andrés Cruz». Pieza «Cómo se paga un sistema» del plan de noviembre
    (WindMar Financial, colocada bajo Solar por indicación de Nicolle). Escrito el 4 de
-   noviembre; solo PNG overlay, sin foto.
+   noviembre a pedido de Nicolle; solo PNG overlay, sin foto.
+   El calendario pedía no prometer «gratis total»: se habla de ahorro y de evaluación
+   sin compromiso. Las tres rutas salen de la página windmar.com/finance (préstamo con
+   Oriental Bank, WindMar Energy by Qcells y la red de otras alternativas). Sin cifras:
+   ni tasas, ni plazos, ni montos, porque la página no trae ninguno para solar.
+   POR CONFIRMAR: (1) que Financiamiento valide que lo que dicen las láminas 2 y 3
+   sigue vigente; (2) la frase «sujeto a aprobación de crédito» de la lámina 4: es un
+   descargo que añadí yo, no sale de la página; (3) la red: Studio tiene dos piezas con
+   este título (Facebook e Instagram, e Instagram solo) y el plan dice solo Facebook. */
+/* 12 de noviembre de 2026 · BORRADOR, no publicable todavía.
 
-   12 de noviembre: Nicolle pidió replantearlo como «alternativas de financiamiento,
-   lease y loan», y verificar las alternativas. Se verificó contra windmar.com/finance
-   ese mismo día, y la verificación cambió la pieza:
+   Cambia SOLO la lámina 2, que es lo que pidió Nicolle (ver
+   `mochila/para-musa-carrusel-financiamiento-2026-11-12.md`). Las otras tres se
+   quedan como estaban. El copy de abajo es el que ella aceptó como borrador —
+   aceptó el TEXTO, no autorizó publicarlo.
 
-   · **La página NO dice «lease» en ningún sitio.** Ni «lease» ni «PPA». La única
+   Pasa de tres rutas con nombre de proveedor a dos figuras genéricas. Eso no es
+   un recorte: es lo que permite decir algo cierto hoy.
+
+   LA VERIFICACIÓN, hecha contra windmar.com/finance el 12 de noviembre:
+
+   · La página NO dice «lease» en ningún sitio. Ni «lease» ni «PPA». La única
      palabra de producto que usa es «préstamo», y solo para Oriental.
-   · **De QCells no dice quién queda dueño del sistema**, que es lo ÚNICO que
-     distingue un lease de un préstamo. De Oriental sí: «Sé dueño de tu sistema solar».
+   · De «WindMar Energy by Qcells» NO dice quién queda dueño del sistema, que es
+     lo único que separa un lease de un préstamo. De Oriental sí: «Sé dueño de tu
+     sistema solar».
+   · Ni tasas, ni plazos, ni cuotas, ni pago inicial. Para nada.
 
-   Así que las láminas no usan «lease». Llamar lease a algo que la página no llama lease,
-   en la pieza que habla de dinero, es fabricar la queja #3 de las reseñas de noviembre
-   —«ventas prometió algo distinto», 21% de las negativas—. En su lugar, la lámina 3
-   convierte la propiedad en LA PREGUNTA QUE HAY QUE HACER, que es cierto, es útil, y no
-   afirma nada que no se pueda sostener.
+   O sea que **no hay fuente pública que diga cuál de las ofertas vigentes es el
+   lease**. Por eso las dos láminas describen la FIGURA —qué es un préstamo, qué
+   es un arrendamiento— y no se la cuelgan a ningún proveedor. Ponerle el nombre
+   de un producto a una figura que la página no nombra así, en la pieza que habla
+   de dinero, es fabricar la queja #3 de las reseñas de noviembre: «ventas
+   prometió algo distinto», el 21% de las negativas.
 
-   Los nombres y lo que incluye cada ruta son ahora literales de la página:
-   · «WindMar Energy by Oriental» (antes decía «Préstamo con Oriental Bank», que no es
-     como se llama el producto), «Sé dueño de tu sistema solar», servicio y mantenimiento.
-   · «WindMar Energy by Qcells», pagos fijos o escalonados, servicio, mantenimiento y
-     seguro, más garantía extendida Tesla Powerwall.
-   · Otras alternativas: aprobaciones rápidas, proceso 100% digital, tasas flexibles.
-
-   Sin cifras: la página no trae ni tasas, ni plazos, ni cuotas, ni pago inicial.
-
-   POR CONFIRMAR, y hasta entonces NO se publica como «lease y loan»:
-   (1) si WindMar Energy by Qcells es un lease o un PPA, y quién queda dueño del sistema
-       al final del término — lo tiene WHF, no la página;
-   (2) la frase «sujeto a aprobación de crédito» de la lámina 4: es un descargo que no
-       sale de la página;
-   (3) la red: Studio tiene dos piezas con este título (Facebook e Instagram, e Instagram
-       solo) y el plan dice solo Facebook. */
+   ANTES DE PUBLICAR hacen falta, y ninguna está hecha:
+   (1) Financiamiento confirma las alternativas y proveedores vigentes en Puerto
+       Rico —sobre todo cuál es la oferta de lease— y valida el texto legal. La
+       conexión EnFin que se consultó estaba en pruebas, así que no vale.
+   (2) revisar si «Sujeto a aprobación de crédito» (lámina 4) aplica igual a las
+       dos alternativas;
+   (3) Creative aprueba el arte;
+   (4) la red: Studio tiene dos piezas con este título (Facebook e Instagram, e
+       Instagram solo) y el plan dice solo Facebook. */
 const PAGO=[
   { id:'nov-pago-1', cls:'', chip:'Financiamiento · Solar', type:'headline', overlay:true,
-    kicker:'Antes de mirar la cuota',
+    kicker:'Antes de decidir',
     headline:'¿CÓMO SE PAGA<br>UN <span class="hl">SISTEMA</span> SOLAR?',
-    desc:'Hay más de una forma, y lo que las separa de verdad no es el precio del mes: es qué incluye cada una y a nombre de quién queda el sistema.' },
-  { id:'nov-pago-2', cls:'data sep', chip:'Las alternativas', blue:true, type:'list', overlay:true,
-    listhead:'LAS FORMAS DE<br><span class="hl">PAGARLO</span>',
+    desc:'Hay más de una forma de pagarlo, y cada una responde a una necesidad distinta.' },
+  { id:'nov-pago-2', cls:'data', chip:'Alternativas', blue:true, type:'list', overlay:true,
+    listhead:'ALTERNATIVAS DE<br><span class="hl">FINANCIAMIENTO</span>',
     items:[
-      { n:'1', tt:'WindMar Energy by Oriental', ds:'Sé dueño de tu sistema solar. Servicio y mantenimiento incluidos.' },
-      { n:'2', tt:'WindMar Energy by Qcells', ds:'Pagos fijos o escalonados. Servicio, mantenimiento y seguro, más garantía extendida Tesla Powerwall.' },
-      { n:'3', tt:'Otras alternativas', ds:'Aprobaciones rápidas, proceso 100% digital y tasas flexibles.' },
+      { n:'1', tt:'Loan · Préstamo', ds:'Financias la compra de tu sistema y haces pagos según tu contrato.' },
+      { n:'2', tt:'Lease · Arrendamiento', ds:'Usas el sistema bajo las condiciones de un contrato de arrendamiento.' },
     ] },
-  { id:'nov-pago-3', cls:'', chip:'La pregunta que decide', type:'headline', overlay:true,
-    kicker:'No se escoge por la cuota',
-    headline:'PREGUNTA QUIÉN<br>QUEDA <span class="hl">DUEÑO</span><br>DEL SISTEMA',
-    desc:'Es lo que cambia todo lo demás: qué pasa al final del término, quién responde por el servicio y qué incluye cada opción.' },
+  { id:'nov-pago-3', cls:'', chip:'El criterio', type:'headline', overlay:true,
+    kicker:'Antes de escoger',
+    headline:'NO SE ESCOGE SOLO<br>POR LA <span class="hl">CUOTA</span>',
+    desc:'Mira también quién da el servicio y el mantenimiento, y qué incluye cada opción.' },
   { id:'nov-pago-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
     kicker:'Te ayudamos a escoger',
     headline:'TE EXPLICAMOS<br>LAS <span class="hl">OPCIONES</span>',
