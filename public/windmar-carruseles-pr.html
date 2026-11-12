@@ -84,6 +84,12 @@ h1 .o{color:var(--orange)}
 .item .tx{font-family:var(--body);color:#fff}
 .item .tt{font-weight:800;font-size:3.5cqw;letter-spacing:.06cqw;text-transform:uppercase;line-height:1.05}
 .item .ds{font-weight:600;font-size:2.9cqw;line-height:1.28;color:rgba(255,255,255,.82);margin-top:.6cqw}
+/* El pie de una lámina de lista: la letra pequeña legal.
+   Más chico y más apagado que `.ds` a propósito — tiene que leerse, no competir
+   con el contenido. Si pesara igual que un ítem parecería un tercer punto de la
+   lista, que es justo lo que no es. */
+.pie{font-family:var(--body);font-weight:600;font-size:2.4cqw;line-height:1.3;
+  color:rgba(255,255,255,.62);margin-top:4cqw}
 /* Lámina de lista con titular de tres líneas y un punto largo: la etiqueta de arriba
    se pegaba al titular. «sep» deja aire bajo la etiqueta y lo recupera achicando un
    poco el titular y el espacio entre puntos, para que la barra de marca no se salga. */
@@ -261,11 +267,14 @@ function renderGallery(cards, containerId){
         <div class="rule"></div>
         <div class="desc" contenteditable="true">${c.desc}</div>`;
     } else if(c.type==='list'){
+      /* `pie` es opcional: la letra pequeña legal de una lámina de lista. Va
+         fuera de `items` para que no se lea como un punto más de la lista. */
       hero=`<div class="listhead" contenteditable="true">${c.listhead}</div>
         <div class="items">${c.items.map(it=>`
           <div class="item"><div class="n">${it.n}</div>
             <div class="tx"><div class="tt" contenteditable="true">${it.tt}</div><div class="ds" contenteditable="true">${it.ds}</div></div>
-          </div>`).join('')}</div>`;
+          </div>`).join('')}</div>${c.pie?`
+        <div class="pie" contenteditable="true">${c.pie}</div>`:''}`;
     } else if(c.type==='vs'){
       hero=`<div class="kicker" contenteditable="true">${c.kicker}</div>
         <div class="vsrow">
@@ -460,8 +469,10 @@ const BATERIA=[
    (1) Financiamiento confirma las alternativas y proveedores vigentes en Puerto
        Rico —sobre todo cuál es la oferta de lease— y valida el texto legal. La
        conexión EnFin que se consultó estaba en pruebas, así que no vale.
-   (2) revisar si «Sujeto a aprobación de crédito» (lámina 4) aplica igual a las
-       dos alternativas;
+   (2) RESUELTO el 12 de noviembre: Nicolle confirmó que el descargo aplica a las
+       dos, y dio su redacción — «Términos sujetos a aprobación de crédito.», en
+       el pie de esta lámina. La lámina 4 conserva el suyo, que es otra frase y
+       otra pieza del carrusel;
    (3) Creative aprueba el arte;
    (4) la red: Studio tiene dos piezas con este título (Facebook e Instagram, e
        Instagram solo) y el plan dice solo Facebook. */
@@ -475,7 +486,8 @@ const PAGO=[
     items:[
       { n:'1', tt:'Loan · Préstamo', ds:'Financias la compra de tu sistema y haces pagos según tu contrato.' },
       { n:'2', tt:'Lease · Arrendamiento', ds:'Usas el sistema bajo las condiciones de un contrato de arrendamiento.' },
-    ] },
+    ],
+    pie:'Términos sujetos a aprobación de crédito.' },
   { id:'nov-pago-3', cls:'', chip:'El criterio', type:'headline', overlay:true,
     kicker:'Antes de escoger',
     headline:'NO SE ESCOGE SOLO<br>POR LA <span class="hl">CUOTA</span>',
