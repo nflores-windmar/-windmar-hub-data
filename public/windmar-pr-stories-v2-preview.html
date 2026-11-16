@@ -521,6 +521,150 @@ const CARDS=[
     headline:'BAJÓ SU<br><span class="hl">FACTURA DE LUZ</span>',
     desc:'Un cliente de Bayamón bajó su factura de luz con energía solar de WindMar Home.',
     logo:'wme/logos/wmh-home-white-orange.png' },
+
+  /* ───────────────────────────────────────────────────────────────────────
+     SERIE «RESEÑAS» · 13 tarjetas, de noviembre 23 a diciembre 30 de 2026.
+
+     Para qué: el mes se arma de martes a viernes, así que TODOS LOS LUNES
+     quedan vacíos, y diciembre tiene además doce días hábiles sin nada. Esta
+     serie los llena — y los llena mandando tráfico al blog, que es lo que
+     pidió Nicolle.
+
+     De dónde salen: `Reviews_Google_PR_nov2026.xlsx`, hoja «listado 30
+     reviews» — las que el propio archivo marca como usables para social
+     proof. 348 reseñas en total, 30 escogidas, 13 usadas aquí.
+
+     Cómo se emparejan: cada reseña va con el artículo del blog que responde
+     lo que esa persona dice. Quien pregunta por apagones acaba en el de
+     baterías; quien habla del contador, en el del contador inteligente. El
+     destino va en el campo `blog` de cada tarjeta — el generador lo ignora,
+     pero así viaja con la pieza y nadie tiene que adivinarlo al publicar.
+
+     Dos cosas del formato, a propósito:
+
+     · `site:'windmar.com/blog'` en vez de `windmar.com`. Es lo único del arte
+       que empuja al blog, porque el enlace de verdad va en el sticker al
+       publicar y eso no se dibuja.
+     · Las citas se RECORTAN, no se reescriben. Cada palabra que queda es del
+       cliente, con sus tildes y su puntuación tal como las escribió. Si una
+       cita se acorta, se marca con «…». Arreglarle la gramática a alguien y
+       seguir poniéndolo entre comillas es ponerle en la boca algo que no dijo.
+
+     POR CONFIRMAR antes de publicar:
+     (1) Los nombres salen tal como aparecen públicamente en Google. Hay que
+         confirmar que WindMar quiere nombrar a quien reseña — es público, pero
+         publicarlo en una story es otro gesto. Si no, se deja solo la inicial.
+     (2) La del 28 de diciembre cita «$8». Es la cifra del cliente, no una
+         promesa de la empresa, y por eso va entre comillas y con el descargo
+         de que el ahorro depende de cada casa. Aun así es la que más conviene
+         que mire alguien antes de que salga.
+     (3) Ninguna lleva fecha de grabación ni talento: el fondo es vídeo de
+         archivo o foto. Si no hay material, salen con el hueco vacío.
+     ─────────────────────────────────────────────────────────────────────── */
+  { id:'resena-apagones', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-11-23', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/placas-solares-con-bateria-puerto-rico',
+    sketch:'', type:'headline',
+    kicker:'Lo dice un cliente, no nosotros',
+    headline:'CUATRO AÑOS<br>SIN <span class="hl">APAGONES</span>',
+    desc:'«Llevo cuatro años sin apagones ni problemas de energía eléctrica. Los recomiendo 100%.» — Ramón A. Rodríguez, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-luma', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-01', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/aumento-luz-puerto-rico-octubre-2026',
+    sketch:'', type:'headline',
+    kicker:'Tres años de cliente',
+    headline:'CUANDO SUBE<br>LA <span class="hl">LUZ</span>',
+    desc:'«Llevo 3 años como cliente de WindMar y cada vez que he tenido alguna situación de servicio me responden con prontitud.» — Misael Saldaña, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-tiempos', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-03', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/como-funciona-sistema-solar-fotovoltaico',
+    sketch:'', type:'headline',
+    kicker:'Lo que pasa entre la firma y el encendido',
+    headline:'TODO DENTRO<br>DEL <span class="hl">TIEMPO</span>',
+    desc:'«Firmé en abril, me instalaron en julio, y en octubre la medición neta. Todo adentro del tiempo…» — Richard Sala, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-contador', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-07', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/contador-inteligente-luma-placas-solares',
+    sketch:'', type:'headline',
+    kicker:'El papeleo que nadie quiere hacer',
+    headline:'LOS <span class="hl">PERMISOS</span><br>LOS RESOLVIERON<br>ELLOS',
+    desc:'«Mi casa no tenía ground desde el contador y WindMar puso uno de sus peritos electricistas a conseguir los permisos de LUMA.» — Julio Soto, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-pago-fijo', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-09', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/tesla-powerwall-3-guia',
+    sketch:'', type:'headline',
+    kicker:'Tres años con el sistema',
+    headline:'YA NO NOS<br>DAMOS <span class="hl">CUENTA</span><br>CUANDO SE VA',
+    desc:'«Desde que lo tenemos hace tres años no hemos tenido problema alguno. Ya no nos damos cuenta cuando se va la luz, y con un pago fijo.» — Lillian Sánchez, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-techo', brand:'roofing', cls:'roofing', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-10', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/sellado-techo-antes-paneles',
+    sketch:'', type:'headline',
+    kicker:'La brigada del techo',
+    headline:'NOS EXPLICARON<br><span class="hl">PASO A PASO</span>',
+    desc:'«Muy bueno el servicio de la brigada que realizó el trabajo del techo, se nos explicó paso a paso el trabajo de cada día.» — Wanda del Valle, reseña de Google.',
+    logo:'wme/logos/windmar-roofing-white-orange.png' },
+  { id:'resena-tesla', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-14', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/tesla-vpp-puerto-rico',
+    sketch:'', type:'headline',
+    kicker:'17 paneles y una batería',
+    headline:'LO <span class="hl">VEO</span><br>DESDE EL<br>TELÉFONO',
+    desc:'«Adquirí 17 paneles solares y una batería Tesla. Cómo opera el sistema lo puedo ver en…» — Fermín Marengo Ríos, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-financiamiento', brand:'financial', cls:'financial', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-17', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/placas-solares-precios-puerto-rico-retorno',
+    sketch:'', type:'headline',
+    kicker:'Lo que preguntó antes de firmar',
+    headline:'SIN <span class="hl">GRAVAMEN</span><br>SOBRE LA CASA',
+    desc:'«No hay gravamen sobre la vivienda, se puede saldar todo antes sin penalidad…» — Luyineth Gómez, reseña de Google.',
+    logo:'wme/logos/wh-financial-white-orange.svg' },
+  { id:'resena-huracanes', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-21', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/seguro-placas-solares-antes-de-huracan',
+    sketch:'', type:'headline',
+    kicker:'Cuando de verdad hace falta',
+    headline:'SERVICIO DE<br><span class="hl">EMERGENCIA</span><br>EN HURACANES',
+    desc:'«Mejor servicio al cliente, mejor servicio de emergencias en tiempo de huracanes, la educación gratuita que dan…» — Aida S., reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-garantias', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-22', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/6-beneficios-energia-solar',
+    sketch:'', type:'headline',
+    kicker:'Lo que miró al decidir',
+    headline:'EL EQUIPO<br>Y LAS <span class="hl">GARANTÍAS</span>',
+    desc:'«Estoy muy contenta con el profesionalismo de la compañía, el tiempo, el pago y sobre todo el equipo y las garantías.» — Hilda Dávila, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-tres-meses', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-23', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/placas-solares-puerto-rico-la-verdad-2026',
+    sketch:'', type:'headline',
+    kicker:'Dijeron tres meses',
+    headline:'TARDARON<br>LO QUE <span class="hl">DIJERON</span>',
+    desc:'«Se tardaron lo que me dijeron, tres meses en todo el proceso. Realizaron el cambio de contador sin yo tener que hacer…» — Edwin Acosta, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-factura', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-28', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/guia-factura-aee-ahorros',
+    sketch:'', type:'headline',
+    kicker:'Fue a la oficina a preguntar',
+    headline:'VIO EL CARGO<br>Y <span class="hl">PREGUNTÓ</span>',
+    desc:'«En el día de hoy fui a WindMar porque en mi factura vi ahora el cargo de $8… amablemente me explicaron y entendí el beneficio.» — Deida José, reseña de Google. El ahorro depende del consumo de cada casa.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
+  { id:'resena-equipo-completo', brand:'solar', cls:'solar', chip:'Clientes · Reseña de Google', date:'Google · Nov 2026',
+    publica:'2026-12-30', videoSlot:true, overlay:true, site:'windmar.com/blog',
+    blog:'https://windmar.com/blog/historias-clientes-windmar-ahorro-solar',
+    sketch:'', type:'headline',
+    kicker:'De la venta a la instalación',
+    headline:'DESDE EL <span class="hl">VENDEDOR</span><br>HASTA LOS<br>INSTALADORES',
+    desc:'«Hasta ahora el sistema está funcionando muy bien. Gracias a sus empleados, desde el vendedor e instaladores.» — Isabel Domínguez, reseña de Google.',
+    logo:'wme/logos/wmh-home-white-orange.png' },
 ];
 
 /* `publica` es la fecha en que sale la tarjeta, en ISO: '2026-11-04'.
