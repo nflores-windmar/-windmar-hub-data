@@ -1,0 +1,448 @@
+{
+ "_lee_esto_primero": [
+  "El plan de contenido orgánico de diciembre 2026 para @windmarhome (Puerto Rico).",
+  "Esto dice qué DEBERÍA existir en Studio. No dice que exista. Si no cuadra, manda Studio.",
+  "Antes de crear nada, busca duplicados con buscar_piezas.",
+  "LOS APROBADORES SE MATERIALIZAN AL CREAR LA PIEZA Y NO SE RE-EVALÚAN: una pieza que nace con el producto equivocado se queda pidiendo firma a quien no es, y cambiar el producto después no lo arregla. Hay que borrarla y rehacerla.",
+  "La fecha de cada pieza es la de PUBLICACIÓN. La entrega es siempre 7 días antes.",
+  "A DIFERENCIA DE NOVIEMBRE, aquí el arte YA ESTÁ ESCRITA. Cada pieza trae `material` (dónde vive) y `arte` (el enlace para verla). No hay que escribir slides.",
+  "NO SE PUBLICA NADA. Las piezas nacen en `idea`."
+ ],
+ "escrito": "2026-11-16",
+ "escrito_por": "Claude, a pedido de Nicolle",
+ "origen": "Carruseles: carruseles-diciembre.html (11 nov), elegidos con Ranking de SEO en Studio (semana del 9 nov) y las 347 reseñas de Google de noviembre. Stories: Reviews_Google_PR_nov2026.xlsx, hoja «listado 30 reviews».",
+ "campana": {
+  "nombre": "Contenido Orgánico",
+  "mercado": "PR",
+  "naturaleza": [
+   "organica"
+  ],
+  "pauta_inversion": null,
+  "nota": "Si ya existe una campaña de contenido orgánico viva, úsala y dilo. No crees una segunda."
+ },
+ "defectos_de_todas": {
+  "naturaleza": "organica",
+  "cuenta": "WindMar Home",
+  "mercado": "PR",
+  "responsable": "Nicolle"
+ },
+ "reglas_de_publicacion": {
+  "ventana_medida": "44 piezas de WindMar Home, del 22 de septiembre al 28 de octubre de 2026",
+  "horas": {
+   "instagram": "10:30",
+   "facebook": "14:30"
+  },
+  "separacion": "Cuatro horas entre una red y otra. Nunca las dos al mismo minuto: medido tres veces que Instagram se hunde cuando pasa.",
+  "dias": {
+   "viernes": "el mejor en las dos redes (964 de alcance contra 764 del martes)",
+   "jueves": "de los peores en Facebook: rinde 32 contra 90 del viernes",
+   "domingo": "de los peores"
+  },
+  "ojo_difiere_de_noviembre": "Noviembre usaba 12:30 para el carrusel de Facebook y 15:30 para el reel. Esta ventana es más nueva y más grande (44 piezas), y da 14:30 para todo Facebook. Si alguien quiere mantener las de noviembre, que lo diga; no se cambió por descuido."
+ },
+ "firmas": {
+  "siempre": [
+   "Manuel Pales",
+   "Pichu"
+  ],
+  "pm_por_producto": {
+   "Anker": "Jesús Medina",
+   "Roofing": "Elliot Rodríguez",
+   "Water": "David Fonseca",
+   "Solar": null,
+   "WindMar Financial": null
+  },
+  "nota_pm": "Que Solar y WindMar Financial no tengan PM no es un hueco: esas piezas firman solo Manuel y Pichu. No les inventes uno.",
+  "observadores_que_no_bloquean": [
+   "Miguel Bethencourt",
+   "Bryan López",
+   "Nicolle"
+  ],
+  "por_encima_de_todos": "Marc Roumain",
+  "ojo": "Hay dos Miguel: Bethencourt es observador en todo; Miguel Torres firma Pros y solo en Florida."
+ },
+ "piezas": [
+  {
+   "publica": "2026-12-01",
+   "entrega": "2026-11-24",
+   "titulo": "Cuando sube la luz",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-luma'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-luma",
+   "blog": "https://windmar.com/blog/aumento-luz-puerto-rico-octubre-2026",
+   "nota": "Reseña de Google de Misael Saldaña. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-02",
+   "entrega": "2026-11-25",
+   "titulo": "Qué le quita un filtro al agua de tu casa",
+   "formato": "Carrusel",
+   "producto": "Water",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-filtro",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-filtro",
+   "nota": "Búsqueda: «filtro de agua», 390/mes. La lámina 3 es el giro y existe para no dejar una expectativa falsa: un filtro mejora el agua que llega, no guarda agua para cuando no llega."
+  },
+  {
+   "publica": "2026-12-03",
+   "entrega": "2026-11-26",
+   "titulo": "Todo dentro del tiempo",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tiempos'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tiempos",
+   "blog": "https://windmar.com/blog/como-funciona-sistema-solar-fotovoltaico",
+   "nota": "Reseña de Google de Richard Sala. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-04",
+   "entrega": "2026-11-27",
+   "titulo": "Qué tamaño de cisterna necesita tu casa",
+   "formato": "Carrusel",
+   "producto": "Water",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-cisterna",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-cisterna",
+   "nota": "Búsqueda: «cisternas de agua», 1.900/mes — la más buscada del mes y WindMar no aparece en el top 20."
+  },
+  {
+   "publica": "2026-12-07",
+   "entrega": "2026-11-30",
+   "titulo": "Los permisos los resolvieron ellos",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-contador'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-contador",
+   "blog": "https://windmar.com/blog/contador-inteligente-luma-placas-solares",
+   "nota": "Reseña de Google de Julio Soto. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-08",
+   "entrega": "2026-12-01",
+   "titulo": "Cuánto tarda, de la firma a la instalación",
+   "formato": "Carrusel",
+   "producto": null,
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-tiempos",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-tiempos",
+   "nota": "NO sale de una búsqueda: es la queja #1 de las reseñas (27% de las negativas) y no había pieza que la contestara. FALTAN los tiempos reales de cada paso; Operaciones tiene que darlos antes de publicar."
+  },
+  {
+   "publica": "2026-12-09",
+   "entrega": "2026-12-02",
+   "titulo": "Ya no nos damos cuenta cuando se va",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-pago-fijo'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-pago-fijo",
+   "blog": "https://windmar.com/blog/tesla-powerwall-3-guia",
+   "nota": "Reseña de Google de Lillian Sánchez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-10",
+   "entrega": "2026-12-03",
+   "titulo": "Nos explicaron paso a paso",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-techo'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-techo",
+   "blog": "https://windmar.com/blog/sellado-techo-antes-paneles",
+   "nota": "Reseña de Google de Wanda del Valle. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-11",
+   "entrega": "2026-12-04",
+   "titulo": "Cada cuánto se sella un techo en Puerto Rico",
+   "formato": "Carrusel",
+   "producto": "Roofing",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-sellado",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-sellado",
+   "nota": "Búsqueda: «sellador de techo», 720/mes. Es la vertical donde WindMar ya rankea (4, 5 y 11). FALTA el rango real; Roofing tiene que darlo antes de que la pieza diga «cada X años»."
+  },
+  {
+   "publica": "2026-12-14",
+   "entrega": "2026-12-07",
+   "titulo": "Lo veo desde el teléfono",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tesla'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tesla",
+   "blog": "https://windmar.com/blog/tesla-vpp-puerto-rico",
+   "nota": "Reseña de Google de Fermín Marengo Ríos. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-15",
+   "entrega": "2026-12-08",
+   "titulo": "Un calentador solar: qué calienta y qué no",
+   "formato": "Carrusel",
+   "producto": "Water",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-calentador",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-calentador",
+   "nota": "Búsqueda: «calentador solar», 880/mes. El encargo era aclarar la confusión con las placas SIN corregir a nadie."
+  },
+  {
+   "publica": "2026-12-16",
+   "entrega": "2026-12-09",
+   "titulo": "Qué pasa después de que instalamos",
+   "formato": "Carrusel",
+   "producto": null,
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-despues",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-despues",
+   "nota": "Queja #4 (19%) más garantía (8%). La pieza más delicada del mes: habla de servicio ante gente que se quejó del servicio. FALTA confirmar que exista un canal de servicio distinto al de ventas; la lámina 2 lo da por hecho."
+  },
+  {
+   "publica": "2026-12-17",
+   "entrega": "2026-12-10",
+   "titulo": "Sin gravamen sobre la casa",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-financiamiento'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-financiamiento",
+   "blog": "https://windmar.com/blog/placas-solares-precios-puerto-rico-retorno",
+   "nota": "Reseña de Google de Luyineth Gómez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-18",
+   "entrega": "2026-12-11",
+   "titulo": "La cisterna sola no sube el agua",
+   "formato": "Carrusel",
+   "producto": "Water",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-bomba",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-bomba",
+   "nota": "Búsqueda: «bomba de agua para cisterna», 390/mes. Tres láminas, no cuatro: la idea es una sola."
+  },
+  {
+   "publica": "2026-12-21",
+   "entrega": "2026-12-14",
+   "titulo": "Servicio de emergencia en huracanes",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-huracanes'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-huracanes",
+   "blog": "https://windmar.com/blog/seguro-placas-solares-antes-de-huracan",
+   "nota": "Reseña de Google de Aida S.. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-22",
+   "entrega": "2026-12-15",
+   "titulo": "El equipo y las garantías",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-garantias'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-garantias",
+   "blog": "https://windmar.com/blog/6-beneficios-energia-solar",
+   "nota": "Reseña de Google de Hilda Dávila. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-23",
+   "entrega": "2026-12-16",
+   "titulo": "Tardaron lo que dijeron",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tres-meses'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tres-meses",
+   "blog": "https://windmar.com/blog/placas-solares-puerto-rico-la-verdad-2026",
+   "nota": "Reseña de Google de Edwin Acosta. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-28",
+   "entrega": "2026-12-21",
+   "titulo": "Vio el cargo y preguntó",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-factura'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-factura",
+   "blog": "https://windmar.com/blog/guia-factura-aee-ahorros",
+   "nota": "Reseña de Google de Deida José. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  },
+  {
+   "publica": "2026-12-29",
+   "entrega": "2026-12-22",
+   "titulo": "Qué cubren los incentivos y qué no",
+   "formato": "Carrusel",
+   "producto": "WindMar Financial",
+   "canales": [
+    "Instagram",
+    "Facebook"
+   ],
+   "horas": {
+    "instagram": "10:30",
+    "facebook": "14:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-pr.html, ancla #g-dic-incentivos",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-pr.html#g-dic-incentivos",
+   "nota": "Búsqueda: «placas solares gratis en puerto rico», 140/mes, más la queja #3 (21%). Sin una sola cifra a propósito: los números de incentivos cambian y una pieza con el número viejo ES la queja que intenta contestar. WHF tiene que revisarla."
+  },
+  {
+   "publica": "2026-12-30",
+   "entrega": "2026-12-23",
+   "titulo": "Desde el vendedor hasta los instaladores",
+   "formato": "Story",
+   "producto": null,
+   "canales": [
+    "Instagram"
+   ],
+   "horas": {
+    "instagram": "10:30"
+   },
+   "talento": null,
+   "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-equipo-completo'",
+   "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-equipo-completo",
+   "blog": "https://windmar.com/blog/historias-clientes-windmar-ahorro-solar",
+   "nota": "Reseña de Google de Isabel Domínguez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
+  }
+ ],
+ "huecos_conocidos": [
+  "LOS REELS DE DICIEMBRE NO ESTÁN AQUÍ. El documento de selección decía que «ya tienen sus temas y entran como están», pero no se encontró dónde. Sin ellos, diciembre tiene 8 carruseles y 12 stories y ningún vídeo.",
+  "Dos carruseles NACEN SIN PRODUCTO: el del 8 («cuánto tarda») y el del 16 («qué pasa después»). Son de proceso y de servicio, no de una línea. Como los aprobadores se materializan al crear la pieza y no se re-evalúan, hay que DECIDIR el producto antes de crearlas, no después.",
+  "Tres carruseles esperan un dato de otro equipo y no deberían publicarse sin él: el del 8 (tiempos reales, Operaciones), el del 11 (cada cuánto se sella, Roofing) y el del 16 (que exista un canal de servicio distinto al de ventas).",
+  "El del 29 necesita revisión de WHF aunque no lleve cifras.",
+  "Las stories citan a clientes por su nombre, tal como aparece públicamente en Google. Falta confirmar que WindMar quiera nombrarlos; si no, se deja la inicial.",
+  "La story del 28 cita «$8» de la factura de un cliente. Va entre comillas y con el descargo de que el ahorro depende de cada casa, pero conviene que alguien la apruebe.",
+  "Del 19 al 28 de diciembre casi no hay carruseles: el 24, el 25 y el 31 se dejaron vacíos a propósito. Las stories de reseñas sí cubren el 21, 22, 23 y 28."
+ ],
+ "no_va_aqui": [
+  "La story del 23 de NOVIEMBRE (`resena-apagones`) es de la misma serie pero cae en noviembre. Su entrega era el 16 de noviembre. Está escrita en el generador; si se crea la pieza, va con el plan de noviembre.",
+  "Florida y Pros: las 21 piezas de diciembre que ya están en Studio son suyas (18 de Florida, 3 de Pros) y no se tocan.",
+  "Media Tour: no entra aquí ni se toca. Lo lleva otra persona."
+ ]
+}
