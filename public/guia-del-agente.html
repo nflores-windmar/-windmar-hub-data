@@ -79,8 +79,8 @@
     <p>El <strong>Content Hub</strong> es el centro de operaciones de contenido de WindMar Home (PR y Florida; líneas: Solar, Roofing/Sellado, Water/filtración, Anker/baterías, WindMar Pros/reclutamiento).</p>
     <ul>
       <li><strong>App:</strong> proyecto Next.js que sirve HTML estático desde <code>studio/public/</code>.</li>
-      <li><strong>Portal principal:</strong> <code>windmar_content_hub.html</code> (~9,029 líneas) → en vivo en <code>studio-windmar-home.vercel.app/windmar_content_hub.html</code></li>
-      <li><strong>Raíz del estudio:</strong> <code>studio-windmar-home.vercel.app/</code></li>
+      <li><strong>Portal principal:</strong> <code>windmar_content_hub.html</code> (~9,029 líneas) → en vivo en <code>windmar-previews.vercel.app/windmar_content_hub.html</code></li>
+      <li><strong>Raíz del estudio:</strong> <code>windmar-previews.vercel.app/</code></li>
       <li>Es una <strong>SPA</strong>: <code>showPage('id')</code> intercambia divs <code>.page</code> sin recargar.</li>
       <li><strong>Repo local:</strong> <code>…/Content Hub/studio/</code></li>
     </ul>
@@ -94,10 +94,10 @@
   npx vercel deploy --prod --yes > /tmp/deploy.log 2>&amp;1; \
   URL=$(grep -oE "https://studio-[a-z0-9]+-windmar-home.vercel.app" /tmp/deploy.log | head -1); \
   if grep -q '"readyState": "READY"' /tmp/deploy.log; then \
-    npx vercel alias set "$URL" studio-windmar-home.vercel.app; break; \
+    npx vercel alias set "$URL" windmar-previews.vercel.app; break; \
   else echo "retry $i"; fi; \
 done</code></pre>
-    <p>El alias público <strong>siempre</strong> apunta a <code>studio-windmar-home.vercel.app</code>. Verificar: <code>curl -s &lt;url&gt; | grep -F "texto"</code>.</p>
+    <p>El alias público <strong>siempre</strong> apunta a <code>windmar-previews.vercel.app</code>. Verificar: <code>curl -s &lt;url&gt; | grep -F "texto"</code>.</p>
   </section>
 
   <section class="doc" id="s3">
