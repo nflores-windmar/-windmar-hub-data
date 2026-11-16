@@ -143,6 +143,18 @@ h1 .o{color:var(--orange)}
   <div class="section-sub">Prepara el video del viernes 13, «WHF financiamiento · Julio Mangual y Andrés Cruz». Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-nov-pago"></div>
 
+  <div class="section-h"><h2>El techo antes que las placas</h2><span class="badge">Noviembre · mié 18</span></div>
+  <div class="section-sub">Acompaña al video de «Roofing Técnico». Enlaza roofing con solar. Entrega: 11 de noviembre (se pasó). Solo PNG overlay, sin foto.</div>
+  <div class="gallery" id="g-nov-techo"></div>
+
+  <div class="section-h"><h2>Víspera de Thanksgiving</h2><span class="badge">Noviembre · mié 25</span></div>
+  <div class="section-sub">Tema de calendario, no acompaña a ningún video. <b>Sin oferta: solo marca.</b> Tres láminas. Entrega: 18 de noviembre.</div>
+  <div class="gallery" id="g-nov-thanksgiving"></div>
+
+  <div class="section-h"><h2>Termina la temporada de huracanes</h2><span class="badge">Noviembre · lun 30</span></div>
+  <div class="section-sub">Cierra el hilo de la batería de Anker del día 11. <b>Lunes: solo Facebook.</b> Entrega: 23 de noviembre.</div>
+  <div class="gallery" id="g-nov-huracanes"></div>
+
   <div class="section-h"><h2>Qué le quita un filtro al agua de tu casa</h2><span class="badge">Diciembre · mié 2</span></div>
   <div class="section-sub">Búsqueda: «filtro de agua», 390/mes. IG 10:30 AM · FB 2:30 PM. Entrega: 25 de noviembre. Solo PNG overlay, sin foto.</div>
   <div class="gallery" id="g-dic-filtro"></div>
@@ -765,6 +777,110 @@ const DIC_INCENTIVOS=[
 ];
 
 
+
+/* NOVIEMBRE · miércoles 18. «El techo antes que las placas», del plan de noviembre
+   (producto Roofing, acompaña al video «Roofing Técnico»). Entrega era el 11 de
+   noviembre y se pasó: esto se escribió el 16, dos días antes de publicar, al cruzar
+   el plan con el generador y ver que de los ocho carruseles del mes solo había cinco.
+
+   El encargo del calendario es una línea: «Enlaza roofing con solar». Por eso ninguna
+   lámina vende roofing por su cuenta — las cuatro hablan del techo COMO CONDICIÓN del
+   sistema solar, que es el puente que pedía.
+
+   Sin cifras: no hay ninguna con fuente sobre cuánto aguanta un techo, cuánto pesa un
+   sistema ni cuánto cuesta desmontarlo. La lámina 3 dice lo que PASA —hay que quitar
+   las placas y volver a ponerlas—, que es cierto y no necesita número. */
+const NOV_TECHO=[
+  { id:'nov-techo-1', cls:'', chip:'Roofing · Antes de instalar', type:'headline', overlay:true,
+    kicker:'Lo que se decide antes de subir una placa',
+    headline:'EL <span class="hl">TECHO</span><br>VA ANTES QUE<br>LAS PLACAS',
+    desc:'Un sistema solar se queda 25 años sobre tu techo. La pregunta no es si las placas caben: es si el techo llega hasta allá.' },
+  { id:'nov-techo-2', cls:'data sep', chip:'Lo que se revisa primero', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE SE MIRA<br>EN EL <span class="hl">TECHO</span><br>ANTES DE EMPEZAR',
+    items:[
+      { n:'1', tt:'Si tiene filtraciones', ds:'Una gotera debajo de una placa solo se arregla desmontando.' },
+      { n:'2', tt:'Cómo está el sellado', ds:'Si toca sellar, se sella antes. Después es otro trabajo.' },
+      { n:'3', tt:'Qué peso puede cargar', ds:'Las placas y sus anclajes suman, y van para quedarse.' },
+      { n:'4', tt:'Por dónde corre el agua', ds:'Para que ningún anclaje caiga donde el agua se empoza.' },
+    ] },
+  { id:'nov-techo-3', cls:'', chip:'Por qué en ese orden', type:'headline', overlay:true,
+    kicker:'No es una formalidad',
+    headline:'DESPUÉS HAY QUE<br><span class="hl">DESMONTAR</span>',
+    desc:'Si el techo necesita trabajo con las placas ya puestas, hay que quitarlas, hacerlo y volver a montarlas. Por eso se mira primero.' },
+  { id:'nov-techo-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Lo miramos antes de cotizar',
+    headline:'EVALUAMOS TU<br><span class="hl">TECHO</span> Y TU<br>CONSUMO',
+    desc:'Evaluación gratis, sin compromiso. Te decimos si el techo está listo para el sistema o si toca algo antes.' },
+];
+
+/* NOVIEMBRE · miércoles 25, víspera de Acción de Gracias. Del plan del mes, con una
+   instrucción que manda sobre todo lo demás: «Tema de calendario, no acompaña a ningún
+   video. La casa llena y la luz que no se va. SIN OFERTA, SOLO MARCA.»
+
+   Por eso son TRES láminas y no cuatro, y por eso la última NO lleva evaluación gratis
+   ni llamada a la acción: es una felicitación. Meterle el CTA de siempre convertiría el
+   único día del mes en que la marca no pide nada en un anuncio más.
+
+   Tres y no cuatro también porque la idea es una sola. Estirarla sería rellenar. */
+const NOV_THANKSGIVING=[
+  { id:'nov-thanksgiving-1', cls:'', chip:'Acción de Gracias', type:'headline', overlay:true,
+    kicker:'Mañana es el día',
+    headline:'LA CASA<br><span class="hl">LLENA</span>',
+    desc:'La familia que llega, el horno encendido desde temprano y la mesa que no para. Mañana es de los días en que la casa trabaja más que nadie.' },
+  { id:'nov-thanksgiving-2', cls:'data', chip:'Lo que no para', blue:true, type:'list', overlay:true,
+    listhead:'LO QUE NO SE<br><span class="hl">APAGA</span> MAÑANA',
+    items:[
+      { n:'1', tt:'El horno, desde temprano', ds:'Y no se abre hasta que esté.' },
+      { n:'2', tt:'La nevera, llena como nunca', ds:'Con lo de mañana y lo de los tres días siguientes.' },
+      { n:'3', tt:'El aire, con la casa llena', ds:'Más gente en la sala es más calor en la sala.' },
+      { n:'4', tt:'La música, hasta tarde', ds:'Que para eso vino todo el mundo.' },
+    ] },
+  { id:'nov-thanksgiving-3', cls:'', chip:'WindMar Home', type:'headline', overlay:true,
+    kicker:'De nuestra casa a la tuya',
+    headline:'FELIZ DÍA DE<br>ACCIÓN DE <span class="hl">GRACIAS</span>',
+    desc:'Que la mesa esté llena, que la casa esté cómoda y que nada se apague. Buen día de parte de todo el equipo.' },
+];
+
+/* NOVIEMBRE · lunes 30, cierre del mes. «Termina la temporada de huracanes», del plan.
+   Dos instrucciones suyas: «Lunes SOLO Facebook» —no va a Instagram— y «cierra el hilo
+   que abrió la batería de Anker en la semana 2», que es el carrusel del 11.
+
+   La lámina 2 pregunta por lo que pasó en TU casa en vez de dar un balance de la
+   temporada: no hay ninguna cifra con fuente sobre cuántos apagones hubo ni cuánto
+   duraron, y una pieza de cierre de temporada con un número inventado es de las que
+   alguien desmiente.
+
+   La lámina 3 estaba escrita como «en junio todo el mundo busca lo mismo a la vez», que
+   es urgencia disfrazada de dato. Dice lo mismo sin empujar: lo que cambia es que ahora
+   hay tiempo para decidir.
+
+   POR CONFIRMAR, y viene heredado del carrusel de Anker del día 11: la regla de Anker
+   pide que no salga WindMar Home, y la barra de marca de este generador pone el logo de
+   WindMar Home y windmar.com en TODA lámina. Sigue sin resolverse. */
+const NOV_HURACANES=[
+  { id:'nov-huracanes-1', cls:'', chip:'Anker SOLIX · Cierre de temporada', type:'headline', overlay:true,
+    kicker:'Hoy, 30 de noviembre',
+    headline:'TERMINA LA<br>TEMPORADA DE<br><span class="hl">HURACANES</span>',
+    desc:'Seis meses mirando el radar. Hoy se cierra — y es el mejor momento para pensar en la próxima, no el peor.' },
+  { id:'nov-huracanes-2', cls:'data sep', chip:'El balance de tu casa', blue:true, type:'list', overlay:true,
+    listhead:'CUATRO PREGUNTAS<br>PARA <span class="hl">TU CASA</span>',
+    items:[
+      { n:'1', tt:'¿Cuántas veces se fue la luz?', ds:'No el susto: las veces. Ese es el número que decide.' },
+      { n:'2', tt:'¿Cuánto duró cada vez?', ds:'Una hora y doce horas no se resuelven igual.' },
+      { n:'3', tt:'¿Qué se echó a perder?', ds:'La comida de la nevera es la cuenta que nadie suma.' },
+      { n:'4', tt:'¿Qué hiciste mientras tanto?', ds:'Si tuviste que salir de tu casa, eso también cuenta.' },
+    ] },
+  { id:'nov-huracanes-3', cls:'', chip:'Por qué ahora', type:'headline', overlay:true,
+    kicker:'No hace falta esperar a junio',
+    headline:'AHORA HAY<br><span class="hl">TIEMPO</span><br>DE DECIDIR',
+    desc:'Los seis meses que vienen son los que se tienen para pensarlo sin prisa. Eso es todo lo que cambia hoy.' },
+  { id:'nov-huracanes-4', cls:'', chip:'Sin compromiso', type:'headline', overlay:true,
+    kicker:'Con tus números, no con un promedio',
+    headline:'TE CALCULAMOS<br>QUÉ <span class="hl">RESPALDAR</span>',
+    desc:'Dinos qué no puede apagarse en tu casa y te decimos qué hace falta. Evaluación gratis, sin compromiso.' },
+];
+
+
 renderGallery(FIRMAR,'g-firmar');
 renderGallery(PERMISOS,'g-permisos');
 renderGallery(VAYAN,'g-vayan');
@@ -772,6 +888,9 @@ renderGallery(DISENO,'g-nov-diseno');
 renderGallery(EQUIPOS,'g-nov-equipos');
 renderGallery(BATERIA,'g-nov-bateria');
 renderGallery(PAGO,'g-nov-pago');
+renderGallery(NOV_TECHO,'g-nov-techo');
+renderGallery(NOV_THANKSGIVING,'g-nov-thanksgiving');
+renderGallery(NOV_HURACANES,'g-nov-huracanes');
 renderGallery(DIC_FILTRO,'g-dic-filtro');
 renderGallery(DIC_CISTERNA,'g-dic-cisterna');
 renderGallery(DIC_TIEMPOS,'g-dic-tiempos');
