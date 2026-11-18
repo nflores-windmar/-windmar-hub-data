@@ -6,7 +6,8 @@
   "LOS APROBADORES SE MATERIALIZAN AL CREAR LA PIEZA Y NO SE RE-EVALÚAN: una pieza que nace con el producto equivocado se queda pidiendo firma a quien no es, y cambiar el producto después no lo arregla. Hay que borrarla y rehacerla.",
   "La fecha de cada pieza es la de PUBLICACIÓN. La entrega es siempre 7 días antes.",
   "A DIFERENCIA DE NOVIEMBRE, aquí el arte YA ESTÁ ESCRITA. Cada pieza trae `material` (dónde vive) y `arte` (el enlace para verla). No hay que escribir slides.",
-  "NO SE PUBLICA NADA. Las piezas nacen en `idea`."
+  "NO SE PUBLICA NADA. Las piezas nacen en `idea`.",
+  "Los enlaces de `blog` llevan UTM. NO los recortes ni los 'limpies': sin ellos nadie puede saber cuánta gente llegó al blog desde una story, que es el motivo de la pieza. El mapa de marketing lo dice como un dolor abierto: «las publicaciones no llevan UTM ni pieza_id; lo orgánico no se puede atribuir»."
  ],
  "escrito": "2026-11-16",
  "escrito_por": "Claude, a pedido de Nicolle",
@@ -77,7 +78,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-luma'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-luma",
-   "blog": "https://windmar.com/blog/aumento-luz-puerto-rico-octubre-2026",
+   "blog": "https://windmar.com/blog/aumento-luz-puerto-rico-octubre-2026?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-luma",
    "nota": "Reseña de Google de Misael Saldaña. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -114,7 +115,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tiempos'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tiempos",
-   "blog": "https://windmar.com/blog/como-funciona-sistema-solar-fotovoltaico",
+   "blog": "https://windmar.com/blog/como-funciona-sistema-solar-fotovoltaico?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-tiempos",
    "nota": "Reseña de Google de Richard Sala. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -151,7 +152,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-contador'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-contador",
-   "blog": "https://windmar.com/blog/contador-inteligente-luma-placas-solares",
+   "blog": "https://windmar.com/blog/contador-inteligente-luma-placas-solares?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-contador",
    "nota": "Reseña de Google de Julio Soto. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -188,7 +189,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-pago-fijo'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-pago-fijo",
-   "blog": "https://windmar.com/blog/tesla-powerwall-3-guia",
+   "blog": "https://windmar.com/blog/tesla-powerwall-3-guia?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-pago-fijo",
    "nota": "Reseña de Google de Lillian Sánchez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -206,7 +207,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-techo'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-techo",
-   "blog": "https://windmar.com/blog/sellado-techo-antes-paneles",
+   "blog": "https://windmar.com/blog/sellado-techo-antes-paneles?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-techo",
    "nota": "Reseña de Google de Wanda del Valle. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -243,7 +244,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tesla'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tesla",
-   "blog": "https://windmar.com/blog/tesla-vpp-puerto-rico",
+   "blog": "https://windmar.com/blog/tesla-vpp-puerto-rico?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-tesla",
    "nota": "Reseña de Google de Fermín Marengo Ríos. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -299,7 +300,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-financiamiento'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-financiamiento",
-   "blog": "https://windmar.com/blog/placas-solares-precios-puerto-rico-retorno",
+   "blog": "https://windmar.com/blog/placas-solares-precios-puerto-rico-retorno?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-financiamiento",
    "nota": "Reseña de Google de Luyineth Gómez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -336,7 +337,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-huracanes'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-huracanes",
-   "blog": "https://windmar.com/blog/seguro-placas-solares-antes-de-huracan",
+   "blog": "https://windmar.com/blog/seguro-placas-solares-antes-de-huracan?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-huracanes",
    "nota": "Reseña de Google de Aida S.. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -354,7 +355,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-garantias'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-garantias",
-   "blog": "https://windmar.com/blog/6-beneficios-energia-solar",
+   "blog": "https://windmar.com/blog/6-beneficios-energia-solar?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-garantias",
    "nota": "Reseña de Google de Hilda Dávila. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -372,7 +373,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-tres-meses'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-tres-meses",
-   "blog": "https://windmar.com/blog/placas-solares-puerto-rico-la-verdad-2026",
+   "blog": "https://windmar.com/blog/placas-solares-puerto-rico-la-verdad-2026?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-tres-meses",
    "nota": "Reseña de Google de Edwin Acosta. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -390,7 +391,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-factura'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-factura",
-   "blog": "https://windmar.com/blog/guia-factura-aee-ahorros",
+   "blog": "https://windmar.com/blog/guia-factura-aee-ahorros?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-factura",
    "nota": "Reseña de Google de Deida José. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   },
   {
@@ -427,7 +428,7 @@
    "talento": null,
    "material": "ESCRITO: public/windmar-pr-stories-v2-preview.html, tarjeta id 'resena-equipo-completo'",
    "arte": "https://windmar-previews.vercel.app/windmar-pr-stories-v2-preview.html#v-resena-equipo-completo",
-   "blog": "https://windmar.com/blog/historias-clientes-windmar-ahorro-solar",
+   "blog": "https://windmar.com/blog/historias-clientes-windmar-ahorro-solar?utm_source=instagram&utm_medium=story&utm_campaign=resenas-2026&utm_content=resena-equipo-completo",
    "nota": "Reseña de Google de Isabel Domínguez. El copy TIENE que terminar con la URL de `blog`: ese enlace es el motivo de la pieza y va en el sticker al publicar."
   }
  ],
