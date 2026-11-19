@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Propuesta de Colaboración — WindMar Home × Susej</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+/* ══════════════════════════════════════════════════════════════════════════
+   PROPUESTA DE COLABORACIÓN — WindMar Home × Susej (equipo Canvaceo).
+
+   Mismo sistema que la propuesta de Mari Laura Teresa: mismas hojas de
+   8.5×11, misma portada navy, mismas dos fuentes de marca.
+
+   DOS DIFERENCIAS CON AQUELLA, a propósito:
+     1. El naranja es #FE9400, el del sol del logo. La de Mari Laura usa
+        #F57C0A, que es más rojizo y se nota al lado del logo.
+     2. Hay una sección propia (04) para los diez powerbanks, porque no son
+        compensación: son material de la activación y hay que decir dónde
+        terminan.
+
+   LO QUE FALTA CONFIRMAR va marcado en naranja con la palabra PENDIENTE.
+   No se inventó ningún dato.
+
+   CÓMO SE EXPORTA A PDF
+     Botón «Imprimir» arriba a la derecha (o ⌘P).
+     Tamaño Carta, márgenes «Ninguno», y marcar «Gráficos de fondo».
+   ══════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  --navy:#0a2882; --navy-d:#071e55; --blue:#1a52c7; --blue-l:#4a84ea;
+  --orange:#FE9400; --orange-l:#ffb34d;
+  --ink:#16204a; --muted:#5a6b8c; --rule:#dfe5f2; --soft:#f3f6fc;
+  --disp:'Bebas Neue',Impact,sans-serif;
+  --body:'Montserrat',system-ui,sans-serif;
+  --mono:'Montserrat',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#55607a;font-family:var(--body);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.6}
+
+.page{position:relative;width:8.5in;height:11in;background:#fff;
+  margin:28px auto;padding:0.72in 0.8in 0.62in;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.28);display:flex;flex-direction:column}
+
+/* ── portada ─────────────────────────────────────────────────────────── */
+.cover{background:var(--navy-d);color:#fff;padding:0;justify-content:space-between;height:11in}
+.cover .mesh{position:absolute;inset:0;opacity:.07;
+  background-image:linear-gradient(0deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%),
+                   linear-gradient(90deg,transparent 48%,#fff 48%,#fff 52%,transparent 52%);
+  background-size:0.5in 0.5in}
+.cover .bar{position:absolute;top:0;left:0;right:0;height:.13in;background:var(--orange)}
+.cover .ctop{position:relative;padding:1.15in 0.9in 0}
+.cover .cmid{position:relative;padding:0 0.9in}
+.cover .cbot{position:relative;padding:0 0.9in 0.95in}
+.cover img.logo{height:0.78in;width:auto;display:block}
+.cover .eyebrow{font-family:var(--mono);font-weight:600;font-size:9pt;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--orange-l);margin-top:0.55in}
+.cover h1{font-family:var(--disp);font-size:52pt;line-height:.93;letter-spacing:.005em;
+  color:#fff;margin-top:0.16in}
+.cover h1 .o{color:var(--orange)}
+.cover .names{font-weight:700;font-size:13.5pt;line-height:1.5;color:#cfdcf7;
+  margin-top:0.26in}
+.cover .names b{color:#fff;font-weight:800}
+.cover .names.sub{font-size:10pt;font-weight:500;color:#9db4e6;margin-top:0.11in}
+.cover .names.sub b{color:#cfdcf7;font-weight:700}
+.cover .rule{height:3px;width:1.5in;background:var(--orange);margin:0.3in 0}
+.cover .meta{font-family:var(--mono);font-weight:500;font-size:8.5pt;letter-spacing:.1em;
+  text-transform:uppercase;color:#9db4e6;line-height:2}
+.cover .meta b{color:#fff;font-weight:700}
+.cover .site{font-family:var(--mono);font-weight:600;font-size:8.5pt;letter-spacing:.16em;
+  color:var(--orange-l);text-transform:uppercase;margin-top:0.22in}
+
+.rhead{display:flex;align-items:center;justify-content:space-between;gap:0.3in;
+  padding-bottom:0.09in;border-bottom:1.5px solid var(--rule);margin-bottom:0.26in}
+.rhead img{height:0.28in;width:auto;display:block}
+.rhead .t{font-family:var(--mono);font-weight:600;font-size:7pt;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.5}
+.rfoot{margin-top:auto;padding-top:0.13in;border-top:1.5px solid var(--rule);
+  display:flex;align-items:center;justify-content:space-between;
+  font-family:var(--mono);font-weight:600;font-size:7pt;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted)}
+.rfoot .pg{color:var(--navy);font-weight:700}
+
+section{margin-bottom:0.27in}
+section:last-of-type{margin-bottom:0}
+.snum{font-family:var(--mono);font-weight:700;font-size:8pt;letter-spacing:.2em;
+  color:#9c5a00;text-transform:uppercase}
+h2{font-family:var(--body);font-weight:800;font-size:17pt;line-height:1.15;
+  letter-spacing:-.015em;color:var(--navy);margin-top:3px}
+h2 .o{color:var(--orange)}
+.hair{height:3px;width:0.66in;background:var(--orange);margin:0.08in 0 0.13in}
+p{font-size:10pt;margin-bottom:0.105in}
+p:last-child{margin-bottom:0}
+strong,b{font-weight:700;color:var(--navy)}
+
+.pull{border-left:4px solid var(--orange);background:var(--soft);
+  padding:0.13in 0.18in;margin:0.13in 0;border-radius:0 4px 4px 0}
+.pull p{font-size:10.5pt;margin:0}
+
+ul,ol{margin:0.08in 0 0.11in 0.24in}
+li{font-size:10pt;margin-bottom:0.055in;padding-left:0.04in}
+li::marker{color:var(--orange);font-weight:700}
+ul.clean{list-style:none;margin-left:0}
+ul.clean li{position:relative;padding-left:0.24in}
+ul.clean li::before{content:"";position:absolute;left:0;top:.42em;
+  width:8px;height:8px;background:var(--orange);border-radius:2px}
+
+table{width:100%;border-collapse:collapse;margin:0.11in 0;
+  border:1px solid var(--rule)}
+th{background:var(--navy);color:#fff;font-weight:700;font-size:8pt;
+  letter-spacing:.13em;text-transform:uppercase;text-align:left;
+  padding:0.08in 0.12in}
+td{padding:0.075in 0.12in;font-size:9.5pt;border-top:1px solid var(--rule);
+  vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--soft)}
+td.k{font-weight:700;color:var(--navy);white-space:nowrap;width:1.35in}
+td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tfoot td{font-weight:800;color:var(--navy);border-top:2px solid var(--navy);
+  background:#fff;font-size:10pt}
+
+/* Dato que falta. No se rellena con algo razonable: se ve que falta. */
+.pend{font-family:var(--mono);font-weight:700;font-size:8pt;letter-spacing:.1em;
+  text-transform:uppercase;color:#9c5a00;background:#fff3e0;
+  padding:1px 6px;border-radius:3px;white-space:nowrap}
+
+ul.steps{list-style:none;margin:0.14in 0 0;padding:0}
+ul.steps li{position:relative;padding:0.09in 0 0.09in 0.4in;
+  border-bottom:1px solid var(--rule);font-size:10.5pt;margin:0}
+ul.steps li:last-child{border-bottom:0}
+ul.steps li::before{content:"";position:absolute;left:0;top:0.105in;
+  width:0.19in;height:0.19in;border:2px solid var(--navy);border-radius:3px}
+
+.sigs{display:grid;grid-template-columns:1fr 1fr;gap:0.45in;margin-top:0.3in}
+.sigbox .space{height:0.62in}
+.sigbox .line{height:1.5px;background:var(--navy)}
+.sigbox .who{font-weight:800;font-size:11pt;color:var(--navy);margin-top:0.09in}
+.sigbox .role{font-family:var(--mono);font-weight:600;font-size:7.5pt;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:0.02in}
+.sigbox .date{font-family:var(--mono);font-weight:600;font-size:7.5pt;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);
+  margin-top:0.28in;padding-top:0.05in;border-top:1px solid var(--rule);width:1.7in}
+
+.closing{background:var(--navy);color:#fff;border-radius:5px;
+  padding:0.24in 0.28in;margin-top:0.24in}
+.closing p{font-size:11.5pt;font-weight:600;margin:0;color:#fff}
+.closing .sig{font-family:var(--mono);font-weight:600;font-size:8pt;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--orange-l);margin-top:0.14in}
+
+.toolbar{position:fixed;top:14px;right:14px;z-index:50;display:flex;gap:8px}
+.toolbar button,.toolbar .btn{font-family:var(--body);font-weight:700;font-size:12px;
+  border:none;border-radius:7px;padding:10px 15px;cursor:pointer;
+  background:var(--orange);color:#20140a;box-shadow:0 4px 14px rgba(0,0,0,.3);
+  text-decoration:none;display:inline-block;line-height:1.3}
+.toolbar .ghost{background:#fff;color:var(--navy)}
+
+@media print{
+  @page{size:letter;margin:0}
+  body{background:#fff}
+  .toolbar{display:none}
+  .page{margin:0;box-shadow:none;page-break-after:always;width:8.5in;height:11in}
+  .page:last-child{page-break-after:auto}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button class="ghost" onclick="window.print()">Guardar como PDF</button>
+</div>
+
+<!-- ═══════════════════════════ 1 · PORTADA ═══════════════════════════ -->
+<div class="page cover">
+  <div class="mesh"></div>
+  <div class="bar"></div>
+
+  <div class="ctop">
+    <img class="logo" src="wme/logos/wmh-home-white-orange.png" alt="WindMar Home">
+  </div>
+
+  <div class="cmid">
+    <div class="eyebrow">Propuesta de colaboración</div>
+    <h1>TRES REELS,<br>TRES <span class="o">REGIONES</span></h1>
+    <div class="names">WindMar Home &nbsp;×&nbsp; <b>Susej</b></div>
+    <div class="names sub">con el equipo de <b>Canvaceo</b></div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="cbot">
+    <div class="meta">
+      Preparado para &nbsp; <b>Susej</b> · <span class="pend">handle pendiente</span><br>
+      Preparado por &nbsp; <b>Nicolle Flores</b> · WindMar Home<br>
+      Fecha &nbsp; <b>19 de noviembre de 2026</b>
+    </div>
+    <div class="site">windmar.com &nbsp;·&nbsp; Puerto Rico</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ 2 · HOJA 1 ═══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Susej</div>
+  </div>
+
+  <section>
+    <div class="snum">01</div>
+    <h2>Introducción y <span class="o">propósito</span></h2>
+    <div class="hair"></div>
+    <p>WindMar Home invita a <b>Susej</b> y al equipo de <b>Canvaceo</b> a una
+    colaboración de tres Reels, uno cada dos semanas, grabados en <b>tres regiones
+    distintas de Puerto Rico</b>.</p>
+    <p>El propósito no es vender un producto. Es llegar a sitios donde la
+    conversación sobre energía se tiene todos los días, y contarlo en la voz de
+    quien vive allí.</p>
+    <div class="pull">
+      <p>En WindMar creemos que nuestro trabajo no termina con la venta. Nuestro
+      propósito es estar con nuestros clientes paso a paso y aportar a la comunidad
+      para echar a Puerto Rico hacia adelante.</p>
+    </div>
+    <p>Esta colaboración tiene algo que las demás no: además del contenido,
+    <b>deja diez equipos en diez casas</b>. No es una mención — es algo que se
+    queda.</p>
+  </section>
+
+  <section>
+    <div class="snum">02</div>
+    <h2>Lo que <span class="o">ofrecemos</span></h2>
+    <div class="hair"></div>
+    <p>Como compensación por la colaboración, WindMar Home entrega:</p>
+    <table>
+      <thead><tr><th>Equipo</th><th>Cantidad</th><th style="text-align:right">Valor</th></tr></thead>
+      <tbody>
+        <tr><td><b>Anker SOLIX C1000X</b><br>Estación de energía portátil</td>
+            <td>1</td><td class="num">$1,095</td></tr>
+        <tr><td><b>Powerbanks Anker</b><br>Para entregar en las casas visitadas</td>
+            <td>10</td><td class="num">$45 c/u<br>$450</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Valor total de la colaboración</td>
+            <td class="num">$1,545</td></tr></tfoot>
+    </table>
+    <ul class="clean">
+      <li>La <b>C1000X es tuya</b> para usar en tu hogar o negocio, durante y
+      después de la colaboración.</li>
+      <li>Te permite mostrar el equipo en uso real, desde tu propia experiencia.</li>
+      <li>Incluye acompañamiento del equipo de WindMar para orientación sobre los
+      equipos y su uso.</li>
+    </ul>
+  </section>
+
+  <div class="rfoot"><span>windmar.com</span><span class="pg">Página 1 de 3</span></div>
+</div>
+
+<!-- ═══════════════════════════ 3 · HOJA 2 ═══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Susej</div>
+  </div>
+
+  <section>
+    <div class="snum">03</div>
+    <h2>Alcance de la <span class="o">colaboración</span></h2>
+    <div class="hair"></div>
+    <table>
+      <tbody>
+        <tr><td class="k">Entregables</td>
+            <td><b>3 Reels</b> con el equipo de Canvaceo, publicados en colaboración con WindMar Home</td></tr>
+        <tr><td class="k">Cadencia</td>
+            <td>Uno cada dos semanas</td></tr>
+        <tr><td class="k">Regiones</td>
+            <td>Cada Reel en una región distinta de la isla — <span class="pend">las tres, por definir</span></td></tr>
+        <tr><td class="k">Formato</td>
+            <td>Reel de Instagram publicado como colaboración, para que salga en tu perfil y en el de WindMar a la vez</td></tr>
+        <tr><td class="k">Creatividad</td>
+            <td>Libertad creativa total: ustedes deciden el concepto, el tono y el estilo</td></tr>
+        <tr><td class="k">Aprobación</td>
+            <td>Revisión breve de WindMar antes de publicar, solo para validar los datos técnicos</td></tr>
+        <tr><td class="k">Vigencia</td>
+            <td><span class="pend">fecha de inicio por confirmar</span> · seis semanas desde el primer Reel</td></tr>
+      </tbody>
+    </table>
+    <p>Tres Reels a seis semanas significa que el <b>valor por pieza es de $515</b>,
+    y que la colaboración vive el tiempo suficiente para que la audiencia vea una
+    historia, no un anuncio suelto.</p>
+  </section>
+
+  <section>
+    <div class="snum">04</div>
+    <h2>Los diez <span class="o">powerbanks</span></h2>
+    <div class="hair"></div>
+    <p>Los diez powerbanks <b>no son parte de la compensación</b>: son el material
+    de la activación. La idea es entregarlos <b>en las casas que se visiten</b>
+    durante la grabación de los Reels.</p>
+    <ul class="clean">
+      <li>Es lo que convierte la visita en algo real para quien abre la puerta.</li>
+      <li>Da a cada Reel un momento que no hay que actuar.</li>
+      <li>Reparte el gesto por las tres regiones, no en una sola.</li>
+    </ul>
+    <div class="pull">
+      <p><b>Falta acordar cómo se reparten:</b> si van los diez en el primer Reel o
+      se distribuyen entre los tres, y quién escoge las casas. Es la única parte de
+      la mecánica que no está definida.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="snum">05</div>
+    <h2>Mensajes <span class="o">clave</span></h2>
+    <div class="hair"></div>
+    <ul>
+      <li>WindMar acompaña paso a paso, antes y después de la instalación.</li>
+      <li>Anker ayuda a WindMar a seguir ayudando a la comunidad.</li>
+      <li>Lo que se cuenta es una experiencia real, en la voz de quien la vive.</li>
+    </ul>
+    <p>Sin promesas de ahorro ni cifras: la pieza cuenta lo que pasó, no lo que
+    podría pasar.</p>
+  </section>
+
+  <div class="rfoot"><span>windmar.com</span><span class="pg">Página 2 de 3</span></div>
+</div>
+
+<!-- ═══════════════════════════ 4 · HOJA 3 ═══════════════════════════ -->
+<div class="page">
+  <div class="rhead">
+    <img src="wme/logos/wmh-home-fc.png" alt="WindMar Home">
+    <div class="t">Propuesta de Colaboración<br>WindMar Home × Susej</div>
+  </div>
+
+  <section>
+    <div class="snum">06</div>
+    <h2>Calendario <span class="o">tentativo</span></h2>
+    <div class="hair"></div>
+    <table class="cal">
+      <thead><tr><th>Pieza</th><th>Cuándo</th><th>Región</th></tr></thead>
+      <tbody>
+        <tr><td class="k">Reel 1</td><td>Semana 1</td><td><span class="pend">por definir</span></td></tr>
+        <tr><td class="k">Reel 2</td><td>Semana 3</td><td><span class="pend">por definir</span></td></tr>
+        <tr><td class="k">Reel 3</td><td>Semana 5</td><td><span class="pend">por definir</span></td></tr>
+      </tbody>
+    </table>
+    <p>La entrega de cada Reel se acuerda con el equipo de Canvaceo. WindMar revisa
+    antes de publicar, y esa revisión se cuenta dentro de las dos semanas — no se le
+    suma por encima.</p>
+  </section>
+
+  <section>
+    <div class="snum">07</div>
+    <h2>Próximos <span class="o">pasos</span></h2>
+    <div class="hair"></div>
+    <ul class="steps">
+      <li>Confirmar las tres regiones y la fecha del primer Reel.</li>
+      <li>Acordar cómo se reparten los diez powerbanks entre las visitas.</li>
+      <li>Coordinar la entrega de la C1000X y la orientación sobre el equipo.</li>
+      <li>Firmar esta propuesta y arrancar.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="snum">08</div>
+    <h2>Firmas de <span class="o">aceptación</span></h2>
+    <div class="hair"></div>
+    <div class="sigs">
+      <div class="sigbox">
+        <div class="space"></div><div class="line"></div>
+        <div class="who">Susej</div>
+        <div class="role">Equipo Canvaceo</div>
+        <div class="date">Fecha</div>
+      </div>
+      <div class="sigbox">
+        <div class="space"></div><div class="line"></div>
+        <div class="who">Nicolle Flores</div>
+        <div class="role">WindMar Home</div>
+        <div class="date">Fecha</div>
+      </div>
+    </div>
+    <div class="closing">
+      <p>Gracias por considerarlo. Si algo de aquí no cuadra, se habla y se
+      ajusta — la idea es que funcione para los dos lados.</p>
+      <div class="sig">WindMar Home · Somos más que placas</div>
+    </div>
+  </section>
+
+  <div class="rfoot"><span>windmar.com</span><span class="pg">Página 3 de 3</span></div>
+</div>
+
+</body>
+</html>
