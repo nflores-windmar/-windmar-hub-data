@@ -1,0 +1,76 @@
+{
+  "cuenta": "windmar-home-fl",
+  "capturado": "2026-11-23",
+  "ventana": {
+    "desde": "2026-10-26",
+    "hasta": "2026-11-22",
+    "dias": 28
+  },
+  "nota_alcance": "Facebook NO trae alcance por pieza: Meta retiró post_impressions. Donde dice null es eso, no un cero.",
+  "nota_hora": "`fecha` y `hora` van en hora de PUERTO RICO (AST, UTC-4). Meta las da en UTC y aquí se convierten. OJO: los archivos capturados ANTES del 3 de noviembre de 2026 traen la hora en UTC, porque se cortaba el huso al guardarla — ahí hay que restar 4 horas para leerlas.",
+  "piezas": [
+    {
+      "red": "Instagram",
+      "fecha": "2026-10-26",
+      "hora": "21:00",
+      "alcance": 40,
+      "interacciones": 5,
+      "tipo": "VIDEO",
+      "texto": "La hora pico llega todos los días, y se nota en la factura. Con energía solar, tu casa trabaja a tu favor. Pide tu evaluación gratis por mensaje directo.\n \nTu casa está ready, solo faltas tú.\n \n#WindMarHome #WindMarFlorida #EnergíaSolar #HoraPico"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-04",
+      "hora": "13:31",
+      "alcance": null,
+      "interacciones": 3,
+      "tipo": "video",
+      "texto": "The storm took the power from the whole neighborhood. Not from their home.\n \nA WindMar Home customer in Florida tells how it went: a \"very easy\" and \"very transparent\" process.\n \nWant backup power for your home? Send us a DM.\n \n#WindMarHome  #florida  #solarenergy  #BackupPower"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-04",
+      "hora": "19:31",
+      "alcance": 259,
+      "interacciones": 28,
+      "tipo": "VIDEO",
+      "texto": "Blackout in the neighborhood. At their home, lights and internet stayed on.\n \nThis is life with backup power from WindMar Home.\n \nLet's talk? Send us a DM.\n \n#windmarhome  #noblackouts  #solarenergy  #backuppower"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-09",
+      "hora": "12:30",
+      "alcance": 187,
+      "interacciones": 18,
+      "tipo": "VIDEO",
+      "texto": "“Todo lo que dicen, lo cumplen.”\n\nTecho y energía solar para tu hogar, con la confianza de quienes ya lo vivieron.\n\nEscríbenos y conoce tus opciones.\n\n#windmarhome  #energiasolar  #roofing"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-09",
+      "hora": "18:30",
+      "alcance": null,
+      "interacciones": 4,
+      "tipo": "video",
+      "texto": "“Todo lo que dicen, lo cumplen.”\n\nTecho y energía solar para tu hogar, con la confianza de quienes ya lo vivieron.\n\nEscríbenos y conoce tus opciones.\n\n#WindMarHome  #energiasolar  #roofing"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-13",
+      "hora": "18:30",
+      "alcance": null,
+      "interacciones": 3,
+      "tipo": "video",
+      "texto": "¿Y si el sol de Florida pagara tu factura de luz?\n\nHoy pagas 26 centavos por kWh. Con paneles solares puedes ahorrar entre un 10% y un 50%.\n\nAgenda tu evaluación solar\n\n#WindMarHome  #solarflorida  #PanelesSolares"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-13",
+      "hora": "18:31",
+      "alcance": 237,
+      "interacciones": 26,
+      "tipo": "VIDEO",
+      "texto": "¿Y si el sol de Florida pagara tu factura de luz?\n\nHoy pagas 26 centavos por kWh. Con paneles solares puedes ahorrar entre un 10% y un 50%.\n\nAgenda tu evaluación solar.\n\n#windmarhome  #solarflorida  #panelessolares"
+    }
+  ]
+}

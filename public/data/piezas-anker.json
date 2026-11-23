@@ -1,20 +1,103 @@
 {
   "cuenta": "anker",
-  "capturado": "2026-10-27",
+  "capturado": "2026-11-23",
   "ventana": {
-    "desde": "2026-09-29",
-    "hasta": "2026-10-26",
+    "desde": "2026-10-26",
+    "hasta": "2026-11-22",
     "dias": 28
   },
   "nota_alcance": "Facebook NO trae alcance por pieza: Meta retiró post_impressions. Donde dice null es eso, no un cero.",
+  "nota_hora": "`fecha` y `hora` van en hora de PUERTO RICO (AST, UTC-4). Meta las da en UTC y aquí se convierten. OJO: los archivos capturados ANTES del 3 de noviembre de 2026 traen la hora en UTC, porque se cortaba el huso al guardarla — ahí hay que restar 4 horas para leerlas.",
   "piezas": [
     {
+      "red": "Facebook",
+      "fecha": "2026-10-27",
+      "hora": "21:00",
+      "alcance": null,
+      "interacciones": 1,
+      "tipo": "video",
+      "texto": "Afuera está cayendo un aguacero.\n\nAdentro el único drama es quién tiene el control del aire. 😂\n\nLa temporada de huracanes sigue hasta el 30 de noviembre, y la Anker SOLIX E10 en el hogar mantiene encendido lo que tú elijas.\n\nEscríbenos por Messenger y te decimos qué puedes mantener encendido.\n\n#AnkerSOLIX  #puertorico"
+    },
+    {
       "red": "Instagram",
-      "fecha": "2026-10-07",
-      "hora": "17:31",
-      "alcance": 444,
-      "interacciones": 42,
-      "texto": "Energía donde la necesites, cuando la necesites."
+      "fecha": "2026-10-27",
+      "hora": "21:00",
+      "alcance": 115,
+      "interacciones": 11,
+      "tipo": "VIDEO",
+      "texto": "Afuera está cayendo un aguacero.\n\nAdentro el único drama es quién tiene el control del aire. 😂\n\nLa temporada de huracanes sigue hasta el 30 de noviembre, y la Anker SOLIX E10 en el hogar mantiene encendido lo que tú elijas.\n\nEscríbenos APAGÓN y te decimos qué puedes mantener encendido.\n\n#huracanes  #puertorico  #ankersolix"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-06",
+      "hora": "19:05",
+      "alcance": null,
+      "interacciones": 1,
+      "tipo": "video",
+      "texto": "¿Y si el próximo apagón ni lo notas?\n \nCon Anker SOLIX, tu casa sigue encendida.\n \nEscríbenos por Messenger.\n \n#AnkerSOLIX #PuertoRico #Apagón #BateríaSolar #AnkerSOLIXPR"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-06",
+      "hora": "19:06",
+      "alcance": 344,
+      "interacciones": 25,
+      "tipo": "VIDEO",
+      "texto": "¿Y si el próximo apagón ni lo notas?\n \nCon Anker SOLIX, tu casa sigue encendida.\n \nComenta ANKER y te contamos cómo.\n \n#AnkerSOLIX #PuertoRico #Apagón #BateríaSolar #AnkerSOLIXPR"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-11",
+      "hora": "19:00",
+      "alcance": null,
+      "interacciones": 7,
+      "tipo": "video",
+      "texto": "Se fue la luz. Que no empiece el ruido.\n\nCon Anker SOLIX tienes respaldo de energía para tu hogar, sin gasolina, sin humo y sin el ruido de una planta.\n\nEscríbenos APAGÓN por mensaje y conoce más.\n\n#ankersolix  #EnergíaDeRespaldo  #PuertoRico"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-11",
+      "hora": "19:00",
+      "alcance": 502,
+      "interacciones": 34,
+      "tipo": "VIDEO",
+      "texto": "Se fue la luz. Que no empiece el ruido.\n\nCon Anker SOLIX tienes respaldo de energía para tu hogar, sin gasolina, sin humo y sin el ruido de una planta.\n\nEscríbenos APAGÓN por mensaje y conoce más.\n\n#ankersolix  ##energiaderespaldo  #puertorico"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-13",
+      "hora": "19:01",
+      "alcance": null,
+      "interacciones": 2,
+      "tipo": "video",
+      "texto": "¿Necesitas más energía? \n\nAnker SOLIX E10 crece contigo. Amplía tu batería según tus necesidades. \n\nLlama al 787-395-7766.\n\n#ankersolix  #AnkerSOLIXE10  #energiaderespaldo  #puertorico"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-13",
+      "hora": "19:01",
+      "alcance": 564,
+      "interacciones": 35,
+      "tipo": "VIDEO",
+      "texto": "¿Necesitas más energía? \n\nAnker SOLIX E10 crece contigo. Amplía tu batería según tus necesidades. \n\nLlama al 787-395-7766.\n\n#ankersolix  #AnkerSOLIXE10  #energiaderespaldo  #puertorico"
+    },
+    {
+      "red": "Facebook",
+      "fecha": "2026-11-20",
+      "hora": "19:00",
+      "alcance": null,
+      "interacciones": 1,
+      "tipo": "album",
+      "texto": "Prepararte para un apagón empieza por saber qué necesitas mantener funcionando.\n\nPiensa en los equipos que son importantes para tu hogar y conoce cómo Anker SOLIX E10 puede formar parte de tu plan.\n\n#AnkerSOLIX  #AnkerSOLIXE10  #EnergíaDeRespaldo  #puertorico"
+    },
+    {
+      "red": "Instagram",
+      "fecha": "2026-11-20",
+      "hora": "19:00",
+      "alcance": 81,
+      "interacciones": 7,
+      "tipo": "CAROUSEL_ALBUM",
+      "texto": "¿Qué te gustaría mantener encendido en casa?\n\nEmpieza por tus prioridades y conoce Anker SOLIX E10 como opción de respaldo para tu hogar.\n\n#ankersolix  #ankersolixe10  #energiaderespaldo  #puertorico"
     }
   ]
 }
