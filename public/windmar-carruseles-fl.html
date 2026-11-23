@@ -113,15 +113,39 @@ h1 .o{color:var(--orange)}
 
   <div class="note" style="margin-top:10px"><b>Ojo con el idioma.</b> Florida no es toda igual: lo de <b>Roofing va en inglés</b> desde el 16 de octubre de 2026, y el resto en español. El idioma lo decide a qué grupo se pide la firma, no la página. Si el carrusel es de Roofing, escríbelo en inglés.</div>
 
-  <div class="note" style="margin-top:10px"><b>Esta página todavía no tiene ningún carrusel.</b> Para añadir uno hacen falta tres cosas, y si falta una no aparece: el <b>arreglo</b> con sus láminas, el <b>contenedor</b> aquí abajo, y la <b>llamada a <code>renderGallery</code></b>. Hay un ejemplo comentado al final del script.</div>
+  <div class="note" style="margin-top:10px"><b>Cuál se manda a firmar.</b> Cada tema está escrito en los dos idiomas, pero <b>no se mandan los dos</b>: por la decisión del 16 de octubre, <b>Roofing se firma en inglés</b> y los demás en español. La otra versión queda escrita por si el grupo cambia.</div>
 
-  <!-- Los carruseles van aquí. Uno por bloque:
+  <div class="section-h"><h2>Todo tu hogar</h2><span class="badge">Español · pieza 1</span></div>
+  <div class="section-sub">Acompaña al carrusel «Home — Todo tu hogar» del calendario FL. Solar, batería y techo con una sola empresa.</div>
+  <div class="gallery" id="g-fl-hogar"></div>
 
-  <div class="section-h"><h2>Título del carrusel</h2><span class="badge">Noviembre · mié 4</span></div>
-  <div class="section-sub">A qué pieza acompaña y cuándo entrega.</div>
-  <div class="gallery" id="g-fl-ejemplo"></div>
+  <div class="section-h"><h2>Your whole home</h2><span class="badge">English · piece 1</span></div>
+  <div class="section-sub">English version of the same piece. Use it if the approval group for Home moves to English.</div>
+  <div class="gallery" id="g-fl-home-en"></div>
 
-  -->
+  <div class="section-h"><h2>Por qué importa el panel</h2><span class="badge">Español · pieza 2</span></div>
+  <div class="section-sub">Acompaña al carrusel «Solar — Q CELLS». Sin especificaciones: de qué sirve que el equipo tenga nombre.</div>
+  <div class="gallery" id="g-fl-solar"></div>
+
+  <div class="section-h"><h2>Why the panel matters</h2><span class="badge">English · piece 2</span></div>
+  <div class="section-sub">English version of the Q CELLS piece.</div>
+  <div class="gallery" id="g-fl-solar-en"></div>
+
+  <div class="section-h"><h2>Qué se queda encendido</h2><span class="badge">Español · pieza 5</span></div>
+  <div class="section-sub">Acompaña al carrusel «Baterías — Tesla Powerwall» y prepara el reel «¿Qué se queda encendido?».</div>
+  <div class="gallery" id="g-fl-bateria"></div>
+
+  <div class="section-h"><h2>What stays on</h2><span class="badge">English · piece 5</span></div>
+  <div class="section-sub">English version of the battery piece.</div>
+  <div class="gallery" id="g-fl-bateria-en"></div>
+
+  <div class="section-h"><h2>How we seal a Florida roof</h2><span class="badge">English · piece 8 · esta es la que se firma</span></div>
+  <div class="section-sub">Owens Corning. <b>Roofing va en inglés</b> desde el 16 de octubre de 2026. Prepara el reel «Roofing — instalación paso a paso».</div>
+  <div class="gallery" id="g-fl-roof-en"></div>
+
+  <div class="section-h"><h2>Cómo sellamos un techo en Florida</h2><span class="badge">Español · pieza 8 · de respaldo</span></div>
+  <div class="section-sub">Versión en español del mismo carrusel. No se manda a firmar salvo que cambie el grupo.</div>
+  <div class="gallery" id="g-fl-roof"></div>
 
 </div>
 
@@ -241,6 +265,235 @@ const EJEMPLO=[
 renderGallery(EJEMPLO,'g-fl-ejemplo');
 
    ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Carruseles de Florida ────────────────────────────────────────────────
+   Escritos el 23 de noviembre de 2026 a partir del calendario de Florida
+   (public/windmar-fl-calendario.html), que ya nombraba las cuatro piezas:
+   1 Home «Todo tu hogar», 2 Solar «Q CELLS», 5 Baterías «Tesla Powerwall»,
+   8 Sellado «Owens Corning». No se inventó ningún tema.
+
+   IDIOMA. Cada tema va en los dos, pero solo se firma uno: Roofing en inglés
+   por la decisión del 16-oct-2026, los demás en español. El idioma lo decide
+   a qué grupo se le pide la firma, no esta página.
+
+   SIN CIFRAS. Ninguna lámina lleva vatios, años de garantía ni porcentajes.
+   Los equipos tienen nombre propio —Q CELLS, Powerwall, Owens Corning— y eso
+   se puede decir; sus especificaciones no, porque no hay una fuente en el repo
+   y un número inventado en un arte es el error que luego hay que corregir en
+   público. Los únicos datos que aparecen salen del propio calendario FL:
+   los 230+ días de sol y la temporada de huracanes.
+
+   PENDIENTE: fechas de publicación. El calendario FL lista las piezas pero no
+   sus fechas; cuando se decidan, van en el badge de cada sección.
+
+   APRUEBAN: Rafael Almonte y Manuel Pales (calendario FL).
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* 1 · HOME — Todo tu hogar ───────────────────────────────────────────── */
+const HOGAR=[
+  { id:'fl-hogar-1', cls:'', chip:'Hogar · El gancho', overlay:true, type:'headline',
+    kicker:'Antes de la próxima tormenta',
+    headline:'TU CASA NO ES<br>TRES <span class="hl">PROYECTOS</span>',
+    desc:'El techo, los paneles y la batería se deciden juntos. Cuando los hace gente distinta, los problemas también se reparten.' },
+
+  { id:'fl-hogar-2', cls:'data', chip:'Lo que se decide junto', blue:true, type:'list',
+    listhead:'TRES COSAS QUE<br>SE HABLAN <span class="hl">A LA VEZ</span>',
+    items:[
+      { n:'1', tt:'El techo primero', ds:'Las placas duran más que la mayoría de los techos. Si el techo va a necesitar trabajo, se hace antes.' },
+      { n:'2', tt:'Cuánto consume la casa', ds:'Decide el tamaño del sistema. No se adivina: se mira la factura.' },
+      { n:'3', tt:'Qué tiene que seguir encendido', ds:'La nevera y el aire no son lo mismo. Eso decide la batería.' },
+    ] },
+
+  { id:'fl-hogar-3', cls:'', chip:'La diferencia', overlay:true, type:'headline',
+    kicker:'Cuando algo falla',
+    headline:'UNA EMPRESA,<br>UNA <span class="hl">LLAMADA</span>',
+    desc:'Con tres contratistas, cada uno dice que el problema es del otro. Con uno, no hay a quién señalar.' },
+
+  { id:'fl-hogar-4', cls:'', chip:'El cierre', overlay:true, type:'headline',
+    kicker:'Empieza por saber qué necesitas',
+    headline:'EVALUACIÓN<br><span class="hl">SIN COMPROMISO</span>',
+    desc:'Miramos el techo, la factura y lo que usa tu casa. Si no hace falta todo, te lo decimos.' },
+];
+renderGallery(HOGAR,'g-fl-hogar');
+
+const HOME_EN=[
+  { id:'fl-home-en-1', cls:'', chip:'Home · The hook', overlay:true, type:'headline',
+    kicker:'Before the next storm',
+    headline:'YOUR HOME ISN’T<br>THREE <span class="hl">PROJECTS</span>',
+    desc:'Roof, panels and battery are one decision. When three companies handle them, the problems get split too.' },
+
+  { id:'fl-home-en-2', cls:'data', chip:'Decided together', blue:true, type:'list',
+    listhead:'THREE THINGS<br>DECIDED <span class="hl">TOGETHER</span>',
+    items:[
+      { n:'1', tt:'The roof comes first', ds:'Panels outlast most roofs. If yours will need work, it happens before.' },
+      { n:'2', tt:'What your home actually uses', ds:'It sets the size of the system. We read the bill, we don’t guess.' },
+      { n:'3', tt:'What has to stay on', ds:'A fridge and an A/C are not the same ask. That sizes the battery.' },
+    ] },
+
+  { id:'fl-home-en-3', cls:'', chip:'The difference', overlay:true, type:'headline',
+    kicker:'When something goes wrong',
+    headline:'ONE COMPANY,<br>ONE <span class="hl">CALL</span>',
+    desc:'With three contractors, each one says it’s the other’s fault. With one, there’s no one to point at.' },
+
+  { id:'fl-home-en-4', cls:'', chip:'The close', overlay:true, type:'headline',
+    kicker:'Start by knowing what you need',
+    headline:'FREE<br><span class="hl">ASSESSMENT</span>',
+    desc:'We look at the roof, the bill and what your home runs. If you don’t need all of it, we’ll say so.' },
+];
+renderGallery(HOME_EN,'g-fl-home-en');
+
+/* 2 · SOLAR — Q CELLS ────────────────────────────────────────────────── */
+const SOLAR=[
+  { id:'fl-solar-1', cls:'', chip:'Solar · El gancho', overlay:true, type:'headline',
+    kicker:'Todos los paneles se parecen desde la acera',
+    headline:'EL PANEL SE VE<br>DENTRO DE <span class="hl">DIEZ AÑOS</span>',
+    desc:'Dos sistemas idénticos el día de la instalación pueden no parecerse en nada una década después.' },
+
+  { id:'fl-solar-2', cls:'data', chip:'Qué preguntar', blue:true, type:'list',
+    listhead:'TRES PREGUNTAS<br>ANTES DE <span class="hl">FIRMAR</span>',
+    items:[
+      { n:'1', tt:'¿Qué marca es el panel?', ds:'Si en la cotización no aparece el nombre, pregúntalo. Q CELLS es el que ponemos nosotros.' },
+      { n:'2', tt:'¿Quién responde si falla?', ds:'Una garantía solo vale si el que la firma sigue existiendo.' },
+      { n:'3', tt:'¿Aguanta el calor de aquí?', ds:'Florida tiene más de 230 días de sol al año. El panel trabaja caliente casi siempre.' },
+    ] },
+
+  { id:'fl-solar-3', cls:'', chip:'El cierre', overlay:true, type:'headline',
+    kicker:'Compara con calma',
+    headline:'PIDE EL NOMBRE<br>DEL <span class="hl">EQUIPO</span>',
+    desc:'En cualquier cotización, la tuya y las otras. Es la pregunta que más cambia lo que recibes.' },
+];
+renderGallery(SOLAR,'g-fl-solar');
+
+const SOLAR_EN=[
+  { id:'fl-solar-en-1', cls:'', chip:'Solar · The hook', overlay:true, type:'headline',
+    kicker:'From the curb, every panel looks the same',
+    headline:'YOU SEE THE PANEL<br>IN <span class="hl">TEN YEARS</span>',
+    desc:'Two systems that look identical on install day can look nothing alike a decade later.' },
+
+  { id:'fl-solar-en-2', cls:'data', chip:'What to ask', blue:true, type:'list',
+    listhead:'THREE QUESTIONS<br>BEFORE YOU <span class="hl">SIGN</span>',
+    items:[
+      { n:'1', tt:'What brand is the panel?', ds:'If the quote doesn’t name it, ask. Ours is Q CELLS.' },
+      { n:'2', tt:'Who answers if it fails?', ds:'A warranty is only worth as much as the company behind it.' },
+      { n:'3', tt:'Can it take Florida heat?', ds:'More than 230 sunny days a year. Your panels work hot most of the time.' },
+    ] },
+
+  { id:'fl-solar-en-3', cls:'', chip:'The close', overlay:true, type:'headline',
+    kicker:'Compare without pressure',
+    headline:'ASK FOR THE<br>EQUIPMENT <span class="hl">NAME</span>',
+    desc:'On every quote, ours included. It’s the question that changes the most about what you get.' },
+];
+renderGallery(SOLAR_EN,'g-fl-solar-en');
+
+/* 5 · BATERÍAS — Tesla Powerwall ─────────────────────────────────────── */
+const BATERIA=[
+  { id:'fl-bateria-1', cls:'', chip:'Baterías · El gancho', overlay:true, type:'headline',
+    kicker:'La pregunta no es si se va la luz',
+    headline:'ES QUÉ SE QUEDA<br><span class="hl">ENCENDIDO</span>',
+    desc:'Una batería no mantiene la casa entera como si nada hubiera pasado. Mantiene lo que decidiste antes.' },
+
+  { id:'fl-bateria-2', cls:'data', chip:'Lo que se decide antes', blue:true, type:'list',
+    listhead:'ESTO SE ELIGE<br>EL <span class="hl">PRIMER DÍA</span>',
+    items:[
+      { n:'1', tt:'La nevera y la comida', ds:'Es lo primero que casi todo el mundo pone en la lista.' },
+      { n:'2', tt:'Un cuarto fresco', ds:'El aire es lo que más consume. Por eso se elige un cuarto, no la casa.' },
+      { n:'3', tt:'Internet y los teléfonos', ds:'Cuesta poco y es lo que te mantiene comunicado.' },
+      { n:'4', tt:'Equipo médico, si lo hay', ds:'Si alguien en la casa depende de algo enchufado, se dice desde el principio.' },
+    ] },
+
+  { id:'fl-bateria-3', cls:'', chip:'Temporada', overlay:true, type:'headline',
+    kicker:'De junio a noviembre, cada año',
+    headline:'NO SE INSTALA<br>CON LA <span class="hl">TORMENTA ENCIMA</span>',
+    desc:'La temporada de huracanes tiene fecha. La instalación también, y conviene que no coincidan.' },
+
+  { id:'fl-bateria-4', cls:'', chip:'El cierre', overlay:true, type:'headline',
+    kicker:'Haz la lista antes de cotizar',
+    headline:'QUÉ NO PUEDE<br><span class="hl">APAGARSE</span>',
+    desc:'Con esa lista en la mano, cualquier cotización se entiende. Sin ella, todas suenan igual.' },
+];
+renderGallery(BATERIA,'g-fl-bateria');
+
+const BATERIA_EN=[
+  { id:'fl-bateria-en-1', cls:'', chip:'Batteries · The hook', overlay:true, type:'headline',
+    kicker:'The question isn’t whether the power goes out',
+    headline:'IT’S WHAT<br><span class="hl">STAYS ON</span>',
+    desc:'A battery doesn’t run your whole house like nothing happened. It runs what you decided ahead of time.' },
+
+  { id:'fl-bateria-en-2', cls:'data', chip:'Decided up front', blue:true, type:'list',
+    listhead:'YOU CHOOSE THIS<br>ON <span class="hl">DAY ONE</span>',
+    items:[
+      { n:'1', tt:'The fridge and the food', ds:'First thing on almost everyone’s list.' },
+      { n:'2', tt:'One cool room', ds:'A/C draws the most. That’s why it’s one room, not the house.' },
+      { n:'3', tt:'Internet and phones', ds:'Costs little and keeps you reachable.' },
+      { n:'4', tt:'Medical equipment, if any', ds:'If someone at home depends on something plugged in, say it first.' },
+    ] },
+
+  { id:'fl-bateria-en-3', cls:'', chip:'Season', overlay:true, type:'headline',
+    kicker:'June through November, every year',
+    headline:'DON’T INSTALL<br>WITH A STORM <span class="hl">COMING</span>',
+    desc:'Hurricane season has dates. So does an install — and they shouldn’t overlap.' },
+
+  { id:'fl-bateria-en-4', cls:'', chip:'The close', overlay:true, type:'headline',
+    kicker:'Make the list before you get quotes',
+    headline:'WHAT CAN’T<br><span class="hl">GO DARK</span>',
+    desc:'With that list in hand, every quote makes sense. Without it, they all sound the same.' },
+];
+renderGallery(BATERIA_EN,'g-fl-bateria-en');
+
+/* 8 · SELLADO — Owens Corning · ESTA ES LA QUE SE FIRMA, EN INGLÉS ───── */
+const ROOF_EN=[
+  { id:'fl-roof-en-1', cls:'', chip:'Roofing · The hook', overlay:true, type:'headline',
+    kicker:'Your roof is your home’s first defense',
+    headline:'THE PART YOU<br>NEVER <span class="hl">SEE</span>',
+    desc:'By the time you can see a roof problem from the ground, it has been happening for a while underneath.' },
+
+  { id:'fl-roof-en-2', cls:'data', chip:'Step by step', blue:true, type:'list',
+    listhead:'HOW A FLORIDA<br>ROOF GETS <span class="hl">SEALED</span>',
+    items:[
+      { n:'1', tt:'Strip it to the deck', ds:'You can’t seal over a problem you haven’t looked at.' },
+      { n:'2', tt:'Fix what’s underneath', ds:'Soft wood gets replaced now, not after the shingles are on.' },
+      { n:'3', tt:'Seal the deck', ds:'This is the layer that keeps water out when wind lifts a shingle.' },
+      { n:'4', tt:'Then the shingles', ds:'Owens Corning. The visible part is the last step, not the job.' },
+    ] },
+
+  { id:'fl-roof-en-3', cls:'', chip:'Why it matters here', overlay:true, type:'headline',
+    kicker:'Storms, heat and daily rain',
+    headline:'FLORIDA IS HARD<br>ON A <span class="hl">ROOF</span>',
+    desc:'Sun every day and water that finds any opening. A roof here works harder than almost anywhere.' },
+
+  { id:'fl-roof-en-4', cls:'', chip:'The close', overlay:true, type:'headline',
+    kicker:'Before hurricane season, not during',
+    headline:'HAVE IT<br><span class="hl">LOOKED AT</span>',
+    desc:'A free inspection tells you whether you need a roof now, later, or not at all.' },
+];
+renderGallery(ROOF_EN,'g-fl-roof-en');
+
+const ROOF=[
+  { id:'fl-roof-1', cls:'', chip:'Roofing · El gancho', overlay:true, type:'headline',
+    kicker:'El techo es la primera defensa de tu casa',
+    headline:'LA PARTE QUE<br>NUNCA <span class="hl">SE VE</span>',
+    desc:'Cuando un problema de techo se ve desde abajo, lleva tiempo pasando por dentro.' },
+
+  { id:'fl-roof-2', cls:'data', chip:'Paso a paso', blue:true, type:'list',
+    listhead:'CÓMO SE SELLA<br>UN TECHO <span class="hl">AQUÍ</span>',
+    items:[
+      { n:'1', tt:'Se desmonta hasta la madera', ds:'No se sella encima de un problema que nadie ha mirado.' },
+      { n:'2', tt:'Se arregla lo de abajo', ds:'La madera blanda se cambia ahora, no después de poner las tejas.' },
+      { n:'3', tt:'Se sella la plataforma', ds:'Es la capa que deja el agua fuera cuando el viento levanta una teja.' },
+      { n:'4', tt:'Y entonces las tejas', ds:'Owens Corning. Lo que se ve es el último paso, no el trabajo.' },
+    ] },
+
+  { id:'fl-roof-3', cls:'', chip:'Por qué aquí importa', overlay:true, type:'headline',
+    kicker:'Tormentas, calor y lluvia diaria',
+    headline:'FLORIDA CASTIGA<br>EL <span class="hl">TECHO</span>',
+    desc:'Sol todos los días y agua que encuentra cualquier abertura. Un techo aquí trabaja más que en casi ningún sitio.' },
+
+  { id:'fl-roof-4', cls:'', chip:'El cierre', overlay:true, type:'headline',
+    kicker:'Antes de la temporada, no durante',
+    headline:'QUE ALGUIEN<br>LO <span class="hl">MIRE</span>',
+    desc:'Una inspección sin costo te dice si necesitas techo ahora, más adelante, o no.' },
+];
+renderGallery(ROOF,'g-fl-roof');
 
 /* colocar / reemplazar foto o video */
 document.querySelectorAll('.ph').forEach(ph=>{
