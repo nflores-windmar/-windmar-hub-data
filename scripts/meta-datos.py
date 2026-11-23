@@ -48,6 +48,14 @@ PERMISOS_NECESARIOS = [
     "instagram_basic",
     "instagram_manage_insights",
     "business_management",
+    # Desde el 23-nov-2026, para el barrido de comentarios. Sin este, el barrido
+    # lee la lista de publicaciones pero no los hilos, y parece que no hay
+    # comentarios nuevos cuando lo que pasa es que no los puede ver.
+    "instagram_manage_comments",
+    # Para contestar: en Instagram basta el de arriba; en la página de Facebook
+    # hacen falta estos dos, uno para leer el comentario y otro para responderlo.
+    "pages_read_user_content",
+    "pages_manage_engagement",
 ]
 
 # Métricas de página. Meta las va retirando por versión, así que si una

@@ -28,7 +28,18 @@ es una tarea recurrente que se va a olvidar.
    marca **las nueve páginas** del portafolio → permiso **Acceso completo**
 5. Repite en la pestaña **Cuentas de Instagram** con los perfiles que
    aparezcan
-6. **Generar nuevo token** → elige la app del negocio → marca estos permisos:
+6. **Generar nuevo token** → elige la app del negocio
+
+7. ⚠️ **En «Caducidad del token» elige «Nunca».**
+
+   Este es el paso que se olvida, y es el que importa. Un usuario de sistema
+   *puede* dar tokens que no caducan, pero el desplegable viene con **60 días**
+   por defecto: si no lo tocas, sales de ahí con un token que muere en dos meses
+   creyendo que es permanente. Pasó — el token generado el 21 de octubre de 2026
+   expiraba el 20 de diciembre, y el Action del dashboard semanal llevaba tres
+   semanas fallando en silencio antes de que alguien lo notara.
+
+8. Marca estos permisos:
 
    ```
    pages_show_list
@@ -37,19 +48,45 @@ es una tarea recurrente que se va a olvidar.
    instagram_basic
    instagram_manage_insights
    business_management
+
+   instagram_manage_comments     ← leer y contestar comentarios de Instagram
+   pages_read_user_content       ← leer comentarios en la página de Facebook
+   pages_manage_engagement       ← contestarlos ahí
+   instagram_content_publish     ← publicar piezas aprobadas desde Studio
+   instagram_manage_messages     ← mensajes directos
    ```
 
-7. Copia el token **en ese momento** — Meta no lo vuelve a mostrar
+   Los seis primeros son para el snapshot semanal. Los cinco de abajo son para
+   lo que se añadió después: el barrido de comentarios y el publicador. **Márcalos
+   todos aunque hoy no uses alguno** — añadir un permiso más tarde obliga a generar
+   otro token y a cambiarlo en los cuatro sitios de abajo.
 
-## 2. Guardarlo
+9. Copia el token **en ese momento** — Meta no lo vuelve a mostrar
 
-Abre `~/.windmar/meta.env` y sustituye el marcador:
+## 2. Guardarlo — en los CUATRO sitios
 
+El token vive en cuatro lugares distintos y **cambiarlo en uno no lo cambia en
+los otros**. Esto se descubrió el 23 de noviembre de 2026: se había rotado en dos
+sitios y los otros dos seguían con el viejo, así que los Actions fallaban mientras
+todo parecía arreglado.
+
+| Dónde | Para qué | Cómo se cambia |
+|---|---|---|
+| `~/.windmar/meta.env` | los comandos que corres tú | abajo |
+| Secret `META_TOKEN` del repo | los GitHub Actions | Settings › Secrets › Actions |
+| Vercel del Studio | la app en producción | **entra con el próximo deploy, no al guardarlo** |
+| Conexión de Meta en Homie | lo que hace Musa | dentro de Homie |
+
+### El de tu Mac
+
+En Terminal, para que el token no quede en el historial ni en pantalla:
+
+```bash
+printf 'Pega el token y dale Enter: '; read -rs T; echo
+umask 077; printf 'META_TOKEN=%s\n' "$T" > ~/.windmar/meta.env; unset T
 ```
-META_TOKEN=el_token_que_copiaste
-```
 
-Una sola línea. Sin comillas, sin espacios alrededor del `=`.
+Una sola línea dentro del archivo. Sin comillas, sin espacios alrededor del `=`.
 
 ## 3. Probar
 
@@ -108,6 +145,10 @@ Conviene saberlo antes de generarlo, para no esperar de más:
 ## Si algo falla
 
 - `Invalid OAuth access token` → el token está mal copiado o caducó
+- **Un Action que falla en «Diagnóstico del token» semana tras semana** → el
+  secret del repo tiene un token distinto al de tu Mac. Que el tuyo funcione no
+  dice nada del suyo. Míralo en Settings › Secrets › Actions: la columna de
+  fecha dice cuándo se actualizó por última vez
 - `NO ALCANZABLE` en una página → falta asignarla al usuario de sistema
   (paso 4), no es el token
 - Una métrica suelta da error → Meta la retiró en esta versión de la API;
