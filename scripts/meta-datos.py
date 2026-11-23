@@ -633,6 +633,187 @@ def posts(cuenta_id, dias=28):
 
 # ---------------------------------------------------------------- main
 
+# ---------------------------------------------------------------- comentarios
+
+VISTOS = os.path.join(RAIZ, "public", "data", "comentarios-vistos.json")
+
+# Cuántos días hacia atrás se considera que un comentario es «nuevo». Lo de antes
+# se marca como visto sin avisar: en la primera corrida hay 1,076 publicaciones de
+# historial, y mandarlas todas de golpe convierte el primer aviso en ruido y el
+# segundo en algo que ya nadie abre.
+FRESCURA = 7
+
+# Palabras que cambian lo que hay que hacer con un comentario.
+#
+# ESTO NO CLASIFICA, SEÑALA. La decisión de a cuál se contesta y a cuál no está en
+# la skill `responder-comentarios-redes`, no aquí: un script que decide por palabras
+# sueltas se equivoca con «me encanta, pero cuánto cuesta» y nadie se entera.
+# Lo que hace es que un comentario con señal no pueda pasar por rutinario.
+SENALES = {
+    "reclamacion": ["ticket", "reclamo", "reclamacion", "averia", "no funciona",
+                    "sin solucion", "no me responden", "nadie me contesta",
+                    "sigo esperando", "dias esperando", "meses esperando",
+                    "mal servicio", "estafa", "numero de caso"],
+    "legal": ["demanda", "demandar", "abogado", "daco", "corte", "prensa"],
+    "precio": ["cuanto cuesta", "cuanto sale", "cuanto me saldria", "precio",
+               "cotizacion", "cuanto seria"],
+    "cifra": ["cuantos anos", "garantia", "cuanto produce", "kilovatios",
+              "cuanto dura", "capacidad"],
+}
+
+
+def _plano(s):
+    """Minúsculas y sin acentos, para que «avería» y «averia» cuenten igual."""
+    import unicodedata
+    s = unicodedata.normalize("NFD", (s or "").lower())
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+
+def _senales(texto):
+    t = _plano(texto)
+    return sorted({k for k, palabras in SENALES.items()
+                   if any(p in t for p in palabras)})
+
+
+def _vistos():
+    if not os.path.exists(VISTOS):
+        return {"_lee_esto_primero":
+                "Los ids de comentario que el barrido ya reportó. NO se vacía: "
+                "borrarlo hace que todo el historial se vuelva a anunciar como nuevo.",
+                "ids": {}}
+    with open(VISTOS) as fh:
+        return json.load(fh)
+
+
+def comentarios(limite_medios=25, frescura=FRESCURA):
+    """Lee los comentarios nuevos de cada cuenta y los deja listos para avisar.
+
+    Por qué un barrido y no un webhook: un webhook obliga a tener un endpoint
+    público, a pasar el `hub.challenge` de Meta y a validar la firma de cada
+    evento. Un comentario no necesita llegar en segundos, así que todo eso sería
+    superficie de ataque a cambio de nada. Esto es el mismo patrón que
+    `dashboard-semanal.yml`, que ya corre.
+    """
+    tok = token()
+    registro = _vistos()
+    ids = registro.setdefault("ids", {})
+    ahora = datetime.datetime.now(datetime.timezone.utc)
+    corte = ahora - datetime.timedelta(days=frescura)
+
+    nuevos, mirados, problemas = [], 0, []
+
+    for c in cuentas()["cuentas"]:
+        ig = c.get("ig_id")
+        if not ig or c.get("sin_medir") or c.get("sin_acceso"):
+            continue
+        if c.get("ig_disponible") is False:
+            continue
+        propio = (c.get("ig_user") or "").lstrip("@").lower()
+
+        medios, err = pedir(f"{ig}/media",
+                            {"fields": "id,permalink,timestamp,comments_count",
+                             "limit": limite_medios}, tok)
+        if err:
+            problemas.append(f"{c['id']}: {sin_token(err)}")
+            continue
+
+        for m in medios.get("data", []):
+            if not m.get("comments_count"):
+                continue
+            hilo, err = pedir(f"{m['id']}/comments",
+                              {"fields": "id,username,text,timestamp,replies{id,username}",
+                               "limit": 50}, tok)
+            if err:
+                problemas.append(f"{c['id']} {m['id']}: {sin_token(err)}")
+                continue
+
+            for com in hilo.get("data", []):
+                mirados += 1
+                cid = com.get("id")
+                if not cid or cid in ids:
+                    continue
+                # Lo que escribe la propia marca no es un comentario que atender.
+                if (com.get("username") or "").lower() == propio:
+                    ids[cid] = ahora.date().isoformat()
+                    continue
+
+                cuando = com.get("timestamp", "")
+                try:
+                    fecha = datetime.datetime.strptime(cuando, "%Y-%m-%dT%H:%M:%S%z")
+                except ValueError:
+                    fecha = ahora
+
+                # Viejo: se marca visto y NO se avisa. Ver FRESCURA.
+                if fecha < corte:
+                    ids[cid] = ahora.date().isoformat()
+                    continue
+
+                texto = com.get("text") or ""
+                nuevos.append({
+                    "id": cid,
+                    "cuenta": c["id"],
+                    "ig_user": c.get("ig_user"),
+                    "de": "@" + (com.get("username") or "?"),
+                    "texto": texto,
+                    "sin_texto": not texto.strip(),
+                    "cuando": cuando,
+                    "dias": (ahora - fecha).days,
+                    "respuestas": len((com.get("replies") or {}).get("data", [])),
+                    "post": m.get("permalink"),
+                    "senales": _senales(texto),
+                })
+                ids[cid] = ahora.date().isoformat()
+
+    nuevos.sort(key=lambda n: (not n["senales"], n["cuando"]))
+
+    os.makedirs(os.path.dirname(VISTOS), exist_ok=True)
+    with open(VISTOS, "w") as fh:
+        json.dump(registro, fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+
+    print(f"Comentarios mirados: {mirados}   nuevos: {len(nuevos)}   "
+          f"ya vistos en el registro: {len(ids)}")
+    for n in nuevos:
+        marca = ("  [" + " ".join(n["senales"]) + "]") if n["senales"] else ""
+        cuerpo = n["texto"].replace("\n", " ")[:110] or "(sin texto)"
+        print(f'  {n["de"]} · {n["cuenta"]} · hace {n["dias"]}d{marca}')
+        print(f'     "{cuerpo}"')
+        print(f'     {n["post"]}')
+    for p in problemas:
+        print("  problema:", p)
+
+    avisar_a_homie(nuevos, problemas)
+    return nuevos
+
+
+def avisar_a_homie(nuevos, problemas):
+    """Empuja los comentarios nuevos a Homie. Sin webhook configurado, no falla:
+    el barrido sigue sirviendo para dejar el registro y el log."""
+    url = os.environ.get("HOMIE_COMENTARIOS_WEBHOOK", "").strip()
+    if not url:
+        print("  (sin HOMIE_COMENTARIOS_WEBHOOK: no se avisó a nadie)")
+        return
+    if not nuevos and not problemas:
+        print("  Nada nuevo: no se avisa. Un aviso vacío enseña a ignorar los avisos.")
+        return
+
+    cuerpo = json.dumps({
+        "de": "barrido-comentarios",
+        "cuando": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "comentarios": nuevos,
+        "problemas": problemas,
+    }, ensure_ascii=False).encode()
+
+    req = urllib.request.Request(url, data=cuerpo,
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            print(f"  Avisado a Homie: {len(nuevos)} comentario(s), HTTP {r.status}")
+    except Exception as e:
+        # Que falle el aviso no debe perder el registro: ya está escrito arriba.
+        print("  No se pudo avisar a Homie:", sin_token(str(e)))
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -647,6 +828,8 @@ def main():
         diagnostico()
     elif cmd == "snapshot":
         snapshot(dias)
+    elif cmd == "comentarios":
+        comentarios()
     elif cmd == "posts":
         if len(sys.argv) < 3:
             sys.exit("Dime qué cuenta:  python3 meta-datos.py posts windmar-home")

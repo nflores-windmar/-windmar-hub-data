@@ -1,0 +1,92 @@
+# Lee los comentarios nuevos de Instagram y se los pasa a Homie, sin que nadie
+# tenga que avisar.
+#
+# Hasta hoy Musa contestaba comentarios, pero solo los que Nicolle le pasaba a
+# mano. Eso funcionaba y tenía una virtud escondida: ella era el filtro, así que
+# lo que no debía contestarse nunca le llegaba. Este barrido quita ese paso, y
+# por eso NO se enciende solo: la regla de a cuáles se contesta y a cuáles no
+# está en la skill `responder-comentarios-redes`, y tiene que estar cargada en
+# Homie antes de que esto corra de verdad.
+#
+# Por qué un barrido y no un webhook de Meta: un webhook obliga a exponer un
+# endpoint público, pasar el `hub.challenge` y validar la firma de cada evento.
+# Un comentario no necesita llegar en segundos. Esto es superficie de ataque
+# cero y el mismo patrón que `dashboard-semanal.yml`, que ya lleva semanas
+# corriendo.
+
+name: Barrido de comentarios
+
+on:
+  # Cada 30 minutos, de lunes a viernes, de 7:00 AM a 6:00 PM en Puerto Rico
+  # (AST = UTC-4 todo el año, sin horario de verano). La misma ventana que el
+  # barrido de Teams, para que las dos cosas despierten a Musa a la vez y no
+  # a destiempo.
+  schedule:
+    - cron: "*/30 11-22 * * 1-5"
+
+  # A mano, para probarlo sin esperar a la media hora.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Dos corridas a la vez se pisarían el registro y anunciarían dos veces el
+# mismo comentario. Una cada vez, y la segunda espera.
+concurrency:
+  group: comentarios
+  cancel-in-progress: false
+
+jobs:
+  barrido:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Comprobar el entorno
+        run: |
+          if [ -z "${META_TOKEN}" ]; then
+            echo "Falta el secret META_TOKEN del repositorio."
+            exit 1
+          fi
+          echo "META_TOKEN presente (longitud ${#META_TOKEN})"
+          if [ -z "${HOMIE_COMENTARIOS_WEBHOOK}" ]; then
+            echo "Aviso: sin HOMIE_COMENTARIOS_WEBHOOK el barrido corre y deja el log,"
+            echo "pero no avisa a nadie. Se pone en Settings > Secrets > Actions."
+          fi
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          HOMIE_COMENTARIOS_WEBHOOK: ${{ secrets.HOMIE_COMENTARIOS_WEBHOOK }}
+
+      # El diagnóstico primero: si el token caducó, el log lo dice en una línea
+      # en vez de dejar un barrido vacío que parece «no hay comentarios nuevos».
+      # Esa confusión es justo la que haría que una reclamación se quedara sola
+      # en un post durante días sin que nadie se enterara.
+      - name: Diagnóstico del token
+        run: python3 scripts/meta-datos.py diagnostico
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+
+      - name: Mirar los comentarios
+        run: python3 scripts/meta-datos.py comentarios
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+          HOMIE_COMENTARIOS_WEBHOOK: ${{ secrets.HOMIE_COMENTARIOS_WEBHOOK }}
+
+      # El registro NO se vacía nunca: es lo único que distingue «comentario
+      # nuevo» de «el de siempre». Borrarlo hace que el historial entero se
+      # vuelva a anunciar como nuevo y que nadie vuelva a leer un aviso.
+      - name: Guardar el registro
+        run: |
+          if git diff --quiet -- public/data/comentarios-vistos.json; then
+            echo "Sin comentarios nuevos: el registro no cambió."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/comentarios-vistos.json
+          git commit -q -m "Barrido de comentarios — $(date -u '+%Y-%m-%d %H:%M')"
+          git push origin HEAD:main || {
+            echo "El push chocó, reintento tras traer lo del remoto"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          }
