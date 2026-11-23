@@ -714,8 +714,12 @@ def comentarios(limite_medios=25, frescura=FRESCURA):
         ig = c.get("ig_id")
         if not ig or c.get("sin_medir") or c.get("sin_acceso"):
             continue
-        if c.get("ig_disponible") is False:
-            continue
+        # OJO: aquí NO se mira `ig_disponible`. Esa bandera dice que la cuenta no
+        # sirve como fuente de ESTADÍSTICAS —el selector de plataforma de la página
+        # solo ofrece Facebook—, y eso no tiene nada que ver con leer comentarios.
+        # Mirarla dejaba a Florida fuera del barrido en silencio, teniendo
+        # @windmarhomefl comentarios perfectamente legibles. Si una cuenta de
+        # verdad no se puede leer, el error sale en `problemas` y se ve.
         propio = (c.get("ig_user") or "").lstrip("@").lower()
 
         medios, err = pedir(f"{ig}/media",
