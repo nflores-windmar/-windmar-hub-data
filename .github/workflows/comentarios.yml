@@ -77,13 +77,17 @@ jobs:
       # vuelva a anunciar como nuevo y que nadie vuelva a leer un aviso.
       - name: Guardar el registro
         run: |
-          if git diff --quiet -- public/data/comentarios-vistos.json; then
+          # Se añade ANTES de comparar. `git diff` a secas no ve un archivo nuevo
+          # sin rastrear, así que la primera corrida decía «sin cambios», salía en
+          # verde y no guardaba nada — y la siguiente volvía a anunciar los mismos
+          # comentarios como nuevos. Pasó en la corrida #2.
+          git add -A public/data/comentarios-vistos.json
+          if git diff --cached --quiet -- public/data/comentarios-vistos.json; then
             echo "Sin comentarios nuevos: el registro no cambió."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/comentarios-vistos.json
           git commit -q -m "Barrido de comentarios — $(date -u '+%Y-%m-%d %H:%M')"
           git push origin HEAD:main || {
             echo "El push chocó, reintento tras traer lo del remoto"
