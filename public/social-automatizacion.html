@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automatización de Contenido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#0f2742; --azul:#1d4e89; --linea:#c9d8e8; --papel:#fbfdff;
+  --naranja:#FE9400; --suave:#eef4fa; --gris:#566b82;
+  --ok:#1b7a4b; --mal:#b4341f; --espera:#9a6b00;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);
+  font-family:Montserrat,system-ui,sans-serif;font-size:15px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 16px 80px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,6vw,62px);line-height:.92;margin:0 0 6px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.02em;
+  margin:52px 0 14px;padding-bottom:7px;border-bottom:2px solid var(--tinta)}
+h3{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--azul);margin:26px 0 10px}
+p{margin:0 0 14px;max-width:74ch}
+.sub{color:var(--gris);font-size:14px;margin-bottom:28px}
+.sub b{color:var(--tinta)}
+.aviso{border:2px solid var(--naranja);background:#fff8ef;border-radius:3px;padding:16px 18px;margin:22px 0}
+.aviso p:last-child{margin-bottom:0}
+table{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--gris);font-weight:700;padding:0 10px 7px;border-bottom:2px solid var(--tinta);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--linea);vertical-align:top}
+tbody tr:hover{background:var(--suave)}
+.nota{font-size:12.5px;color:var(--gris);max-width:72ch;margin:4px 0 0}
+code,.kw{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;
+  background:var(--suave);padding:2px 6px;border-radius:2px;white-space:nowrap}
+.et{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;
+  padding:2px 8px;border-radius:2px;border:1px solid var(--linea);background:#fff;white-space:nowrap}
+.e-ok{border-color:#9ccdb2;background:#eefaf3;color:var(--ok)}
+.e-no{border-color:#e4b0a6;background:#fdf1ef;color:var(--mal)}
+.e-sp{border-color:#e6cf93;background:#fdf8ea;color:var(--espera)}
+
+/* la línea de tiempo del mes */
+.linea{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:0;margin:26px 0 10px;
+  border:1px solid var(--linea);border-radius:4px;overflow:hidden;background:#fff}
+.paso{padding:16px 18px;border-right:1px solid var(--linea)}
+.paso:last-child{border-right:none}
+.paso .dia{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;color:var(--azul)}
+.paso .qu{font-weight:700;font-size:13.5px;margin:4px 0 6px}
+.paso .de{font-size:12.5px;color:var(--gris)}
+.paso.auto{background:#f4fbf7}
+.paso.auto .dia{color:var(--ok)}
+@media (max-width:720px){
+  .paso{border-right:none;border-bottom:1px solid var(--linea)}
+  table{font-size:13px} th,td{padding:7px 6px} .ocultable{display:none}
+}
+footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--gris)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Automatización de Contenido</h1>
+<p class="sub">Qué corre solo, qué necesita una persona y dónde vive cada cosa. Para
+<b>Musa</b> y para quien vaya a construir algo: <b>mira aquí antes de empezar</b>.</p>
+
+<div class="aviso">
+  <p><b>Esta página existe por dos motivos concretos.</b></p>
+  <p>El 19 de noviembre se construyó en Studio un publicador de Instagram que <b>Bryan ya
+  tenía hecho y más completo</b> — dos días de trabajo tirados por no tener dónde mirar. Y
+  antes de eso, el barrido de Teams llevaba tres semanas documentado como «cada 15 minutos»
+  sin que existiera ningún cron.</p>
+  <p>Así que lo único que esta página promete es <b>decir la verdad sobre el estado</b>. Si
+  algo aquí dice que corre y no corre, es un error que hay que arreglar, no un detalle.</p>
+</div>
+
+<h2>El mes, de principio a fin</h2>
+
+<div class="linea">
+  <div class="paso auto">
+    <div class="dia">14</div>
+    <div class="qu">Llega el paquete de datos</div>
+    <div class="de">Studio cruza búsquedas, posiciones, blogs que caen y competencia, y despierta a Musa. <b>Corre solo.</b></div>
+  </div>
+  <div class="paso">
+    <div class="dia">14–19</div>
+    <div class="qu">Se escriben los carruseles</div>
+    <div class="de">Del paquete salen los temas. El arte la dibuja un Action en cuanto se empuja.</div>
+  </div>
+  <div class="paso">
+    <div class="dia">20</div>
+    <div class="qu">La lista del mes</div>
+    <div class="de">Los 12 temas de vídeo. Los carruseles <b>ya están hechos</b>: los reels se cuelgan de los huecos.</div>
+  </div>
+  <div class="paso">
+    <div class="dia">−7</div>
+    <div class="qu">Entrega</div>
+    <div class="de">Siete días antes de cada publicación. La primera semana del mes no lleva vídeo salvo que ya esté grabado.</div>
+  </div>
+  <div class="paso auto">
+    <div class="dia">·</div>
+    <div class="qu">Revisión y firma</div>
+    <div class="de">Studio avisa por Teams a quien firma, cada media hora en horario. <b>Corre solo.</b></div>
+  </div>
+</div>
+
+<p class="nota"><b>Por qué los carruseles van antes que los vídeos.</b> Lo dice el propio plan de
+noviembre: «Luis Matos va retrasado con los vídeos. No faltan temas: faltan grabaciones». Un
+carrusel no depende de nadie; un reel depende de que alguien grabe. El mes se ancla en lo que no
+se cae.</p>
+
+<h2>Qué corre solo hoy</h2>
+
+<table>
+<thead><tr><th>Qué</th><th>Cuándo</th><th>Estado</th><th class="ocultable">Dónde vive</th></tr></thead>
+<tbody>
+<tr><td><b>Dibujar carruseles y stories</b><p class="nota">Se empuja el generador y salen los PNG.</p></td>
+    <td>en cada empujón</td><td><span class="et e-ok">corre</span></td>
+    <td class="ocultable"><code>artes-historias.yml</code></td></tr>
+<tr><td><b>Montar el vídeo de una story</b><p class="nota">Overlay sobre el clip, 10 s, con música si la hay.</p></td>
+    <td>al cambiar la cola</td><td><span class="et e-sp">cola vacía</span></td>
+    <td class="ocultable"><code>videos-historias.yml</code></td></tr>
+<tr><td><b>El plan del mes</b><p class="nota">Cruza SEO, Search Console y competencia, y despierta a Musa.</p></td>
+    <td>día 14, 9 AM</td><td><span class="et e-ok">en producción</span></td>
+    <td class="ocultable"><code>/api/cron/plan-del-mes</code></td></tr>
+<tr><td><b>El barrido de Teams</b><p class="nota">Reparte firmas, agenda y avisos de comentarios.</p></td>
+    <td>cada 30 min, L–V 7–7</td><td><span class="et e-ok">en producción</span></td>
+    <td class="ocultable"><code>/api/cron/barrido-teams</code></td></tr>
+<tr><td><b>Recordatorios de firma</b><p class="nota">A quien no ha firmado y la pieza publica pronto.</p></td>
+    <td>L–V, 8 AM</td><td><span class="et e-ok">corre</span></td>
+    <td class="ocultable"><code>/api/cron/recordatorios</code></td></tr>
+<tr><td><b>El feed de proyectos a Musa</b></td>
+    <td>L–V, 8 AM y 4 PM</td><td><span class="et e-no">falta su webhook</span></td>
+    <td class="ocultable"><code>/api/cron/feed-musa</code></td></tr>
+</tbody>
+</table>
+
+<p class="nota">Lo de <code>feed-musa</code> es el patrón que más se repite aquí: <b>el cron corre,
+contesta 503 y nadie se entera</b>, porque falta <code>HOMIE_FEED_WEBHOOK</code> en Vercel.
+Comprobado el 18 de noviembre.</p>
+
+<h2>Qué necesita una persona</h2>
+
+<table>
+<thead><tr><th>Qué</th><th>Quién</th><th class="ocultable">Por qué no se automatiza</th></tr></thead>
+<tbody>
+<tr><td>Decidir los 12 temas de vídeo</td><td>Contenido</td>
+    <td class="ocultable">Depende de quién pueda hablar y de qué se va a grabar.</td></tr>
+<tr><td>Escribir los carruseles</td><td>Contenido / Musa</td>
+    <td class="ocultable">El dato da el tema; el texto lo escribe alguien.</td></tr>
+<tr><td><b>Firmar</b></td><td>Manuel, Pichu y el PM del producto</td>
+    <td class="ocultable">Es la aprobación. No se delega.</td></tr>
+<tr><td><b>Publicar</b></td><td>quien programe</td>
+    <td class="ocultable">No se deshace. Se prepara solo; se publica con un sí.</td></tr>
+<tr><td>Aplicar los cambios de una revisión</td><td>Musa <b>propone</b>, una persona aprueba</td>
+    <td class="ocultable">Los comentarios casi nunca son literales. De cuatro del carrusel del techo, dos habrían salido mal aplicados al pie de la letra.</td></tr>
+<tr><td>Las stories de Pros</td><td>a mano, desde el teléfono</td>
+    <td class="ocultable">Son encuesta, quiz y cuenta regresiva. Meta no deja crear eso por API, y no se va a poder después.</td></tr>
+</tbody>
+</table>
+
+<h2>Dónde vive cada cosa</h2>
+<p>Esto es lo que evita volver a construir algo que ya existe.</p>
+
+<table>
+<thead><tr><th>Cosa</th><th>Dónde</th><th class="ocultable">Nota</th></tr></thead>
+<tbody>
+<tr><td>Carruseles PR</td><td><code>public/windmar-carruseles-pr.html</code></td><td class="ocultable">15 carruseles, noviembre y diciembre escritos</td></tr>
+<tr><td>Carruseles Florida</td><td><code>public/windmar-carruseles-fl.html</code></td><td class="ocultable"><b>Esqueleto: un ejemplo, sin contenido</b></td></tr>
+<tr><td>Carruseles Pros</td><td><code>public/windmar-carruseles-pros.html</code></td><td class="ocultable">—</td></tr>
+<tr><td>Stories v2</td><td><code>public/windmar-pr-stories-v2-preview.html</code></td><td class="ocultable">36 tarjetas; 13 con fecha</td></tr>
+<tr><td>El plan de cada mes</td><td><code>mochila/&lt;mes&gt;-&lt;año&gt;.json</code></td><td class="ocultable">Noviembre y diciembre 2026</td></tr>
+<tr><td>Cola de vídeos de story</td><td><code>mochila/stories-video.json</code></td><td class="ocultable">Vacía</td></tr>
+<tr><td>Las skills de Contenido</td><td>repo <code>homie-skills</code></td><td class="ocultable">26, versionadas y editables desde fuera</td></tr>
+<tr><td>Las demás skills de Musa</td><td>dentro de Homie</td><td class="ocultable"><b>70+, sin fuente legible</b></td></tr>
+<tr><td>El mapa de agentización</td><td>artifact de Bryan</td><td class="ocultable">Nueve vistas; Social es una de ellas</td></tr>
+</tbody>
+</table>
+
+<h2>Quién lleva qué</h2>
+<table>
+<thead><tr><th>Área</th><th>Quién</th><th class="ocultable">Qué no se toca sin hablar con esa persona</th></tr></thead>
+<tbody>
+<tr><td><b>Media Tour</b></td><td>Manuel Pales, con Lucas</td><td class="ocultable">Guiones de medios, cortinillas, emisoras, confirmación de voceros</td></tr>
+<tr><td><b>Publicar en Meta</b></td><td>Bryan López</td><td class="ocultable">El publicador y su cola. Ya está construido: no se rehace</td></tr>
+<tr><td><b>Contenido orgánico</b></td><td>Nicolle</td><td class="ocultable">Calendario, carruseles, stories, skills de contenido</td></tr>
+<tr><td>El mapa de agentización</td><td>Bryan</td><td class="ocultable">Si añades una skill, va ahí</td></tr>
+</tbody>
+</table>
+
+<h2>Cómo se sabe si esto mejora</h2>
+<p>No por el porcentaje del mapa: ese <b>lo escribe una persona</b>. Por dos números que no se
+pueden opinar.</p>
+
+<table>
+<thead><tr><th>Número</th><th>El 18 de noviembre de 2026</th></tr></thead>
+<tbody>
+<tr><td>Piezas en Studio, y cuántas atascadas en «idea»</td><td><b>82 activas · 49 en idea · 1 aprobada</b></td></tr>
+<tr><td>Skills de Social usadas en 30 días</td><td><b>0 de 8</b></td></tr>
+</tbody>
+</table>
+<p class="nota">El paquete del día 14 trae esas cuentas cada mes, en su campo <code>medicion</code>,
+con la línea base dentro para poder comparar. Un mes bien agentizado no deja 49 piezas sin salir
+de «idea».</p>
+
+<footer>
+  Escrita el 23 de noviembre de 2026 contra el estado real del repo y de Vercel, no contra lo
+  que debería existir.<br>
+  Si encuentras algo que aquí dice que corre y no corre, eso es el hallazgo: díselo a quien lleve
+  esa área en vez de rodearlo.
+</footer>
+
+</div>
+</body>
+</html>
