@@ -645,6 +645,20 @@ def posts(cuenta_id, dias=28):
 
 VISTOS = os.path.join(RAIZ, "public", "data", "comentarios-vistos.json")
 
+# La lista de lo que sigue SIN respuesta de la marca. Se reescribe entera en cada
+# corrida, y se publica para que cualquiera la pueda abrir sin permisos:
+#
+#     https://windmar-previews.vercel.app/data/comentarios-pendientes.json
+#
+# Existe porque el acceso del agente a Instagram es intermitente: unas veces lee
+# tres comentarios de un reel, otras no puede releer el hilo, y Florida casi
+# nunca. Sin una lista fiable no puede contestar aunque sepa la regla. El barrido
+# sí lee bien las dos cuentas dos veces al día, así que deja aquí lo que encontró.
+#
+# NO es lo mismo que `comentarios-vistos.json`. Aquel dice qué se anunció; este
+# dice qué sigue sin contestar. Confundirlos deja todo sin hacer.
+PENDIENTES = os.path.join(RAIZ, "public", "data", "comentarios-pendientes.json")
+
 # Cuántos días hacia atrás se considera que un comentario es «nuevo». Lo de antes
 # se marca como visto sin avisar: en la primera corrida hay 1,076 publicaciones de
 # historial, y mandarlas todas de golpe convierte el primer aviso en ruido y el
@@ -708,7 +722,7 @@ def comentarios(limite_medios=25, frescura=FRESCURA):
     ahora = datetime.datetime.now(datetime.timezone.utc)
     corte = ahora - datetime.timedelta(days=frescura)
 
-    nuevos, mirados, problemas = [], 0, []
+    nuevos, pendientes, mirados, problemas = [], [], 0, []
 
     for c in cuentas()["cuentas"]:
         ig = c.get("ig_id")
@@ -742,7 +756,32 @@ def comentarios(limite_medios=25, frescura=FRESCURA):
             for com in hilo.get("data", []):
                 mirados += 1
                 cid = com.get("id")
-                if not cid or cid in ids:
+                if not cid:
+                    continue
+
+                # Pendiente = sin respuesta de la propia cuenta, da igual su edad
+                # y da igual que ya se haya anunciado. Es la única prueba de que
+                # un comentario está atendido.
+                respuestas = (com.get("replies") or {}).get("data", [])
+                contestado = any(
+                    (r.get("username") or "").lower() == propio for r in respuestas
+                )
+                de_la_marca = (com.get("username") or "").lower() == propio
+                if not contestado and not de_la_marca:
+                    texto_p = com.get("text") or ""
+                    pendientes.append({
+                        "id": cid,
+                        "cuenta": c["id"],
+                        "ig_user": c.get("ig_user"),
+                        "de": "@" + (com.get("username") or "?"),
+                        "texto": texto_p,
+                        "sin_texto": not texto_p.strip(),
+                        "cuando": com.get("timestamp", ""),
+                        "post": m.get("permalink"),
+                        "senales": _senales(texto_p),
+                    })
+
+                if cid in ids:
                     continue
                 # Lo que escribe la propia marca no es un comentario que atender.
                 if (com.get("username") or "").lower() == propio:
@@ -782,6 +821,22 @@ def comentarios(limite_medios=25, frescura=FRESCURA):
     with open(VISTOS, "w") as fh:
         json.dump(registro, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
+
+    pendientes.sort(key=lambda x: (not x["senales"], x["cuando"]))
+    with open(PENDIENTES, "w") as fh:
+        json.dump({
+            "_lee_esto_primero":
+                "Comentarios de Instagram SIN respuesta de la marca, de las dos "
+                "cuentas. Se reescribe entero en cada corrida del barrido. Si un "
+                "comentario esta aqui, esta pendiente: no mires ningun otro "
+                "registro para decidirlo. Que hacer con cada uno lo dice la skill "
+                "responder-comentarios-redes.",
+            "actualizado": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            "total": len(pendientes),
+            "comentarios": pendientes,
+        }, fh, ensure_ascii=False, indent=1)
+        fh.write("\n")
+    print(f"Pendientes sin respuesta: {len(pendientes)}")
 
     print(f"Comentarios mirados: {mirados}   nuevos: {len(nuevos)}   "
           f"ya vistos en el registro: {len(ids)}")
