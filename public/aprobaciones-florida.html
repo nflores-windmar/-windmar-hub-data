@@ -141,7 +141,7 @@
     <div class="bp-toprule"><span>WindMar Home · Florida</span><span class="r">Aprobación de Contenido</span></div>
     <div class="bp-kick">Revisión del cliente</div>
     <h1 class="bp-h1">Aprobación<br><span class="o">Home Florida</span></h1>
-    <p class="bp-sub">Revisa cada publicación: mira el video, la red social donde saldrá, la fecha y el caption. Deja tus comentarios y marca <b>Aprobar</b> o <b>Cambios</b>. Rafael Almonte y Manuel Pales aprueban este contenido.</p>
+    <p class="bp-sub">Revisa cada publicación: mira el video, la red social donde saldrá, la fecha y el caption. Deja tus comentarios y marca <b>Aprobar</b> o <b>Cambios</b>. Manuel Pales, Chad Johnson y Mario Alfonso aprueban este contenido.</p>
     <div class="bp-legend">
       <span><i class="bp-dot ok"></i> Aprobado</span>
       <span><i class="bp-dot no"></i> Pide cambios</span>
@@ -182,7 +182,7 @@
   // Al entrar una vez con ?admin=1, se guarda en este navegador y ya no hace falta el parámetro.
   if(new URLSearchParams(location.search).get('admin')==='1'){ localStorage.setItem('wm-fl-admin','1'); }
   const IS_ADMIN = localStorage.getItem('wm-fl-admin')==='1';
-  const REVIEWERS=[{key:'rafael',name:'Rafael Almonte',ini:'RA'},{key:'manuel',name:'Manuel Pales',ini:'MP'},{key:'mario',name:'Mario Alfonso',ini:'MA'},{key:'chad',name:'Chad Jason Hahn',ini:'CH'}];
+  const REVIEWERS=[{key:'manuel',name:'Manuel Pales',ini:'MP'},{key:'mario',name:'Mario Alfonso',ini:'MA'},{key:'chad',name:'Chad Jason Hahn',ini:'CH'}];
   const STATUSES=[
     {v:'borrador',   label:'Borrador',    cls:'draft'},
     {v:'revision',   label:'En revisión', cls:'rev'},
@@ -428,7 +428,7 @@
   };
 
   // notify the whole team (fires one Teams alert per person via the DB trigger)
-  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Rafael Almonte','Mario Alfonso','Chad Jason Hahn','Miguel Torres','Aaron Myers','Nicolle Flores'];
+  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Mario Alfonso','Chad Jason Hahn','Miguel Torres','Aaron Myers','Nicolle Flores'];
   window.notifyAll=async function(){
     if(!sb){ alert('Sin conexión. Intenta de nuevo.'); return; }
     const btn=document.getElementById('notifyBtn');

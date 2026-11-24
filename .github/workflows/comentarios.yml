@@ -17,12 +17,21 @@
 name: Barrido de comentarios
 
 on:
-  # Cada 30 minutos, de lunes a viernes, de 7:00 AM a 6:00 PM en Puerto Rico
-  # (AST = UTC-4 todo el año, sin horario de verano). La misma ventana que el
-  # barrido de Teams, para que las dos cosas despierten a Musa a la vez y no
-  # a destiempo.
+  # Dos veces al día: 9:30 AM y 3:30 PM de Puerto Rico (AST = UTC-4 todo el
+  # año, sin horario de verano), de lunes a viernes.
+  #
+  # Empezó siendo cada 30 minutos y no funcionó: GitHub descarta corridas
+  # programadas cuando hay carga, y los `*/30` son los primeros que tira. De
+  # seis corridas que tocaban la tarde del 23 de noviembre salió UNA, y con
+  # cinco horas de retraso. Un barrido que dice correr cada media hora y
+  # corre una vez por noche es peor que uno que dice correr dos veces al día
+  # y las cumple: el primero hace creer que no hay comentarios nuevos.
+  #
+  # Dos horas fijas también encajan con quien atiende lo que el barrido
+  # levanta: a media mañana y a media tarde hay alguien para contestar.
   schedule:
-    - cron: "*/30 11-22 * * 1-5"
+    - cron: "30 13 * * 1-5"
+    - cron: "30 19 * * 1-5"
 
   # A mano, para probarlo sin esperar a la media hora.
   workflow_dispatch:

@@ -139,7 +139,7 @@
     <div class="bp-toprule"><span>WindMar · Pros</span><span class="r">Aprobación de Contenido</span></div>
     <div class="bp-kick">Revisión del cliente</div>
     <h1 class="bp-h1">Aprobación<br><span class="o">WindMar Pros</span></h1>
-    <p class="bp-sub">Contenido técnico / profesional para <b>Instagram</b>. Revisa cada publicación: mira el video, la fecha y el caption. Deja tus comentarios y marca <b>Aprobar</b> o <b>Cambios</b>. Rafael Almonte y Manuel Pales aprueban este contenido.</p>
+    <p class="bp-sub">Contenido técnico / profesional para <b>Instagram</b>. Revisa cada publicación: mira el video, la fecha y el caption. Deja tus comentarios y marca <b>Aprobar</b> o <b>Cambios</b>. Miguel Torres y Manuel Pales aprueban este contenido.</p>
     <div class="bp-legend">
       <span><i class="bp-dot ok"></i> Aprobado</span>
       <span><i class="bp-dot no"></i> Pide cambios</span>
@@ -176,7 +176,7 @@
   const SB_URL='https://mywxxipguoaqknoczgav.supabase.co';
   const SB_KEY='sb_publishable_6Te-wysK901ohZq42WgSww_9tITSpVX';
   const BRAND='pros';
-  const REVIEWERS=[{key:'rafael',name:'Rafael Almonte',ini:'RA'},{key:'manuel',name:'Manuel Pales',ini:'MP'}];
+  const REVIEWERS=[{key:'manuel',name:'Manuel Pales',ini:'MP'}];
   const STATUSES=[
     {v:'borrador',   label:'Borrador',    cls:'draft'},
     {v:'revision',   label:'En revisión', cls:'rev'},
@@ -404,7 +404,7 @@
   };
 
   // notify the whole team (fires one Teams alert per person via the DB trigger)
-  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Rafael Almonte','Miguel Torres','Aaron Myers','Nicolle Flores'];
+  const NOTIFY_TEAM=['Marc Roumain','Jaime Diaz','Manuel Pales','Miguel Torres','Aaron Myers','Nicolle Flores'];
   window.notifyAll=async function(){
     if(!sb){ alert('Sin conexión. Intenta de nuevo.'); return; }
     const btn=document.getElementById('notifyBtn');
