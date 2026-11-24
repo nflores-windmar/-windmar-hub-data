@@ -805,13 +805,45 @@ def avisar_a_homie(nuevos, problemas):
     if not url:
         print("  (sin HOMIE_COMENTARIOS_WEBHOOK: no se avisó a nadie)")
         return
-    if not nuevos and not problemas:
+    if not nuevos:
+        # Antes bastaba con que hubiera un `problema` para mandar el evento, y eso
+        # despertaba al agente con cero comentarios dentro: recibe algo, no
+        # encuentra nada que decidir, y no sabe si falló él. Un problema de lectura
+        # se ve en el log; no necesita aviso.
         print("  Nada nuevo: no se avisa. Un aviso vacío enseña a ignorar los avisos.")
+        if problemas:
+            print("  (hubo problemas de lectura, arriba; no se avisan por sí solos)")
         return
+
+    """El evento va en dos formas a la vez, y no es redundancia.
+
+    `comentarios` es la lista estructurada, para decidir uno por uno. Pero si
+    Homie le enseña al agente un resumen en texto del evento en vez del JSON,
+    con solo la lista no ve ningún comentario: ve un objeto. Por eso va también
+    `mensaje`, el mismo contenido escrito para leerse. Pase lo que pase del otro
+    lado, los comentarios llegan en algo que se puede leer."""
+    lineas = []
+    for n in nuevos:
+        marca = (" [" + " ".join(n["senales"]) + "]") if n["senales"] else ""
+        texto = (n["texto"] or "(sin texto)").replace("\n", " ")[:200]
+        lineas.append(
+            f'{n["de"]} en {n["ig_user"]}, hace {n["dias"]} dia(s){marca}: "{texto}"  {n["post"]}'
+        )
+    if problemas:
+        lineas.append("Problemas al leer: " + "; ".join(problemas))
+
+    cabecera = (
+        f"{len(nuevos)} comentario(s) nuevo(s) de Instagram."
+        if nuevos else "Sin comentarios nuevos."
+    )
+    mensaje = cabecera + ("\n" + "\n".join(lineas) if lineas else "")
 
     cuerpo = json.dumps({
         "de": "barrido-comentarios",
         "cuando": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "mensaje": mensaje,
+        "texto": mensaje,   # el mismo, con el nombre que usan otros receptores
+        "total": len(nuevos),
         "comentarios": nuevos,
         "problemas": problemas,
     }, ensure_ascii=False).encode()
