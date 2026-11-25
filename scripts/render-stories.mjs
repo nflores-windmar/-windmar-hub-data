@@ -13,8 +13,10 @@
 // daría un PNG distinto al que se usa de verdad.
 //
 // Uso:
-//   node scripts/render-stories.mjs                   → todas las tarjetas
+//   node scripts/render-stories.mjs                   → todas las de Puerto Rico
 //   node scripts/render-stories.mjs contenido-interno → solo esa
+//   node scripts/render-stories.mjs --generador windmar-fl-stories-v2.html
+//                                                     → las de Florida
 //
 // Salen en public/artes/stories-v2/, con el nombre que les pone el generador.
 
@@ -27,7 +29,13 @@ import puppeteer from "puppeteer-core";
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PUBLICO = join(RAIZ, "public");
-const PAGINA = join(PUBLICO, "windmar-pr-stories-v2-preview.html");
+// Un generador por cuenta. Si se añade otro, va aquí Y en los `paths` de
+// .github/workflows/artes-historias.yml: en una sola se dibuja sin dispararse,
+// o se dispara sin dibujarse. Mismo patrón que GENERADORES en render-carruseles.mjs.
+const GENERADORES = [
+  "windmar-pr-stories-v2-preview.html",
+  "windmar-fl-stories-v2.html",
+];
 const SALIDA = join(PUBLICO, "artes", "stories-v2");
 
 // La página tiene que servirse por HTTP, no abrirse del disco. Los logos se
@@ -87,7 +95,27 @@ const CHROME =
 const args = process.argv.slice(2);
 const iCambiadas = args.indexOf("--cambiadas");
 const versionAnterior = iCambiadas >= 0 ? args[iCambiadas + 1] : null;
-const soloEsta = iCambiadas >= 0 ? null : args[0] || null;
+// Qué generador se dibuja. Sin la bandera, el de Puerto Rico: así las llamadas
+// que ya existían —y el paso del Action que compara con la versión anterior—
+// siguen haciendo exactamente lo mismo que antes.
+const iGen = args.indexOf("--generador");
+const GENERADOR = iGen >= 0 ? args[iGen + 1] : GENERADORES[0];
+if (!GENERADORES.includes(GENERADOR)) {
+  console.error(
+    `No conozco el generador '${GENERADOR}'.\nLos que hay: ${GENERADORES.join(", ")}\n` +
+      "Si es uno nuevo, añádelo a GENERADORES arriba Y a los paths del workflow."
+  );
+  process.exit(1);
+}
+const PAGINA = join(PUBLICO, GENERADOR);
+// El primer argumento suelto es el id de una tarjeta; las banderas y sus
+// valores no cuentan.
+const sueltos = args.filter(
+  (a, i) =>
+    !a.startsWith("--") &&
+    !(i > 0 && (args[i - 1] === "--cambiadas" || args[i - 1] === "--generador"))
+);
+const soloEsta = iCambiadas >= 0 ? null : sueltos[0] || null;
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
@@ -251,7 +279,7 @@ const main = async () => {
   await pagina.setViewport({ width: 1280, height: 1000, deviceScaleFactor: 1 });
   await pagina.evaluateOnNewDocument(INTERCEPTOR);
 
-  await pagina.goto(`${base}/windmar-pr-stories-v2-preview.html`, {
+  await pagina.goto(`${base}/${GENERADOR}`, {
     waitUntil: "networkidle0",
   });
   await pagina.waitForSelector(".dl", { timeout: 15000 });
@@ -308,7 +336,7 @@ const main = async () => {
   await cerrarServidor();
 
   console.log(
-    `\n${hechas.length} de ${objetivo.length} dibujadas → public/artes/stories-v2/`
+    `\n${hechas.length} de ${objetivo.length} dibujadas de ${GENERADOR} → public/artes/stories-v2/`
   );
   if (fallidas.length) {
     console.log("\nNo salieron:");

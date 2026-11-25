@@ -19,6 +19,9 @@ on:
       - "public/windmar-carruseles-pr.html"
       - "public/windmar-carruseles-pros.html"
       - "public/windmar-carruseles-fl.html"
+      # Las stories de Florida, desde el 25 de noviembre. Van aparte de las de
+      # Puerto Rico porque son otra cuenta: comparten la maquinaria, no la marca.
+      - "public/windmar-fl-stories-v2.html"
 
   # A mano, desde la pestaña Actions. Hace falta para arrancar: el disparador
   # de arriba solo mira el generador, así que arreglar el workflow no basta
@@ -132,6 +135,12 @@ jobs:
           else
             node scripts/render-stories.mjs
           fi
+
+          # Florida se dibuja entera, sin comparar con la versión anterior: son
+          # diez tarjetas, no treinta y seis, y el paso de arriba solo sabe
+          # recuperar la versión previa de UN archivo. Mismo criterio que los
+          # carruseles. `continue-on-error` no: si Florida falla, que se vea.
+          node scripts/render-stories.mjs --generador windmar-fl-stories-v2.html
 
       # Los carruseles se dibujan enteros, sin comparar con la versión anterior:
       # son doce láminas, no veintidós tarjetas de medio mega, y el diff por

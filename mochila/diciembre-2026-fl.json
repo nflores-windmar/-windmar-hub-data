@@ -1,0 +1,230 @@
+{
+ "_lee_esto_primero": [
+  "El plan de contenido orgánico de diciembre 2026 para @windmarhomefl (Florida).",
+  "Esto dice qué DEBERÍA existir en Studio. No dice que exista. Si no cuadra, manda Studio.",
+  "ANTES DE CREAR NADA: en Studio ya hay 18 piezas de Florida para diciembre, según mochila/diciembre-2026.json. Búscalas con buscar_piezas. Si este plan las duplica, manda lo que ya está y esto se archiva.",
+  "LOS APROBADORES SE MATERIALIZAN AL CREAR LA PIEZA Y NO SE RE-EVALÚAN: una pieza que nace con el producto equivocado se queda pidiendo firma a quien no es. Hay que borrarla y rehacerla.",
+  "La fecha de cada pieza es la de PUBLICACIÓN. La entrega es siempre 7 días antes.",
+  "El arte YA ESTÁ ESCRITA y dibujada. Cada pieza trae el enlace para verla. No hay que escribir láminas.",
+  "NO SE PUBLICA NADA. Las piezas nacen en `idea`.",
+  "Las horas son de FLORIDA (ET), no de Puerto Rico. En diciembre, Florida va una hora por detrás de Puerto Rico."
+ ],
+ "escrito": "2026-11-25",
+ "escrito_por": "Claude, a pedido de Nicolle",
+ "origen": "Cadencia y horas: public/windmar-fl-calendario.html — Home FL publica lunes 6:00 PM y miércoles 12:00 PM (ET), Pros los viernes 6:00 PM solo en Instagram. Carruseles: windmar-carruseles-fl.html, escritos el 24-nov-2026 a partir de las piezas que ese mismo calendario ya nombraba (Home, Q CELLS, Powerwall, Owens Corning). Stories: windmar-fl-stories-v2.html, escritas el 25-nov-2026 pasando al v2 las tarjetas que existían en windmar-fl-stories.html (v1, que el Action no dibuja).",
+ "campana": {
+  "nombre": "Contenido Orgánico",
+  "mercado": "FL",
+  "naturaleza": [
+   "organica"
+  ],
+  "pauta_inversion": null,
+  "nota": "Si ya existe una campaña de contenido orgánico de Florida viva, úsala y dilo. No crees una segunda."
+ },
+ "defectos_de_todas": {
+  "naturaleza": "organica",
+  "cuenta": "WindMar Home FL",
+  "mercado": "FL",
+  "responsable": "Nicolle"
+ },
+ "reglas_de_publicacion": {
+  "ventana_medida": null,
+  "horas": {
+   "lunes": "18:00 ET",
+   "miercoles": "12:00 ET"
+  },
+  "dias": "Lunes y miércoles, que es lo que hacía el calendario de Florida. Nueve ranuras en diciembre.",
+  "canales": "Facebook e Instagram a la vez, como en el calendario. Pros es otra cuenta y va los viernes, solo Instagram — no entra aquí.",
+  "OJO": "ESTAS HORAS NO ESTÁN MEDIDAS. Las de Puerto Rico salen de 44 piezas reales; estas salen de un calendario de agosto de 2026 que nadie validó, y la cuenta todavía no se puede medir (`ig_disponible: false` en public/data/redes-snapshot.json). Son una suposición razonable, no un dato. En cuanto Florida entre en el snapshot, hay que volver a mirarlas."
+ },
+ "firmas": {
+  "siempre": [
+   "Manuel Pales"
+  ],
+  "solo_florida": [
+   "Chad Johnson",
+   "Mario Alfonso"
+  ],
+  "pros_no_aqui": "Miguel Torres firma Pros, que es otra cuenta y otro calendario.",
+  "ojo": "Rafael Almonte YA NO VA: lo quitaron en octubre de 2026. Si aparece en una lista vieja, está desactualizada.",
+  "fuente": "skill `quien-aprueba-windmar`. Esta lista es una copia y puede quedarse vieja: manda la skill."
+ },
+ "piezas": [
+  {
+   "publica": "2026-12-02",
+   "hora": "12:00",
+   "entrega": "2026-11-25",
+   "titulo": "Todo tu hogar: una empresa, una llamada",
+   "formato": "Carrusel",
+   "producto": "Solar",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-fl.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-fl.html#g-fl-hogar",
+   "blog": null,
+   "nota": "Abre el mes con la pieza más general: qué hace WindMar en Florida y por qué junto. La versión en inglés existe (#g-fl-home-en) y no se firma."
+  },
+  {
+   "publica": "2026-12-07",
+   "hora": "18:00",
+   "entrega": "2026-11-30",
+   "titulo": "Desde 2002",
+   "formato": "Story",
+   "producto": "Solar",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-fl-stories-v2.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-fl-stories-v2.html#v-fl-desde-2002",
+   "blog": null,
+   "nota": "Credibilidad. La cuenta tiene 132 seguidores y casi nadie la conoce: esta dice desde cuándo existimos y con qué certificaciones."
+  },
+  {
+   "publica": "2026-12-09",
+   "hora": "12:00",
+   "entrega": "2026-12-02",
+   "titulo": "Por qué importa el panel — Q CELLS",
+   "formato": "Carrusel",
+   "producto": "Solar",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-fl.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-fl.html#g-fl-solar",
+   "blog": null,
+   "nota": "Tres láminas. No lleva especificaciones del panel: solo el nombre del equipo y qué preguntar antes de firmar."
+  },
+  {
+   "publica": "2026-12-14",
+   "hora": "18:00",
+   "entrega": "2026-12-07",
+   "titulo": "No falló el sol",
+   "formato": "Story",
+   "producto": "Solar",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-fl-stories-v2.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-fl-stories-v2.html#v-fl-no-fallo-el-sol",
+   "blog": null,
+   "nota": "El reencuadre. Florida tiene memoria de gente que vendió mal el solar; esta lo nombra en vez de esquivarlo."
+  },
+  {
+   "publica": "2026-12-16",
+   "hora": "12:00",
+   "entrega": "2026-12-09",
+   "titulo": "Qué se queda encendido — Tesla Powerwall",
+   "formato": "Carrusel",
+   "producto": "Anker",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-fl.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-fl.html#g-fl-bateria",
+   "blog": null,
+   "nota": "PRODUCTO POR CONFIRMAR: las baterías en Studio pueden ir como Anker o como Solar. Decidirlo ANTES de crear la pieza — los aprobadores se materializan al crearla y no se re-evalúan."
+  },
+  {
+   "publica": "2026-12-21",
+   "hora": "18:00",
+   "entrega": "2026-12-14",
+   "titulo": "Tu energía en el teléfono",
+   "formato": "Story",
+   "producto": "Anker",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-fl-stories-v2.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-fl-stories-v2.html#v-fl-energia-en-el-telefono",
+   "blog": null,
+   "nota": "Complementa al carrusel del 16: aquel dice qué se queda encendido, esta dice que se ve desde el celular. Mismo producto, otro ángulo."
+  },
+  {
+   "publica": "2026-12-23",
+   "hora": "12:00",
+   "entrega": "2026-12-16",
+   "titulo": "How we seal a Florida roof — Owens Corning",
+   "formato": "Carrusel",
+   "producto": "Roofing",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "en",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-carruseles-fl.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-carruseles-fl.html#g-fl-roof-en",
+   "blog": null,
+   "nota": "EN INGLÉS por la decisión del 16-oct-2026: Roofing de Florida se firma en inglés. La versión en español existe (#g-fl-roof) y queda de respaldo. OJO: cae la víspera de Nochebuena."
+  },
+  {
+   "publica": "2026-12-28",
+   "hora": "18:00",
+   "entrega": "2026-12-21",
+   "titulo": "Your roof & your insurance",
+   "formato": "Story",
+   "producto": "Roofing",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "en",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-fl-stories-v2.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-fl-stories-v2.html#v-fl-your-roof-your-insurance-en",
+   "blog": null,
+   "nota": "EN INGLÉS, misma decisión. El seguro es el ángulo que mueve en Florida y no lo toca el carrusel del 23, que va de cómo se sella."
+  },
+  {
+   "publica": "2026-12-30",
+   "hora": "12:00",
+   "entrega": "2026-12-23",
+   "titulo": "Orlando, Tampa y South Florida",
+   "formato": "Story",
+   "producto": "Solar",
+   "canales": [
+    "Facebook",
+    "Instagram"
+   ],
+   "idioma": "es",
+   "talento": null,
+   "material": "ESCRITO: public/windmar-fl-stories-v2.html",
+   "arte": "https://windmar-previews.vercel.app/windmar-fl-stories-v2.html#v-fl-donde-estamos",
+   "blog": null,
+   "nota": "Cierra el mes diciendo dónde estamos. Va al final a propósito: primero quiénes somos y qué hacemos, y solo entonces dónde encontrarnos."
+  }
+ ],
+ "huecos_conocidos": [
+  "LAS 18 PIEZAS QUE YA ESTÁN EN STUDIO. mochila/diciembre-2026.json dice que Florida tiene 18 piezas de diciembre en Studio y que «no se tocan». Nadie ha mirado qué son. Si este plan las repite, el bueno es el que ya está.",
+  "NINGUNA PIEZA LLEVA VÍDEO. Las cinco stories tienen su PNG overlay, pero una story es el overlay ENCIMA de un vídeo, y mochila/stories-video.json está vacío. Sin clips, estas cinco no se pueden publicar como stories: solo como imagen.",
+  "EL PRODUCTO DE LAS BATERÍAS. El carrusel del 16 y la story del 21 van como «Anker» aquí, pero podrían ser «Solar». Hay que decidirlo ANTES de crear las piezas.",
+  "LAS HORAS NO ESTÁN MEDIDAS. Ver reglas_de_publicacion.OJO.",
+  "DICIEMBRE 23 Y 30 SON SEMANA DE FIESTA. El 23 es la víspera de Nochebuena y el 30 cae entre Navidad y Año Nuevo. El calendario de Florida dice lunes y miércoles sin excepciones, así que se respetó; si alguien quiere moverlos, es una decisión, no un arreglo.",
+  "NO HAY REELS. Igual que en Puerto Rico, este plan son carruseles y stories. Florida no tiene cronograma de grabación aquí.",
+  "SIN BLOG. Las piezas de Puerto Rico enlazan al blog con UTM. Florida no tiene blog propio en este plan; si lo hay, hay que añadir los enlaces con sus UTM."
+ ],
+ "no_va_aqui": [
+  "WindMar Pros: otra cuenta, otro calendario (viernes 6:00 PM, solo Instagram). Sus piezas no entran aquí.",
+  "Puerto Rico: su plan de diciembre está en mochila/diciembre-2026.json, con 20 piezas.",
+  "Media Tour: no entra aquí ni se toca. Lo lleva otra persona."
+ ]
+}
