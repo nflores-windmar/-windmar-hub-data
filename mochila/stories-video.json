@@ -22,5 +22,11 @@
     "story — si se vacía, nadie puede saber de dónde salió un vídeo publicado.",
     "El Action no rehace lo que ya existe salvo que se le pida con «rehacer: true»."
   ],
-  "historias": []
+  "historias": [
+    {
+      "tarjeta": "resena-financiamiento",
+      "video": "https://www.dropbox.com/scl/fi/l45dvp5zgk0uvksu727jp/financial_3.mp4?rlkey=vt3fmmwliilwtx3qsplzx6eur&st=sjqiazrn&e=1&dl=0",
+      "nota": "Primera entrada de la cola. Clip de Luis Matos (2mfotografia@gmail.com), financial_3.mp4. Comprobado el 27-nov-2026: el enlace baja sin sesión y es un MP4 de verdad, 1920x1080 HORIZONTAL — el Action lo recorta a 9:16 por el centro y tira el 44%, 22% por cada lado. HAY QUE MIRAR el mp4 antes de publicarlo: si quien sale no iba centrado en el encuadre, se le fue parte. Va con la story del 17 de diciembre porque es la de financiamiento."
+    }
+  ]
 }
